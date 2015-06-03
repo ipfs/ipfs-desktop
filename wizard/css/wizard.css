@@ -1,0 +1,26 @@
+#logo {
+		height: 25px;
+		padding-left: 20px;
+		margin: 12px;
+}
+
+#header {
+		background: black;
+		padding: 0;
+		height: 50;
+}
+
+#header h3 {
+		color: white;
+		margin-top: 15px;
+}
+
+h3 {
+		font-size: 18px;
+		text-transform: uppercase;
+}
+
+.panel-heading {
+		text-transform: uppercase;
+		font-weight: bold;
+}

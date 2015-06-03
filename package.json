@@ -1,0 +1,37 @@
+{
+  "name": "electron-ipfs",
+  "version": "0.1.0",
+  "description": "Ipfs electron",
+  "main": "index.js",
+  "dependencies": {
+    "ipfsd-ctl": "0.2.0",
+    "multiaddr": "0.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ipfs/electron-app"
+  },
+  "devDependencies": {
+    "electron-packager": "4.1.2",
+    "electron-prebuilt": "0.26.1",
+    "ipfs-logo": "0.1.1",
+    "pre-commit": "1.0.6",
+    "standard": "3.3.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "git diff --name-only --cached --relative | egrep .js$ | xargs --no-run-if-empty standard"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "keywords": [
+    "ipfs"
+  ],
+  "author": "Kristoffer Ström <kristoffer@rymdkoloni.se>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ipfs/electron-app/issues"
+  },
+  "homepage": "https://github.com/ipfs/electron-app"
+}
