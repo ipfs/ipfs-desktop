@@ -7,11 +7,12 @@ var multiaddr = require('multiaddr')
 var Tray = require('tray')
 var menu = require('menu')
 
-require('crash-reporter').start()
-
 var WEBUIPATH = '/webui'
 var LOGO = __dirname + '/node_modules/ipfs-logo/ipfs-logo-256-ice.png'
+
+// keep references around for gc purposes
 var mainWindow = null
+var mainTray = null
 
 var wizard = function (err) {
   var wizWindow = new BrowserWindow({icon: LOGO, width: 800, height: 600})
@@ -48,16 +49,15 @@ app.on('ready', function () {
 
     openWindow(ipfs)
 
-    var appTray = new Tray(LOGO)
-    var contextMenu = menu.buildFromTemplate([
+    mainTray = new Tray(LOGO)
+    mainTray.setToolTip('IPFS')
+    mainTray.setContextMenu(menu.buildFromTemplate([
       { label: 'Open',
         click: function () { openWindow(ipfs) }
       },
       { type: 'separator' },
       { label: 'Quit',
         click: function () { process.exit(0) }}
-    ])
-    appTray.setToolTip('IPFS')
-    appTray.setContextMenu(contextMenu)
+    ]))
   })
 })
