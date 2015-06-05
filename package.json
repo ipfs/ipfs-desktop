@@ -4,7 +4,7 @@
   "description": "Ipfs electron",
   "main": "index.js",
   "dependencies": {
-    "ipfsd-ctl": "0.2.0",
+    "ipfsd-ctl": "0.2.2",
     "multiaddr": "0.1.2"
   },
   "repository": {
