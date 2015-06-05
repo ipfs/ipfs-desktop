@@ -1,5 +1,6 @@
 'use strict'
 
+var os = require('os')
 var app = require('app')
 var BrowserWindow = require('browser-window')
 var ipfsd = require('ipfsd-ctl')
@@ -9,6 +10,8 @@ var menu = require('menu')
 
 var WEBUIPATH = '/webui'
 var LOGO = __dirname + '/node_modules/ipfs-logo/ipfs-logo-256-ice.png'
+var TRAY_ICON = (os.platform() !== 'darwin' ? LOGO
+                 : __dirname + '/node_modules/ipfs-logo/platform-icons/osx-menu-bar.png')
 
 // keep references around for gc purposes
 var mainWindow = null
@@ -32,7 +35,7 @@ var openWindow = function (ipfs) {
   if (!mainWindow) {
     ipfs.config.get('Addresses.API', function (err, res) {
       if (err) throw err
-      mainWindow = new BrowserWindow({icon: LOGO, width: 800, height: 600})
+      mainWindow = new BrowserWindow({icon: TRAY_ICON, width: 800, height: 600})
       mainWindow.on('closed', function () {
         mainWindow = null
       })

@@ -4,8 +4,9 @@
   "description": "Ipfs electron",
   "main": "index.js",
   "dependencies": {
-    "ipfsd-ctl": "0.2.0",
-    "multiaddr": "0.1.2"
+    "ipfsd-ctl": "0.2.3",
+    "multiaddr": "0.1.2",
+    "silence-chromium": "2.0.0"
   },
   "repository": {
     "type": "git",
@@ -14,13 +15,18 @@
   "devDependencies": {
     "electron-packager": "4.1.2",
     "electron-prebuilt": "0.26.1",
-    "ipfs-logo": "0.1.1",
+    "shelljs": "0.4.0",
+    "rimraf": "2.3.4",
+    "ipfs-logo": "0.1.3",
     "pre-commit": "1.0.6",
     "standard": "3.3.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "git diff --name-only --cached --relative | egrep .js$ | xargs --no-run-if-empty standard"
+    "start": "electron index.js 2>&1 | silence-chromium",
+    "lint": "git diff --name-only --cached --relative | egrep .js$ | xargs --no-run-if-empty standard",
+    "package": "node pkg.js",
+    "package-all": "node pkg.js --all"
   },
   "pre-commit": [
     "lint"
