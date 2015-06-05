@@ -52,7 +52,7 @@ app.on('ready', function () {
 
     openWindow(ipfs)
 
-    mainTray = new Tray(LOGO)
+    mainTray = new Tray(TRAY_ICON)
     mainTray.setToolTip('IPFS')
     mainTray.setContextMenu(menu.buildFromTemplate([
       { label: 'Open',
