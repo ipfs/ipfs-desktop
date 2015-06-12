@@ -7,8 +7,10 @@ var ipfsd = require('ipfsd-ctl')
 var multiaddr = require('multiaddr')
 var Tray = require('tray')
 var menu = require('menu')
+var argv = require('minimist')(process.argv.slice(1))
 
 var WEBUIPATH = '/webui'
+
 var LOGO = __dirname + '/node_modules/ipfs-logo/ipfs-logo-256-ice.png'
 var TRAY_ICON = (os.platform() !== 'darwin' ? LOGO
                  : __dirname + '/node_modules/ipfs-logo/platform-icons/osx-menu-bar.png')
@@ -18,9 +20,9 @@ var mainWindow = null
 var mainTray = null
 
 var wizard = function (err) {
-  var wizWindow = new BrowserWindow({icon: LOGO, width: 800, height: 600})
-  wizWindow.loadUrl('file://' + __dirname + '/wizard/wizard.html')
-  wizWindow.webContents.on('did-finish-load', function () {
+  mainWindow = new BrowserWindow({icon: LOGO, width: 800, height: 600})
+  mainWindow.loadUrl('file://' + __dirname + '/wizard/wizard.html')
+  mainWindow.webContents.on('did-finish-load', function () {
     mainWindow.webContents.send('err', err.toString())
   })
 }
@@ -50,7 +52,10 @@ app.on('ready', function () {
   ipfsd.local(function (err, ipfs) {
     if (err) return wizard(err)
 
-    openWindow(ipfs)
+    // start in background?
+    if (!argv.b) {
+      openWindow(ipfs)
+    }
 
     mainTray = new Tray(TRAY_ICON)
     mainTray.setToolTip('IPFS')
