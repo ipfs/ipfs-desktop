@@ -1,0 +1,43 @@
+html {
+		width: 240px;
+		padding: 10px;
+		background: #eee;
+}
+
+.panel {
+		padding: 4px;
+		margin-top: 10px;
+		margin-bottom: 0;
+}
+
+.bound {
+		background: white;
+		padding: 4px;
+}
+
+#logo {
+		display: table;
+		width: 100%;		
+}
+
+.control {
+		display: block;
+		margin-top: 6px;
+}
+
+.toggle { 
+		height: 32px !important;
+		width: 64px !important;
+}
+
+.cell {
+		width: 33%;
+		display: table-cell;
+		text-align: center;
+		padding-bottom: 6px;
+}
+
+.version {
+		text-align: center;
+		margin-bottom: 4px;
+}

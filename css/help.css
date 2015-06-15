@@ -10,6 +10,10 @@
 		height: 50;
 }
 
+#error_row {
+		display: none;
+}
+
 #header h3 {
 		color: white;
 		margin-top: 15px;
