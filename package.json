@@ -24,7 +24,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron index.js 2>&1 | silence-chromium",
+    "start": "node_modules/.bin/electron index.js 2>&1 | node_modules/.bin/silence-chromium",
     "lint": "git diff --name-only --cached --relative | egrep .js$ | xargs --no-run-if-empty standard",
     "package": "node pkg.js",
     "package-all": "node pkg.js --all"
