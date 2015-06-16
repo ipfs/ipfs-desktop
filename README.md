@@ -7,16 +7,18 @@ Electron Shell based ipfs app
 npm run start
 ```
 
-# make a package for your system
+# packaging
 
 will be written to ./pkg
 
+## make a package for your system
+
 ```bash
-nmp run package
+npm run package
 ```
 
-# make a package for all architectures
+## make packages for all platforms
 
 ```bash
-nmp run package-all
+npm run package-all
 ```
