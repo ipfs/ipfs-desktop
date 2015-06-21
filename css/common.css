@@ -28,3 +28,20 @@ h3 {
 		text-transform: uppercase;
 		font-weight: bold;
 }
+
+label {
+		padding-top: 8px;
+}
+
+.nomargin {
+		margin: 0;
+}
+
+.top-buffer {
+		margin-top: 10px;
+}
+
+.loaderanimation {
+		margin-right: 10px;
+		margin-top: 2px;
+}

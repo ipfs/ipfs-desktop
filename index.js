@@ -1,139 +1,186 @@
 'use strict'
 
 var menubar = require('menubar')
+var BrowserWindow = require('browser-window')
+var app = require('app')
+
+var fs = require('fs')
 
 var os = require('os')
 var ipfsd = require('ipfsd-ctl')
 var ipc = require('ipc')
+var open = require('open')
 
-// var multiaddr = require('multiaddr')
-// var Tray = require('tray')
-
-// var WEBUIPATH = '/webui'
+var multiaddr = require('multiaddr')
+var WEBUIPATH = '/webui'
 
 var LOGO = __dirname + '/node_modules/ipfs-logo/ipfs-logo-256-ice.png'
 var TRAY_ICON = (os.platform() !== 'darwin' ? LOGO
                  : __dirname + '/node_modules/ipfs-logo/platform-icons/osx-menu-bar.png')
 
-var opts = {
-  'skip-taskbar': true,
-  'use-content-size': true,
-  dir: __dirname,
-  index: 'file://' + __dirname + '/html/menu.html',
-  show: false,
-  frame: false,
-  type: 'toolbar',
-  icon: TRAY_ICON
+// only place where app is used directly
+var IPFS_PATH_FILE = app.getDataPath() + '/ipfs-electron-app-node-path'
+
+var MENU_WIDTH = 240
+
+var mainWindow
+var Ipfs
+
+var error = function (err) {
+  mainWindow = new BrowserWindow({icon: LOGO,
+                                  'auto-hide-menu-bar': true,
+                                  width: 800,
+                                  height: 600})
+  mainWindow.loadUrl('file://' + __dirname + '/html/help.html')
+  mainWindow.webContents.on('did-finish-load', function () {
+    console.log('in loaded')
+    mainWindow.webContents.send('err', err.toString())
+  })
 }
 
-var mb = menubar(opts)
+var initialize = function (path, node) {
+  mainWindow = new BrowserWindow({icon: LOGO,
+                                  width: 800,
+                                  'auto-hide-menu-bar': true,
+                                  height: 600})
+  mainWindow.loadUrl('file://' + __dirname + '/html/initialize.html')
+  mainWindow.webContents.on('did-finish-load', function () {
+    ipc.emit('default-directory', path)
+  })
 
-mb.on('ready', function () {
-  ipfsd.local(function (err, node) {
-    if (err) throw err
+  // wait for msg from frontend
+  ipc.on('initialize', function (opts) {
+    ipc.emit('initializing')
+    node.init(opts, function (err, res) {
+      if (err) {
+        ipc.emit('initialization-error', err + '')
+      } else {
+        ipc.emit('initialization-complete')
+        ipc.emit('node-status', 'stopped')
+        fs.writeFileSync(IPFS_PATH_FILE, path)
+      }
+    })
+  })
+}
 
-    ipc.on('request-state', function (event) {
-      ipfsd.version(function (err, res) {
-        if (err) throw err
-        mb.window.webContents.send('version', res)
-      })
+var startTray = function (node) {
+  var poll
+  var statsCache = {}
+
+  ipc.on('request-state', function (event) {
+    ipfsd.version(function (err, res) {
+      if (err) throw err
+      ipc.emit('version', res)
     })
 
-    ipc.on('start-daemon', function () {
-      console.log('start-daemon bekommen')
+    if (node.initialized) {
+      ipc.emit('node-status', 'stopped')
+    }
+  })
+
+  ipc.on('start-daemon', function () {
+    ipc.emit('node-status', 'starting')
+    node.startDaemon(function (err, ipfs) {
+      if (err) throw err
+      ipc.emit('node-status', 'running')
+      poll = setInterval(function () { pollStats(ipfs) }, 500)
+
+      Ipfs = ipfs
+    })
+  })
+
+  ipc.on('stop-daemon', function () {
+    ipc.emit('node-status', 'stopping')
+    if (poll) {
+      delete statsCache.peers
+      ipc.emit('stats', statsCache)
+      clearInterval(poll)
+      poll = null
+    }
+
+    node.stopDaemon(function (err) {
+      if (err) throw err
+      ipc.emit('node-status', 'stopped')
+      ipc.emit('stats', statsCache)
+    })
+  })
+
+  ipc.on('open-console', openConsole)
+  ipc.on('open-browser', openBrowser)
+
+  var pollStats = function (ipfs) {
+    ipc.emit('stats', statsCache)
+    ipfs.swarm.peers(function (err, res) {
+      if (err) throw err
+      statsCache.peers = res.Strings.length
+    })
+  }
+}
+
+// main entry point
+ipfsd.local(function (err, node) {
+  if (err) error(err)
+
+  var mb = menubar({
+    dir: __dirname,
+    width: MENU_WIDTH,
+    index: 'file://' + __dirname + '/html/menu.html',
+    show: false,
+    frame: false,
+    type: 'toolbar',
+    icon: TRAY_ICON
+  })
+
+  mb.on('ready', function () {
+    var path
+
+    // find where we saved our ipfs home, or fallback to default
+    try {
+      path = fs.readFileSync(IPFS_PATH_FILE, 'utf-8')
+    } catch (e) {
+      path = process.env.IPFS_PATH ||
+        (process.env.HOME || process.env.USERPROFILE) + '/.ipfs'
+    }
+
+    startTray(node)
+
+    if (!node.initialized) {
+      initialize(path, node)
+    }
+
+    // keep the menu the right size
+    ipc.on('menu-height', function (height) {
+      mb.window.setSize(MENU_WIDTH, height)
     })
   })
 })
 
-// // keep references around for gc purposes
-// var mainWindow = null
-// var mainTray = null
-// var contextMenu = null
+var apiAddrToUrl = function (apiAddr) {
+  var parts = multiaddr(apiAddr).nodeAddress()
+  var url = 'http://' + parts.address + ':' + parts.port + WEBUIPATH
+  return url
+}
 
-// var Ipfs
+var openConsole = function () {
+  if (Ipfs) {
+    Ipfs.config.get('Addresses.API', function (err, res) {
+      if (err) throw err
 
-// var help = function (err) {
-//   mainWindow = new BrowserWindow({icon: LOGO, width: 800, height: 600})
-//   mainWindow.loadUrl('file://' + __dirname + '/help/help.html')
-//   mainWindow.webContents.on('did-finish-load', function () {
-//     mainWindow.webContents.send('err', err.toString())
-//   })
-// }
+      mainWindow = new BrowserWindow({icon: LOGO, width: 800, height: 600})
+      mainWindow.on('closed', function () {
+        mainWindow = null
+      })
 
-// var apiAddrToUrl = function (apiAddr) {
-//   var parts = multiaddr(apiAddr).nodeAddress()
-//   var url = 'http://' + parts.address + ':' + parts.port + WEBUIPATH
-//   return url
-// }
+      mainWindow.loadUrl(apiAddrToUrl(res.Value))
+    })
+  }
+}
 
-// var openBrowser = function () {
-// }
-
-// var openConsole = function () {
-//   if (!mainWindow) {
-//     if (Ipfs) {
-//       Ipfs.config.get('Addresses.API', function (err, res) {
-//         if (err) throw err
-
-//         mainWindow = new BrowserWindow({icon: LOGO, width: 800, height: 600})
-//         mainWindow.on('closed', function () {
-//           mainWindow = null
-//         })
-
-//         mainWindow.loadUrl(apiAddrToUrl(res.Value))
-//       })
-//     } else {
-//       help()
-//     }
-
-//   } else {
-//     mainWindow.show()
-//   }
-// }
-
-// var exit = function () { process.exit(0) }
-
-// app.on('ready', function () {
-//   ipfsd.local(function (err, node) {
-//     if (err) return help(err)
-
-//     var toggleDaemon = function (state) {
-//       if (state.checked) {
-//         node.startDaemon(function (err, ipfs) {
-//           if (err) return help(err)
-//           Ipfs = ipfs
-//         })
-//       } else {
-//         Ipfs = null
-//         node.stopDaemon()
-//       }
-//     }
-
-//     contextMenu = menu.buildFromTemplate([
-//       { label: 'Open Console',
-//         click: openConsole },
-//       { label: 'Console in browser',
-//         click: openBrowser },
-
-//       { type: 'separator' },
-
-//       { label: 'run daemon',
-//         id: 'runDaemon',
-//         click: toggleDaemon,
-//         type: 'checkbox'},
-//       { label: 'connect to swarm',
-//         type: 'checkbox'},
-//       { label: 'check for updates ',
-//         type: 'checkbox'},
-
-//       { type: 'separator' },
-
-//       { label: 'Exit',
-//         click: exit }
-//     ])
-
-//     mainTray = new Tray(TRAY_ICON)
-//     mainTray.setToolTip('IPFS')
-//     mainTray.setContextMenu(contextMenu)
-//   })
-// })
+var openBrowser = function () {
+  if (Ipfs) {
+    Ipfs.config.get('Addresses.API', function (err, res) {
+      if (err) throw err
+      open(apiAddrToUrl(res.Value))
+    })
+  }
+}

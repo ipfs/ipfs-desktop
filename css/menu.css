@@ -1,18 +1,24 @@
 html {
 		width: 240px;
-		padding: 10px;
-		background: #eee;
+		overflow: hidden;
+}
+
+.padding {
+		padding: 8px;
+}
+
+.status {
+		text-align: right;
+}
+
+.value {
+		text-align: right;
 }
 
 .panel {
 		padding: 4px;
 		margin-top: 10px;
 		margin-bottom: 0;
-}
-
-.bound {
-		background: white;
-		padding: 4px;
 }
 
 #logo {
