@@ -37,7 +37,7 @@ var Menu = React.createClass({
     ipc.emit('request-state')
 
     setInterval(function () {
-      ipc.emit('menu-height', $('#sizing').height() + 16)
+      ipc.emit('menu-height', $('#menu-height').height() + 16)
     }, 100)
   },
 
@@ -94,15 +94,15 @@ var Menu = React.createClass({
       </div>
     ) : null
 
-    var stats = Object.keys(t.state.stats).length ? (
+    var stats = (this.state.status === 'running') ? (
       <div className='row stats'>
         <div className='panel panel-default'>
-          <table className='table'>
+          <table className='table panel-body'>
             {(_.map(t.state.stats, function (value, name) {
               return (
-                <tr>
-                <td>{name}</td>
-                <td className='value'>{value}</td>
+                <tr key={name}>
+                  <td>{name}</td>
+                  <td className='value'>{value}</td>
                 </tr>
               )}))}
           </table>
@@ -114,7 +114,7 @@ var Menu = React.createClass({
 
     return (
       <div className='padding'>
-        <div id='sizing'
+        <div id='menu-height'
              className='col-xs-12'>
           <div className='row logo'>
             <div className='cell'>

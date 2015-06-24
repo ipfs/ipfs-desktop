@@ -61,7 +61,7 @@ var Initform = React.createClass({
     var initialized = (t.state.initState === 'initialized')
     var uninitialized = (t.state.initState === 'uninitialized')
 
-    var description = 'Before starting, ipfs needs to generate a keypair, and create a directory to live in.'
+    var description = 'Before starting, IPFS Node needs to generate a keypair, and create a directory for data to live in.'
 
     var success = 'Your ipfs node was setup successfully, you can now close this window and start using the ipfs tray toolbar.'
 

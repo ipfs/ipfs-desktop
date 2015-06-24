@@ -63,60 +63,6 @@ var initialize = function (path, node) {
   })
 }
 
-var startTray = function (node) {
-  var poll
-  var statsCache = {}
-
-  ipc.on('request-state', function (event) {
-    ipfsd.version(function (err, res) {
-      if (err) throw err
-      ipc.emit('version', res)
-    })
-
-    if (node.initialized) {
-      ipc.emit('node-status', 'stopped')
-    }
-  })
-
-  ipc.on('start-daemon', function () {
-    ipc.emit('node-status', 'starting')
-    node.startDaemon(function (err, ipfs) {
-      if (err) throw err
-      ipc.emit('node-status', 'running')
-      poll = setInterval(function () { pollStats(ipfs) }, 500)
-
-      Ipfs = ipfs
-    })
-  })
-
-  ipc.on('stop-daemon', function () {
-    ipc.emit('node-status', 'stopping')
-    if (poll) {
-      delete statsCache.peers
-      ipc.emit('stats', statsCache)
-      clearInterval(poll)
-      poll = null
-    }
-
-    node.stopDaemon(function (err) {
-      if (err) throw err
-      ipc.emit('node-status', 'stopped')
-      ipc.emit('stats', statsCache)
-    })
-  })
-
-  ipc.on('open-console', openConsole)
-  ipc.on('open-browser', openBrowser)
-
-  var pollStats = function (ipfs) {
-    ipc.emit('stats', statsCache)
-    ipfs.swarm.peers(function (err, res) {
-      if (err) throw err
-      statsCache.peers = res.Strings.length
-    })
-  }
-}
-
 // main entry point
 ipfsd.local(function (err, node) {
   if (err) error(err)
@@ -153,6 +99,65 @@ ipfsd.local(function (err, node) {
       mb.window.setSize(MENU_WIDTH, height)
     })
   })
+
+  var startTray = function (node) {
+    var poll
+    var statsCache = {}
+
+    ipc.on('request-state', function (event) {
+      ipfsd.version(function (err, res) {
+        if (err) throw err
+        ipc.emit('version', res)
+      })
+
+      if (node.initialized) {
+        ipc.emit('node-status', 'stopped')
+      }
+    })
+
+    ipc.on('start-daemon', function () {
+      ipc.emit('node-status', 'starting')
+      node.startDaemon(function (err, ipfs) {
+        if (err) throw err
+        ipc.emit('node-status', 'running')
+
+        poll = setInterval(function () {
+          if (mb.window.isVisible()) {
+            pollStats(ipfs)
+          }
+        }, 500)
+
+        Ipfs = ipfs
+      })
+    })
+
+    ipc.on('stop-daemon', function () {
+      ipc.emit('node-status', 'stopping')
+      if (poll) {
+        delete statsCache.peers
+        ipc.emit('stats', statsCache)
+        clearInterval(poll)
+        poll = null
+      }
+
+      node.stopDaemon(function (err) {
+        if (err) throw err
+        ipc.emit('node-status', 'stopped')
+        ipc.emit('stats', statsCache)
+      })
+    })
+
+    ipc.on('open-console', openConsole)
+    ipc.on('open-browser', openBrowser)
+
+    var pollStats = function (ipfs) {
+      ipc.emit('stats', statsCache)
+      ipfs.swarm.peers(function (err, res) {
+        if (err) throw err
+        statsCache.peers = res.Strings.length
+      })
+    }
+  }
 })
 
 var apiAddrToUrl = function (apiAddr) {
@@ -161,26 +166,37 @@ var apiAddrToUrl = function (apiAddr) {
   return url
 }
 
-var openConsole = function () {
+var openConsole = function (cb) {
   if (Ipfs) {
     Ipfs.config.get('Addresses.API', function (err, res) {
+      if (err && cb) return cb(err)
       if (err) throw err
 
       mainWindow = new BrowserWindow({icon: LOGO, width: 800, height: 600})
       mainWindow.on('closed', function () {
         mainWindow = null
       })
-
       mainWindow.loadUrl(apiAddrToUrl(res.Value))
+      cb && cb()
     })
+  } else {
+    var err = new Error('Cannot open console, IPFS daemon not running')
+    if (err && cb) return cb(err)
+    if (err) throw err
   }
 }
 
-var openBrowser = function () {
+var openBrowser = function (cb) {
   if (Ipfs) {
     Ipfs.config.get('Addresses.API', function (err, res) {
+      if (err && cb) return cb(err)
       if (err) throw err
       open(apiAddrToUrl(res.Value))
+      cb && cb()
     })
+  } else {
+    var err = new Error('Cannot open browser, IPFS daemon not running')
+    if (err && cb) return cb(err)
+    if (err) throw err
   }
 }
