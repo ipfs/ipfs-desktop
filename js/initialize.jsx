@@ -20,31 +20,31 @@ var Initform = React.createClass({
   },
 
   componentDidMount: function () {
-    var t = this
+    var self = this
     ipc.on('default-directory', function (dir) {
-      t.setState({directory: dir})
+      self.setState({directory: dir})
     })
 
     ipc.on('initializing', function () {
-      t.setState({initState: 'initializing'})
+      self.setState({initState: 'initializing'})
     })
 
     ipc.on('initialization-error', function (err) {
-      t.setState({
+      self.setState({
         error: err,
         initState: 'uninitialized'
       })
     })
 
     ipc.on('initialization-complete', function () {
-      t.setState({initState: 'initialized'})
+      self.setState({initState: 'initialized'})
     })
   },
 
   setKeySize: function (size) {
-    var t = this;
+    var self = this
     return function () {
-      t.setState({keysize: size})
+      self.setState({keysize: size})
     }
   },
 
@@ -56,18 +56,18 @@ var Initform = React.createClass({
   },
 
   render: function () {
-    var t = this
-    var initializing = (t.state.initState === 'initializing')
-    var initialized = (t.state.initState === 'initialized')
-    var uninitialized = (t.state.initState === 'uninitialized')
+    var self = this
+    var initializing = (self.state.initState === 'initializing')
+    var initialized = (self.state.initState === 'initialized')
+    var uninitialized = (self.state.initState === 'uninitialized')
 
     var description = 'Before starting, IPFS Node needs to generate a keypair, and create a directory for data to live in.'
 
     var success = 'Your ipfs node was setup successfully, you can now close this window and start using the ipfs tray toolbar.'
 
-    var error = (uninitialized && t.state.error)
+    var error = (uninitialized && self.state.error)
       ? (<pre className='alert alert-danger nomargin top-buffer'>
-          {t.state.error}
+          {self.state.error}
          </pre>) : null
 
     var loader = initializing ? (
@@ -84,9 +84,9 @@ var Initform = React.createClass({
           <div className='col-xs-8'>
             <input className='form-control'
               id='directory'
-              valueLink={t.linkState('directory')}
+              valueLink={self.linkState('directory')}
               disabled={initializing}
-              onChange={t.dirChange}
+              onChange={self.dirChange}
               type='text'/>
           </div>
         </div>
@@ -102,19 +102,19 @@ var Initform = React.createClass({
               data-toggle='dropdown'
               aria-haspopup='true'
               aria-expanded='true'>
-              {t.state.keysize}&nbsp;
+              {self.state.keysize}&nbsp;
               <span className='caret'></span>
             </button>
             <ul className='dropdown-menu'>
-              <li><a href='#' onClick={t.setKeySize(2048)}>2048</a></li>
-              <li><a href='#' onClick={t.setKeySize(4096)}>4096</a></li>
+              <li><a href='#' onClick={self.setKeySize(2048)}>2048</a></li>
+              <li><a href='#' onClick={self.setKeySize(4096)}>4096</a></li>
             </ul>
           </div>
         </div>
         <div className='row top-buffer'>
           <div className='col-xs-12'>
             <button
-              onClick={t.initialize}
+              onClick={self.initialize}
               disabled={initializing}
               className='btn btn-primary pull-right'>
               { initializing? 'Initializing...' : 'Initialize'}

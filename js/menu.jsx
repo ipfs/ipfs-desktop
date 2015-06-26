@@ -20,18 +20,18 @@ var Menu = React.createClass({
   },
 
   componentDidMount: function () {
-    var t = this
+    var self = this
 
     ipc.on('version', function (arg) {
-      t.setState({version: arg})
+      self.setState({version: arg})
     })
 
     ipc.on('node-status', function (status) {
-      t.setState({status: status})
+      self.setState({status: status})
     })
 
     ipc.on('stats', function (stats) {
-      t.setState({stats: stats})
+      self.setState({stats: stats})
     })
 
     ipc.emit('request-state')
@@ -58,7 +58,7 @@ var Menu = React.createClass({
   },
 
   render: function () {
-    var t = this
+    var self = this
     var version = this.state.version ? (
       <div className='row'>
         <div className='panel panel-default version'>
@@ -67,8 +67,8 @@ var Menu = React.createClass({
       </div>) : null
 
     var toggles = [
-      (t.state.status !== 'uninitialized') &&
-      <Toggle label='IPFS Node' toggle={t.toggleDaemon}/>
+      (self.state.status !== 'uninitialized') &&
+      <Toggle label='IPFS Node' toggle={self.toggleDaemon}/>
     ]
 
     var image = (this.state.status !== 'running'
@@ -82,12 +82,12 @@ var Menu = React.createClass({
         <div className='list-group'>
           <a href='#'
             className='list-group-item'
-            onClick={t.openConsole}>
+            onClick={self.openConsole}>
             Open Console
           </a>
           <a href='#'
             className='list-group-item'
-            onClick={t.openBrowser}>
+            onClick={self.openBrowser}>
             Open in browser
           </a>
         </div>
@@ -97,20 +97,22 @@ var Menu = React.createClass({
     var stats = (this.state.status === 'running') ? (
       <div className='row stats'>
         <div className='panel panel-default'>
-          <table className='table panel-body'>
-            {(_.map(t.state.stats, function (value, name) {
-              return (
-                <tr key={name}>
+          <div className='panel-body'>
+            <table className='table nomarginbottom'>
+              {(_.map(self.state.stats, function (value, name) {
+                return (
+                  <tr key={name}>
                   <td>{name}</td>
                   <td className='value'>{value}</td>
-                </tr>
-              )}))}
-          </table>
+                  </tr>
+                )}))}
+            </table>
+          </div>
         </div>
       </div>
     ) : null
 
-    var status = <div className='row status'>{ t.state.status }</div>
+    var status = <div className='row status'>{ self.state.status }</div>
 
     return (
       <div className='padding'>

@@ -47,3 +47,7 @@ html {
 		text-align: center;
 		margin-bottom: 4px;
 }
+
+.nomarginbottom {
+		margin-bottom: 0;
+}
