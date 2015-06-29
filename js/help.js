@@ -7,6 +7,10 @@ function initialize () {
 }
 
 ipc.on('err', function (err) {
-  var error = window.document.getElementById('error')
-  error.innerHTML = '<pre>' + err + '</pre>'
+  if (err) {
+    var error = window.document.getElementById('error')
+    error.innerHTML = '<pre>' + err + '</pre>'
+  } else {
+
+  }
 })

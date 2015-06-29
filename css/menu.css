@@ -1,0 +1,53 @@
+html {
+		width: 240px;
+		overflow: hidden;
+}
+
+.padding {
+		padding: 8px;
+}
+
+.status {
+		text-align: right;
+}
+
+.value {
+		text-align: right;
+}
+
+.panel {
+		padding: 4px;
+		margin-top: 10px;
+		margin-bottom: 0;
+}
+
+#logo {
+		display: table;
+		width: 100%;		
+}
+
+.control {
+		display: block;
+		margin-top: 6px;
+}
+
+.toggle { 
+		height: 32px !important;
+		width: 64px !important;
+}
+
+.cell {
+		width: 33%;
+		display: table-cell;
+		text-align: center;
+		padding-bottom: 6px;
+}
+
+.version {
+		text-align: center;
+		margin-bottom: 4px;
+}
+
+.nomarginbottom {
+		margin-bottom: 0;
+}
