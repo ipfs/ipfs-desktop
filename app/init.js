@@ -1,14 +1,14 @@
 var menubar = require('menubar')
 var BrowserWindow = require('browser-window')
 var app = require('app')
-
 var fs = require('fs')
 var path = require('path')
-
 var os = require('os')
 var ipfsd = require('ipfsd-ctl')
 var ipc = require('ipc')
 var open = require('open')
+var config = require('./config')
+var errorPanel = require('./controls/error-panel')
 
 var multiaddr = require('multiaddr')
 var WEBUIPATH = '/webui'
@@ -21,58 +21,17 @@ var TRAY_ICON = (os.platform() !== 'darwin' ? LOGO
 // only place where app is used directly
 var IPFS_PATH_FILE = app.getDataPath() + '/ipfs-electron-app-node-path'
 
-var MENU_WIDTH = 240
-
-var mainWindow
 var Ipfs
-
-var error = function (err) {
-  mainWindow = new BrowserWindow({icon: LOGO,
-                                  'auto-hide-menu-bar': true,
-                                  width: 800,
-                                  height: 600})
-
-  mainWindow.loadUrl('file://' + __dirname + '/views/help.html')
-  mainWindow.webContents.on('did-finish-load', function () {
-    console.log('in loaded')
-    mainWindow.webContents.send('err', err.toString())
-  })
-}
-
-var initialize = function (path, node) {
-  mainWindow = new BrowserWindow({icon: LOGO,
-                                  width: 800,
-                                  'auto-hide-menu-bar': true,
-                                  height: 600})
-  mainWindow.loadUrl('file://' + __dirname + '/views/welcome.html')
-
-  mainWindow.webContents.on('did-finish-load', function () {
-    console.log('default dir ', path)
-    ipc.emit('default-directory', path)
-  })
-
-  // wait for msg from frontend
-  ipc.on('initialize', function (opts) {
-    ipc.emit('initializing')
-    node.init(opts, function (err, res) {
-      if (err) {
-        ipc.emit('initialization-error', err + '')
-      } else {
-        ipc.emit('initialization-complete')
-        ipc.emit('node-status', 'stopped')
-        fs.writeFileSync(IPFS_PATH_FILE, path)
-      }
-    })
-  })
-}
 
 // main entry point
 ipfsd.local(function (err, node) {
-  if (err) error(err)
+  if (err) {
+    errorPanel(err)
+  }
 
   var mb = menubar({
     dir: __dirname,
-    width: MENU_WIDTH,
+    width: config['menu-bar-width'],
     index: 'file://' + __dirname + '/views/menubar.html',
     show: false,
     frame: false,
@@ -99,7 +58,7 @@ ipfsd.local(function (err, node) {
 
     // keep the menu the right size
     ipc.on('menu-height', function (height) {
-      mb.window.setSize(MENU_WIDTH, height)
+      mb.window.setSize(config['menu-bar-width'], height)
     })
   })
 
@@ -162,46 +121,76 @@ ipfsd.local(function (err, node) {
     }
   }
 })
+/*
+function error (err) {
+  var errorWindow = new BrowserWindow(config.window)
 
-//
+  errorWindow.loadUrl('file://' + __dirname + '/views/help.html')
+  errorWindow.webContents.on('did-finish-load', function () {
+    errorWindow.webContents.send('err', err.toString())
+  })
+}
+*/
+function initialize (path, node) {
+  var welcomeWindow = new BrowserWindow(config.window)
 
-var apiAddrToUrl = function (apiAddr) {
+  welcomeWindow.loadUrl('file://' + __dirname + '/views/welcome.html')
+
+  welcomeWindow.webContents.on('did-finish-load', function () {
+    ipc.emit('default-directory', path)
+  })
+
+  // wait for msg from frontend
+  ipc.on('initialize', function (opts) {
+    ipc.emit('initializing')
+    node.init(opts, function (err, res) {
+      if (err) {
+        ipc.emit('initialization-error', err + '')
+      } else {
+        ipc.emit('initialization-complete')
+        ipc.emit('node-status', 'stopped')
+        fs.writeFileSync(IPFS_PATH_FILE, path)
+      }
+    })
+  })
+}
+
+// --
+
+function apiAddrToUrl (apiAddr) {
   var parts = multiaddr(apiAddr).nodeAddress()
   var url = 'http://' + parts.address + ':' + parts.port + WEBUIPATH
   return url
 }
 
-var openConsole = function (cb) {
+function openConsole () {
   if (Ipfs) {
     Ipfs.config.get('Addresses.API', function (err, res) {
-      if (err && cb) return cb(err)
-      if (err) throw err
+      if (err) { // error should be emited to a error panel
+        return console.error(err)
+      }
+      errorPanel(new Error('YO'))
 
-      mainWindow = new BrowserWindow({icon: LOGO, width: 800, height: 600})
-      mainWindow.on('closed', function () {
-        mainWindow = null
-      })
-      mainWindow.loadUrl(apiAddrToUrl(res.Value))
-      cb && cb()
+      var consoleWindow = new BrowserWindow(config.window)
+      consoleWindow.loadUrl(apiAddrToUrl(res.Value))
     })
   } else {
     var err = new Error('Cannot open console, IPFS daemon not running')
-    if (err && cb) return cb(err)
-    if (err) throw err
+    console.error(err)
   }
 }
 
-var openBrowser = function (cb) {
+function openBrowser (cb) {
   if (Ipfs) {
     Ipfs.config.get('Addresses.API', function (err, res) {
-      if (err && cb) return cb(err)
-      if (err) throw err
+      if (err) { // error should be emited to a error panel
+        return console.error(err)
+      }
+
       open(apiAddrToUrl(res.Value))
-      cb && cb()
     })
   } else {
     var err = new Error('Cannot open browser, IPFS daemon not running')
-    if (err && cb) return cb(err)
-    if (err) throw err
+    console.error(err)
   }
 }

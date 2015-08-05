@@ -10,11 +10,12 @@ IPFS Native Application
 ```bash
 $ tree app
 app
+├── controls        # Application controls to interact with the system
 ├── img
 │   ├── loading.gif
 │   └── logo.png
 ├── init.js
-├── js
+├── js              # React/Frontend components
 │   ├── help.js
 │   ├── menubar.jsx # React view for all the things menu bar
 │   ├── toggle.jsx
