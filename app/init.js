@@ -1,5 +1,3 @@
-'use strict'
-
 var menubar = require('menubar')
 var BrowserWindow = require('browser-window')
 var app = require('app')
@@ -42,13 +40,12 @@ var error = function (err) {
 }
 
 var initialize = function (path, node) {
-  console.log('Initialize')
   mainWindow = new BrowserWindow({icon: LOGO,
                                   width: 800,
                                   'auto-hide-menu-bar': true,
                                   height: 600})
-  mainWindow.loadUrl('file://' + __dirname + '/views/initialize.html')
-  
+  mainWindow.loadUrl('file://' + __dirname + '/views/welcome.html')
+
   mainWindow.webContents.on('did-finish-load', function () {
     console.log('default dir ', path)
     ipc.emit('default-directory', path)
@@ -76,14 +73,12 @@ ipfsd.local(function (err, node) {
   var mb = menubar({
     dir: __dirname,
     width: MENU_WIDTH,
-    index: 'file://' + __dirname + '/views/menu.html',
+    index: 'file://' + __dirname + '/views/menubar.html',
     show: false,
     frame: false,
     type: 'toolbar',
     icon: TRAY_ICON
   })
-
-  console.log('->', __dirname)
 
   mb.on('ready', function () {
     var pathIPFS
@@ -96,9 +91,7 @@ ipfsd.local(function (err, node) {
         (process.env.HOME || process.env.USERPROFILE) + '/.ipfs'
     }
 
-    console.log('Start tray')
     startTray(node)
-    console.log('Here')
 
     if (!node.initialized) {
       initialize(pathIPFS, node)
@@ -169,6 +162,8 @@ ipfsd.local(function (err, node) {
     }
   }
 })
+
+//
 
 var apiAddrToUrl = function (apiAddr) {
   var parts = multiaddr(apiAddr).nodeAddress()

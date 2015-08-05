@@ -75,7 +75,7 @@ var Menu = React.createClass({
       ? '../../node_modules/ipfs-logo/ipfs-logo-128-black.png'
       : '../../node_modules/ipfs-logo/ipfs-logo-128-ice.png')
 
-    var uninitialized = (this.state.status === 'uninitialized')
+    // var uninitialized = (this.state.status === 'uninitialized')
 
     var open = (this.state.status === 'running') ? (
       <div className='row panel panel-default'>
