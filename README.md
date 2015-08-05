@@ -5,24 +5,48 @@ IPFS Native Application
 
 > A Native Application for your OS to run your own IPFS Node. Built with Electron Shell
 
+## folder structure
+
+```bash
+$ tree app
+app
+├── img
+│   ├── loading.gif
+│   └── logo.png
+├── init.js
+├── js
+│   ├── help.js
+│   ├── menubar.jsx # React view for all the things menu bar
+│   ├── toggle.jsx
+│   └── welcome.jsx # React component for the welcoming screen for 1st time users
+├── styles
+│   ├── common.css
+│   └── menu.css
+└── views
+    ├── help.html
+    ├── menubar.html
+    └── welcome.html
+```
+
 # usage
 
 ```bash
-npm run start
+$ npm i
+$ npm start
 ```
 
 # packaging
 
 will be written to ./dist
 
-## make a package for your system
+### make a package for your system
 
 ```bash
-npm run package
+npm run dist
 ```
 
-## make packages for all platforms
+### make packages for all platforms
 
 ```bash
-npm run package-all
+npm run dist-all
 ```
