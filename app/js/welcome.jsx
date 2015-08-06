@@ -4,7 +4,6 @@ var React = require('react/addons')
 var ipc = window.require('remote').require('ipc')
 
 var $ = require('jquery-bf')
-var bs = require('bootstrap')
 
 var Initform = React.createClass({
   displayName: 'Initform',
@@ -117,7 +116,7 @@ var Initform = React.createClass({
               onClick={self.initialize}
               disabled={initializing}
               className='btn btn-primary pull-right'>
-              { initializing? 'Initializing...' : 'Initialize'}
+              { initializing ? 'Initializing...' : 'Initialize'}
             </button>
             { loader }
           </div>

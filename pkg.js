@@ -8,7 +8,7 @@ var path = require('path')
 var sh = require('shelljs')
 
 var appVersion = pkgjson.version
-var appName = 'IPFS Node'
+var appName = 'IPFS'
 var electronPackager = './node_modules/.bin/electron-packager'
 var electronVersion = pkgjson.devDependencies['electron-prebuilt']
 var icon = './node_modules/ipfs-logo/platform-icons/ipfs.icns'
@@ -29,7 +29,7 @@ if (process.argv[2] === '--all') {
 }
 
 function pack (plat, arch) {
-  var outputPath = path.join('.', 'pkg', appVersion, plat, arch)
+  var outputPath = path.join('.', 'dist', appVersion, plat, arch)
 
   sh.exec('./node_modules/.bin/rimraf ' + outputPath)
 
