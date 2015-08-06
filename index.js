@@ -1,1 +1,1 @@
-require('./build/init')
+require('./build/init')()
