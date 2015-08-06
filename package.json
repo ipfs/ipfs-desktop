@@ -20,8 +20,9 @@
   "devDependencies": {
     "browserify": "10.2.3",
     "browserify-shim": "3.8.8",
-    "electron-packager": "4.1.2",
-    "electron-prebuilt": "0.27.3",
+    "electron-packager": "5.0.1",
+    "electron-prebuilt": "0.30.2",
+    "ipfs-api": "^2.1.0",
     "pre-commit": "1.0.6",
     "reactify": "1.1.1",
     "rimraf": "2.3.4",

@@ -6,6 +6,7 @@ var ipfsd = require('ipfsd-ctl')
 var ipc = require('ipc')
 var config = require('./config')
 var errorPanel = require('./controls/error-panel')
+var dragDrop = require('./controls/drag-drop')
 
 // only place where app is used directly
 var IPFS_PATH_FILE = app.getDataPath() + '/ipfs-electron-app-node-path'
@@ -24,13 +25,13 @@ function init () {
       dir: __dirname,
       width: config['menu-bar-width'],
       index: 'file://' + __dirname + '/views/menubar.html',
-      show: false,
-      frame: false,
-      type: 'toolbar',
       icon: config['tray-icon']
     })
 
     mb.on('ready', function () {
+
+      mb.tray.on('drop-files', dragDrop)
+
       var pathIPFS
 
       // find where we saved our ipfs home, or fallback to default
