@@ -1,7 +1,7 @@
 {
-  "name": "electron-ipfs",
+  "name": "ipfs-app",
   "version": "0.1.0",
-  "description": "Ipfs electron",
+  "description": "IPFS Application Built with electron",
   "main": "index.js",
   "dependencies": {
     "bootstrap": "3.3.4",
@@ -78,7 +78,11 @@
     "type": "git",
     "url": "https://github.com/ipfs/electron-app"
   },
-  "author": "Kristoffer Ström <kristoffer@rymdkoloni.se>",
+  "authors": [
+    "Kristoffer Ström <kristoffer@rymdkoloni.se>",
+    "David Dias <daviddias@ipfs.io>",
+    "Juan Benet <juan@ipfs.io>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ipfs/electron-app/issues"
