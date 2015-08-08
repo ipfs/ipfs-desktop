@@ -6,10 +6,10 @@ var ipfsd = require('ipfsd-ctl')
 var ipc = require('ipc')
 var config = require('./config')
 var errorPanel = require('./controls/error-panel')
-var dragDrop = require('./controls/drag-drop')
 
 // only place where app is used directly
 var IPFS_PATH_FILE = app.getDataPath() + '/ipfs-electron-app-node-path'
+var IPFS
 
 exports = module.exports = init
 
@@ -81,7 +81,7 @@ function init () {
             }
           }, 500)
 
-          exports.IPFS = ipfsNode
+          IPFS = ipfsNode
         })
       })
 
@@ -140,3 +140,9 @@ function init () {
   require('./controls/open-browser')
   require('./controls/open-console')
 }
+
+exports.getIPFS = function () {
+  return IPFS
+}
+
+var dragDrop = require('./controls/drag-drop')
