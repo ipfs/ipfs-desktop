@@ -95,7 +95,10 @@ function init () {
         }
 
         node.stopDaemon(function (err) {
-          if (err) throw err
+          if (err) {
+            throw err
+          }
+          IPFS = null
           ipc.emit('node-status', 'stopped')
           ipc.emit('stats', statsCache)
         })
