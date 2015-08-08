@@ -1,14 +1,13 @@
-'use strict'
-
 var React = require('react')
-var Toggle = require('./toggle.jsx')
+var Toggle = require('./menubar-toggle.jsx')
 var _ = require('lodash')
 var $ = require('jquery-bf')
 
 var ipc = window.require('remote').require('ipc')
 
 var Menu = React.createClass({
-  displayName: 'Menu',
+
+  // -- Initialize Component
 
   getInitialState: function () {
     return {
@@ -21,6 +20,8 @@ var Menu = React.createClass({
 
   componentDidMount: function () {
     var self = this
+
+    // -- Listen to control events
 
     ipc.on('version', function (arg) {
       self.setState({version: arg})
@@ -36,10 +37,18 @@ var Menu = React.createClass({
 
     ipc.emit('request-state')
 
+    // set menu height as its height change
+    var menuHeight
     setInterval(function () {
-      ipc.emit('menu-height', $('#menu-height').height() + 16)
-    }, 100)
+      if (menuHeight !== $('#menu-height').height() + 16) {
+        menuHeight = $('#menu-height').height() + 16
+        ipc.emit('menu-height', menuHeight)
+      }
+    }, 200)
+
   },
+
+  // -- Actions
 
   toggleDaemon: function (on) {
     if (on) {
@@ -57,8 +66,11 @@ var Menu = React.createClass({
     ipc.emit('open-browser')
   },
 
+  // -- Render
+
   render: function () {
     var self = this
+
     var version = this.state.version ? (
       <div className='row'>
         <div className='panel panel-default version'>
@@ -116,8 +128,7 @@ var Menu = React.createClass({
 
     return (
       <div className='padding'>
-        <div id='menu-height'
-             className='col-xs-12'>
+        <div id='menu-height' className='col-xs-12'>
           <div className='row logo'>
             <div className='cell'>
               <img src={image}/>
