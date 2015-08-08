@@ -134,15 +134,14 @@ function init () {
       })
     })
   }
-
-  // --
-
-  require('./controls/open-browser')
-  require('./controls/open-console')
 }
 
 exports.getIPFS = function () {
   return IPFS
 }
 
+// -- load the controls
+
 var dragDrop = require('./controls/drag-drop')
+require('./controls/open-browser')
+require('./controls/open-console')
