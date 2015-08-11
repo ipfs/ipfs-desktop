@@ -1,12 +1,11 @@
-'use strict'
-
 var React = require('react/addons')
+var $ = require('jquery-bf')
 var ipc = window.require('remote').require('ipc')
 
-var $ = require('jquery-bf')
-
 var Initform = React.createClass({
-  displayName: 'Initform',
+
+  // -- Initialize Component
+
   mixins: [React.addons.LinkedStateMixin],
 
   getInitialState: function () {
@@ -40,6 +39,8 @@ var Initform = React.createClass({
     })
   },
 
+  // -- Actions
+
   setKeySize: function (size) {
     var self = this
     return function () {
@@ -53,6 +54,8 @@ var Initform = React.createClass({
       keysize: this.state.keysize
     })
   },
+
+  // -- Render
 
   render: function () {
     var self = this

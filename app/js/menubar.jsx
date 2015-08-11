@@ -1,14 +1,13 @@
-'use strict'
-
 var React = require('react')
-var Toggle = require('./toggle.jsx')
+var Toggle = require('./menubar-toggle.jsx')
 var _ = require('lodash')
 var $ = require('jquery-bf')
 
 var ipc = window.require('remote').require('ipc')
 
 var Menu = React.createClass({
-  displayName: 'Menu',
+
+  // -- Initialize Component
 
   getInitialState: function () {
     return {
@@ -21,6 +20,9 @@ var Menu = React.createClass({
 
   componentDidMount: function () {
     var self = this
+    self.state.files = []
+
+    // -- Listen to control events
 
     ipc.on('version', function (arg) {
       self.setState({version: arg})
@@ -34,12 +36,40 @@ var Menu = React.createClass({
       self.setState({stats: stats})
     })
 
+    ipc.on('uploading', function (file) {
+      console.log('file being uploaded: ' + file.Name)
+      if (self.state.files.length >= 5) {
+        self.state.files.shift()
+      }
+      file.uploaded = false
+      self.state.files.push(file)
+      self.setState({files: self.state.files})
+    })
+
+    ipc.on('uploaded', function (file) {
+      for (var i = 0; i < self.state.files.length; i++) {
+        if (self.state.files[i].Name === file.Name) {
+          self.state.files[i].Hash = file.Hash
+          self.state.files[i].uploaded = true
+        }
+      }
+      self.setState({files: self.state.files})
+    })
+
     ipc.emit('request-state')
 
+    // set menu height as its height change
+    var menuHeight
     setInterval(function () {
-      ipc.emit('menu-height', $('#menu-height').height() + 16)
-    }, 100)
+      if (menuHeight !== $('#menu-height').height() + 16) {
+        menuHeight = $('#menu-height').height() + 16
+        ipc.emit('menu-height', menuHeight)
+      }
+    }, 200)
+
   },
+
+  // -- Actions
 
   toggleDaemon: function (on) {
     if (on) {
@@ -57,23 +87,21 @@ var Menu = React.createClass({
     ipc.emit('open-browser')
   },
 
+  // -- Render
+
   render: function () {
     var self = this
-    var version = this.state.version ? (
-      <div className='row'>
-        <div className='panel panel-default version'>
-          {this.state.version}
-        </div>
-      </div>) : null
+
+    var image = (this.state.status !== 'running'
+      ? '../../node_modules/ipfs-logo/ipfs-logo-128-black.png'
+      : '../../node_modules/ipfs-logo/ipfs-logo-128-ice.png')
+
+    var status = <div className='row status'>{ self.state.status }</div>
 
     var toggles = [
       (self.state.status !== 'uninitialized') &&
       <Toggle label='IPFS Node' toggle={self.toggleDaemon}/>
     ]
-
-    var image = (this.state.status !== 'running'
-      ? '../../node_modules/ipfs-logo/ipfs-logo-128-black.png'
-      : '../../node_modules/ipfs-logo/ipfs-logo-128-ice.png')
 
     // var uninitialized = (this.state.status === 'uninitialized')
 
@@ -88,7 +116,7 @@ var Menu = React.createClass({
           <a href='#'
             className='list-group-item'
             onClick={self.openBrowser}>
-            Open in browser
+            Open in Browser
           </a>
         </div>
       </div>
@@ -112,12 +140,38 @@ var Menu = React.createClass({
       </div>
     ) : null
 
-    var status = <div className='row status'>{ self.state.status }</div>
+    var version = this.state.version ? (
+      <div className='row'>
+        <div className='panel panel-default version'>
+          {this.state.version}
+        </div>
+      </div>) : null
+
+    var files = this.state.files && this.state.files.length > 0 ? (
+      <div className='row'>
+        {(_.map(self.state.files, function (value, name) {
+          if (value.uploaded) {
+            var nameTrimmed = value.Name.slice(0, 10) + '...'
+            var hashTrimmed = value.Hash.slice(0, 6) + '...'
+            return (
+              <h5>{nameTrimmed} + {hashTrimmed}</h5>
+            )
+          } else {
+            return (
+              <div className='progress'>
+                <div className='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style={{width: '100%'}}>
+                  <span className='sr-only'>Uploading {value.Name}</span>
+                </div>
+              </div>
+            )
+          }
+        }))}
+      </div>
+    ) : null
 
     return (
       <div className='padding'>
-        <div id='menu-height'
-             className='col-xs-12'>
+        <div id='menu-height' className='col-xs-12'>
           <div className='row logo'>
             <div className='cell'>
               <img src={image}/>
@@ -128,6 +182,7 @@ var Menu = React.createClass({
           { open }
           { stats }
           { version }
+          { files }
         </div>
       </div>
     )

@@ -1,6 +1,5 @@
 var menubar = require('menubar')
 var BrowserWindow = require('browser-window')
-var app = require('app')
 var fs = require('fs')
 var ipfsd = require('ipfsd-ctl')
 var ipc = require('ipc')
@@ -8,7 +7,7 @@ var config = require('./config')
 var errorPanel = require('./controls/error-panel')
 
 // only place where app is used directly
-var IPFS_PATH_FILE = app.getDataPath() + '/ipfs-electron-app-node-path'
+var IPFS
 
 exports = module.exports = init
 
@@ -24,27 +23,17 @@ function init () {
       dir: __dirname,
       width: config['menu-bar-width'],
       index: 'file://' + __dirname + '/views/menubar.html',
-      show: false,
-      frame: false,
-      type: 'toolbar',
       icon: config['tray-icon']
     })
 
     mb.on('ready', function () {
-      var pathIPFS
 
-      // find where we saved our ipfs home, or fallback to default
-      try {
-        pathIPFS = fs.readFileSync(IPFS_PATH_FILE, 'utf-8')
-      } catch (e) {
-        pathIPFS = process.env.IPFS_PATH ||
-          (process.env.HOME || process.env.USERPROFILE) + '/.ipfs'
-      }
+      mb.tray.on('drop-files', dragDrop)
 
       startTray(node)
 
       if (!node.initialized) {
-        initialize(pathIPFS, node)
+        initialize(config['ipfs-path'], node)
       }
 
       // keep the menu the right size
@@ -59,7 +48,9 @@ function init () {
 
       ipc.on('request-state', function (event) {
         ipfsd.version(function (err, res) {
-          if (err) throw err
+          if (err) {
+            throw err
+          }
           ipc.emit('version', res)
         })
 
@@ -71,16 +62,18 @@ function init () {
       ipc.on('start-daemon', function () {
         ipc.emit('node-status', 'starting')
         node.startDaemon(function (err, ipfsNode) {
-          if (err) throw err
+          if (err) {
+            throw err
+          }
           ipc.emit('node-status', 'running')
 
           poll = setInterval(function () {
             if (mb.window.isVisible()) {
               pollStats(ipfsNode)
             }
-          }, 500)
+          }, 1000)
 
-          exports.IPFS = ipfsNode
+          IPFS = ipfsNode
         })
       })
 
@@ -94,21 +87,28 @@ function init () {
         }
 
         node.stopDaemon(function (err) {
-          if (err) throw err
+          if (err) {
+            throw err
+          }
+          IPFS = null
           ipc.emit('node-status', 'stopped')
           ipc.emit('stats', statsCache)
         })
       })
 
       var pollStats = function (ipfs) {
-        ipc.emit('stats', statsCache)
         ipfs.swarm.peers(function (err, res) {
-          if (err) throw err
+          if (err) {
+            throw err
+          }
           statsCache.peers = res.Strings.length
+          ipc.emit('stats', statsCache)
         })
       }
     }
   })
+
+  // Initalize a new IPFS node
 
   function initialize (path, node) {
     var welcomeWindow = new BrowserWindow(config.window)
@@ -128,14 +128,19 @@ function init () {
         } else {
           ipc.emit('initialization-complete')
           ipc.emit('node-status', 'stopped')
-          fs.writeFileSync(IPFS_PATH_FILE, path)
+          fs.writeFileSync(config['ipfs-path-file'], path)
         }
       })
     })
   }
-
-  // --
-
-  require('./controls/open-browser')
-  require('./controls/open-console')
 }
+
+exports.getIPFS = function () {
+  return IPFS
+}
+
+// -- load the controls
+
+var dragDrop = require('./controls/drag-drop')
+require('./controls/open-browser')
+require('./controls/open-console')

@@ -6,8 +6,8 @@ var open = require('open')
 ipc.on('open-browser', openBrowser)
 
 function openBrowser (cb) {
-  if (init.IPFS) {
-    init.IPFS.config.get('Addresses.API', function (err, res) {
+  if (init.getIPFS()) {
+    init.getIPFS().config.get('Addresses.API', function (err, res) {
       if (err) { // TODO error should be emited to a error panel
         return console.error(err)
       }
