@@ -150,7 +150,21 @@ var Menu = React.createClass({
     var files = this.state.files && this.state.files.length > 0 ? (
       <div className='row'>
         {(_.map(self.state.files, function (value, name) {
-          return (<p>{name} {value}</p>)
+          if (value.uploaded) {
+            var nameTrimmed = value.Name.slice(0, 10) + '...'
+            var hashTrimmed = value.Hash.slice(0, 6) + '...'
+            return (
+              <h5>{nameTrimmed} + {hashTrimmed}</h5>
+            )
+          } else {
+            return (
+              <div className='progress'>
+                <div className='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style={{width: '100%'}}>
+                  <span className='sr-only'>Uploading {value.Name}</span>
+                </div>
+              </div>
+            )
+          }
         }))}
       </div>
     ) : null
