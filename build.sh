@@ -3,6 +3,7 @@ mkdir build 2> /dev/null
 mkdir build/js
 browserify app/js/menubar.jsx > build/js/menubar.js
 browserify app/js/welcome.jsx > build/js/welcome.js
+browserify app/js/settings.jsx > build/js/settings.js
 cp app/js/help.js build/js/help.js
 cp -r app/views build/views
 cp -r app/styles build/styles

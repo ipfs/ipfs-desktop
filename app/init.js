@@ -29,6 +29,7 @@ function init () {
     mb.on('ready', function () {
 
       mb.tray.on('drop-files', dragDrop)
+      mb.tray.on('click', altMenu)
 
       startTray(node)
 
@@ -96,6 +97,17 @@ function init () {
         })
       })
 
+      ipc.on('shutdown', function () {
+        if (IPFS) {
+          ipc.emit('stop-daemon')
+          ipc.once('node-status', function (status) {
+            process.exit(0)
+          })
+        } else {
+          process.exit(0)
+        }
+      })
+
       var pollStats = function (ipfs) {
         ipfs.swarm.peers(function (err, res) {
           if (err) {
@@ -142,5 +154,7 @@ exports.getIPFS = function () {
 // -- load the controls
 
 var dragDrop = require('./controls/drag-drop')
+var altMenu = require('./controls/alt-menu')
 require('./controls/open-browser')
 require('./controls/open-console')
+require('./controls/open-settings')

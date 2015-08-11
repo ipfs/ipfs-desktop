@@ -87,14 +87,6 @@ var Menu = React.createClass({
     ipc.emit('open-browser')
   },
 
-  openSettings: function () {
-    ipc.emit('open-settings')
-  },
-
-  quit: function () {
-    ipc.emit('shutdown')
-  },
-
   // -- Render
 
   render: function () {
@@ -155,26 +147,6 @@ var Menu = React.createClass({
         </div>
       </div>) : null
 
-    var settings = (
-      <div className='row'>
-        <div className='panel panel-default version'>
-          <a href='#'
-            onClick={self.openSettings}>
-            Settings
-          </a>
-        </div>
-      </div>)
-
-    var quit = (
-      <div className='row'>
-        <div className='panel panel-default version'>
-          <a href='#'
-            onClick={self.quit}>
-            Quit
-          </a>
-        </div>
-      </div>)
-
     var files = this.state.files && this.state.files.length > 0 ? (
       <div className='row'>
         {(_.map(self.state.files, function (value, name) {
@@ -209,9 +181,7 @@ var Menu = React.createClass({
           { toggles }
           { open }
           { stats }
-          { settings }
           { version }
-          { quit }
           { files }
         </div>
       </div>
