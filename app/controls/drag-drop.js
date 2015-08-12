@@ -2,6 +2,7 @@ var init = require('./../init')
 var ipfsAPI = require('ipfs-api')('localhost', '5001')
 var clipboard = require('clipboard')
 var path = require('path')
+var shell = require('shell')
 
 var ipc = require('ipc')
 
@@ -33,6 +34,8 @@ function dragDrop (event, fileArray) {
       clipboard.writeText('http://gateway.ipfs.io/ipfs/' + file.Hash)
       filesUploaded.push(file)
       ipc.emit('uploaded', file)
+
+      shell.beep()
 
       console.log(file.Hash)
       console.log(file.Name)
