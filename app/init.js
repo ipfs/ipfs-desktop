@@ -28,6 +28,11 @@ function init () {
 
     mb.on('ready', function () {
 
+      // listen for global shortcuts events
+      require('./controls/shortcuts')
+
+      // tray actions
+
       mb.tray.on('drop-files', dragDrop)
       mb.tray.on('click', altMenu)
 
@@ -158,3 +163,5 @@ var altMenu = require('./controls/alt-menu')
 require('./controls/open-browser')
 require('./controls/open-console')
 require('./controls/open-settings')
+
+
