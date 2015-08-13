@@ -17,13 +17,10 @@ function dragDrop (event, fileArray) {
     return console.error(new Error('Can\'t upload file, IPFS Node is off'))
   }
 
-  if (fileArray.length > 1) {
-    return console.log('Only supports single files for now')
-  }
-
-  console.log('uploading ->', path.basename(fileArray[0]))
-
-  ipc.emit('uploading', {Name: path.basename(fileArray[0])})
+  fileArray.forEach(function (file) {
+    console.log('uploading ->', path.basename(file))
+    ipc.emit('uploading', {Name: path.basename(file)})
+  })
 
   ipfsAPI.add(fileArray, function (err, res) {
     if (err || !res) {
