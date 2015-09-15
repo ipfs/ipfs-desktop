@@ -36,6 +36,8 @@ $ npm i
 $ npm start
 ```
 
+This launches the app and runs it in your menu bar.
+
 # packaging
 
 will be written to ./dist
