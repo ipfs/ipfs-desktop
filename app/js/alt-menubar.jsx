@@ -66,7 +66,6 @@ var Menu = React.createClass({
         ipc.emit('menu-height', menuHeight)
       }
     }, 200)
-
   },
 
   // -- Actions

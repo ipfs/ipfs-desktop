@@ -13,8 +13,8 @@ exports = module.exports = {
     width: 800,
     height: 600
   },
-  'tray-icon': (os.platform() !== 'darwin' ?
-    path.resolve(__dirname, '../node_modules/ipfs-logo/ipfs-logo-256-ice.png')
+  'tray-icon': (os.platform() !== 'darwin'
+    ? path.resolve(__dirname, '../node_modules/ipfs-logo/ipfs-logo-256-ice.png')
     : path.resolve(__dirname, '../node_modules/ipfs-logo/platform-icons/osx-menu-bar.png')),
   'webui-path': '/webui',
   'ipfs-path': (function () {

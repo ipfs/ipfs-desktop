@@ -12,7 +12,6 @@ var IPFS
 exports = module.exports = init
 
 function init () {
-
   // main entry point
   ipfsd.local(function (err, node) {
     if (err) {
@@ -27,7 +26,6 @@ function init () {
     })
 
     mb.on('ready', function () {
-
       // listen for global shortcuts events
       require('./controls/shortcuts')
 
