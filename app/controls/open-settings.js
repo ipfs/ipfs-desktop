@@ -9,6 +9,10 @@ ipc.on('open-settings', openSettings)
 function openSettings () {
   var settingsWindow = new BrowserWindow(config.window)
 
-  settingsWindow.loadUrl('file://' + path.resolve(__dirname, '../views/settings.html'))
+  if (process.env.NODE_ENV === 'production') {
+    settingsWindow.loadUrl('file://' + path.resolve(__dirname, '../settings.html'))
+  } else {
+    settingsWindow.loadUrl('http://localhost:3000/settings.html')
+  }
   settingsWindow.webContents.on('did-finish-load', function () {})
 }

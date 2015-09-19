@@ -1,10 +1,6 @@
 'use strict'
 
-var ipc = require('ipc')
-
-// function initialize () {
-//   ipc.emit('initialize-node')
-// }
+var ipc = window.require('remote').require('ipc')
 
 ipc.on('err', function (err) {
   if (err) {

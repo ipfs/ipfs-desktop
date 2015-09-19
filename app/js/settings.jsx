@@ -1,5 +1,5 @@
 var React = require('react/addons')
-var $ = require('jquery-bf')
+var $ = require('jquery')
 
 var Settings = React.createClass({
 

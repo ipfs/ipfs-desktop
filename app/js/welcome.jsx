@@ -1,5 +1,5 @@
 var React = require('react/addons')
-var $ = require('jquery-bf')
+var $ = require('jquery')
 var ipc = window.require('remote').require('ipc')
 
 var Initform = React.createClass({
@@ -145,5 +145,5 @@ var Initform = React.createClass({
 })
 
 $(document).ready(function () {
-  React.render(<Initform />, document.getElementById('initform'))
+  React.render(<Initform />, document.getElementById('welcome'))
 })

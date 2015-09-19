@@ -1,9 +1,10 @@
 var React = require('react')
-var $ = require('jquery-bf')
+var $ = require('jquery')
 
 var ipc = window.require('remote').require('ipc')
 
-var Toggle = require('./menubar-toggle.jsx')
+var Toggle = require('react-toggle')
+require('react-toggle/style.css')
 var Status = require('./components/status.jsx')
 var OpenLinks = require('./components/open-links.jsx')
 var Stats = require('./components/stats.jsx')
@@ -77,8 +78,8 @@ var Menu = React.createClass({
 
   // -- Actions
 
-  toggleDaemon: function (on) {
-    if (on) {
+  toggleDaemon: function ({target: {checked}}) {
+    if (checked) {
       ipc.emit('start-daemon')
     } else {
       ipc.emit('stop-daemon')
@@ -107,13 +108,19 @@ var Menu = React.createClass({
     var self = this
 
     var image = (this.state.status !== 'running'
-      ? '../../node_modules/ipfs-logo/ipfs-logo-128-black.png'
-      : '../../node_modules/ipfs-logo/ipfs-logo-128-ice.png')
+      ? require('file!../../node_modules/ipfs-logo/ipfs-logo-128-black.png')
+      : require('file!../../node_modules/ipfs-logo/ipfs-logo-128-ice.png'))
 
     var toggles = null
 
     if (self.state.status !== 'uninitialized') {
-      toggles = <Toggle label='IPFS Node' toggle={self.toggleDaemon}/>
+      toggles = (
+        <Toggle
+          onChange={self.toggleDaemon}
+          >
+          <span>IPFS Node</span>
+        </Toggle>
+      )
     }
 
     // var uninitialized = (this.state.status === 'uninitialized')
@@ -141,7 +148,7 @@ var Menu = React.createClass({
         <div id='menu-height' className='col-xs-12'>
           <div className='row logo'>
             <div className='cell'>
-              <img src={image}/>
+              <img src={'./' + image}/>
             </div>
           </div>
           <Status status={this.state.status} />

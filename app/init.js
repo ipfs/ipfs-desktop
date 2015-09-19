@@ -3,6 +3,10 @@ var BrowserWindow = require('browser-window')
 var fs = require('fs')
 var ipfsd = require('ipfsd-ctl')
 var ipc = require('ipc')
+
+require('electron-debug')()
+require('crash-reporter').start()
+
 var config = require('./config')
 var errorPanel = require('./controls/error-panel')
 
@@ -18,12 +22,19 @@ function init () {
       errorPanel(err)
     }
 
-    var mb = menubar({
+    var mbConfig = {
       dir: __dirname,
       width: config['menu-bar-width'],
-      index: 'file://' + __dirname + '/views/menubar.html',
-      icon: config['tray-icon']
-    })
+      index: 'http://localhost:3000/menubar.html',
+      icon: config['tray-icon'],
+      'always-on-top': true
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      mbConfig.index = 'file://' + __dirname + '/menubar.html'
+    }
+
+    var mb = menubar(mbConfig)
 
     mb.on('ready', function () {
       // listen for global shortcuts events
@@ -128,7 +139,11 @@ function init () {
   function initialize (path, node) {
     var welcomeWindow = new BrowserWindow(config.window)
 
-    welcomeWindow.loadUrl('file://' + __dirname + '/views/welcome.html')
+    if (process.env.NODE_ENV === 'production') {
+      welcomeWindow.loadUrl('file://' + __dirname + '/welcome.html')
+    } else {
+      welcomeWindow.loadUrl('http://localhost:3000/welcome.html')
+    }
 
     welcomeWindow.webContents.on('did-finish-load', function () {
       ipc.emit('default-directory', path)
