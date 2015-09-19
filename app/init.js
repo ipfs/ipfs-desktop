@@ -163,5 +163,3 @@ var altMenu = require('./controls/alt-menu')
 require('./controls/open-browser')
 require('./controls/open-console')
 require('./controls/open-settings')
-
-

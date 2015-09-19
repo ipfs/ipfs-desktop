@@ -59,7 +59,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "electron": "./build.sh && node_modules/.bin/electron index.js",
     "start": "./build.sh && node_modules/.bin/electron index.js 2>&1 | node_modules/.bin/silence-chromium",
-    "lint": "./node_modules/.bin/standard .",
+    "lint": "./node_modules/.bin/standard",
     "clean": "rm -r ./build",
     "dist": "./build.sh && node pkg.js && npm run clean",
     "dist-all": "./build.sh && node pkg.js --all && npm run clean"

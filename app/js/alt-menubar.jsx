@@ -130,10 +130,11 @@ var Menu = React.createClass({
               {(_.map(self.state.stats, function (value, name) {
                 return (
                   <tr key={name}>
-                  <td>{name}</td>
-                  <td className='value'>{value}</td>
+                    <td>{name}</td>
+                    <td className='value'>{value}</td>
                   </tr>
-                )}))}
+                )
+              }))}
             </table>
           </div>
         </div>

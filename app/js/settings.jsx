@@ -1,6 +1,5 @@
 var React = require('react/addons')
 var $ = require('jquery-bf')
-var ipc = window.require('remote').require('ipc')
 
 var Settings = React.createClass({
 
