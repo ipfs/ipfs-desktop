@@ -36,6 +36,10 @@ $ npm i
 $ npm start
 ```
 
+This launches the app and runs it in your menu bar. Click the IPFS icon to open a console. For example (in OSX):
+
+![](https://ipfs.io/ipfs/QmU5AghSAezpYFNyuYZ7gX1zcHCheQndPtBMj1MHr5QpWL/cap.png)
+
 # packaging
 
 will be written to ./dist

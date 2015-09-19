@@ -1,9 +1,16 @@
 var React = require('react')
-var Toggle = require('./menubar-toggle.jsx')
-var _ = require('lodash')
 var $ = require('jquery-bf')
 
 var ipc = window.require('remote').require('ipc')
+
+var Toggle = require('./menubar-toggle.jsx')
+var Status = require('./components/status.jsx')
+var OpenLinks = require('./components/open-links.jsx')
+var Stats = require('./components/stats.jsx')
+var Settings = require('./components/settings.jsx')
+var Version = require('./components/version.jsx')
+var Quit = require('./components/quit.jsx')
+var Files = require('./components/files.jsx')
 
 var Menu = React.createClass({
 
@@ -104,98 +111,31 @@ var Menu = React.createClass({
       ? '../../node_modules/ipfs-logo/ipfs-logo-128-black.png'
       : '../../node_modules/ipfs-logo/ipfs-logo-128-ice.png')
 
-    var status = <div className='row status'>{ self.state.status }</div>
+    var toggles = null
 
-    var toggles = [
-      (self.state.status !== 'uninitialized') &&
-      <Toggle label='IPFS Node' toggle={self.toggleDaemon}/>
-    ]
+    if (self.state.status !== 'uninitialized') {
+      toggles = <Toggle label='IPFS Node' toggle={self.toggleDaemon}/>
+    }
 
     // var uninitialized = (this.state.status === 'uninitialized')
 
     var open = (this.state.status === 'running') ? (
-      <div className='row panel panel-default'>
-        <div className='list-group'>
-          <a href='#'
-            className='list-group-item'
-            onClick={self.openConsole}>
-            Open Console
-          </a>
-          <a href='#'
-            className='list-group-item'
-            onClick={self.openBrowser}>
-            Open in Browser
-          </a>
-        </div>
-      </div>
+      <OpenLinks
+        onConsoleClick={self.openConsole}
+        onBrowserClick={self.openBrowser}
+        />
     ) : null
 
     var stats = (this.state.status === 'running') ? (
-      <div className='row stats'>
-        <div className='panel panel-default'>
-          <div className='panel-body'>
-            <table className='table nomarginbottom'>
-              {(_.map(self.state.stats, function (value, name) {
-                return (
-                  <tr key={name}>
-                  <td>{name}</td>
-                  <td className='value'>{value}</td>
-                  </tr>
-                )}))}
-            </table>
-          </div>
-        </div>
-      </div>
+      <Stats values={self.state.stats} />
     ) : null
 
-    var version = this.state.version ? (
-      <div className='row'>
-        <div className='panel panel-default version'>
-          {this.state.version}
-        </div>
-      </div>) : null
+    var version = this.state.version ? <Version value={this.state.version} /> : null
 
-    var settings = (
-      <div className='row'>
-        <div className='panel panel-default version'>
-          <a href='#'
-            onClick={self.openSettings}>
-            Settings
-          </a>
-        </div>
-      </div>)
-
-    var quit = (
-      <div className='row'>
-        <div className='panel panel-default version'>
-          <a href='#'
-            onClick={self.quit}>
-            Quit
-          </a>
-        </div>
-      </div>)
-
-    var files = this.state.files && this.state.files.length > 0 ? (
-      <div className='row'>
-        {(_.map(self.state.files, function (value, name) {
-          if (value.uploaded) {
-            var nameTrimmed = value.Name.slice(0, 10) + '...'
-            var hashTrimmed = value.Hash.slice(0, 6) + '...'
-            return (
-              <h5>{nameTrimmed} + {hashTrimmed}</h5>
-            )
-          } else {
-            return (
-              <div className='progress'>
-                <div className='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style={{width: '100%'}}>
-                  <span className='sr-only'>Uploading {value.Name}</span>
-                </div>
-              </div>
-            )
-          }
-        }))}
-      </div>
-    ) : null
+    var files = null
+    if (this.state.files && this.state.files.length > 0) {
+      files = <Files values={this.state.files} />
+    }
 
     return (
       <div className='padding'>
@@ -205,13 +145,13 @@ var Menu = React.createClass({
               <img src={image}/>
             </div>
           </div>
-          { status }
+          <Status status={this.state.status} />
           { toggles }
           { open }
           { stats }
-          { settings }
+          <Settings onClick={this.openSettings} />
           { version }
-          { quit }
+          <Quit onClick={this.quit} />
           { files }
         </div>
       </div>

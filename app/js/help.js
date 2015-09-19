@@ -2,9 +2,9 @@
 
 var ipc = require('ipc')
 
-function initialize () {
-  ipc.emit('initialize-node')
-}
+// function initialize () {
+//   ipc.emit('initialize-node')
+// }
 
 ipc.on('err', function (err) {
   if (err) {

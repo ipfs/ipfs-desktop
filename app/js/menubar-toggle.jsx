@@ -2,7 +2,7 @@
 
 var React = require('react')
 var $ = require('jquery-bf')
-var bf = require('bootstrap-toggle-bf')
+require('bootstrap-toggle-bf')
 
 var Toggle = React.createClass({
   // -- Initialize
@@ -17,7 +17,7 @@ var Toggle = React.createClass({
     var input = $(React.findDOMNode(this)).find('input')
 
     input.bootstrapToggle()
-    
+
     input.change(function () {
       self.props.toggle($(this).prop('checked'))
     })
