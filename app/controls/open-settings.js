@@ -1,4 +1,4 @@
-var ipc = require('ipc')
+var ipc = require('electron-safe-ipc/host')
 var BrowserWindow = require('browser-window')
 var path = require('path')
 var config = require('./../config')

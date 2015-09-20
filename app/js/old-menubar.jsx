@@ -1,5 +1,4 @@
 var React = require('react')
-var $ = require('jquery')
 
 var ipc = window.require('remote').require('ipc')
 
@@ -65,15 +64,6 @@ var Menu = React.createClass({
     })
 
     ipc.emit('request-state')
-
-    // set menu height as its height change
-    var menuHeight
-    setInterval(function () {
-      if (menuHeight !== $('#menu-height').height() + 16) {
-        menuHeight = $('#menu-height').height() + 16
-        ipc.emit('menu-height', menuHeight)
-      }
-    }, 200)
   },
 
   // -- Actions
@@ -165,6 +155,5 @@ var Menu = React.createClass({
   }
 })
 
-$(document).ready(function () {
-  React.render(<Menu />, document.getElementById('menu-app'))
-})
+
+React.render(<Menu />, document.getElementById('menu-app'))

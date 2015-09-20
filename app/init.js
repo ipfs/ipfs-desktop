@@ -2,7 +2,6 @@ var menubar = require('menubar')
 var BrowserWindow = require('browser-window')
 var fs = require('fs')
 var ipfsd = require('ipfsd-ctl')
-var ipc = require('ipc')
 
 require('electron-debug')()
 require('crash-reporter').start()
@@ -12,6 +11,7 @@ var errorPanel = require('./controls/error-panel')
 
 // only place where app is used directly
 var IPFS
+var ipc
 
 exports = module.exports = init
 
@@ -24,7 +24,8 @@ function init () {
 
     var mbConfig = {
       dir: __dirname,
-      width: config['menu-bar-width'],
+      width: config['menu-bar'].width,
+      height: config['menu-bar'].height,
       index: 'http://localhost:3000/menubar.html',
       icon: config['tray-icon'],
       'always-on-top': true
@@ -37,8 +38,19 @@ function init () {
     var mb = menubar(mbConfig)
 
     mb.on('ready', function () {
+      // Safe ipc calls
+      ipc = require('electron-safe-ipc/host')
+
       // listen for global shortcuts events
       require('./controls/shortcuts')
+
+      // -- load the controls
+
+      var dragDrop = require('./controls/drag-drop')
+      var altMenu = require('./controls/alt-menu')
+      require('./controls/open-browser')
+      require('./controls/open-console')
+      require('./controls/open-settings')
 
       // tray actions
 
@@ -168,11 +180,3 @@ function init () {
 exports.getIPFS = function () {
   return IPFS
 }
-
-// -- load the controls
-
-var dragDrop = require('./controls/drag-drop')
-var altMenu = require('./controls/alt-menu')
-require('./controls/open-browser')
-require('./controls/open-console')
-require('./controls/open-settings')

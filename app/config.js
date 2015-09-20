@@ -6,7 +6,10 @@ var app = require('app')
 var IPFS_PATH_FILE = app.getDataPath() + '/ipfs-electron-app-node-path'
 
 exports = module.exports = {
-  'menu-bar-width': 240,
+  'menu-bar': {
+    width: 300,
+    height: 400
+  },
   window: {
     icon: path.resolve(__dirname, '../node_modules/ipfs-logo/ipfs-logo-256-ice.png'),
     'auto-hide-menu-bar': true,
