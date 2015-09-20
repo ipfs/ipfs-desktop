@@ -1,5 +1,19 @@
 import React from 'react'
-import {Flex} from 'jsxstyle'
+import {Flex, Inline, curry} from 'jsxstyle'
+
+import 'normalize.css'
+import 'css-box-sizing-border-box/index.css'
+import '../../../styles/common.css'
+import '../../../styles/fonts.css'
+
+const StartButton = curry(Inline, {
+  component: 'button',
+  color: '#000000',
+  border: 'none',
+  backgroundColor: 'white',
+  width: '100%',
+  padding: '10px'
+})
 
 export default class StartScreen extends React.Component {
 
@@ -7,10 +21,32 @@ export default class StartScreen extends React.Component {
     return (
       <Flex
         width='100%'
-        height='100px'
+        height='100%'
         backgroundColor='#19b5fe'
+        color='#FFFFFF'
+        flexDirection='column'
+        alignItems='center'
+        padding='20'
         >
-      Hello world f
+        <Inline textAlign='center' marginBottom='20px'>
+          IPFS
+        </Inline>
+        <Flex flex='1' margin='40px 0' flexDirection='column'>
+          <image
+           src={require('file!../../../img/offline-icon.png')}
+           width='64'
+           height='64'
+           style={{margin: '0 auto'}}
+        />
+        <Inline padding='40px 0' textAlign='center'>
+          Oh snap, it looks like your node<br/>
+          is not running yet. Let’s change<br/>
+          that by clicking that button
+        </Inline>
+        </Flex>
+        <StartButton>
+          Start Node
+        </StartButton>
       </Flex>
     )
   }

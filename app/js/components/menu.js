@@ -1,11 +1,9 @@
 import React from 'react'
 import ipc from 'electron-safe-ipc/guest'
-//const ipc = window.require('remote').require('ipc')
 
 import StartScreen from './screens/start'
 import ProfileScreen from './screens/profile'
 
-const UNINITIALIZED = 'uninitialized'
 const RUNNING = 'running'
 
 export default class Menu extends React.Component {
@@ -66,7 +64,7 @@ export default class Menu extends React.Component {
 
   componentWillUnmount () {
     // -- Remove control events
-    alert('removing')
+
     ipc.removeEventListener('version', this._onVersion)
     ipc.removeEventListener('node-status', this._onNodeStatus)
     ipc.removeEventListener('stats', this._onStats)
