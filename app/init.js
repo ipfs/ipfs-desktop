@@ -28,7 +28,8 @@ function init () {
       height: config['menu-bar'].height,
       index: 'http://localhost:3000/menubar.html',
       icon: config['tray-icon'],
-      'always-on-top': true
+      'always-on-top': true,
+      'web-preferences': {'web-security': false}
     }
 
     if (process.env.NODE_ENV === 'production') {
@@ -78,21 +79,22 @@ function init () {
           if (err) {
             throw err
           }
-          ipc.emit('version', res)
+          ipc.send('version', res)
         })
 
         if (node.initialized) {
-          ipc.emit('node-status', 'stopped')
+          ipc.send('node-status', 'stopped')
         }
       })
 
       ipc.on('start-daemon', function () {
-        ipc.emit('node-status', 'starting')
+        console.log('starting daemon')
+        ipc.send('node-status', 'starting')
         node.startDaemon(function (err, ipfsNode) {
           if (err) {
             throw err
           }
-          ipc.emit('node-status', 'running')
+          ipc.send('node-status', 'running')
 
           poll = setInterval(function () {
             if (mb.window.isVisible()) {
@@ -105,10 +107,10 @@ function init () {
       })
 
       ipc.on('stop-daemon', function () {
-        ipc.emit('node-status', 'stopping')
+        ipc.send('node-status', 'stopping')
         if (poll) {
           delete statsCache.peers
-          ipc.emit('stats', statsCache)
+          ipc.send('stats', statsCache)
           clearInterval(poll)
           poll = null
         }
@@ -118,14 +120,14 @@ function init () {
             throw err
           }
           IPFS = null
-          ipc.emit('node-status', 'stopped')
-          ipc.emit('stats', statsCache)
+          ipc.send('node-status', 'stopped')
+          ipc.send('stats', statsCache)
         })
       })
 
       ipc.on('shutdown', function () {
         if (IPFS) {
-          ipc.emit('stop-daemon')
+          ipc.send('stop-daemon')
           ipc.once('node-status', function (status) {
             process.exit(0)
           })
@@ -140,7 +142,7 @@ function init () {
             throw err
           }
           statsCache.peers = res.Strings.length
-          ipc.emit('stats', statsCache)
+          ipc.send('stats', statsCache)
         })
       }
     }
@@ -158,18 +160,18 @@ function init () {
     }
 
     welcomeWindow.webContents.on('did-finish-load', function () {
-      ipc.emit('default-directory', path)
+      ipc.send('default-directory', path)
     })
 
     // wait for msg from frontend
     ipc.on('initialize', function (opts) {
-      ipc.emit('initializing')
+      ipc.send('initializing')
       node.init(opts, function (err, res) {
         if (err) {
-          ipc.emit('initialization-error', err + '')
+          ipc.send('initialization-error', err + '')
         } else {
-          ipc.emit('initialization-complete')
-          ipc.emit('node-status', 'stopped')
+          ipc.send('initialization-complete')
+          ipc.send('node-status', 'stopped')
           fs.writeFileSync(config['ipfs-path-file'], path)
         }
       })

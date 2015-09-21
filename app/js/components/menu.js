@@ -50,6 +50,10 @@ export default class Menu extends React.Component {
     this.setState({files: this.state.files})
   }
 
+  _startDaemon = () => {
+    ipc.send('start-daemon', {})
+  }
+
   componentDidMount () {
     // -- Listen to control events
 
@@ -59,7 +63,7 @@ export default class Menu extends React.Component {
     ipc.on('uploading', this._onUploading)
     ipc.on('uploaded', this._onUploaded)
 
-    ipc.emit('request-state')
+    ipc.send('request-state')
   }
 
   componentWillUnmount () {
@@ -77,6 +81,6 @@ export default class Menu extends React.Component {
       return <ProfileScreen />
     }
 
-    return <StartScreen />
+    return <StartScreen onStartClick={this._startDaemon}/>
   }
 }

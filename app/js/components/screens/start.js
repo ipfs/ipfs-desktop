@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import {Flex, Inline, curry} from 'jsxstyle'
 
 import 'normalize.css'
@@ -16,6 +16,14 @@ const StartButton = curry(Inline, {
 })
 
 export default class StartScreen extends React.Component {
+
+  static propTypes = {
+    onStartClick: PropTypes.func
+  }
+
+  static defaultProps = {
+    onStartClick () {}
+  }
 
   render () {
     return (
@@ -44,7 +52,7 @@ export default class StartScreen extends React.Component {
           that by clicking that button
         </Inline>
         </Flex>
-        <StartButton>
+        <StartButton props={{onClick: this.props.onStartClick}}>
           Start Node
         </StartButton>
       </Flex>
