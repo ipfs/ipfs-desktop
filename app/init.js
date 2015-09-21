@@ -28,8 +28,12 @@ function init () {
       height: config['menu-bar'].height,
       index: 'http://localhost:3000/menubar.html',
       icon: config['tray-icon'],
-      'always-on-top': true,
-      'web-preferences': {'web-security': false}
+      'always-on-top': process.env.NODE_ENV !== 'production',
+      preloadWindow: true,
+      resizable: false,
+      'web-preferences': {
+        'web-security': false
+      }
     }
 
     if (process.env.NODE_ENV === 'production') {
