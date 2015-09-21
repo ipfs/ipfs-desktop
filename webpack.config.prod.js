@@ -28,21 +28,22 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
-    })// ,
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compressor: {
-    //     warnings: false
-    //   }
-    // })
+    })
   ],
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'app')
+      loader: 'babel',
+      include: path.join(__dirname, 'app'),
+      query: {
+        optional: ['runtime']
+      }
     }, {
       test: /\.css$/,
       loaders: ['style', 'css']
+    }, {
+      test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+      loaders: ['file']
     }]
   }
 }

@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react'
 import {Flex, Block, Inline} from 'jsxstyle'
 
+import SimpleStat from '../simple-stat'
+
 import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
 import '../../../styles/common.css'
@@ -37,24 +39,11 @@ export default class ProfileScreen extends React.Component {
           height='30%'
           justifyContent='space-around'
           >
-          <Flex flexDirection='column' justifyContent='center'>
-            <Block
-              width='20px'
-              height='20px'
-              borderRadius='10px'
-              border='3px solid #50d2c2'
-              margin='0 auto'
-              />
-            <Block
-              textTransform='uppercase'
-              color='rgba(0, 0, 0, 0.5)'
-              padding='10px 0'>
-              peers
-            </Block>
-            <Block textAlign='center'>
-              {this.props.peers}
-            </Block>
-          </Flex>
+          <SimpleStat
+            name='peers'
+            value={this.props.peers}
+            color='#50d2c2'
+            />
         </Flex>
         <Flex
           height='60px'
