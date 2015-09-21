@@ -78,7 +78,11 @@ export default class Menu extends React.Component {
 
   render () {
     if (this.state.status === RUNNING) {
-      return <ProfileScreen />
+      return (
+        <ProfileScreen
+          peers={this.state.stats}
+          />
+      )
     }
 
     return <StartScreen onStartClick={this._startDaemon}/>
