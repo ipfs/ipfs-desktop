@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react'
-import {Flex, Block, Inline} from 'jsxstyle'
+import {Flex, Block, Inline, curry} from 'jsxstyle'
 
 import SimpleStat from '../simple-stat'
 
@@ -8,14 +8,25 @@ import 'css-box-sizing-border-box/index.css'
 import '../../../styles/common.css'
 import '../../../styles/fonts.css'
 
+const StopButton = curry(Inline, {
+  component: 'button',
+  background: 'none',
+  border: 'none',
+  position: 'absolute',
+  top: '10px',
+  right: '10px'
+})
+
 export default class ProfileScreen extends React.Component {
 
   static propTypes = {
-    peers: PropTypes.number
+    peers: PropTypes.number,
+    onStopClick: PropTypes.func
   }
 
   static defaultProps = {
-    peers: 0
+    peers: 0,
+    onStopClick () {}
   }
 
   render () {
@@ -28,12 +39,21 @@ export default class ProfileScreen extends React.Component {
         flexDirection='column'
         alignItems='center'
         >
-        <Inline textAlign='center' marginBottom='20px'>
-          IPFS
-        </Inline>
+        <Flex
+          height='40px'>
+          <Inline
+            alignSelf='center'
+            flex='1'
+            >
+            IPFS
+          </Inline>
+          <StopButton props={{onClick: this.props.onStopClick}}>
+            Stop
+          </StopButton>
+        </Flex>
         <Flex
           flex='1'
-          background-color='#FFFFFF'
+          backgroundColor='#FFFFFF'
           color='#000000'
           width='100%'
           height='30%'

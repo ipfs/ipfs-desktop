@@ -3,8 +3,10 @@ import ipc from 'electron-safe-ipc/guest'
 
 import StartScreen from './screens/start'
 import ProfileScreen from './screens/profile'
+import Loader from './loader'
 
 const RUNNING = 'running'
+const STARTING = 'starting'
 
 export default class Menu extends React.Component {
 
@@ -51,7 +53,11 @@ export default class Menu extends React.Component {
   }
 
   _startDaemon = () => {
-    ipc.send('start-daemon', {})
+    ipc.send('start-daemon')
+  }
+
+  _stopDaemon = () => {
+    ipc.send('stop-daemon')
   }
 
   componentDidMount () {
@@ -77,14 +83,18 @@ export default class Menu extends React.Component {
   }
 
   render () {
-    if (this.state.status === RUNNING) {
-      return (
-        <ProfileScreen
-          peers={this.state.stats}
-          />
-      )
+    switch (this.state.status) {
+      case RUNNING:
+        return (
+          <ProfileScreen
+            peers={this.state.stats}
+            onStopClick={this._stopDaemon}
+            />
+        )
+      case STARTING:
+        return <Loader />
+      default:
+        return <StartScreen onStartClick={this._startDaemon}/>
     }
-
-    return <StartScreen onStartClick={this._startDaemon}/>
   }
 }

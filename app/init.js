@@ -83,7 +83,13 @@ function init () {
         })
 
         if (node.initialized) {
-          ipc.send('node-status', 'stopped')
+          let status = 'stopped'
+
+          if (node.daemonPid()) {
+            status = 'running'
+          }
+
+          ipc.send('node-status', status)
         }
       })
 
