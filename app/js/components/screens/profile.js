@@ -3,6 +3,7 @@ import {Flex, Inline} from 'jsxstyle'
 
 import SimpleStat from '../simple-stat'
 import IconButton from '../icon-button'
+import Icon from '../icon'
 
 import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
@@ -21,6 +22,7 @@ export default class ProfileScreen extends React.Component {
 
   static propTypes = {
     peers: PropTypes.number,
+    location: PropTypes.string,
     onStopClick: PropTypes.func,
     onConsoleClick: PropTypes.func,
     onBrowserClick: PropTypes.func,
@@ -29,6 +31,7 @@ export default class ProfileScreen extends React.Component {
 
   static defaultProps = {
     peers: 0,
+    location: '',
     onStopClick () {},
     onConsoleClick () {},
     onBrowserClick () {},
@@ -60,6 +63,22 @@ export default class ProfileScreen extends React.Component {
             style={stopButtonStyles}
             iconStyle={{fontSize: '21px'}}
             />
+        </Flex>
+        <Flex
+          flex='1'
+          color='#FFFFFF'
+          backgroundImage={`url(${require('file!../../../img/stars.png')})`}
+          backgroundSize='100%'
+          backgroundPosition='0 0'
+          width='100%'
+          alignItems='center'
+          justifyContent='center'
+          flexDirection='column'
+          >
+          <Icon name='location' style={{padding: '10px 0', fontSize: '32px'}}/>
+          <Inline margin='0 auto'>
+            {this.props.location}
+          </Inline>
         </Flex>
         <Flex
           flex='1'

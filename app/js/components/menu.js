@@ -107,6 +107,7 @@ export default class Menu extends React.Component {
           <ProfileScreen
             key='profile-screen'
             peers={this.state.stats.peers}
+            location={this.state.stats.location}
             onStopClick={this._stopDaemon}
             onConsoleClick={this._openConsole}
             onBrowserClick={this._openBrowser}
