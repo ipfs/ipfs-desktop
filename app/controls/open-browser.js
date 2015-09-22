@@ -1,12 +1,12 @@
 import ipc from 'electron-safe-ipc/host'
 import {apiAddrToUrl} from './utils'
-import init from './../init'
+import {getIPFS} from './../init'
 
 const shell = require('shell')
 
 function openBrowser (cb) {
-  if (init.getIPFS()) {
-    init.getIPFS().config.get('Addresses.API', (err, res) => {
+  if (getIPFS()) {
+    getIPFS().config.get('Addresses.API', (err, res) => {
       if (err) { // TODO error should be emited to a error panel
         return console.error(err)
       }

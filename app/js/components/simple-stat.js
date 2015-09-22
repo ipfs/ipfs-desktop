@@ -28,7 +28,7 @@ export default class SimpleStat extends React.Component {
           color='rgba(0, 0, 0, 0.5)'
           padding='10px 0 5px'
           fontSize='13px'
-          font-weight='500'
+          fontWeight='500'
           >
           {this.props.name}
         </Block>

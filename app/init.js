@@ -1,83 +1,154 @@
-var menubar = require('menubar')
-var BrowserWindow = require('browser-window')
-var fs = require('fs')
-var ipfsd = require('ipfsd-ctl')
+import menubar from 'menubar'
+import fs from 'fs'
+import ipfsd from 'ipfsd-ctl'
 
+const BrowserWindow = require('browser-window')
 require('electron-debug')()
 require('crash-reporter').start()
 
-var config = require('./config')
-var errorPanel = require('./controls/error-panel')
+import {getLocation} from './helpers'
+import config from './config'
+import errorPanel from './controls/error-panel'
 
-var geoip = require('ipfs-geoip')
+// Local Variables
 
-function isLocal (address) {
-  var split = address.split('.')
-  if (split[0] === '10') return true
-  if (split[0] === '127') return true
-  if (split[0] === '192' && split[1] === '168') return true
-  if (split[0] === '172' && +split[1] >= 16 && +split[1] <= 31) return true
-  return false
-}
+let IPFS
+let ipc
+let poll
+let mb
+const statsCache = {}
 
-var getLocation = function (ipfs, multiaddrs, cb) {
-  if (multiaddrs.length === 0) return cb(null, null)
-  var address = multiaddrs[0].split('/')[2]
-  if (isLocal(address)) return getLocation(ipfs, multiaddrs.slice(1), cb)
+function pollStats (ipfs) {
+  ipfs.swarm.peers((err, res) => {
+    if (err) throw err
 
-  geoip.lookup(ipfs, address, function (err, res) {
-    if (err) {
-      throw err
-    }
+    statsCache.peers = res.Strings.length
+    ipc.send('stats', statsCache)
+  })
 
-    if (!res.country_name && multiaddrs.length > 1) {
-      return getLocation(ipfs, multiaddrs.slice(1), cb)
-    }
+  ipfs.id((err, peer) => {
+    if (err) throw err
 
-    var location = 'Earth'
-    if (res.country_name) location = res.country_name + ', ' + location
-    if (res.region_code) location = res.region_code + ', ' + location
-    if (res.city) location = res.city + ', ' + location
-
-    res.formatted = location
-    cb(null, res)
+    getLocation(ipfs, peer.Addresses, (err, location) => {
+      if (err) throw err
+      statsCache.location = location.formatted
+      ipc.send('stats', statsCache)
+    })
   })
 }
 
-// only place where app is used directly
-var IPFS
-var ipc
+function onRequestState (node, event) {
+  ipfsd.version((err, res) => {
+    if (err) throw err
+    ipc.send('version', res)
+  })
 
-exports = module.exports = init
+  if (node.initialized) {
+    let status = 'stopped'
 
-function init () {
+    if (node.daemonPid()) {
+      status = 'running'
+    }
+
+    ipc.send('node-status', status)
+  }
+}
+
+function onStartDaemon (node) {
+  ipc.send('node-status', 'starting')
+  node.startDaemon(function (err, ipfsNode) {
+    if (err) throw err
+    ipc.send('node-status', 'running')
+
+    poll = setInterval(() => {
+      if (mb.window.isVisible()) {
+        pollStats(ipfsNode)
+      }
+    }, 1000)
+
+    IPFS = ipfsNode
+  })
+}
+
+function onStopDaemon (node) {
+  ipc.send('node-status', 'stopping')
+  if (poll) {
+    delete statsCache.peers
+    ipc.send('stats', statsCache)
+    clearInterval(poll)
+    poll = null
+  }
+
+  node.stopDaemon(err => {
+    if (err) throw err
+
+    IPFS = null
+    ipc.send('node-status', 'stopped')
+    ipc.send('stats', statsCache)
+  })
+}
+
+function onShutdown () {
+  if (IPFS) {
+    ipc.send('stop-daemon')
+    ipc.once('node-status', function (status) {
+      process.exit(0)
+    })
+  } else {
+    process.exit(0)
+  }
+}
+
+function startTray (node) {
+  ipc.on('request-state', onRequestState.bind(null, node))
+  ipc.on('start-daemon', onStartDaemon.bind(null, node))
+  ipc.on('stop-daemon', onStopDaemon.bind(null, node))
+  ipc.on('shutdown', onShutdown)
+}
+
+// Initalize a new IPFS node
+function initialize (path, node) {
+  const welcomeWindow = new BrowserWindow(config.window)
+
+  if (process.env.NODE_ENV === 'production') {
+    welcomeWindow.loadUrl('file://' + __dirname + '/welcome.html')
+  } else {
+    welcomeWindow.loadUrl('http://localhost:3000/welcome.html')
+  }
+
+  welcomeWindow.webContents.on('did-finish-load', () => {
+    ipc.send('default-directory', path)
+  })
+
+  // wait for msg from frontend
+  ipc.on('initialize', opts => {
+    ipc.send('initializing')
+    node.init(opts, (err, res) => {
+      if (err) {
+        ipc.send('initialization-error', err + '')
+      } else {
+        ipc.send('initialization-complete')
+        ipc.send('node-status', 'stopped')
+        fs.writeFileSync(config['ipfs-path-file'], path)
+      }
+    })
+  })
+}
+
+export function getIPFS () {
+  return IPFS
+}
+
+export function start () {
   // main entry point
-  ipfsd.local(function (err, node) {
+  ipfsd.local((err, node) => {
     if (err) {
       errorPanel(err)
     }
 
-    var mbConfig = {
-      dir: __dirname,
-      width: config['menu-bar'].width,
-      height: config['menu-bar'].height,
-      index: 'http://localhost:3000/menubar.html',
-      icon: config['tray-icon'],
-      'always-on-top': process.env.NODE_ENV !== 'production',
-      preloadWindow: true,
-      resizable: false,
-      'web-preferences': {
-        'web-security': false
-      }
-    }
+    mb = menubar(config.menuBar)
 
-    if (process.env.NODE_ENV === 'production') {
-      mbConfig.index = 'file://' + __dirname + '/menubar.html'
-    }
-
-    var mb = menubar(mbConfig)
-
-    mb.on('ready', function () {
+    mb.on('ready', () => {
       // Safe ipc calls
       ipc = require('electron-safe-ipc/host')
 
@@ -86,8 +157,8 @@ function init () {
 
       // -- load the controls
 
-      var dragDrop = require('./controls/drag-drop')
-      var altMenu = require('./controls/alt-menu')
+      const dragDrop = require('./controls/drag-drop')
+      const altMenu = require('./controls/alt-menu')
       require('./controls/open-browser')
       require('./controls/open-console')
       require('./controls/open-settings')
@@ -104,135 +175,9 @@ function init () {
       }
 
       // keep the menu the right size
-      ipc.on('menu-height', function (height) {
+      ipc.on('menu-height', height => {
         mb.window.setSize(config['menu-bar-width'], height)
       })
     })
-
-    var startTray = function (node) {
-      var poll
-      var statsCache = {}
-
-      ipc.on('request-state', function (event) {
-        ipfsd.version(function (err, res) {
-          if (err) {
-            throw err
-          }
-          ipc.send('version', res)
-        })
-
-        if (node.initialized) {
-          let status = 'stopped'
-
-          if (node.daemonPid()) {
-            status = 'running'
-          }
-
-          ipc.send('node-status', status)
-        }
-      })
-
-      ipc.on('start-daemon', function () {
-        ipc.send('node-status', 'starting')
-        node.startDaemon(function (err, ipfsNode) {
-          if (err) {
-            throw err
-          }
-          ipc.send('node-status', 'running')
-
-          poll = setInterval(function () {
-            if (mb.window.isVisible()) {
-              pollStats(ipfsNode)
-            }
-          }, 1000)
-
-          IPFS = ipfsNode
-        })
-      })
-
-      ipc.on('stop-daemon', function () {
-        ipc.send('node-status', 'stopping')
-        if (poll) {
-          delete statsCache.peers
-          ipc.send('stats', statsCache)
-          clearInterval(poll)
-          poll = null
-        }
-
-        node.stopDaemon(function (err) {
-          if (err) {
-            throw err
-          }
-          IPFS = null
-          ipc.send('node-status', 'stopped')
-          ipc.send('stats', statsCache)
-        })
-      })
-
-      ipc.on('shutdown', function () {
-        if (IPFS) {
-          ipc.send('stop-daemon')
-          ipc.once('node-status', function (status) {
-            process.exit(0)
-          })
-        } else {
-          process.exit(0)
-        }
-      })
-
-      var pollStats = function (ipfs) {
-        ipfs.swarm.peers(function (err, res) {
-          if (err) {
-            throw err
-          }
-          statsCache.peers = res.Strings.length
-          ipc.send('stats', statsCache)
-        })
-
-        ipfs.id((err, peer) => {
-          if (err) throw err
-
-          getLocation(ipfs, peer.Addresses, (err, location) => {
-            if (err) throw err
-            statsCache.location = location.formatted
-            ipc.send('stats', statsCache)
-          })
-        })
-      }
-    }
   })
-
-  // Initalize a new IPFS node
-
-  function initialize (path, node) {
-    var welcomeWindow = new BrowserWindow(config.window)
-
-    if (process.env.NODE_ENV === 'production') {
-      welcomeWindow.loadUrl('file://' + __dirname + '/welcome.html')
-    } else {
-      welcomeWindow.loadUrl('http://localhost:3000/welcome.html')
-    }
-
-    welcomeWindow.webContents.on('did-finish-load', function () {
-      ipc.send('default-directory', path)
-    })
-
-    // wait for msg from frontend
-    ipc.on('initialize', function (opts) {
-      ipc.send('initializing')
-      node.init(opts, function (err, res) {
-        if (err) {
-          ipc.send('initialization-error', err + '')
-        } else {
-          ipc.send('initialization-complete')
-          ipc.send('node-status', 'stopped')
-          fs.writeFileSync(config['ipfs-path-file'], path)
-        }
-      })
-    })
-  }
-}
-
-exports.getIPFS = function () {
-  return IPFS
 }
