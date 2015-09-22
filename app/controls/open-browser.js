@@ -1,13 +1,12 @@
-var ipc = require('ipc')
-var apiAddrToUrl = require('./utils').apiAddrToUrl
-var init = require('./../init')
-var shell = require('shell')
+import ipc from 'electron-safe-ipc/host'
+import {apiAddrToUrl} from './utils'
+import init from './../init'
 
-ipc.on('open-browser', openBrowser)
+const shell = require('shell')
 
 function openBrowser (cb) {
   if (init.getIPFS()) {
-    init.getIPFS().config.get('Addresses.API', function (err, res) {
+    init.getIPFS().config.get('Addresses.API', (err, res) => {
       if (err) { // TODO error should be emited to a error panel
         return console.error(err)
       }
@@ -16,7 +15,9 @@ function openBrowser (cb) {
     })
   } else {
     // TODO error should be emited to a error panel
-    var err = new Error('Cannot open browser, IPFS daemon not running')
+    const err = new Error('Cannot open browser, IPFS daemon not running')
     console.error(err)
   }
 }
+
+ipc.on('open-browser', openBrowser)

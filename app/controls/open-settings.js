@@ -1,18 +1,19 @@
-var ipc = require('electron-safe-ipc/host')
-var BrowserWindow = require('browser-window')
-var path = require('path')
-var config = require('./../config')
-// var init = require('./../init')
+import ipc from 'electron-safe-ipc/host'
+import path from 'path'
+import config from './../config'
 
-ipc.on('open-settings', openSettings)
+const BrowserWindow = require('browser-window')
 
 function openSettings () {
-  var settingsWindow = new BrowserWindow(config.window)
+  const settingsWindow = new BrowserWindow(config.window)
 
   if (process.env.NODE_ENV === 'production') {
     settingsWindow.loadUrl('file://' + path.resolve(__dirname, '../settings.html'))
   } else {
     settingsWindow.loadUrl('http://localhost:3000/settings.html')
   }
-  settingsWindow.webContents.on('did-finish-load', function () {})
+
+  settingsWindow.webContents.on('did-finish-load', () => {})
 }
+
+ipc.on('open-settings', openSettings)
