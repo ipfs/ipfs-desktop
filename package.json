@@ -16,7 +16,6 @@
     "minimist": "^1.2.0",
     "multiaddr": "1.0.0",
     "normalize.css": "^3.0.3",
-    "open": "0.0.5",
     "react": "0.13.3",
     "silence-chromium": "2.0.0"
   },
