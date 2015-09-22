@@ -1,5 +1,4 @@
 var React = require('react/addons')
-var $ = require('jquery')
 
 var Settings = React.createClass({
 
@@ -35,6 +34,6 @@ var Settings = React.createClass({
   }
 })
 
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', () => {
   React.render(<Settings />, document.getElementById('settings'))
 })

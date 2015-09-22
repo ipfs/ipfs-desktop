@@ -89,7 +89,7 @@ export default class Menu extends React.Component {
   }
 
   _getScreen () {
-     switch (this.state.status) {
+    switch (this.state.status) {
       case RUNNING:
         return (
           <ProfileScreen
@@ -108,7 +108,7 @@ export default class Menu extends React.Component {
 
   render () {
     return (
-      <CSSTransitionGroup transitionName="fade">
+      <CSSTransitionGroup transitionName='fade'>
         {this._getScreen()}
       </CSSTransitionGroup>
     )

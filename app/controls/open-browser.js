@@ -1,7 +1,7 @@
 var ipc = require('ipc')
 var apiAddrToUrl = require('./utils').apiAddrToUrl
 var init = require('./../init')
-var open = require('open')
+var shell = require('shell')
 
 ipc.on('open-browser', openBrowser)
 
@@ -12,7 +12,7 @@ function openBrowser (cb) {
         return console.error(err)
       }
 
-      open(apiAddrToUrl(res.Value))
+      shell.openExternal(apiAddrToUrl(res.Value))
     })
   } else {
     // TODO error should be emited to a error panel
