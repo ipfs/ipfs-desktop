@@ -40,6 +40,7 @@ function pollStats (ipfs) {
 function onRequestState (node, event) {
   ipfsd.version((err, res) => {
     if (err) throw err
+    console.log('running %s', res)
     ipc.send('version', res)
   })
 
@@ -173,11 +174,6 @@ export function start () {
       if (!node.initialized) {
         initialize(config['ipfs-path'], node)
       }
-
-      // keep the menu the right size
-      ipc.on('menu-height', height => {
-        mb.window.setSize(config['menu-bar-width'], height)
-      })
     })
   })
 }
