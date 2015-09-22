@@ -1,17 +1,23 @@
-import React from 'react'
+import React from 'react/addons'
 import ipc from 'electron-safe-ipc/guest'
 
 import StartScreen from './screens/start'
 import ProfileScreen from './screens/profile'
 import Loader from './loader'
 
+import '../../styles/animations.css'
+
+const {CSSTransitionGroup} = React.addons
+
+const UNINITIALIZED = 'uninitialized'
 const RUNNING = 'running'
 const STARTING = 'starting'
+const STOPPING = 'stopping'
 
 export default class Menu extends React.Component {
 
   state = {
-    status: 'uninitialized',
+    status: UNINITIALIZED,
     connected: false,
     version: null,
     stats: {},
@@ -82,19 +88,29 @@ export default class Menu extends React.Component {
     ipc.removeEventListener('uploaded', this._onUploaded)
   }
 
-  render () {
-    switch (this.state.status) {
+  _getScreen () {
+     switch (this.state.status) {
       case RUNNING:
         return (
           <ProfileScreen
-            peers={this.state.stats}
+            key='profile-screen'
+            peers={this.state.stats.peers}
             onStopClick={this._stopDaemon}
             />
         )
       case STARTING:
-        return <Loader />
+      case STOPPING:
+        return <Loader key='loader-screen' />
       default:
-        return <StartScreen onStartClick={this._startDaemon}/>
+        return <StartScreen key='start-screen' onStartClick={this._startDaemon}/>
     }
+  }
+
+  render () {
+    return (
+      <CSSTransitionGroup transitionName="fade">
+        {this._getScreen()}
+      </CSSTransitionGroup>
+    )
   }
 }

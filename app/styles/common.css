@@ -1,4 +1,5 @@
 html,
 body {
   font-family: 'Maven Pro', sans-serif;
+  overflow: hidden;
 }

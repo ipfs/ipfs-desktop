@@ -4,8 +4,8 @@ import {Flex, Block} from 'jsxstyle'
 
 export default class SimpleStat extends React.Component {
   static propTypes = {
-    name: PropTypes.string.required,
-    value: PropTypes.number.required,
+    name: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
     color: PropTypes.string
   }
 

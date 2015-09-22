@@ -98,7 +98,6 @@ function init () {
       })
 
       ipc.on('start-daemon', function () {
-        console.log('starting daemon')
         ipc.send('node-status', 'starting')
         node.startDaemon(function (err, ipfsNode) {
           if (err) {
