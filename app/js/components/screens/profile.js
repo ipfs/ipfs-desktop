@@ -1,32 +1,38 @@
 import React, {PropTypes} from 'react'
-import {Flex, Block, Inline, curry} from 'jsxstyle'
+import {Flex, Inline} from 'jsxstyle'
 
 import SimpleStat from '../simple-stat'
+import IconButton from '../icon-button'
 
 import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
 import '../../../styles/common.css'
 import '../../../styles/fonts.css'
 
-const StopButton = curry(Inline, {
-  component: 'button',
+const stopButtonStyles = {
   background: 'none',
   border: 'none',
   position: 'absolute',
-  top: '10px',
-  right: '10px'
-})
+  top: '11px',
+  right: '0'
+}
 
 export default class ProfileScreen extends React.Component {
 
   static propTypes = {
     peers: PropTypes.number,
-    onStopClick: PropTypes.func
+    onStopClick: PropTypes.func,
+    onConsoleClick: PropTypes.func,
+    onBrowserClick: PropTypes.func,
+    onSettingsClick: PropTypes.func
   }
 
   static defaultProps = {
     peers: 0,
-    onStopClick () {}
+    onStopClick () {},
+    onConsoleClick () {},
+    onBrowserClick () {},
+    onSettingsClick () {}
   }
 
   render () {
@@ -44,12 +50,16 @@ export default class ProfileScreen extends React.Component {
           <Inline
             alignSelf='center'
             flex='1'
+            paddingTop='4px'
             >
             IPFS
           </Inline>
-          <StopButton props={{onClick: this.props.onStopClick}}>
-            Stop
-          </StopButton>
+          <IconButton
+            icon='cross'
+            onClick={this.props.onStopClick}
+            style={stopButtonStyles}
+            iconStyle={{fontSize: '21px'}}
+            />
         </Flex>
         <Flex
           flex='1'
@@ -66,19 +76,25 @@ export default class ProfileScreen extends React.Component {
             />
         </Flex>
         <Flex
-          height='60px'
+          height='70px'
           justifyContent='space-around'
           width='100%'
           >
-          <Block flex='1' padding='0 10px'>
-            Console
-          </Block>
-          <Block flex='1' padding='0 10px'>
-            Browser
-          </Block>
-          <Block flex='1' padding='0 10px'>
-            Settings
-          </Block>
+          <IconButton
+            name='Console'
+            icon='gaming'
+            onClick={this.props.onConsoleClick}
+            />
+          <IconButton
+            name='Browser'
+            icon='window'
+            onClick={this.props.onBrowserClick}
+            />
+          <IconButton
+            name='Settings'
+            icon='gear'
+            onClick={this.props.onSettingsClick}
+            />
         </Flex>
       </Flex>
     )

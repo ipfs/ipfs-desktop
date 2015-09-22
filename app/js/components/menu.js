@@ -58,12 +58,24 @@ export default class Menu extends React.Component {
     this.setState({files: this.state.files})
   }
 
-  _startDaemon = () => {
+  _startDaemon () {
     ipc.send('start-daemon')
   }
 
-  _stopDaemon = () => {
+  _stopDaemon () {
     ipc.send('stop-daemon')
+  }
+
+  _openConsole () {
+    ipc.send('open-console')
+  }
+
+  _openBrowser () {
+    ipc.send('open-browser')
+  }
+
+  _openSettings () {
+    ipc.send('open-settings')
   }
 
   componentDidMount () {
@@ -96,6 +108,9 @@ export default class Menu extends React.Component {
             key='profile-screen'
             peers={this.state.stats.peers}
             onStopClick={this._stopDaemon}
+            onConsoleClick={this._openConsole}
+            onBrowserClick={this._openBrowser}
+            onSettingsClick={this._openSettings}
             />
         )
       case STARTING:
