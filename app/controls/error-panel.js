@@ -1,14 +1,12 @@
-var BrowserWindow = require('browser-window')
-var config = require('./../config')
+import BrowserWindow from 'browser-window'
+import config from './../config'
 
-exports = module.exports = errorPanel
-
-function errorPanel (err) {
-  var errorWindow = new BrowserWindow(config.window)
+export default function errorPanel (err) {
+  const errorWindow = new BrowserWindow(config.window)
 
   errorWindow.loadUrl(config.urls.help)
 
-  errorWindow.webContents.on('did-finish-load', function () {
+  errorWindow.webContents.on('did-finish-load', () => {
     errorWindow.webContents.send('err', err.toString())
   })
 }

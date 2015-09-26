@@ -1,9 +1,4 @@
-// var init = require('./../init')
-// var ipc = require('ipc')
-
-exports = module.exports = altMenu
-
-function altMenu (event, bounds) {
+export default function altMenu (event, bounds) {
   if (!event.altKey) {
     return
   }
