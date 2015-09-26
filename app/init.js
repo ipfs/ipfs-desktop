@@ -111,12 +111,7 @@ function startTray (node) {
 function initialize (path, node) {
   const welcomeWindow = new BrowserWindow(config.window)
 
-  if (process.env.NODE_ENV === 'production') {
-    welcomeWindow.loadUrl('file://' + __dirname + '/welcome.html')
-  } else {
-    welcomeWindow.loadUrl('http://localhost:3000/welcome.html')
-  }
-
+  welcomeWindow.loadUrl(config.urls.welcome)
   welcomeWindow.webContents.on('did-finish-load', () => {
     ipc.send('default-directory', path)
   })

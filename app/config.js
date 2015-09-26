@@ -50,11 +50,23 @@ const ipfsPath = () => {
   return pathIPFS
 }
 
+// -- Window URLs
+
+const fileURL = name => `file://${__dirname}/${name}.html`
+const serverURL = name => `http://localhost:3000/${name}.html`
+
+const currentURL = name => isProduction ? fileURL(name) : serverURL(name)
+
 export default {
   menuBar,
   window,
   'tray-icon': trayIcon(),
   'webui-path': '/webui',
   'ipfs-path': ipfsPath(),
-  'ipfs-path-file': IPFS_PATH_FILE
+  'ipfs-path-file': IPFS_PATH_FILE,
+  urls: {
+    welcome: currentURL('welcome'),
+    help: currentURL('help'),
+    settings: currentURL('settings')
+  }
 }
