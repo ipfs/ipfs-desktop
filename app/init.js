@@ -2,7 +2,9 @@ import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 
+const dialog = require('dialog')
 const BrowserWindow = require('browser-window')
+
 require('electron-debug')()
 require('crash-reporter').start()
 
@@ -116,6 +118,23 @@ function initialize (path, node) {
     ipc.send('default-directory', path)
   })
 
+  let userPath = path
+
+  ipc.on('setup-browse-path', () => {
+    dialog.showOpenDialog(welcomeWindow, {
+      title: 'Select a directory',
+      defaultPath: path,
+      properties: [
+        'openDirectory',
+        'createDirectory'
+      ]
+    }, res => {
+      if (!res) return
+      console.log('got ', res)
+      userPath = res[0]
+    })
+  })
+
   // wait for msg from frontend
   ipc.on('initialize', opts => {
     ipc.send('initializing')
@@ -125,7 +144,7 @@ function initialize (path, node) {
       } else {
         ipc.send('initialization-complete')
         ipc.send('node-status', 'stopped')
-        fs.writeFileSync(config['ipfs-path-file'], path)
+        fs.writeFileSync(config['ipfs-path-file'], userPath)
       }
     })
   })

@@ -3,9 +3,6 @@ var webpack = require('webpack')
 
 module.exports = {
   devtool: 'eval',
-  resolve: {
-    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
-  },
   entry: {
     menubar: [
       'webpack-hot-middleware/client',
@@ -30,13 +27,12 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
   module: {
     loaders: [{
-      test: /\.jsx?$/,
+      test: /\.js$/,
       loader: 'babel',
       include: path.join(__dirname, 'app'),
       query: {
