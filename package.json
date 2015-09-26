@@ -8,16 +8,17 @@
     "css-box-sizing-border-box": "^0.1.0",
     "electron-safe-ipc": "^0.6.1",
     "ipfs-api": "^2.1.5",
+    "ipfs-geoip": "^1.4.3",
     "ipfs-logo": "0.1.3",
-    "ipfsd-ctl": "0.5.0",
-    "jsxstyle": "0.0.17",
+    "ipfsd-ctl": "^0.5.1",
+    "jsxstyle": "^0.0.17",
     "lodash": "^3.10.1",
     "menubar": "^2.1.1",
     "minimist": "^1.2.0",
-    "multiaddr": "1.0.0",
+    "multiaddr": "^1.0.0",
     "normalize.css": "^3.0.3",
-    "react": "0.13.3",
-    "silence-chromium": "2.0.0"
+    "react": "^0.13.3",
+    "silence-chromium": "^2.0.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",
