@@ -86,6 +86,13 @@ export default class Setup extends React.Component {
         ':focus': {
           outline: 'none'
         }
+      },
+      advanced: {
+        flex: '0 0 200px',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        backgroundColor: '#59c0fe'
       }
     }
 
@@ -101,13 +108,14 @@ export default class Setup extends React.Component {
         <div style={styles.copy}>
           We are happy you found your way here. Before you can start there is just one thing you need to tell us, where should we store all the awesomeness that is IPFS?
         </div>
-        <DirectoryInput />
-        <DropdownList
-            data={KEY_SIZES}
-            value={this.state.keySize}
-            onChange={keySize => this.setState({keySize})}
-        />
-
+        <div style={styles.advanced}>
+          <DirectoryInput />
+          <DropdownList
+              data={KEY_SIZES}
+              value={this.state.keySize}
+              onChange={keySize => this.setState({keySize})}
+          />
+        </div>
         <button style={styles.button} onClick={this._onContinue}>
           Continue
         </button>

@@ -41,7 +41,7 @@ export default class StartScreen extends React.Component {
         </Inline>
         <Flex flex='1' margin='40px 0' flexDirection='column'>
           <image
-           src={require('file!../../../img/offline-icon.png')}
+           src={require('../../../img/offline-icon.png')}
            width='64'
            height='64'
            style={{margin: '0 auto'}}
