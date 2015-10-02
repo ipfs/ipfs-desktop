@@ -107,6 +107,9 @@ function startTray (node) {
   ipc.on('start-daemon', onStartDaemon.bind(null, node))
   ipc.on('stop-daemon', onStopDaemon.bind(null, node))
   ipc.on('shutdown', onShutdown)
+
+  // Start up the daemon
+  onStartDaemon(node)
 }
 
 // Initalize a new IPFS node
