@@ -67,7 +67,7 @@ export default class ProfileScreen extends React.Component {
         <Flex
           flex='1'
           color='#FFFFFF'
-          backgroundImage={`url(${require('file!../../../img/stars.png')})`}
+          backgroundImage={`url(${require('../../../img/stars.png')})`}
           backgroundSize='100%'
           backgroundPosition='0 0'
           width='100%'

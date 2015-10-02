@@ -93,11 +93,11 @@ export default class Menu extends React.Component {
   componentWillUnmount () {
     // -- Remove control events
 
-    ipc.removeEventListener('version', this._onVersion)
-    ipc.removeEventListener('node-status', this._onNodeStatus)
-    ipc.removeEventListener('stats', this._onStats)
-    ipc.removeEventListener('uploading', this._onUploading)
-    ipc.removeEventListener('uploaded', this._onUploaded)
+    ipc.removeListener('version', this._onVersion)
+    ipc.removeListener('node-status', this._onNodeStatus)
+    ipc.removeListener('stats', this._onStats)
+    ipc.removeListener('uploading', this._onUploading)
+    ipc.removeListener('uploaded', this._onUploaded)
   }
 
   _getScreen () {

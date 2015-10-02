@@ -8,6 +8,7 @@ import Icon from './icon'
 export default class DirectoryInput extends React.Component {
 
   static propTypes = {
+    path: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
     onChange: PropTypes.func
   }
@@ -18,26 +19,10 @@ export default class DirectoryInput extends React.Component {
     onChange () {}
   }
 
-  state = {
-    value: ''
-  }
-
   _onClick = e => {
     e.preventDefault()
 
     ipc.send('setup-browse-path')
-  }
-
-  _onConfigPath = path => {
-    this.setState({value: path})
-  }
-
-  componentDidMount () {
-    ipc.on('setup-config-path', this._onConfigPath)
-  }
-
-  componentWillUnmount () {
-    ipc.removeEventListener('setup-config-path', this._onConfigPath)
   }
 
   render () {
@@ -71,7 +56,7 @@ export default class DirectoryInput extends React.Component {
           style={styles.button}
           onClick={this._onClick}
           >
-          {this.state.value}
+          {this.props.path}
         </a>
       </div>
     )

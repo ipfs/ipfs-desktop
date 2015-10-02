@@ -1,7 +1,7 @@
 import React from 'react'
 import Radium from 'radium'
 import ipc from 'electron-safe-ipc/guest'
-import {DropdownList} from 'react-widgets'
+import {DropdownList, SelectList} from 'react-widgets'
 
 import DirectoryInput from './directory-input'
 import Loader from './loader'
@@ -21,6 +21,8 @@ export default class Setup extends React.Component {
   state = {
     initializing: false,
     error: false,
+    advanced: false,
+    configPath: '',
     keySize: KEY_SIZES[1]
   }
 
@@ -35,14 +37,20 @@ export default class Setup extends React.Component {
     })
   }
 
+  _onConfigPath = path => {
+    this.setState({configPath: path})
+  }
+
   componentDidMount () {
     ipc.on('initializing', this._onInitializing)
     ipc.on('initialization-error', this._onError)
+    ipc.on('setup-config-path', this._onConfigPath)
   }
 
   componentWillUnmount () {
-    ipc.removeEventListener('initializing', this._onInitializing)
-    ipc.removeEventListener('initialization-error', this._onError)
+    ipc.removeListener('initializing', this._onInitializing)
+    ipc.removeListener('initialization-error', this._onError)
+    ipc.removeListener('setup-config-path', this._onConfigPath)
   }
 
   _onContinue (event) {
@@ -100,24 +108,39 @@ export default class Setup extends React.Component {
       return <Loader />
     }
 
+    let options
+
+    if (this.state.advanced) {
+      options = (
+        <div>
+          <DirectoryInput path={this.state.configPath}/>
+          <DropdownList
+            data={KEY_SIZES}
+            value={this.state.keySize}
+            onChange={keySize => this.setState({keySize})}
+            />
+        </div>
+      )
+    }
+
     return (
       <div style={styles.base}>
         <span style={styles.headline}>
           Welcome to IPFS
         </span>
         <div style={styles.copy}>
-          We are happy you found your way here. Before you can start there is just one thing you need to tell us, where should we store all the awesomeness that is IPFS?
+          We are happy you found your way here. You are just one click away
+          from starting to use IPFS.
         </div>
-        <div style={styles.advanced}>
-          <DirectoryInput />
-          <DropdownList
-              data={KEY_SIZES}
-              value={this.state.keySize}
-              onChange={keySize => this.setState({keySize})}
-          />
-        </div>
+
+        <SelectList
+          defaultValue={'Express Setup'}
+          data={['Express Setup', 'Advanced Setup']}
+          onChange={value => this.setState({advanced: value === 'Advanced Setup'})}
+        />
+        {options}
         <button style={styles.button} onClick={this._onContinue}>
-          Continue
+          Get Started
         </button>
       </div>
     )
