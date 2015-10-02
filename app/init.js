@@ -115,7 +115,7 @@ function initialize (path, node) {
 
   welcomeWindow.loadUrl(config.urls.welcome)
   welcomeWindow.webContents.on('did-finish-load', () => {
-    ipc.send('default-directory', path)
+    ipc.send('setup-config-path', path)
   })
 
   let userPath = path
@@ -130,21 +130,26 @@ function initialize (path, node) {
       ]
     }, res => {
       if (!res) return
-      console.log('got ', res)
+
       userPath = res[0]
+      ipc.send('setup-config-path', userPath)
     })
   })
 
   // wait for msg from frontend
-  ipc.on('initialize', opts => {
+  ipc.on('initialize', () => {
     ipc.send('initializing')
-    node.init(opts, (err, res) => {
+    node.init({
+      directory: userPath,
+      keySize: 4096
+    }, (err, res) => {
       if (err) {
         ipc.send('initialization-error', err + '')
       } else {
         ipc.send('initialization-complete')
         ipc.send('node-status', 'stopped')
-        fs.writeFileSync(config['ipfs-path-file'], userPath)
+        fs.writeFileSync(config['ipfs-path-file'], path)
+        welcomeWindow.close()
       }
     })
   })
