@@ -1,6 +1,7 @@
 import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
+import {join} from 'path'
 
 const dialog = require('dialog')
 const BrowserWindow = require('browser-window')
@@ -107,9 +108,6 @@ function startTray (node) {
   ipc.on('start-daemon', onStartDaemon.bind(null, node))
   ipc.on('stop-daemon', onStopDaemon.bind(null, node))
   ipc.on('shutdown', onShutdown)
-
-  // Start up the daemon
-  onStartDaemon(node)
 }
 
 // Initalize a new IPFS node
@@ -135,6 +133,11 @@ function initialize (path, node) {
       if (!res) return
 
       userPath = res[0]
+
+      if (!userPath.match(/.ipfs\/?$/)) {
+        userPath = join(userPath, '.ipfs')
+      }
+
       ipc.send('setup-config-path', userPath)
     })
   })
@@ -195,6 +198,9 @@ export function start () {
 
       if (!node.initialized) {
         initialize(config['ipfs-path'], node)
+      } else {
+        // Start up the daemon
+        onStartDaemon(node)
       }
     })
   })

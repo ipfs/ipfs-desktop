@@ -1,21 +1,27 @@
 import React from 'react'
 import Radium from 'radium'
 import ipc from 'electron-safe-ipc/guest'
+import {DropdownList} from 'react-widgets'
 
 import DirectoryInput from './directory-input'
 import Loader from './loader'
 
 import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
+import 'react-widgets/dist/css/react-widgets.css'
 import '../../styles/common.css'
 import '../../styles/fonts.css'
+import '../../styles/setup.less'
+
+const KEY_SIZES = [2048, 4096]
 
 @Radium
 export default class Setup extends React.Component {
 
   state = {
     initializing: false,
-    error: false
+    error: false,
+    keySize: KEY_SIZES[1]
   }
 
   _onInitializing = () => {
@@ -96,6 +102,12 @@ export default class Setup extends React.Component {
           We are happy you found your way here. Before you can start there is just one thing you need to tell us, where should we store all the awesomeness that is IPFS?
         </div>
         <DirectoryInput />
+        <DropdownList
+            data={KEY_SIZES}
+            value={this.state.keySize}
+            onChange={keySize => this.setState({keySize})}
+        />
+
         <button style={styles.button} onClick={this._onContinue}>
           Continue
         </button>

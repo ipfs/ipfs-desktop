@@ -19,6 +19,7 @@
     "normalize.css": "^3.0.3",
     "radium": "^0.14.1",
     "react": "^0.13.3",
+    "react-widgets": "^2.8.1",
     "silence-chromium": "^2.0.0"
   },
   "devDependencies": {
