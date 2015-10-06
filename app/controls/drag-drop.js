@@ -1,7 +1,7 @@
 import API from 'ipfs-api'
 import notifier from 'node-notifier'
 import {join} from 'path'
-import {getIPFS} from './../init'
+import {getIPFS, logger} from './../init'
 
 const ipfsAPI = API('localhost', '5001')
 
@@ -39,13 +39,18 @@ export default function dragDrop (event, files) {
   }
   ipfsAPI.add(files, (err, res) => {
     if (err || !res) {
+      logger.error(err)
       notifyError(err || 'Failed to upload files')
     }
+
+    logger.info('Uploading files', {files})
 
     res.forEach(file => {
       const url = `https://ipfs.io/ipfs/${file.Hash}`
       clipboard.writeText(url)
       filesUploaded.push(file)
+
+      logger.info('Uploaded file %s', file.Name)
 
       notify(
         `Finished uploading ${file.Name}`,

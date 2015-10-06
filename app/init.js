@@ -2,6 +2,7 @@ import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
+import winston from 'winston'
 
 const dialog = require('dialog')
 const BrowserWindow = require('browser-window')
@@ -11,9 +12,7 @@ require('crash-reporter').start()
 
 import {getLocation} from './helpers'
 import config from './config'
-import errorPanel from './controls/error-panel'
 import dragDrop from './controls/drag-drop'
-import altMenu from './controls/alt-menu'
 
 // Local Variables
 
@@ -22,6 +21,21 @@ let ipc
 let poll
 let mb
 const statsCache = {}
+
+// Setup Logging
+const logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)({
+      handleExceptions: true,
+      humanReadableUnhandledException: true
+    }),
+    new (winston.transports.File)({
+      filename: join(__dirname, '..', 'app.log'),
+      handleExceptions: true,
+      humanReadableUnhandledException: true
+    })
+  ]
+})
 
 function pollStats (ipfs) {
   ipfs.swarm.peers((err, res) => {
@@ -45,7 +59,6 @@ function pollStats (ipfs) {
 function onRequestState (node, event) {
   ipfsd.version((err, res) => {
     if (err) throw err
-    console.log('running %s', res)
     ipc.send('version', res)
   })
 
@@ -173,21 +186,20 @@ export function getIPFS () {
   return IPFS
 }
 
+export {logger}
+
 export function start () {
   // main entry point
   ipfsd.local((err, node) => {
-    if (err) {
-      errorPanel(err)
-    }
+    if (err) return logger.error(err)
 
     mb = menubar(config.menuBar)
 
     mb.on('ready', () => {
+      logger.info('Application is ready')
+
       // Safe ipc calls
       ipc = require('electron-safe-ipc/host')
-
-      // listen for global shortcuts events
-      require('./controls/shortcuts')
 
       // -- load the controls
       require('./controls/open-browser')
@@ -197,7 +209,6 @@ export function start () {
       // tray actions
 
       mb.tray.on('drop-files', dragDrop)
-      mb.tray.on('click', altMenu)
       mb.tray.setHighlightMode(true)
 
       startTray(node, mb)
