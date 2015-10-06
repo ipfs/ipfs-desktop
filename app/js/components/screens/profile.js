@@ -124,11 +124,6 @@ export default class ProfileScreen extends React.Component {
             icon='window'
             onClick={this.props.onBrowserClick}
             />
-          <IconButton
-            name='Settings'
-            icon='gear'
-            onClick={this.props.onSettingsClick}
-            />
         </Flex>
       </Flex>
     )
