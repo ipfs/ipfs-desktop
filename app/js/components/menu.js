@@ -40,22 +40,33 @@ export default class Menu extends React.Component {
 
   _onUploading = file => {
     console.log('file being uploaded: ' + file.Name)
-    if (this.state.files.length >= 5) {
-      this.state.files.shift()
-    }
-    file.uploaded = false
-    this.state.files.push(file)
-    this.setState({files: this.state.files})
+
+    this.setState(old => {
+      if (old.files.length >= 5) {
+        old.files.shift()
+      }
+
+      old.files.push({
+        uploaded: false,
+        ...file
+      })
+      return {files: old.files}
+    })
   }
 
   _onUploaded = file => {
-    for (var i = 0; i < this.state.files.length; i++) {
-      if (this.state.files[i].Name === file.Name) {
-        this.state.files[i].Hash = file.Hash
-        this.state.files[i].uploaded = true
-      }
-    }
-    this.setState({files: this.state.files})
+    this.setState(old => {
+      const files = old.files.map(elem => {
+        if (elem.Name === file.Name) {
+          elem.uploaded = true
+          elem.Hash = file.Hash
+        }
+
+        return elem
+      })
+      console.log(files)
+      return {files}
+    })
   }
 
   _startDaemon () {
@@ -106,6 +117,7 @@ export default class Menu extends React.Component {
         return (
           <ProfileScreen
             key='profile-screen'
+            files={this.state.files}
             peers={this.state.stats.peers}
             location={this.state.stats.location}
             onStopClick={this._stopDaemon}

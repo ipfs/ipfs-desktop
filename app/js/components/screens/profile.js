@@ -21,6 +21,7 @@ const stopButtonStyles = {
 export default class ProfileScreen extends React.Component {
 
   static propTypes = {
+    files: PropTypes.array,
     peers: PropTypes.number,
     location: PropTypes.string,
     onStopClick: PropTypes.func,
@@ -30,6 +31,7 @@ export default class ProfileScreen extends React.Component {
   }
 
   static defaultProps = {
+    files: [],
     peers: 0,
     location: '',
     onStopClick () {},

@@ -12,6 +12,8 @@ require('crash-reporter').start()
 import {getLocation} from './helpers'
 import config from './config'
 import errorPanel from './controls/error-panel'
+import dragDrop from './controls/drag-drop'
+import altMenu from './controls/alt-menu'
 
 // Local Variables
 
@@ -65,7 +67,7 @@ function onStartDaemon (node) {
     ipc.send('node-status', 'running')
 
     poll = setInterval(() => {
-      if (mb.window.isVisible()) {
+      if (mb.window && mb.window.isVisible()) {
         pollStats(ipfsNode)
       }
     }, 1000)
@@ -182,16 +184,13 @@ export function start () {
       require('./controls/shortcuts')
 
       // -- load the controls
-
-      const dragDrop = require('./controls/drag-drop')
-      const altMenu = require('./controls/alt-menu')
       require('./controls/open-browser')
       require('./controls/open-console')
       require('./controls/open-settings')
 
       // tray actions
 
-      mb.tray.on('drop-files', dragDrop)
+      mb.tray.on('drop-files', dragDrop.bind(null, ipc))
       mb.tray.on('click', altMenu)
 
       startTray(node)
