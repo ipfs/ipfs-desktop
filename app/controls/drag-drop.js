@@ -1,4 +1,3 @@
-import path from 'path'
 import API from 'ipfs-api'
 import notifier from 'node-notifier'
 import {join} from 'path'
@@ -33,19 +32,11 @@ function notifyError (message) {
   })
 }
 
-export default function dragDrop (ipc, event, files) {
+export default function dragDrop (event, files) {
   if (!getIPFS()) {
     notifyError('Can\'t upload file, IPFS Node is offline')
     return
   }
-
-  const plural = files.length > 1 ? 'files' : 'file'
-  notify(`Started uploading ${files.length} ${plural}`)
-
-  files.forEach(file => {
-    ipc.send('uploading', {Name: path.basename(file)})
-  })
-
   ipfsAPI.add(files, (err, res) => {
     if (err || !res) {
       notifyError(err || 'Failed to upload files')
@@ -55,7 +46,6 @@ export default function dragDrop (ipc, event, files) {
       const url = `https://ipfs.io/ipfs/${file.Hash}`
       clipboard.writeText(url)
       filesUploaded.push(file)
-      ipc.send('uploaded', file)
 
       notify(
         `Finished uploading ${file.Name}`,

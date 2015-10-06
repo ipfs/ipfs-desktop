@@ -1,5 +1,7 @@
 import React, {PropTypes} from 'react'
 import {Flex, Inline} from 'jsxstyle'
+import FileDrop from 'react-file-drop'
+import ipc from 'electron-safe-ipc/guest'
 
 import SimpleStat from '../simple-stat'
 import IconButton from '../icon-button'
@@ -9,6 +11,7 @@ import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
 import '../../../styles/common.css'
 import '../../../styles/fonts.css'
+import '../../../styles/file-drop.less'
 
 const stopButtonStyles = {
   background: 'none',
@@ -21,7 +24,6 @@ const stopButtonStyles = {
 export default class ProfileScreen extends React.Component {
 
   static propTypes = {
-    files: PropTypes.array,
     peers: PropTypes.number,
     location: PropTypes.string,
     onStopClick: PropTypes.func,
@@ -31,13 +33,21 @@ export default class ProfileScreen extends React.Component {
   }
 
   static defaultProps = {
-    files: [],
     peers: 0,
     location: '',
     onStopClick () {},
     onConsoleClick () {},
     onBrowserClick () {},
     onSettingsClick () {}
+  }
+
+  _onFileDrop = (files, event) => {
+    const filesArray = []
+    for (let i = 0; i < files.length; i++) {
+      filesArray.push(files[i].path)
+    }
+
+    ipc.send('drop-files', null, filesArray)
   }
 
   render () {
@@ -50,6 +60,9 @@ export default class ProfileScreen extends React.Component {
         flexDirection='column'
         alignItems='center'
         >
+        <FileDrop
+          onDrop={this._onFileDrop}
+          />
         <Flex
           height='40px'>
           <Inline

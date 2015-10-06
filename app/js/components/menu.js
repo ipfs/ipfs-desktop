@@ -20,8 +20,7 @@ export default class Menu extends React.Component {
     status: UNINITIALIZED,
     connected: false,
     version: null,
-    stats: {},
-    files: []
+    stats: {}
   }
 
   // -- Event Listeners
@@ -36,37 +35,6 @@ export default class Menu extends React.Component {
 
   _onStats = stats => {
     this.setState({stats: stats})
-  }
-
-  _onUploading = file => {
-    console.log('file being uploaded: ' + file.Name)
-
-    this.setState(old => {
-      if (old.files.length >= 5) {
-        old.files.shift()
-      }
-
-      old.files.push({
-        uploaded: false,
-        ...file
-      })
-      return {files: old.files}
-    })
-  }
-
-  _onUploaded = file => {
-    this.setState(old => {
-      const files = old.files.map(elem => {
-        if (elem.Name === file.Name) {
-          elem.uploaded = true
-          elem.Hash = file.Hash
-        }
-
-        return elem
-      })
-      console.log(files)
-      return {files}
-    })
   }
 
   _startDaemon () {
@@ -95,8 +63,6 @@ export default class Menu extends React.Component {
     ipc.on('version', this._onVersion)
     ipc.on('node-status', this._onNodeStatus)
     ipc.on('stats', this._onStats)
-    ipc.on('uploading', this._onUploading)
-    ipc.on('uploaded', this._onUploaded)
 
     ipc.send('request-state')
   }
@@ -117,7 +83,6 @@ export default class Menu extends React.Component {
         return (
           <ProfileScreen
             key='profile-screen'
-            files={this.state.files}
             peers={this.state.stats.peers}
             location={this.state.stats.location}
             onStopClick={this._stopDaemon}

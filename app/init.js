@@ -36,7 +36,7 @@ function pollStats (ipfs) {
 
     getLocation(ipfs, peer.Addresses, (err, location) => {
       if (err) throw err
-      statsCache.location = location.formatted
+      statsCache.location = location && location.formatted
       ipc.send('stats', statsCache)
     })
   })
@@ -72,6 +72,7 @@ function onStartDaemon (node) {
       }
     }, 1000)
 
+    ipc.on('drop-files', dragDrop)
     IPFS = ipfsNode
   })
 }
@@ -190,7 +191,7 @@ export function start () {
 
       // tray actions
 
-      mb.tray.on('drop-files', dragDrop.bind(null, ipc))
+      mb.tray.on('drop-files', dragDrop)
       mb.tray.on('click', altMenu)
 
       startTray(node)
