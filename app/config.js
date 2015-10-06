@@ -23,7 +23,7 @@ const menuBar = {
     ? `file://${__dirname}/menubar.html`
     : 'http://localhost:3000/menubar.html',
   icon: trayIcon(),
-  'always-on-top': !isProduction,
+  'always-on-top': true,
   preloadWindow: true,
   resizable: false,
   'web-preferences': {
