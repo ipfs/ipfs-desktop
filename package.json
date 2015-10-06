@@ -19,8 +19,7 @@
     "normalize.css": "^3.0.3",
     "radium": "^0.14.1",
     "react": "^0.13.3",
-    "react-widgets": "^2.8.1",
-    "silence-chromium": "^2.0.0"
+    "react-widgets": "^2.8.1"
   },
   "devDependencies": {
     "babel": "^5.8.23",
@@ -32,7 +31,7 @@
     "css-loader": "^0.19.0",
     "electron-debug": "^0.2.1",
     "electron-packager": "5.1.0",
-    "electron-prebuilt": "^0.33.0",
+    "electron-prebuilt": "^0.33.6",
     "eslint": "^1.5.0",
     "eslint-config-standard": "^4.4.0",
     "eslint-config-standard-react": "^1.1.0",
@@ -61,7 +60,7 @@
     "build:babel": "./node_modules/.bin/babel app/config.js -o build/config.js && ./node_modules/.bin/babel app/controls -d build/controls && ./node_modules/.bin/babel app/init.js -o build/init.js && ./node_modules/.bin/babel app/helpers.js -o build/helpers.js",
     "copy": "./copy.sh",
     "build": "npm run clean && npm run build:webpack && npm run build:babel && npm run copy",
-    "electron": "node_modules/.bin/electron index.js 2>&1 | silence-chromium",
+    "electron": "node_modules/.bin/electron index.js 2>&1",
     "start": "npm run clean && npm run build:babel && ./node_modules/.bin/concurrent --kill-others \"node dev-server.js\" \"npm run electron\"",
     "lint": "./node_modules/.bin/eslint .",
     "dist": "npm run build && node pkg.js && npm run clean",
