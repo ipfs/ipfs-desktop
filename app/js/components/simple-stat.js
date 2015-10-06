@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
+import Radium from 'radium'
 
-import {Flex, Block} from 'jsxstyle'
-
+@Radium
 export default class SimpleStat extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
@@ -14,32 +14,43 @@ export default class SimpleStat extends React.Component {
   }
 
   render () {
+    const styles = {
+      wrapper: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      },
+      ring: {
+        width: '16px',
+        height: '16px',
+        borderRadius: '8px',
+        border: `3px solid ${this.props.color}`,
+        margin: '0 auto'
+      },
+      label: {
+        textTransform: 'uppercase',
+        color: 'rgba(0, 0, 0, 0.5)',
+        padding: '10px 0 5px',
+        fontSize: '13px',
+        fontWeight: '500'
+      },
+      value: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: '20px'
+      }
+    }
+
     return (
-      <Flex flexDirection='column' justifyContent='center'>
-        <Block
-          width='16px'
-          height='16px'
-          borderRadius='8px'
-          border={`3px solid ${this.props.color}`}
-          margin='0 auto'
-          />
-        <Block
-          textTransform='uppercase'
-          color='rgba(0, 0, 0, 0.5)'
-          padding='10px 0 5px'
-          fontSize='13px'
-          fontWeight='500'
-          >
+      <div style={styles.wrapper}>
+        <div style={styles.ring} />
+        <div style={styles.label}>
           {this.props.name}
-        </Block>
-        <Block
-          textAlign='center'
-          fontWeight='bold'
-          fontSize='20px'
-          >
+        </div>
+        <div style={styles.value}>
           {this.props.value}
-        </Block>
-      </Flex>
+        </div>
+      </div>
     )
   }
 }

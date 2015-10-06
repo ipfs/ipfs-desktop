@@ -1,10 +1,11 @@
 import React, {PropTypes} from 'react'
-import {Flex, Inline} from 'jsxstyle'
 import FileDrop from 'react-file-drop'
 import ipc from 'electron-safe-ipc/guest'
+import Radium from 'radium'
 
 import SimpleStat from '../simple-stat'
 import IconButton from '../icon-button'
+import Header from '../header'
 import Icon from '../icon'
 
 import 'normalize.css'
@@ -13,14 +14,7 @@ import '../../../styles/common.css'
 import '../../../styles/fonts.css'
 import '../../../styles/file-drop.less'
 
-const stopButtonStyles = {
-  background: 'none',
-  border: 'none',
-  position: 'absolute',
-  top: '11px',
-  right: '0'
-}
-
+@Radium
 export default class ProfileScreen extends React.Component {
 
   static propTypes = {
@@ -53,69 +47,65 @@ export default class ProfileScreen extends React.Component {
   }
 
   render () {
+    const styles = {
+      wrapper: {
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#19b5fe',
+        color: '#FFFFFF',
+        flexDirection: 'column',
+        alignItems: 'center'
+      },
+      image: {
+        display: 'flex',
+        flex: '1',
+        color: '#FFFFFF',
+        backgroundImage: `url(${require('../../../img/stars.png')})`,
+        backgroundSize: 'cover',
+        backgroundPosition: '0 0',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column'
+      },
+      stats: {
+        display: 'flex',
+        flex: '1',
+        backgroundColor: '#FFFFFF',
+        color: '#000000',
+        width: '100%',
+        height: '30%',
+        justifyContent: 'space-around'
+      },
+      footer: {
+        display: 'flex',
+        height: '70px',
+        justifyContent: 'space-around',
+        width: '100%'
+      }
+    }
+
     return (
-      <Flex
-        width='100%'
-        height='100%'
-        backgroundColor='#19b5fe'
-        color='#FFFFFF'
-        flexDirection='column'
-        alignItems='center'
-        >
+      <div style={styles.wrapper}>
         <FileDrop
           onDrop={this._onFileDrop}
           />
-        <Flex
-          height='40px'>
-          <Inline
-            alignSelf='center'
-            flex='1'
-            paddingTop='4px'
-            >
-            IPFS
-          </Inline>
-          <IconButton
-            icon='cross'
-            onClick={this.props.onCloseClick}
-            style={stopButtonStyles}
-            iconStyle={{fontSize: '21px'}}
-            />
-        </Flex>
-        <Flex
-          flex='1'
-          color='#FFFFFF'
-          backgroundImage={`url(${require('../../../img/stars.png')})`}
-          backgroundSize='100%'
-          backgroundPosition='0 0'
-          width='100%'
-          alignItems='center'
-          justifyContent='center'
-          flexDirection='column'
-          >
+        <Header onCloseClick={this.props.onCloseClick}/>
+        <div style={styles.image}>
           <Icon name='location' style={{padding: '10px 0', fontSize: '32px'}}/>
-          <Inline margin='0 auto'>
+          <div style={{margin: '0 auto'}}>
             {this.props.location}
-          </Inline>
-        </Flex>
-        <Flex
-          flex='1'
-          backgroundColor='#FFFFFF'
-          color='#000000'
-          width='100%'
-          height='30%'
-          justifyContent='space-around'
-          >
+          </div>
+        </div>
+        <div style={styles.stats}>
           <SimpleStat
             name='peers'
             value={this.props.peers}
             color='#50d2c2'
             />
-        </Flex>
-        <Flex
-          height='70px'
-          justifyContent='space-around'
-          width='100%'
-          >
+        </div>
+        <div style={styles.footer}>
           <IconButton
             name='Console'
             icon='gaming'
@@ -131,8 +121,8 @@ export default class ProfileScreen extends React.Component {
             icon='media-stop'
             onClick={this.props.onStopClick}
             />
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     )
   }
 }
