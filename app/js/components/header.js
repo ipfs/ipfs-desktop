@@ -42,7 +42,7 @@ export default class Header extends React.Component {
           icon='cross'
           onClick={this.props.onCloseClick}
           style={styles.stopButton}
-          iconStyle={{fontSize: '21px'}}
+          iconStyle={{fontSize: '18px'}}
           />
       </div>
     )
