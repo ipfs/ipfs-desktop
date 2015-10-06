@@ -20,7 +20,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'build'),
     filename: '[name].js',
-    publicPath: '/'
+    publicPath: ''
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -46,13 +46,13 @@ module.exports = {
       loaders: ['style', 'css', 'less']
     }, {
       test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/,
-      loader: 'file-loader?name=[name].[ext]'
+      loader: 'file-loader'
     }, {
       test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
-      loader: 'file-loader?name=[name].[ext]'
+      loader: 'file-loader'
     }, {
       test: /\.(png|gif|jpg|jpeg)$/,
-      loader: 'file-loader?name=[name].[ext]'
+      loader: 'file-loader'
     }]
   }
 }

@@ -60,7 +60,7 @@
     "clean": "./node_modules/.bin/rimraf build && mkdir build",
     "build:webpack": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.prod.js",
     "build:babel": "./node_modules/.bin/babel app/config.js -o build/config.js && ./node_modules/.bin/babel app/controls -d build/controls && ./node_modules/.bin/babel app/init.js -o build/init.js && ./node_modules/.bin/babel app/helpers.js -o build/helpers.js",
-    "copy": "./copy.sh",
+    "copy": "cp -r app/views/*.html build/ && cp -r app/img build/img",
     "build": "npm run clean && npm run build:webpack && npm run build:babel && npm run copy",
     "electron": "node_modules/.bin/electron index.js 2>&1",
     "start": "npm run clean && npm run build:babel && ./node_modules/.bin/concurrent --kill-others \"node dev-server.js\" \"npm run electron\"",
