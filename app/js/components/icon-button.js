@@ -1,17 +1,7 @@
 import React, {PropTypes} from 'react'
-import {Block, curry} from 'jsxstyle'
+import Radium from 'radium'
 
-const Button = curry(Block, {
-  component: 'button',
-  background: 'none',
-  border: 'none',
-  flex: '1',
-  padding: '0 10px',
-  textAlign: 'center',
-  fontSize: '12px',
-  textTransform: 'uppercase'
-})
-
+@Radium
 export default class IconButton extends React.Component {
 
   static propTypes = {
@@ -31,19 +21,37 @@ export default class IconButton extends React.Component {
   }
 
   render () {
-    const buttonProps = {
-      onClick: this.props.onClick
+    const styles = {
+      button: {
+        color: 'rgba(255, 255, 255, 0.8)',
+        background: 'none',
+        border: 'none',
+        flex: '1',
+        padding: '0 10px',
+        textAlign: 'center',
+        fontSize: '12px',
+        textTransform: 'uppercase',
+        transition: 'color 0.3s ease-in-out',
+        ':focus': {
+          outline: 'none'
+        },
+        ':hover': {
+          color: 'rgba(255, 255, 255, 1)',
+          cursor: 'pointer'
+        },
+        ...this.props.style
+      }
     }
 
     return (
-      <Button props={buttonProps} {...this.props.style}>
+      <button onClick={this.props.onClick} style={styles.button}>
         <div
           className={`icon-${this.props.icon}`}
           style={{fontSize: '28px', paddingBottom: '5px', ...this.props.iconStyle}}
           >
         </div>
         {this.props.name}
-      </Button>
+      </button>
     )
   }
 }

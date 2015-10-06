@@ -45,6 +45,10 @@ export default class Menu extends React.Component {
     ipc.send('stop-daemon')
   }
 
+  _closeWindow () {
+    ipc.send('close-tray-window')
+  }
+
   _openConsole () {
     ipc.send('open-console')
   }
@@ -89,6 +93,7 @@ export default class Menu extends React.Component {
             onConsoleClick={this._openConsole}
             onBrowserClick={this._openBrowser}
             onSettingsClick={this._openSettings}
+            onCloseClick={this._closeWindow}
             />
         )
       case STARTING:

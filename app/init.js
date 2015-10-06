@@ -72,7 +72,6 @@ function onStartDaemon (node) {
       }
     }, 1000)
 
-    ipc.on('drop-files', dragDrop)
     IPFS = ipfsNode
   })
 }
@@ -106,11 +105,17 @@ function onShutdown () {
   }
 }
 
-function startTray (node) {
+function onCloseWindow (mb) {
+  mb.window.hide()
+}
+
+function startTray (node, mb) {
   ipc.on('request-state', onRequestState.bind(null, node))
   ipc.on('start-daemon', onStartDaemon.bind(null, node))
   ipc.on('stop-daemon', onStopDaemon.bind(null, node))
   ipc.on('shutdown', onShutdown)
+  ipc.on('drop-files', dragDrop)
+  ipc.on('close-tray-window', onCloseWindow.bind(null, mb))
 }
 
 // Initalize a new IPFS node
@@ -193,8 +198,9 @@ export function start () {
 
       mb.tray.on('drop-files', dragDrop)
       mb.tray.on('click', altMenu)
+      mb.tray.setHighlightMode(true)
 
-      startTray(node)
+      startTray(node, mb)
 
       if (!node.initialized) {
         initialize(config['ipfs-path'], node)

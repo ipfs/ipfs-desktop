@@ -29,7 +29,8 @@ export default class ProfileScreen extends React.Component {
     onStopClick: PropTypes.func,
     onConsoleClick: PropTypes.func,
     onBrowserClick: PropTypes.func,
-    onSettingsClick: PropTypes.func
+    onSettingsClick: PropTypes.func,
+    onCloseClick: PropTypes.func
   }
 
   static defaultProps = {
@@ -38,7 +39,8 @@ export default class ProfileScreen extends React.Component {
     onStopClick () {},
     onConsoleClick () {},
     onBrowserClick () {},
-    onSettingsClick () {}
+    onSettingsClick () {},
+    onCloseClick () {}
   }
 
   _onFileDrop = (files, event) => {
@@ -74,7 +76,7 @@ export default class ProfileScreen extends React.Component {
           </Inline>
           <IconButton
             icon='cross'
-            onClick={this.props.onStopClick}
+            onClick={this.props.onCloseClick}
             style={stopButtonStyles}
             iconStyle={{fontSize: '21px'}}
             />
@@ -123,6 +125,11 @@ export default class ProfileScreen extends React.Component {
             name='Browser'
             icon='window'
             onClick={this.props.onBrowserClick}
+            />
+          <IconButton
+            name='Quit'
+            icon='media-stop'
+            onClick={this.props.onStopClick}
             />
         </Flex>
       </Flex>
