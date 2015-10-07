@@ -15,6 +15,8 @@
 .spinner_svg{
   position: relative;
   z-index: 400;
+  top: -50%;
+  left: -50%;
 }
 
 #Group{
@@ -110,13 +112,11 @@ body {
 .spinner{
   position: absolute;
   z-index: 200;
-  width: 300px;
-  height: 200px;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
   background: #19b5fe;
-  margin: 0 auto;
-  margin-top: 80px;
-  padding-top: 50px;
-  padding-left: 100px;
 
   &:after{
     content: "";

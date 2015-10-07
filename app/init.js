@@ -153,6 +153,11 @@ function initialize (path, node) {
     ipc.send('setup-config-path', path)
   })
 
+  // Close the application if the welcome dialog is canceled
+  welcomeWindow.once('close', () => {
+    if (!node.initialized) mb.app.quit()
+  })
+
   let userPath = path
 
   ipc.on('setup-browse-path', () => {
@@ -183,14 +188,16 @@ function initialize (path, node) {
       directory: userPath,
       keySize: 4096
     }, (err, res) => {
-      if (err) {
-        ipc.send('initialization-error', err + '')
-      } else {
-        ipc.send('initialization-complete')
-        ipc.send('node-status', 'stopped')
-        fs.writeFileSync(config['ipfs-path-file'], path)
-        welcomeWindow.close()
-      }
+      if (err) return ipc.send('initialization-error', err + '')
+
+      fs.writeFileSync(config['ipfs-path-file'], path)
+
+      ipc.send('initialization-complete')
+      ipc.send('node-status', 'stopped')
+
+      welcomeWindow.close()
+      onStartDaemon(node)
+      mb.showWindow()
     })
   })
 }

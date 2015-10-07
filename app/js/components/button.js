@@ -5,11 +5,13 @@ import Radium from 'radium'
 export default class Button extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    style: PropTypes.object
   }
 
   static defaultProps = {
-    onClick () {}
+    onClick () {},
+    style: {}
   }
 
   render () {
@@ -20,12 +22,16 @@ export default class Button extends React.Component {
       width: '100%',
       padding: '10px',
       transition: 'color 0.3s ease-in-out',
+      fontWeight: '600',
+      textAlign: 'center',
+      borderRadius: '2px',
       ':hover': {
         color: 'rgba(0, 0, 0, 1)'
       },
       ':focus': {
         outline: 'none'
-      }
+      },
+      ...this.props.style
     }
 
     return (

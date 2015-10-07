@@ -35,7 +35,7 @@ const window = {
   icon: path.resolve(__dirname, '../node_modules/ipfs-logo/ipfs-logo-256-ice.png'),
   'auto-hide-menu-bar': true,
   width: 800,
-  height: 600,
+  height: 500,
   'web-preferences': {
     'web-security': false
   }

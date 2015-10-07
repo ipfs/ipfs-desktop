@@ -3,18 +3,19 @@ import Radium from 'radium'
 
 import Icon from '../../icon'
 import Button from '../../button'
+import DirectoryInput from '../../directory-input'
 
 @Radium
 export default class Intro extends React.Component {
 
   static propTypes = {
     onInstallClick: PropTypes.func,
-    onAdvancedClick: PropTypes.func
+    configPath: PropTypes.string
   }
 
   static defaultProps = {
     onInstallClick () {},
-    onAdvancedClick () {}
+    configPath: ''
   }
 
   render () {
@@ -23,7 +24,7 @@ export default class Intro extends React.Component {
         display: 'flex',
         width: '100%',
         height: '100%',
-        backgroundImage: `url(${require('../../../../img/jellyfish-large.png')})`,
+        backgroundImage: `url(${require('../../../../img/jellyfish-blur.png')})`,
         backgroundSize: '100%',
         backgroundPosition: '0 0',
         color: '#FFFFFF',
@@ -37,12 +38,6 @@ export default class Intro extends React.Component {
         marginBottom: '20px',
         fontSize: '38px'
       },
-      actions: {
-        flex: '0 0 auto',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      },
       button: {
         width: '300px',
         marginBottom: '30px'
@@ -52,34 +47,20 @@ export default class Intro extends React.Component {
         color: '#19b5fe',
         marginRight: '10px',
         fontSize: '20px'
-      },
-      advancedLink: {
-        cursor: 'pointer',
-        color: 'rgba(255, 255, 255, 0.5)',
-        transition: 'color 0.3s ease-in-out',
-        ':hover': {
-          color: 'rgba(255, 255, 255, 1)'
-        }
       }
     }
 
     return (
       <div style={styles.base}>
         <span style={styles.headline}>
-          Welcome to IPFS
+          Advanced Options
         </span>
-        <div style={styles.actions}>
-          <Button style={styles.button} onClick={this.props.onInstallClick}>
-            <Icon name='download' style={styles.icon}/> Install IPFS
-          </Button>
-          <a
-              key='advanced-link'
-              onClick={this.props.onAdvancedClick}
-              style={styles.advancedLink}
-          >
-            Advanced Options
-          </a>
+        <div>
+          <DirectoryInput path={this.props.configPath}/>
         </div>
+        <Button style={styles.button} onClick={this.props.onInstallClick}>
+          <Icon name='download' style={styles.icon}/> Install IPFS
+        </Button>
       </div>
     )
   }

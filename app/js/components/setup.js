@@ -3,6 +3,7 @@ import Radium from 'radium'
 import ipc from 'electron-safe-ipc/guest'
 
 import Intro from './screens/setup/intro'
+import Advanced from './screens/setup/advanced'
 import Loader from './loader'
 
 import 'normalize.css'
@@ -11,12 +12,14 @@ import 'react-widgets/dist/css/react-widgets.css'
 import '../../styles/common.css'
 import '../../styles/fonts.css'
 import '../../styles/setup.less'
+import '../../styles/animations.css'
 
 const {CSSTransitionGroup} = React.addons
 
 const INTRO = 'intro'
 const INTITIALZING = 'initializing'
 const ERROR = 'error'
+const ADVANCED = 'advanced'
 
 const KEY_SIZES = [2048, 4096]
 
@@ -42,7 +45,16 @@ export default class Setup extends React.Component {
   }
 
   _onConfigPath = path => {
+    console.log('got path', path)
     this.setState({configPath: path})
+  }
+
+  _selectAdvanced = () => {
+    this.setState({status: ADVANCED})
+  }
+
+  _startInstallation = () => {
+    ipc.send('initialize')
   }
 
   componentDidMount () {
@@ -57,24 +69,31 @@ export default class Setup extends React.Component {
     ipc.removeListener('setup-config-path', this._onConfigPath)
   }
 
-  _onContinue (event) {
-    event.preventDefault()
-    console.log('continue')
-    ipc.send('initialize')
-  }
-
   _getScreen () {
     switch (this.state.status) {
       case INTRO:
         return (
-          <Intro />
+          <Intro
+            key='intro'
+            onInstallClick={this._startInstallation}
+            onAdvancedClick={this._selectAdvanced}
+            />
         )
+      case ADVANCED: {
+        return (
+          <Advanced
+            key='advanced'
+            onInstallClick={this._startInstallation}
+            configPath={this.state.configPath}
+          />
+        )
+      }
       case ERROR:
         return (
-          <div>{this.state.error}</div>
+          <div key='error'>{this.state.error}</div>
         )
       default:
-        return <Loader />
+        return <Loader key='loader'/>
     }
   }
 
