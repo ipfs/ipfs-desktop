@@ -120,14 +120,18 @@ function onCloseWindow () {
 }
 
 function onWillQuit (node, event) {
-  event.preventDefault()
   logger.info('Shutting down application')
+
+  if (IPFS == null) return
 
   // Try waiting for the daemon to properly shut down
   // before we actually quit
-  onStopDaemon(node, () => {
-    mb.app.quit()
-  })
+
+  event.preventDefault()
+
+  const quit = mb.app.quit.bind(mb.app)
+  onStopDaemon(node, quit)
+  setTimeout(quit, 1000)
 }
 
 function startTray (node) {
