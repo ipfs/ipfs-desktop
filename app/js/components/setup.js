@@ -8,11 +8,9 @@ import Loader from './loader'
 
 import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
-import 'react-widgets/dist/css/react-widgets.css'
-import '../../styles/common.css'
-import '../../styles/fonts.css'
-import '../../styles/setup.less'
-import '../../styles/animations.css'
+import '../../styles/common.less'
+import '../../styles/fonts.less'
+import '../../styles/animations.less'
 
 const {CSSTransitionGroup} = React.addons
 
@@ -54,7 +52,11 @@ export default class Setup extends React.Component {
   }
 
   _startInstallation = () => {
-    ipc.send('initialize')
+    ipc.send('initialize', {keySize: this.state.keySize})
+  }
+
+  _onKeySizeChange = keySize => {
+    this.setState({keySize})
   }
 
   componentDidMount () {
@@ -85,6 +87,9 @@ export default class Setup extends React.Component {
             key='advanced'
             onInstallClick={this._startInstallation}
             configPath={this.state.configPath}
+            keySizes={KEY_SIZES}
+            keySize={KEY_SIZES[1]}
+            onKeySizeChange={this._onKeySizeChange}
           />
         )
       }

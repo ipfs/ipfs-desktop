@@ -39,7 +39,6 @@ export default class DirectoryInput extends React.Component {
       button: {
         flex: '1',
         background: 'rgba(255, 255, 255, 0.15)',
-        marginRight: '10px',
         fontSize: '12px',
         borderRadius: '25px',
         padding: '15px 40px 15px 65px',

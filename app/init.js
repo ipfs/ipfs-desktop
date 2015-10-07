@@ -182,11 +182,13 @@ function initialize (path, node) {
   })
 
   // wait for msg from frontend
-  ipc.on('initialize', () => {
+  ipc.on('initialize', ({keySize}) => {
+    logger.info('Initializing new node with key size: %s in %s.', keySize, userPath)
+
     ipc.send('initializing')
     node.init({
       directory: userPath,
-      keySize: 4096
+      keySize
     }, (err, res) => {
       if (err) return ipc.send('initialization-error', err + '')
 

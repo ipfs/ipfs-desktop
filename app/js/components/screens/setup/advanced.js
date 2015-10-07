@@ -4,18 +4,25 @@ import Radium from 'radium'
 import Icon from '../../icon'
 import Button from '../../button'
 import DirectoryInput from '../../directory-input'
+import IconDropdownList from '../../icon-dropdown-list'
 
 @Radium
 export default class Intro extends React.Component {
 
   static propTypes = {
     onInstallClick: PropTypes.func,
-    configPath: PropTypes.string
+    configPath: PropTypes.string,
+    keySizes: PropTypes.arrayOf(PropTypes.number),
+    keySize: PropTypes.number,
+    onKeySizeChange: PropTypes.func
   }
 
   static defaultProps = {
     onInstallClick () {},
-    configPath: ''
+    configPath: '',
+    keySizes: [],
+    keySize: 0,
+    onKeySizeChange () {}
   }
 
   render () {
@@ -38,6 +45,12 @@ export default class Intro extends React.Component {
         marginBottom: '20px',
         fontSize: '38px'
       },
+      inputs: {
+        flex: '0 0 110px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+      },
       button: {
         width: '300px',
         marginBottom: '30px'
@@ -55,8 +68,14 @@ export default class Intro extends React.Component {
         <span style={styles.headline}>
           Advanced Options
         </span>
-        <div>
+        <div style={styles.inputs}>
           <DirectoryInput path={this.props.configPath}/>
+          <IconDropdownList
+            icon='lock'
+            data={this.props.keySizes}
+            defaultValue={this.props.keySize}
+            onChange={this.props.onKeySizeChange}
+            />
         </div>
         <Button style={styles.button} onClick={this.props.onInstallClick}>
           <Icon name='download' style={styles.icon}/> Install IPFS

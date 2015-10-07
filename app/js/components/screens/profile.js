@@ -10,8 +10,8 @@ import Icon from '../icon'
 
 import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
-import '../../../styles/common.css'
-import '../../../styles/fonts.css'
+import '../../../styles/common.less'
+import '../../../styles/fonts.less'
 import '../../../styles/file-drop.less'
 
 @Radium

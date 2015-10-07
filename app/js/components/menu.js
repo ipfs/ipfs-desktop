@@ -5,7 +5,7 @@ import StartScreen from './screens/start'
 import ProfileScreen from './screens/profile'
 import Loader from './loader'
 
-import '../../styles/animations.css'
+import '../../styles/animations.less'
 
 const {CSSTransitionGroup} = React.addons
 
