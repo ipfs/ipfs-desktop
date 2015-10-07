@@ -117,7 +117,7 @@ export default class ProfileScreen extends React.Component {
             onClick={this.props.onBrowserClick}
             />
           <IconButton
-            name='Quit'
+            name='Stop'
             icon='media-stop'
             onClick={this.props.onStopClick}
             />
