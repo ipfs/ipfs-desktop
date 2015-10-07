@@ -85,11 +85,16 @@ function onStartDaemon (node) {
       }
     }, 1000)
 
+    // Get initial stats
+    pollStats(ipfsNode)
+
     IPFS = ipfsNode
   })
 }
 
-function onStopDaemon (node) {
+function onStopDaemon (node, done = () => {}) {
+  logger.info('Stopping daemon')
+
   ipc.send('node-status', 'stopping')
   if (poll) {
     delete statsCache.peers
@@ -99,36 +104,40 @@ function onStopDaemon (node) {
   }
 
   node.stopDaemon(err => {
-    if (err) throw err
+    if (err) return logger.error(err.stack)
+
+    logger.info('Stopped daemon')
 
     IPFS = null
     ipc.send('node-status', 'stopped')
     ipc.send('stats', statsCache)
+    done()
   })
 }
 
-function onShutdown () {
-  if (IPFS) {
-    ipc.send('stop-daemon')
-    ipc.once('node-status', function (status) {
-      process.exit(0)
-    })
-  } else {
-    process.exit(0)
-  }
-}
-
-function onCloseWindow (mb) {
+function onCloseWindow () {
   mb.window.hide()
 }
 
-function startTray (node, mb) {
+function onWillQuit (node, event) {
+  event.preventDefault()
+  logger.info('Shutting down application')
+
+  // Try waiting for the daemon to properly shut down
+  // before we actually quit
+  onStopDaemon(node, () => {
+    mb.app.quit()
+  })
+}
+
+function startTray (node) {
   ipc.on('request-state', onRequestState.bind(null, node))
   ipc.on('start-daemon', onStartDaemon.bind(null, node))
   ipc.on('stop-daemon', onStopDaemon.bind(null, node))
-  ipc.on('shutdown', onShutdown)
   ipc.on('drop-files', dragDrop)
-  ipc.on('close-tray-window', onCloseWindow.bind(null, mb))
+  ipc.on('close-tray-window', onCloseWindow)
+
+  mb.app.once('will-quit', onWillQuit.bind(null, node))
 }
 
 // Initalize a new IPFS node
@@ -211,7 +220,7 @@ export function start () {
       mb.tray.on('drop-files', dragDrop)
       mb.tray.setHighlightMode(true)
 
-      startTray(node, mb)
+      startTray(node)
 
       if (!node.initialized) {
         initialize(config['ipfs-path'], node)
