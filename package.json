@@ -67,7 +67,7 @@
     "lint": "./node_modules/.bin/eslint .",
     "dist": "npm run build && node pkg.js && npm run clean",
     "dist-all": "npm run build && node pkg.js --all && npm run clean",
-    "start:production": "NODE_ENV=production npm run build && NODE_ENV=production npm run electron"
+    "start:prod": "NODE_ENV=production npm run build && NODE_ENV=production npm run electron"
   },
   "pre-commit": [
     "lint"

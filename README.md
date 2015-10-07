@@ -1,57 +1,46 @@
-IPFS Native Application
-=======================
+# IPFS Native Application
 
-[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io) [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/) [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs) [![Dependency Status](https://david-dm.org/ipfs/electron-app.svg?style=flat-square)](https://david-dm.org/ipfs/electron-app) [![Build Status](https://img.shields.io/travis/ipfs/electron-app/master.svg?style=flat-square)](https://travis-ci.org/ipfs/electron-app)
+[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io) [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/) [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/ipfs/electron-app)
 
-> A Native Application for your OS to run your own IPFS Node. Built with Electron Shell
+[![npm version](https://img.shields.io/npm/v/electron-app.svg?style=flat-square)](https://www.npmjs.com/package/electron-app) [![npm downloads](https://img.shields.io/npm/dm/electron-app.svg?style=flat-square)](https://www.npmjs.com/package/electron-app) [![Build Status](https://img.shields.io/travis/ipfs/electron-app/master.svg?style=flat-square)](https://travis-ci.org/ipfs/electron-app) [![Dependency Status](https://img.shields.io/david/ipfs/electron-app.svg?style=flat-square)](https://david-dm.org/ipfs/electron-app) [![devDependency Status](https://img.shields.io/david/dev/ipfs/electron-app.svg?style=flat-square)](https://david-dm.org/ipfs/electron-app#info=devDependencies)
 
-## folder structure
+> A Native Application for your OS to run your own IPFS Node. Built with [Electron](http://electron.atom.io/).
 
-```bash
-$ tree app
-app
-├── controls        # Application controls to interact with the system
-├── img
-│   ├── loading.gif
-│   └── logo.png
-├── init.js
-├── js              # React/Frontend components
-│   ├── help.js
-│   ├── menubar.jsx # React view for all the things menu bar
-│   ├── toggle.jsx
-│   └── welcome.jsx # React component for the welcoming screen for 1st time users
-├── styles
-│   ├── common.css
-│   └── menu.css
-└── views
-    ├── help.html
-    ├── menubar.html
-    └── welcome.html
-```
+## Development
 
-# usage
+## Setup
+
+You will need [Node.js](https://nodejs.org/en/) installed. Preferrably a version `>=4.0`. Also you will need [npm](npmjs.org). After that you should run
 
 ```bash
-$ npm i
+$ git clone git@github.com:ipfs/electron-app.git
+$ cd electron-app
+$ npm install
 $ npm start
 ```
 
 This launches the app and runs it in your menu bar. Click the IPFS icon to open a console. For example (in OSX):
 
-![](https://ipfs.io/ipfs/QmU5AghSAezpYFNyuYZ7gX1zcHCheQndPtBMj1MHr5QpWL/cap.png)
+![](https://ipfs.io/ipfs/QmaufMhYVWPKwhC1jSb4qHBxgiahrq9ct2hgqk5cZxeE7s)
 
-# packaging
-
-will be written to ./dist
-
-### make a package for your system
+## Tasks
 
 ```bash
-npm run dist
+$ npm run clean         # Clean the build directory
+$ npm run start         # Start a development instance
+$ npm run lint          # Run linting on all files
+$ npm run dist          # Create a package for the current platform
+$ npm run dist-all      # Create a package for all platforms
+$ npm run start:prod    # Start a packaged instance
 ```
 
-### make packages for all platforms
+## Packaging
+
+Th output will be written to the `dist` folder.
 
 ```bash
-npm run dist-all
+# Package for your current platform
+$ npm run dist
+# Package for all platforms
+$ npm run dist-all
 ```
