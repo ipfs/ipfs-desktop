@@ -2,7 +2,7 @@
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io) [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/) [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/ipfs/electron-app)
 
-[![npm version](https://img.shields.io/npm/v/electron-app.svg?style=flat-square)](https://www.npmjs.com/package/electron-app) [![npm downloads](https://img.shields.io/npm/dm/electron-app.svg?style=flat-square)](https://www.npmjs.com/package/electron-app) [![Build Status](https://img.shields.io/travis/ipfs/electron-app/master.svg?style=flat-square)](https://travis-ci.org/ipfs/electron-app) [![Dependency Status](https://img.shields.io/david/ipfs/electron-app.svg?style=flat-square)](https://david-dm.org/ipfs/electron-app) [![devDependency Status](https://img.shields.io/david/dev/ipfs/electron-app.svg?style=flat-square)](https://david-dm.org/ipfs/electron-app#info=devDependencies)
+[![Build Status](https://img.shields.io/travis/ipfs/electron-app/master.svg?style=flat-square)](https://travis-ci.org/ipfs/electron-app) [![Dependency Status](https://img.shields.io/david/ipfs/electron-app.svg?style=flat-square)](https://david-dm.org/ipfs/electron-app) [![devDependency Status](https://img.shields.io/david/dev/ipfs/electron-app.svg?style=flat-square)](https://david-dm.org/ipfs/electron-app#info=devDependencies)
 
 > A Native Application for your OS to run your own IPFS Node. Built with [Electron](http://electron.atom.io/).
 
