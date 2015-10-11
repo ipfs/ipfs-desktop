@@ -1,4 +1,5 @@
-import React from 'react/addons'
+import React from 'react'
+import CSSTransitionGroup from 'react-addons-css-transition-group'
 import Radium from 'radium'
 import ipc from 'electron-safe-ipc/guest'
 
@@ -11,8 +12,6 @@ import 'css-box-sizing-border-box/index.css'
 import '../../styles/common.less'
 import '../../styles/fonts.less'
 import '../../styles/animations.less'
-
-const {CSSTransitionGroup} = React.addons
 
 const INTRO = 'intro'
 const INTITIALZING = 'initializing'
@@ -104,7 +103,11 @@ export default class Setup extends React.Component {
 
   render () {
     return (
-      <CSSTransitionGroup transitionName='fade'>
+      <CSSTransitionGroup
+        transitionName='fade'
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={200}
+        >
         {this._getScreen()}
       </CSSTransitionGroup>
     )

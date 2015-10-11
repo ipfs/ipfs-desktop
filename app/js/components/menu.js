@@ -1,4 +1,5 @@
-import React from 'react/addons'
+import React from 'react'
+import CSSTransitionGroup from 'react-addons-css-transition-group'
 import ipc from 'electron-safe-ipc/guest'
 
 import StartScreen from './screens/start'
@@ -6,8 +7,6 @@ import ProfileScreen from './screens/profile'
 import Loader from './loader'
 
 import '../../styles/animations.less'
-
-const {CSSTransitionGroup} = React.addons
 
 const UNINITIALIZED = 'uninitialized'
 const RUNNING = 'running'
@@ -106,7 +105,11 @@ export default class Menu extends React.Component {
 
   render () {
     return (
-      <CSSTransitionGroup transitionName='fade'>
+      <CSSTransitionGroup
+        transitionName='fade'
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={200}
+        >
         {this._getScreen()}
       </CSSTransitionGroup>
     )
