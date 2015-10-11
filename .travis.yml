@@ -1,7 +1,12 @@
 sudo: false
 language: node_js
 node_js:
-  - "0.12"
+  - "4.0"
+
+before-script:
+  # Ensure latest npm
+  - npm update -g npm
 
 script:
   - npm run lint
+  - NODE_ENV=production npm run build
