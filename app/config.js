@@ -63,6 +63,7 @@ const currentURL = name => isProduction ? fileURL(name) : serverURL(name)
 export default {
   menuBar,
   window,
+  isProduction,
   'tray-icon': trayIcon(),
   'webui-path': '/webui',
   'ipfs-path': ipfsPath(),

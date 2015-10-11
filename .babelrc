@@ -1,6 +1,12 @@
 {
   "stage": 0,
   "env": {
+    "production": {
+      "optional": [
+        "utility.inlineEnvironmentVariables",
+        "optimisation"
+      ]
+    },
     "development": {
       "plugins": [
         "react-transform"

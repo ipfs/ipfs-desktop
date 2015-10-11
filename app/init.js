@@ -4,15 +4,18 @@ import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
 import winston from 'winston'
 
-const dialog = require('dialog')
-const BrowserWindow = require('browser-window')
-
-require('electron-debug')()
-require('crash-reporter').start()
-
 import {getLocation} from './helpers'
 import config from './config'
 import dragDrop from './controls/drag-drop'
+
+const dialog = require('dialog')
+const BrowserWindow = require('browser-window')
+
+if (config.isProduction) {
+  require('crash-reporter').start()
+} else {
+  require('electron-debug')()
+}
 
 // Local Variables
 

@@ -1,6 +1,6 @@
 debug.log
 node_modules
 build
-dist
+release
 npm-debug.log
 app.log

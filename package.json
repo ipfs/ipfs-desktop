@@ -67,8 +67,8 @@
     "electron": "node_modules/.bin/electron index.js 2>&1",
     "start": "npm run clean && npm run build:babel && ./node_modules/.bin/concurrent --kill-others \"node dev-server.js\" \"npm run electron\"",
     "lint": "./node_modules/.bin/eslint .",
-    "dist": "npm run build && node pkg.js && npm run clean",
-    "dist-all": "npm run build && node pkg.js --all && npm run clean",
+    "dist": "NODE_ENV=production npm run build && ./pkg.js",
+    "dist-all": "NODE_ENV=production npm run build && ./pkg.js --all",
     "start:prod": "NODE_ENV=production npm run build && NODE_ENV=production npm run electron"
   },
   "pre-commit": [
