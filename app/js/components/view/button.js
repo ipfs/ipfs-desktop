@@ -1,8 +1,8 @@
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
 
 @Radium
-export default class Button extends React.Component {
+export default class Button extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     onClick: PropTypes.func,

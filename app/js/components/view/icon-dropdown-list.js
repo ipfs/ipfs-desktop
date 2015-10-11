@@ -1,11 +1,11 @@
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
 import {DropdownList} from 'react-widgets'
 
 import Icon from './icon'
 
 @Radium
-export default class IconDropdownList extends React.Component {
+export default class IconDropdownList extends Component {
   static propTypes = {
     icon: PropTypes.string.isRequired,
     data: PropTypes.array,

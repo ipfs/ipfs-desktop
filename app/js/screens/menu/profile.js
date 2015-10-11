@@ -1,12 +1,12 @@
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 import FileDrop from 'react-file-drop'
 import ipc from 'electron-safe-ipc/guest'
 import Radium from 'radium'
 
-import SimpleStat from '../simple-stat'
-import IconButton from '../icon-button'
-import Header from '../header'
-import Icon from '../icon'
+import SimpleStat from '../../components/view/simple-stat'
+import IconButton from '../../components/view/icon-button'
+import Header from '../../components/view/header'
+import Icon from '../../components/view/icon'
 
 import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
@@ -15,7 +15,7 @@ import '../../../styles/fonts.less'
 import '../../../styles/file-drop.less'
 
 @Radium
-export default class ProfileScreen extends React.Component {
+export default class ProfileScreen extends Component {
 
   static propTypes = {
     peers: PropTypes.number,

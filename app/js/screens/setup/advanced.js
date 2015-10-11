@@ -1,13 +1,13 @@
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
 
-import Icon from '../../icon'
-import Button from '../../button'
-import DirectoryInput from '../../directory-input'
-import IconDropdownList from '../../icon-dropdown-list'
+import Icon from '../../components/view/icon'
+import Button from '../../components/view/button'
+import DirectoryInput from '../../components/view/directory-input'
+import IconDropdownList from '../../components/view/icon-dropdown-list'
 
 @Radium
-export default class Intro extends React.Component {
+export default class Intro extends Component {
 
   static propTypes = {
     onInstallClick: PropTypes.func,
@@ -31,7 +31,7 @@ export default class Intro extends React.Component {
         display: 'flex',
         width: '100%',
         height: '100%',
-        backgroundImage: `url(${require('../../../../img/jellyfish-blur.png')})`,
+        backgroundImage: `url(${require('../../../img/jellyfish-blur.png')})`,
         backgroundSize: '100%',
         backgroundPosition: '0 0',
         color: '#FFFFFF',

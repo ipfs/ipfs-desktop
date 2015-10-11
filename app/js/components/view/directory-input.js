@@ -1,11 +1,11 @@
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 import ipc from 'electron-safe-ipc/guest'
 import Radium from 'radium'
 
 import Icon from './icon'
 
 @Radium
-export default class DirectoryInput extends React.Component {
+export default class DirectoryInput extends Component {
 
   static propTypes = {
     path: PropTypes.string.isRequired,

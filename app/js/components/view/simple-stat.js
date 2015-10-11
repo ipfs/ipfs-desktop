@@ -1,8 +1,8 @@
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
 
 @Radium
-export default class SimpleStat extends React.Component {
+export default class SimpleStat extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,

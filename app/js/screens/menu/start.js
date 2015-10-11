@@ -1,8 +1,8 @@
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
 
-import Button from '../button'
-import Header from '../header'
+import Button from '../../components/view/button'
+import Header from '../../components/view/header'
 
 import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
@@ -10,7 +10,7 @@ import '../../../styles/common.less'
 import '../../../styles/fonts.less'
 
 @Radium
-export default class StartScreen extends React.Component {
+export default class StartScreen extends Component {
 
   static propTypes = {
     onStartClick: PropTypes.func,

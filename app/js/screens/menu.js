@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import ipc from 'electron-safe-ipc/guest'
 
-import StartScreen from './screens/start'
-import ProfileScreen from './screens/profile'
-import Loader from './loader'
+import StartScreen from './menu/start'
+import ProfileScreen from './menu/profile'
+import Loader from '../components/view/loader'
 
 import '../../styles/animations.less'
 
@@ -13,7 +13,7 @@ const RUNNING = 'running'
 const STARTING = 'starting'
 const STOPPING = 'stopping'
 
-export default class Menu extends React.Component {
+export default class Menu extends Component {
 
   state = {
     status: UNINITIALIZED,

@@ -1,11 +1,11 @@
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
 
 import IconButton from './icon-button'
 import IPFSLogo from './ipfs-logo'
 
 @Radium
-export default class Header extends React.Component {
+export default class Header extends Component {
   static propTypes = {
     onCloseClick: PropTypes.func
   }

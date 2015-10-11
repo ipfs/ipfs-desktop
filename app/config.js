@@ -69,7 +69,6 @@ export default {
   'ipfs-path-file': IPFS_PATH_FILE,
   urls: {
     welcome: currentURL('welcome'),
-    help: currentURL('help'),
     settings: currentURL('settings')
   }
 }

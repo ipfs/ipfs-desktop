@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import Radium from 'radium'
 import ipc from 'electron-safe-ipc/guest'
 
-import Intro from './screens/setup/intro'
-import Advanced from './screens/setup/advanced'
-import Loader from './loader'
+import Intro from './setup/intro'
+import Advanced from './setup/advanced'
+import Loader from '../components/view/loader'
 
 import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
@@ -21,7 +21,7 @@ const ADVANCED = 'advanced'
 const KEY_SIZES = [2048, 4096]
 
 @Radium
-export default class Setup extends React.Component {
+export default class Setup extends Component {
 
   state = {
     status: INTRO,

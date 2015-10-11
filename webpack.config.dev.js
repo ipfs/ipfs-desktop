@@ -15,10 +15,6 @@ module.exports = {
     welcome: [
       'webpack-hot-middleware/client',
       './app/js/welcome'
-    ],
-    help: [
-      'webpack-hot-middleware/client',
-      './app/js/help'
     ]
   },
   output: {
