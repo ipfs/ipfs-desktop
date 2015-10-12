@@ -8,6 +8,7 @@ var assign = require('object-assign')
 var del = require('del')
 var exec = require('child_process').exec
 var argv = require('minimist')(process.argv.slice(2))
+var pkgInfo = require('./package.json')
 
 // Need to customize this list to avoid issues with missing
 // dependencies
@@ -50,6 +51,7 @@ var DEFAULT_OPTS = {
   dir: './',
   name: appName,
   asar: shouldUseAsar,
+  'app-version': pkgInfo.version,
   ignore: [
     '/test($|/)',
     '/tools($|/)',
