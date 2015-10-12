@@ -1,6 +1,6 @@
 {
-  "name": "electron-ipfs",
-  "version": "0.1.1",
+  "name": "ipfs-station",
+  "version": "1.0.0-alpha.0",
   "description": "IPFS Native Application",
   "main": "index.js",
   "dependencies": {
