@@ -1,0 +1,13 @@
+sudo: false
+language: node_js
+node_js:
+  - "4.0"
+
+# Make sure we have a new npm@3
+before_install:
+  - npm install -g npm
+  - npm config set loglevel warn
+
+script:
+  - npm run lint
+  - NODE_ENV=production npm run build

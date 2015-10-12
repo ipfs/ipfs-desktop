@@ -4,65 +4,72 @@
   "description": "IPFS Native Application",
   "main": "index.js",
   "dependencies": {
-    "bootstrap": "3.3.4",
-    "bootstrap-toggle": "2.0.0",
+    "babel-runtime": "^5.8.24",
+    "css-box-sizing-border-box": "^0.1.0",
+    "electron-safe-ipc": "^0.6.1",
     "ipfs-api": "^2.1.5",
-    "ipfs-logo": "0.1.3",
-    "ipfsd-ctl": "0.3.3",
-    "jquery": "2.1.4",
-    "lodash": "3.9.3",
+    "ipfs-geoip": "^1.4.3",
+    "ipfs-logo": "github:ipfs/logo",
+    "ipfsd-ctl": "^0.5.1",
+    "lodash": "^3.10.1",
     "menubar": "^2.1.1",
-    "minimist": "1.1.1",
-    "multiaddr": "0.1.2",
-    "open": "0.0.5",
-    "react": "0.13.1",
-    "silence-chromium": "2.0.0"
+    "minimist": "^1.2.0",
+    "multiaddr": "^1.0.0",
+    "node-notifier": "^4.3.1",
+    "normalize.css": "^3.0.3",
+    "radium": "^0.14.1",
+    "react": "^0.14.0",
+    "react-addons-css-transition-group": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-file-drop": "^0.1.5",
+    "react-widgets": "^3.0.0-beta.0",
+    "winston": "^1.0.2"
   },
   "devDependencies": {
-    "browserify": "10.2.3",
-    "browserify-shim": "3.8.8",
-    "electron-packager": "5.0.1",
-    "electron-prebuilt": "0.30.2",
-    "pre-commit": "1.0.6",
-    "reactify": "1.1.1",
-    "rimraf": "2.3.4",
-    "shelljs": "0.4.0",
-    "standard": "^5.0.0"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim",
-      "reactify"
-    ]
-  },
-  "browser": {
-    "jquery-bf": "./node_modules/jquery/dist/jquery.js",
-    "bootstrap-toggle-bf": "./node_modules/bootstrap-toggle/js/bootstrap2-toggle.js",
-    "bootstrap": "./node_modules/bootstrap/dist/js/bootstrap.js"
-  },
-  "browserify-shim": {
-    "jquery-bf": {
-      "exports": "jQuery"
-    },
-    "bootstrap-toggle-bf": {
-      "depends": [
-        "jquery-bf:jQuery"
-      ]
-    },
-    "bootstrap": {
-      "depends": [
-        "jquery-bf:jQuery"
-      ]
-    }
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.25",
+    "babel-eslint": "^4.1.3",
+    "babel-loader": "^5.3.2",
+    "babel-plugin-react-transform": "^1.0.5",
+    "concurrently": "^0.1.1",
+    "css-loader": "^0.19.0",
+    "electron-debug": "^0.2.1",
+    "electron-packager": "5.1.0",
+    "electron-prebuilt": "^0.33.6",
+    "eslint": "^1.5.0",
+    "eslint-config-standard": "^4.4.0",
+    "eslint-config-standard-react": "^1.1.0",
+    "eslint-plugin-react": "^3.4.2",
+    "eslint-plugin-standard": "^1.3.1",
+    "express": "^4.13.3",
+    "file-loader": "^0.8.4",
+    "less": "^2.5.1",
+    "less-loader": "^2.2.1",
+    "pre-commit": "^1.1.1",
+    "react-transform-catch-errors": "^1.0.0",
+    "react-transform-hmr": "^1.0.0",
+    "redbox-react": "^1.0.5",
+    "rimraf": "^2.4.3",
+    "shelljs": "^0.5.3",
+    "standard": "^5.0.0",
+    "style-loader": "^0.12.4",
+    "webpack": "^1.12.2",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.1.0",
+    "webpack-target-electron-renderer": "^0.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "electron": "./build.sh && node_modules/.bin/electron index.js",
-    "start": "./build.sh && node_modules/.bin/electron index.js 2>&1 | node_modules/.bin/silence-chromium",
-    "lint": "./node_modules/.bin/standard",
-    "clean": "rm -r ./build",
-    "dist": "./build.sh && node pkg.js && npm run clean",
-    "dist-all": "./build.sh && node pkg.js --all && npm run clean"
+    "clean": "./node_modules/.bin/rimraf build && mkdir build",
+    "build:webpack": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.prod.js",
+    "build:babel": "./node_modules/.bin/babel app/config.js -o build/config.js && ./node_modules/.bin/babel app/controls -d build/controls && ./node_modules/.bin/babel app/init.js -o build/init.js && ./node_modules/.bin/babel app/helpers.js -o build/helpers.js",
+    "copy": "cp -r app/views/*.html build/ && cp -r app/img build/img",
+    "build": "npm run clean && npm run build:webpack && npm run build:babel && npm run copy",
+    "electron": "node_modules/.bin/electron index.js 2>&1",
+    "start": "npm run clean && npm run build:babel && ./node_modules/.bin/concurrent --kill-others \"node dev-server.js\" \"npm run electron\"",
+    "lint": "./node_modules/.bin/eslint .",
+    "dist": "NODE_ENV=production npm run build && ./pkg.js",
+    "dist-all": "NODE_ENV=production npm run build && ./pkg.js --all",
+    "start:prod": "NODE_ENV=production npm run build && NODE_ENV=production npm run electron"
   },
   "pre-commit": [
     "lint"

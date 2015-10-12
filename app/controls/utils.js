@@ -1,10 +1,8 @@
-var config = require('./../config.js')
-var multiaddr = require('multiaddr')
+import multiaddr from 'multiaddr'
+import config from './../config'
 
-exports = module.exports
+export function apiAddrToUrl (apiAddr) {
+  const parts = multiaddr(apiAddr).nodeAddress()
 
-exports.apiAddrToUrl = function apiAddrToUrl (apiAddr) {
-  var parts = multiaddr(apiAddr).nodeAddress()
-  var url = 'http://' + parts.address + ':' + parts.port + config['webui-path']
-  return url
+  return `http://${parts.address}:${parts.port}${config['webui-path']}`
 }

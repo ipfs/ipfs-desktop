@@ -1,165 +1,249 @@
-var menubar = require('menubar')
-var BrowserWindow = require('browser-window')
-var fs = require('fs')
-var ipfsd = require('ipfsd-ctl')
-var ipc = require('ipc')
-var config = require('./config')
-var errorPanel = require('./controls/error-panel')
+import menubar from 'menubar'
+import fs from 'fs'
+import ipfsd from 'ipfsd-ctl'
+import {join} from 'path'
+import winston from 'winston'
 
-// only place where app is used directly
-var IPFS
+import {getLocation} from './helpers'
+import config from './config'
+import dragDrop from './controls/drag-drop'
 
-exports = module.exports = init
+const dialog = require('dialog')
+const BrowserWindow = require('browser-window')
 
-function init () {
+if (config.isProduction) {
+  require('crash-reporter').start()
+} else {
+  require('electron-debug')()
+}
 
-  // main entry point
-  ipfsd.local(function (err, node) {
-    if (err) {
-      errorPanel(err)
+// Local Variables
+
+let IPFS
+let ipc
+let poll
+let mb
+const statsCache = {}
+
+// Setup Logging
+const logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)({
+      handleExceptions: true,
+      humanReadableUnhandledException: true
+    }),
+    new (winston.transports.File)({
+      filename: join(__dirname, '..', 'app.log'),
+      handleExceptions: true,
+      humanReadableUnhandledException: true
+    })
+  ]
+})
+
+function pollStats (ipfs) {
+  ipfs.swarm.peers((err, res) => {
+    if (err) throw err
+
+    statsCache.peers = res.Strings.length
+    ipc.send('stats', statsCache)
+  })
+
+  ipfs.id((err, peer) => {
+    if (err) throw err
+
+    getLocation(ipfs, peer.Addresses, (err, location) => {
+      if (err) throw err
+      statsCache.location = location && location.formatted
+      ipc.send('stats', statsCache)
+    })
+  })
+}
+
+function onRequestState (node, event) {
+  ipfsd.version((err, res) => {
+    if (err) throw err
+    ipc.send('version', res)
+  })
+
+  if (node.initialized) {
+    let status = 'stopped'
+
+    if (node.daemonPid()) {
+      status = 'running'
     }
 
-    var mb = menubar({
-      dir: __dirname,
-      width: config['menu-bar-width'],
-      index: 'file://' + __dirname + '/views/menubar.html',
-      icon: config['tray-icon']
+    ipc.send('node-status', status)
+  }
+}
+
+function onStartDaemon (node) {
+  ipc.send('node-status', 'starting')
+  node.startDaemon(function (err, ipfsNode) {
+    if (err) throw err
+    ipc.send('node-status', 'running')
+
+    poll = setInterval(() => {
+      if (mb.window && mb.window.isVisible()) {
+        pollStats(ipfsNode)
+      }
+    }, 1000)
+
+    // Get initial stats
+    pollStats(ipfsNode)
+
+    IPFS = ipfsNode
+  })
+}
+
+function onStopDaemon (node, done = () => {}) {
+  logger.info('Stopping daemon')
+
+  ipc.send('node-status', 'stopping')
+  if (poll) {
+    delete statsCache.peers
+    ipc.send('stats', statsCache)
+    clearInterval(poll)
+    poll = null
+  }
+
+  node.stopDaemon(err => {
+    if (err) return logger.error(err.stack)
+
+    logger.info('Stopped daemon')
+
+    IPFS = null
+    ipc.send('node-status', 'stopped')
+    ipc.send('stats', statsCache)
+    done()
+  })
+}
+
+function onCloseWindow () {
+  mb.window.hide()
+}
+
+function onWillQuit (node, event) {
+  logger.info('Shutting down application')
+
+  if (IPFS == null) return
+
+  // Try waiting for the daemon to properly shut down
+  // before we actually quit
+
+  event.preventDefault()
+
+  const quit = mb.app.quit.bind(mb.app)
+  onStopDaemon(node, quit)
+  setTimeout(quit, 1000)
+}
+
+function startTray (node) {
+  ipc.on('request-state', onRequestState.bind(null, node))
+  ipc.on('start-daemon', onStartDaemon.bind(null, node))
+  ipc.on('stop-daemon', onStopDaemon.bind(null, node))
+  ipc.on('drop-files', dragDrop)
+  ipc.on('close-tray-window', onCloseWindow)
+
+  mb.app.once('will-quit', onWillQuit.bind(null, node))
+}
+
+// Initalize a new IPFS node
+function initialize (path, node) {
+  const welcomeWindow = new BrowserWindow(config.window)
+
+  welcomeWindow.loadUrl(config.urls.welcome)
+  welcomeWindow.webContents.on('did-finish-load', () => {
+    ipc.send('setup-config-path', path)
+  })
+
+  // Close the application if the welcome dialog is canceled
+  welcomeWindow.once('close', () => {
+    if (!node.initialized) mb.app.quit()
+  })
+
+  let userPath = path
+
+  ipc.on('setup-browse-path', () => {
+    dialog.showOpenDialog(welcomeWindow, {
+      title: 'Select a directory',
+      defaultPath: path,
+      properties: [
+        'openDirectory',
+        'createDirectory'
+      ]
+    }, res => {
+      if (!res) return
+
+      userPath = res[0]
+
+      if (!userPath.match(/.ipfs\/?$/)) {
+        userPath = join(userPath, '.ipfs')
+      }
+
+      ipc.send('setup-config-path', userPath)
     })
+  })
 
-    mb.on('ready', function () {
+  // wait for msg from frontend
+  ipc.on('initialize', ({keySize}) => {
+    logger.info('Initializing new node with key size: %s in %s.', keySize, userPath)
 
-      // listen for global shortcuts events
-      require('./controls/shortcuts')
+    ipc.send('initializing')
+    node.init({
+      directory: userPath,
+      keySize
+    }, (err, res) => {
+      if (err) return ipc.send('initialization-error', err + '')
+
+      fs.writeFileSync(config['ipfs-path-file'], path)
+
+      ipc.send('initialization-complete')
+      ipc.send('node-status', 'stopped')
+
+      welcomeWindow.close()
+      onStartDaemon(node)
+      mb.showWindow()
+    })
+  })
+}
+
+export function getIPFS () {
+  return IPFS
+}
+
+export {logger}
+
+export function start () {
+  // main entry point
+  ipfsd.local((err, node) => {
+    if (err) return logger.error(err)
+
+    mb = menubar(config.menuBar)
+
+    mb.on('ready', () => {
+      logger.info('Application is ready')
+
+      // Safe ipc calls
+      ipc = require('electron-safe-ipc/host')
+
+      // -- load the controls
+      require('./controls/open-browser')
+      require('./controls/open-console')
+      require('./controls/open-settings')
 
       // tray actions
 
       mb.tray.on('drop-files', dragDrop)
-      mb.tray.on('click', altMenu)
+      mb.tray.setHighlightMode(true)
 
       startTray(node)
 
       if (!node.initialized) {
         initialize(config['ipfs-path'], node)
+      } else {
+        // Start up the daemon
+        onStartDaemon(node)
       }
-
-      // keep the menu the right size
-      ipc.on('menu-height', function (height) {
-        mb.window.setSize(config['menu-bar-width'], height)
-      })
     })
-
-    var startTray = function (node) {
-      var poll
-      var statsCache = {}
-
-      ipc.on('request-state', function (event) {
-        ipfsd.version(function (err, res) {
-          if (err) {
-            throw err
-          }
-          ipc.emit('version', res)
-        })
-
-        if (node.initialized) {
-          ipc.emit('node-status', 'stopped')
-        }
-      })
-
-      ipc.on('start-daemon', function () {
-        ipc.emit('node-status', 'starting')
-        node.startDaemon(function (err, ipfsNode) {
-          if (err) {
-            throw err
-          }
-          ipc.emit('node-status', 'running')
-
-          poll = setInterval(function () {
-            if (mb.window.isVisible()) {
-              pollStats(ipfsNode)
-            }
-          }, 1000)
-
-          IPFS = ipfsNode
-        })
-      })
-
-      ipc.on('stop-daemon', function () {
-        ipc.emit('node-status', 'stopping')
-        if (poll) {
-          delete statsCache.peers
-          ipc.emit('stats', statsCache)
-          clearInterval(poll)
-          poll = null
-        }
-
-        node.stopDaemon(function (err) {
-          if (err) {
-            throw err
-          }
-          IPFS = null
-          ipc.emit('node-status', 'stopped')
-          ipc.emit('stats', statsCache)
-        })
-      })
-
-      ipc.on('shutdown', function () {
-        if (IPFS) {
-          ipc.emit('stop-daemon')
-          ipc.once('node-status', function (status) {
-            process.exit(0)
-          })
-        } else {
-          process.exit(0)
-        }
-      })
-
-      var pollStats = function (ipfs) {
-        ipfs.swarm.peers(function (err, res) {
-          if (err) {
-            throw err
-          }
-          statsCache.peers = res.Strings.length
-          ipc.emit('stats', statsCache)
-        })
-      }
-    }
   })
-
-  // Initalize a new IPFS node
-
-  function initialize (path, node) {
-    var welcomeWindow = new BrowserWindow(config.window)
-
-    welcomeWindow.loadUrl('file://' + __dirname + '/views/welcome.html')
-
-    welcomeWindow.webContents.on('did-finish-load', function () {
-      ipc.emit('default-directory', path)
-    })
-
-    // wait for msg from frontend
-    ipc.on('initialize', function (opts) {
-      ipc.emit('initializing')
-      node.init(opts, function (err, res) {
-        if (err) {
-          ipc.emit('initialization-error', err + '')
-        } else {
-          ipc.emit('initialization-complete')
-          ipc.emit('node-status', 'stopped')
-          fs.writeFileSync(config['ipfs-path-file'], path)
-        }
-      })
-    })
-  }
 }
-
-exports.getIPFS = function () {
-  return IPFS
-}
-
-// -- load the controls
-
-var dragDrop = require('./controls/drag-drop')
-var altMenu = require('./controls/alt-menu')
-require('./controls/open-browser')
-require('./controls/open-console')
-require('./controls/open-settings')
