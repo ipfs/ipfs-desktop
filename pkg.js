@@ -43,7 +43,7 @@ var ignoreDeps = [
   'webpack-target-electron-renderer'
 ]
 
-var appName = argv.name || argv.n || 'IPFS'
+var appName = argv.name || argv.n || 'Station'
 var shouldUseAsar = argv.asar || argv.a || false
 var shouldBuildAll = argv.all || false
 
