@@ -20,6 +20,7 @@ var logger = new (winston.Logger)({
 
 process.on('uncaughtException', function (error) {
   logger.error('Uncaught Exception', error)
+  process.exit(1)
 })
 
 // This ensures that there is only one instance of our application.
