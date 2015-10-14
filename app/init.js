@@ -2,7 +2,6 @@ import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
-import winston from 'winston'
 
 import {getLocation} from './helpers'
 import config from './config'
@@ -23,22 +22,8 @@ let IPFS
 let ipc
 let poll
 let mb
+let logger
 const statsCache = {}
-
-// Setup Logging
-const logger = new (winston.Logger)({
-  transports: [
-    new (winston.transports.Console)({
-      handleExceptions: true,
-      humanReadableUnhandledException: true
-    }),
-    new (winston.transports.File)({
-      filename: join(__dirname, '..', 'app.log'),
-      handleExceptions: true,
-      humanReadableUnhandledException: true
-    })
-  ]
-})
 
 function pollStats (ipfs) {
   ipfs.swarm.peers((err, res) => {
@@ -213,7 +198,9 @@ export function getIPFS () {
 
 export {logger}
 
-export function start () {
+export function boot (lokker) {
+  logger = lokker
+
   // main entry point
   ipfsd.local((err, node) => {
     if (err) return logger.error(err)
@@ -246,4 +233,11 @@ export function start () {
       }
     })
   })
+}
+
+export function reboot () {
+  dialog.showErrorBox(
+    'Multiple instances',
+    'Sorry, but there can be only one instance of Station running at the same time.'
+  )
 }
