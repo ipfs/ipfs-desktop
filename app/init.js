@@ -123,6 +123,8 @@ function onWillQuit (node, event) {
 }
 
 function startTray (node) {
+  logger.info('Starting tray')
+
   ipc.on('request-state', onRequestState.bind(null, node))
   ipc.on('start-daemon', onStartDaemon.bind(null, node))
   ipc.on('stop-daemon', onStopDaemon.bind(null, node))
@@ -134,6 +136,8 @@ function startTray (node) {
 
 // Initalize a new IPFS node
 function initialize (path, node) {
+  logger.info('Initialzing new node')
+
   const welcomeWindow = new BrowserWindow(config.window)
 
   welcomeWindow.loadUrl(config.urls.welcome)
@@ -236,6 +240,7 @@ export function boot (lokker) {
 }
 
 export function reboot () {
+  logger.error('Trying to start a second instance')
   dialog.showErrorBox(
     'Multiple instances',
     'Sorry, but there can be only one instance of Station running at the same time.'

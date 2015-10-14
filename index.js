@@ -1,3 +1,5 @@
+require('long-stack-traces')
+
 var mono = require('monogamous')
 var winston = require('winston')
 var path = require('path')
@@ -7,15 +9,17 @@ var init = require('./build/init')
 var logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)({
-      handleExceptions: true,
-      humanReadableUnhandledException: true
+      handleExceptions: false
     }),
     new (winston.transports.File)({
       filename: path.join(__dirname, '..', 'app.log'),
-      handleExceptions: true,
-      humanReadableUnhandledException: true
+      handleExceptions: false
     })
   ]
+})
+
+process.on('uncaughtException', function (error) {
+  logger.error('Uncaught Exception', error)
 })
 
 // This ensures that there is only one instance of our application.
@@ -27,4 +31,5 @@ booter.on('error', function (err) {
   logger.error(err)
 })
 
+logger.info('Booting')
 booter.boot()
