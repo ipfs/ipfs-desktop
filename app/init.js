@@ -2,7 +2,6 @@ import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
-import winston from 'winston'
 
 import {getLocation} from './helpers'
 import config from './config'
@@ -23,22 +22,8 @@ let IPFS
 let ipc
 let poll
 let mb
+let logger
 const statsCache = {}
-
-// Setup Logging
-const logger = new (winston.Logger)({
-  transports: [
-    new (winston.transports.Console)({
-      handleExceptions: true,
-      humanReadableUnhandledException: true
-    }),
-    new (winston.transports.File)({
-      filename: join(__dirname, '..', 'app.log'),
-      handleExceptions: true,
-      humanReadableUnhandledException: true
-    })
-  ]
-})
 
 function pollStats (ipfs) {
   ipfs.swarm.peers((err, res) => {
@@ -138,6 +123,8 @@ function onWillQuit (node, event) {
 }
 
 function startTray (node) {
+  logger.info('Starting tray')
+
   ipc.on('request-state', onRequestState.bind(null, node))
   ipc.on('start-daemon', onStartDaemon.bind(null, node))
   ipc.on('stop-daemon', onStopDaemon.bind(null, node))
@@ -149,6 +136,8 @@ function startTray (node) {
 
 // Initalize a new IPFS node
 function initialize (path, node) {
+  logger.info('Initialzing new node')
+
   const welcomeWindow = new BrowserWindow(config.window)
 
   welcomeWindow.loadUrl(config.urls.welcome)
@@ -213,7 +202,9 @@ export function getIPFS () {
 
 export {logger}
 
-export function start () {
+export function boot (lokker) {
+  logger = lokker
+
   // main entry point
   ipfsd.local((err, node) => {
     if (err) return logger.error(err)
@@ -246,4 +237,12 @@ export function start () {
       }
     })
   })
+}
+
+export function reboot () {
+  logger.error('Trying to start a second instance')
+  dialog.showErrorBox(
+    'Multiple instances',
+    'Sorry, but there can be only one instance of Station running at the same time.'
+  )
 }
