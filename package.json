@@ -95,7 +95,8 @@
   "authors": [
     "Kristoffer Ström <kristoffer@rymdkoloni.se>",
     "David Dias <daviddias@ipfs.io>",
-    "Juan Benet <juan@ipfs.io>"
+    "Juan Benet <juan@ipfs.io>",
+    "Friedel Ziegelmayer <dignifiedquire@gmail.com>"
   ],
   "license": "MIT",
   "bugs": {
