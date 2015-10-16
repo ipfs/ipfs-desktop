@@ -73,7 +73,7 @@
     "dist": "NODE_ENV=production npm run build && ./pkg.js",
     "dist-all": "NODE_ENV=production npm run build && ./pkg.js --all",
     "start:prod": "NODE_ENV=production npm run build && NODE_ENV=production npm run electron",
-    "changelog": "node_modules/.bin/conventional-changelog -p angular CHANGELOG.md -w"
+    "changelog": "node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -w"
   },
   "pre-commit": [
     "lint"
