@@ -22,25 +22,3 @@ $ npm start
 This launches the app and runs it in your menu bar. Click the IPFS icon to open a console. For example (in OSX):
 
 ![](https://ipfs.io/ipfs/QmaufMhYVWPKwhC1jSb4qHBxgiahrq9ct2hgqk5cZxeE7s)
-
-## Tasks
-
-```bash
-$ npm run clean         # Clean the build directory
-$ npm run start         # Start a development instance
-$ npm run lint          # Run linting on all files
-$ npm run dist          # Create a package for the current platform
-$ npm run dist-all      # Create a package for all platforms
-$ npm run start:prod    # Start a packaged instance
-```
-
-## Packaging
-
-Th output will be written to the `dist` folder.
-
-```bash
-# Package for your current platform
-$ npm run dist
-# Package for all platforms
-$ npm run dist-all
-```
