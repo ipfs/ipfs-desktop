@@ -34,6 +34,7 @@
     "babel-loader": "^5.3.2",
     "babel-plugin-react-transform": "^1.0.5",
     "concurrently": "^0.1.1",
+    "conventional-changelog": "^0.5.0",
     "css-loader": "^0.19.0",
     "electron-debug": "^0.2.1",
     "electron-packager": "5.1.0",
@@ -71,7 +72,8 @@
     "lint": "./node_modules/.bin/eslint .",
     "dist": "NODE_ENV=production npm run build && ./pkg.js",
     "dist-all": "NODE_ENV=production npm run build && ./pkg.js --all",
-    "start:prod": "NODE_ENV=production npm run build && NODE_ENV=production npm run electron"
+    "start:prod": "NODE_ENV=production npm run build && NODE_ENV=production npm run electron",
+    "changelog": "node_modules/.bin/conventional-changelog -p angular CHANGELOG.md -w"
   },
   "pre-commit": [
     "lint"
