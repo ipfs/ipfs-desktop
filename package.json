@@ -36,7 +36,7 @@
     "concurrently": "^0.1.1",
     "conventional-changelog": "^0.5.0",
     "conventional-github-releaser": "^0.5.0",
-    "css-loader": "^0.19.0",
+    "css-loader": "^0.20.0",
     "electron-debug": "^0.2.1",
     "electron-packager": "5.1.0",
     "electron-prebuilt": "^0.34.0",
