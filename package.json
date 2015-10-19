@@ -56,7 +56,7 @@
     "rimraf": "^2.4.3",
     "shelljs": "^0.5.3",
     "standard": "^5.0.0",
-    "style-loader": "^0.12.4",
+    "style-loader": "^0.13.0",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.1.0",
