@@ -90,7 +90,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ipfs/electron-app"
+    "url": "https://github.com/ipfs/station"
   },
   "authors": [
     "Kristoffer Ström <kristoffer@rymdkoloni.se>",
@@ -100,7 +100,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ipfs/electron-app/issues"
+    "url": "https://github.com/ipfs/station/issues"
   },
-  "homepage": "https://github.com/ipfs/electron-app"
+  "homepage": "https://github.com/ipfs/station"
 }
