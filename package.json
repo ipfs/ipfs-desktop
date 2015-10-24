@@ -63,19 +63,22 @@
     "webpack-target-electron-renderer": "^0.1.0"
   },
   "scripts": {
-    "clean": "./node_modules/.bin/rimraf build && mkdir build",
-    "build:webpack": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.prod.js",
-    "build:babel": "./node_modules/.bin/babel app/config.js -o build/config.js && ./node_modules/.bin/babel app/controls -d build/controls && ./node_modules/.bin/babel app/init.js -o build/init.js && ./node_modules/.bin/babel app/helpers.js -o build/helpers.js",
+    "clean": "rimraf build && mkdir build",
+    "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build:babel": "babel app/config.js -o build/config.js && babel app/controls -d build/controls && babel app/init.js -o build/init.js && babel app/helpers.js -o build/helpers.js",
     "copy": "cp -r app/views/*.html build/ && cp -r app/img build/img",
     "build": "npm run clean && npm run build:webpack && npm run build:babel && npm run copy",
-    "electron": "node_modules/.bin/electron index.js",
-    "start": "npm run clean && npm run build:babel && ./node_modules/.bin/concurrent --kill-others \"node dev-server.js\" \"npm run electron\"",
-    "lint": "./node_modules/.bin/eslint .",
+    "electron": "electron index.js",
+    "prestart": "npm run clean && npm run build:babel",
+    "start": "concurrent --kill-others 'node dev-server.js' 'npm run electron'",
+    "test": "npm run lint",
+    "lint": "eslint .",
     "dist": "NODE_ENV=production npm run build && ./pkg.js",
     "dist-all": "NODE_ENV=production npm run build && ./pkg.js --all",
-    "start:prod": "NODE_ENV=production npm run build && NODE_ENV=production npm run electron",
-    "changelog": "node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -w",
-    "changelog:github": "node_modules/.bin/conventional-github-releaser -p angular"
+    "prestart:prod": "NODE_ENV=production npm run build",
+    "start:prod": "NODE_ENV=production npm run electron",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w",
+    "changelog:github": "conventional-github-releaser -p angular"
   },
   "pre-commit": [
     "lint"
