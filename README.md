@@ -10,7 +10,7 @@
 
 ## Setup
 
-You will need [Node.js](https://nodejs.org/en/) installed. Preferrably a version `>=4.0`. Also you will need [npm](npmjs.org). After that you should run
+You will need [Node.js](https://nodejs.org/en/) installed. Preferrably a version `>=4.0`. Also you will need [npm](npmjs.org) `>=3.0`. After that you should run
 
 ```bash
 $ git clone git@github.com:ipfs/station.git
