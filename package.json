@@ -25,7 +25,7 @@
     "react-dom": "^0.14.0",
     "react-file-drop": "^0.1.5",
     "react-widgets": "^3.0.0-beta.0",
-    "winston": "^1.0.2"
+    "winston": "^2.1.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",
