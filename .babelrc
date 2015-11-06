@@ -1,8 +1,5 @@
 {
-  "presets": [
-    "stage-0",
-    "react"
-  ],
+  "stage": 0,
   "env": {
     "production": {
       "optional": [
