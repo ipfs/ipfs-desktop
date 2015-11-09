@@ -8,7 +8,7 @@
     "css-box-sizing-border-box": "^0.1.0",
     "electron-safe-ipc": "^0.6.1",
     "ipfs-api": "^2.1.5",
-    "ipfs-geoip": "^1.4.3",
+    "ipfs-geoip": "^1.4.4",
     "ipfs-logo": "github:ipfs/logo",
     "ipfsd-ctl": "^0.6.1",
     "lodash": "^3.10.1",
@@ -64,7 +64,7 @@
   "scripts": {
     "clean": "rimraf build && mkdir build",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
-    "build:babel": "babel app/config.js -o build/config.js && babel app/controls -d build/controls && babel app/init.js -o build/init.js && babel app/helpers.js -o build/helpers.js",
+    "build:babel": "babel app/config.js -o build/config.js && babel app/controls -d build/controls && babel app/init.js -o build/init.js",
     "copy": "cp -r app/views/*.html build/ && cp -r app/img build/img",
     "build": "npm run clean && npm run build:webpack && npm run build:babel && npm run copy",
     "electron": "electron index.js",

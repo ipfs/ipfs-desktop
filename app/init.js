@@ -2,8 +2,8 @@ import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
+import {lookupPretty} from 'ipfs-geoip'
 
-import {getLocation} from './helpers'
 import config from './config'
 import dragDrop from './controls/drag-drop'
 
@@ -36,7 +36,7 @@ function pollStats (ipfs) {
   ipfs.id((err, peer) => {
     if (err) throw err
 
-    getLocation(ipfs, peer.Addresses, (err, location) => {
+    lookupPretty(ipfs, peer.Addresses, (err, location) => {
       if (err) throw err
       statsCache.location = location && location.formatted
       ipc.send('stats', statsCache)
