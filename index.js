@@ -1,5 +1,3 @@
-require('long-stack-traces')
-
 var mono = require('monogamous')
 var winston = require('winston')
 var path = require('path')
