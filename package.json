@@ -18,7 +18,7 @@
     "multiaddr": "^1.0.0",
     "node-notifier": "^4.3.1",
     "normalize.css": "^3.0.3",
-    "radium": "^0.14.1",
+    "radium": "^0.15.0",
     "react": "^0.14.0",
     "react-addons-css-transition-group": "^0.14.0",
     "react-dom": "^0.14.0",
