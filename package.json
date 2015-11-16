@@ -38,7 +38,7 @@
     "css-loader": "^0.22.0",
     "electron-debug": "^0.4.0",
     "electron-packager": "5.1.1",
-    "electron-prebuilt": "^0.34.0",
+    "electron-prebuilt": "^0.35.0",
     "eslint": "1.8.0",
     "eslint-config-standard": "^4.4.0",
     "eslint-config-standard-react": "^1.1.0",
