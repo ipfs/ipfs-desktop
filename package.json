@@ -12,7 +12,7 @@
     "ipfs-logo": "github:ipfs/logo",
     "ipfsd-ctl": "^0.6.1",
     "lodash": "^3.10.1",
-    "menubar": "^2.1.1",
+    "menubar": "^3.0.0",
     "minimist": "^1.2.0",
     "monogamous": "^1.0.3",
     "multiaddr": "^1.0.0",
