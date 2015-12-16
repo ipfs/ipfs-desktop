@@ -37,7 +37,7 @@
     "conventional-github-releaser": "^0.5.0",
     "css-loader": "^0.22.0",
     "electron-debug": "^0.5.0",
-    "electron-packager": "5.1.1",
+    "electron-packager": "5.2.0",
     "electron-prebuilt": "^0.36.0",
     "eslint": "1.10.3",
     "eslint-config-standard": "^4.4.0",
