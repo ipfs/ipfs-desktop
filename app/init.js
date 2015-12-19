@@ -140,7 +140,7 @@ function initialize (path, node) {
 
   const welcomeWindow = new BrowserWindow(config.window)
 
-  welcomeWindow.loadUrl(config.urls.welcome)
+  welcomeWindow.loadURL(config.urls.welcome)
   welcomeWindow.webContents.on('did-finish-load', () => {
     ipc.send('setup-config-path', path)
   })

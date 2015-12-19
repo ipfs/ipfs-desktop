@@ -32,7 +32,7 @@ module.exports = {
       loader: 'babel',
       include: path.join(__dirname, 'app'),
       query: {
-        optional: ['runtime']
+        plugins: ['transform-runtime']
       }
     }, {
       test: /\.css$/,

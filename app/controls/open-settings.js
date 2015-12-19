@@ -6,7 +6,7 @@ const BrowserWindow = require('browser-window')
 function openSettings () {
   const settingsWindow = new BrowserWindow(config.window)
 
-  settingsWindow.loadUrl(config.urls.settings)
+  settingsWindow.loadURL(config.urls.settings)
 
   settingsWindow.webContents.on('did-finish-load', () => {})
 }
