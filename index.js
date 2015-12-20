@@ -1,6 +1,5 @@
 'use strict'
 
-const mono = require('monogamous')
 const winston = require('winston')
 const path = require('path')
 const init = require('./build/init')
@@ -24,14 +23,4 @@ process.on('uncaughtException', error => {
   process.exit(1)
 })
 
-// This ensures that there is only one instance of our application.
-const booter = mono({sock: 'station'}, {})
-
-booter.on('boot', init.boot.bind(init, logger))
-booter.on('reboot', init.reboot.bind(init))
-booter.on('error', error => {
-  logger.error(error)
-})
-
-logger.info('Booting')
-booter.boot()
+init.boot(logger)

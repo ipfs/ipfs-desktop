@@ -2,7 +2,7 @@ import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
-import {lookupPretty} from 'ipfs-geoip'
+// import {lookupPretty} from 'ipfs-geoip'
 
 import config from './config'
 import dragDrop from './controls/drag-drop'
@@ -13,6 +13,7 @@ const BrowserWindow = require('browser-window')
 if (config.isProduction) {
   require('crash-reporter').start()
 } else {
+  require('longjohn')
   require('electron-debug')()
 }
 
@@ -36,11 +37,11 @@ function pollStats (ipfs) {
   ipfs.id((err, peer) => {
     if (err) throw err
 
-    lookupPretty(ipfs, peer.Addresses, (err, location) => {
-      if (err) throw err
-      statsCache.location = location && location.formatted
-      ipc.send('stats', statsCache)
-    })
+    // lookupPretty(ipfs, peer.Addresses, (err, location) => {
+    //   if (err) throw err
+    //   statsCache.location = location && location.formatted
+    //   ipc.send('stats', statsCache)
+    // })
   })
 }
 
@@ -196,6 +197,14 @@ function initialize (path, node) {
   })
 }
 
+function reboot () {
+  logger.error('Trying to start a second instance')
+  dialog.showErrorBox(
+    'Multiple instances',
+    'Sorry, but there can be only one instance of Station running at the same time.'
+  )
+}
+
 export function getIPFS () {
   return IPFS
 }
@@ -210,6 +219,9 @@ export function boot (lokker) {
     if (err) return logger.error(err)
 
     mb = menubar(config.menuBar)
+
+    // Ensure single instance
+    mb.app.makeSingleInstance(reboot)
 
     mb.on('ready', () => {
       logger.info('Application is ready')
@@ -237,12 +249,4 @@ export function boot (lokker) {
       }
     })
   })
-}
-
-export function reboot () {
-  logger.error('Trying to start a second instance')
-  dialog.showErrorBox(
-    'Multiple instances',
-    'Sorry, but there can be only one instance of Station running at the same time.'
-  )
 }

@@ -4487,6 +4487,23 @@
       "from": "longest@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/longest/-/longest-1.0.1.tgz"
     },
+    "longjohn": {
+      "version": "0.2.11",
+      "from": "longjohn@latest",
+      "resolved": "https://registry.npmjs.org/longjohn/-/longjohn-0.2.11.tgz",
+      "dependencies": {
+        "source-map": {
+          "version": "0.1.32",
+          "from": "source-map@0.1.32",
+          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.32.tgz"
+        },
+        "source-map-support": {
+          "version": "0.3.2",
+          "from": "source-map-support@0.3.2",
+          "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.3.2.tgz"
+        }
+      }
+    },
     "loose-envify": {
       "version": "1.1.0",
       "from": "loose-envify@>=1.0.0 <2.0.0",
@@ -4655,18 +4672,6 @@
       "version": "1.0.0",
       "from": "modify-values@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/modify-values/-/modify-values-1.0.0.tgz"
-    },
-    "monogamous": {
-      "version": "1.0.3",
-      "from": "monogamous@>=1.0.3 <2.0.0",
-      "resolved": "https://registry.npmjs.org/monogamous/-/monogamous-1.0.3.tgz",
-      "dependencies": {
-        "minimist": {
-          "version": "1.2.0",
-          "from": "minimist@>=1.2.0 <2.0.0",
-          "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz"
-        }
-      }
     },
     "mout": {
       "version": "0.11.1",
@@ -5983,17 +5988,6 @@
       "from": "stackframe@>=0.3.1 <0.4.0",
       "resolved": "https://registry.npmjs.org/stackframe/-/stackframe-0.3.1.tgz"
     },
-    "stampit": {
-      "version": "2.1.1",
-      "from": "stampit@>=2.1.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/stampit/-/stampit-2.1.1.tgz",
-      "dependencies": {
-        "lodash": {
-          "version": "3.10.1",
-          "from": "lodash@>=3.9.1 <4.0.0"
-        }
-      }
-    },
     "standard": {
       "version": "5.4.1",
       "from": "standard@5.4.1",
@@ -6206,17 +6200,6 @@
       "version": "0.1.0",
       "from": "success-symbol@>=0.1.0 <0.2.0",
       "resolved": "https://registry.npmjs.org/success-symbol/-/success-symbol-0.1.0.tgz"
-    },
-    "supermixer": {
-      "version": "1.0.2",
-      "from": "supermixer@>=1.0.2 <2.0.0",
-      "resolved": "https://registry.npmjs.org/supermixer/-/supermixer-1.0.2.tgz",
-      "dependencies": {
-        "lodash": {
-          "version": "3.10.1",
-          "from": "lodash@>=3.8.0 <4.0.0"
-        }
-      }
     },
     "supports-color": {
       "version": "2.0.0",
