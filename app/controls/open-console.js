@@ -13,7 +13,7 @@ function openConsole () {
       }
 
       const consoleWindow = new BrowserWindow(config.window)
-      consoleWindow.loadUrl(apiAddrToUrl(res.Value))
+      consoleWindow.loadURL(apiAddrToUrl(res.Value))
     })
   } else {
     // TODO() error should be emited to a error panel

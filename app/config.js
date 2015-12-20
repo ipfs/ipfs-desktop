@@ -5,7 +5,7 @@ import fs from 'fs'
 const app = require('app')
 
 const isProduction = process.env.NODE_ENV === 'production'
-const IPFS_PATH_FILE = app.getDataPath() + '/ipfs-electron-app-node-path'
+const IPFS_PATH_FILE = path.join(app.getPath('appData'), '4ipfs-electron-app-node-path')
 
 const trayIcon = () => {
   if (os.platform() !== 'darwin') {
