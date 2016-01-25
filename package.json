@@ -11,7 +11,7 @@
     "ipfs-api": "^2.7.0",
     "ipfs-geoip": "^1.4.4",
     "ipfs-logo": "github:ipfs/logo",
-    "ipfsd-ctl": "^0.7.1",
+    "ipfsd-ctl": "^0.8.0",
     "lodash": "^3.10.1",
     "menubar": "^3.0.0",
     "minimist": "^1.2.0",
