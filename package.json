@@ -13,7 +13,7 @@
     "ipfs-logo": "github:ipfs/logo",
     "ipfsd-ctl": "^0.8.0",
     "lodash": "^3.10.1",
-    "menubar": "^3.0.0",
+    "menubar": "^4.0.0",
     "minimist": "^1.2.0",
     "multiaddr": "^1.0.0",
     "node-notifier": "^4.3.1",
