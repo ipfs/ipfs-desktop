@@ -40,7 +40,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "concurrently": "^1.0.0",
     "conventional-changelog": "^0.5.0",
-    "conventional-github-releaser": "^0.5.0",
+    "conventional-github-releaser": "^1.0.0",
     "css-loader": "^0.23.0",
     "electron-debug": "^0.5.0",
     "electron-packager": "5.2.1",
