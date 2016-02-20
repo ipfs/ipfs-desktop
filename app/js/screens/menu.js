@@ -24,15 +24,15 @@ export default class Menu extends Component {
 
   // -- Event Listeners
 
-  _onVersion = arg => {
+  _onVersion = (arg) => {
     this.setState({version: arg})
   }
 
-  _onNodeStatus = status => {
+  _onNodeStatus = (status) => {
     this.setState({status: status})
   }
 
-  _onStats = stats => {
+  _onStats = (stats) => {
     this.setState({stats: stats})
   }
 

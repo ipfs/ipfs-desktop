@@ -45,7 +45,7 @@ export default function dragDrop (event, files) {
 
     logger.info('Uploading files', {files})
 
-    res.forEach(file => {
+    res.forEach((file) => {
       const url = `https://ipfs.io/ipfs/${file.Hash}`
       clipboard.writeText(url)
       filesUploaded.push(file)

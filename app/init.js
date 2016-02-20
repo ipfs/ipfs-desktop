@@ -92,7 +92,7 @@ function onStopDaemon (node, done = () => {}) {
     poll = null
   }
 
-  node.stopDaemon(err => {
+  node.stopDaemon((err) => {
     if (err) return logger.error(err.stack)
 
     logger.info('Stopped daemon')
@@ -161,7 +161,7 @@ function initialize (path, node) {
         'openDirectory',
         'createDirectory'
       ]
-    }, res => {
+    }, (res) => {
       if (!res) return
 
       userPath = res[0]

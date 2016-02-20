@@ -51,16 +51,15 @@ export default class StartScreen extends Component {
         <Header onCloseClick={this.props.onCloseClick} />
         <div style={styles.content}>
           <image
-           src={require('../../../img/offline-icon.png')}
-           width='64'
-           height='64'
-           style={{margin: '0 auto'}}
-          />
-        <div style={styles.text}>
-          Oh snap, it looks like your node<br/>
-          is not running yet. Let’s change<br/>
-          that by clicking that button
-        </div>
+            src={require('../../../img/offline-icon.png')}
+            width='64'
+            height='64'
+            style={{margin: '0 auto'}}/>
+          <div style={styles.text}>
+            Oh snap, it looks like your node<br/>
+            is not running yet. Let’s change<br/>
+            that by clicking that button
+          </div>
         </div>
         <Button onClick={this.props.onStartClick}>
           Start Node

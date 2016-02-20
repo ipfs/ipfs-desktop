@@ -55,10 +55,10 @@ const ipfsPath = () => {
 
 // -- Window URLs
 
-const fileURL = name => `file://${__dirname}/${name}.html`
-const serverURL = name => `http://localhost:3000/${name}.html`
+const fileURL = (name) => `file://${__dirname}/${name}.html`
+const serverURL = (name) => `http://localhost:3000/${name}.html`
 
-const currentURL = name => isProduction ? fileURL(name) : serverURL(name)
+const currentURL = (name) => isProduction ? fileURL(name) : serverURL(name)
 
 export default {
   menuBar,

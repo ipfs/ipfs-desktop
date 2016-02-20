@@ -17,7 +17,7 @@ export default class DirectoryInput extends Component {
     disabled: false
   }
 
-  _onClick = e => {
+  _onClick = (e) => {
     e.preventDefault()
 
     ipc.send('setup-browse-path')

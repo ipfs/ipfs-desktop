@@ -73,10 +73,9 @@ export default class Intro extends Component {
             <Icon name='download' style={styles.icon}/> Install IPFS
           </Button>
           <a
-              key='advanced-link'
-              onClick={this.props.onAdvancedClick}
-              style={styles.advancedLink}
-          >
+            key='advanced-link'
+            onClick={this.props.onAdvancedClick}
+            style={styles.advancedLink}>
             Advanced Options
           </a>
         </div>

@@ -34,14 +34,14 @@ export default class Setup extends Component {
     this.setState({status: INTITIALZING})
   }
 
-  _onError = error => {
+  _onError = (error) => {
     this.setState({
       status: ERROR,
       error
     })
   }
 
-  _onConfigPath = path => {
+  _onConfigPath = (path) => {
     console.log('got path', path)
     this.setState({configPath: path})
   }
@@ -54,7 +54,7 @@ export default class Setup extends Component {
     ipc.send('initialize', {keySize: this.state.keySize})
   }
 
-  _onKeySizeChange = keySize => {
+  _onKeySizeChange = (keySize) => {
     this.setState({keySize})
   }
 
