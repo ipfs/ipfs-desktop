@@ -1,25 +1,26 @@
 import ipc from 'electron-safe-ipc/host'
 import {apiAddrToUrl} from './utils'
-import {getIPFS} from './../init'
+import {logger, getIPFS} from './../init'
 import config from './../config'
 
 const BrowserWindow = require('browser-window')
 
 function openConsole () {
-  if (getIPFS()) {
-    getIPFS().config.get('Addresses.API', (err, res) => {
-      if (err) { // TODO() error should be emited to a error panel
-        return console.error(err)
-      }
+  const ipfs = getIPFS()
+  if (!ipfs) {
+    const err = new Error('Cannot open console, IPFS daemon not running')
+    logger.error(err)
+    return
+  }
 
+  ipfs.config.get('Addresses.API')
+    .then((res) => {
       const consoleWindow = new BrowserWindow(config.window)
       consoleWindow.loadURL(apiAddrToUrl(res.Value))
     })
-  } else {
-    // TODO() error should be emited to a error panel
-    const err = new Error('Cannot open console, IPFS daemon not running')
-    console.error(err)
-  }
+    .catch((err) => {
+      return logger.error(err)
+    })
 }
 
 ipc.on('open-console', openConsole)

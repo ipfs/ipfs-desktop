@@ -1,11 +1,7 @@
-import API from 'ipfs-api'
 import notifier from 'node-notifier'
 import {join} from 'path'
 import {getIPFS, logger} from './../init'
-
-const ipfsAPI = API('localhost', '5001')
-
-const clipboard = require('clipboard')
+import clipboard from 'clipboard'
 
 const iconPath = join(__dirname, '..', '..', 'node_modules', 'ipfs-logo', 'platform-icons/osx-menu-bar@2x.png')
 
@@ -33,29 +29,36 @@ function notifyError (message) {
 }
 
 export default function dragDrop (event, files) {
-  if (!getIPFS()) {
+  const ipfs = getIPFS()
+  if (!ipfs) {
     notifyError('Can\'t upload file, IPFS Node is offline')
     return
   }
-  ipfsAPI.add(files, (err, res) => {
-    if (err || !res) {
-      logger.error(err)
-      notifyError(err || 'Failed to upload files')
-    }
 
-    logger.info('Uploading files', {files})
+  ipfs.add(files, {w: files.length > 1})
+    .then((res) => {
+      if (!res) {
+        notifyError('Failed to upload files')
+        return
+      }
 
-    res.forEach((file) => {
-      const url = `https://ipfs.io/ipfs/${file.Hash}`
-      clipboard.writeText(url)
-      filesUploaded.push(file)
+      logger.info('Uploading files', {files})
 
-      logger.info('Uploaded file %s', file.Name)
+      res.forEach((file) => {
+        const url = `https://ipfs.io/ipfs/${file.Hash}`
+        clipboard.writeText(url)
+        filesUploaded.push(file)
 
-      notify(
-        `Finished uploading ${file.Name}`,
-        `${file.Name} was uploaded to ${url}.`
-      )
+        logger.info('Uploaded file %s', file.Name)
+
+        notify(
+          `Finished uploading ${file.Name}`,
+          `${file.Name} was uploaded to ${url}.`
+        )
+      })
     })
-  })
+    .catch((err) => {
+      logger.error(err)
+      notifyError(err.message)
+    })
 }

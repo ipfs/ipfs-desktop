@@ -1,3 +1,5 @@
+import 'babel-polyfill'
+
 import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
@@ -21,36 +23,46 @@ if (config.isProduction) {
 
 let IPFS
 let ipc
-let poll
 let mb
 let logger
+let shouldPoll = false
 const statsCache = {}
 
 function pollStats (ipfs) {
-  ipfs.swarm.peers((err, res) => {
-    if (err) throw err
+  const next = () => {
+    setTimeout(() => {
+      pollStats(ipfs)
+    }, 1000)
+  }
 
-    statsCache.peers = res.Strings.length
-    ipc.send('stats', statsCache)
-  })
+  if (!shouldPoll || !mb.window || !mb.window.isVisible()) {
+    return next()
+  }
 
-  ipfs.id((err, peer) => {
-    if (err) throw err
+  ipfs.swarm.peers()
+    .then((res) => {
+      statsCache.peers = res.Strings.length
+      ipc.send('stats', statsCache)
+    }, (err) => {
+      logger.error(err.stack)
+    })
+    .then(next)
 
-    // lookupPretty(ipfs, peer.Addresses, (err, location) => {
-    //   if (err) throw err
-    //   statsCache.location = location && location.formatted
-    //   ipc.send('stats', statsCache)
-    // })
-  })
+  // TODO: Get location back when ipfs-geoip works again
+  // ipfs.id()
+  //   .then((peer) => {
+  //     lookupPretty(ipfs, peer.Addresses, (err, location) => {
+  //       if (err) throw err
+  //       statsCache.location = location && location.formatted
+  //       ipc.send('stats', statsCache)
+  //     })
+  //   })
+  //   .catch((err) => {
+  //     logger.error(err)
+  //   })
 }
 
 function onRequestState (node, event) {
-  ipfsd.version((err, res) => {
-    if (err) throw err
-    ipc.send('version', res)
-  })
-
   if (node.initialized) {
     let status = 'stopped'
 
@@ -68,14 +80,16 @@ function onStartDaemon (node) {
     if (err) throw err
     ipc.send('node-status', 'running')
 
-    poll = setInterval(() => {
-      if (mb.window && mb.window.isVisible()) {
-        pollStats(ipfsNode)
-      }
-    }, 1000)
-
-    // Get initial stats
+    shouldPoll = true
     pollStats(ipfsNode)
+
+    ipfsNode.version()
+      .then((res) => {
+        ipc.send('version', res)
+      })
+      .catch((err) => {
+        logger.error(err)
+      })
 
     IPFS = ipfsNode
   })
@@ -85,11 +99,10 @@ function onStopDaemon (node, done = () => {}) {
   logger.info('Stopping daemon')
 
   ipc.send('node-status', 'stopping')
-  if (poll) {
+  if (shouldPoll) {
     delete statsCache.peers
     ipc.send('stats', statsCache)
-    clearInterval(poll)
-    poll = null
+    shouldPoll = false
   }
 
   node.stopDaemon((err) => {
@@ -216,7 +229,12 @@ export function boot (lokker) {
 
   // main entry point
   ipfsd.local((err, node) => {
-    if (err) return logger.error(err)
+    if (err) {
+      // We can't start if we fail to aquire
+      // a ipfs node
+      logger.error(err)
+      process.exit(1)
+    }
 
     mb = menubar(config.menuBar)
 
