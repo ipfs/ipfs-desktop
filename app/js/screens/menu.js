@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import ipc from 'electron-safe-ipc/guest'
+import {DragDropContext} from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 import StartScreen from './menu/start'
 import ProfileScreen from './menu/profile'
@@ -13,6 +15,7 @@ const RUNNING = 'running'
 const STARTING = 'starting'
 const STOPPING = 'stopping'
 
+@DragDropContext(HTML5Backend)
 export default class Menu extends Component {
 
   state = {
@@ -99,7 +102,12 @@ export default class Menu extends Component {
       case STOPPING:
         return <Loader key='loader-screen' />
       default:
-        return <StartScreen key='start-screen' onStartClick={this._startDaemon}/>
+        return (
+          <StartScreen
+            key='start-screen'
+            onStartClick={this._startDaemon}
+            onCloseClick={this._closeWindow}/>
+        )
     }
   }
 

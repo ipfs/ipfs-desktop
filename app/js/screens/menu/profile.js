@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react'
-import FileDrop from 'react-file-drop'
 import ipc from 'electron-safe-ipc/guest'
 import Radium from 'radium'
+import {NativeTypes} from 'react-dnd-html5-backend'
+import {DropTarget} from 'react-dnd'
 
 import SimpleStat from '../../components/view/simple-stat'
 import IconButton from '../../components/view/icon-button'
@@ -12,11 +13,26 @@ import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
 import '../../../styles/common.less'
 import '../../../styles/fonts.less'
-import '../../../styles/file-drop.less'
+
+const fileTarget = {
+  drop (props, monitor) {
+    const files = monitor.getItem().files
+    const filesArray = []
+    for (let i = 0; i < files.length; i++) {
+      filesArray.push(files[i].path)
+    }
+
+    ipc.send('drop-files', null, filesArray)
+  }
+}
 
 @Radium
+@DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver(),
+  canDrop: monitor.canDrop()
+}))
 export default class ProfileScreen extends Component {
-
   static propTypes = {
     peers: PropTypes.number,
     location: PropTypes.string,
@@ -24,7 +40,10 @@ export default class ProfileScreen extends Component {
     onConsoleClick: PropTypes.func,
     onBrowserClick: PropTypes.func,
     onSettingsClick: PropTypes.func,
-    onCloseClick: PropTypes.func
+    onCloseClick: PropTypes.func,
+    connectDropTarget: PropTypes.func.isRequired,
+    isOver: PropTypes.bool.isRequired,
+    canDrop: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
@@ -37,17 +56,26 @@ export default class ProfileScreen extends Component {
     onCloseClick () {}
   }
 
-  _onFileDrop = (files, event) => {
-    const filesArray = []
-    for (let i = 0; i < files.length; i++) {
-      filesArray.push(files[i].path)
-    }
-
-    ipc.send('drop-files', null, filesArray)
-  }
-
   render () {
+    const {connectDropTarget, isOver, canDrop} = this.props
+
     const styles = {
+      dropper: {
+        visibility: (isOver && canDrop) ? 'visible' : 'hidden',
+        background: 'rgba(255, 255, 255, 0.8)',
+        position: 'absolute',
+        top: '40px',
+        left: 0,
+        right: 0,
+        bottom: '70px',
+        height: '100%',
+        width: '100%',
+        color: '#000000',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
       wrapper: {
         display: 'flex',
         width: '100%',
@@ -86,11 +114,11 @@ export default class ProfileScreen extends Component {
       }
     }
 
-    return (
+    return connectDropTarget(
       <div style={styles.wrapper}>
-        <FileDrop
-          onDrop={this._onFileDrop}
-          />
+        <div style={styles.dropper}>
+          Drop to upload to IPFS
+        </div>
         <Header onCloseClick={this.props.onCloseClick}/>
         <div style={styles.image}>
           <Icon name='location' style={{padding: '10px 0', fontSize: '32px'}}/>
@@ -102,8 +130,7 @@ export default class ProfileScreen extends Component {
           <SimpleStat
             name='peers'
             value={this.props.peers}
-            color='#50d2c2'
-            />
+            color='#50d2c2'/>
         </div>
         <div style={styles.footer}>
           <IconButton
