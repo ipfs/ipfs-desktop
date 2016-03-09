@@ -4,7 +4,7 @@ import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
-// import {lookupPretty} from 'ipfs-geoip'
+import {lookupPretty} from 'ipfs-geoip'
 
 import config from './config'
 import dragDrop from './controls/drag-drop'
@@ -48,18 +48,17 @@ function pollStats (ipfs) {
     })
     .then(next)
 
-  // TODO: Get location back when ipfs-geoip works again
-  // ipfs.id()
-  //   .then((peer) => {
-  //     lookupPretty(ipfs, peer.Addresses, (err, location) => {
-  //       if (err) throw err
-  //       statsCache.location = location && location.formatted
-  //       ipc.send('stats', statsCache)
-  //     })
-  //   })
-  //   .catch((err) => {
-  //     logger.error(err)
-  //   })
+  ipfs.id()
+    .then((peer) => {
+      lookupPretty(ipfs, peer.Addresses, (err, location) => {
+        if (err) throw err
+        statsCache.location = location && location.formatted
+        ipc.send('stats', statsCache)
+      })
+    })
+    .catch((err) => {
+      logger.error(err)
+    })
 }
 
 function onRequestState (node, event) {
