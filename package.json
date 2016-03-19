@@ -16,7 +16,7 @@
     "minimist": "^1.2.0",
     "multiaddr": "^1.0.0",
     "node-notifier": "^4.3.1",
-    "normalize.css": "^3.0.3",
+    "normalize.css": "^4.0.0",
     "radium": "^0.16.6",
     "react": "^0.14.0",
     "react-addons-css-transition-group": "^0.14.0",
