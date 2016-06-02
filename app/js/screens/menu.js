@@ -27,19 +27,21 @@ export default class Menu extends Component {
 
   // -- Event Listeners
 
-  _onVersion = (arg) => {
+  _onVersion = (event, arg) => {
     this.setState({version: arg})
   }
 
-  _onNodeStatus = (status) => {
+  _onNodeStatus = (event, status) => {
+    console.log(status)
     this.setState({status: status})
   }
 
-  _onStats = (stats) => {
+  _onStats = (event, stats) => {
     this.setState({stats: stats})
   }
 
   _startDaemon () {
+    console.log('starting daemon')
     ipcRenderer.send('start-daemon')
   }
 

@@ -34,14 +34,14 @@ export default class Setup extends Component {
     this.setState({status: INTITIALZING})
   }
 
-  _onError = (error) => {
+  _onError = (event, error) => {
     this.setState({
       status: ERROR,
       error
     })
   }
 
-  _onConfigPath = (path) => {
+  _onConfigPath = (event, path) => {
     console.log('got path', path)
     this.setState({configPath: path})
   }

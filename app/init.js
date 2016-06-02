@@ -72,6 +72,7 @@ function onRequestState (node, event) {
 }
 
 function onStartDaemon (node) {
+  console.log('start daemon')
   mb.window.webContents.send('node-status', 'starting')
   node.startDaemon(function (err, ipfsNode) {
     if (err) throw err
@@ -92,7 +93,7 @@ function onStartDaemon (node) {
   })
 }
 
-function onStopDaemon (node, done = () => {}) {
+function onStopDaemon (node, done) {
   logger.info('Stopping daemon')
 
   mb.window.webContents.send('node-status', 'stopping')
@@ -138,7 +139,7 @@ function startTray (node) {
 
   ipcMain.on('request-state', onRequestState.bind(null, node))
   ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
-  ipcMain.on('stop-daemon', onStopDaemon.bind(null, node))
+  ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
   ipcMain.on('drop-files', dragDrop)
   ipcMain.on('close-tray-window', onCloseWindow)
 

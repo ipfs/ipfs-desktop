@@ -51,7 +51,5 @@ module.exports = {
       loader: 'file-loader?name=[name].[ext]'
     }]
   },
-  externals: {
-    electron: 'electron'
-  }
+  target: 'electron'
 }
