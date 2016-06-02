@@ -1,7 +1,5 @@
-import ipc from 'electron-safe-ipc/host'
+import {ipcMain, BrowserWindow} from 'electron'
 import config from './../config'
-
-const BrowserWindow = require('browser-window')
 
 function openSettings () {
   const settingsWindow = new BrowserWindow(config.window)
@@ -11,4 +9,4 @@ function openSettings () {
   settingsWindow.webContents.on('did-finish-load', () => {})
 }
 
-ipc.on('open-settings', openSettings)
+ipcMain.on('open-settings', openSettings)

@@ -2,7 +2,7 @@ import path from 'path'
 import os from 'os'
 import fs from 'fs'
 
-const app = require('app')
+import {app} from 'electron'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const IPFS_PATH_FILE = path.join(app.getPath('appData'), '4ipfs-electron-app-node-path')

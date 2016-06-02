@@ -54,5 +54,8 @@ module.exports = {
       test: /\.(png|gif|jpg|jpeg)$/,
       loader: 'file-loader'
     }]
+  },
+  externals: {
+    electron: 'electron'
   }
 }

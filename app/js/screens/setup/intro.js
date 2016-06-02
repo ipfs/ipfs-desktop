@@ -70,7 +70,7 @@ export default class Intro extends Component {
         </span>
         <div style={styles.actions}>
           <Button style={styles.button} onClick={this.props.onInstallClick}>
-            <Icon name='download' style={styles.icon}/> Install IPFS
+            <Icon name='download' style={styles.icon} /> Install IPFS
           </Button>
           <a
             key='advanced-link'

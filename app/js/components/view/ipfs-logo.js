@@ -9,7 +9,7 @@ const styles = {
   }
 }
 
-const logoPath = require('../../../../node_modules/ipfs-logo/ipfs-logo-wider-strokes-white.png')
+const logoPath = require('../../../../node_modules/ipfs-logo/raster/ipfs-logo-wider-strokes-white.png')
 
 export default function IPFSLogo () {
   return (

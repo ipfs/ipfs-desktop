@@ -1,8 +1,6 @@
-import ipc from 'electron-safe-ipc/host'
+import {ipcMain, shell} from 'electron'
 import {apiAddrToUrl} from './utils'
 import {logger, getIPFS} from './../init'
-
-const shell = require('shell')
 
 function openBrowser (cb) {
   const ipfs = getIPFS()
@@ -21,4 +19,4 @@ function openBrowser (cb) {
     })
 }
 
-ipc.on('open-browser', openBrowser)
+ipcMain.on('open-browser', openBrowser)
