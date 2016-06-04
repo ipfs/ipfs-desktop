@@ -25,20 +25,16 @@ let IPFS
 let ipc
 let mb
 let logger
-let shouldPoll = false
 const statsCache = {}
 
 function pollStats (ipfs) {
   const next = () => {
     setTimeout(() => {
-      pollStats(ipfs)
+      if (mb.window.isVisible()) {
+        pollStats(ipfs)
+      }
     }, 1000)
   }
-
-  if (!shouldPoll || !mb.window || !mb.window.isVisible()) {
-    return next()
-  }
-
   ipfs.swarm.peers()
     .then((res) => {
       statsCache.peers = res.Strings.length
@@ -79,9 +75,6 @@ function onStartDaemon (node) {
     if (err) throw err
     ipc.send('node-status', 'running')
 
-    shouldPoll = true
-    pollStats(ipfsNode)
-
     ipfsNode.version()
       .then((res) => {
         ipc.send('version', res)
@@ -98,11 +91,9 @@ function onStopDaemon (node, done = () => {}) {
   logger.info('Stopping daemon')
 
   ipc.send('node-status', 'stopping')
-  if (shouldPoll) {
-    delete statsCache.peers
-    ipc.send('stats', statsCache)
-    shouldPoll = false
-  }
+
+  delete statsCache.peers
+  ipc.send('stats', statsCache)
 
   node.stopDaemon((err) => {
     if (err) return logger.error(err.stack)
@@ -239,6 +230,8 @@ export function boot (lokker) {
 
     // Ensure single instance
     mb.app.makeSingleInstance(reboot)
+
+    mb.on('show', () => { pollStats(getIPFS()) })
 
     mb.on('ready', () => {
       logger.info('Application is ready')
