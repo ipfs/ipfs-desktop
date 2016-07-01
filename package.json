@@ -8,7 +8,7 @@
     "babel-runtime": "^6.3.19",
     "css-box-sizing-border-box": "^0.1.0",
     "electron-safe-ipc": "^0.6.1",
-    "ipfs-api": "^3.0.1",
+    "ipfs-api": "^6.0.1",
     "ipfs-geoip": "^2.0.0",
     "ipfs-logo": "github:ipfs/logo",
     "ipfsd-ctl": "^0.8.1",
