@@ -22,7 +22,7 @@
     "react-addons-css-transition-group": "^0.14.0",
     "react-dnd": "^2.1.2",
     "react-dnd-html5-backend": "^2.1.2",
-    "react-dom": "^0.14.0",
+    "react-dom": "^15.2.1",
     "react-widgets": "^3.2.0",
     "winston": "^2.1.0"
   },
