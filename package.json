@@ -19,7 +19,7 @@
     "normalize.css": "^4.0.0",
     "radium": "^0.16.6",
     "react": "^0.14.0",
-    "react-addons-css-transition-group": "^0.14.0",
+    "react-addons-css-transition-group": "^15.3.0",
     "react-dnd": "^2.1.2",
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^0.14.0",
