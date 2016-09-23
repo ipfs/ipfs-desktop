@@ -66,7 +66,7 @@
     "shelljs": "^0.6.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.2",
-    "webpack-dev-middleware": "^1.2.0",
+    "webpack-dev-middleware": "^1.8.2",
     "webpack-hot-middleware": "^2.4.1",
     "webpack-target-electron-renderer": "^0.4.0"
   },
