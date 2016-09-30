@@ -38,7 +38,7 @@
     "babel-polyfill": "^6.5.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
-    "babel-preset-stage-0": "^6.3.13",
+    "babel-preset-stage-0": "^6.16.0",
     "caniuse-api": "^1.4.1",
     "concurrently": "^2.0.0",
     "conventional-changelog": "^1.1.0",
