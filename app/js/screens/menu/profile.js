@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import ipc from 'electron-safe-ipc/guest'
+import {ipcRenderer} from 'electron'
 import Radium from 'radium'
 import {NativeTypes} from 'react-dnd-html5-backend'
 import {DropTarget} from 'react-dnd'
@@ -22,7 +22,7 @@ const fileTarget = {
       filesArray.push(files[i].path)
     }
 
-    ipc.send('drop-files', null, filesArray)
+    ipcRenderer.send('drop-files', null, filesArray)
   }
 }
 
@@ -119,9 +119,12 @@ export default class ProfileScreen extends Component {
         <div style={styles.dropper}>
           Drop to upload to IPFS
         </div>
-        <Header onCloseClick={this.props.onCloseClick}/>
+        <Header onCloseClick={this.props.onCloseClick} />
         <div style={styles.image}>
-          <Icon name='location' style={{padding: '10px 0', fontSize: '32px'}}/>
+          <Icon
+            name='location'
+            style={{padding: '10px 0', fontSize: '32px'}}
+          />
           <div style={{margin: '0 auto'}}>
             {this.props.location}
           </div>
@@ -130,14 +133,15 @@ export default class ProfileScreen extends Component {
           <SimpleStat
             name='peers'
             value={this.props.peers}
-            color='#50d2c2'/>
+            color='#50d2c2'
+          />
         </div>
         <div style={styles.footer}>
           <IconButton
             name='Console'
             icon='gaming'
             onClick={this.props.onConsoleClick}
-            />
+          />
           <IconButton
             name='Browser'
             icon='window'

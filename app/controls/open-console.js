@@ -1,9 +1,7 @@
-import ipc from 'electron-safe-ipc/host'
+import {ipcMain, BrowserWindow} from 'electron'
 import {apiAddrToUrl} from './utils'
 import {logger, getIPFS} from './../init'
 import config from './../config'
-
-const BrowserWindow = require('browser-window')
 
 function openConsole () {
   const ipfs = getIPFS()
@@ -16,11 +14,11 @@ function openConsole () {
   ipfs.config.get('Addresses.API')
     .then((res) => {
       const consoleWindow = new BrowserWindow(config.window)
-      consoleWindow.loadURL(apiAddrToUrl(res.Value))
+      consoleWindow.loadURL(apiAddrToUrl(res))
     })
     .catch((err) => {
       return logger.error(err)
     })
 }
 
-ipc.on('open-console', openConsole)
+ipcMain.on('open-console', openConsole)

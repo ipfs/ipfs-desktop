@@ -50,5 +50,6 @@ module.exports = {
       test: /\.(png|gif|jpg|jpeg)$/,
       loader: 'file-loader?name=[name].[ext]'
     }]
-  }
+  },
+  target: 'electron'
 }

@@ -54,10 +54,11 @@ export default class StartScreen extends Component {
             src={require('../../../img/offline-icon.png')}
             width='64'
             height='64'
-            style={{margin: '0 auto'}}/>
+            style={{margin: '0 auto'}}
+          />
           <div style={styles.text}>
-            Oh snap, it looks like your node<br/>
-            is not running yet. Let’s change<br/>
+            Oh snap, it looks like your node<br />
+            is not running yet. Let’s change<br />
             that by clicking that button
           </div>
         </div>

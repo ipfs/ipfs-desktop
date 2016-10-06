@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import Radium from 'radium'
-import ipc from 'electron-safe-ipc/guest'
+import {ipcRenderer} from 'electron'
 
 import Intro from './setup/intro'
 import Advanced from './setup/advanced'
@@ -34,14 +34,14 @@ export default class Setup extends Component {
     this.setState({status: INTITIALZING})
   }
 
-  _onError = (error) => {
+  _onError = (event, error) => {
     this.setState({
       status: ERROR,
       error
     })
   }
 
-  _onConfigPath = (path) => {
+  _onConfigPath = (event, path) => {
     console.log('got path', path)
     this.setState({configPath: path})
   }
@@ -51,7 +51,7 @@ export default class Setup extends Component {
   }
 
   _startInstallation = () => {
-    ipc.send('initialize', {keySize: this.state.keySize})
+    ipcRenderer.send('initialize', {keySize: this.state.keySize})
   }
 
   _onKeySizeChange = (keySize) => {
@@ -59,15 +59,15 @@ export default class Setup extends Component {
   }
 
   componentDidMount () {
-    ipc.on('initializing', this._onInitializing)
-    ipc.on('initialization-error', this._onError)
-    ipc.on('setup-config-path', this._onConfigPath)
+    ipcRenderer.on('initializing', this._onInitializing)
+    ipcRenderer.on('initialization-error', this._onError)
+    ipcRenderer.on('setup-config-path', this._onConfigPath)
   }
 
   componentWillUnmount () {
-    ipc.removeListener('initializing', this._onInitializing)
-    ipc.removeListener('initialization-error', this._onError)
-    ipc.removeListener('setup-config-path', this._onConfigPath)
+    ipcRenderer.removeListener('initializing', this._onInitializing)
+    ipcRenderer.removeListener('initialization-error', this._onError)
+    ipcRenderer.removeListener('setup-config-path', this._onConfigPath)
   }
 
   _getScreen () {
@@ -97,7 +97,7 @@ export default class Setup extends Component {
           <div key='error'>{this.state.error}</div>
         )
       default:
-        return <Loader key='loader'/>
+        return <Loader key='loader' />
     }
   }
 

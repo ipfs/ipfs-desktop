@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
-import ipc from 'electron-safe-ipc/guest'
+import {ipcRenderer} from 'electron'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
@@ -27,60 +27,62 @@ export default class Menu extends Component {
 
   // -- Event Listeners
 
-  _onVersion = (arg) => {
+  _onVersion = (event, arg) => {
     this.setState({version: arg})
   }
 
-  _onNodeStatus = (status) => {
+  _onNodeStatus = (event, status) => {
+    console.log(status)
     this.setState({status: status})
   }
 
-  _onStats = (stats) => {
+  _onStats = (event, stats) => {
     this.setState({stats: stats})
   }
 
   _startDaemon () {
-    ipc.send('start-daemon')
+    console.log('starting daemon')
+    ipcRenderer.send('start-daemon')
   }
 
   _stopDaemon () {
-    ipc.send('stop-daemon')
+    ipcRenderer.send('stop-daemon')
   }
 
   _closeWindow () {
-    ipc.send('close-tray-window')
+    ipcRenderer.send('close-tray-window')
   }
 
   _openConsole () {
-    ipc.send('open-console')
+    ipcRenderer.send('open-console')
   }
 
   _openBrowser () {
-    ipc.send('open-browser')
+    ipcRenderer.send('open-browser')
   }
 
   _openSettings () {
-    ipc.send('open-settings')
+    ipcRenderer.send('open-settings')
   }
 
   componentDidMount () {
     // -- Listen to control events
 
-    ipc.on('version', this._onVersion)
-    ipc.on('node-status', this._onNodeStatus)
-    ipc.on('stats', this._onStats)
+    ipcRenderer.on('version', this._onVersion)
+    ipcRenderer.on('node-status', this._onNodeStatus)
+    ipcRenderer.on('stats', this._onStats)
 
-    ipc.send('request-state')
+    ipcRenderer.send('request-state')
   }
 
   componentWillUnmount () {
     // -- Remove control events
 
-    ipc.removeListener('version', this._onVersion)
-    ipc.removeListener('node-status', this._onNodeStatus)
-    ipc.removeListener('stats', this._onStats)
-    ipc.removeListener('uploading', this._onUploading)
-    ipc.removeListener('uploaded', this._onUploaded)
+    ipcRenderer.removeListener('version', this._onVersion)
+    ipcRenderer.removeListener('node-status', this._onNodeStatus)
+    ipcRenderer.removeListener('stats', this._onStats)
+    ipcRenderer.removeListener('uploading', this._onUploading)
+    ipcRenderer.removeListener('uploaded', this._onUploaded)
   }
 
   _getScreen () {
@@ -106,7 +108,7 @@ export default class Menu extends Component {
           <StartScreen
             key='start-screen'
             onStartClick={this._startDaemon}
-            onCloseClick={this._closeWindow}/>
+            onCloseClick={this._closeWindow} />
         )
     }
   }

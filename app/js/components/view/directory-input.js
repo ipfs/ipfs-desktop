@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import ipc from 'electron-safe-ipc/guest'
+import {ipcRenderer} from 'electron'
 import Radium from 'radium'
 
 import Icon from './icon'
@@ -20,7 +20,7 @@ export default class DirectoryInput extends Component {
   _onClick = (e) => {
     e.preventDefault()
 
-    ipc.send('setup-browse-path')
+    ipcRenderer.send('setup-browse-path')
   }
 
   render () {
@@ -54,7 +54,7 @@ export default class DirectoryInput extends Component {
 
     return (
       <div style={styles.base}>
-        <Icon name='folder' style={styles.icon}/>
+        <Icon name='folder' style={styles.icon} />
         <a
           style={styles.button}
           onClick={this._onClick}

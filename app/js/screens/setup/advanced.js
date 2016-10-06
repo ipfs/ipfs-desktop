@@ -69,7 +69,7 @@ export default class Intro extends Component {
           Advanced Options
         </span>
         <div style={styles.inputs}>
-          <DirectoryInput path={this.props.configPath}/>
+          <DirectoryInput path={this.props.configPath} />
           <IconDropdownList
             icon='lock'
             data={this.props.keySizes}
@@ -78,7 +78,7 @@ export default class Intro extends Component {
             />
         </div>
         <Button style={styles.button} onClick={this.props.onInstallClick}>
-          <Icon name='download' style={styles.icon}/> Install IPFS
+          <Icon name='download' style={styles.icon} /> Install IPFS
         </Button>
       </div>
     )

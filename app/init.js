@@ -9,20 +9,17 @@ import {lookupPretty} from 'ipfs-geoip'
 import config from './config'
 import dragDrop from './controls/drag-drop'
 
-const dialog = require('dialog')
-const BrowserWindow = require('browser-window')
+import {dialog, BrowserWindow, ipcMain} from 'electron'
 
 if (config.isProduction) {
-  require('crash-reporter').start()
+  require('electron').crashReporter.start()
 } else {
-  require('longjohn')
   require('electron-debug')()
 }
 
 // Local Variables
 
 let IPFS
-let ipc
 let mb
 let logger
 let shouldPoll = false
@@ -41,8 +38,8 @@ function pollStats (ipfs) {
 
   ipfs.swarm.peers()
     .then((res) => {
-      statsCache.peers = res.Strings.length
-      ipc.send('stats', statsCache)
+      statsCache.peers = res.length
+      mb.window.webContents.send('stats', statsCache)
     }, (err) => {
       logger.error(err.stack)
     })
@@ -50,10 +47,10 @@ function pollStats (ipfs) {
 
   ipfs.id()
     .then((peer) => {
-      lookupPretty(ipfs, peer.Addresses, (err, location) => {
+      lookupPretty(ipfs, peer.addresses, (err, location) => {
         if (err) throw err
         statsCache.location = location && location.formatted
-        ipc.send('stats', statsCache)
+        mb.window.webContents.send('stats', statsCache)
       })
     })
     .catch((err) => {
@@ -69,22 +66,23 @@ function onRequestState (node, event) {
       status = 'running'
     }
 
-    ipc.send('node-status', status)
+    mb.window.webContents.send('node-status', status)
   }
 }
 
 function onStartDaemon (node) {
-  ipc.send('node-status', 'starting')
+  console.log('start daemon')
+  mb.window.webContents.send('node-status', 'starting')
   node.startDaemon(function (err, ipfsNode) {
     if (err) throw err
-    ipc.send('node-status', 'running')
+    mb.window.webContents.send('node-status', 'running')
 
     shouldPoll = true
     pollStats(ipfsNode)
 
     ipfsNode.version()
       .then((res) => {
-        ipc.send('version', res)
+        mb.window.webContents.send('version', res)
       })
       .catch((err) => {
         logger.error(err)
@@ -94,13 +92,19 @@ function onStartDaemon (node) {
   })
 }
 
-function onStopDaemon (node, done = () => {}) {
+function onStopDaemon (node, done) {
   logger.info('Stopping daemon')
 
-  ipc.send('node-status', 'stopping')
+  const send = (type, msg) => {
+    if (mb && mb.window && mb.window.webContents) {
+      mb.window.webContents.send(type, msg)
+    }
+  }
+
+  send('node-status', 'stopping')
   if (shouldPoll) {
     delete statsCache.peers
-    ipc.send('stats', statsCache)
+    send('stats', statsCache)
     shouldPoll = false
   }
 
@@ -110,8 +114,8 @@ function onStopDaemon (node, done = () => {}) {
     logger.info('Stopped daemon')
 
     IPFS = null
-    ipc.send('node-status', 'stopped')
-    ipc.send('stats', statsCache)
+    send('node-status', 'stopped')
+    send('stats', statsCache)
     done()
   })
 }
@@ -138,11 +142,11 @@ function onWillQuit (node, event) {
 function startTray (node) {
   logger.info('Starting tray')
 
-  ipc.on('request-state', onRequestState.bind(null, node))
-  ipc.on('start-daemon', onStartDaemon.bind(null, node))
-  ipc.on('stop-daemon', onStopDaemon.bind(null, node))
-  ipc.on('drop-files', dragDrop)
-  ipc.on('close-tray-window', onCloseWindow)
+  ipcMain.on('request-state', onRequestState.bind(null, node))
+  ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
+  ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
+  ipcMain.on('drop-files', dragDrop)
+  ipcMain.on('close-tray-window', onCloseWindow)
 
   mb.app.once('will-quit', onWillQuit.bind(null, node))
 }
@@ -155,7 +159,7 @@ function initialize (path, node) {
 
   welcomeWindow.loadURL(config.urls.welcome)
   welcomeWindow.webContents.on('did-finish-load', () => {
-    ipc.send('setup-config-path', path)
+    welcomeWindow.webContents.send('setup-config-path', path)
   })
 
   // Close the application if the welcome dialog is canceled
@@ -165,7 +169,7 @@ function initialize (path, node) {
 
   let userPath = path
 
-  ipc.on('setup-browse-path', () => {
+  ipcMain.on('setup-browse-path', () => {
     dialog.showOpenDialog(welcomeWindow, {
       title: 'Select a directory',
       defaultPath: path,
@@ -182,25 +186,27 @@ function initialize (path, node) {
         userPath = join(userPath, '.ipfs')
       }
 
-      ipc.send('setup-config-path', userPath)
+      welcomeWindow.webContents.send('setup-config-path', userPath)
     })
   })
 
   // wait for msg from frontend
-  ipc.on('initialize', ({keySize}) => {
+  ipcMain.on('initialize', ({keySize}) => {
     logger.info('Initializing new node with key size: %s in %s.', keySize, userPath)
 
-    ipc.send('initializing')
+    welcomeWindow.webContents.send('initializing')
     node.init({
       directory: userPath,
       keySize
     }, (err, res) => {
-      if (err) return ipc.send('initialization-error', err + '')
+      if (err) {
+        return welcomeWindow.webContents.send('initialization-error', err + '')
+      }
 
       fs.writeFileSync(config['ipfs-path-file'], path)
 
-      ipc.send('initialization-complete')
-      ipc.send('node-status', 'stopped')
+      welcomeWindow.webContents.send('initialization-complete')
+      welcomeWindow.webContents.send('node-status', 'stopped')
 
       welcomeWindow.close()
       onStartDaemon(node)
@@ -242,9 +248,6 @@ export function boot (lokker) {
 
     mb.on('ready', () => {
       logger.info('Application is ready')
-
-      // Safe ipc calls
-      ipc = require('electron-safe-ipc/host')
 
       // -- load the controls
       require('./controls/open-browser')

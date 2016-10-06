@@ -19,7 +19,7 @@ const logger = new (winston.Logger)({
 
 process.on('uncaughtException', (error) => {
   const msg = error.message || error
-  logger.error(`Uncaught Exception: ${msg}`, error, error.stack, arguments)
+  logger.error(`Uncaught Exception: ${msg}`, error)
   process.exit(1)
 })
 
