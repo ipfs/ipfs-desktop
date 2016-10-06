@@ -12,7 +12,7 @@ function openBrowser (cb) {
 
   ipfs.config.get('Addresses.API')
     .then((res) => {
-      shell.openExternal(apiAddrToUrl(res.Value))
+      shell.openExternal(apiAddrToUrl(res))
     })
     .catch((err) => {
       return logger.error(err)

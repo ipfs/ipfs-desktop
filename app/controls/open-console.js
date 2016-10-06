@@ -14,7 +14,7 @@ function openConsole () {
   ipfs.config.get('Addresses.API')
     .then((res) => {
       const consoleWindow = new BrowserWindow(config.window)
-      consoleWindow.loadURL(apiAddrToUrl(res.Value))
+      consoleWindow.loadURL(apiAddrToUrl(res))
     })
     .catch((err) => {
       return logger.error(err)

@@ -14,7 +14,6 @@ import {dialog, BrowserWindow, ipcMain} from 'electron'
 if (config.isProduction) {
   require('electron').crashReporter.start()
 } else {
-  require('longjohn')
   require('electron-debug')()
 }
 
@@ -39,7 +38,7 @@ function pollStats (ipfs) {
 
   ipfs.swarm.peers()
     .then((res) => {
-      statsCache.peers = res.Strings.length
+      statsCache.peers = res.length
       mb.window.webContents.send('stats', statsCache)
     }, (err) => {
       logger.error(err.stack)
@@ -48,7 +47,7 @@ function pollStats (ipfs) {
 
   ipfs.id()
     .then((peer) => {
-      lookupPretty(ipfs, peer.Addresses, (err, location) => {
+      lookupPretty(ipfs, peer.addresses, (err, location) => {
         if (err) throw err
         statsCache.location = location && location.formatted
         mb.window.webContents.send('stats', statsCache)
@@ -96,10 +95,16 @@ function onStartDaemon (node) {
 function onStopDaemon (node, done) {
   logger.info('Stopping daemon')
 
-  mb.window.webContents.send('node-status', 'stopping')
+  const send = (type, msg) => {
+    if (mb && mb.window && mb.window.webContents) {
+      mb.window.webContents.send(type, msg)
+    }
+  }
+
+  send('node-status', 'stopping')
   if (shouldPoll) {
     delete statsCache.peers
-    mb.window.webContents.send('stats', statsCache)
+    send('stats', statsCache)
     shouldPoll = false
   }
 
@@ -109,8 +114,8 @@ function onStopDaemon (node, done) {
     logger.info('Stopped daemon')
 
     IPFS = null
-    mb.window.webContents.send('node-status', 'stopped')
-    mb.window.webContents.send('stats', statsCache)
+    send('node-status', 'stopped')
+    send('stats', statsCache)
     done()
   })
 }
