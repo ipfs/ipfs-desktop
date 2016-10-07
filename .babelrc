@@ -1,32 +1,12 @@
 {
   "presets": [
-    "react",
     "es2015",
-    "stage-0"
-  ],
+    "react",
+    "stage-2"
+    ],
   "plugins": [
-    "transform-react-display-name",
-    "transform-decorators-legacy"
+    "transform-async-to-generator",
+    "transform-react-display-name"
   ],
-  "env": {
-    "production": {
-      "plugins": [
-        "transform-inline-environment-variables"
-      ]
-    },
-    "development": {
-      "plugins": [
-        ["react-transform", {
-          "transforms": [{
-            "transform": "react-transform-hmr",
-            "imports": ["react"],
-            "locals": ["module"]
-          }, {
-            "transform": "react-transform-catch-errors",
-            "imports": ["react", "redbox-react"]
-          }]
-        }]
-      ]
-    }
-  }
+  "sourceMaps": "inline"
 }
