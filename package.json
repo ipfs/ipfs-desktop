@@ -26,7 +26,7 @@
   "devDependencies": {
     "babel-core": "^6.3.21",
     "babel-eslint": "^7.0.0",
-    "babel-loader": "^6.2.0",
+    "babel-loader": "^6.2.6",
     "babel-plugin-array-includes": "^2.0.3",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-plugin-transform-inline-environment-variables": "^6.3.13",
