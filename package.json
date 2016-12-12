@@ -37,7 +37,7 @@
     "caniuse-api": "^1.4.1",
     "conventional-changelog": "^1.1.0",
     "conventional-github-releaser": "^1.1.0",
-    "css-loader": "^0.25.0",
+    "css-loader": "^0.26.1",
     "devtron": "^1.3.0",
     "electron-debug": "^1.0.0",
     "electron-packager": "8.1.0",
