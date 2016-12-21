@@ -9,7 +9,7 @@
     "ipfs-geoip": "^2.1.0",
     "ipfs-logo": "github:ipfs/logo",
     "ipfsd-ctl": "^0.16.0",
-    "menubar": "^5.0.0",
+    "menubar": "^5.2.0",
     "minimist": "^1.2.0",
     "multiaddr": "^2.0.2",
     "node-notifier": "^4.3.1",
