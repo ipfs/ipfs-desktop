@@ -54,7 +54,7 @@
     "react-transform-hmr": "^1.0.0",
     "redbox-react": "^1.0.5",
     "rimraf": "^2.4.3",
-    "shelljs": "^0.7.0"
+    "shelljs": "^0.7.6"
   },
   "scripts": {
     "start": "electron src/index.js",
