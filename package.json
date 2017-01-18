@@ -48,7 +48,7 @@
     "eslint-plugin-promise": "^2.0.0",
     "eslint-plugin-react": "^6.3.0",
     "eslint-plugin-standard": "^2.0.0",
-    "longjohn": "^0.2.11",
+    "longjohn": "^0.2.12",
     "pre-commit": "^1.2.1",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.0",
