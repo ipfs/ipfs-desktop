@@ -9,7 +9,7 @@ const IPFS_PATH_FILE = path.join(app.getPath('appData'), 'ipfs-electron-app-node
 
 const trayIcon = () => {
   if (os.platform() !== 'darwin') {
-    return path.resolve(__dirname, '../node_modules/ipfs-logo/ipfs-logo-256-ice.png')
+    return path.resolve(__dirname, '../node_modules/ipfs-logo/raster-generated/ipfs-logo-256-ice.png')
   }
 
   return path.resolve(__dirname, '../node_modules/ipfs-logo/platform-icons/osx-menu-bar.png')
