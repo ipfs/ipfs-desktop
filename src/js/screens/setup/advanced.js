@@ -7,7 +7,6 @@ import DirectoryInput from '../../components/view/directory-input'
 import IconDropdownList from '../../components/view/icon-dropdown-list'
 
 class Intro extends Component {
-
   static propTypes = {
     onInstallClick: PropTypes.func,
     configPath: PropTypes.string,
@@ -74,7 +73,7 @@ class Intro extends Component {
             data={this.props.keySizes}
             defaultValue={this.props.keySize}
             onChange={this.props.onKeySizeChange}
-            />
+          />
         </div>
         <Button style={styles.button} onClick={this.props.onInstallClick}>
           <Icon name='download' style={styles.icon} /> Install IPFS

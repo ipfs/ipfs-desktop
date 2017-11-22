@@ -92,7 +92,7 @@ class Menu extends Component {
             onBrowserClick={this._openBrowser}
             onSettingsClick={this._openSettings}
             onCloseClick={this._closeWindow}
-            />
+          />
         )
       case STARTING:
       case STOPPING:
@@ -113,7 +113,7 @@ class Menu extends Component {
         transitionName='fade'
         transitionEnterTimeout={300}
         transitionLeaveTimeout={200}
-        >
+      >
         {this._getScreen()}
       </CSSTransitionGroup>
     )

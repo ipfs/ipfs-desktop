@@ -29,7 +29,6 @@ class ProfileScreen extends Component {
     onStopClick: PropTypes.func,
     onConsoleClick: PropTypes.func,
     onBrowserClick: PropTypes.func,
-    onSettingsClick: PropTypes.func,
     onCloseClick: PropTypes.func,
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
@@ -136,12 +135,12 @@ class ProfileScreen extends Component {
             name='Browser'
             icon='window'
             onClick={this.props.onBrowserClick}
-            />
+          />
           <IconButton
             name='Stop'
             icon='media-stop'
             onClick={this.props.onStopClick}
-            />
+          />
         </div>
       </div>
     )

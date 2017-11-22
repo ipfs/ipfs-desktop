@@ -32,12 +32,12 @@ class IconDropdownList extends Component {
         <Icon
           name={this.props.icon}
           style={styles.icon}
-          />
+        />
         <DropdownList
           data={this.props.data}
           defaultValue={this.props.defaultValue}
           onChange={this.props.onChange}
-          />
+        />
       </div>
     )
   }

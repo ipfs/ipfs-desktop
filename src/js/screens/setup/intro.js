@@ -5,7 +5,6 @@ import Icon from '../../components/view/icon'
 import Button from '../../components/view/button'
 
 class Intro extends Component {
-
   static propTypes = {
     onInstallClick: PropTypes.func,
     onAdvancedClick: PropTypes.func

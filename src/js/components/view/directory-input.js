@@ -6,10 +6,8 @@ import Radium from 'radium'
 import Icon from './icon'
 
 class DirectoryInput extends Component {
-
   static propTypes = {
-    path: PropTypes.string.isRequired,
-    disabled: PropTypes.bool
+    path: PropTypes.string.isRequired
   }
 
   static defaultProps = {
@@ -58,7 +56,7 @@ class DirectoryInput extends Component {
         <a
           style={styles.button}
           onClick={this._onClick}
-          >
+        >
           {this.props.path}
         </a>
       </div>

@@ -6,7 +6,6 @@ import Button from '../../components/view/button'
 import Header from '../../components/view/header'
 
 class StartScreen extends Component {
-
   static propTypes = {
     onStartClick: PropTypes.func,
     onCloseClick: PropTypes.func

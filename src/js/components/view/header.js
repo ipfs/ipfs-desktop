@@ -44,7 +44,7 @@ class Header extends Component {
           onClick={this.props.onCloseClick}
           style={styles.stopButton}
           iconStyle={{fontSize: '18px'}}
-          />
+        />
       </div>
     )
   }

@@ -43,7 +43,7 @@ function pollStats (ipfs) {
     })
     .then(next)
 
-  // TODO: solve? 
+  // TODO: solve?
   ipfs.id()
     .then((peer) => {
       console.log(peer)
