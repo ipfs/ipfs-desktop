@@ -8,6 +8,7 @@
 [![Build Status](https://img.shields.io/travis/ipfs/station/master.svg?style=flat-square)](https://travis-ci.org/ipfs/station)
 [![Dependency Status](https://img.shields.io/david/ipfs/station.svg?style=flat-square)](https://david-dm.org/ipfs/station)
 [![devDependency Status](https://img.shields.io/david/dev/ipfs/station.svg?style=flat-square)](https://david-dm.org/ipfs/station#info=devDependencies)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fstation.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fstation?ref=badge_shield)
 
 > Electron Shell based IPFS app
 
@@ -44,3 +45,5 @@ This repository falls under the IPFS [Code of Conduct](https://github.com/ipfs/c
 ## License
 
 [MIT](LICENSE)
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fstation.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fstation?ref=badge_large)
