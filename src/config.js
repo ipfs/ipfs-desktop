@@ -7,36 +7,33 @@ import {app} from 'electron'
 const isProduction = process.env.NODE_ENV === 'production'
 const IPFS_PATH_FILE = path.join(app.getPath('appData'), 'ipfs-electron-app-node-path')
 
-const trayIcon = () => {
-  if (os.platform() !== 'darwin') {
-    return path.resolve(__dirname, '../node_modules/ipfs-logo/raster-generated/ipfs-logo-256-ice.png')
-  }
-
-  return path.resolve(__dirname, '../node_modules/ipfs-logo/platform-icons/osx-menu-bar.png')
-}
+const logoDir = path.resolve(__dirname, '../node_modules/ipfs-logo')
+const logoIce = path.resolve(logoDir, 'raster-generated/ipfs-logo-512-ice.png')
+const logoMenuBar = path.resolve(logoDir, 'platform-icons/osx-menu-bar.png')
+const trayIcon = (os.platform() === 'darwin') ? logoMenuBar : logoIce
 
 const menuBar = {
   dir: __dirname,
   width: 300,
   height: 400,
   index: `file://${__dirname}/views/menubar.html`,
-  icon: trayIcon(),
-  'node-integration': true,
-  'always-on-top': true,
+  icon: trayIcon,
+  alwaysOnTop: true,
   preloadWindow: true,
   resizable: false,
-  'web-preferences': {
-    'web-security': false
+  webPreferences: {
+    nodeIntegration: true,
+    webSecurity: false
   }
 }
 
 const window = {
-  icon: path.resolve(__dirname, '../node_modules/ipfs-logo/ipfs-logo-256-ice.png'),
-  'auto-hide-menu-bar': true,
+  icon: logoIce,
+  autoHideMenuBar: true,
   width: 800,
   height: 500,
-  'web-preferences': {
-    'web-security': false
+  webPreferences: {
+    webSecurity: false
   }
 }
 
@@ -60,7 +57,7 @@ export default {
   menuBar,
   window,
   isProduction,
-  'tray-icon': trayIcon(),
+  'tray-icon': trayIcon,
   'webui-path': '/webui',
   'ipfs-path': ipfsPath(),
   'ipfs-path-file': IPFS_PATH_FILE,
