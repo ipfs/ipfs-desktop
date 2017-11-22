@@ -44,17 +44,22 @@ function pollStats (ipfs) {
     .then(next)
 
   // TODO: solve? 
-  /* ipfs.id()
+  ipfs.id()
     .then((peer) => {
+      console.log(peer)
       lookupPretty(ipfs, peer.addresses, (err, location) => {
-        if (err) throw err
+        if (err) {
+          logger.error(err)
+          statsCache.location = 'Unknown'
+          mb.window.webContents.send('stats', statsCache)
+          return
+        }
+
         statsCache.location = location && location.formatted
         mb.window.webContents.send('stats', statsCache)
       })
     })
-    .catch((err) => {
-      logger.error(err)
-    }) */
+    .catch(logger.error)
 }
 
 function onRequestState (node, event) {

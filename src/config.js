@@ -18,9 +18,11 @@ const menuBar = {
   height: 400,
   index: `file://${__dirname}/views/menubar.html`,
   icon: trayIcon,
+  tooltip: 'Your IPFS instance',
   alwaysOnTop: true,
   preloadWindow: true,
   resizable: false,
+  skipTaskbar: true,
   webPreferences: {
     nodeIntegration: true,
     webSecurity: false
@@ -29,6 +31,7 @@ const menuBar = {
 
 const window = {
   icon: logoIce,
+  title: 'IPFS Dashboard',
   autoHideMenuBar: true,
   width: 800,
   height: 500,
