@@ -1,8 +1,6 @@
-'use strict'
-
-const winston = require('winston')
-const path = require('path')
-const init = require('./init')
+import winston from 'winston'
+import path from 'path'
+import {boot} from './init'
 
 // Setup Logging
 const logger = new (winston.Logger)({
@@ -23,4 +21,4 @@ process.on('uncaughtException', (error) => {
   process.exit(1)
 })
 
-init.boot(logger)
+boot(logger)

@@ -43,7 +43,7 @@ function pollStats (ipfs) {
     })
     .then(next)
 
-  ipfs.id()
+  /* TODO: solve? ipfs.id()
     .then((peer) => {
       lookupPretty(ipfs, peer.addresses, (err, location) => {
         if (err) throw err
@@ -53,7 +53,7 @@ function pollStats (ipfs) {
     })
     .catch((err) => {
       logger.error(err)
-    })
+    }) */
 }
 
 function onRequestState (node, event) {

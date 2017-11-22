@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import Radium from 'radium'
 
 import Button from '../../components/view/button'
@@ -44,7 +45,7 @@ class StartScreen extends Component {
       <div style={styles.wrapper}>
         <Header onCloseClick={this.props.onCloseClick} />
         <div style={styles.content}>
-          <image
+          <img
             src='../img/offline-icon.png'
             width='64'
             height='64'

@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {ipcRenderer} from 'electron'
 import Radium from 'radium'
 import {NativeTypes} from 'react-dnd-html5-backend'

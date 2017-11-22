@@ -1,5 +1,6 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 import Radium from 'radium'
+import PropTypes from 'prop-types'
 
 class SimpleStat extends Component {
   static propTypes = {
