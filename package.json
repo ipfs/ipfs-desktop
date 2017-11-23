@@ -24,6 +24,7 @@
     "winston": "^2.1.0"
   },
   "devDependencies": {
+    "aegir": "^12.2.0",
     "babel-core": "^6.3.21",
     "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
@@ -42,14 +43,6 @@
     "electron-debug": "^1.0.0",
     "electron-packager": "10.1.0",
     "electron-prebuilt-compile": "^1.7.9",
-    "eslint": "4.11.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-config-standard-react": "^5.0.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-react": "^7.5.1",
-    "eslint-plugin-standard": "^3.0.1",
     "longjohn": "^0.2.11",
     "pre-commit": "^1.2.1",
     "react-transform-catch-errors": "^1.0.0",
@@ -60,8 +53,8 @@
   },
   "scripts": {
     "start": "electron src/index.js",
-    "test": "npm run lint",
-    "lint": "eslint .",
+    "test": "aegir lint",
+    "lint": "aegir lint",
     "dist": "./pkg.js",
     "dist-all": "./pkg.js --all",
     "start:prod": "NODE_ENV=production electron src/index.js",
