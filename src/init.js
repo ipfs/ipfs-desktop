@@ -46,7 +46,6 @@ function pollStats (ipfs) {
   // TODO: solve?
   ipfs.id()
     .then((peer) => {
-      console.log(peer)
       lookupPretty(ipfs, peer.addresses, (err, location) => {
         if (err) {
           logger.error(err)
