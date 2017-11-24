@@ -44,8 +44,6 @@
     "electron-prebuilt-compile": "^1.7.9",
     "eslint": "^4.11.0",
     "eslint-config-aegir": "^1.0.1",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-config-standard-react": "^5.0.0",
     "longjohn": "^0.2.11",
     "pre-commit": "^1.2.1",
     "react-transform-catch-errors": "^1.0.0",
