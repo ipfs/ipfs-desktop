@@ -1,5 +1,5 @@
 module.exports = {
-    extends: 'aegir',
+    extends: ['aegir', 'standard-react'],
     parser: 'babel-eslint',
     parserOptions: {
         sourceType: 'module'
