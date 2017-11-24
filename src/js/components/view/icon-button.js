@@ -47,8 +47,7 @@ class IconButton extends Component {
         <div
           className={`icon-${this.props.icon}`}
           style={{fontSize: '28px', paddingBottom: '5px', ...this.props.iconStyle}}
-        >
-        </div>
+        />
         {this.props.name}
       </button>
     )

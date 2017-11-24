@@ -9,7 +9,7 @@ class Icon extends Component {
 
   render () {
     return (
-      <div className={`icon-${this.props.name}`} {...this.props}></div>
+      <div className={`icon-${this.props.name}`} {...this.props} />
     )
   }
 }

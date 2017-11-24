@@ -204,7 +204,7 @@ function initialize (path, node) {
       keySize
     }, (err, res) => {
       if (err) {
-        return welcomeWindow.webContents.send('initialization-error', err + '')
+        return welcomeWindow.webContents.send('initialization-error', String(err))
       }
 
       fs.writeFileSync(config['ipfs-path-file'], path)
