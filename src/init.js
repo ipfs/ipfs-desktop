@@ -48,7 +48,7 @@ function pollStats (ipfs) {
     .then((peer) => {
       lookupPretty(ipfs, peer.addresses, (err, location) => {
         if (err) {
-          logger.error(err)
+          // logger.error(err)
           statsCache.location = 'Unknown'
           mb.window.webContents.send('stats', statsCache)
           return
