@@ -1,6 +1,6 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {ipcRenderer} from 'electron'
-import Radium from 'radium'
 import {NativeTypes} from 'react-dnd-html5-backend'
 import {DropTarget} from 'react-dnd'
 
@@ -28,7 +28,6 @@ class ProfileScreen extends Component {
     onStopClick: PropTypes.func,
     onConsoleClick: PropTypes.func,
     onBrowserClick: PropTypes.func,
-    onSettingsClick: PropTypes.func,
     onCloseClick: PropTypes.func,
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
@@ -135,12 +134,12 @@ class ProfileScreen extends Component {
             name='Browser'
             icon='window'
             onClick={this.props.onBrowserClick}
-            />
+          />
           <IconButton
             name='Stop'
             icon='media-stop'
             onClick={this.props.onStopClick}
-            />
+          />
         </div>
       </div>
     )
@@ -151,4 +150,4 @@ export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
-}))(Radium(ProfileScreen))
+}))(ProfileScreen)

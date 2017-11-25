@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import CSSTransitionGroup from 'react-addons-css-transition-group'
-import Radium from 'radium'
+import {CSSTransition} from 'react-transition-group'
 import {ipcRenderer} from 'electron'
 
 import Intro from './setup/intro'
@@ -14,8 +13,7 @@ const ADVANCED = 'advanced'
 
 const KEY_SIZES = [2048, 4096]
 
-class Setup extends Component {
-
+export default class Setup extends Component {
   state = {
     status: INTRO,
     error: void 0,
@@ -71,7 +69,7 @@ class Setup extends Component {
             key='intro'
             onInstallClick={this._startInstallation}
             onAdvancedClick={this._selectAdvanced}
-            />
+          />
         )
       case ADVANCED: {
         return (
@@ -96,15 +94,12 @@ class Setup extends Component {
 
   render () {
     return (
-      <CSSTransitionGroup
-        transitionName='fade'
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={200}
-        >
+      <CSSTransition
+        className='fade'
+        timeout={{ enter: 300, exit: 200 }}
+      >
         {this._getScreen()}
-      </CSSTransitionGroup>
+      </CSSTransition>
     )
   }
 }
-
-export default Radium(Setup)

@@ -10,6 +10,7 @@ const filesUploaded = []
 
 function notify (title, message) {
   notifier.notify({
+    appName: 'ipfs.station',
     title,
     message,
     icon: iconPath,
@@ -46,15 +47,15 @@ export default function dragDrop (event, files) {
       logger.info('Uploading files', {files})
 
       res.forEach((file) => {
-        const url = `https://ipfs.io/ipfs/${file.Hash}`
+        const url = `https://ipfs.io/ipfs/${file.hash}`
         clipboard.writeText(url)
         filesUploaded.push(file)
 
-        logger.info('Uploaded file %s', file.Name)
+        logger.info('Uploaded file %s', file.path)
 
         notify(
-          `Finished uploading ${file.Name}`,
-          `${file.Name} was uploaded to ${url}.`
+          `Finished uploading ${file.path}`,
+          `${file.path} was uploaded to ${url}.`
         )
       })
     })

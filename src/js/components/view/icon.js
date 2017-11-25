@@ -1,17 +1,12 @@
-import React, {Component, PropTypes} from 'react'
-import Radium from 'radium'
+import React from 'react'
+import PropTypes from 'prop-types'
 
-class Icon extends Component {
-
-  static propTypes = {
-    name: PropTypes.string.isRequired
-  }
-
-  render () {
-    return (
-      <div className={`icon-${this.props.name}`} {...this.props}></div>
-    )
-  }
+export default function Icon (props) {
+  return (
+    <div className={`icon-${props.name}`} {...props} />
+  )
 }
 
-export default Radium(Icon)
+Icon.propTypes = {
+  name: PropTypes.string.isRequired
+}

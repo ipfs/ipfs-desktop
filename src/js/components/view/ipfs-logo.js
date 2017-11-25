@@ -19,7 +19,7 @@ export default function IPFSLogo () {
         width={16}
         height={16}
         style={styles.image}
-        />
+      />
       IPFS
     </div>
   )
