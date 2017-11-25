@@ -10,4 +10,3 @@ export default function Icon (props) {
 Icon.propTypes = {
   name: PropTypes.string.isRequired
 }
-
