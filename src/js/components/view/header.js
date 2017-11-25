@@ -1,50 +1,47 @@
-import React, {Component} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import IconButton from './icon-button'
 import IPFSLogo from './ipfs-logo'
 
-export default class Header extends Component {
-  static propTypes = {
-    onCloseClick: PropTypes.func
+const styles = {
+  wrapper: {
+    display: 'flex',
+    height: '40px'
+  },
+  text: {
+    alignSelf: 'center',
+    flex: '1',
+    paddingTop: '4px'
+  },
+  stopButton: {
+    background: 'none',
+    border: 'none',
+    position: 'absolute',
+    top: '11px',
+    right: '0'
   }
+}
 
-  static defaultProps = {
-    onCloseClick () {}
-  }
-
-  render () {
-    const styles = {
-      wrapper: {
-        display: 'flex',
-        height: '40px'
-      },
-      text: {
-        alignSelf: 'center',
-        flex: '1',
-        paddingTop: '4px'
-      },
-      stopButton: {
-        background: 'none',
-        border: 'none',
-        position: 'absolute',
-        top: '11px',
-        right: '0'
-      }
-    }
-
-    return (
-      <div style={styles.wrapper}>
-        <div style={styles.text}>
-          <IPFSLogo />
-        </div>
-        <IconButton
-          icon='cross'
-          onClick={this.props.onCloseClick}
-          style={styles.stopButton}
-          iconStyle={{fontSize: '18px'}}
-        />
+export default function Header (props) {
+  return (
+    <div style={styles.wrapper}>
+      <div style={styles.text}>
+        <IPFSLogo />
       </div>
-    )
-  }
+      <IconButton
+        icon='cross'
+        onClick={props.onCloseClick}
+        style={styles.stopButton}
+        iconStyle={{fontSize: '18px'}} />
+    </div>
+  )
+}
+
+Header.propTypes = {
+  onCloseClick: PropTypes.func.isRequired
+}
+
+Header.defaultProps = {
+  onCloseClick: () => {}
 }

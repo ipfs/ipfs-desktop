@@ -1,14 +1,13 @@
-import React, {Component} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-export default class Icon extends Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired
-  }
-
-  render () {
-    return (
-      <div className={`icon-${this.props.name}`} {...this.props} />
-    )
-  }
+export default function Icon (props) {
+  return (
+    <div className={`icon-${props.name}`} {...props} />
+  )
 }
+
+Icon.propTypes = {
+  name: PropTypes.string.isRequired
+}
+
