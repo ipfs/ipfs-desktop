@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import CSSTransitionGroup from 'react-addons-css-transition-group'
+import {CSSTransition} from 'react-transition-group'
 import {ipcRenderer} from 'electron'
 
 import Intro from './setup/intro'
@@ -94,13 +94,12 @@ export default class Setup extends Component {
 
   render () {
     return (
-      <CSSTransitionGroup
-        transitionName='fade'
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={200}
+      <CSSTransition
+        className='fade'
+        timeout={{ enter: 300, exit: 200 }}
       >
         {this._getScreen()}
-      </CSSTransitionGroup>
+      </CSSTransition>
     )
   }
 }

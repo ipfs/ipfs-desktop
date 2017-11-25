@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import CSSTransitionGroup from 'react-addons-css-transition-group'
+import {CSSTransition} from 'react-transition-group'
 import {ipcRenderer} from 'electron'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
@@ -109,13 +109,12 @@ class Menu extends Component {
 
   render () {
     return (
-      <CSSTransitionGroup
-        transitionName='fade'
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={200}
+      <CSSTransition
+        className='fade'
+        timeout={{ enter: 300, exit: 200 }}
       >
         {this._getScreen()}
-      </CSSTransitionGroup>
+      </CSSTransition>
     )
   }
 }
