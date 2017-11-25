@@ -18,13 +18,11 @@ export default function IconDropdownList (props) {
     <div>
       <Icon
         name={props.icon}
-        style={styles.icon}
-      />
+        style={styles.icon} />
       <DropdownList
         data={props.data}
         defaultValue={props.defaultValue}
-        onChange={props.onChange}
-      />
+        onChange={props.onChange} />
     </div>
   )
 }

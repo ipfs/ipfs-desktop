@@ -28,8 +28,7 @@ export default function IconButton (props) {
     <button onClick={props.onClick} style={styles.button}>
       <div
         className={`icon-${props.icon}`}
-        style={{fontSize: '28px', paddingBottom: '5px', ...props.iconStyle}}
-      />
+        style={{fontSize: '28px', paddingBottom: '5px', ...props.iconStyle}} />
       {props.name}
     </button>
   )

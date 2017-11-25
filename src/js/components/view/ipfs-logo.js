@@ -9,7 +9,7 @@ const styles = {
   }
 }
 
-const logoPath = '../../node_modules/ipfs-logo/raster/ipfs-logo-wider-strokes-white.png'
+const logoPath = '../../node_modules/ipfs-logo/raster-generated/ipfs-logo-256-white-outline.png'
 
 export default function IPFSLogo () {
   return (
@@ -18,8 +18,7 @@ export default function IPFSLogo () {
         src={logoPath}
         width={16}
         height={16}
-        style={styles.image}
-      />
+        style={styles.image} />
       IPFS
     </div>
   )

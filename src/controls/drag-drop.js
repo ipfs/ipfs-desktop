@@ -1,6 +1,7 @@
 import notifier from 'node-notifier'
 import {join} from 'path'
-import {getIPFS, logger} from './../init'
+import {logger} from '../config'
+import {getIPFS} from './../index'
 import {clipboard} from 'electron'
 
 const iconPath = join(__dirname, '..', '..', 'node_modules', 'ipfs-logo', 'platform-icons/osx-menu-bar@2x.png')

@@ -1,6 +1,7 @@
 import {ipcMain, shell} from 'electron'
 import {apiAddrToUrl} from './utils'
-import {logger, getIPFS} from './../init'
+import {logger} from '../config'
+import {getIPFS} from './../index'
 
 function openBrowser (cb) {
   const ipfs = getIPFS()
