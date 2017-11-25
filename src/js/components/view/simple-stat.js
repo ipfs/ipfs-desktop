@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
-import Radium from 'radium'
 import PropTypes from 'prop-types'
 
-class SimpleStat extends Component {
+export default class SimpleStat extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,
@@ -54,5 +53,3 @@ class SimpleStat extends Component {
     )
   }
 }
-
-export default Radium(SimpleStat)

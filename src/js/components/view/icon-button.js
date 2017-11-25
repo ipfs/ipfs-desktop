@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Radium from 'radium'
 
-class IconButton extends Component {
+export default class IconButton extends Component {
   static propTypes = {
     name: PropTypes.string,
     icon: PropTypes.string,
@@ -53,5 +52,3 @@ class IconButton extends Component {
     )
   }
 }
-
-export default Radium(IconButton)

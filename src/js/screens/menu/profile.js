@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {ipcRenderer} from 'electron'
-import Radium from 'radium'
 import {NativeTypes} from 'react-dnd-html5-backend'
 import {DropTarget} from 'react-dnd'
 
@@ -151,4 +150,4 @@ export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
-}))(Radium(ProfileScreen))
+}))(ProfileScreen)

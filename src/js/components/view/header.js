@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Radium from 'radium'
 
 import IconButton from './icon-button'
 import IPFSLogo from './ipfs-logo'
 
-class Header extends Component {
+export default class Header extends Component {
   static propTypes = {
     onCloseClick: PropTypes.func
   }
@@ -49,5 +48,3 @@ class Header extends Component {
     )
   }
 }
-
-export default Radium(Header)

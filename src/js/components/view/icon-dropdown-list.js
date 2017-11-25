@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Radium from 'radium'
 import {DropdownList} from 'react-widgets'
 
 import Icon from './icon'
 
-class IconDropdownList extends Component {
+export default class IconDropdownList extends Component {
   static propTypes = {
     icon: PropTypes.string.isRequired,
     data: PropTypes.array,
@@ -42,5 +41,3 @@ class IconDropdownList extends Component {
     )
   }
 }
-
-export default Radium(IconDropdownList)

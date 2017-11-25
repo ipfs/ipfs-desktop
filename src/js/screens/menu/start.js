@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Radium from 'radium'
 
 import Button from '../../components/view/button'
 import Header from '../../components/view/header'
 
-class StartScreen extends Component {
+export default class StartScreen extends Component {
   static propTypes = {
     onStartClick: PropTypes.func,
     onCloseClick: PropTypes.func
@@ -63,5 +62,3 @@ class StartScreen extends Component {
     )
   }
 }
-
-export default Radium(StartScreen)

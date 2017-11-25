@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Radium from 'radium'
 
-export default Radium(class Button extends Component {
+export default class Button extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     onClick: PropTypes.func,
@@ -40,4 +39,4 @@ export default Radium(class Button extends Component {
       </button>
     )
   }
-})
+}

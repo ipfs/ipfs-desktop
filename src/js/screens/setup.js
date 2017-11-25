@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
-import Radium from 'radium'
 import {ipcRenderer} from 'electron'
 
 import Intro from './setup/intro'
@@ -14,7 +13,7 @@ const ADVANCED = 'advanced'
 
 const KEY_SIZES = [2048, 4096]
 
-class Setup extends Component {
+export default class Setup extends Component {
   state = {
     status: INTRO,
     error: void 0,
@@ -105,5 +104,3 @@ class Setup extends Component {
     )
   }
 }
-
-export default Radium(Setup)

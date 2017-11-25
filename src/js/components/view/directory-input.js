@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {ipcRenderer} from 'electron'
-import Radium from 'radium'
 
 import Icon from './icon'
 
-class DirectoryInput extends Component {
+export default class DirectoryInput extends Component {
   static propTypes = {
     path: PropTypes.string.isRequired
   }
@@ -63,5 +62,3 @@ class DirectoryInput extends Component {
     )
   }
 }
-
-export default Radium(DirectoryInput)
