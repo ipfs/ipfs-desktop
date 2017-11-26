@@ -267,7 +267,7 @@ ipfsd.local((err, node) => {
 
   mb.on('ready', () => {
     logger.info('Application is ready')
-  
+
     // tray actions
 
     mb.tray.on('drop-files', dragDrop)
