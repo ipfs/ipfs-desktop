@@ -6,7 +6,7 @@ import {clipboard} from 'electron'
 
 const iconPath = join(__dirname, '..', '..', 'node_modules', 'ipfs-logo', 'platform-icons/osx-menu-bar@2x.png')
 
-// TODO persist this to disk
+// TODO: persist this to disk
 const filesUploaded = []
 
 function notify (title, message) {

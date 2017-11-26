@@ -1,9 +1,9 @@
-import {ipcMain, BrowserWindow} from 'electron'
+import {BrowserWindow} from 'electron'
 import {apiAddrToUrl} from './utils'
 import config from '../config'
 import {getIPFS} from './../index'
 
-function openConsole () {
+export default function openConsole () {
   const ipfs = getIPFS()
   if (!ipfs) {
     const err = new Error('Cannot open console, IPFS daemon not running')
@@ -20,5 +20,3 @@ function openConsole () {
       return config.logger.error(err)
     })
 }
-
-ipcMain.on('open-console', openConsole)

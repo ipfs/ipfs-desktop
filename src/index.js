@@ -1,19 +1,21 @@
 import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
+
+import openConsole from './controls/open-console'
+import openSettings from './controls/open-settings'
+import openBrowser from './controls/open-browser'
 import dragDrop from './controls/drag-drop'
+
 import {join} from 'path'
 import {lookupPretty} from 'ipfs-geoip'
 import config, {logger} from './config'
-import {dialog, BrowserWindow, ipcMain} from 'electron'
-
-/*
+import {dialog, BrowserWindow, ipcMain, app} from 'electron'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+if (require('electron-squirrel-startup')) {
   app.quit()
 }
-*/
 
 process.on('uncaughtException', (error) => {
   const msg = error.message || error
@@ -166,6 +168,10 @@ function startTray (node) {
   ipcMain.on('drop-files', dragDrop.bind(null))
   ipcMain.on('close-tray-window', onCloseWindow)
 
+  ipcMain.on('open-settings', openSettings)
+  ipcMain.on('open-console', openConsole)
+  ipcMain.on('open-browser', openBrowser)
+
   mb.app.once('will-quit', onWillQuit.bind(null, node))
 }
 
@@ -209,8 +215,8 @@ function initialize (path, node) {
   })
 
   // wait for msg from frontend
-  ipcMain.on('initialize', ({keySize}) => {
-    logger.info('Initializing new node with key size: %s in %s.', keySize, userPath)
+  ipcMain.on('initialize', (event, { keySize }) => {
+    logger.info(`Initializing new node with key size: ${keySize} in ${userPath}.`)
 
     welcomeWindow.webContents.send('initializing')
     node.init({
@@ -221,7 +227,7 @@ function initialize (path, node) {
         return welcomeWindow.webContents.send('initialization-error', String(err))
       }
 
-      fs.writeFileSync(config['ipfs-path-file'], path)
+      fs.writeFileSync(config.ipfsPathFile, path)
 
       welcomeWindow.webContents.send('initialization-complete')
       welcomeWindow.webContents.send('node-status', 'stopped')
@@ -261,12 +267,7 @@ ipfsd.local((err, node) => {
 
   mb.on('ready', () => {
     logger.info('Application is ready')
-
-    // -- load the controls
-    require('./controls/open-browser')
-    require('./controls/open-console')
-    require('./controls/open-settings')
-
+  
     // tray actions
 
     mb.tray.on('drop-files', dragDrop)
@@ -275,7 +276,7 @@ ipfsd.local((err, node) => {
     startTray(node)
 
     if (!node.initialized) {
-      initialize(config['ipfs-path'], node)
+      initialize(config.ipfsPath, node)
     } else {
       // Start up the daemon
       onStartDaemon(node)

@@ -20,8 +20,8 @@ const ipfsPath = (() => {
   try {
     pathIPFS = fs.readFileSync(ipfsPathFile, 'utf-8')
   } catch (e) {
-    pathIPFS = process.env.IPFS_PATH ||
-      (process.env.HOME || process.env.USERPROFILE) + '/.ipfs'
+    pathIPFS = path.join(process.env.IPFS_PATH ||
+      (process.env.HOME || process.env.USERPROFILE), '.ipfs')
   }
 
   return pathIPFS
@@ -29,16 +29,21 @@ const ipfsPath = (() => {
 
 // Sets up the Logger
 export const logger = winston.createLogger({
+  format: winston.format.json(),
   transports: [
-    new winston.transports.Console({
-      handleExceptions: false
-    }),
     new winston.transports.File({
       filename: path.join(__dirname, 'app.log'),
       handleExceptions: false
     })
   ]
 })
+
+if (isDev) {
+  logger.add(new winston.transports.Console({
+    format: winston.format.simple(),
+    handleExceptions: false
+  }))
+}
 
 // Default settings for new windows
 const window = {
