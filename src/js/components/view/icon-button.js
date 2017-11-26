@@ -13,6 +13,7 @@ export default function IconButton (props) {
       fontSize: '12px',
       textTransform: 'uppercase',
       transition: 'color 0.3s ease-in-out',
+      cursor: 'pointer',
       ':focus': {
         outline: 'none'
       },

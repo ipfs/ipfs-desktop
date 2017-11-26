@@ -4,16 +4,11 @@ import fs from 'fs'
 import os from 'os'
 import isDev from 'electron-is-dev'
 import {app} from 'electron'
+import {getLogo, macOsMenuBar} from './utils/logo'
 
 const isProduction = !isDev
 const currentURL = (name) => `file://${__dirname}/views/${name}.html`
 const ipfsPathFile = path.join(app.getPath('appData'), 'ipfs-electron-app-node-path')
-
-// Icons
-const logoDir = path.resolve(__dirname, '../node_modules/ipfs-logo')
-const logoIce = path.resolve(logoDir, 'raster-generated/ipfs-logo-512-ice.png')
-const logoMenuBar = path.resolve(logoDir, 'platform-icons/osx-menu-bar.png')
-const trayIcon = (os.platform() === 'darwin') ? logoMenuBar : logoIce
 
 const ipfsPath = (() => {
   let pathIPFS
@@ -47,7 +42,7 @@ if (isDev) {
 
 // Default settings for new windows
 const window = {
-  icon: logoIce,
+  icon: getLogo(),
   title: 'IPFS Dashboard',
   autoHideMenuBar: true,
   width: 800,
@@ -63,7 +58,7 @@ const menubar = {
   width: 300,
   height: 400,
   index: `file://${__dirname}/views/menubar.html`,
-  icon: trayIcon,
+  icon: (os.platform() === 'darwin') ? macOsMenuBar : getLogo(),
   tooltip: 'Your IPFS instance',
   alwaysOnTop: true,
   preloadWindow: true,
