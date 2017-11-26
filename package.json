@@ -56,7 +56,7 @@
           "squirrel"
         ],
         "darwin": [
-          "zip"
+          "dmg"
         ],
         "linux": [
           "deb",
@@ -64,20 +64,23 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "npm"
+        "packageManager": "npm",
+        "icon": "./node_modules/ipfs-logo/platform-icons/ipfs.ico"
       },
       "electronWinstallerConfig": {
-        "name": "IPFS Station"
+        "name": "Station",
+        "setupIcon": "./node_modules/ipfs-logo/platform-icons/ipfs.ico"
       },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
+      "electronInstallerDMG": {
+        "icon": "./node_modules/ipfs-logo/platform-icons/ipfs.icns"
+      },
       "github_repository": {
-        "owner": "",
-        "name": ""
+        "owner": "ipfs-shipyard",
+        "name": "station"
       },
       "windowsStoreConfig": {
-        "packageName": "io.ipfs.station",
-        "name": "IPFS Station"
+        "packageName": "Station",
+        "name": "Station"
       }
     }
   },
@@ -93,6 +96,7 @@
     "type": "git",
     "url": "https://github.com/ipfs/station"
   },
+  "author": "IPFS",
   "authors": [
     "Kristoffer Ström <kristoffer@rymdkoloni.se>",
     "David Dias <daviddias@ipfs.io>",
