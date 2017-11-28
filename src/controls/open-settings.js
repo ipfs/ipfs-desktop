@@ -1,12 +1,10 @@
-import {ipcMain, BrowserWindow} from 'electron'
+import {BrowserWindow} from 'electron'
 import config from './../config'
 
-function openSettings () {
+export default function openSettings () {
   const settingsWindow = new BrowserWindow(config.window)
 
   settingsWindow.loadURL(config.urls.settings)
 
   settingsWindow.webContents.on('did-finish-load', () => {})
 }
-
-ipcMain.on('open-settings', openSettings)

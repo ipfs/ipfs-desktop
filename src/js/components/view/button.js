@@ -12,6 +12,7 @@ export default function Button (props) {
     fontWeight: '600',
     textAlign: 'center',
     borderRadius: '2px',
+    cursor: 'pointer',
     ':hover': {
       color: 'rgba(0, 0, 0, 1)'
     },

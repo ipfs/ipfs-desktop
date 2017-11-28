@@ -33,7 +33,6 @@ export default class Setup extends Component {
   }
 
   _onConfigPath = (event, path) => {
-    console.log('got path', path)
     this.setState({configPath: path})
   }
 

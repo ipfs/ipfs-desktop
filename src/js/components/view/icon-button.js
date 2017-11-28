@@ -13,6 +13,7 @@ export default function IconButton (props) {
       fontSize: '12px',
       textTransform: 'uppercase',
       transition: 'color 0.3s ease-in-out',
+      cursor: 'pointer',
       ':focus': {
         outline: 'none'
       },
@@ -28,8 +29,7 @@ export default function IconButton (props) {
     <button onClick={props.onClick} style={styles.button}>
       <div
         className={`icon-${props.icon}`}
-        style={{fontSize: '28px', paddingBottom: '5px', ...props.iconStyle}}
-      />
+        style={{fontSize: '28px', paddingBottom: '5px', ...props.iconStyle}} />
       {props.name}
     </button>
   )

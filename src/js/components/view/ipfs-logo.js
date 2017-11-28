@@ -1,4 +1,5 @@
 import React from 'react'
+import {logoWiderStrokes} from '../../../utils/logo'
 
 const styles = {
   wrapper: {
@@ -9,17 +10,14 @@ const styles = {
   }
 }
 
-const logoPath = '../../node_modules/ipfs-logo/raster/ipfs-logo-wider-strokes-white.png'
-
 export default function IPFSLogo () {
   return (
     <div style={styles.wrapper}>
       <img
-        src={logoPath}
+        src={logoWiderStrokes}
         width={16}
         height={16}
-        style={styles.image}
-      />
+        style={styles.image} />
       IPFS
     </div>
   )

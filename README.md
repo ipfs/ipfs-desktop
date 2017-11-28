@@ -5,9 +5,9 @@
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/ipfs/station)
-[![Build Status](https://img.shields.io/travis/ipfs/station/master.svg?style=flat-square)](https://travis-ci.org/ipfs/station)
-[![Dependency Status](https://img.shields.io/david/ipfs/station.svg?style=flat-square)](https://david-dm.org/ipfs/station)
-[![devDependency Status](https://img.shields.io/david/dev/ipfs/station.svg?style=flat-square)](https://david-dm.org/ipfs/station#info=devDependencies)
+[![Build Status](https://img.shields.io/travis/ipfs-shipyard/station/master.svg?style=flat-square)](https://travis-ci.org/ipfs-shipyard/station)
+[![Dependency Status](https://img.shields.io/david/ipfs-shipyard/station.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/station)
+[![devDependency Status](https://img.shields.io/david/dev/ipfs-shipyard/station.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/station#info=devDependencies)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fstation.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fstation?ref=badge_shield)
 
 > Electron Shell based IPFS app
