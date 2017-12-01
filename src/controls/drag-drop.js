@@ -27,7 +27,7 @@ export default function dragDrop (event, files) {
         clipboard.writeText(url)
         filesUploaded.push(file)
 
-        logger.info('Uploaded file %s', file.path)
+        logger.info('Uploaded file', {path: file.path})
 
         appendFile(file.path, file.hash)
       })
