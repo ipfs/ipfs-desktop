@@ -1,39 +1,14 @@
-import notifier from 'node-notifier'
-import {join} from 'path'
 import {logger} from '../config'
-import {getIPFS} from './../index'
+import {getIPFS, appendFile} from './../index'
 import {clipboard} from 'electron'
-
-const iconPath = join(__dirname, '..', '..', 'node_modules', 'ipfs-logo', 'platform-icons/osx-menu-bar@2x.png')
 
 // TODO: persist this to disk
 const filesUploaded = []
 
-function notify (title, message) {
-  notifier.notify({
-    appName: 'ipfs.station',
-    title,
-    message,
-    icon: iconPath,
-    sound: true,
-    wait: false
-  })
-}
-
-function notifyError (message) {
-  notifier.notify({
-    title: 'Error in file upload',
-    message,
-    icon: iconPath,
-    sound: true,
-    wait: false
-  })
-}
-
 export default function dragDrop (event, files) {
   const ipfs = getIPFS()
   if (!ipfs) {
-    notifyError('Can\'t upload file, IPFS Node is offline')
+    // FAILED TO UPLOAD FILES
     return
   }
 
@@ -41,7 +16,7 @@ export default function dragDrop (event, files) {
     .add(files, {w: files.length > 1})
     .then((res) => {
       if (!res) {
-        notifyError('Failed to upload files')
+        // FAILED TO UPLOAD FILES
         return
       }
 
@@ -54,14 +29,11 @@ export default function dragDrop (event, files) {
 
         logger.info('Uploaded file %s', file.path)
 
-        notify(
-          `Finished uploading ${file.path}`,
-          `${file.path} was uploaded to ${url}.`
-        )
+        appendFile(file.path, file.hash)
       })
     })
     .catch((err) => {
       logger.error(err)
-      notifyError(err.message)
+      // FAILED TO UPLOAD FILES
     })
 }

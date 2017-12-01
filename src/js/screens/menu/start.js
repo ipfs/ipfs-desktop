@@ -21,7 +21,7 @@ export default class StartScreen extends Component {
         display: 'flex',
         width: '100%',
         height: '100%',
-        backgroundColor: '#19b5fe',
+        backgroundColor: '#252525',
         color: '#FFFFFF',
         flexDirection: 'column',
         alignItems: 'center',

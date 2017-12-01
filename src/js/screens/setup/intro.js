@@ -1,15 +1,14 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
-import Icon from '../../components/view/icon'
-import Button from '../../components/view/button'
+import TextButton from '../../components/view/text-button'
 
 const styles = {
   base: {
     display: 'flex',
     width: '100%',
     height: '100%',
-    backgroundImage: `url('../img/jellyfish-large.png')`,
+    backgroundImage: `url('../img/space.jpg')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     color: '#FFFFFF',
@@ -67,9 +66,7 @@ export default class Intro extends Component {
           Welcome to IPFS
         </span>
         <div style={styles.actions}>
-          <Button style={styles.button} onClick={this.props.onInstallClick}>
-            <Icon name='download' style={styles.icon} /> Install IPFS
-          </Button>
+          <TextButton style={styles.button} text='Install IPFS' onClick={this.props.onInstallClick} />
           <a
             key='advanced-link'
             onClick={this.props.onAdvancedClick}

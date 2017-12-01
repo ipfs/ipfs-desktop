@@ -29,7 +29,7 @@ export default class Intro extends Component {
         display: 'flex',
         width: '100%',
         height: '100%',
-        backgroundImage: `url('../img/jellyfish-blur.png')`,
+        backgroundImage: `url('../img/space.jpg')`,
         backgroundSize: '100%',
         backgroundPosition: '0 0',
         color: '#FFFFFF',

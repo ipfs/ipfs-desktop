@@ -3,14 +3,13 @@ import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 
 import openConsole from './controls/open-console'
-import openSettings from './controls/open-settings'
 import openBrowser from './controls/open-browser'
 import dragDrop from './controls/drag-drop'
 
 import {join} from 'path'
 import {lookupPretty} from 'ipfs-geoip'
 import config, {logger} from './config'
-import {dialog, BrowserWindow, ipcMain, app} from 'electron'
+import {dialog, ipcMain, app} from 'electron'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -40,6 +39,7 @@ let IPFS
 let mb
 let shouldPoll = false
 const statsCache = {}
+let locationsCache = {}
 
 function pollStats (ipfs) {
   const next = () => {
@@ -54,7 +54,34 @@ function pollStats (ipfs) {
 
   ipfs.swarm.peers()
     .then((res) => {
-      statsCache.peers = res.length
+      res = res.sort((a, b) => {
+        return a.peer.toB58String() > b.peer.toB58String() ? 1 : -1
+      })
+
+      let peers = []
+
+      res.forEach(rawPeer => {
+        let peer = {
+          id: rawPeer.peer.toB58String(),
+          addr: rawPeer.addr.toString(),
+          location: {
+            formatted: 'Unknown'
+          }
+        }
+
+        if (!locationsCache[peer.id]) {
+          lookupPretty(IPFS, [peer.addr], (err, result) => {
+            if (err) return
+            locationsCache[peer.id] = result
+          })
+        } else {
+          peer.location = locationsCache[peer.id]
+        }
+
+        peers.push(peer)
+      })
+
+      statsCache.peers = peers
       mb.window.webContents.send('stats', statsCache)
     }, (err) => {
       logger.error(err.stack)
@@ -63,16 +90,25 @@ function pollStats (ipfs) {
 
   ipfs.id()
     .then((peer) => {
-      lookupPretty(ipfs, peer.addresses, (err, location) => {
+      statsCache.node = peer
+      statsCache.node.location = 'Unknown'
+
+      lookupPretty(IPFS, peer.addresses, (err, location) => {
         if (err) {
-          statsCache.location = 'Unknown'
           mb.window.webContents.send('stats', statsCache)
           return
         }
 
-        statsCache.location = location && location.formatted
+        statsCache.node.location = location && location.formatted
         mb.window.webContents.send('stats', statsCache)
       })
+    })
+    .catch(logger.error)
+
+  ipfs.repo.stat()
+    .then(repo => {
+      statsCache.repo = repo
+      mb.window.webContents.send('stats', statsCache)
     })
     .catch(logger.error)
 }
@@ -87,6 +123,34 @@ function onRequestState (node, event) {
 
     mb.window.webContents.send('node-status', status)
   }
+}
+
+let fileHistory = (() => {
+  let history = []
+
+  if (fs.existsSync(config.ipfsFileHistoryFile)) {
+    history = JSON.parse(fs.readFileSync(config.ipfsFileHistoryFile))
+  } else {
+    history = []
+    fs.writeFileSync(config.ipfsFileHistoryFile, JSON.stringify(history))
+  }
+
+  return history
+})()
+
+export function appendFile (name, hash) {
+  fileHistory.unshift({
+    name,
+    hash,
+    date: new Date()
+  })
+
+  fs.writeFileSync(config.ipfsFileHistoryFile, JSON.stringify(fileHistory))
+  onRequestFiles()
+}
+
+function onRequestFiles () {
+  mb.window.webContents.send('files', fileHistory)
 }
 
 function onStartDaemon (node) {
@@ -163,14 +227,26 @@ function startTray (node) {
   logger.info('Starting tray')
 
   ipcMain.on('request-state', onRequestState.bind(null, node))
+  ipcMain.on('request-files', onRequestFiles)
   ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
   ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
   ipcMain.on('drop-files', dragDrop.bind(null))
   ipcMain.on('close-tray-window', onCloseWindow)
 
-  ipcMain.on('open-settings', openSettings)
   ipcMain.on('open-console', openConsole)
   ipcMain.on('open-browser', openBrowser)
+
+  ipcMain.on('small-window', () => {
+    mb.window.setSize(350, config.menubar.height)
+  })
+
+  ipcMain.on('medium-window', () => {
+    mb.window.setSize(600, config.menubar.height)
+  })
+
+  ipcMain.on('big-window', () => {
+    mb.window.setSize(800, config.menubar.height)
+  })
 
   mb.app.once('will-quit', onWillQuit.bind(null, node))
 }
@@ -179,22 +255,21 @@ function startTray (node) {
 function initialize (path, node) {
   logger.info('Initialzing new node')
 
-  const welcomeWindow = new BrowserWindow(config.window)
-
-  welcomeWindow.loadURL(config.urls.welcome)
-  welcomeWindow.webContents.on('did-finish-load', () => {
-    welcomeWindow.webContents.send('setup-config-path', path)
+  mb.window.loadURL(config.urls.welcome)
+  mb.window.webContents.on('did-finish-load', () => {
+    mb.window.webContents.send('setup-config-path', path)
   })
+  mb.showWindow()
 
   // Close the application if the welcome dialog is canceled
-  welcomeWindow.once('close', () => {
+  mb.window.once('close', () => {
     if (!node.initialized) mb.app.quit()
   })
 
   let userPath = path
 
   ipcMain.on('setup-browse-path', () => {
-    dialog.showOpenDialog(welcomeWindow, {
+    dialog.showOpenDialog(mb.window, {
       title: 'Select a directory',
       defaultPath: path,
       properties: [
@@ -210,7 +285,7 @@ function initialize (path, node) {
         userPath = join(userPath, '.ipfs')
       }
 
-      welcomeWindow.webContents.send('setup-config-path', userPath)
+      mb.window.webContents.send('setup-config-path', userPath)
     })
   })
 
@@ -218,23 +293,22 @@ function initialize (path, node) {
   ipcMain.on('initialize', (event, { keySize }) => {
     logger.info(`Initializing new node with key size: ${keySize} in ${userPath}.`)
 
-    welcomeWindow.webContents.send('initializing')
+    mb.window.webContents.send('initializing')
     node.init({
       directory: userPath,
       keySize
     }, (err, res) => {
       if (err) {
-        return welcomeWindow.webContents.send('initialization-error', String(err))
+        return mb.window.webContents.send('initialization-error', String(err))
       }
 
       fs.writeFileSync(config.ipfsPathFile, path)
 
-      welcomeWindow.webContents.send('initialization-complete')
-      welcomeWindow.webContents.send('node-status', 'stopped')
+      mb.window.webContents.send('initialization-complete')
+      mb.window.webContents.send('node-status', 'stopped')
 
-      welcomeWindow.close()
       onStartDaemon(node)
-      mb.showWindow()
+      mb.window.loadURL(config.menubar.index)
     })
   })
 }

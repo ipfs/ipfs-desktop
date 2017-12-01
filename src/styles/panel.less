@@ -1,0 +1,60 @@
+.panel {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .header,
+    .footer {
+        padding: 1em;
+    }
+
+    .header {
+        .title {
+            font-size: @medium-font;
+            color: rgba(255, 255, 255, 0.5);
+            margin: 0
+        }
+
+        .subtitle {
+            margin: 0;
+            font-size: @big-font;
+        }
+
+        .buttons {
+            position: absolute;
+            top: 1em;
+            right: 1.5em;
+        }
+    }
+
+    .main {
+        padding-bottom: 3.5em;
+    }
+
+    .footer {
+        height: 5.25em;
+        display: flex;
+        background: linear-gradient(to top, #252525 0%, #252525 45%, transparent 100%);
+        position: fixed;
+        bottom: 0;
+        right: 0.5em;
+        padding-top: 3em;
+        box-sizing: border-box;
+        width: calc(~"300px - 0.5em");
+
+        .right {
+            margin-left: auto;
+        }
+    }
+
+    &.left-panel {
+        width: 500px;
+        background: #000;
+    }
+
+    &.left-panel .footer {
+        background: linear-gradient(to top, #000000 0%, #000000 45%, transparent 100%);
+        left: 0;
+        width: calc(~"500px - 0.5em")
+    }
+}

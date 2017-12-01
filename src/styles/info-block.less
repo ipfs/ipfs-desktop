@@ -1,0 +1,84 @@
+.info-block {
+    padding: 0 1em;
+    transition: .2s ease background-color;
+    position: relative;
+
+    & > div {
+        padding: 1em 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    &:hover {
+        background: #202020;
+    }
+
+    &:first-of-type {
+        border-top: 0;
+    }
+
+    p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .label {
+        margin-bottom: 0.2em;
+        font-size: @medium-font;
+    }
+
+    .info {
+        color: rgba(255,255,255,0.5);
+        font-size: @normal-font;
+    }
+
+    pre {
+        background-color: rgba(0, 0, 0, 0.1);
+        padding: 0.5em;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        border-radius: .2em;
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    button {
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(0, -50%);
+    }
+    
+    &:hover button {
+        opacity: 1;
+    }
+
+    .button-overlay {
+        opacity: 0;
+        transition: .2s ease opacity;
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        height: calc(~"100% - 2em");
+        width: 50%;
+        background: linear-gradient(to left, #202020 0%, #202020 50%, transparent 100%);
+    }
+    
+    &:hover .button-overlay {
+        opacity: 1;
+    }
+}
+
+.info-block.file {
+    & > div {
+        display: flex;
+        align-items: center;
+    }
+
+    & .icon {
+        font-size: 1.6em;
+        margin-right: 0.35em;
+        color: rgba(255, 255, 255, 0.5)
+    }
+}

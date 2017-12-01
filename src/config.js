@@ -8,7 +8,18 @@ import {getLogo, macOsMenuBar} from './utils/logo'
 
 const isProduction = !isDev
 const currentURL = (name) => `file://${__dirname}/views/${name}.html`
-const ipfsPathFile = path.join(app.getPath('appData'), 'ipfs-electron-app-node-path')
+const ipfsAppData = (() => {
+  let p = path.join(app.getPath('appData'), 'ipfs-station')
+
+  if (!fs.existsSync(p)) {
+    fs.mkdirSync(p)
+  }
+
+  return p
+})()
+
+const ipfsPathFile = path.join(ipfsAppData, 'app-node-path')
+const ipfsFileHistoryFile = path.join(ipfsAppData, 'file-history.json')
 
 const ipfsPath = (() => {
   let pathIPFS
@@ -55,7 +66,7 @@ const window = {
 // Configuration for the MenuBar
 const menubar = {
   dir: __dirname,
-  width: 300,
+  width: 800,
   height: 400,
   index: `file://${__dirname}/views/menubar.html`,
   icon: (os.platform() === 'darwin') ? macOsMenuBar : getLogo(),
@@ -78,6 +89,7 @@ export default {
   webuiPath: '/webui',
   ipfsPath,
   ipfsPathFile,
+  ipfsFileHistoryFile,
   urls: {
     welcome: currentURL('welcome'),
     settings: currentURL('settings')
