@@ -9,7 +9,7 @@ import dragDrop from './controls/drag-drop'
 import {join} from 'path'
 import {lookupPretty} from 'ipfs-geoip'
 import config, {logger} from './config'
-import {dialog, ipcMain, app} from 'electron'
+import {dialog, ipcMain, Menu, app} from 'electron'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -342,12 +342,16 @@ ipfsd.local((err, node) => {
   mb.on('ready', () => {
     logger.info('Application is ready')
 
-    // tray actions
-
     mb.tray.on('drop-files', dragDrop)
     mb.tray.setHighlightMode(true)
 
     startTray(node)
+
+    const contextMenu = Menu.buildFromTemplate([
+      {label: 'Exit', click: () => mb.app.quit()}
+    ])
+
+    mb.tray.setContextMenu(contextMenu)
 
     if (!node.initialized) {
       initialize(config.ipfsPath, node)
