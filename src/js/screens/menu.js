@@ -25,12 +25,6 @@ class Menu extends Component {
     stats: {}
   }
 
-  // -- Event Listeners
-
-  _onVersion = (event, arg) => {
-    this.setState({version: arg})
-  }
-
   _onNodeStatus = (event, status) => {
     this.setState({status: status})
   }
@@ -59,21 +53,12 @@ class Menu extends Component {
     ipcRenderer.send('close-tray-window')
   }
 
-  _openConsole () {
-    ipcRenderer.send('open-console')
-  }
-
   _openBrowser () {
     ipcRenderer.send('open-browser')
   }
 
-  _openSettings () {
-    ipcRenderer.send('open-settings')
-  }
-
   componentDidMount () {
     // -- Listen to control events
-    ipcRenderer.on('version', this._onVersion)
     ipcRenderer.on('node-status', this._onNodeStatus)
     ipcRenderer.on('stats', this._onStats)
     ipcRenderer.on('files', this._onFiles)
@@ -84,7 +69,6 @@ class Menu extends Component {
 
   componentWillUnmount () {
     // -- Remove control events
-    ipcRenderer.removeListener('version', this._onVersion)
     ipcRenderer.removeListener('node-status', this._onNodeStatus)
     ipcRenderer.removeListener('stats', this._onStats)
     ipcRenderer.removeListener('files', this._onFiles)

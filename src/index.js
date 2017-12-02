@@ -2,7 +2,6 @@ import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 
-import openConsole from './controls/open-console'
 import openBrowser from './controls/open-browser'
 import dragDrop from './controls/drag-drop'
 
@@ -39,7 +38,7 @@ let IPFS
 let mb
 let shouldPoll = false
 const statsCache = {}
-let locationsCache = {}
+const locationsCache = {}
 
 function pollStats (ipfs) {
   const next = () => {
@@ -160,18 +159,6 @@ function onStartDaemon (node) {
     if (err) throw err
 
     mb.window.webContents.send('node-status', 'running')
-
-    shouldPoll = true
-    pollStats(ipfsNode)
-
-    ipfsNode.version()
-      .then((res) => {
-        mb.window.webContents.send('version', res)
-      })
-      .catch((err) => {
-        logger.error(err)
-      })
-
     IPFS = ipfsNode
   })
 }
@@ -232,8 +219,6 @@ function startTray (node) {
   ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
   ipcMain.on('drop-files', dragDrop.bind(null))
   ipcMain.on('close-tray-window', onCloseWindow)
-
-  ipcMain.on('open-console', openConsole)
   ipcMain.on('open-browser', openBrowser)
 
   ipcMain.on('small-window', () => {
@@ -336,8 +321,14 @@ ipfsd.local((err, node) => {
 
   mb = menubar(config.menubar)
 
-  // Ensure single instance
+  // Ensure single instance.
   mb.app.makeSingleInstance(reboot)
+
+  // Start polling the stats when the user opens the window.
+  mb.once('show', () => {
+    shouldPoll = true
+    pollStats(getIPFS())
+  })
 
   mb.on('ready', () => {
     logger.info('Application is ready')
