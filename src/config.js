@@ -66,7 +66,7 @@ const window = {
 // Configuration for the MenuBar
 const menubar = {
   dir: __dirname,
-  width: 800,
+  width: 850,
   height: 400,
   index: `file://${__dirname}/views/menubar.html`,
   icon: (os.platform() === 'darwin') ? macOsMenuBar : getLogo(),

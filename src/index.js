@@ -159,7 +159,7 @@ function onStartDaemon (node) {
     if (err) throw err
 
     shouldPoll = true
-    pollStats(getIPFS())
+    pollStats(ipfsNode)
 
     mb.window.webContents.send('node-status', 'running')
     IPFS = ipfsNode
