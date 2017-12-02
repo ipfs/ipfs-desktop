@@ -24,8 +24,11 @@ export default function NodeScreen (props) {
         <InfoBlock title='Peer Id' clipboard info={props.id} />
         <InfoBlock title='Location' info={props.location} />
         <InfoBlock title='Protocol Version' info={props.protocolVersion} />
-        <InfoBlock title='Public Key' clipboard info={props.publicKey} />
         <InfoBlock title='Addresses' info={props.addresses} />
+
+        // TODO: finish settings button
+        <InfoBlock title='Settings' info='Click to edit' />
+        <InfoBlock title='Public Key' clipboard info={props.publicKey} />
       </div>
 
       <Footer>
