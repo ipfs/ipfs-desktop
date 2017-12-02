@@ -158,6 +158,9 @@ function onStartDaemon (node) {
   node.startDaemon(function (err, ipfsNode) {
     if (err) throw err
 
+    shouldPoll = true
+    pollStats(getIPFS())
+
     mb.window.webContents.send('node-status', 'running')
     IPFS = ipfsNode
   })
@@ -323,12 +326,6 @@ ipfsd.local((err, node) => {
 
   // Ensure single instance.
   mb.app.makeSingleInstance(reboot)
-
-  // Start polling the stats when the user opens the window.
-  mb.once('show', () => {
-    shouldPoll = true
-    pollStats(getIPFS())
-  })
 
   mb.on('ready', () => {
     logger.info('Application is ready')
