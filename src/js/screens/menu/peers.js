@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 import Peer from '../../components/view/peer'
@@ -6,31 +6,48 @@ import Header from '../../components/view/header'
 import Footer from '../../components/view/footer'
 import IconButton from '../../components/view/icon-button'
 
-export default function PeersScreen (props) {
-  var peers = []
+export default class PeersScreen extends Component {
+  constructor (props) {
+    super(props)
+    this.state = { search: null }
+  }
 
-  props.peers.forEach((peer, i) => {
-    peers.push(<Peer key={i} {...peer} />)
-  })
+  onChangeSearch = event => {
+    this.setState({ search: event.target.value.toLowerCase() })
+  }
 
-  return (
-    <div className='peers'>
-      <Header
-        title={'Earth - ' + props.location}
-        subtitle={props.peers.length + ' peers'} />
-      <div className='main'>
-        {peers}
-      </div>
+  render () {
+    var peers = this.props.peers
 
-      <Footer>
-        <IconButton onClick={() => { props.changeRoute('files') }} icon='files' />
+    if (this.state.search !== null && this.state.search !== '') {
+      peers = peers.filter(peer => {
+        return peer.id.toLowerCase().indexOf(this.state.search) > -1
+      })
+    }
 
-        <div className='right'>
-          <span>Search feature</span>
+    peers = peers.map((peer, i) => {
+      return (<Peer key={i} {...peer} />)
+    })
+
+    return (
+      <div className='peers'>
+        <Header
+          title={'Earth - ' + this.props.location}
+          subtitle={this.props.peers.length + ' peers'} />
+        <div className='main'>
+          {peers}
         </div>
-      </Footer>
-    </div>
-  )
+
+        <Footer>
+          <IconButton onClick={() => { this.props.changeRoute('files') }} icon='files' />
+
+          <div className='right'>
+            <input type='text' onChange={this.onChangeSearch} placeholder='Search peer' />
+          </div>
+        </Footer>
+      </div>
+    )
+  }
 }
 
 PeersScreen.propTypes = {
