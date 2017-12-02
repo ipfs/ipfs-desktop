@@ -6,15 +6,6 @@ import moment from 'moment'
 import TextButton from './text-button'
 import Icon from './icon'
 
-const fileTypes = {
-  png: 'image',
-  jpg: 'image',
-  jpeg: 'image',
-  gif: 'image',
-  mp3: 'music-alt',
-  mp4: 'video-clapper'
-}
-
 export default function File (props) {
   let icon = 'file'
   let extension = props.name.split('.').pop()
@@ -46,4 +37,33 @@ File.propTypes = {
   name: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   hash: PropTypes.string.isRequired
+}
+
+const fileTypes = {
+  png: 'image',
+  jpg: 'image',
+  tif: 'image',
+  tiff: 'image',
+  bmp: 'image',
+  gif: 'image',
+  eps: 'image',
+  raw: 'image',
+  cr2: 'image',
+  nef: 'image',
+  orf: 'image',
+  sr2: 'image',
+  jpeg: 'image',
+  mp3: 'music-alt',
+  flac: 'music-alt',
+  ogg: 'music-alt',
+  oga: 'music-alt',
+  aa: 'music-alt',
+  aac: 'music-alt',
+  m4p: 'music-alt',
+  webm: 'music-alt',
+  mp4: 'video-clapper',
+  mkv: 'video-clapper',
+  avi: 'video-clapper',
+  asf: 'video-clapper',
+  flv: 'video-clapper'
 }
