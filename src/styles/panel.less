@@ -9,6 +9,8 @@
     }
 
     .header {
+        display: flex;
+
         .title {
             font-size: @medium-font;
             color: rgba(255, 255, 255, 0.5);
@@ -20,10 +22,8 @@
             font-size: @big-font;
         }
 
-        .buttons {
-            position: absolute;
-            top: 1em;
-            right: 1.5em;
+        & > div:first-child {
+            margin-right: auto;
         }
     }
 

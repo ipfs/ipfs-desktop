@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import prettyBytes from 'pretty-bytes'
+import {getLogo} from '../../../utils/logo'
 
 import Header from '../../components/view/header'
 import Footer from '../../components/view/footer'
@@ -10,7 +11,9 @@ import InfoBlock from '../../components/view/info-block'
 export default function NodeScreen (props) {
   return (
     <div className='node'>
-      <Header title='Your Node' />
+      <Header title='Your Node'>
+        <img src={`file://${getLogo()}`} className='heartbeat' />
+      </Header>
 
       <div className='main'>
         <div className='sharing'>
