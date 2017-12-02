@@ -4,21 +4,10 @@ import {DropdownList} from 'react-widgets'
 
 import Icon from './icon'
 
-const styles = {
-  icon: {
-    position: 'absolute',
-    marginTop: '10px',
-    marginLeft: '20px',
-    fontSize: '20px'
-  }
-}
-
 export default function IconDropdownList (props) {
   return (
-    <div>
-      <Icon
-        name={props.icon}
-        style={styles.icon} />
+    <div className='dropdown-list'>
+      <Icon name={props.icon} />
       <DropdownList
         data={props.data}
         defaultValue={props.defaultValue}

@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import prettyBytes from 'pretty-bytes'
-import {getLogo} from '../../../utils/logo'
 
+import Heartbeat from '../../components/view/heartbeat'
 import Header from '../../components/view/header'
 import Footer from '../../components/view/footer'
 import IconButton from '../../components/view/icon-button'
@@ -12,7 +12,7 @@ export default function NodeScreen (props) {
   return (
     <div className='node'>
       <Header title='Your Node'>
-        <img src={`file://${getLogo()}`} className='heartbeat' />
+        <Heartbeat />
       </Header>
 
       <div className='main'>

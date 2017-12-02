@@ -3,7 +3,6 @@ import {CSSTransition} from 'react-transition-group'
 import {ipcRenderer} from 'electron'
 
 import Intro from './setup/intro'
-import Advanced from './setup/advanced'
 import Loader from '../components/view/loader'
 
 const INTRO = 'intro'
@@ -63,17 +62,10 @@ export default class Setup extends Component {
   _getScreen () {
     switch (this.state.status) {
       case INTRO:
+      case ADVANCED:
         return (
           <Intro
             key='intro'
-            onInstallClick={this._startInstallation}
-            onAdvancedClick={this._selectAdvanced}
-          />
-        )
-      case ADVANCED: {
-        return (
-          <Advanced
-            key='advanced'
             onInstallClick={this._startInstallation}
             configPath={this.state.configPath}
             keySizes={KEY_SIZES}
@@ -81,7 +73,6 @@ export default class Setup extends Component {
             onKeySizeChange={this._onKeySizeChange}
           />
         )
-      }
       case ERROR:
         return (
           <div key='error'>{this.state.error}</div>

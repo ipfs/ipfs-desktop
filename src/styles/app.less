@@ -4,7 +4,7 @@
 @import "./themify-icons.less";
 @import "./common.less";
 @import './loader.less';
-@import './react-widgets-theme.less';
+@import '../../node_modules/react-widgets/lib/less/react-widgets.less';
 
 @big-font: 38px;
 @medium-font: 18px;
@@ -42,6 +42,37 @@
 
     span {
         font-size: @normal-font;
+    }
+}
+
+
+.directory-input {
+    border-radius: 0.2em;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    border: 0;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.25);
+
+    .icon {
+        margin-right: 0.5em;
+    }
+}
+
+.dropdown-list {
+    border-radius: 0.2em;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    border: 0;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.25);
+
+    .icon {
+        margin-right: 0.5em;
+    }
+
+    .rw-widget, .rw-widget-container {
+        background: transparent;
     }
 }
 
@@ -87,3 +118,38 @@
 @import "./panel.less";
 @import "./info-block.less";
 @import './peers.less';
+
+.intro {
+    .left-panel {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: space-around;
+    }
+
+    .right-panel .main {
+        padding: 1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: calc(~"100% - 96px");
+    }
+
+    .right-panel .main > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .heartbeat {
+        width: 300px;
+    }
+
+    a {
+        text-align: center;
+        font-size: @normal-font;
+        margin: 0.5em 0 0 0;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.4)
+    }
+}
