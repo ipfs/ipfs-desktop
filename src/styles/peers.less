@@ -5,28 +5,28 @@
     border-radius: 0.2em;
     border: 1px solid black;
     transition: 0.2s ease all;
-}
 
-.peer > p {
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
+    &:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+    }
 
-.peer .label {
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.4);
-}
+    & > p {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 
-.peer:hover {
-    border-color: rgba(255, 255, 255, 0.3);
-}
+    .label {
+        font-weight: bold;
+        color: rgba(255, 255, 255, 0.4);
+    }
 
-.peer .id {
-    margin: 0;
-}
+    .id {
+        margin: 0;
+    }
 
-.peer .addr {
-    margin: 0.5em 0 0 0;
-    font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.4)
+    .addr {
+        margin: 0.5em 0 0 0;
+        font-size: 0.9em;
+        color: rgba(255, 255, 255, 0.4)
+    }
 }

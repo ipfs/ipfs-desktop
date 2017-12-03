@@ -39,37 +39,23 @@ class FilesScreen extends Component {
   render () {
     const {connectDropTarget, isOver, canDrop} = this.props
 
-    const styles = {
-      dropper: {
-        visibility: (isOver && canDrop) ? 'visible' : 'hidden',
-        position: 'fixed',
-        top: '0',
-        left: 0,
-        right: 0,
-        bottom: '70px',
-        height: '100%',
-        width: '100%',
-        color: '#000000',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
+    const dropper = {
+      visibility: (isOver && canDrop) ? 'visible' : 'hidden'
     }
 
-    let files = this.props.files.map(file => {
+    const files = this.props.files.map(file => {
       return (<File {...file} />)
     })
 
     return connectDropTarget(
-      <div>
+      <div className='files'>
         <Header title='Your Files' />
 
         <div className='main'>
           {files}
         </div>
 
-        <div style={styles.dropper}>
+        <div className='dropper' style={dropper}>
           Drop to upload to IPFS
         </div>
 
