@@ -11,13 +11,11 @@ const onClick = (e) => {
 
 export default function DirectoryInput (props) {
   return (
-    <div>
-      <div className='directory-input'>
-        <Icon name='folder' />
-        <a onClick={onClick} >
-          {props.path}
-        </a>
-      </div>
+    <div className='directory-input'>
+      <Icon name='folder' />
+      <a onClick={onClick} >
+        {props.path}
+      </a>
     </div>
   )
 }

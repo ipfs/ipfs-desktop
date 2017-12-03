@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
-import Button from '../../components/view/button'
+import TextButton from '../../components/view/text-button'
 import Header from '../../components/view/header'
 
 export default class StartScreen extends Component {
@@ -55,9 +55,7 @@ export default class StartScreen extends Component {
             that by clicking that button
           </div>
         </div>
-        <Button onClick={this.props.onStartClick}>
-          Start Node
-        </Button>
+        <TextButton text='Start Node' onClick={this.props.onStartClick} />
       </div>
     )
   }

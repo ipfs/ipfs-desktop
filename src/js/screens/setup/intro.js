@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import Heartbeat from '../../components/view/heartbeat'
 import TextButton from '../../components/view/text-button'
-import Header from '../../components/view/header'
 import DirectoryInput from '../../components/view/directory-input'
 import IconDropdownList from '../../components/view/icon-dropdown-list'
 
@@ -53,15 +52,18 @@ export default class Intro extends Component {
           <Heartbeat />
         </div>
         <div className='panel right-panel'>
-          <Header title='Welcome' subtitle='to IPFS' />
           <div className='main'>
+            <div>
+              <p className='title'>Welcome to the Distributed Web</p>
+              <p className='subtitle'>You are about to install IPFS, the InterPlanetary File System.</p>
+            </div>
             <div>
               {advanced}
             </div>
             <div>
               <TextButton text='Install IPFS' onClick={this.props.onInstallClick} />
               { !this.state.showAdvanced &&
-                <a onClick={this.onAdvancedClick} >
+                <a className='advanced-options' onClick={this.onAdvancedClick} >
                   Advanced Options
                 </a>
               }

@@ -24,7 +24,6 @@
     "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^16.1.1",
     "react-transition-group": "^2.2.1",
-    "react-widgets": "^4.1.1",
     "winston": "^3.0.0-rc1"
   },
   "devDependencies": {

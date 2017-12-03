@@ -4,7 +4,6 @@
 @import "./themify-icons.less";
 @import "./common.less";
 @import './loader.less';
-@import '../../node_modules/react-widgets/lib/less/react-widgets.less';
 
 @big-font: 38px;
 @medium-font: 18px;
@@ -56,17 +55,48 @@ input[type="text"] {
     .icon {
         margin-right: 0.5em;
     }
+
+    a {
+        font-size: @normal-font;
+        color: rgba(255, 255, 255, 0.4);
+    }
+}
+
+.directory-input,
+.dropdown-list {
+    display: flex;
+    align-items: center;
 }
 
 .dropdown-list {
     cursor: pointer;
+    margin: 1em 0;    
 
     .icon {
         margin-right: 0.5em;
     }
 
-    .rw-widget, .rw-widget-container {
+    select {
+        padding: 0;
+        border: none;
+        box-shadow: none;
         background: transparent;
+        background-image: none;
+        -webkit-appearance: none;
+        font-size: 14px;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.4);
+        font-family: inherit;
+        line-height: inherit;
+        width: 100%;
+    }
+
+    option {
+        color: #000
+    }
+    
+    select:focus {
+        outline: none;
     }
 }
 
@@ -126,7 +156,7 @@ input[type="text"] {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: calc(~"100% - 96px");
+        height: 100%;
     }
 
     .right-panel .main > div {
@@ -135,11 +165,22 @@ input[type="text"] {
         justify-content: space-between;
     }
 
+    .title {
+        font-size: @big-font;
+        margin: 0;
+    }
+
+    .subtitle {
+        font-size: @medium-font;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 0.2em
+    }
+
     .heartbeat {
         width: 300px;
     }
 
-    a {
+    a.advanced-options {
         text-align: center;
         font-size: @normal-font;
         margin: 0.5em 0 0 0;
