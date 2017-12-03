@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {clipboard} from 'electron'
 
 import TextButton from '../view/text-button'
 
@@ -29,18 +28,18 @@ export default function InfoBlock (props) {
 
   let button = null
 
-  if (props.clipboard !== false) {
-    let copy = (props.clipboardMessage === true) ? props.info : props.clipboard
-
-    button = (<div className='button-overlay'>
-      <TextButton text={props.clipboardMessage} onClick={() => {
-        clipboard.writeText(copy)
-      }} />
-    </div>)
+  if (props.onClick) {
+    if (props.button) {
+      button = (<div className='button-overlay'>
+        <TextButton text={props.buttonMessage} onClick={props.onClick} />
+      </div>)
+    }
   }
 
+  let clickable = props.onClick && !props.button
+
   return (
-    <div className='info-block'>
+    <div className={`info-block${clickable ? ' clickable' : ''}`} {...clickable && { onClick: props.onClick }}>
       <div>
         <p className='label'>{props.title}</p>
         {info}
@@ -56,16 +55,15 @@ InfoBlock.propTypes = {
     PropTypes.string,
     PropTypes.array
   ]),
-  clipboard: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string
-  ]),
-  clipboardMessage: PropTypes.string,
+  onClick: PropTypes.func,
+  button: PropTypes.bool,
+  buttonMessage: PropTypes.string,
   pre: PropTypes.bool
 }
 
 InfoBlock.defaultProps = {
   pre: false,
-  clipboard: false,
-  clipboardMessage: 'Copy'
+  button: true,
+  buttonMessage: 'Copy',
+  onClick: null
 }

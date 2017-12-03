@@ -224,6 +224,10 @@ function startTray (node) {
   ipcMain.on('close-tray-window', onCloseWindow)
   ipcMain.on('open-browser', openBrowser)
 
+  ipcMain.on('open-settings', () => {
+    shell.openExternal(join(config.ipfsPath, 'config'))
+  })
+
   ipcMain.on('small-window', () => {
     mb.window.setSize(350, config.menubar.height)
   })
