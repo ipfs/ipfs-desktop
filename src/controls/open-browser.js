@@ -15,7 +15,5 @@ export default function openBrowser (cb) {
     .then((res) => {
       shell.openExternal(apiAddrToUrl(res))
     })
-    .catch((err) => {
-      return logger.error(err)
-    })
+    .catch(logger.error)
 }

@@ -17,6 +17,14 @@ function openSettings () {
   ipcRenderer.send('open-settings')
 }
 
+function openWebUI () {
+  ipcRenderer.send('open-webui')
+}
+
+function stopDaemon () {
+  ipcRenderer.send('stop-daemon')
+}
+
 export default function NodeScreen (props) {
   return (
     <div className='node'>
@@ -30,18 +38,38 @@ export default function NodeScreen (props) {
           <p>Sharing {props.repo.NumObjects} objects</p>
         </div>
 
-        <InfoBlock title='Peer Id' onClick={onClickCopy(props.id)} info={props.id} />
-        <InfoBlock title='Location' info={props.location} />
-        <InfoBlock title='Protocol Version' info={props.protocolVersion} />
-        <InfoBlock title='Addresses' info={props.addresses} />
+        <InfoBlock onClick={onClickCopy(props.id)} info={props.id}>
+          Peer Id
+        </InfoBlock>
 
-        <InfoBlock title='Settings' button={false} onClick={openSettings} info='Click to edit' />
-        <InfoBlock title='Public Key' onClick={onClickCopy(props.publicKey)} info={props.publicKey} />
+        <InfoBlock info={props.location}>
+          Location
+        </InfoBlock>
+
+        <InfoBlock info={props.protocolVersion}>
+          Protocol Version
+        </InfoBlock>
+
+        <InfoBlock info={props.addresses}>
+          Addresses
+        </InfoBlock>
+
+        <InfoBlock button={false} onClick={openSettings} info='Click to edit'>
+          Settings
+        </InfoBlock>
+
+        <InfoBlock button={false} onClick={openWebUI} info='Click to open'>
+          Open WebUI
+        </InfoBlock>
+
+        <InfoBlock onClick={onClickCopy(props.publicKey)} info={props.publicKey}>
+          Public Key
+        </InfoBlock>
       </div>
 
       <Footer>
         <div className='right'>
-          <IconButton onClick={props.stopDaemon} icon='power-off' />
+          <IconButton onClick={stopDaemon} icon='power-off' />
         </div>
       </Footer>
     </div>
@@ -54,8 +82,7 @@ NodeScreen.propTypes = {
   protocolVersion: PropTypes.string,
   publicKey: PropTypes.string,
   addresses: PropTypes.array,
-  repo: PropTypes.object,
-  stopDaemon: PropTypes.func.isRequired
+  repo: PropTypes.object
 }
 
 NodeScreen.defaultProps = {

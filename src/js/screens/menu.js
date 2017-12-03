@@ -41,22 +41,6 @@ class Menu extends Component {
     this.setState({route: route})
   }
 
-  _startDaemon () {
-    ipcRenderer.send('start-daemon')
-  }
-
-  _stopDaemon () {
-    ipcRenderer.send('stop-daemon')
-  }
-
-  _closeWindow () {
-    ipcRenderer.send('close-tray-window')
-  }
-
-  _openBrowser () {
-    ipcRenderer.send('open-browser')
-  }
-
   componentDidMount () {
     // -- Listen to control events
     ipcRenderer.on('node-status', this._onNodeStatus)
@@ -80,8 +64,6 @@ class Menu extends Component {
         return (
           <FilesScreen
             files={this.state.files}
-            onConsoleClick={this._openConsole}
-            onBrowserClick={this._openBrowser}
             changeRoute={this._changeRoute} />
         )
       case PAGES.INFO:
@@ -107,8 +89,7 @@ class Menu extends Component {
             <div className='panel right-panel'>
               <NodeInfoScreen
                 {...this.state.stats.node}
-                repo={this.state.stats.repo}
-                stopDaemon={this._stopDaemon} />
+                repo={this.state.stats.repo} />
             </div>
           </div>
         )
@@ -117,10 +98,7 @@ class Menu extends Component {
         return <Loader key='loader-screen' />
       default:
         return (
-          <StartScreen
-            key='start-screen'
-            onStartClick={this._startDaemon}
-            onCloseClick={this._closeWindow} />
+          <StartScreen />
         )
     }
   }

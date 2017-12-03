@@ -222,7 +222,7 @@ function startTray (node) {
   ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
   ipcMain.on('drop-files', dragDrop.bind(null))
   ipcMain.on('close-tray-window', onCloseWindow)
-  ipcMain.on('open-browser', openBrowser)
+  ipcMain.on('open-webui', openBrowser)
 
   ipcMain.on('open-settings', () => {
     shell.openExternal(join(config.ipfsPath, 'config'))
