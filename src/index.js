@@ -41,11 +41,7 @@ const statsCache = {}
 const locationsCache = {}
 
 function pollStats (ipfs) {
-  const next = () => {
-    setTimeout(() => {
-      pollStats(ipfs)
-    }, 1000)
-  }
+  const next = () => setTimeout(() => pollStats(ipfs), 1000)
 
   if (!shouldPoll || !mb.window || !mb.window.isVisible()) {
     return next()
@@ -59,7 +55,7 @@ function pollStats (ipfs) {
 
       let peers = []
 
-      res.forEach(rawPeer => {
+      res.forEach((rawPeer) => {
         let peer = {
           id: rawPeer.peer.toB58String(),
           addr: rawPeer.addr.toString(),
@@ -70,7 +66,7 @@ function pollStats (ipfs) {
 
         if (!locationsCache[peer.id]) {
           lookupPretty(IPFS, [peer.addr], (err, result) => {
-            if (err) return
+            if (err) { return }
             locationsCache[peer.id] = result
           })
         } else {
@@ -139,8 +135,8 @@ let fileHistory = (() => {
 
 export function appendFile (name, hash) {
   fileHistory.unshift({
-    name,
-    hash,
+    name: name,
+    hash: hash,
     date: new Date()
   })
 
@@ -183,7 +179,7 @@ function onStopDaemon (node, done) {
   }
 
   node.stopDaemon((err) => {
-    if (err) return logger.error(err.stack)
+    if (err) { return logger.error(err.stack) }
 
     logger.info('Stopped daemon')
 
@@ -306,7 +302,7 @@ function initialize (path, node) {
     mb.window.webContents.send('initializing')
     node.init({
       directory: userPath,
-      keySize
+      keySize: keySize
     }, (err, res) => {
       if (err) {
         return mb.window.webContents.send('initialization-error', String(err))
