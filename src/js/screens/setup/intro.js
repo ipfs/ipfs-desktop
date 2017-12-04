@@ -38,7 +38,7 @@ export default class Intro extends Component {
       advanced = ([
         <DirectoryInput path={this.props.configPath} />,
         <IconDropdownList
-          icon='lock'
+          icon='key'
           data={this.props.keySizes}
           defaultValue={this.props.keySize}
           onChange={this.props.onKeySizeChange}
