@@ -51,18 +51,6 @@ if (isDev) {
   }))
 }
 
-// Default settings for new windows
-const window = {
-  icon: getLogo(),
-  title: 'IPFS Dashboard',
-  autoHideMenuBar: true,
-  width: 800,
-  height: 500,
-  webPreferences: {
-    webSecurity: false
-  }
-}
-
 // Configuration for the MenuBar
 const menubar = {
   dir: __dirname,
@@ -85,7 +73,6 @@ export default {
   isProduction,
   logger,
   menubar,
-  window,
   webuiPath: '/webui',
   ipfsPath,
   ipfsPathFile,
