@@ -98,7 +98,7 @@
     "url": "https://github.com/ipfs/station"
   },
   "author": "IPFS",
-  "authors": [
+  "contributors": [
     "Kristoffer Ström <kristoffer@rymdkoloni.se>",
     "David Dias <daviddias@ipfs.io>",
     "Juan Benet <juan@ipfs.io>",
