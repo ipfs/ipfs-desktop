@@ -352,7 +352,7 @@ ipfsd.local((err, node) => {
   mb.on('ready', () => {
     logger.info('Application is ready')
 
-    mb.tray.on('drop-files', dragDrop)
+    mb.tray.on('drop-files', uploadFiles.bind(null, getIPFS))
     mb.tray.setHighlightMode(true)
 
     startTray(node)
