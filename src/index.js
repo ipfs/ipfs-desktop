@@ -8,7 +8,7 @@ import dragDrop from './controls/drag-drop'
 import {join} from 'path'
 import {lookupPretty} from 'ipfs-geoip'
 import config, {logger} from './config'
-import {dialog, ipcMain, Menu, shell, app} from 'electron'
+import {dialog, ipcMain, Menu, shell, app, clipboard} from 'electron'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -220,7 +220,7 @@ function startTray (node) {
   ipcMain.on('request-files', onRequestFiles)
   ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
   ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
-  ipcMain.on('drop-files', dragDrop.bind(null))
+  ipcMain.on('drop-files', dragDrop.bind(null, getIPFS))
   ipcMain.on('close-tray-window', onCloseWindow)
   ipcMain.on('open-webui', openBrowser)
 
@@ -241,6 +241,18 @@ function startTray (node) {
   })
 
   mb.app.once('will-quit', onWillQuit.bind(null, node))
+
+  ipcMain.on('open-file-dialog', (event, callback) => {
+    dialog.showOpenDialog(mb.window, {
+      properties: ['openFile', 'multiSelections']
+    }, (files) => dragDrop(getIPFS, event, files))
+  })
+
+  ipcMain.on('open-dir-dialog', (event, callback) => {
+    dialog.showOpenDialog(mb.window, {
+      properties: ['openDirectory', 'multiSelections']
+    })
+  })
 }
 
 // Initalize a new IPFS node
