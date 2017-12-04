@@ -240,7 +240,7 @@ function startTray (node) {
     dialog.showOpenDialog(mb.window, {
       properties: ['openFile', 'multiSelections']
     }, (files) => {
-      if (files.length === 0) return
+      if (!files || files.length === 0) return
       uploadFiles(getIPFS, event, files)
     })
   })
@@ -249,7 +249,7 @@ function startTray (node) {
     dialog.showOpenDialog(mb.window, {
       properties: ['openDirectory', 'multiSelections']
     }, (files) => {
-      if (files.length === 0) return
+      if (!files || files.length === 0) return
       uploadFiles(getIPFS, event, files)
     })
   })
