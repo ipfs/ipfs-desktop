@@ -17,7 +17,14 @@ A Native Application for your OS to run your own IPFS Node. Built with [Electron
 
 ## Install
 
-You will need [Node.js](https://nodejs.org/en/) installed. Preferrably a version `>=4.0`. Also you will need [npm](npmjs.org) `>=3.0`. After that you should run
+You will need [Node.js](https://nodejs.org/en/) installed, preferrably a version `>=4.0`. On macOS you may also need Xcode command line tools, which can be installed with
+
+```bash
+xcode-select --install # Install Command Line Tools if you haven't already.
+sudo xcode-select --switch /Library/Developer/CommandLineTools # Enable command line tools
+```
+
+Also you will need [npm](npmjs.org) `>=3.0`. After that you should run
 
 ```bash
 $ git clone https://github.com/ipfs/station.git
