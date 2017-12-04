@@ -49,9 +49,7 @@ function pollStats (ipfs) {
 
   ipfs.swarm.peers()
     .then((res) => {
-      res = res.sort((a, b) => {
-        return a.peer.toB58String() > b.peer.toB58String() ? 1 : -1
-      })
+      res = res.sort((a, b) => a.peer.toB58String() > b.peer.toB58String())
 
       let peers = []
 

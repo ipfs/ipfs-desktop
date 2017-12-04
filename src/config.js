@@ -9,7 +9,7 @@ import {getLogo, macOsMenuBar} from './utils/logo'
 const isProduction = !isDev
 const currentURL = (name) => `file://${__dirname}/views/${name}.html`
 const ipfsAppData = (() => {
-  let p = path.join(app.getPath('appData'), 'ipfs-station')
+  const p = path.join(app.getPath('appData'), 'ipfs-station')
 
   if (!fs.existsSync(p)) {
     fs.mkdirSync(p)
@@ -23,9 +23,10 @@ const ipfsFileHistoryFile = path.join(ipfsAppData, 'file-history.json')
 
 const ipfsPath = (() => {
   let pathIPFS
-  try {
+
+  if (fs.existsSync(ipfsPathFile)) {
     pathIPFS = fs.readFileSync(ipfsPathFile, 'utf-8')
-  } catch (e) {
+  } else {
     pathIPFS = path.join(process.env.IPFS_PATH ||
       (process.env.HOME || process.env.USERPROFILE), '.ipfs')
   }

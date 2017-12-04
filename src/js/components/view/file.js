@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {clipboard} from 'electron'
 import moment from 'moment'
+import fileExtension from 'file-extension'
 
 import TextButton from './text-button'
 import Icon from './icon'
 
 export default function File (props) {
+  const extension = fileExtension(props.name)
   let icon = 'file'
-  let extension = props.name.split('.').pop()
   if (fileTypes[extension]) {
     icon = fileTypes[extension]
   }

@@ -6,11 +6,6 @@ export function uploadFiles (ipfs, event, files) {
   ipfs()
     .add(files, {recursive: true, w: files.length > 1})
     .then((res) => {
-      if (!res) {
-        // FAILED TO UPLOAD FILES
-        return
-      }
-
       logger.info('Uploading files', {files})
 
       res.forEach((file) => {
@@ -20,8 +15,5 @@ export function uploadFiles (ipfs, event, files) {
         appendFile(file.path, file.hash)
       })
     })
-    .catch((err) => {
-      logger.error(err)
-      // FAILED TO UPLOAD FILES
-    })
+    .catch(logger.error)
 }
