@@ -1,7 +1,7 @@
 import {logger, fileHistory} from '../config'
 import {clipboard} from 'electron'
 
-export function uploadFiles (ipfs, event, files) {
+export default function uploadFiles (ipfs, event, files) {
   ipfs()
     .add(files, {recursive: true, w: files.length > 1})
     .then((res) => {

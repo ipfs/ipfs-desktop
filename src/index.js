@@ -2,13 +2,15 @@ import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 
-import openBrowser from './controls/open-browser'
-import {uploadFiles} from './controls/upload-files'
+import uploadFiles from './controls/upload-files'
+import openWebUI from './controls/open-webui'
+import openFileDialog from './controls/open-file-dialog'
 
 import {join} from 'path'
-import {lookupPretty} from 'ipfs-geoip'
 import config, {logger, fileHistory} from './config'
 import {dialog, ipcMain, shell, app} from 'electron'
+
+import StatsPoller from './utils/stats-poller'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -34,76 +36,38 @@ if (config.isProduction) {
 
 // Local Variables
 
+let poller = null
 let IPFS
 let mb
-let shouldPoll = false
-const statsCache = {}
-const locationsCache = {}
 
-function pollStats (ipfs) {
-  const next = () => setTimeout(() => pollStats(ipfs), 1000)
-
-  if (!shouldPoll || !mb.window || !mb.window.isVisible()) {
-    return next()
+function send (type, ...args) {
+  if (mb && mb.window && mb.window.webContents) {
+    mb.window.webContents.send(type, ...args)
   }
+}
 
-  ipfs.swarm.peers()
-    .then((res) => {
-      res = res.sort((a, b) => a.peer.toB58String() > b.peer.toB58String())
+function stopPolling () {
+  if (poller) poller.stop()
+}
 
-      let peers = []
+function startPolling () {
+  if (poller) poller.start()
+}
 
-      res.forEach((rawPeer) => {
-        let peer = {
-          id: rawPeer.peer.toB58String(),
-          addr: rawPeer.addr.toString(),
-          location: {
-            formatted: 'Unknown'
-          }
-        }
+function openSettings () {
+  shell.openExternal(join(config.ipfsPath, 'config'))
+}
 
-        if (!locationsCache[peer.id]) {
-          lookupPretty(IPFS, [peer.addr], (err, result) => {
-            if (err) { return }
-            locationsCache[peer.id] = result
-          })
-        } else {
-          peer.location = locationsCache[peer.id]
-        }
+function onPollerChange (stats) {
+  send('stats', stats)
+}
 
-        peers.push(peer)
-      })
+function onFileHistoryChange () {
+  send('files', fileHistory.toArray())
+}
 
-      statsCache.peers = peers
-      mb.window.webContents.send('stats', statsCache)
-    }, (err) => {
-      logger.error(err.stack)
-    })
-    .then(next)
-
-  ipfs.id()
-    .then((peer) => {
-      statsCache.node = peer
-      statsCache.node.location = 'Unknown'
-
-      lookupPretty(IPFS, peer.addresses, (err, location) => {
-        if (err) {
-          mb.window.webContents.send('stats', statsCache)
-          return
-        }
-
-        statsCache.node.location = location && location.formatted
-        mb.window.webContents.send('stats', statsCache)
-      })
-    })
-    .catch(logger.error)
-
-  ipfs.repo.stat()
-    .then(repo => {
-      statsCache.repo = repo
-      mb.window.webContents.send('stats', statsCache)
-    })
-    .catch(logger.error)
+function onCloseWindow () {
+  mb.window.hide()
 }
 
 function onRequestState (node, event) {
@@ -114,38 +78,44 @@ function onRequestState (node, event) {
       status = IPFS ? 'running' : 'starting'
     }
 
-    mb.window.webContents.send('node-status', status)
+    send('node-status', status)
   }
 }
 
 function onStartDaemon (node) {
   logger.info('Start daemon')
-  mb.window.webContents.send('node-status', 'starting')
-  node.startDaemon(function (err, ipfsNode) {
+  send('node-status', 'starting')
+
+  node.startDaemon((err, ipfsNode) => {
     if (err) throw err
 
-    shouldPoll = true
-    pollStats(ipfsNode)
+    poller = new StatsPoller(ipfsNode, logger)
 
-    mb.window.webContents.send('node-status', 'running')
+    if (mb.window && mb.window.isVisible()) {
+      poller.start()
+    }
+
+    poller.on('change', onPollerChange)
+    mb.on('show', startPolling)
+    mb.on('hide', stopPolling)
+
+    send('node-status', 'running')
     IPFS = ipfsNode
   })
 }
 
 function onStopDaemon (node, done) {
   logger.info('Stopping daemon')
+  send('node-status', 'stopping')
 
-  const send = (type, msg) => {
-    if (mb && mb.window && mb.window.webContents) {
-      mb.window.webContents.send(type, msg)
-    }
+  if (poller) {
+    poller.stop()
+    poller = null
   }
 
-  send('node-status', 'stopping')
-  if (shouldPoll) {
-    delete statsCache.peers
-    send('stats', statsCache)
-    shouldPoll = false
+  if (mb) {
+    mb.removeListener('show', startPolling)
+    mb.removeListener('hide', stopPolling)
   }
 
   node.stopDaemon((err) => {
@@ -155,13 +125,8 @@ function onStopDaemon (node, done) {
 
     IPFS = null
     send('node-status', 'stopped')
-    send('stats', statsCache)
     done()
   })
-}
-
-function onCloseWindow () {
-  mb.window.hide()
 }
 
 function onWillQuit (node, event) {
@@ -169,8 +134,8 @@ function onWillQuit (node, event) {
 
   if (IPFS == null) return
 
-  // Try waiting for the daemon to properly shut down
-  // before we actually quit
+  // TODO: Try waiting for the daemon to properly
+  // shut down before we actually quit
 
   event.preventDefault()
 
@@ -179,48 +144,26 @@ function onWillQuit (node, event) {
   setTimeout(quit, 1000)
 }
 
-function updateFileHistory () {
-  mb.window.webContents.send('files', fileHistory.toArray())
-}
-
 function startTray (node) {
   logger.info('Starting tray')
 
   // Update File History on change and when it is requested.
-  fileHistory.on('change', updateFileHistory)
-  ipcMain.on('request-files', updateFileHistory)
+  ipcMain.on('request-files', onFileHistoryChange)
+  fileHistory.on('change', onFileHistoryChange)
 
   ipcMain.on('request-state', onRequestState.bind(null, node))
   ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
   ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
   ipcMain.on('drop-files', uploadFiles.bind(null, getIPFS))
   ipcMain.on('close-tray-window', onCloseWindow)
-  ipcMain.on('open-webui', openBrowser)
 
-  ipcMain.on('open-settings', () => {
-    shell.openExternal(join(config.ipfsPath, 'config'))
-  })
+  ipcMain.on('open-webui', openWebUI.bind(null, getIPFS))
+  ipcMain.on('open-settings', openSettings)
 
   mb.app.once('will-quit', onWillQuit.bind(null, node))
 
-  ipcMain.on('open-file-dialog', (event, callback) => {
-    dialog.showOpenDialog(mb.window, {
-      properties: ['openFile', 'multiSelections']
-    }, uploadWrapper(event))
-  })
-
-  ipcMain.on('open-dir-dialog', (event, callback) => {
-    dialog.showOpenDialog(mb.window, {
-      properties: ['openDirectory', 'multiSelections']
-    }, uploadWrapper(event))
-  })
-}
-
-function uploadWrapper (event) {
-  return (files) => {
-    if (!files || files.length === 0) return
-    uploadFiles(getIPFS, event, files)
-  }
+  ipcMain.on('open-file-dialog', openFileDialog(mb.window, getIPFS))
+  ipcMain.on('open-dir-dialog', openFileDialog(mb.window, getIPFS, true))
 }
 
 // Initalize a new IPFS node
@@ -229,7 +172,7 @@ function initialize (path, node) {
 
   mb.window.loadURL(config.urls.welcome)
   mb.window.webContents.on('did-finish-load', () => {
-    mb.window.webContents.send('setup-config-path', path)
+    send('setup-config-path', path)
   })
   mb.showWindow()
 
@@ -257,7 +200,7 @@ function initialize (path, node) {
         userPath = join(userPath, '.ipfs')
       }
 
-      mb.window.webContents.send('setup-config-path', userPath)
+      send('setup-config-path', userPath)
     })
   })
 
@@ -265,19 +208,19 @@ function initialize (path, node) {
   ipcMain.on('initialize', (event, { keySize }) => {
     logger.info(`Initializing new node with key size: ${keySize} in ${userPath}.`)
 
-    mb.window.webContents.send('initializing')
+    send('initializing')
     node.init({
       directory: userPath,
       keySize: keySize
     }, (err, res) => {
       if (err) {
-        return mb.window.webContents.send('initialization-error', String(err))
+        return send('initialization-error', String(err))
       }
 
       fs.writeFileSync(config.ipfsPathFile, path)
 
-      mb.window.webContents.send('initialization-complete')
-      mb.window.webContents.send('node-status', 'stopped')
+      send('initialization-complete')
+      send('node-status', 'stopped')
 
       onStartDaemon(node)
       mb.window.loadURL(config.menubar.index)

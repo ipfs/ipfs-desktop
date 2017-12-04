@@ -1,7 +1,7 @@
 import fs from 'fs'
 import {EventEmitter} from 'events'
 
-export class FileHistory extends EventEmitter {
+export default class FileHistory extends EventEmitter {
   constructor (location) {
     super()
     let history = []
@@ -29,7 +29,7 @@ export class FileHistory extends EventEmitter {
     })
 
     this._save()
-    this.emit('change')
+    this.emit('change', this.history)
   }
 
   toArray () {
