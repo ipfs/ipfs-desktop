@@ -357,19 +357,6 @@ ipfsd.local((err, node) => {
 
     startTray(node)
 
-    const contextMenu = Menu.buildFromTemplate([
-      {
-        label: 'Settings',
-        click: () => shell.openExternal(join(config.ipfsPath, 'config'))
-      },
-      {
-        label: 'Exit',
-        click: () => mb.app.quit()
-      }
-    ])
-
-    mb.tray.setContextMenu(contextMenu)
-
     if (!node.initialized) {
       initialize(config.ipfsPath, node)
     } else {
