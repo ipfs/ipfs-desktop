@@ -3,7 +3,7 @@ import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 
 import openBrowser from './controls/open-browser'
-import dragDrop from './controls/drag-drop'
+import {dragDrop, uploadFolders} from './controls/drag-drop'
 
 import {join} from 'path'
 import {lookupPretty} from 'ipfs-geoip'
@@ -245,12 +245,18 @@ function startTray (node) {
   ipcMain.on('open-file-dialog', (event, callback) => {
     dialog.showOpenDialog(mb.window, {
       properties: ['openFile', 'multiSelections']
-    }, (files) => dragDrop(getIPFS, event, files))
+    }, (files) => {
+      if (files.length === 0) return
+      dragDrop(getIPFS, event, files)
+    })
   })
 
   ipcMain.on('open-dir-dialog', (event, callback) => {
     dialog.showOpenDialog(mb.window, {
       properties: ['openDirectory', 'multiSelections']
+    }, (files) => {
+      if (files.length === 0) return
+      uploadFolders(getIPFS, event, files)
     })
   })
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {ipcRenderer, dialog, ipcMain} from 'electron'
+import {ipcRenderer} from 'electron'
 import {NativeTypes} from 'react-dnd-html5-backend'
 import {DropTarget} from 'react-dnd'
 
@@ -40,6 +40,10 @@ class FilesScreen extends Component {
     ipcRenderer.send('open-file-dialog')
   }
 
+  _selectDirectoryDialog (event) {
+    ipcRenderer.send('open-dir-dialog')
+  }
+
   render () {
     const {connectDropTarget, isOver, canDrop} = this.props
 
@@ -68,7 +72,7 @@ class FilesScreen extends Component {
 
           <div className='right'>
             <IconButton onClick={this._selectFileDialog} icon='plus' />
-            <IconButton onClick={() => {}} icon='folder' />
+            <IconButton onClick={this._selectDirectoryDialog} icon='folder' />
           </div>
         </Footer>
       </div>
