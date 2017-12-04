@@ -3,12 +3,12 @@ import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 
 import openBrowser from './controls/open-browser'
-import {dragDrop, uploadFolders} from './controls/drag-drop'
+import {uploadFiles} from './controls/upload-files'
 
 import {join} from 'path'
 import {lookupPretty} from 'ipfs-geoip'
 import config, {logger} from './config'
-import {dialog, ipcMain, Menu, shell, app, clipboard} from 'electron'
+import {dialog, ipcMain, Menu, shell, app} from 'electron'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -220,7 +220,7 @@ function startTray (node) {
   ipcMain.on('request-files', onRequestFiles)
   ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
   ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
-  ipcMain.on('drop-files', dragDrop.bind(null, getIPFS))
+  ipcMain.on('drop-files', uploadFiles.bind(null, getIPFS))
   ipcMain.on('close-tray-window', onCloseWindow)
   ipcMain.on('open-webui', openBrowser)
 
@@ -247,7 +247,7 @@ function startTray (node) {
       properties: ['openFile', 'multiSelections']
     }, (files) => {
       if (files.length === 0) return
-      dragDrop(getIPFS, event, files)
+      uploadFiles(getIPFS, event, files)
     })
   })
 
@@ -256,7 +256,7 @@ function startTray (node) {
       properties: ['openDirectory', 'multiSelections']
     }, (files) => {
       if (files.length === 0) return
-      uploadFolders(getIPFS, event, files)
+      uploadFiles(getIPFS, event, files)
     })
   })
 }
