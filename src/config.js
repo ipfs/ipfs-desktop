@@ -5,6 +5,7 @@ import os from 'os'
 import isDev from 'electron-is-dev'
 import {app} from 'electron'
 import {getLogo, macOsMenuBar} from './utils/logo'
+import {FileHistory} from './utils/file-history'
 
 const isProduction = !isDev
 const currentURL = (name) => `file://${__dirname}/views/${name}.html`
@@ -33,6 +34,8 @@ const ipfsPath = (() => {
 
   return pathIPFS
 })()
+
+export const fileHistory = new FileHistory(ipfsFileHistoryFile)
 
 // Sets up the Logger
 export const logger = winston.createLogger({

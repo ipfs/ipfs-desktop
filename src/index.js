@@ -7,7 +7,7 @@ import {uploadFiles} from './controls/upload-files'
 
 import {join} from 'path'
 import {lookupPretty} from 'ipfs-geoip'
-import config, {logger} from './config'
+import config, {logger, fileHistory} from './config'
 import {dialog, ipcMain, shell, app} from 'electron'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -118,34 +118,6 @@ function onRequestState (node, event) {
   }
 }
 
-let fileHistory = (() => {
-  let history = []
-
-  if (fs.existsSync(config.ipfsFileHistoryFile)) {
-    history = JSON.parse(fs.readFileSync(config.ipfsFileHistoryFile))
-  } else {
-    history = []
-    fs.writeFileSync(config.ipfsFileHistoryFile, JSON.stringify(history))
-  }
-
-  return history
-})()
-
-export function appendFile (name, hash) {
-  fileHistory.unshift({
-    name: name,
-    hash: hash,
-    date: new Date()
-  })
-
-  fs.writeFileSync(config.ipfsFileHistoryFile, JSON.stringify(fileHistory))
-  onRequestFiles()
-}
-
-function onRequestFiles () {
-  mb.window.webContents.send('files', fileHistory)
-}
-
 function onStartDaemon (node) {
   logger.info('Start daemon')
   mb.window.webContents.send('node-status', 'starting')
@@ -207,11 +179,18 @@ function onWillQuit (node, event) {
   setTimeout(quit, 1000)
 }
 
+function updateFileHistory () {
+  mb.window.webContents.send('files', fileHistory.toArray())
+}
+
 function startTray (node) {
   logger.info('Starting tray')
 
+  // Update File History on change and when it is requested.
+  fileHistory.on('change', updateFileHistory)
+  ipcMain.on('request-files', updateFileHistory)
+
   ipcMain.on('request-state', onRequestState.bind(null, node))
-  ipcMain.on('request-files', onRequestFiles)
   ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
   ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
   ipcMain.on('drop-files', uploadFiles.bind(null, getIPFS))
@@ -222,37 +201,26 @@ function startTray (node) {
     shell.openExternal(join(config.ipfsPath, 'config'))
   })
 
-  ipcMain.on('small-window', () => {
-    mb.window.setSize(350, config.menubar.height)
-  })
-
-  ipcMain.on('medium-window', () => {
-    mb.window.setSize(600, config.menubar.height)
-  })
-
-  ipcMain.on('big-window', () => {
-    mb.window.setSize(800, config.menubar.height)
-  })
-
   mb.app.once('will-quit', onWillQuit.bind(null, node))
 
   ipcMain.on('open-file-dialog', (event, callback) => {
     dialog.showOpenDialog(mb.window, {
       properties: ['openFile', 'multiSelections']
-    }, (files) => {
-      if (!files || files.length === 0) return
-      uploadFiles(getIPFS, event, files)
-    })
+    }, uploadWrapper(event))
   })
 
   ipcMain.on('open-dir-dialog', (event, callback) => {
     dialog.showOpenDialog(mb.window, {
       properties: ['openDirectory', 'multiSelections']
-    }, (files) => {
-      if (!files || files.length === 0) return
-      uploadFiles(getIPFS, event, files)
-    })
+    }, uploadWrapper(event))
   })
+}
+
+function uploadWrapper (event) {
+  return (files) => {
+    if (!files || files.length === 0) return
+    uploadFiles(getIPFS, event, files)
+  }
 }
 
 // Initalize a new IPFS node

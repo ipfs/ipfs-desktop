@@ -1,5 +1,4 @@
-import {logger} from '../config'
-import {appendFile} from './../index'
+import {logger, fileHistory} from '../config'
 import {clipboard} from 'electron'
 
 export function uploadFiles (ipfs, event, files) {
@@ -12,7 +11,7 @@ export function uploadFiles (ipfs, event, files) {
         const url = `https://ipfs.io/ipfs/${file.hash}`
         clipboard.writeText(url)
         logger.info('Uploaded file', {path: file.path})
-        appendFile(file.path, file.hash)
+        fileHistory.add(file.path, file.hash)
       })
     })
     .catch(logger.error)
