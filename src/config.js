@@ -1,12 +1,31 @@
 import winston from 'winston'
 import path from 'path'
 import fs from 'fs'
+import os from 'os'
 import isDev from 'electron-is-dev'
 import {app} from 'electron'
 import FileHistory from './utils/file-history'
 
-export const logoIpfsIce = path.resolve(path.join(__dirname, 'img/icons/ice.png'))
-export const logoIpfsBlack = path.resolve(path.join(__dirname, 'img/icons/black.png'))
+export const logoIpfsIce = (() => {
+  const p = path.resolve(path.join(__dirname, 'img'))
+
+  if (os.platform() === 'darwin') {
+    return path.join(p, 'icons/ice.png')
+  }
+
+  return path.join(p, 'ipfs-logo-ice.png')
+})()
+
+export const logoIpfsBlack = (() => {
+  const p = path.resolve(path.join(__dirname, 'img'))
+
+  if (os.platform() === 'darwin') {
+    return path.join(p, 'icons/black.png')
+  }
+
+  return path.join(p, 'ipfs-logo-black.png')
+})()
+
 const isProduction = !isDev
 const currentURL = (name) => `file://${__dirname}/views/${name}.html`
 const ipfsAppData = (() => {
