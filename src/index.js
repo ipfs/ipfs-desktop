@@ -20,6 +20,7 @@ if (require('electron-squirrel-startup')) {
 process.on('uncaughtException', (error) => {
   const msg = error.message || error
   logger.error(`Uncaught Exception: ${msg}`, error)
+  dialog.showErrorBox('Uncaught Exception:', msg)
   process.exit(1)
 })
 
@@ -40,9 +41,9 @@ let poller = null
 let IPFS
 let mb
 
-function send (type, ...args) {
+function send (type, arg) {
   if (mb && mb.window && mb.window.webContents) {
-    mb.window.webContents.send(type, ...args)
+    mb.window.webContents.send(type, arg)
   }
 }
 

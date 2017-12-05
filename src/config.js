@@ -42,7 +42,12 @@ export const logger = winston.createLogger({
   format: winston.format.json(),
   transports: [
     new winston.transports.File({
-      filename: path.join(__dirname, 'app.log'),
+      filename: 'error.log',
+      level: 'error',
+      handleExceptions: false
+    }),
+    new winston.transports.File({
+      filename: 'combined.log',
       handleExceptions: false
     })
   ]
