@@ -1,11 +1,12 @@
 import winston from 'winston'
 import path from 'path'
 import fs from 'fs'
-import os from 'os'
 import isDev from 'electron-is-dev'
 import {app} from 'electron'
-import {getLogo, macOsMenuBar} from './utils/logo'
 import FileHistory from './utils/file-history'
+
+export const logoIpfsIce = path.resolve(path.join(__dirname, 'img', 'ipfs-logo-ice.png'))
+export const logoIpfsBlack = path.resolve(path.join(__dirname, 'img', 'ipfs-logo-black.png'))
 
 const isProduction = !isDev
 const currentURL = (name) => `file://${__dirname}/views/${name}.html`
@@ -66,7 +67,7 @@ const menubar = {
   width: 850,
   height: 400,
   index: `file://${__dirname}/views/menubar.html`,
-  icon: (os.platform() === 'darwin') ? macOsMenuBar : getLogo(),
+  icon: logoIpfsBlack,
   tooltip: 'Your IPFS instance',
   alwaysOnTop: true,
   preloadWindow: true,

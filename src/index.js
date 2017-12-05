@@ -7,7 +7,7 @@ import openWebUI from './controls/open-webui'
 import openFileDialog from './controls/open-file-dialog'
 
 import {join} from 'path'
-import config, {logger, fileHistory} from './config'
+import config, {logger, fileHistory, logoIpfsIce, logoIpfsBlack} from './config'
 import {dialog, ipcMain, shell, app} from 'electron'
 
 import StatsPoller from './utils/stats-poller'
@@ -100,6 +100,8 @@ function onStartDaemon (node) {
     mb.on('show', startPolling)
     mb.on('hide', stopPolling)
 
+    mb.tray.setImage(logoIpfsIce)
+
     send('node-status', 'running')
     IPFS = ipfsNode
   })
@@ -123,6 +125,7 @@ function onStopDaemon (node, done) {
     if (err) { return logger.error(err.stack) }
 
     logger.info('Stopped daemon')
+    mb.tray.setImage(logoIpfsBlack)
 
     IPFS = null
     send('node-status', 'stopped')
