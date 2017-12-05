@@ -5,6 +5,7 @@
   "description": "IPFS Native Application",
   "main": "src/index.js",
   "dependencies": {
+    "electron-compile": "^6.4.2",
     "electron-is-dev": "^0.3.0",
     "electron-squirrel-startup": "^1.0.0",
     "file-extension": "^4.0.0",
@@ -52,9 +53,16 @@
   "config": {
     "forge": {
       "make_targets": {
-        "win32": ["squirrel"],
-        "darwin": ["dmg"],
-        "linux": ["deb", "rpm"]
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "dmg"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
       },
       "electronPackagerConfig": {
         "packageManager": "yarn",
@@ -62,7 +70,8 @@
       },
       "electronWinstallerConfig": {
         "name": "Station",
-        "setupIcon": "./src/img/icons/executable/ipfs.ico"
+        "setupIcon": "./src/img/icons/executable/ipfs.ico",
+        "loadingGif": "./src/img/loading.gif"
       },
       "electronInstallerDMG": {
         "icon": "./src/img/icons/executable/ipfs.icns"
