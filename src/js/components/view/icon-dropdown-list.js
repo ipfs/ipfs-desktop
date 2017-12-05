@@ -1,28 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {DropdownList} from 'react-widgets'
 
 import Icon from './icon'
 
-const styles = {
-  icon: {
-    position: 'absolute',
-    marginTop: '10px',
-    marginLeft: '20px',
-    fontSize: '20px'
+function onChangeWrapper (fn) {
+  return event => {
+    return fn(event.target.value)
   }
 }
 
 export default function IconDropdownList (props) {
+  let options = props.data.map(el => {
+    return (<option value={el}>{el}</option>)
+  })
+
   return (
-    <div>
-      <Icon
-        name={props.icon}
-        style={styles.icon} />
-      <DropdownList
-        data={props.data}
+    <div className='dropdown-list'>
+      <Icon name={props.icon} />
+      <select
         defaultValue={props.defaultValue}
-        onChange={props.onChange} />
+        onChange={onChangeWrapper(props.onChange)}>
+        {options}
+      </select>
     </div>
   )
 }

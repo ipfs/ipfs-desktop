@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 export default function Icon (props) {
   return (
-    <div className={`icon-${props.name}`} {...props} />
+    <span className={`icon ti-${props.name}`} />
   )
 }
 

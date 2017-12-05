@@ -10,7 +10,7 @@ $ npm run lint
 ```
 
 When you are ready to commit please be sure to follow the
-[commit convention](https://github.com/ajoslin/conventional-changelog/blob/master/conventions/angular.md).
+[commit convention](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/convention.md).
 
 ## Available Scripts
 

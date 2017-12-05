@@ -2,15 +2,15 @@ import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 
-import openConsole from './controls/open-console'
-import openSettings from './controls/open-settings'
-import openBrowser from './controls/open-browser'
-import dragDrop from './controls/drag-drop'
+import uploadFiles from './controls/upload-files'
+import openWebUI from './controls/open-webui'
+import openFileDialog from './controls/open-file-dialog'
 
 import {join} from 'path'
-import {lookupPretty} from 'ipfs-geoip'
-import config, {logger} from './config'
-import {dialog, BrowserWindow, ipcMain, app} from 'electron'
+import config, {logger, fileHistory, logoIpfsIce, logoIpfsBlack} from './config'
+import {dialog, ipcMain, shell, app} from 'electron'
+
+import StatsPoller from './utils/stats-poller'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -20,6 +20,7 @@ if (require('electron-squirrel-startup')) {
 process.on('uncaughtException', (error) => {
   const msg = error.message || error
   logger.error(`Uncaught Exception: ${msg}`, error)
+  dialog.showErrorBox('Uncaught Exception:', msg)
   process.exit(1)
 })
 
@@ -36,45 +37,38 @@ if (config.isProduction) {
 
 // Local Variables
 
+let poller = null
 let IPFS
 let mb
-let shouldPoll = false
-const statsCache = {}
 
-function pollStats (ipfs) {
-  const next = () => {
-    setTimeout(() => {
-      pollStats(ipfs)
-    }, 1000)
+function send (type, arg) {
+  if (mb && mb.window && mb.window.webContents) {
+    mb.window.webContents.send(type, arg)
   }
+}
 
-  if (!shouldPoll || !mb.window || !mb.window.isVisible()) {
-    return next()
-  }
+function stopPolling () {
+  if (poller) poller.stop()
+}
 
-  ipfs.swarm.peers()
-    .then((res) => {
-      statsCache.peers = res.length
-      mb.window.webContents.send('stats', statsCache)
-    }, (err) => {
-      logger.error(err.stack)
-    })
-    .then(next)
+function startPolling () {
+  if (poller) poller.start()
+}
 
-  ipfs.id()
-    .then((peer) => {
-      lookupPretty(ipfs, peer.addresses, (err, location) => {
-        if (err) {
-          statsCache.location = 'Unknown'
-          mb.window.webContents.send('stats', statsCache)
-          return
-        }
+function openSettings () {
+  shell.openExternal(join(config.ipfsPath, 'config'))
+}
 
-        statsCache.location = location && location.formatted
-        mb.window.webContents.send('stats', statsCache)
-      })
-    })
-    .catch(logger.error)
+function onPollerChange (stats) {
+  send('stats', stats)
+}
+
+function onFileHistoryChange () {
+  send('files', fileHistory.toArray())
+}
+
+function onCloseWindow () {
+  mb.window.hide()
 }
 
 function onRequestState (node, event) {
@@ -85,63 +79,58 @@ function onRequestState (node, event) {
       status = IPFS ? 'running' : 'starting'
     }
 
-    mb.window.webContents.send('node-status', status)
+    send('node-status', status)
   }
 }
 
 function onStartDaemon (node) {
   logger.info('Start daemon')
-  mb.window.webContents.send('node-status', 'starting')
-  node.startDaemon(function (err, ipfsNode) {
+  send('node-status', 'starting')
+
+  node.startDaemon((err, ipfsNode) => {
     if (err) throw err
 
-    mb.window.webContents.send('node-status', 'running')
+    poller = new StatsPoller(ipfsNode, logger)
 
-    shouldPoll = true
-    pollStats(ipfsNode)
+    if (mb.window && mb.window.isVisible()) {
+      poller.start()
+    }
 
-    ipfsNode.version()
-      .then((res) => {
-        mb.window.webContents.send('version', res)
-      })
-      .catch((err) => {
-        logger.error(err)
-      })
+    poller.on('change', onPollerChange)
+    mb.on('show', startPolling)
+    mb.on('hide', stopPolling)
 
+    mb.tray.setImage(logoIpfsIce)
+
+    send('node-status', 'running')
     IPFS = ipfsNode
   })
 }
 
 function onStopDaemon (node, done) {
   logger.info('Stopping daemon')
+  send('node-status', 'stopping')
 
-  const send = (type, msg) => {
-    if (mb && mb.window && mb.window.webContents) {
-      mb.window.webContents.send(type, msg)
-    }
+  if (poller) {
+    poller.stop()
+    poller = null
   }
 
-  send('node-status', 'stopping')
-  if (shouldPoll) {
-    delete statsCache.peers
-    send('stats', statsCache)
-    shouldPoll = false
+  if (mb) {
+    mb.removeListener('show', startPolling)
+    mb.removeListener('hide', stopPolling)
   }
 
   node.stopDaemon((err) => {
-    if (err) return logger.error(err.stack)
+    if (err) { return logger.error(err.stack) }
 
     logger.info('Stopped daemon')
+    mb.tray.setImage(logoIpfsBlack)
 
     IPFS = null
     send('node-status', 'stopped')
-    send('stats', statsCache)
     done()
   })
-}
-
-function onCloseWindow () {
-  mb.window.hide()
 }
 
 function onWillQuit (node, event) {
@@ -149,8 +138,8 @@ function onWillQuit (node, event) {
 
   if (IPFS == null) return
 
-  // Try waiting for the daemon to properly shut down
-  // before we actually quit
+  // TODO: Try waiting for the daemon to properly
+  // shut down before we actually quit
 
   event.preventDefault()
 
@@ -162,39 +151,44 @@ function onWillQuit (node, event) {
 function startTray (node) {
   logger.info('Starting tray')
 
+  // Update File History on change and when it is requested.
+  ipcMain.on('request-files', onFileHistoryChange)
+  fileHistory.on('change', onFileHistoryChange)
+
   ipcMain.on('request-state', onRequestState.bind(null, node))
   ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
   ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
-  ipcMain.on('drop-files', dragDrop.bind(null))
+  ipcMain.on('drop-files', uploadFiles.bind(null, getIPFS))
   ipcMain.on('close-tray-window', onCloseWindow)
 
+  ipcMain.on('open-webui', openWebUI.bind(null, getIPFS))
   ipcMain.on('open-settings', openSettings)
-  ipcMain.on('open-console', openConsole)
-  ipcMain.on('open-browser', openBrowser)
 
   mb.app.once('will-quit', onWillQuit.bind(null, node))
+
+  ipcMain.on('open-file-dialog', openFileDialog(mb.window, getIPFS))
+  ipcMain.on('open-dir-dialog', openFileDialog(mb.window, getIPFS, true))
 }
 
 // Initalize a new IPFS node
 function initialize (path, node) {
   logger.info('Initialzing new node')
 
-  const welcomeWindow = new BrowserWindow(config.window)
-
-  welcomeWindow.loadURL(config.urls.welcome)
-  welcomeWindow.webContents.on('did-finish-load', () => {
-    welcomeWindow.webContents.send('setup-config-path', path)
+  mb.window.loadURL(config.urls.welcome)
+  mb.window.webContents.on('did-finish-load', () => {
+    send('setup-config-path', path)
   })
+  mb.showWindow()
 
   // Close the application if the welcome dialog is canceled
-  welcomeWindow.once('close', () => {
+  mb.window.once('close', () => {
     if (!node.initialized) mb.app.quit()
   })
 
   let userPath = path
 
   ipcMain.on('setup-browse-path', () => {
-    dialog.showOpenDialog(welcomeWindow, {
+    dialog.showOpenDialog(mb.window, {
       title: 'Select a directory',
       defaultPath: path,
       properties: [
@@ -210,7 +204,7 @@ function initialize (path, node) {
         userPath = join(userPath, '.ipfs')
       }
 
-      welcomeWindow.webContents.send('setup-config-path', userPath)
+      send('setup-config-path', userPath)
     })
   })
 
@@ -218,23 +212,22 @@ function initialize (path, node) {
   ipcMain.on('initialize', (event, { keySize }) => {
     logger.info(`Initializing new node with key size: ${keySize} in ${userPath}.`)
 
-    welcomeWindow.webContents.send('initializing')
+    send('initializing')
     node.init({
       directory: userPath,
-      keySize
+      keySize: keySize
     }, (err, res) => {
       if (err) {
-        return welcomeWindow.webContents.send('initialization-error', String(err))
+        return send('initialization-error', String(err))
       }
 
       fs.writeFileSync(config.ipfsPathFile, path)
 
-      welcomeWindow.webContents.send('initialization-complete')
-      welcomeWindow.webContents.send('node-status', 'stopped')
+      send('initialization-complete')
+      send('node-status', 'stopped')
 
-      welcomeWindow.close()
       onStartDaemon(node)
-      mb.showWindow()
+      mb.window.loadURL(config.menubar.index)
     })
   })
 }
@@ -262,15 +255,13 @@ ipfsd.local((err, node) => {
 
   mb = menubar(config.menubar)
 
-  // Ensure single instance
+  // Ensure single instance.
   mb.app.makeSingleInstance(reboot)
 
   mb.on('ready', () => {
     logger.info('Application is ready')
 
-    // tray actions
-
-    mb.tray.on('drop-files', dragDrop)
+    mb.tray.on('drop-files', uploadFiles.bind(null, getIPFS))
     mb.tray.setHighlightMode(true)
 
     startTray(node)

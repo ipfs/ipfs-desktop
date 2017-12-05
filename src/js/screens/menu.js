@@ -5,8 +5,11 @@ import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
 import StartScreen from './menu/start'
-import ProfileScreen from './menu/profile'
+import FilesScreen from './menu/files'
+import PeersScreen from './menu/peers'
+import NodeInfoScreen from './menu/node-info'
 import Loader from '../components/view/loader'
+import {PAGES} from '../../constants'
 
 const UNINITIALIZED = 'uninitialized'
 const RUNNING = 'running'
@@ -16,19 +19,13 @@ const STOPPING = 'stopping'
 class Menu extends Component {
   state = {
     status: UNINITIALIZED,
+    route: PAGES.FILES,
     connected: false,
     version: null,
     stats: {}
   }
 
-  // -- Event Listeners
-
-  _onVersion = (event, arg) => {
-    this.setState({version: arg})
-  }
-
   _onNodeStatus = (event, status) => {
-    console.log(status)
     this.setState({status: status})
   }
 
@@ -36,73 +33,72 @@ class Menu extends Component {
     this.setState({stats: stats})
   }
 
-  _startDaemon () {
-    console.log('starting daemon')
-    ipcRenderer.send('start-daemon')
+  _onFiles = (event, files) => {
+    this.setState({files: files})
   }
 
-  _stopDaemon () {
-    ipcRenderer.send('stop-daemon')
-  }
-
-  _closeWindow () {
-    ipcRenderer.send('close-tray-window')
-  }
-
-  _openConsole () {
-    ipcRenderer.send('open-console')
-  }
-
-  _openBrowser () {
-    ipcRenderer.send('open-browser')
-  }
-
-  _openSettings () {
-    ipcRenderer.send('open-settings')
+  _changeRoute = (route) => {
+    this.setState({route: route})
   }
 
   componentDidMount () {
     // -- Listen to control events
-    ipcRenderer.on('version', this._onVersion)
     ipcRenderer.on('node-status', this._onNodeStatus)
     ipcRenderer.on('stats', this._onStats)
+    ipcRenderer.on('files', this._onFiles)
 
     ipcRenderer.send('request-state')
+    ipcRenderer.send('request-files')
   }
 
   componentWillUnmount () {
     // -- Remove control events
-    ipcRenderer.removeListener('version', this._onVersion)
     ipcRenderer.removeListener('node-status', this._onNodeStatus)
     ipcRenderer.removeListener('stats', this._onStats)
-    ipcRenderer.removeListener('uploading', this._onUploading)
-    ipcRenderer.removeListener('uploaded', this._onUploaded)
+    ipcRenderer.removeListener('files', this._onFiles)
+  }
+
+  _getRouteScreen () {
+    switch (this.state.route) {
+      case PAGES.FILES:
+        return (
+          <FilesScreen
+            files={this.state.files}
+            changeRoute={this._changeRoute} />
+        )
+      case PAGES.INFO:
+        return (
+          <PeersScreen
+            peers={this.state.stats.peers}
+            location={this.state.stats.node.location}
+            changeRoute={this._changeRoute} />
+        )
+      default:
+        return null
+    }
   }
 
   _getScreen () {
     switch (this.state.status) {
       case RUNNING:
         return (
-          <ProfileScreen
-            key='profile-screen'
-            peers={this.state.stats.peers}
-            location={this.state.stats.location}
-            onStopClick={this._stopDaemon}
-            onConsoleClick={this._openConsole}
-            onBrowserClick={this._openBrowser}
-            onSettingsClick={this._openSettings}
-            onCloseClick={this._closeWindow}
-          />
+          <div style={{display: 'flex'}}>
+            <div className='panel left-panel'>
+              {this._getRouteScreen()}
+            </div>
+            <div className='panel right-panel'>
+              <NodeInfoScreen
+                {...this.state.stats.node}
+                repo={this.state.stats.repo} />
+            </div>
+          </div>
         )
       case STARTING:
       case STOPPING:
         return <Loader key='loader-screen' />
       default:
         return (
-          <StartScreen
-            key='start-screen'
-            onStartClick={this._startDaemon}
-            onCloseClick={this._closeWindow} />
+          <StartScreen />
         )
     }
   }

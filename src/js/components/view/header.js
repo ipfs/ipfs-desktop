@@ -1,47 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import IconButton from './icon-button'
-import IPFSLogo from './ipfs-logo'
-
-const styles = {
-  wrapper: {
-    display: 'flex',
-    height: '40px'
-  },
-  text: {
-    alignSelf: 'center',
-    flex: '1',
-    paddingTop: '4px'
-  },
-  stopButton: {
-    background: 'none',
-    border: 'none',
-    position: 'absolute',
-    top: '11px',
-    right: '0'
-  }
-}
-
 export default function Header (props) {
   return (
-    <div style={styles.wrapper}>
-      <div style={styles.text}>
-        <IPFSLogo />
+    <div className='header'>
+      <div>
+        <p className='title'>{props.title}</p>
+        { props.subtitle !== '' &&
+          <p className='subtitle'>{props.subtitle}</p>
+        }
       </div>
-      <IconButton
-        icon='cross'
-        onClick={props.onCloseClick}
-        style={styles.stopButton}
-        iconStyle={{fontSize: '18px'}} />
+      <div>
+        {props.children}
+      </div>
     </div>
   )
 }
 
 Header.propTypes = {
-  onCloseClick: PropTypes.func.isRequired
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  subtitle: PropTypes.string
 }
 
 Header.defaultProps = {
-  onCloseClick: () => {}
+  title: '',
+  subtitle: ''
 }

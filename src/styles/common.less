@@ -1,3 +1,5 @@
+@import './variables.less';
+
 *,
 *:before,
 *:after {
@@ -6,6 +8,134 @@
 
 html,
 body {
-  font-family: 'Maven Pro', sans-serif;
+  font-family: 'SF Pro Text', sans-serif;
   overflow: hidden;
+  color: #FFF;
+  background: #252525;
+}
+
+::-webkit-scrollbar {     
+  background-color: transparent;
+  width: .5em;
+}
+
+::-webkit-scrollbar-thumb:window-inactive,
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 0.5em;
+}
+
+.dropdown-list,
+.directory-input,
+.button-text,
+input[type="text"] {
+  border-radius: 0.2em;
+  padding: 0.5em 1em;
+  border: 0;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.25);
+  outline: 0;
+  transition: .2s ease all;
+}
+
+.button-text {
+  cursor: pointer;
+
+  &:hover {
+      background: rgba(255, 255, 255, 0.1);
+  }
+
+  span {
+      font-size: @normal-font;
+  }
+}
+
+.directory-input {
+  cursor: pointer;
+
+  .icon {
+      margin-right: 0.5em;
+  }
+
+  a {
+      font-size: @normal-font;
+      color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.directory-input,
+.dropdown-list {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-list {
+  cursor: pointer;
+  margin: 1em 0;    
+
+  .icon {
+      margin-right: 0.5em;
+  }
+
+  select {
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+      font-size: 14px;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.4);
+      font-family: inherit;
+      line-height: inherit;
+      width: 100%;
+  }
+
+  option {
+      color: #000
+  }
+  
+  select:focus {
+      outline: none;
+  }
+}
+
+.node {
+  .sharing {
+      padding: 0 1em 1em;
+
+      p {
+          margin: 0;
+      }
+
+      p:first-of-type {
+          font-size: @big-font;
+      }
+
+      p:last-of-type {
+          font-size: @medium-font;
+          color: rgba(255, 255, 255, 0.5);
+      }
+  }
+
+  .heartbeat {
+      width: 1.15em;
+  }
+}
+
+.button-icon {
+  line-height: 1;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  margin-left: 0.5em;
+  transition: .2s ease all;
+
+  &:hover {
+      color: rgba(255, 255, 255, 0.6);
+  }
 }

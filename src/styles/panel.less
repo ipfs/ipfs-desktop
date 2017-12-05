@@ -1,0 +1,73 @@
+@import './variables.less';
+
+.panel {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .header,
+    .footer {
+        padding: 1em;
+    }
+
+    .header {
+        display: flex;
+
+        .title {
+            font-size: @medium-font;
+            color: rgba(255, 255, 255, 0.5);
+            margin: 0
+        }
+
+        .subtitle {
+            margin: 0;
+            font-size: @big-font;
+        }
+
+        & > div:first-child {
+            margin-right: auto;
+        }
+    }
+
+    .main {
+        padding-bottom: 3.5em;
+    }
+
+    .footer {
+        height: 5.25em;
+        display: flex;
+        background: linear-gradient(to top, #252525 0%, #252525 45%, transparent 100%);
+        position: fixed;
+        bottom: 0;
+        right: 0.5em;
+        padding-top: 3em;
+        box-sizing: border-box;
+        width: calc(~"300px - 0.5em");
+
+        .right {
+            margin-left: auto;
+        }
+
+        input[type="text"] {
+            font-size: @normal-font;
+            margin-top: -0.5em;
+        }
+    }
+
+    &.left-panel {
+        width: 550px;
+        background: #000;
+    }
+
+    &.left-panel .footer {
+        background: linear-gradient(to top, #000000 0%, #000000 45%, transparent 100%);
+        left: 0;
+        width: calc(~"550px - 0.5em")
+    }
+
+    &.right-panel {
+        background-color: #252525;
+        color: #fff;
+        width: 300px;
+    }
+}

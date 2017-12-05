@@ -1,81 +1,74 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
-import Icon from '../../components/view/icon'
-import Button from '../../components/view/button'
-
-const styles = {
-  base: {
-    display: 'flex',
-    width: '100%',
-    height: '100%',
-    backgroundImage: `url('../img/jellyfish-large.png')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center center',
-    color: '#FFFFFF',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20',
-    justifyContent: 'space-between'
-  },
-  headline: {
-    textAlign: 'center',
-    marginBottom: '20px',
-    fontSize: '38px'
-  },
-  actions: {
-    flex: '0 0 auto',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  button: {
-    width: '300px',
-    marginBottom: '30px'
-  },
-  icon: {
-    display: 'inline',
-    color: '#19b5fe',
-    marginRight: '10px',
-    fontSize: '20px'
-  },
-  advancedLink: {
-    cursor: 'pointer',
-    color: 'rgba(255, 255, 255, 0.5)',
-    transition: 'color 0.3s ease-in-out',
-    ':hover': {
-      color: 'rgba(255, 255, 255, 1)'
-    }
-  }
-}
+import Heartbeat from '../../components/view/heartbeat'
+import TextButton from '../../components/view/text-button'
+import DirectoryInput from '../../components/view/directory-input'
+import IconDropdownList from '../../components/view/icon-dropdown-list'
 
 export default class Intro extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {showAdvanced: false}
+  }
+
   static propTypes = {
     onInstallClick: PropTypes.func,
-    onAdvancedClick: PropTypes.func
+    configPath: PropTypes.string,
+    keySizes: PropTypes.arrayOf(PropTypes.number),
+    keySize: PropTypes.number,
+    onKeySizeChange: PropTypes.func
   }
 
   static defaultProps = {
     onInstallClick () {},
-    onAdvancedClick () {}
+    configPath: '',
+    keySizes: [],
+    keySize: 0,
+    onKeySizeChange () {}
+  }
+
+  onAdvancedClick = () => {
+    this.setState({ showAdvanced: true })
   }
 
   render () {
+    let advanced = null
+    if (this.state.showAdvanced) {
+      advanced = ([
+        <DirectoryInput path={this.props.configPath} />,
+        <IconDropdownList
+          icon='key'
+          data={this.props.keySizes}
+          defaultValue={this.props.keySize}
+          onChange={this.props.onKeySizeChange}
+        />
+      ])
+    }
+
     return (
-      <div style={styles.base}>
-        <span style={styles.headline}>
-          Welcome to IPFS
-        </span>
-        <div style={styles.actions}>
-          <Button style={styles.button} onClick={this.props.onInstallClick}>
-            <Icon name='download' style={styles.icon} /> Install IPFS
-          </Button>
-          <a
-            key='advanced-link'
-            onClick={this.props.onAdvancedClick}
-            style={styles.advancedLink}>
-            Advanced Options
-          </a>
+      <div className='intro' style={{display: 'flex'}}>
+        <div className='panel left-panel'>
+          <Heartbeat />
+        </div>
+        <div className='panel right-panel'>
+          <div className='main'>
+            <div>
+              <p className='title'>Welcome to the Distributed Web</p>
+              <p className='subtitle'>You are about to install IPFS, the InterPlanetary File System.</p>
+            </div>
+            <div>
+              {advanced}
+            </div>
+            <div>
+              <TextButton text='Install IPFS' onClick={this.props.onInstallClick} />
+              { !this.state.showAdvanced &&
+                <a className='advanced-options' onClick={this.onAdvancedClick} >
+                  Advanced Options
+                </a>
+              }
+            </div>
+          </div>
         </div>
       </div>
     )
