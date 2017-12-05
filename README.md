@@ -1,45 +1,56 @@
-# station
+<h1 align="center">
+  <a href="ipfs.io"><h1>Station</h1><!--<img width="650px" src="" alt="IPFS Station" />--></a>
+</h1>
 
-[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
-[![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
-[![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
-[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/ipfs/station)
-[![Build Status](https://img.shields.io/travis/ipfs-shipyard/station/master.svg?style=flat-square)](https://travis-ci.org/ipfs-shipyard/station)
-[![Dependency Status](https://img.shields.io/david/ipfs-shipyard/station.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/station)
-[![devDependency Status](https://img.shields.io/david/dev/ipfs-shipyard/station.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/station#info=devDependencies)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fstation.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fstation?ref=badge_shield)
+<h3 align="center">A menubar IPFS application to get you on the Distributed Web!</h3>
 
-> Electron Shell based IPFS app
+<p align="center">
+  <a href="http://protocol.ai"><img src="https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square" /></a>
+  <a href="http://ipfs.io/"><img src="https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square" /></a>
+  <a href="http://webchat.freenode.net/?channels=%23ipfs"><img src="https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square" /></a>
+</p>
 
-A Native Application for your OS to run your own IPFS Node. Built with [Electron](http://electron.atom.io/).
+<p align="center">
+  <a href="https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs-shipyard%2Fstation?ref=badge_small" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs-shipyard%2Fstation.svg?type=small"/></a>
+  <a href="https://travis-ci.org/ipfs-shipyard/station"><img src="https://travis-ci.org/ipfs-shipyard/station.svg?branch=master" /></a>
+  <a href="https://circleci.com/gh/ipfs-shipyard/station"><img src="https://circleci.com/gh/ipfs-shipyard/station.svg?style=svg" /></a>
+  <a href="https://coveralls.io/github/ipfs-shipyard/station?branch=master"><img src="https://coveralls.io/repos/github/ipfs-shipyard/station/badge.svg?branch=master"></a>
+  <br>
+  <a href="https://david-dm.org/ipfs-shipyard/station"><img src="https://david-dm.org/ipfs-shipyard/station.svg?style=flat-square" /></a>
+  <a href="https://github.com/feross/standard"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square"></a>
+  <a href="https://github.com/RichardLitt/standard-readme"><img src="https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square" /></a>
+  <a href=""><img src="https://img.shields.io/badge/npm-%3E%3D3.0.0-orange.svg?style=flat-square" /></a>
+  <a href=""><img src="https://img.shields.io/badge/Node.js-%3E%3D6.0.0-orange.svg?style=flat-square" /></a>
+  <br>
+</p>
 
+![](https://ipfs.io/ipfs/QmQjPLSWt54MdFzLAxyEvTdaYPtdTAor7A1d5ugcVcmT87)
 
-## Install
+## Table of Contents
 
-You will need [Node.js](https://nodejs.org/en/) installed, preferrably a version `>=4.0`. On macOS you may also need Xcode command line tools, which can be installed with
+## Install pre-compiled version
+
+`Soon™` you will be able to install it via dist.ipfs.io. Track progress at https://github.com/ipfs-shipyard/station/pull/514
+
+## Install from Source
+
+You will need [Node.js](https://nodejs.org/en/) installed, preferrably a version `>=6.0.0`. On macOS you may also need Xcode command line tools, if you haven't already, do so by:
 
 ```bash
-xcode-select --install # Install Command Line Tools if you haven't already.
-sudo xcode-select --switch /Library/Developer/CommandLineTools # Enable command line tools
+xcode-select --install
+sudo xcode-select --switch /Library/Developer/CommandLineTools
 ```
 
 Also you will need [npm](npmjs.org) `>=3.0`. After that you should run
 
 ```bash
-$ git clone https://github.com/ipfs/station.git
-$ cd station
-$ npm install
-$ npm start
+> git clone https://github.com/ipfs/station.git
+> cd station
+> npm install
+> npm start
 ```
 
-This launches the app and runs it in your menu bar. Click the IPFS icon to open a console. For example (in OSX):
-
-![](https://ipfs.io/ipfs/QmQjPLSWt54MdFzLAxyEvTdaYPtdTAor7A1d5ugcVcmT87)
-
-## Usage
-
-See [Install](#install).
+This launches the app and runs it in your menu bar.
 
 ## Contribute
 
