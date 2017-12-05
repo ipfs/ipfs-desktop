@@ -35,7 +35,7 @@ $ npm start
 
 This launches the app and runs it in your menu bar. Click the IPFS icon to open a console. For example (in OSX):
 
-![](https://ipfs.io/ipfs/QmaufMhYVWPKwhC1jSb4qHBxgiahrq9ct2hgqk5cZxeE7s)
+![](https://ipfs.io/ipfs/QmQjPLSWt54MdFzLAxyEvTdaYPtdTAor7A1d5ugcVcmT87)
 
 ## Usage
 
