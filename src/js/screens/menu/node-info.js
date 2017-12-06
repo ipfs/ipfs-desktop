@@ -25,6 +25,10 @@ function stopDaemon () {
   ipcRenderer.send('stop-daemon')
 }
 
+function close () {
+  ipcRenderer.send('close')
+}
+
 export default function NodeScreen (props) {
   return (
     <div className='node'>
@@ -66,6 +70,10 @@ export default function NodeScreen (props) {
           Addresses
         </InfoBlock>
 
+        <InfoBlock onClick={onClickCopy(props.publicKey)} info={props.publicKey}>
+          Public Key
+        </InfoBlock>
+
         <InfoBlock button={false} onClick={openSettings} info='Click to edit'>
           Settings
         </InfoBlock>
@@ -74,8 +82,8 @@ export default function NodeScreen (props) {
           Open WebUI
         </InfoBlock>
 
-        <InfoBlock onClick={onClickCopy(props.publicKey)} info={props.publicKey}>
-          Public Key
+        <InfoBlock button={false} onClick={close} info='Click to close Station'>
+          Close
         </InfoBlock>
       </div>
 
