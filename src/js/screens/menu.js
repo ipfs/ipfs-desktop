@@ -89,6 +89,7 @@ class Menu extends Component {
             <div className='panel right-panel'>
               <NodeInfoScreen
                 {...this.state.stats.node}
+                bandwidth={this.state.stats.bw}
                 repo={this.state.stats.repo} />
             </div>
           </div>

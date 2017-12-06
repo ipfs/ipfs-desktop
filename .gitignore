@@ -1,6 +1,6 @@
 node_modules
 build
 release
-package-lock.json
 out
 *.log
+*.lock
