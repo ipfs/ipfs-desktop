@@ -28,7 +28,7 @@ class FilesScreen extends Component {
       sticky: false
     }
 
-    ipcRenderer.on('sticky-window', (sticky) => {
+    ipcRenderer.on('sticky-window', (event, sticky) => {
       this.setState({ sticky: sticky })
     })
   }
@@ -59,6 +59,10 @@ class FilesScreen extends Component {
     ipcRenderer.send('toggle-sticky')
   }
 
+  componentWillUnmount () {
+    if (this.state.sticky) this._toggleStickWindow()
+  }
+
   render () {
     const {connectDropTarget, isOver, canDrop} = this.props
 
@@ -84,9 +88,9 @@ class FilesScreen extends Component {
 
         <Footer>
           <IconButton onClick={() => { this.props.changeRoute('info') }} icon='pulse' />
+          <IconButton active={this.state.sticky} onClick={this._toggleStickWindow} icon='eye' />
 
           <div className='right'>
-            <IconButton onClick={this._toggleStickWindow} icon='eye' />
             <IconButton onClick={this._selectFileDialog} icon='plus' />
             <IconButton onClick={this._selectDirectoryDialog} icon='folder' />
           </div>
