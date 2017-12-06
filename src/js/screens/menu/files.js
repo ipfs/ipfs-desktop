@@ -86,7 +86,7 @@ class FilesScreen extends Component {
           <IconButton onClick={() => { this.props.changeRoute('info') }} icon='pulse' />
 
           <div className='right'>
-            <IconButton onClick={this._toggleStickWindow} icon='package' alt='Stick Window' />
+            <IconButton onClick={this._toggleStickWindow} icon='eye' />
             <IconButton onClick={this._selectFileDialog} icon='plus' />
             <IconButton onClick={this._selectDirectoryDialog} icon='folder' />
           </div>
