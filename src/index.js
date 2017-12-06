@@ -11,6 +11,7 @@ import config, {logger, fileHistory, logoIpfsIce, logoIpfsBlack} from './config'
 import {dialog, ipcMain, shell, app} from 'electron'
 
 import StatsPoller from './utils/stats-poller'
+import { fail } from 'assert';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -38,6 +39,7 @@ if (config.isProduction) {
 // Local Variables
 
 let poller = null
+let sticky = false
 let IPFS
 let mb
 
@@ -73,6 +75,13 @@ function onCloseWindow () {
 
 function onClose () {
   mb.app.quit()
+}
+
+function toggleSticky () {
+  sticky = !sticky
+  mb.window.setAlwaysOnTop(sticky)
+  mb.setOption('alwaysOnTop', sticky)
+  send('sticky-window', sticky)
 }
 
 function onRequestState (node, event) {
@@ -165,6 +174,8 @@ function startTray (node) {
   ipcMain.on('drop-files', uploadFiles.bind(null, getIPFS))
   ipcMain.on('close-tray-window', onCloseWindow)
   ipcMain.on('close', onClose)
+
+  ipcMain.on('toggle-sticky', toggleSticky)
 
   ipcMain.on('open-webui', openWebUI.bind(null, getIPFS))
   ipcMain.on('open-settings', openSettings)

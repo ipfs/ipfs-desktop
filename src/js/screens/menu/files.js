@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {ipcRenderer} from 'electron'
+import {ipcRenderer, ipcMain} from 'electron'
 import {NativeTypes} from 'react-dnd-html5-backend'
 import {DropTarget} from 'react-dnd'
 
@@ -22,6 +22,17 @@ const fileTarget = {
 }
 
 class FilesScreen extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      sticky: false
+    }
+
+    ipcRenderer.on('sticky-window', (sticky) => {
+      this.setState({ sticky: sticky })
+    })
+  }
+
   static propTypes = {
     connectDropTarget: PropTypes.func.isRequired,
     changeRoute: PropTypes.func.isRequired,
@@ -42,6 +53,10 @@ class FilesScreen extends Component {
 
   _selectDirectoryDialog (event) {
     ipcRenderer.send('open-dir-dialog')
+  }
+
+  _toggleStickWindow = (event) => {
+    ipcRenderer.send('toggle-sticky')
   }
 
   render () {
@@ -71,6 +86,7 @@ class FilesScreen extends Component {
           <IconButton onClick={() => { this.props.changeRoute('info') }} icon='pulse' />
 
           <div className='right'>
+            <IconButton onClick={this._toggleStickWindow} icon='package' alt='Stick Window' />
             <IconButton onClick={this._selectFileDialog} icon='plus' />
             <IconButton onClick={this._selectDirectoryDialog} icon='folder' />
           </div>

@@ -5,7 +5,7 @@ import Icon from './icon'
 
 export default function IconButton (props) {
   return (
-    <button onClick={props.onClick} className='button-icon'>
+    <button alt={props.alt} onClick={props.onClick} className='button-icon'>
       <Icon name={props.icon} />
     </button>
   )
@@ -13,10 +13,12 @@ export default function IconButton (props) {
 
 IconButton.propTypes = {
   icon: PropTypes.string,
+  alt: PropTypes.string,
   onClick: PropTypes.func
 }
 
 IconButton.defaultProps = {
   icon: '',
+  alt: '',
   onClick () {}
 }
