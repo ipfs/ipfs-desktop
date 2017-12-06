@@ -71,6 +71,10 @@ function onCloseWindow () {
   mb.window.hide()
 }
 
+function onClose () {
+  mb.app.quit()
+}
+
 function onRequestState (node, event) {
   if (node.initialized) {
     let status = 'stopped'
@@ -160,6 +164,7 @@ function startTray (node) {
   ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
   ipcMain.on('drop-files', uploadFiles.bind(null, getIPFS))
   ipcMain.on('close-tray-window', onCloseWindow)
+  ipcMain.on('close', onClose)
 
   ipcMain.on('open-webui', openWebUI.bind(null, getIPFS))
   ipcMain.on('open-settings', openSettings)
