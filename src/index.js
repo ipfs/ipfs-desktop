@@ -11,7 +11,6 @@ import config, {logger, fileHistory, logoIpfsIce, logoIpfsBlack} from './config'
 import {dialog, ipcMain, shell, app} from 'electron'
 
 import StatsPoller from './utils/stats-poller'
-import { fail } from 'assert';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {

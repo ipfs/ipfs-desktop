@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {ipcRenderer, ipcMain} from 'electron'
+import {ipcRenderer} from 'electron'
 import {NativeTypes} from 'react-dnd-html5-backend'
 import {DropTarget} from 'react-dnd'
 
