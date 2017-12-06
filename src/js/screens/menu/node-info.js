@@ -46,6 +46,18 @@ export default function NodeScreen (props) {
           Location
         </InfoBlock>
 
+        <InfoBlock info={prettyBytes(props.bandwidth.TotalIn + props.bandwidth.TotalOut)}>
+          Bandwidth Used
+        </InfoBlock>
+
+        <InfoBlock info={prettyBytes(props.bandwidth.RateIn) + '/s'}>
+          Down Speed
+        </InfoBlock>
+
+        <InfoBlock info={prettyBytes(props.bandwidth.RateOut) + '/s'}>
+          Up Speed
+        </InfoBlock>
+
         <InfoBlock info={props.protocolVersion}>
           Protocol Version
         </InfoBlock>
@@ -82,7 +94,8 @@ NodeScreen.propTypes = {
   protocolVersion: PropTypes.string,
   publicKey: PropTypes.string,
   addresses: PropTypes.array,
-  repo: PropTypes.object
+  repo: PropTypes.object,
+  bandwidth: PropTypes.object
 }
 
 NodeScreen.defaultProps = {
@@ -94,5 +107,11 @@ NodeScreen.defaultProps = {
   repo: {
     RepoSize: 0,
     NumObjects: 'NA'
+  },
+  bandwidth: {
+    TotalIn: 0,
+    TotalOut: 0,
+    RateIn: 0,
+    RateOut: 0
   }
 }

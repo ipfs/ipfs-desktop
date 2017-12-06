@@ -66,6 +66,13 @@ export default class StatsPoller extends EventEmitter {
       })
       .catch(this.logger.error)
 
+    this.ipfs.stats.bw()
+      .then(stats => {
+        this.statsCache.bw = stats
+        this.emit('change', this.statsCache)
+      })
+      .catch(this.logger.error)
+
     this.ipfs.repo.stat()
       .then(repo => {
         this.statsCache.repo = repo
