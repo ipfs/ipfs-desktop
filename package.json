@@ -78,7 +78,9 @@
         "categories": [
           "Utility"
         ],
-        "homepage": "https://ipfs.io"
+        "lintianOverrides": [
+          "changelog-file-missing-in-native-package"
+        ]
       },
       "electronInstallerDMG": {
         "icon": "./src/img/icons/executable/ipfs.icns"
