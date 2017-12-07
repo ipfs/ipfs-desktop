@@ -65,23 +65,20 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "npm",
-        "icon": "./node_modules/ipfs-logo/platform-icons/ipfs.ico"
+        "packageManager": "yarn",
+        "icon": "./src/img/icons/executable/ipfs.ico"
       },
       "electronWinstallerConfig": {
         "name": "Station",
-        "setupIcon": "./node_modules/ipfs-logo/platform-icons/ipfs.ico"
+        "setupIcon": "./src/img/icons/executable/ipfs.ico",
+        "loadingGif": "./src/img/loading.gif"
       },
       "electronInstallerDMG": {
-        "icon": "./node_modules/ipfs-logo/platform-icons/ipfs.icns"
+        "icon": "./src/img/icons/executable/ipfs.icns"
       },
       "github_repository": {
         "owner": "ipfs-shipyard",
         "name": "station"
-      },
-      "windowsStoreConfig": {
-        "packageName": "Station",
-        "name": "Station"
       }
     }
   },
