@@ -9,17 +9,15 @@ export default class StatsPoller extends EventEmitter {
     this.shouldPoll = false
     this.statsCache = {}
     this.locationsCache = {}
-
-    this._poller()
   }
 
   _poller () {
     const next = () => setTimeout(() => this._poller(), 1000)
 
     if (!this.shouldPoll) {
-      return next()
+      return
     }
-
+    
     this.ipfs.swarm.peers()
       .then((res) => {
         res = res.sort((a, b) => a.peer.toB58String() > b.peer.toB58String())
@@ -87,5 +85,6 @@ export default class StatsPoller extends EventEmitter {
 
   start () {
     this.shouldPoll = true
+    this._poller()
   }
 }
