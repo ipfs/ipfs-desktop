@@ -73,6 +73,13 @@
         "setupIcon": "./src/img/icons/executable/ipfs.ico",
         "loadingGif": "./src/img/loading.gif"
       },
+      "electronInstallerDebian": {
+        "icon": "./src/img/icons/executable/ipfs.ico",
+        "categories": [
+          "Utility"
+        ],
+        "homepage": "https://ipfs.io"
+      },
       "electronInstallerDMG": {
         "icon": "./src/img/icons/executable/ipfs.icns"
       },
