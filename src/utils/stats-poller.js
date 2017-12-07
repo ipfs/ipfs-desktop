@@ -17,7 +17,7 @@ export default class StatsPoller extends EventEmitter {
     if (!this.shouldPoll) {
       return
     }
-    
+
     this.ipfs.swarm.peers()
       .then((res) => {
         res = res.sort((a, b) => a.peer.toB58String() > b.peer.toB58String())
