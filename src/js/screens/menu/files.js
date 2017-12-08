@@ -68,7 +68,7 @@ class FilesScreen extends Component {
         </div>
 
         <Footer>
-          <IconButton onClick={() => { this.props.changeRoute('info') }} icon='pulse' />
+          <IconButton onClick={() => { this.props.changeRoute('peers') }} icon='pulse' />
 
           <div className='right'>
             <IconButton onClick={this._selectFileDialog} icon='plus' />
