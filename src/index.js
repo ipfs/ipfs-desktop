@@ -10,6 +10,7 @@ import {join} from 'path'
 import config, {logger, fileHistory, logoIpfsIce, logoIpfsBlack} from './config'
 import {dialog, ipcMain, shell, app} from 'electron'
 
+import knownErrors from './errors'
 import StatsPoller from './utils/stats-poller'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -33,6 +34,26 @@ if (config.isProduction) {
   })
 } else {
   require('electron-debug')()
+}
+
+function handleKnownErrors (e) {
+  const msg = e.toString()
+
+  const error = knownErrors.find((error) => {
+    return error.find.find((term) => {
+      return msg.includes(term)
+    })
+  })
+
+  if (error === undefined) {
+    throw e
+  } else {
+    dialog.showErrorBox(
+      error.title,
+      error.message
+    )
+    process.exit(1)
+  }
 }
 
 // Local Variables
@@ -92,7 +113,10 @@ function onStartDaemon (node) {
   send('node-status', 'starting')
 
   node.startDaemon((err, ipfsNode) => {
-    if (err) throw err
+    if (err) {
+      handleKnownErrors(err)
+      return
+    }
 
     poller = new StatsPoller(ipfsNode, logger)
 
@@ -139,17 +163,11 @@ function onStopDaemon (node, done) {
 
 function onWillQuit (node, event) {
   logger.info('Shutting down application')
+  event.preventDefault()
 
   if (IPFS == null) return
 
-  // TODO: Try waiting for the daemon to properly
-  // shut down before we actually quit
-
-  event.preventDefault()
-
-  const quit = mb.app.quit.bind(mb.app)
-  onStopDaemon(node, quit)
-  setTimeout(quit, 1000)
+  onStopDaemon(node, mb.app.quit.bind(mb.app))
 }
 
 function startTray (node) {
