@@ -87,7 +87,7 @@ class FilesScreen extends Component {
         </div>
 
         <Footer>
-          <IconButton onClick={() => { this.props.changeRoute('info') }} icon='pulse' />
+          <IconButton onClick={() => { this.props.changeRoute('peers') }} icon='pulse' />
           <IconButton active={this.state.sticky} onClick={this._toggleStickWindow} icon='eye' />
 
           <div className='right'>

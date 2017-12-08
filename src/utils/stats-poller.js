@@ -9,76 +9,71 @@ export default class StatsPoller extends EventEmitter {
     this.shouldPoll = false
     this.statsCache = {}
     this.locationsCache = {}
-
-    this._poller()
   }
 
   _poller () {
-    const next = () => setTimeout(() => this._poller(), 1000)
-
     if (!this.shouldPoll) {
-      return next()
+      return
     }
 
-    this.ipfs.swarm.peers()
-      .then((res) => {
-        res = res.sort((a, b) => a.peer.toB58String() > b.peer.toB58String())
+    Promise.all([
+      this.ipfs.id(),
+      this.ipfs.swarm.peers(),
+      this.ipfs.stats.bw(),
+      this.ipfs.repo.stat()
+    ]).then(([id, peers, bw, repo]) => {
+      this.statsCache.bw = bw
+      this.statsCache.repo = repo
+      this._handleId(id)
+      this._handlePeers(peers)
 
-        let peers = []
+      this.emit('change', this.statsCache)
 
-        res.forEach((rawPeer) => {
-          let peer = {
-            id: rawPeer.peer.toB58String(),
-            addr: rawPeer.addr.toString(),
-            location: {
-              formatted: 'Unknown'
-            }
-          }
+      setTimeout(() => {
+        this._poller()
+      }, 1000)
+    }).catch(this.logger.error)
+  }
 
-          if (!this.locationsCache[peer.id]) {
-            lookupPretty(this.ipfs, [peer.addr], (err, result) => {
-              if (err) { return }
-              this.locationsCache[peer.id] = result
-            })
-          } else {
-            peer.location = this.locationsCache[peer.id]
-          }
+  _handlePeers (raw) {
+    const peers = []
+    raw = raw.sort((a, b) => a.peer.toB58String() > b.peer.toB58String())
 
-          peers.push(peer)
-        })
+    raw.forEach((rawPeer) => {
+      let peer = {
+        id: rawPeer.peer.toB58String(),
+        addr: rawPeer.addr.toString(),
+        location: {
+          formatted: 'Unknown'
+        }
+      }
 
-        this.statsCache.peers = peers
-        this.emit('change', this.statsCache)
-      }, this.logger.error)
-      .then(next)
-
-    this.ipfs.id()
-      .then((peer) => {
-        this.statsCache.node = peer
-        this.statsCache.node.location = 'Unknown'
-
-        lookupPretty(this.ipfs, peer.addresses, (err, location) => {
+      if (!this.locationsCache[peer.id]) {
+        lookupPretty(this.ipfs, [peer.addr], (err, result) => {
           if (err) { return }
-
-          this.statsCache.node.location = location && location.formatted
-          this.emit('change', this.statsCache)
+          this.locationsCache[peer.id] = result
         })
-      })
-      .catch(this.logger.error)
+      } else {
+        peer.location = this.locationsCache[peer.id]
+      }
 
-    this.ipfs.stats.bw()
-      .then(stats => {
-        this.statsCache.bw = stats
-        this.emit('change', this.statsCache)
-      })
-      .catch(this.logger.error)
+      peers.push(peer)
+    })
 
-    this.ipfs.repo.stat()
-      .then(repo => {
-        this.statsCache.repo = repo
-        this.emit('change', this.statsCache)
-      })
-      .catch(this.logger.error)
+    this.statsCache.peers = peers
+    this.emit('change', this.statsCache)
+  }
+
+  _handleId (raw) {
+    this.statsCache.node = raw
+    this.statsCache.node.location = 'Unknown'
+
+    lookupPretty(this.ipfs, raw.addresses, (err, location) => {
+      if (err) { return }
+
+      this.statsCache.node.location = location && location.formatted
+      this.emit('change', this.statsCache)
+    })
   }
 
   stop () {
@@ -87,5 +82,6 @@ export default class StatsPoller extends EventEmitter {
 
   start () {
     this.shouldPoll = true
+    this._poller()
   }
 }

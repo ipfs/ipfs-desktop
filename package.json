@@ -13,7 +13,7 @@
     "ipfs-geoip": "^2.3.0",
     "ipfsd-ctl": "^0.26.0",
     "menubar": "^5.2.3",
-    "moment": "^2.19.2",
+    "moment": "^2.19.3",
     "multiaddr": "^3.0.1",
     "node-notifier": "^5.1.2",
     "normalize.css": "^7.0.0",
@@ -65,23 +65,20 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "npm",
-        "icon": "./node_modules/ipfs-logo/platform-icons/ipfs.ico"
+        "packageManager": "yarn",
+        "icon": "./src/img/icons/executable/ipfs.ico"
       },
       "electronWinstallerConfig": {
         "name": "Station",
-        "setupIcon": "./node_modules/ipfs-logo/platform-icons/ipfs.ico"
+        "setupIcon": "./src/img/icons/executable/ipfs.ico",
+        "loadingGif": "./src/img/loading.gif"
       },
       "electronInstallerDMG": {
-        "icon": "./node_modules/ipfs-logo/platform-icons/ipfs.icns"
+        "icon": "./src/img/icons/executable/ipfs.icns"
       },
       "github_repository": {
         "owner": "ipfs-shipyard",
         "name": "station"
-      },
-      "windowsStoreConfig": {
-        "packageName": "Station",
-        "name": "Station"
       }
     }
   },

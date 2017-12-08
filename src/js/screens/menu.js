@@ -9,7 +9,6 @@ import FilesScreen from './menu/files'
 import PeersScreen from './menu/peers'
 import NodeInfoScreen from './menu/node-info'
 import Loader from '../components/view/loader'
-import {PAGES} from '../../constants'
 
 const UNINITIALIZED = 'uninitialized'
 const RUNNING = 'running'
@@ -19,7 +18,7 @@ const STOPPING = 'stopping'
 class Menu extends Component {
   state = {
     status: UNINITIALIZED,
-    route: PAGES.FILES,
+    route: 'files',
     connected: false,
     version: null,
     stats: {}
@@ -60,13 +59,13 @@ class Menu extends Component {
 
   _getRouteScreen () {
     switch (this.state.route) {
-      case PAGES.FILES:
+      case 'files':
         return (
           <FilesScreen
             files={this.state.files}
             changeRoute={this._changeRoute} />
         )
-      case PAGES.INFO:
+      case 'peers':
         return (
           <PeersScreen
             peers={this.state.stats.peers}
