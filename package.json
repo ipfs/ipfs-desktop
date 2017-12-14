@@ -71,7 +71,10 @@
         "icon": "./src/img/icons/executable/ipfs.ico"
       },
       "electronInstallerDebian": {
-        "icon": "./src/img/icons/executable/ipfs.ico"
+        "icon": "./src/img/icons/executable/ipfs.ico",
+        "scripts": {
+          "postinst": "postinst.sh"
+        }
       },
       "electronWinstallerConfig": {
         "name": "Station",
