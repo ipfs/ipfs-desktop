@@ -76,7 +76,8 @@
       "electronWinstallerConfig": {
         "name": "Station",
         "setupIcon": "./src/img/icons/executable/ipfs.ico",
-        "loadingGif": "./src/img/loading.gif"
+        "loadingGif": "./src/img/loading.gif",
+        "exe": "ipfs-station.exe"
       },
       "electronInstallerDMG": {
         "icon": "./src/img/icons/executable/ipfs.icns"
