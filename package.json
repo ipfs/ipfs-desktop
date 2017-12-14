@@ -82,6 +82,15 @@
         "loadingGif": "./src/img/loading.gif",
         "exe": "ipfs-station.exe"
       },
+      "electronInstallerDebian": {
+        "icon": "./src/img/icons/executable/ipfs.ico",
+        "categories": [
+          "Utility"
+        ],
+        "lintianOverrides": [
+          "changelog-file-missing-in-native-package"
+        ]
+      },
       "electronInstallerDMG": {
         "icon": "./src/img/icons/executable/ipfs.icns"
       },
