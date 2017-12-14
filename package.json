@@ -1,7 +1,7 @@
 {
   "name": "ipfs-station",
   "productName": "IPFS Station",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "IPFS Native Application",
   "main": "src/index.js",
   "dependencies": {
