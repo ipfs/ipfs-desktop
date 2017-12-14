@@ -1,6 +1,7 @@
 {
   "name": "ipfs-station",
   "productName": "IPFS Station",
+  "private": true,
   "version": "0.3.0",
   "description": "IPFS Native Application",
   "main": "src/index.js",
@@ -66,6 +67,10 @@
       },
       "electronPackagerConfig": {
         "packageManager": "yarn",
+        "executableName": "ipfs-station",
+        "icon": "./src/img/icons/executable/ipfs.ico"
+      },
+      "electronInstallerDebian": {
         "icon": "./src/img/icons/executable/ipfs.ico"
       },
       "electronWinstallerConfig": {
