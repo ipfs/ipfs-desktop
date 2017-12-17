@@ -27,10 +27,6 @@ class FilesScreen extends Component {
     this.state = {
       sticky: false
     }
-
-    ipcRenderer.on('sticky-window', (event, sticky) => {
-      this.setState({ sticky: sticky })
-    })
   }
 
   static propTypes = {
@@ -59,7 +55,16 @@ class FilesScreen extends Component {
     ipcRenderer.send('toggle-sticky')
   }
 
+  _onSticky = (event, sticky) => {
+    this.setState({ sticky: sticky })
+  }
+
+  componentDidMount () {
+    ipcRenderer.on('sticky-window', this._onSticky)
+  }
+
   componentWillUnmount () {
+    ipcRenderer.removeListener('sticky-window', this._onSticky)
     if (this.state.sticky) this._toggleStickWindow()
   }
 
