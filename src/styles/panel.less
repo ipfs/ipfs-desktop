@@ -4,6 +4,7 @@
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
 
     .header,
     .footer {
@@ -69,5 +70,13 @@
         background-color: #252525;
         color: #fff;
         width: 300px;
+    }
+}
+
+.panel.translucent {
+    .footer > *,
+    .main > *:not(.always-on) {
+        opacity: 0.2;
+        pointer-events: none;
     }
 }

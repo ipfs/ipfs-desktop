@@ -21,6 +21,10 @@ function openWebUI () {
   ipcRenderer.send('open-webui')
 }
 
+function startDaemon () {
+  ipcRenderer.send('start-daemon')
+}
+
 function stopDaemon () {
   ipcRenderer.send('stop-daemon')
 }
@@ -31,9 +35,12 @@ function close () {
 
 export default function NodeScreen (props) {
   return (
-    <div className='node'>
+    <div className={`node` + (props.running ? '' : ' translucent')}>
       <Header title='Your Node'>
-        <Heartbeat />
+        <Heartbeat
+          running={props.running}
+          stopDaemon={stopDaemon}
+          startDaemon={startDaemon} />
       </Header>
 
       <div className='main'>
@@ -82,9 +89,11 @@ export default function NodeScreen (props) {
           Open WebUI
         </InfoBlock>
 
-        <InfoBlock button={false} onClick={close} info='Click to close Station'>
-          Close
-        </InfoBlock>
+        <div className='always-on'>
+          <InfoBlock button={false} onClick={close} info='Click to close Station'>
+            Close
+          </InfoBlock>
+        </div>
       </div>
 
       <Footer>
@@ -98,6 +107,7 @@ export default function NodeScreen (props) {
 
 NodeScreen.propTypes = {
   id: PropTypes.string,
+  running: PropTypes.bool.isRequired,
   location: PropTypes.string,
   protocolVersion: PropTypes.string,
   publicKey: PropTypes.string,

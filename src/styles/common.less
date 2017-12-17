@@ -119,7 +119,8 @@ input[type="text"] {
       }
   }
 
-  .heartbeat {
+  .heartbeat-btn {
+      cursor: pointer;
       width: 1.15em;
   }
 }
@@ -137,6 +138,16 @@ input[type="text"] {
 
   &.active,
   &:hover {
-      color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.6);
   }
+}
+
+.notice {
+  color: rgba(255,255,255,0.5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  text-align: center;
 }
