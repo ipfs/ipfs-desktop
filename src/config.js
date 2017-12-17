@@ -87,7 +87,6 @@ const menubar = {
   index: `file://${__dirname}/views/menubar.html`,
   icon: logoIpfsBlack,
   tooltip: 'Your IPFS instance',
-  alwaysOnTop: true,
   preloadWindow: true,
   resizable: false,
   skipTaskbar: true,
