@@ -4,7 +4,6 @@ import {ipcRenderer} from 'electron'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
-import StartScreen from './menu/start'
 import FilesScreen from './menu/files'
 import PeersScreen from './menu/peers'
 import NodeInfoScreen from './menu/node-info'
@@ -58,6 +57,19 @@ class Menu extends Component {
   }
 
   _getRouteScreen () {
+    if (this.state.status === STARTING || this.state.status === STOPPING) {
+      return <Loader key='loader-screen' />
+    }
+
+    if (this.state.status !== RUNNING) {
+      return (
+        <p className='notice'>
+          Oh snap, it looks like your node is not running yet.
+          Change that by clicking the button on the top right corner.
+        </p>
+      )
+    }
+
     switch (this.state.route) {
       case 'files':
         return (
@@ -78,37 +90,27 @@ class Menu extends Component {
   }
 
   _getScreen () {
-    switch (this.state.status) {
-      case RUNNING:
-        return (
-          <div style={{display: 'flex'}}>
-            <div className='panel left-panel'>
-              {this._getRouteScreen()}
-            </div>
-            <div className='panel right-panel'>
-              <NodeInfoScreen
-                {...this.state.stats.node}
-                bandwidth={this.state.stats.bw}
-                repo={this.state.stats.repo} />
-            </div>
-          </div>
-        )
-      case STARTING:
-      case STOPPING:
-        return <Loader key='loader-screen' />
-      default:
-        return (
-          <StartScreen />
-        )
-    }
+    return (
+      <div style={{display: 'flex'}}>
+        <div className='panel left-panel'>
+          {this._getRouteScreen()}
+        </div>
+        <div className={'panel right-panel' + (this.state.status === RUNNING ? '' : ' translucent')}>
+          <NodeInfoScreen
+            {...this.state.stats.node}
+            running={this.state.status === RUNNING}
+            bandwidth={this.state.stats.bw}
+            repo={this.state.stats.repo} />
+        </div>
+      </div>
+    )
   }
 
   render () {
     return (
       <CSSTransition
         className='fade'
-        timeout={{ enter: 300, exit: 200 }}
-      >
+        timeout={{ enter: 300, exit: 200 }} >
         {this._getScreen()}
       </CSSTransition>
     )
