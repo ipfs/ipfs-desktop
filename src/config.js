@@ -5,6 +5,7 @@ import os from 'os'
 import isDev from 'electron-is-dev'
 import {app} from 'electron'
 import FileHistory from './utils/file-history'
+import PinnedFiles from './utils/pinned-files'
 
 export const logoIpfsIce = (() => {
   const p = path.resolve(path.join(__dirname, 'img'))
@@ -39,7 +40,8 @@ const ipfsAppData = (() => {
 })()
 
 const ipfsPathFile = path.join(ipfsAppData, 'app-node-path')
-const ipfsFileHistoryFile = path.join(ipfsAppData, 'file-history.json')
+const fileHistoryPath = path.join(ipfsAppData, 'file-history.json')
+const pinnedFilesPath = path.join(ipfsAppData, 'pinned-files.json')
 
 const ipfsPath = (() => {
   let pathIPFS
@@ -54,7 +56,8 @@ const ipfsPath = (() => {
   return pathIPFS
 })()
 
-export const fileHistory = new FileHistory(ipfsFileHistoryFile)
+export const fileHistory = new FileHistory(fileHistoryPath)
+export const pinnedFiles = new PinnedFiles(pinnedFilesPath)
 
 // Sets up the Logger
 export const logger = winston.createLogger({
@@ -103,7 +106,6 @@ export default {
   webuiPath: '/webui',
   ipfsPath,
   ipfsPathFile,
-  ipfsFileHistoryFile,
   urls: {
     welcome: currentURL('welcome'),
     settings: currentURL('settings')

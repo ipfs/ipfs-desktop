@@ -6,6 +6,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 
 import FilesScreen from './menu/files'
 import PeersScreen from './menu/peers'
+import PinnedScreen from './menu/pinned'
 import NodeInfoScreen from './menu/node-info'
 import Loader from '../components/view/loader'
 
@@ -82,6 +83,12 @@ class Menu extends Component {
           <PeersScreen
             peers={this.state.stats.peers}
             location={this.state.stats.node.location}
+            changeRoute={this._changeRoute} />
+        )
+      case 'pinned':
+        return (
+          <PinnedScreen
+            files={this.state.files}
             changeRoute={this._changeRoute} />
         )
       default:
