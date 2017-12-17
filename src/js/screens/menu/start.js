@@ -7,7 +7,17 @@ function startDaemon () {
   ipcRenderer.send('start-daemon')
 }
 
+function close () {
+  ipcRenderer.send('close')
+}
+
 const styles = {
+  a: {
+    fontSize: '0.8em',
+    margin: '1em 0 0 0',
+    color: 'rgba(255,255,255,0.5)',
+    cursor: 'pointer'
+  },
   wrapper: {
     display: 'flex',
     width: '100%',
@@ -47,6 +57,7 @@ export default function StartScreen () {
         </div>
       </div>
       <TextButton text='Start Node' onClick={startDaemon} />
+      <a style={styles.a} onClick={close}>Close Station</a>
     </div>
   )
 }

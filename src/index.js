@@ -165,7 +165,10 @@ function onWillQuit (node, event) {
   logger.info('Shutting down application')
   event.preventDefault()
 
-  if (IPFS == null) return
+  if (IPFS == null) {
+    mb.app.quit()
+    return
+  }
 
   onStopDaemon(node, mb.app.quit.bind(mb.app))
 }
