@@ -57,6 +57,10 @@ class Menu extends Component {
   }
 
   _getRouteScreen () {
+    if (this.state.status === STARTING || this.state.status === STOPPING) {
+      return <Loader key='loader-screen' />
+    }
+
     if (this.state.status !== RUNNING) {
       return (
         <p className='notice'>Oh snap, it looks like your node
@@ -99,30 +103,6 @@ class Menu extends Component {
         </div>
       </div>
     )
-
-    /* switch (this.state.status) {
-      case RUNNING:
-        return (
-          <div style={{display: 'flex'}}>
-            <div className='panel left-panel'>
-              {this._getRouteScreen()}
-            </div>
-            <div className='panel right-panel'>
-              <NodeInfoScreen
-                {...this.state.stats.node}
-                bandwidth={this.state.stats.bw}
-                repo={this.state.stats.repo} />
-            </div>
-          </div>
-        )
-      case STARTING:
-      case STOPPING:
-        return <Loader key='loader-screen' />
-      default:
-        return (
-          <StartScreen />
-        )
-    } */
   }
 
   render () {
