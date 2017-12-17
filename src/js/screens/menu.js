@@ -63,9 +63,10 @@ class Menu extends Component {
 
     if (this.state.status !== RUNNING) {
       return (
-        <p className='notice'>Oh snap, it looks like your node
-        is not running yet. Let's change
-        that by clicking the button on the top right corner.</p>
+        <p className='notice'>
+          Oh snap, it looks like your node is not running yet.
+          Change that by clicking the button on the top right corner.
+        </p>
       )
     }
 
@@ -109,8 +110,7 @@ class Menu extends Component {
     return (
       <CSSTransition
         className='fade'
-        timeout={{ enter: 300, exit: 200 }}
-      >
+        timeout={{ enter: 300, exit: 200 }} >
         {this._getScreen()}
       </CSSTransition>
     )

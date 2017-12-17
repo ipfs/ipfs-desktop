@@ -3,7 +3,7 @@
 *,
 *:before,
 *:after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
@@ -14,7 +14,7 @@ body {
   background: #252525;
 }
 
-::-webkit-scrollbar {     
+::-webkit-scrollbar {
   background-color: transparent;
   width: .5em;
 }
@@ -42,11 +42,11 @@ input[type="text"] {
   cursor: pointer;
 
   &:hover {
-      background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
   }
 
   span {
-      font-size: @normal-font;
+    font-size: @normal-font;
   }
 }
 
@@ -54,12 +54,12 @@ input[type="text"] {
   cursor: pointer;
 
   .icon {
-      margin-right: 0.5em;
+    margin-right: 0.5em;
   }
 
   a {
-      font-size: @normal-font;
-      color: rgba(255, 255, 255, 0.4);
+    font-size: @normal-font;
+    color: rgba(255, 255, 255, 0.4);
   }
 }
 
@@ -71,57 +71,54 @@ input[type="text"] {
 
 .dropdown-list {
   cursor: pointer;
-  margin: 1em 0;    
+  margin: 1em 0;
 
   .icon {
-      margin-right: 0.5em;
+    margin-right: 0.5em;
   }
 
   select {
-      padding: 0;
-      border: none;
-      box-shadow: none;
-      background: transparent;
-      background-image: none;
-      -webkit-appearance: none;
-      font-size: 14px;
-      cursor: pointer;
-      color: rgba(255, 255, 255, 0.4);
-      font-family: inherit;
-      line-height: inherit;
-      width: 100%;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    font-size: 14px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.4);
+    font-family: inherit;
+    line-height: inherit;
+    width: 100%;
   }
 
   option {
-      color: #000
+    color: #000
   }
-  
+
   select:focus {
-      outline: none;
+    outline: none;
   }
 }
 
 .node {
   .sharing {
-      padding: 0 1em 1em;
-
-      p {
-          margin: 0;
-      }
-
-      p:first-of-type {
-          font-size: @big-font;
-      }
-
-      p:last-of-type {
-          font-size: @medium-font;
-          color: rgba(255, 255, 255, 0.5);
-      }
+    padding: 0 1em 1em;
+    p {
+      margin: 0;
+    }
+    p:first-of-type {
+      font-size: @big-font;
+    }
+    p:last-of-type {
+      font-size: @medium-font;
+      color: rgba(255, 255, 255, 0.5);
+    }
   }
 
   .heartbeat-btn {
-      cursor: pointer;
-      width: 1.15em;
+    cursor: pointer;
+    width: 1.15em;
   }
 }
 
@@ -143,7 +140,7 @@ input[type="text"] {
 }
 
 .notice {
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
   position: absolute;
   top: 50%;
   left: 50%;
