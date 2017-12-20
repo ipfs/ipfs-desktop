@@ -55,11 +55,34 @@ Also you will need [npm](npmjs.org) `>=3.0`. After that you should run
 
 This launches the app and runs it in your menu bar.
 
-## TODO:
+## File Structure
 
-Components
-File Structure
-Used libs
+All of the important files of this application are into `src` folder, which can be seen as the following tree:
+
+```
+├───controls
+├───fonts             Static font files.
+├───img               Static image assets.
+├───js
+│   ├───components
+│   │   ├───logic     Reusable and stateful components. They have 'state' to track.
+│   │   └───view      Reusable and stateless components. They are written as stateless functional components.
+│   └───screens
+│       ├───menu
+│       └───setup
+├───styles            Stylesheets in LESS format.
+├───utils             Utilitarian classes and functions.
+|───views             HTML view files.
+└───index.js          Main entry point of the application.
+```
+
+## Components
+
+TODO
+
+## Libraries We Use
+
+TODO
 
 ## Contribute
 
