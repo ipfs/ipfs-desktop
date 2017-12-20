@@ -55,6 +55,12 @@ Also you will need [npm](npmjs.org) `>=3.0`. After that you should run
 
 This launches the app and runs it in your menu bar.
 
+## TODO:
+
+Components
+File Structure
+Used libs
+
 ## Contribute
 
 [![](https://cdn.rawgit.com/jbenet/contribute-ipfs-gif/master/img/contribute.gif)](https://github.com/ipfs/community/blob/master/contributing.md)
