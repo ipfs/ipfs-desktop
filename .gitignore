@@ -4,3 +4,4 @@ release
 out
 *.log
 *.lock
+package-lock.json
