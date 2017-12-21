@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: node:latest
+      - image: circleci/node:9.3.0
     steps:
       - run:
           name: "Checking Versions"
