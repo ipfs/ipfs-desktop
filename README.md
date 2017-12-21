@@ -97,7 +97,14 @@ TODO:
 
 ## Libraries We Use
 
-TODO
++ [`file-extension`](https://www.npmjs.com/package/file-extension) to get file extensions.
++ [`ipfs-geoip`](https://www.npmjs.com/package/ipfs-geoip) to get the pretty location of a peer.
++ [`ipfsd-ctl`](https://www.npmjs.com/package/ipfsd-ctl) to install IPFS and manage nodes.
++ [`menubar`](https://www.npmjs.com/package/menubar) to easily create the menubar application.
++ [`moment`](https://www.npmjs.com/package/moment) makes it easy to show messages like 'N seconds ago'.
++ [`multiaddr`](https://www.npmjs.com/package/multiaddr) to parse multiaddresses.
++ [`pretty-bytes`](https://www.npmjs.com/package/pretty-bytes) to show a human readable number of bytes.
++ [`winston`](https://www.npmjs.com/package/winston) as our logger.
 
 ## Contribute
 
