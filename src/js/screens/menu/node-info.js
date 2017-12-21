@@ -49,50 +49,58 @@ export default function NodeScreen (props) {
           <p>Sharing {props.repo.NumObjects} objects</p>
         </div>
 
-        <InfoBlock onClick={onClickCopy(props.id)} info={props.id}>
-          Peer Id
-        </InfoBlock>
+        <InfoBlock
+          title='Peer ID'
+          info={props.id}
+          onClick={onClickCopy(props.id)} />
 
-        <InfoBlock info={props.location}>
-          Location
-        </InfoBlock>
+        <InfoBlock
+          title='Location'
+          info={props.location} />
 
-        <InfoBlock info={prettyBytes(props.bandwidth.TotalIn + props.bandwidth.TotalOut)}>
-          Bandwidth Used
-        </InfoBlock>
+        <InfoBlock
+          title='Bandwidth Used'
+          info={prettyBytes(props.bandwidth.TotalIn + props.bandwidth.TotalOut)} />
 
-        <InfoBlock info={prettyBytes(props.bandwidth.RateIn) + '/s'}>
-          Down Speed
-        </InfoBlock>
+        <InfoBlock
+          title='Down Speed'
+          info={prettyBytes(props.bandwidth.RateIn) + '/s'} />
 
-        <InfoBlock info={prettyBytes(props.bandwidth.RateOut) + '/s'}>
-          Up Speed
-        </InfoBlock>
+        <InfoBlock
+          title='Up Speed'
+          info={prettyBytes(props.bandwidth.RateOut) + '/s'} />
 
-        <InfoBlock info={props.protocolVersion}>
-          Protocol Version
-        </InfoBlock>
+        <InfoBlock
+          title='Protocol Version'
+          info={props.protocolVersion} />
 
-        <InfoBlock info={props.addresses}>
-          Addresses
-        </InfoBlock>
+        <InfoBlock
+          title='Addresses'
+          info={props.addresses} />
 
-        <InfoBlock onClick={onClickCopy(props.publicKey)} info={props.publicKey}>
-          Public Key
-        </InfoBlock>
+        <InfoBlock
+          title='Public Key'
+          info={props.publicKey}
+          onClick={onClickCopy(props.publicKey)} />
 
-        <InfoBlock button={false} onClick={openSettings} info='Click to edit'>
-          Settings
-        </InfoBlock>
+        <InfoBlock
+          title='Settings'
+          info='Click to edit'
+          button={false}
+          onClick={openSettings} />
 
-        <InfoBlock button={false} onClick={openWebUI} info='Click to open'>
-          Open WebUI
-        </InfoBlock>
+        <InfoBlock
+          title='Open WebUI'
+          info='Click to open'
+          button={false}
+          onClick={openWebUI} />
 
         <div className='always-on'>
-          <InfoBlock button={false} onClick={close} info='Click to close Station'>
-            Close
-          </InfoBlock>
+          <InfoBlock
+            title='Close'
+            button={false}
+            onClick={close}
+            info='Click to close Station' />
         </div>
       </div>
 

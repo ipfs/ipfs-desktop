@@ -41,7 +41,7 @@ export default function InfoBlock (props) {
   return (
     <div className={`info-block${clickable ? ' clickable' : ''}`} {...clickable && { onClick: props.onClick }}>
       <div>
-        <p className='label'>{props.children}</p>
+        <p className='label'>{props.title}</p>
         {info}
         {button}
       </div>
@@ -53,8 +53,8 @@ InfoBlock.propTypes = {
   info: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array
-  ]),
-  children: PropTypes.node.isRequired,
+  ]).isRequired,
+  title: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   button: PropTypes.bool,
   buttonMessage: PropTypes.string,
