@@ -4,10 +4,11 @@ import {ipcRenderer} from 'electron'
 import {NativeTypes} from 'react-dnd-html5-backend'
 import {DropTarget} from 'react-dnd'
 
-import Header from '../../components/view/header'
-import Footer from '../../components/view/footer'
-import File from '../../components/view/file'
-import IconButton from '../../components/view/icon-button'
+import Pane from '../components/view/pane'
+import Header from '../components/view/header'
+import Footer from '../components/view/footer'
+import File from '../components/view/file'
+import IconButton from '../components/view/icon-button'
 
 const fileTarget = {
   drop (props, monitor) {
@@ -21,7 +22,7 @@ const fileTarget = {
   }
 }
 
-class FilesScreen extends Component {
+class Files extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -80,26 +81,28 @@ class FilesScreen extends Component {
     })
 
     return connectDropTarget(
-      <div className='files'>
-        <Header title='Your Files' />
+      <div>
+        <Pane class='left-pane files'>
+          <Header title='Your Files' />
 
-        <div className='main'>
-          {files}
-        </div>
-
-        <div className='dropper' style={dropper}>
-          Drop to upload to IPFS
-        </div>
-
-        <Footer>
-          <IconButton onClick={() => { this.props.changeRoute('peers') }} icon='pulse' />
-          <IconButton active={this.state.sticky} onClick={this._toggleStickWindow} icon='eye' />
-
-          <div className='right'>
-            <IconButton onClick={this._selectFileDialog} icon='plus' />
-            <IconButton onClick={this._selectDirectoryDialog} icon='folder' />
+          <div className='main'>
+            {files}
           </div>
-        </Footer>
+
+          <div className='dropper' style={dropper}>
+            Drop to upload to IPFS
+          </div>
+
+          <Footer>
+            <IconButton onClick={() => { this.props.changeRoute('peers') }} icon='pulse' />
+            <IconButton active={this.state.sticky} onClick={this._toggleStickWindow} icon='eye' />
+
+            <div className='right'>
+              <IconButton onClick={this._selectFileDialog} icon='plus' />
+              <IconButton onClick={this._selectDirectoryDialog} icon='folder' />
+            </div>
+          </Footer>
+        </Pane>
       </div>
     )
   }
@@ -109,4 +112,4 @@ export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
-}))(FilesScreen)
+}))(Files)

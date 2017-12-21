@@ -1,14 +1,14 @@
 @import './variables.less';
 
 .intro {
-  .left-panel {
+  &.left-pane {
     display: flex;
     align-items: center;
     text-align: center;
     justify-content: space-around;
   }
 
-  .right-panel .main {
+  &.right-pane .main {
     padding: 1em;
     display: flex;
     flex-direction: column;
@@ -16,7 +16,7 @@
     height: 100%;
   }
 
-  .right-panel .main>div {
+  &.right-pane .main>div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;

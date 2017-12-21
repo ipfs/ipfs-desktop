@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
-import {CSSTransition} from 'react-transition-group'
 import {ipcRenderer} from 'electron'
 
-import Intro from './setup/intro'
+import Intro from '../panes/intro'
+
 import Loader from '../components/view/loader'
+import PaneContainer from '../components/view/pane-container'
+import Pane from '../components/view/pane'
+import Heartbeat from '../components/view/heartbeat'
 
 const INTRO = 'intro'
 const INTITIALZING = 'initializing'
@@ -59,19 +62,23 @@ export default class Setup extends Component {
     ipcRenderer.removeListener('setup-config-path', this._onConfigPath)
   }
 
-  _getScreen () {
+  render () {
     switch (this.state.status) {
       case INTRO:
       case ADVANCED:
         return (
-          <Intro
-            key='intro'
-            onInstallClick={this._startInstallation}
-            configPath={this.state.configPath}
-            keySizes={KEY_SIZES}
-            keySize={KEY_SIZES[1]}
-            onKeySizeChange={this._onKeySizeChange}
-          />
+          <PaneContainer>
+            <Pane class='intro left-pane'>
+              <Heartbeat />
+            </Pane>
+            <Intro
+              key='intro'
+              onInstallClick={this._startInstallation}
+              configPath={this.state.configPath}
+              keySizes={KEY_SIZES}
+              keySize={KEY_SIZES[1]}
+              onKeySizeChange={this._onKeySizeChange} />
+          </PaneContainer>
         )
       case ERROR:
         return (
@@ -80,16 +87,5 @@ export default class Setup extends Component {
       default:
         return <Loader key='loader' />
     }
-  }
-
-  render () {
-    return (
-      <CSSTransition
-        className='fade'
-        timeout={{ enter: 300, exit: 200 }}
-      >
-        {this._getScreen()}
-      </CSSTransition>
-    )
   }
 }
