@@ -4,7 +4,7 @@ import {clipboard} from 'electron'
 import moment from 'moment'
 import fileExtension from 'file-extension'
 
-import TextButton from './text-button'
+import Button from './button'
 import Icon from './icon'
 
 export default function File (props) {
@@ -25,7 +25,7 @@ export default function File (props) {
           <p className='info'>{moment(props.date).fromNow()}</p>
         </div>
         <div className='button-overlay'>
-          <TextButton text='Copy Link' onClick={() => {
+          <Button text='Copy Link' onClick={() => {
             clipboard.writeText(`https://ipfs.io/ipfs/${props.hash}`)
           }} />
         </div>

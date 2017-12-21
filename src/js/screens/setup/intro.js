@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 import Heartbeat from '../../components/view/heartbeat'
-import TextButton from '../../components/view/text-button'
+import Button from '../../components/view/button'
 import DirectoryInput from '../../components/view/directory-input'
 import IconDropdownList from '../../components/view/icon-dropdown-list'
 
@@ -61,7 +61,7 @@ export default class Intro extends Component {
               {advanced}
             </div>
             <div>
-              <TextButton text='Install IPFS' onClick={this.props.onInstallClick} />
+              <Button text='Install IPFS' onClick={this.props.onInstallClick} />
               { !this.state.showAdvanced &&
                 <a className='advanced-options' onClick={this.onAdvancedClick} >
                   Advanced Options
