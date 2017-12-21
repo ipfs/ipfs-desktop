@@ -9,7 +9,7 @@ jobs:
           command: |
             node --version
             npm --version
-            ls -l -a
+            ls -l -a /root/project/
       - run:
           name: "Running Eslint"
           command: npm run lint
