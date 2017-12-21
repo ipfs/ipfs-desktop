@@ -78,6 +78,24 @@ All of the important files of this application are into `src` folder, which can 
 
 ## Components
 
+The components are classes exported with CamelCase names. The corresponding files have the associated class name with hyphen-separated-words. So, e.g., `simple-stat.js` exports a class named `SimpleStat`.
+
++ **Button** is a simple button with text.
+  - `text` is a string with the text to be shown within the button.
+  - `onClick` is a function to be triggered when clicking the button.
++ **File** is used within a file list to describe a file with a button to copy its link.
+  - `name` is the file name.
+  - `date` is the date when the file was modified/uploaded.
+  - `hash` is the file's hash in IPFS system.
++ **Footer** is the footer of a pane.
+  - `children` (**optional**) are it's children.
++ **Header** is the header of a pane.
+  - `title` is a string with the title.
+  - `subtitle` (**optional**) is a string with the subtitle.
+  - `children` (**optional**) are it's children.
++ **Heartbeat** displays an animation 
+ 
+
 TODO
 
 ## Libraries We Use
