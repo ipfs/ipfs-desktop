@@ -12,13 +12,11 @@ export default function IconButton (props) {
 }
 
 IconButton.propTypes = {
-  icon: PropTypes.string,
-  active: PropTypes.bool,
-  onClick: PropTypes.func
+  icon: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  active: PropTypes.bool
 }
 
 IconButton.defaultProps = {
-  icon: '',
-  active: false,
-  onClick () {}
+  active: false
 }
