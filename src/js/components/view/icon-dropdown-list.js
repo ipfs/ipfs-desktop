@@ -28,12 +28,7 @@ export default function IconDropdownList (props) {
 
 IconDropdownList.propTypes = {
   icon: PropTypes.string.isRequired,
-  data: PropTypes.array,
-  onChange: PropTypes.func,
-  defaultValue: PropTypes.any
-}
-
-IconDropdownList.defaultProps = {
-  data: [],
-  onChange () {}
+  data: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+  defaultValue: PropTypes.any.isRequired
 }
