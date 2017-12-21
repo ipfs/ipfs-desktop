@@ -9,6 +9,9 @@ install:
   # install modules
   - npm install
 
+platform:
+  - x64
+
 # Post-install test scripts.
 test_script:
   # Output useful info for debugging.
@@ -16,6 +19,7 @@ test_script:
   - npm --version
   # run tests
   - npm run lint
+  - npm run make
 
 # Don't actually build.
 build: off
