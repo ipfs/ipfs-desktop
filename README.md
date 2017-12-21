@@ -30,6 +30,9 @@
 - [Install pre-compiled version](#install-pre-compiled-version)
 - [Install from Source](#install-from-source)
 - [Contribute](#contribute)
+- [File Structure](#file-structure)
+- [Components](#components)
+- [Libraries](#libraries)
 
 ## Install pre-compiled version
 
@@ -85,17 +88,13 @@ The components are classes exported with CamelCase names. The corresponding file
 + [**Header**](./src/js/components/view/header.js) is the header of a pane.
 + [**Heartbeat**](./src/js/components/view/heartbeat.js) displays an heartbeat-like animation with the IPFS logo.
 + [**IconButton**](./src/js/components/view/icon-button.js) is a button with an icon inside.
++ [**IconDropdownList**](./src/js/components/view/icon-dropdown-list.js) is a dropdown list with an icon.
 + [**Icon**](./src/js/components/view/icon.js) shows an icon.
 + [**InfoBlock**](./src/js/components/view/info-block.js) shows a block of information (used on node info pane).
 + [**Loader**](./src/js/components/view/loader.js) is a loader.
 + [**Peer**](./src/js/components/view/peer.js) shows a peer information.
 
-TODO:
-
-+ IconDropdownList
-+ DirectoryInput
-
-## Libraries We Use
+## Libraries
 
 + [`file-extension`](https://www.npmjs.com/package/file-extension) to get file extensions.
 + [`ipfs-geoip`](https://www.npmjs.com/package/ipfs-geoip) to get the pretty location of a peer.

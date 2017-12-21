@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import {ipcRenderer} from 'electron'
 
 import Pane from '../components/view/pane'
 import Button from '../components/view/button'
-import DirectoryInput from '../components/view/directory-input'
+import Icon from '../components/view/icon'
 import IconDropdownList from '../components/view/icon-dropdown-list'
 
 export default class Intro extends Component {
@@ -34,11 +35,21 @@ export default class Intro extends Component {
     this.setState({ showAdvanced: true })
   }
 
+  onClick = (e) => {
+    e.preventDefault()
+    ipcRenderer.send('setup-browse-path')
+  }
+
   render () {
     let advanced = null
     if (this.state.showAdvanced) {
       advanced = ([
-        <DirectoryInput path={this.props.configPath} />,
+        <div className='directory-input'>
+          <Icon name='folder' />
+          <a onClick={this.onClick} >
+            {this.props.configPath}
+          </a>
+        </div>,
         <IconDropdownList
           icon='key'
           data={this.props.keySizes}
