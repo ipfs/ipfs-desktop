@@ -93,10 +93,28 @@ The components are classes exported with CamelCase names. The corresponding file
   - `title` is a string with the title.
   - `subtitle` (**optional**) is a string with the subtitle.
   - `children` (**optional**) are it's children.
-+ **Heartbeat** displays an animation 
- 
++ **Heartbeat** displays an heartbeat-like animation with the IPFS logo.
+  - `dead` (**optional**) kills the hearbeat and sets the logo to the dark one.
+  - `onClickAlive` (**optional**) triggered when clicking on the image while it's alive.
+  - `onClickDead` (**optional**) triggered when clicking on the image while it's dead.
++ **IconButton** is a button with an icon inside.
+  - `icon` is a string with the icon name.
+  - `onClick` is a function triggered when clicking the button.
+  - `active` (**optional**) sets the state of the button to 'active'.
++ **Icon** shows an icon.
+  - `name` is the icon name.
++ **InfoBlock** shows a block of information (used on node info pane).
+  - `info` can be a string or an array with the information to show.
+  - `title` describes the shown information.
+  - `onClick` (**optional**) is a function to be triggered when clicking the button (if `button` is set to `true`) or to the whole block of information (if `button` isn't set).
+  - `button` (**optional**) defaults to `true` is `onClick` was set. If `true` shows a button to trigger `onClick` with the message `buttonMessage`. Otherwise, the button isn't shown.
+  - `buttonMessage` (**optional**) is the message to show in the button.
+  - `pre` (**optional**) tells if the information should be presented inside a `pre` block.
 
-TODO
+TODO:
+
+IconDropdownList
+DirectoryInput
 
 ## Libraries We Use
 
