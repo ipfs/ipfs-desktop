@@ -3,6 +3,21 @@ import PropTypes from 'prop-types'
 
 import Button from '../view/button'
 
+/**
+ * Is an information block.
+ *
+ * @param {Object} props
+ *
+ * @prop {(String|Array)} info                  - information to be shown
+ * @prop {String}         title                 - title describing the info
+ * @prop {Function}       [onClick]             - triggered when clicking the button or the block
+ * @prop {Bool}           [button=true]         - sets 'onClick' to be triggered when clicking a button.
+ *                                                Otherwise it triggeres when clicking the whole block.
+ * @prop {String}         [buttonMessage=Copy]  - sets the button message.
+ * @prop {Bool}           [pre=false]           - tells if the information should be wrapped inside a 'pre' block.
+ *
+ * @return {ReactElement}
+ */
 export default function InfoBlock (props) {
   let info = null
 

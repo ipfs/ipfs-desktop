@@ -9,6 +9,18 @@ function onChangeWrapper (fn) {
   }
 }
 
+/**
+ * Is a Dropdown List with an icon.
+ *
+ * @param {Object} props
+ *
+ * @prop {String}   icon          - icon's name
+ * @prop {Array}    data          - an array with the options
+ * @prop {Any}      defaultValue  - the default value
+ * @prop {Function} onChange      - event handler for change
+ *
+ * @return {ReactElement}
+ */
 export default function IconDropdownList (props) {
   let options = props.data.map(el => {
     return (<option value={el}>{el}</option>)

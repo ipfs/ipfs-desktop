@@ -6,8 +6,8 @@ import PropTypes from 'prop-types'
  *
  * @param {Object} props
  *
- * @prop {Node} children
- * @prop {String} class are additional class names
+ * @prop {Node}   children
+ * @prop {String} [class] - are additional class names
  *
  * @return {ReactElement}
  */

@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * Is a Loader.
+ *
+ * @return {ReactElement}
+ */
 export default function Loader () {
   return (
     <div className='spinner'>

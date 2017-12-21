@@ -1,6 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+/**
+ * Is a Peer.
+ *
+ * @param {Object} props
+ *
+ * @prop {String} id
+ * @prop {Object} location
+ * @prop {String} location.formatted
+ *
+ * @return {ReactElement}
+ */
 export default function Peer (props) {
   return (
     <div className='peer'>

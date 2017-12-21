@@ -30,6 +30,8 @@
 - [Install pre-compiled version](#install-pre-compiled-version)
 - [Install from Source](#install-from-source)
 - [Contribute](#contribute)
+- [File Structure](#file-structure)
+- [Components](#components)
 
 ## Install pre-compiled version
 
@@ -54,6 +56,77 @@ Also you will need [npm](npmjs.org) `>=3.0`. After that you should run
 ```
 
 This launches the app and runs it in your menu bar.
+
+## File Structure
+
+All of the important files of this application are into `src` folder, which can be seen as the following tree:
+
+```
+├───controls
+├───fonts             Static font files.
+├───img               Static image assets.
+├───js
+│   ├───components
+│   │   ├───logic     Reusable and stateful components. They have 'state' to track.
+│   │   └───view      Reusable and stateless components. They are written as stateless functional components.
+│   |───panes         A pane is a larger component to be used within screens.
+|   └───screens       A screen is the everything visible at a given point in time inside a single window.
+├───styles            Stylesheets in LESS format.
+├───utils             Utilitarian classes and functions.
+|───views             HTML view files.
+└───index.js          Main entry point of the application.
+```
+
+### How to add an new pane
+
+To create a new pane, you should start by creating a new file inside `./src/js/panes` with the following bootstrap content:
+
+```js
+import React from 'react'
+
+import Pane from '../components/view/pane'
+import Header from '../components/view/header'
+import Footer from '../components/view/footer'
+
+export default function MyPane {
+    return (
+      <Pane class='left-pane peers'>
+        <Header title='The title of your pane' />
+
+        <div className='main'>
+          <p>The body of your pane</p>
+        </div>
+
+        <Footer>
+          <p>The footer of your pane</p>
+        </Footer>
+      </Pane>
+    )
+  }
+}
+```
+
+For more information about each piece, take a look at the [`Header`](./src/js/components/view/header.js) and [`Footer`](./src/js/components/view/footer.js) components.
+
+Now, to incorporate your pane into Station iself so it is visible, you have to import it on `./src/js/screens/menubar.js` and add it to `_getRouteScreen`.
+
+**Note:** soon, there will be more information on how to add a new pane.
+
+## Components
+
+The components are classes exported with CamelCase names. The corresponding files have the associated class name with hyphen-separated-words. So, e.g., `simple-stat.js` exports a class named `SimpleStat`.
+
++ [**Button**](./src/js/components/view/button.js) is a simple button with text.
++ [**File**](./src/js/components/view/file.js) is used within a file list to describe a file with a button to copy its link.
++ [**Footer**](./src/js/components/view/footer.js) is the footer of a pane.
++ [**Header**](./src/js/components/view/header.js) is the header of a pane.
++ [**Heartbeat**](./src/js/components/view/heartbeat.js) displays an heartbeat-like animation with the IPFS logo.
++ [**IconButton**](./src/js/components/view/icon-button.js) is a button with an icon inside.
++ [**IconDropdownList**](./src/js/components/view/icon-dropdown-list.js) is a dropdown list with an icon.
++ [**Icon**](./src/js/components/view/icon.js) shows an icon.
++ [**InfoBlock**](./src/js/components/view/info-block.js) shows a block of information (used on node info pane).
++ [**Loader**](./src/js/components/view/loader.js) is a loader.
++ [**Peer**](./src/js/components/view/peer.js) shows a peer information.
 
 ## Contribute
 

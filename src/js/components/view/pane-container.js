@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
  *
  * @param {Object} props
  *
- * @prop {Node} children must be elements of component Pane
+ * @prop {Node} children - must be elements of component Pane
  *
  * @return {ReactElement}
  */
