@@ -40,6 +40,7 @@ export default class PeersScreen extends Component {
 
         <Footer>
           <IconButton onClick={() => { this.props.changeRoute('files') }} icon='files' />
+          <IconButton onClick={() => { this.props.changeRoute('pinned') }} icon='pin' />
 
           <div className='right'>
             <input type='text' onChange={this.onChangeSearch} placeholder='Search peer' />

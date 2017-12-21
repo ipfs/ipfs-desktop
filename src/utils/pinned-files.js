@@ -1,14 +1,14 @@
 import FileStore from './file-store'
 
-export default class FileHistory extends FileStore {
+export default class PinnedFiles extends FileStore {
   constructor (location) {
     super(location, [])
   }
 
-  add (name, hash) {
+  add (name, labels = ['unlabelled']) {
     this.data.unshift({
       name: name,
-      hash: hash,
+      labels: labels,
       date: new Date()
     })
 

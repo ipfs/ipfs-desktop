@@ -7,7 +7,7 @@ import openWebUI from './controls/open-webui'
 import openFileDialog from './controls/open-file-dialog'
 
 import {join} from 'path'
-import config, {logger, fileHistory, logoIpfsIce, logoIpfsBlack} from './config'
+import config, {logger, fileHistory, pinnedFiles, logoIpfsIce, logoIpfsBlack} from './config'
 import {dialog, ipcMain, shell, app} from 'electron'
 
 import knownErrors from './errors'
@@ -87,6 +87,10 @@ function onPollerChange (stats) {
 
 function onFileHistoryChange () {
   send('files', fileHistory.toArray())
+}
+
+function onPinnedFilesChange () {
+  send('pinned', pinnedFiles.toArray())
 }
 
 function onCloseWindow () {
@@ -187,6 +191,9 @@ function startTray (node) {
   // Update File History on change and when it is requested.
   ipcMain.on('request-files', onFileHistoryChange)
   fileHistory.on('change', onFileHistoryChange)
+
+  ipcMain.on('request-pinned', onPinnedFilesChange)
+  pinnedFiles.on('change', onPinnedFilesChange)
 
   ipcMain.on('request-state', onRequestState.bind(null, node))
   ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
