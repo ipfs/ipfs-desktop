@@ -8,9 +8,9 @@ import Icon from './icon'
  *
  * @param {Object} props
  *
- * @prop {String}   icon    - icon's name
- * @prop {Function} onClick - function to be triggered when clicking the button
- * @prop {Bool}     active  - sets the state of the button (optional)
+ * @prop {String}   icon      - icon's name
+ * @prop {Function} onClick   - function to be triggered when clicking the button
+ * @prop {Bool}     [active]  - sets the state of the button
  *
  * @return {ReactElement}
  */

@@ -6,9 +6,9 @@ import PropTypes from 'prop-types'
  *
  * @param {Object} props
  *
- * @prop {String} title     - The title of the pane
- * @prop {String} subtitle  - Optional subtitle of the pane
- * @prop {Node}   children  - Optional header children (e.g.: buttons)
+ * @prop {String} title       - The title of the pane
+ * @prop {String} [subtitle]  - Subtitle of the pane
+ * @prop {Node}   [children]  - Header children (e.g.: buttons)
  *
  * @return {ReactElement}
  */

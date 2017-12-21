@@ -86,24 +86,15 @@ The components are classes exported with CamelCase names. The corresponding file
 + [**Header**](./src/js/components/view/header.js) is the header of a pane.
 + [**Heartbeat**](./src/js/components/view/heartbeat.js) displays an heartbeat-like animation with the IPFS logo.
 + [**IconButton**](./src/js/components/view/icon-button.js) is a button with an icon inside.
-+ **Icon** shows an icon.
-  - `name` is the icon name.
-+ **InfoBlock** shows a block of information (used on node info pane).
-  - `info` can be a string or an array with the information to show.
-  - `title` describes the shown information.
-  - `onClick` (**optional**) is a function to be triggered when clicking the button (if `button` is set to `true`) or to the whole block of information (if `button` isn't set).
-  - `button` (**optional**) defaults to `true` is `onClick` was set. If `true` shows a button to trigger `onClick` with the message `buttonMessage`. Otherwise, the button isn't shown.
-  - `buttonMessage` (**optional**) is the message to show in the button.
-  - `pre` (**optional**) tells if the information should be presented inside a `pre` block.
-+ **Loader** is a loader.
-+ **Peer** shows a peer information.
-  - `id` is the peer id.
-  - `location` is the peer location object with a `formatted` field.
++ [**Icon**](./src/js/components/view/icon.js) shows an icon.
++ [**InfoBlock**](./src/js/components/view/info-block.js) shows a block of information (used on node info pane).
++ [**Loader**](./src/js/components/view/loader.js) is a loader.
++ [**Peer**](./src/js/components/view/peer.js) shows a peer information.
 
 TODO:
 
-IconDropdownList
-DirectoryInput
++ IconDropdownList
++ DirectoryInput
 
 ## Libraries We Use
 
