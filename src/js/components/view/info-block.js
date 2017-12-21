@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import TextButton from '../view/text-button'
+import Button from '../view/button'
 
 export default function InfoBlock (props) {
   let info = null
@@ -31,7 +31,7 @@ export default function InfoBlock (props) {
   if (props.onClick) {
     if (props.button) {
       button = (<div className='button-overlay'>
-        <TextButton text={props.buttonMessage} onClick={props.onClick} />
+        <Button text={props.buttonMessage} onClick={props.onClick} />
       </div>)
     }
   }
