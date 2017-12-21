@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
+import PaneContainer from '../../components/view/pane-container'
+import Pane from '../../components/view/pane'
 import Heartbeat from '../../components/view/heartbeat'
 import Button from '../../components/view/button'
 import DirectoryInput from '../../components/view/directory-input'
@@ -47,11 +49,11 @@ export default class Intro extends Component {
     }
 
     return (
-      <div className='intro' style={{display: 'flex'}}>
-        <div className='panel left-panel'>
+      <PaneContainer>
+        <Pane class='intro left-pane'>
           <Heartbeat />
-        </div>
-        <div className='panel right-panel'>
+        </Pane>
+        <Pane class='intro right-pane'>
           <div className='main'>
             <div>
               <p className='title'>Welcome to the Distributed Web</p>
@@ -69,8 +71,8 @@ export default class Intro extends Component {
               }
             </div>
           </div>
-        </div>
-      </div>
+        </Pane>
+      </PaneContainer>
     )
   }
 }

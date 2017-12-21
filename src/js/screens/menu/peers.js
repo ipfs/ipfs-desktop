@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
+import Pane from '../../components/view/pane'
 import Peer from '../../components/view/peer'
 import Header from '../../components/view/header'
 import Footer from '../../components/view/footer'
@@ -30,7 +31,7 @@ export default class PeersScreen extends Component {
     })
 
     return (
-      <div className='peers'>
+      <Pane class='left-pane peers'>
         <Header
           title={'Earth - ' + this.props.location}
           subtitle={this.props.peers.length + ' peers'} />
@@ -45,7 +46,7 @@ export default class PeersScreen extends Component {
             <input type='text' onChange={this.onChangeSearch} placeholder='Search peer' />
           </div>
         </Footer>
-      </div>
+      </Pane>
     )
   }
 }

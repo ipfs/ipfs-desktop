@@ -1,6 +1,10 @@
 @import './variables.less';
 
-.panel {
+.panes {
+  display: flex;
+}
+
+.pane {
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -55,25 +59,25 @@
     }
   }
 
-  &.left-panel {
+  &.left-pane {
     width: 550px;
     background: #000;
   }
 
-  &.left-panel .footer {
+  &.left-pane .footer {
     background: linear-gradient(to top, #000000 0%, #000000 45%, transparent 100%);
     left: 0;
     width: calc(~"550px - 0.5em")
   }
 
-  &.right-panel {
+  &.right-pane {
     background-color: #252525;
     color: #fff;
     width: 300px;
   }
 }
 
-.panel.translucent {
+.pane.translucent {
   .footer>*,
   .main>*:not(.always-on) {
     opacity: 0.2;

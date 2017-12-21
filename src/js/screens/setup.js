@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {CSSTransition} from 'react-transition-group'
 import {ipcRenderer} from 'electron'
 
 import Intro from './setup/intro'
@@ -59,7 +58,7 @@ export default class Setup extends Component {
     ipcRenderer.removeListener('setup-config-path', this._onConfigPath)
   }
 
-  _getScreen () {
+  render () {
     switch (this.state.status) {
       case INTRO:
       case ADVANCED:
@@ -80,16 +79,5 @@ export default class Setup extends Component {
       default:
         return <Loader key='loader' />
     }
-  }
-
-  render () {
-    return (
-      <CSSTransition
-        className='fade'
-        timeout={{ enter: 300, exit: 200 }}
-      >
-        {this._getScreen()}
-      </CSSTransition>
-    )
   }
 }

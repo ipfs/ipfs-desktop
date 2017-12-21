@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {clipboard, ipcRenderer} from 'electron'
 import prettyBytes from 'pretty-bytes'
 
+import Pane from '../../components/view/Pane'
 import Heartbeat from '../../components/view/heartbeat'
 import Header from '../../components/view/header'
 import Footer from '../../components/view/footer'
@@ -35,7 +36,7 @@ function close () {
 
 export default function NodeScreen (props) {
   return (
-    <div className={`node` + (props.running ? '' : ' translucent')}>
+    <Pane class={'node right-pane' + (props.running ? '' : ' translucent')}>
       <Header title='Your Node'>
         <Heartbeat
           dead={!props.running}
@@ -109,7 +110,7 @@ export default function NodeScreen (props) {
           <IconButton onClick={stopDaemon} icon='power-off' />
         </div>
       </Footer>
-    </div>
+    </Pane>
   )
 }
 
