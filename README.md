@@ -110,6 +110,10 @@ The components are classes exported with CamelCase names. The corresponding file
   - `button` (**optional**) defaults to `true` is `onClick` was set. If `true` shows a button to trigger `onClick` with the message `buttonMessage`. Otherwise, the button isn't shown.
   - `buttonMessage` (**optional**) is the message to show in the button.
   - `pre` (**optional**) tells if the information should be presented inside a `pre` block.
++ **Loader** is a loader.
++ **Peer** shows a peer information.
+  - `id` is the peer id.
+  - `location` is the peer location object with a `formatted` field.
 
 TODO:
 
