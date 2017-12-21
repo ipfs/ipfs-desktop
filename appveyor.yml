@@ -2,6 +2,8 @@
 environment:
   nodejs_version: "9"
 
+# Tests only agains 64 bits since go-ipfs doesnt support 
+# 32 bits on Windows right now.
 platform:
   - x64
 
@@ -17,7 +19,7 @@ test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
-  # run tests
+  # Run lint and Make
   - npm run lint
   - npm run make
 
