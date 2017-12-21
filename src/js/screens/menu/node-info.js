@@ -38,9 +38,9 @@ export default function NodeScreen (props) {
     <div className={`node` + (props.running ? '' : ' translucent')}>
       <Header title='Your Node'>
         <Heartbeat
-          running={props.running}
-          stopDaemon={stopDaemon}
-          startDaemon={startDaemon} />
+          dead={!props.running}
+          onClickAlive={stopDaemon}
+          onClickDead={startDaemon} />
       </Header>
 
       <div className='main'>

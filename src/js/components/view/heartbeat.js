@@ -6,31 +6,25 @@ const icyLogo = resolve(join(__dirname, '../../../img/ipfs-logo-ice.png'))
 const blackLogo = resolve(join(__dirname, '../../../img/ipfs-logo-black.png'))
 
 export default function Heartbeat (props) {
-  if (props.running === null) {
+  if (props.dead) {
     return (
-      <img src={`file://${icyLogo}`} className='heartbeat' />
+      <img onClick={props.onClickDead} src={`file://${blackLogo}`} />
+    )
+  } else {
+    return (
+      <img onClick={props.onClickAlive} src={`file://${icyLogo}`} className='heartbeat' />
     )
   }
-
-  if (props.running) {
-    return (
-      <img onClick={props.stopDaemon} src={`file://${icyLogo}`} className='heartbeat-btn heartbeat' />
-    )
-  }
-
-  return (
-    <img onClick={props.startDaemon} src={`file://${blackLogo}`} className='heartbeat-btn ' />
-  )
 }
 
 Heartbeat.propTypes = {
-  running: PropTypes.bool,
-  startDaemon: PropTypes.func,
-  stopDaemon: PropTypes.func
+  dead: PropTypes.bool,
+  onClickAlive: PropTypes.func,
+  onClickDead: PropTypes.func
 }
 
 Heartbeat.defaultProps = {
-  running: null,
-  startDaemon: null,
-  stopDaemon: null
+  dead: false,
+  onClickAlive: () => {},
+  onClickDead: () => {}
 }
