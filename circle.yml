@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:latest
+    steps:
+      - run:
+          name: "Checking Versions"
+          command: |
+            node --version
+            npm --version
+      - run:
+          name: "Running Eslint"
+          command: npm run lint
+      - run:
+          name: "Building Application"
+          command: npm run make
