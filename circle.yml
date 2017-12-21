@@ -12,6 +12,9 @@ jobs:
             npm --version
       - checkout
       - run:
+          name: "Installing Dependencies"
+          command: npm install
+      - run:
           name: "Running Eslint"
           command: npm run lint
       - run:
