@@ -67,9 +67,8 @@ All of the important files of this application are into `src` folder, which can 
 │   ├───components
 │   │   ├───logic     Reusable and stateful components. They have 'state' to track.
 │   │   └───view      Reusable and stateless components. They are written as stateless functional components.
-│   └───screens
-│       ├───menu
-│       └───setup
+│   |───panes         A pane is a larger component to be used within screens.
+|   └───screens       A screen is the everything visible at a given point in time inside a single window.
 ├───styles            Stylesheets in LESS format.
 ├───utils             Utilitarian classes and functions.
 |───views             HTML view files.
