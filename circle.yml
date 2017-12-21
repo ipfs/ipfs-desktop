@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/station
     docker:
       - image: circleci/node:latest
     steps:
