@@ -77,6 +77,41 @@ All of the important files of this application are into `src` folder, which can 
 └───index.js          Main entry point of the application.
 ```
 
+### How to add an new pane
+
+To create a new pane, you should start by creating a new file inside `./src/js/panes` with the following bootstrap content:
+
+```js
+import React from 'react'
+
+import Pane from '../components/view/pane'
+import Header from '../components/view/header'
+import Footer from '../components/view/footer'
+
+export default function MyPane {
+    return (
+      <Pane class='left-pane peers'>
+        <Header title='The title of your pane' />
+
+        <div className='main'>
+          <p>The body of your pane</p>
+        </div>
+
+        <Footer>
+          <p>The footer of your pane</p>
+        </Footer>
+      </Pane>
+    )
+  }
+}
+```
+
+For more information about each piece, take a look at the [`Header`](./src/js/components/view/header.js) and [`Footer`](./src/js/components/view/footer.js) components.
+
+Now, to incorporate your pane into Station iself so it is visible, you have to import it on `./src/js/screens/menubar.js` and add it to `_getRouteScreen`.
+
+**Note:** soon, there will be more information on how to add a new pane.
+
 ## Components
 
 The components are classes exported with CamelCase names. The corresponding files have the associated class name with hyphen-separated-words. So, e.g., `simple-stat.js` exports a class named `SimpleStat`.
