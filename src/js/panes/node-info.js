@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import {clipboard, ipcRenderer} from 'electron'
 import prettyBytes from 'pretty-bytes'
 
-import Pane from '../../components/view/Pane'
-import Heartbeat from '../../components/view/heartbeat'
-import Header from '../../components/view/header'
-import Footer from '../../components/view/footer'
-import IconButton from '../../components/view/icon-button'
-import InfoBlock from '../../components/view/info-block'
+import Pane from '../components/view/Pane'
+import Heartbeat from '../components/view/heartbeat'
+import Header from '../components/view/header'
+import Footer from '../components/view/footer'
+import IconButton from '../components/view/icon-button'
+import InfoBlock from '../components/view/info-block'
 
 function onClickCopy (text) {
   return () => clipboard.writeText(text)
@@ -34,7 +34,7 @@ function close () {
   ipcRenderer.send('close')
 }
 
-export default function NodeScreen (props) {
+export default function NodeInfo (props) {
   return (
     <Pane class={'node right-pane' + (props.running ? '' : ' translucent')}>
       <Header title='Your Node'>
@@ -114,7 +114,7 @@ export default function NodeScreen (props) {
   )
 }
 
-NodeScreen.propTypes = {
+NodeInfo.propTypes = {
   id: PropTypes.string,
   running: PropTypes.bool.isRequired,
   location: PropTypes.string,
@@ -125,7 +125,7 @@ NodeScreen.propTypes = {
   bandwidth: PropTypes.object
 }
 
-NodeScreen.defaultProps = {
+NodeInfo.defaultProps = {
   id: 'Undefined',
   location: 'Unknown',
   protocolVersion: 'Undefined',

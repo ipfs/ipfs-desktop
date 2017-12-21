@@ -4,11 +4,11 @@ import {ipcRenderer} from 'electron'
 import {NativeTypes} from 'react-dnd-html5-backend'
 import {DropTarget} from 'react-dnd'
 
-import Pane from '../../components/view/pane'
-import Header from '../../components/view/header'
-import Footer from '../../components/view/footer'
-import File from '../../components/view/file'
-import IconButton from '../../components/view/icon-button'
+import Pane from '../components/view/pane'
+import Header from '../components/view/header'
+import Footer from '../components/view/footer'
+import File from '../components/view/file'
+import IconButton from '../components/view/icon-button'
 
 const fileTarget = {
   drop (props, monitor) {
@@ -22,7 +22,7 @@ const fileTarget = {
   }
 }
 
-class FilesScreen extends Component {
+class Files extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -112,4 +112,4 @@ export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
-}))(FilesScreen)
+}))(Files)

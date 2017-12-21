@@ -5,10 +5,11 @@ import HTML5Backend from 'react-dnd-html5-backend'
 
 import PaneContainer from '../components/view/pane-container'
 import Pane from '../components/view/pane'
-import FilesScreen from './menu/files'
-import PeersScreen from './menu/peers'
-import NodeInfoScreen from './menu/node-info'
 import Loader from '../components/view/loader'
+
+import Files from '../panes/files'
+import Peers from '../panes/peers'
+import NodeInfo from '../panes/node-info'
 
 const UNINITIALIZED = 'uninitialized'
 const RUNNING = 'running'
@@ -59,7 +60,11 @@ class Menu extends Component {
 
   _getRouteScreen () {
     if (this.state.status === STARTING || this.state.status === STOPPING) {
-      return <Loader key='loader-screen' />
+      return (
+        <Pane class='left-pane'>
+          <Loader key='loader-screen' />
+        </Pane>
+      )
     }
 
     if (this.state.status !== RUNNING) {
@@ -76,13 +81,13 @@ class Menu extends Component {
     switch (this.state.route) {
       case 'files':
         return (
-          <FilesScreen
+          <Files
             files={this.state.files}
             changeRoute={this._changeRoute} />
         )
       case 'peers':
         return (
-          <PeersScreen
+          <Peers
             peers={this.state.stats.peers}
             location={this.state.stats.node.location}
             changeRoute={this._changeRoute} />
@@ -96,7 +101,7 @@ class Menu extends Component {
     return (
       <PaneContainer>
         {this._getRouteScreen()}
-        <NodeInfoScreen
+        <NodeInfo
           {...this.state.stats.node}
           running={this.state.status === RUNNING}
           bandwidth={this.state.stats.bw}
