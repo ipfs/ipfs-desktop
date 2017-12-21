@@ -17,6 +17,3 @@ jobs:
       - run:
           name: "Running Eslint"
           command: npm run lint
-      - run:
-          name: "Building Application"
-          command: npm run make
