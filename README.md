@@ -80,27 +80,12 @@ All of the important files of this application are into `src` folder, which can 
 
 The components are classes exported with CamelCase names. The corresponding files have the associated class name with hyphen-separated-words. So, e.g., `simple-stat.js` exports a class named `SimpleStat`.
 
-+ **Button** is a simple button with text.
-  - `text` is a string with the text to be shown within the button.
-  - `onClick` is a function to be triggered when clicking the button.
-+ **File** is used within a file list to describe a file with a button to copy its link.
-  - `name` is the file name.
-  - `date` is the date when the file was modified/uploaded.
-  - `hash` is the file's hash in IPFS system.
-+ **Footer** is the footer of a pane.
-  - `children` (**optional**) are it's children.
-+ **Header** is the header of a pane.
-  - `title` is a string with the title.
-  - `subtitle` (**optional**) is a string with the subtitle.
-  - `children` (**optional**) are it's children.
-+ **Heartbeat** displays an heartbeat-like animation with the IPFS logo.
-  - `dead` (**optional**) kills the hearbeat and sets the logo to the dark one.
-  - `onClickAlive` (**optional**) triggered when clicking on the image while it's alive.
-  - `onClickDead` (**optional**) triggered when clicking on the image while it's dead.
-+ **IconButton** is a button with an icon inside.
-  - `icon` is a string with the icon name.
-  - `onClick` is a function triggered when clicking the button.
-  - `active` (**optional**) sets the state of the button to 'active'.
++ [**Button**](./src/js/components/view/button.js) is a simple button with text.
++ [**File**](./src/js/components/view/file.js) is used within a file list to describe a file with a button to copy its link.
++ [**Footer**](./src/js/components/view/footer.js) is the footer of a pane.
++ [**Header**](./src/js/components/view/header.js) is the header of a pane.
++ [**Heartbeat**](./src/js/components/view/heartbeat.js) displays an heartbeat-like animation with the IPFS logo.
++ [**IconButton**](./src/js/components/view/icon-button.js) is a button with an icon inside.
 + **Icon** shows an icon.
   - `name` is the icon name.
 + **InfoBlock** shows a block of information (used on node info pane).

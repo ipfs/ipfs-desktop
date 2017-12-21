@@ -7,6 +7,17 @@ import fileExtension from 'file-extension'
 import Button from './button'
 import Icon from './icon'
 
+/**
+ * Is a File.
+ *
+ * @param {Object} props
+ *
+ * @prop {String} name - file name
+ * @prop {String} date - date when the file was modified/uploaded
+ * @prop {String} hash - file's hash in IPFS system
+ *
+ * @return {ReactElement}
+ */
 export default function File (props) {
   const extension = fileExtension(props.name)
   let icon = 'file'
