@@ -171,13 +171,12 @@ function onStopDaemon (node, done) {
 
 function onWillQuit (node, event) {
   logger.info('Shutting down application')
-  event.preventDefault()
 
   if (IPFS == null) {
-    mb.app.quit()
     return
   }
 
+  event.preventDefault()
   onStopDaemon(node, mb.app.quit.bind(mb.app))
 }
 
