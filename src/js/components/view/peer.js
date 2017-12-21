@@ -12,7 +12,6 @@ export default function Peer (props) {
 
 Peer.propTypes = {
   id: PropTypes.string.isRequired,
-  /* addr: PropTypes.string.isRequired, */
   location: PropTypes.shape({
     formatted: PropTypes.string.isRequired
   }).isRequired
