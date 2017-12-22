@@ -3,31 +3,39 @@ import path from 'path'
 import fs from 'fs'
 import os from 'os'
 import isDev from 'electron-is-dev'
-import {app} from 'electron'
+import {app, dialog} from 'electron'
 import FileHistory from './utils/file-history'
 
-export const logoIpfsIce = (() => {
+// Set up what to do on Uncaught Exceptions
+process.on('uncaughtException', (error) => {
+  const msg = error.message || error
+  logger.error(`Uncaught Exception: ${msg}`, error)
+  dialog.showErrorBox('Uncaught Exception:', msg)
+  process.exit(1)
+})
+
+// Set up crash reporter or electron debug
+if (!isDev) {
+  require('electron').crashReporter.start({
+    productName: 'Station',
+    companyName: 'IPFS',
+    submitURL: 'https://ipfs.io',
+    uploadToServer: false
+  })
+} else {
+  require('electron-debug')()
+}
+
+function logo (color) {
   const p = path.resolve(path.join(__dirname, 'img'))
 
   if (os.platform() === 'darwin') {
-    return path.join(p, 'icons/ice.png')
+    return path.join(p, `icons/${color}.png`)
   }
 
-  return path.join(p, 'ipfs-logo-ice.png')
-})()
+  return path.join(p, `ipfs-logo-${color}.png`)
+}
 
-export const logoIpfsBlack = (() => {
-  const p = path.resolve(path.join(__dirname, 'img'))
-
-  if (os.platform() === 'darwin') {
-    return path.join(p, 'icons/black.png')
-  }
-
-  return path.join(p, 'ipfs-logo-black.png')
-})()
-
-const isProduction = !isDev
-const currentURL = (name) => `file://${__dirname}/views/${name}.html`
 const ipfsAppData = (() => {
   const p = path.join(app.getPath('appData'), 'ipfs-station')
 
@@ -54,10 +62,8 @@ const ipfsPath = (() => {
   return pathIPFS
 })()
 
-export const fileHistory = new FileHistory(ipfsFileHistoryFile)
-
 // Sets up the Logger
-export const logger = winston.createLogger({
+const logger = winston.createLogger({
   format: winston.format.json(),
   transports: [
     new winston.transports.File({
@@ -79,33 +85,29 @@ if (isDev) {
   }))
 }
 
-// Configuration for the MenuBar
-const menubar = {
-  dir: __dirname,
-  width: 850,
-  height: 400,
-  index: `file://${__dirname}/views/menubar.html`,
-  icon: logoIpfsBlack,
-  tooltip: 'Your IPFS instance',
-  preloadWindow: true,
-  resizable: false,
-  skipTaskbar: true,
-  webPreferences: {
-    nodeIntegration: true,
-    webSecurity: false
-  }
-}
-
 export default {
-  isProduction,
-  logger,
-  menubar,
-  webuiPath: '/webui',
-  ipfsPath,
-  ipfsPathFile,
-  ipfsFileHistoryFile,
-  urls: {
-    welcome: currentURL('welcome'),
-    settings: currentURL('settings')
-  }
+  logger: logger,
+  fileHistory: new FileHistory(ipfsFileHistoryFile),
+  logo: {
+    ice: logo('ice'),
+    black: logo('black')
+  },
+  menubar: {
+    dir: __dirname,
+    width: 850,
+    height: 400,
+    backgroundColor: '#000000',
+    index: `file://${__dirname}/views/menubar.html`,
+    icon: logo('black'),
+    tooltip: 'Your IPFS instance',
+    preloadWindow: true,
+    resizable: false,
+    skipTaskbar: true,
+    webPreferences: {
+      nodeIntegration: true,
+      webSecurity: false
+    }
+  },
+  ipfsPath: ipfsPath,
+  ipfsPathFile: ipfsPathFile
 }
