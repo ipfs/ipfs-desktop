@@ -15,14 +15,7 @@ process.on('uncaughtException', (error) => {
 })
 
 // Set up crash reporter or electron debug
-if (!isDev) {
-  require('electron').crashReporter.start({
-    productName: 'Station',
-    companyName: 'IPFS',
-    submitURL: 'https://ipfs.io',
-    uploadToServer: false
-  })
-} else {
+if (isDev) {
   require('electron-debug')()
 }
 
