@@ -1,65 +1,33 @@
 import menubar from 'menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
-
-import uploadFiles from './controls/upload-files'
-import openWebUI from './controls/open-webui'
-import openFileDialog from './controls/open-file-dialog'
-
 import {join} from 'path'
-import config, {logger, fileHistory, logoIpfsIce, logoIpfsBlack} from './config'
-import {dialog, ipcMain, shell, app} from 'electron'
+import {dialog, ipcMain, app} from 'electron'
 
-import knownErrors from './errors'
+import config from './config'
+import registerControls from './controls/main'
+import handleKnownErrors from './errors'
 import StatsPoller from './utils/stats-poller'
+
+const {logger} = config
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit()
 }
 
-process.on('uncaughtException', (error) => {
-  const msg = error.message || error
-  logger.error(`Uncaught Exception: ${msg}`, error)
-  dialog.showErrorBox('Uncaught Exception:', msg)
-  process.exit(1)
+// Ensure it's a single instance
+app.makeSingleInstance(() => {
+  logger.error('Trying to start a second instance')
+  dialog.showErrorBox(
+    'Multiple instances',
+    'Sorry, but there can be only one instance of Station running at the same time.'
+  )
 })
-
-if (config.isProduction) {
-  require('electron').crashReporter.start({
-    productName: 'Station',
-    companyName: 'IPFS',
-    submitURL: 'https://ipfs.io',
-    uploadToServer: false
-  })
-} else {
-  require('electron-debug')()
-}
-
-function handleKnownErrors (e) {
-  const msg = e.toString()
-
-  const error = knownErrors.find((error) => {
-    return error.find.find((term) => {
-      return msg.includes(term)
-    })
-  })
-
-  if (error === undefined) {
-    throw e
-  } else {
-    dialog.showErrorBox(
-      error.title,
-      error.message
-    )
-    process.exit(1)
-  }
-}
 
 // Local Variables
 
 let poller = null
-let sticky = false
 let IPFS
 let mb
 
@@ -77,31 +45,8 @@ function startPolling () {
   if (poller) poller.start()
 }
 
-function openSettings () {
-  shell.openExternal(join(config.ipfsPath, 'config'))
-}
-
 function onPollerChange (stats) {
   send('stats', stats)
-}
-
-function onFileHistoryChange () {
-  send('files', fileHistory.toArray())
-}
-
-function onCloseWindow () {
-  mb.window.hide()
-}
-
-function onClose () {
-  mb.app.quit()
-}
-
-function toggleSticky () {
-  sticky = !sticky
-  mb.window.setAlwaysOnTop(sticky)
-  mb.setOption('alwaysOnTop', sticky)
-  send('sticky-window', sticky)
 }
 
 function onRequestState (node, event) {
@@ -136,7 +81,7 @@ function onStartDaemon (node) {
     mb.on('show', startPolling)
     mb.on('hide', stopPolling)
 
-    mb.tray.setImage(logoIpfsIce)
+    mb.tray.setImage(config.logo.ice)
 
     send('node-status', 'running')
     IPFS = ipfsNode
@@ -161,7 +106,7 @@ function onStopDaemon (node, done) {
     if (err) { return logger.error(err.stack) }
 
     logger.info('Stopped daemon')
-    mb.tray.setImage(logoIpfsBlack)
+    mb.tray.setImage(config.logo.black)
 
     IPFS = null
     send('node-status', 'stopped')
@@ -177,39 +122,14 @@ function onWillQuit (node, event) {
   }
 
   event.preventDefault()
-  onStopDaemon(node, mb.app.quit.bind(mb.app))
-}
-
-function startTray (node) {
-  logger.info('Starting tray')
-
-  // Update File History on change and when it is requested.
-  ipcMain.on('request-files', onFileHistoryChange)
-  fileHistory.on('change', onFileHistoryChange)
-
-  ipcMain.on('request-state', onRequestState.bind(null, node))
-  ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
-  ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
-  ipcMain.on('drop-files', uploadFiles.bind(null, getIPFS))
-  ipcMain.on('close-tray-window', onCloseWindow)
-  ipcMain.on('close', onClose)
-
-  ipcMain.on('toggle-sticky', toggleSticky)
-
-  ipcMain.on('open-webui', openWebUI.bind(null, getIPFS))
-  ipcMain.on('open-settings', openSettings)
-
-  mb.app.once('will-quit', onWillQuit.bind(null, node))
-
-  ipcMain.on('open-file-dialog', openFileDialog(mb.window, getIPFS))
-  ipcMain.on('open-dir-dialog', openFileDialog(mb.window, getIPFS, true))
+  onStopDaemon(node, () => { app.quit() })
 }
 
 // Initalize a new IPFS node
 function initialize (path, node) {
   logger.info('Initialzing new node')
 
-  mb.window.loadURL(config.urls.welcome)
+  mb.window.loadURL(`file://${__dirname}/views/welcome.html`)
   mb.window.webContents.on('did-finish-load', () => {
     send('setup-config-path', path)
   })
@@ -217,7 +137,7 @@ function initialize (path, node) {
 
   // Close the application if the welcome dialog is canceled
   mb.window.once('close', () => {
-    if (!node.initialized) mb.app.quit()
+    if (!node.initialized) app.quit()
   })
 
   let userPath = path
@@ -267,18 +187,6 @@ function initialize (path, node) {
   })
 }
 
-function reboot () {
-  logger.error('Trying to start a second instance')
-  dialog.showErrorBox(
-    'Multiple instances',
-    'Sorry, but there can be only one instance of Station running at the same time.'
-  )
-}
-
-export function getIPFS () {
-  return IPFS
-}
-
 // main entry point
 ipfsd.local((err, node) => {
   if (err) {
@@ -290,16 +198,25 @@ ipfsd.local((err, node) => {
 
   mb = menubar(config.menubar)
 
-  // Ensure single instance.
-  mb.app.makeSingleInstance(reboot)
-
   mb.on('ready', () => {
     logger.info('Application is ready')
-
-    mb.tray.on('drop-files', uploadFiles.bind(null, getIPFS))
     mb.tray.setHighlightMode(true)
 
-    startTray(node)
+    ipcMain.on('request-state', onRequestState.bind(null, node))
+    ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
+    ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
+    app.once('will-quit', onWillQuit.bind(null, node))
+
+    registerControls({
+      ipfs: () => {
+        return IPFS
+      },
+      send: send,
+      menubar: mb,
+      logger: config.logger,
+      fileHistory: config.fileHistory,
+      ipfsPath: config.ipfsPath
+    })
 
     if (!node.initialized) {
       initialize(config.ipfsPath, node)

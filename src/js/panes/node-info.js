@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {clipboard, ipcRenderer} from 'electron'
+import {clipboard, ipcRenderer, remote} from 'electron'
 import prettyBytes from 'pretty-bytes'
 
 import Pane from '../components/view/Pane'
@@ -31,7 +31,7 @@ function stopDaemon () {
 }
 
 function close () {
-  ipcRenderer.send('close')
+  remote.getCurrentWindow().close()
 }
 
 export default function NodeInfo (props) {
