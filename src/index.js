@@ -40,10 +40,6 @@ function onPollerChange (stats) {
   send('stats', stats)
 }
 
-function onCloseWindow () {
-  mb.window.hide()
-}
-
 function onClose () {
   mb.app.quit()
 }
@@ -215,7 +211,6 @@ ipfsd.local((err, node) => {
     ipcMain.on('request-state', onRequestState.bind(null, node))
     ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
     ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
-    ipcMain.on('close-tray-window', onCloseWindow)
     ipcMain.on('close', onClose)
     mb.app.once('will-quit', onWillQuit.bind(null, node))
 
