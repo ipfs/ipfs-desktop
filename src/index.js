@@ -16,6 +16,15 @@ if (require('electron-squirrel-startup')) {
   app.quit()
 }
 
+// Ensure it's a single instance
+app.makeSingleInstance(() => {
+  logger.error('Trying to start a second instance')
+  dialog.showErrorBox(
+    'Multiple instances',
+    'Sorry, but there can be only one instance of Station running at the same time.'
+  )
+})
+
 // Local Variables
 
 let poller = null
@@ -113,7 +122,7 @@ function onWillQuit (node, event) {
   }
 
   event.preventDefault()
-  onStopDaemon(node, mb.app.quit.bind(mb.app))
+  onStopDaemon(node, () => { app.quit() })
 }
 
 // Initalize a new IPFS node
@@ -128,7 +137,7 @@ function initialize (path, node) {
 
   // Close the application if the welcome dialog is canceled
   mb.window.once('close', () => {
-    if (!node.initialized) mb.app.quit()
+    if (!node.initialized) app.quit()
   })
 
   let userPath = path
@@ -178,14 +187,6 @@ function initialize (path, node) {
   })
 }
 
-function reboot () {
-  logger.error('Trying to start a second instance')
-  dialog.showErrorBox(
-    'Multiple instances',
-    'Sorry, but there can be only one instance of Station running at the same time.'
-  )
-}
-
 // main entry point
 ipfsd.local((err, node) => {
   if (err) {
@@ -197,9 +198,6 @@ ipfsd.local((err, node) => {
 
   mb = menubar(config.menubar)
 
-  // Ensure single instance.
-  mb.app.makeSingleInstance(reboot)
-
   mb.on('ready', () => {
     logger.info('Application is ready')
     mb.tray.setHighlightMode(true)
@@ -207,7 +205,7 @@ ipfsd.local((err, node) => {
     ipcMain.on('request-state', onRequestState.bind(null, node))
     ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
     ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
-    mb.app.once('will-quit', onWillQuit.bind(null, node))
+    app.once('will-quit', onWillQuit.bind(null, node))
 
     registerControls({
       ipfs: () => {
