@@ -10,6 +10,8 @@ import FileHistory from './utils/file-history'
 process.on('uncaughtException', (error) => {
   const msg = error.message || error
   logger.error(`Uncaught Exception: ${msg}`, error)
+  // TODO: save error to somewhere (in .txt) and recommend the user
+  // to open an issue on the repo
   dialog.showErrorBox('Uncaught Exception:', msg)
   process.exit(1)
 })
