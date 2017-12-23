@@ -1,4 +1,4 @@
-import Menubar from 'electron-menubar'
+import {Menubar} from 'electron-menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
@@ -196,9 +196,7 @@ ipfsd.local((err, node) => {
     process.exit(1)
   }
 
-  mb = new Menubar(config.menubar)
-
-  mb.on('ready', () => {
+  let appReady = () => {
     logger.info('Application is ready')
     mb.tray.setHighlightMode(true)
 
@@ -224,5 +222,10 @@ ipfsd.local((err, node) => {
       // Start up the daemon
       onStartDaemon(node)
     }
-  })
+  }
+
+  mb = new Menubar(config.menubar)
+
+  if (mb.isReady()) appReady()
+  else mb.on('ready', appReady)
 })
