@@ -88,7 +88,6 @@ export default {
     black: logo('black')
   },
   menubar: {
-    dir: __dirname,
     index: `file://${__dirname}/views/menubar.html`,
     icon: logo('black'),
     tooltip: 'Your IPFS instance',
