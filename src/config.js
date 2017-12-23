@@ -89,18 +89,20 @@ export default {
   },
   menubar: {
     dir: __dirname,
-    width: 850,
-    height: 400,
-    backgroundColor: '#000000',
     index: `file://${__dirname}/views/menubar.html`,
     icon: logo('black'),
     tooltip: 'Your IPFS instance',
     preloadWindow: true,
-    resizable: false,
-    skipTaskbar: true,
-    webPreferences: {
-      nodeIntegration: true,
-      webSecurity: false
+    window: {
+      resizable: false,
+      skipTaskbar: true,
+      width: 850,
+      height: 400,
+      backgroundColor: '#000000',
+      webPreferences: {
+        nodeIntegration: true,
+        webSecurity: false
+      }
     }
   },
   ipfsPath: ipfsPath,

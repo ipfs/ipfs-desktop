@@ -1,4 +1,4 @@
-import menubar from 'menubar'
+import Menubar from 'electron-menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
@@ -196,7 +196,7 @@ ipfsd.local((err, node) => {
     process.exit(1)
   }
 
-  mb = menubar(config.menubar)
+  mb = new Menubar(config.menubar)
 
   mb.on('ready', () => {
     logger.info('Application is ready')
