@@ -133,7 +133,7 @@ function initialize (path, node) {
   mb.window.webContents.on('did-finish-load', () => {
     send('setup-config-path', path)
   })
-  mb.showWindow()
+  mb.show()
 
   // Close the application if the welcome dialog is canceled
   mb.window.once('close', () => {
