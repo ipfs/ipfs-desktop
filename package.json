@@ -8,11 +8,11 @@
   "dependencies": {
     "electron-compile": "^6.4.2",
     "electron-is-dev": "^0.3.0",
+    "electron-menubar": "^1.0.1",
     "electron-squirrel-startup": "^1.0.0",
     "file-extension": "^4.0.0",
     "ipfs-geoip": "^2.3.0",
     "ipfsd-ctl": "^0.26.0",
-    "menubar": "^5.2.3",
     "moment": "^2.19.3",
     "multiaddr": "^3.0.1",
     "normalize.css": "^7.0.0",

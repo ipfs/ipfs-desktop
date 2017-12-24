@@ -8,7 +8,6 @@ export default function (opts) {
   ipcMain.on('toggle-sticky', () => {
     sticky = !sticky
     menubar.window.setAlwaysOnTop(sticky)
-    menubar.setOption('alwaysOnTop', sticky)
     send('sticky-window', sticky)
   })
 }
