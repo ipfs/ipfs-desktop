@@ -2,7 +2,7 @@ import {Menubar} from 'electron-menubar'
 import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
-import {dialog, ipcMain, app} from 'electron'
+import {dialog, ipcMain, app, BrowserWindow} from 'electron'
 
 import config from './config'
 import registerControls from './controls/main'
@@ -130,21 +130,39 @@ function onWillQuit (node, event) {
 function initialize (path, node) {
   logger.info('Initialzing new node')
 
-  mb.window.loadURL(`file://${__dirname}/views/welcome.html`)
-  mb.window.webContents.on('did-finish-load', () => {
-    send('setup-config-path', path)
+  // Initialize the welcome window.
+  const window = new BrowserWindow({
+    title: 'Welcome to IPFS',
+    icon: config.logo.ice,
+    show: false,
+    resizable: false,
+    width: 850,
+    height: 450
   })
-  mb.show()
+
+  // Only show the window when the contents have finished loading.
+  window.on('ready-to-show', () => {
+    window.show()
+    window.focus()
+  })
+
+  // Send the default path as soon as the window is ready.
+  window.webContents.on('did-finish-load', () => {
+    window.webContents.send('setup-config-path', path)
+  })
 
   // Close the application if the welcome dialog is canceled
-  mb.window.once('close', () => {
+  window.once('close', () => {
     if (!node.initialized) app.quit()
   })
+
+  window.setMenu(null)
+  window.loadURL(`file://${__dirname}/views/welcome.html`)
 
   let userPath = path
 
   ipcMain.on('setup-browse-path', () => {
-    dialog.showOpenDialog(mb.window, {
+    dialog.showOpenDialog(window, {
       title: 'Select a directory',
       defaultPath: path,
       properties: [
@@ -160,15 +178,15 @@ function initialize (path, node) {
         userPath = join(userPath, '.ipfs')
       }
 
-      send('setup-config-path', userPath)
+      window.webContents.send('setup-config-path', userPath)
     })
   })
 
-  // wait for msg from frontend
+  // Wait for the user to hit 'Install IPFS'
   ipcMain.on('initialize', (event, { keySize }) => {
     logger.info(`Initializing new node with key size: ${keySize} in ${userPath}.`)
+    window.webContents.send('initializing')
 
-    send('initializing')
     node.init({
       directory: userPath,
       keySize: keySize
@@ -183,7 +201,7 @@ function initialize (path, node) {
       send('node-status', 'stopped')
 
       onStartDaemon(node)
-      mb.window.loadURL(config.menubar.index)
+      window.close()
     })
   })
 }
