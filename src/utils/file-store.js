@@ -22,6 +22,14 @@ export default class FileStore extends EventEmitter {
   }
 
   toArray () {
+    if (Array.isArray(this.data)) {
+      return this.data
+    } else {
+      throw new Error('object is not array')
+    }
+  }
+
+  toObject () {
     return this.data
   }
 }
