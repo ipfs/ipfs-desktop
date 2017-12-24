@@ -9,7 +9,6 @@ export default class FileStore extends EventEmitter {
     if (fs.existsSync(path)) {
       data = JSON.parse(fs.readFileSync(path))
     } else {
-      data = []
       fs.writeFileSync(path, JSON.stringify(data))
     }
 
