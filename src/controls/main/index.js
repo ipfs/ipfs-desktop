@@ -4,6 +4,7 @@ import openSettings from './open-settings'
 import openWebUI from './open-webui'
 import takeScreenshot from './take-screenshot'
 import toggleSticky from './toggle-sticky'
+import updateSetting from './update-setting'
 import uploadFiles from './upload-files'
 
 export default function (opts) {
@@ -13,5 +14,6 @@ export default function (opts) {
   openWebUI(opts)
   takeScreenshot(opts)
   toggleSticky(opts)
+  updateSetting(opts)
   uploadFiles(opts)
 }
