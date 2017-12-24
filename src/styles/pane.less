@@ -44,15 +44,20 @@
     background: linear-gradient(to top, #252525 0%, #252525 45%, transparent 100%);
     position: fixed;
     bottom: 0;
-    left: 550px;
+    left: 0;
     padding-top: 3em;
     box-sizing: border-box;
-    width: calc(~"300px - 0.5em");
+    width: 100%;
   
     .right {
       margin-left: auto;
     }
 
+    .button {
+      margin-left: 0.5em;
+    }
+
+    .button,
     input[type="text"] {
       font-size: @normal-font;
       margin-top: -0.5em;
@@ -66,7 +71,6 @@
 
   &.left-pane .footer {
     background: linear-gradient(to top, #000000 0%, #000000 45%, transparent 100%);
-    left: 0;
     width: calc(~"550px - 0.5em")
   }
 
@@ -74,6 +78,11 @@
     background-color: #252525;
     color: #fff;
     width: 300px;
+
+    .footer {
+      left: 550px;
+      width: calc(~"300px - 0.5em");
+    }
   }
 }
 

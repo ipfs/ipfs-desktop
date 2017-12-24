@@ -123,7 +123,9 @@ function onWillQuit (node, event) {
   }
 
   event.preventDefault()
-  onStopDaemon(node, () => { app.quit() })
+  onStopDaemon(node, () => {
+    app.quit()
+  })
 }
 
 // Initalize a new IPFS node
@@ -222,6 +224,10 @@ ipfsd.local((err, node) => {
     ipcMain.on('request-state', onRequestState.bind(null, node))
     ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
     ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
+    ipcMain.on('quit-application', () => {
+      config.windows.settings.destroy()
+      app.quit()
+    })
     app.once('will-quit', onWillQuit.bind(null, node))
 
     registerControls(Object.assign({}, config, {

@@ -91,3 +91,38 @@
     color: rgba(255, 255, 255, 0.5)
   }
 }
+
+.info-block.checkbox {
+  cursor: pointer;
+
+  &>div {
+    display: flex;
+    align-items: center;
+  }
+
+  &>div>div:first-of-type {
+    margin-right: 1em;
+  }
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  p {
+    white-space: pre-wrap;
+  }
+
+  .checkbox {
+    width: 1em;
+    height: 1em;
+    background: rgba(255, 255, 255, 0.8);
+    border: .1em solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    display: block;
+    transition: .2s ease-in-out all;
+  }
+
+  input[type='checkbox']:checked ~ .checkbox {
+    background: #5cb6bf;
+  }
+}
