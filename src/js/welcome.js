@@ -1,8 +1,8 @@
 import React from 'react'
 import {render} from 'react-dom'
 
-import Setup from './screens/setup'
+import Welcome from './screens/welcome'
 
 document.addEventListener('DOMContentLoaded', () => {
-  render(<Setup />, document.getElementById('welcome'))
+  render(<Welcome />, document.getElementById('welcome'))
 })

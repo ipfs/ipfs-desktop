@@ -224,17 +224,13 @@ ipfsd.local((err, node) => {
     ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
     app.once('will-quit', onWillQuit.bind(null, node))
 
-    registerControls({
+    registerControls(Object.assign({}, config, {
       ipfs: () => {
         return IPFS
       },
       send: send,
-      menubar: mb,
-      logger: config.logger,
-      fileHistory: config.fileHistory,
-      ipfsPath: config.ipfsPath,
-      userSettings: config.userSettings
-    })
+      menubar: mb
+    }))
 
     if (!node.initialized) {
       initialize(config.ipfsPath, node)
