@@ -4,7 +4,9 @@ import fs from 'fs'
 import os from 'os'
 import isDev from 'electron-is-dev'
 import {app, dialog} from 'electron'
+
 import FileHistory from './utils/file-history'
+import KeyValueStore from './utils/key-value-store'
 
 // Set up what to do on Uncaught Exceptions
 process.on('uncaughtException', (error) => {
@@ -43,6 +45,7 @@ const ipfsAppData = (() => {
 
 const ipfsPathFile = path.join(ipfsAppData, 'app-node-path')
 const ipfsFileHistoryFile = path.join(ipfsAppData, 'file-history.json')
+const userConfigFile = path.join(ipfsAppData, 'config.json')
 
 const ipfsPath = (() => {
   let pathIPFS
@@ -83,6 +86,7 @@ if (isDev) {
 export default {
   logger: logger,
   fileHistory: new FileHistory(ipfsFileHistoryFile),
+  userSettings: new KeyValueStore(userConfigFile),
   logo: {
     ice: logo('ice'),
     black: logo('black')

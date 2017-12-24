@@ -71,6 +71,7 @@ function onStartDaemon (node) {
       return
     }
 
+    logger.info('Started daemon')
     poller = new StatsPoller(ipfsNode, logger)
 
     if (mb.window && mb.window.isVisible()) {
@@ -213,7 +214,8 @@ ipfsd.local((err, node) => {
       menubar: mb,
       logger: config.logger,
       fileHistory: config.fileHistory,
-      ipfsPath: config.ipfsPath
+      ipfsPath: config.ipfsPath,
+      userSettings: config.userSettings
     })
 
     if (!node.initialized) {

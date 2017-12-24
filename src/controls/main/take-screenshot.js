@@ -8,6 +8,11 @@ function handleScreenshot (opts) {
 
     logger.info('Screenshot taken')
 
+    if (!ipfs()) {
+      logger.info('Daemon not running. Aborting screenshot upload.')
+      return
+    }
+
     ipfs()
       .add(Buffer.from(base64Data, 'base64'))
       .then((res) => {
@@ -23,9 +28,13 @@ function handleScreenshot (opts) {
 }
 
 export default function (opts) {
-  let {send, logger} = opts
+  let {send, logger, userSettings} = opts
 
   globalShortcut.register('CommandOrControl+Alt+S', () => {
+    if (!userSettings.get('screenshotShortcut')) {
+      return
+    }
+
     logger.info('Taking Screenshot')
     send('screenshot')
   })
