@@ -1,5 +1,8 @@
 import {clipboard, ipcMain, globalShortcut} from 'electron'
 
+const settingsOption = 'screenshotShortcut'
+const shortcut = 'CommandOrControl+Alt+S'
+
 function handleScreenshot (opts) {
   let {logger, fileHistory, ipfs} = opts
 
@@ -30,14 +33,18 @@ function handleScreenshot (opts) {
 export default function (opts) {
   let {send, logger, userSettings} = opts
 
-  globalShortcut.register('CommandOrControl+Alt+S', () => {
-    if (!userSettings.get('screenshotShortcut')) {
-      return
+  let activate = (value) => {
+    if (value === true) {
+      globalShortcut.register(shortcut, () => {
+        logger.info('Taking Screenshot')
+        send('screenshot')
+      })
+    } else {
+      globalShortcut.unregister(shortcut)
     }
+  }
 
-    logger.info('Taking Screenshot')
-    send('screenshot')
-  })
-
+  activate(userSettings.get(settingsOption))
+  userSettings.on(settingsOption, activate)
   ipcMain.on('screenshot', handleScreenshot(opts))
 }

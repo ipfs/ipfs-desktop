@@ -10,7 +10,7 @@ export default class KeyValueStore extends FileStore {
   }
 
   set (key, value) {
-    this.emit(key, this.data[key], value)
+    this.emit(key, value, this.data[key])
     this.data[key] = value
     this.write()
   }
