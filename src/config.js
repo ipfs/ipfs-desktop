@@ -86,25 +86,25 @@ if (isDev) {
 export default {
   logger: logger,
   fileHistory: new FileHistory(ipfsFileHistoryFile),
-  userSettings: new KeyValueStore(userConfigFile),
+  settingsStore: new KeyValueStore(userConfigFile),
   logo: {
     ice: logo('ice'),
     black: logo('black')
   },
-  windows: {
-    // This child objects will be replaced by the actual
-    // BrowserWindow instances.
-    settings: {
-      index: `file://${__dirname}/views/settings.html`,
-      title: 'IPFS Station Settings',
-      show: false,
-      icon: logo('ice'),
-      backgroundColor: '#252525',
-      resizable: false,
-      width: 450,
-      height: 450
-    }
+  ipfsPath: ipfsPath,
+  ipfsPathFile: ipfsPathFile,
+  // Will be replaced by a BrowserWindow instance.
+  settingsWindow: {
+    index: `file://${__dirname}/views/settings.html`,
+    title: 'IPFS Station Settings',
+    show: false,
+    icon: logo('ice'),
+    backgroundColor: '#252525',
+    resizable: false,
+    width: 450,
+    height: 450
   },
+  // Will be replaced by a Menubar instance.
   menubar: {
     index: `file://${__dirname}/views/menubar.html`,
     icon: logo('black'),
@@ -121,7 +121,5 @@ export default {
         webSecurity: false
       }
     }
-  },
-  ipfsPath: ipfsPath,
-  ipfsPathFile: ipfsPathFile
+  }
 }

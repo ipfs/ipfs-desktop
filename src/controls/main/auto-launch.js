@@ -6,7 +6,7 @@ const autoLauncher = new AutoLaunch({
 })
 
 export default function (opts) {
-  let {logger, userSettings} = opts
+  let {logger, settingsStore} = opts
 
   let activate = (value) => {
     if (value === true) {
@@ -16,6 +16,6 @@ export default function (opts) {
     }
   }
 
-  activate(userSettings.get(settingsOption))
-  userSettings.on(settingsOption, activate)
+  activate(settingsStore.get(settingsOption))
+  settingsStore.on(settingsOption, activate)
 }

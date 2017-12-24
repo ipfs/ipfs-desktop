@@ -2,7 +2,7 @@ import {join} from 'path'
 import {shell, ipcMain, BrowserWindow} from 'electron'
 
 function setupWindow (opts) {
-  const options = opts.windows.settings
+  const options = opts.settingsWindow
   const window = new BrowserWindow(options)
 
   window.setMenu(null)
@@ -14,17 +14,16 @@ function setupWindow (opts) {
 
   // Replace the window settings by the actual
   // instance of BrowserWindow
-  opts.windows.settings = window
+  opts.settingsWindow = window
 }
 
 function open (opts) {
-  const {windows, userSettings} = opts
-  const {settings} = windows
+  const {settingsWindow, settingsStore} = opts
 
   return () => {
-    settings.webContents.send('settings', userSettings.toObject())
-    settings.show()
-    settings.focus()
+    settingsWindow.webContents.send('settings', settingsStore.toObject())
+    settingsWindow.show()
+    settingsWindow.focus()
   }
 }
 
@@ -36,12 +35,12 @@ function openNodeConfig (opts) {
 }
 
 function updateSettings (opts) {
-  const {userSettings} = opts
+  const {settingsStore} = opts
 
   return (event, settings) => {
     for (const key in settings) {
       if (settings.hasOwnProperty(key)) {
-        userSettings.set(key, settings[key])
+        settingsStore.set(key, settings[key])
       }
     }
   }

@@ -29,12 +29,17 @@ app.makeSingleInstance(() => {
 
 let poller = null
 let IPFS
-let mb
+let menubar
 
 function send (type, ...args) {
-  if (mb && mb.window && mb.window.webContents) {
-    mb.window.webContents.send(type, ...args)
+  if (menubar && menubar.window && menubar.window.webContents) {
+    menubar.window.webContents.send(type, ...args)
   }
+}
+
+config.send = send
+config.ipfs = () => {
+  return IPFS
 }
 
 function stopPolling () {
@@ -74,15 +79,15 @@ function onStartDaemon (node) {
     logger.info('Started daemon')
     poller = new StatsPoller(ipfsNode, logger)
 
-    if (mb.window && mb.window.isVisible()) {
+    if (menubar.window && menubar.window.isVisible()) {
       poller.start()
     }
 
     poller.on('change', onPollerChange)
-    mb.on('show', startPolling)
-    mb.on('hide', stopPolling)
+    menubar.on('show', startPolling)
+    menubar.on('hide', stopPolling)
 
-    mb.tray.setImage(config.logo.ice)
+    menubar.tray.setImage(config.logo.ice)
 
     send('node-status', 'running')
     IPFS = ipfsNode
@@ -98,16 +103,16 @@ function onStopDaemon (node, done) {
     poller = null
   }
 
-  if (mb) {
-    mb.removeListener('show', startPolling)
-    mb.removeListener('hide', stopPolling)
+  if (menubar) {
+    menubar.removeListener('show', startPolling)
+    menubar.removeListener('hide', stopPolling)
   }
 
   node.stopDaemon((err) => {
     if (err) { return logger.error(err.stack) }
 
     logger.info('Stopped daemon')
-    mb.tray.setImage(config.logo.black)
+    menubar.tray.setImage(config.logo.black)
 
     IPFS = null
     send('node-status', 'stopped')
@@ -219,24 +224,18 @@ ipfsd.local((err, node) => {
 
   let appReady = () => {
     logger.info('Application is ready')
-    mb.tray.setHighlightMode(true)
+    menubar.tray.setHighlightMode(true)
 
     ipcMain.on('request-state', onRequestState.bind(null, node))
     ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
     ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
     ipcMain.on('quit-application', () => {
-      config.windows.settings.destroy()
+      config.settingsWindow.destroy()
       app.quit()
     })
     app.once('will-quit', onWillQuit.bind(null, node))
 
-    registerControls(Object.assign({}, config, {
-      ipfs: () => {
-        return IPFS
-      },
-      send: send,
-      menubar: mb
-    }))
+    registerControls(config)
 
     if (!node.initialized) {
       initialize(config.ipfsPath, node)
@@ -246,8 +245,9 @@ ipfsd.local((err, node) => {
     }
   }
 
-  mb = new Menubar(config.menubar)
+  menubar = new Menubar(config.menubar)
+  config.menubar = menubar
 
-  if (mb.isReady()) appReady()
-  else mb.on('ready', appReady)
+  if (menubar.isReady()) appReady()
+  else menubar.on('ready', appReady)
 })

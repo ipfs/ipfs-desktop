@@ -31,7 +31,7 @@ function handleScreenshot (opts) {
 }
 
 export default function (opts) {
-  let {send, logger, userSettings} = opts
+  let {send, logger, settingsStore} = opts
 
   let activate = (value) => {
     if (value === true) {
@@ -44,7 +44,7 @@ export default function (opts) {
     }
   }
 
-  activate(userSettings.get(settingsOption))
-  userSettings.on(settingsOption, activate)
+  activate(settingsStore.get(settingsOption))
+  settingsStore.on(settingsOption, activate)
   ipcMain.on('screenshot', handleScreenshot(opts))
 }
