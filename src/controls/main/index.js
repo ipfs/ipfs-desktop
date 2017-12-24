@@ -1,3 +1,4 @@
+import autoLaunch from './auto-launch'
 import fileHistory from './file-history'
 import openFileDialog from './open-file-dialog'
 import openSettings from './open-settings'
@@ -8,6 +9,7 @@ import toggleSticky from './toggle-sticky'
 import uploadFiles from './upload-files'
 
 export default function (opts) {
+  autoLaunch(opts)
   fileHistory(opts)
   openFileDialog(opts)
   openSettings(opts)
