@@ -8,6 +8,6 @@ export default function (opts) {
   })
 
   ipcMain.on('get-setting', (event, key) => {
-    send(key, userSettings.get(key))
+    send('setting-value', key, userSettings.get(key))
   })
 }

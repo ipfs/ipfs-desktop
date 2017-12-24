@@ -31,9 +31,9 @@ let poller = null
 let IPFS
 let mb
 
-function send (type, arg) {
+function send (type, ...args) {
   if (mb && mb.window && mb.window.webContents) {
-    mb.window.webContents.send(type, arg)
+    mb.window.webContents.send(type, ...args)
   }
 }
 

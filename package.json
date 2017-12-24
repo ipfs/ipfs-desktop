@@ -6,6 +6,7 @@
   "description": "IPFS Native Application",
   "main": "src/index.js",
   "dependencies": {
+    "auto-launch": "^5.0.5",
     "electron-compile": "^6.4.2",
     "electron-is-dev": "^0.3.0",
     "electron-menubar": "^1.0.1",
