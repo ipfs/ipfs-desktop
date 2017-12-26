@@ -3,6 +3,7 @@ import {ipcRenderer} from 'electron'
 
 import Intro from '../panes/intro'
 
+import PaneContainer from '../components/view/pane-container'
 import Loader from '../components/view/loader'
 import Pane from '../components/view/pane'
 import Heartbeat from '../components/view/heartbeat'
@@ -66,7 +67,7 @@ export default class Welcome extends Component {
       case INTRO:
       case ADVANCED:
         return (
-          <div className='default-grid'>
+          <PaneContainer>
             <Pane class='intro left-pane'>
               <Heartbeat />
             </Pane>
@@ -77,7 +78,7 @@ export default class Welcome extends Component {
               keySizes={KEY_SIZES}
               keySize={KEY_SIZES[1]}
               onKeySizeChange={this._onKeySizeChange} />
-          </div>
+          </PaneContainer>
         )
       case ERROR:
         return (

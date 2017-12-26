@@ -28,9 +28,11 @@ function open (opts) {
 }
 
 function openNodeConfig (opts) {
-  const {ipfsPath} = opts
+  const {settingsStore} = opts
+
   return () => {
-    shell.openExternal(join(ipfsPath, 'config'))
+    const path = settingsStore.get('ipfsPath')
+    shell.openExternal(join(path, 'config'))
   }
 }
 

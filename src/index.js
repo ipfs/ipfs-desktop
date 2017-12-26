@@ -1,5 +1,4 @@
 import {Menubar} from 'electron-menubar'
-import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
 import {dialog, ipcMain, app, BrowserWindow} from 'electron'
@@ -202,7 +201,7 @@ function initialize (path, node) {
         return send('initialization-error', String(err))
       }
 
-      fs.writeFileSync(config.ipfsPathFile, path)
+      config.settingsStore.set('ipfsPath', path)
 
       send('initialization-complete')
       send('node-status', 'stopped')
@@ -238,7 +237,7 @@ ipfsd.local((err, node) => {
     registerControls(config)
 
     if (!node.initialized) {
-      initialize(config.ipfsPath, node)
+      initialize(config.settingsStore.get('ipfsPath'), node)
     } else {
       // Start up the daemon
       onStartDaemon(node)

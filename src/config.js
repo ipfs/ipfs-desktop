@@ -43,22 +43,13 @@ const ipfsAppData = (() => {
   return p
 })()
 
-const ipfsPathFile = path.join(ipfsAppData, 'app-node-path')
-const ipfsFileHistoryFile = path.join(ipfsAppData, 'file-history.json')
-const userConfigFile = path.join(ipfsAppData, 'config.json')
+const fileHistory = new FileHistory(path.join(ipfsAppData, 'file-history.json'))
+const settingsStore = new KeyValueStore(path.join(ipfsAppData, 'config.json'))
 
-const ipfsPath = (() => {
-  let pathIPFS
-
-  if (fs.existsSync(ipfsPathFile)) {
-    pathIPFS = fs.readFileSync(ipfsPathFile, 'utf-8')
-  } else {
-    pathIPFS = path.join(process.env.IPFS_PATH ||
-      (process.env.HOME || process.env.USERPROFILE), '.ipfs')
-  }
-
-  return pathIPFS
-})()
+if (!settingsStore.get('ipfsPath')) {
+  const p = path.join(process.env.IPFS_PATH || (process.env.HOME || process.env.USERPROFILE), '.ipfs')
+  settingsStore.set('ipfsPath', p)
+}
 
 // Sets up the Logger
 const logger = winston.createLogger({
@@ -85,14 +76,12 @@ if (isDev) {
 
 export default {
   logger: logger,
-  fileHistory: new FileHistory(ipfsFileHistoryFile),
-  settingsStore: new KeyValueStore(userConfigFile),
+  fileHistory: fileHistory,
+  settingsStore: settingsStore,
   logo: {
     ice: logo('ice'),
     black: logo('black')
   },
-  ipfsPath: ipfsPath,
-  ipfsPathFile: ipfsPathFile,
   // Will be replaced by a BrowserWindow instance.
   settingsWindow: {
     index: `file://${__dirname}/views/settings.html`,
