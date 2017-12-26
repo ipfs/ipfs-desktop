@@ -4,7 +4,7 @@ import {uploadFiles} from '../utils'
 function openFileDialog (opts, dir = false) {
   let window = opts.window
 
-  return (event, callback) => {
+  return (event) => {
     dialog.showOpenDialog(window, {
       properties: [dir ? 'openDirectory' : 'openFile', 'multiSelections']
     }, (files) => {

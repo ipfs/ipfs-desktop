@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {clipboard, ipcRenderer, remote} from 'electron'
+import {clipboard, ipcRenderer} from 'electron'
 import prettyBytes from 'pretty-bytes'
 
 import Pane from '../components/view/Pane'
@@ -18,6 +18,10 @@ function openSettings () {
   ipcRenderer.send('open-settings')
 }
 
+function openNodeSettings () {
+  ipcRenderer.send('open-node-settings')
+}
+
 function openWebUI () {
   ipcRenderer.send('open-webui')
 }
@@ -31,7 +35,7 @@ function stopDaemon () {
 }
 
 function close () {
-  remote.getCurrentWindow().close()
+  ipcRenderer.send('quit-application')
 }
 
 export default function NodeInfo (props) {
@@ -85,10 +89,10 @@ export default function NodeInfo (props) {
           onClick={onClickCopy(props.publicKey)} />
 
         <InfoBlock
-          title='Settings'
+          title='Node Settings'
           info='Click to edit'
           button={false}
-          onClick={openSettings} />
+          onClick={openNodeSettings} />
 
         <InfoBlock
           title='Open WebUI'
@@ -97,6 +101,12 @@ export default function NodeInfo (props) {
           onClick={openWebUI} />
 
         <div className='always-on'>
+          <InfoBlock
+            title='Settings'
+            info='IPFS Station Settings'
+            button={false}
+            onClick={openSettings} />
+
           <InfoBlock
             title='Close'
             button={false}

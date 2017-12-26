@@ -1,8 +1,7 @@
 import {Menubar} from 'electron-menubar'
-import fs from 'fs'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
-import {dialog, ipcMain, app} from 'electron'
+import {dialog, ipcMain, app, BrowserWindow} from 'electron'
 
 import config from './config'
 import registerControls from './controls/main'
@@ -29,12 +28,17 @@ app.makeSingleInstance(() => {
 
 let poller = null
 let IPFS
-let mb
+let menubar
 
-function send (type, arg) {
-  if (mb && mb.window && mb.window.webContents) {
-    mb.window.webContents.send(type, arg)
+function send (type, ...args) {
+  if (menubar && menubar.window && menubar.window.webContents) {
+    menubar.window.webContents.send(type, ...args)
   }
+}
+
+config.send = send
+config.ipfs = () => {
+  return IPFS
 }
 
 function stopPolling () {
@@ -71,17 +75,18 @@ function onStartDaemon (node) {
       return
     }
 
+    logger.info('Started daemon')
     poller = new StatsPoller(ipfsNode, logger)
 
-    if (mb.window && mb.window.isVisible()) {
+    if (menubar.window && menubar.window.isVisible()) {
       poller.start()
     }
 
     poller.on('change', onPollerChange)
-    mb.on('show', startPolling)
-    mb.on('hide', stopPolling)
+    menubar.on('show', startPolling)
+    menubar.on('hide', stopPolling)
 
-    mb.tray.setImage(config.logo.ice)
+    menubar.tray.setImage(config.logo.ice)
 
     send('node-status', 'running')
     IPFS = ipfsNode
@@ -97,16 +102,16 @@ function onStopDaemon (node, done) {
     poller = null
   }
 
-  if (mb) {
-    mb.removeListener('show', startPolling)
-    mb.removeListener('hide', stopPolling)
+  if (menubar) {
+    menubar.removeListener('show', startPolling)
+    menubar.removeListener('hide', stopPolling)
   }
 
   node.stopDaemon((err) => {
     if (err) { return logger.error(err.stack) }
 
     logger.info('Stopped daemon')
-    mb.tray.setImage(config.logo.black)
+    menubar.tray.setImage(config.logo.black)
 
     IPFS = null
     send('node-status', 'stopped')
@@ -122,28 +127,48 @@ function onWillQuit (node, event) {
   }
 
   event.preventDefault()
-  onStopDaemon(node, () => { app.quit() })
+  onStopDaemon(node, () => {
+    app.quit()
+  })
 }
 
 // Initalize a new IPFS node
 function initialize (path, node) {
   logger.info('Initialzing new node')
 
-  mb.window.loadURL(`file://${__dirname}/views/welcome.html`)
-  mb.window.webContents.on('did-finish-load', () => {
-    send('setup-config-path', path)
+  // Initialize the welcome window.
+  const window = new BrowserWindow({
+    title: 'Welcome to IPFS',
+    icon: config.logo.ice,
+    show: false,
+    resizable: false,
+    width: 850,
+    height: 450
   })
-  mb.show()
+
+  // Only show the window when the contents have finished loading.
+  window.on('ready-to-show', () => {
+    window.show()
+    window.focus()
+  })
+
+  // Send the default path as soon as the window is ready.
+  window.webContents.on('did-finish-load', () => {
+    window.webContents.send('setup-config-path', path)
+  })
 
   // Close the application if the welcome dialog is canceled
-  mb.window.once('close', () => {
+  window.once('close', () => {
     if (!node.initialized) app.quit()
   })
+
+  window.setMenu(null)
+  window.loadURL(`file://${__dirname}/views/welcome.html`)
 
   let userPath = path
 
   ipcMain.on('setup-browse-path', () => {
-    dialog.showOpenDialog(mb.window, {
+    dialog.showOpenDialog(window, {
       title: 'Select a directory',
       defaultPath: path,
       properties: [
@@ -159,15 +184,15 @@ function initialize (path, node) {
         userPath = join(userPath, '.ipfs')
       }
 
-      send('setup-config-path', userPath)
+      window.webContents.send('setup-config-path', userPath)
     })
   })
 
-  // wait for msg from frontend
+  // Wait for the user to hit 'Install IPFS'
   ipcMain.on('initialize', (event, { keySize }) => {
     logger.info(`Initializing new node with key size: ${keySize} in ${userPath}.`)
+    window.webContents.send('initializing')
 
-    send('initializing')
     node.init({
       directory: userPath,
       keySize: keySize
@@ -176,13 +201,13 @@ function initialize (path, node) {
         return send('initialization-error', String(err))
       }
 
-      fs.writeFileSync(config.ipfsPathFile, path)
+      config.settingsStore.set('ipfsPath', path)
 
       send('initialization-complete')
       send('node-status', 'stopped')
 
       onStartDaemon(node)
-      mb.window.loadURL(config.menubar.index)
+      window.close()
     })
   })
 }
@@ -198,34 +223,30 @@ ipfsd.local((err, node) => {
 
   let appReady = () => {
     logger.info('Application is ready')
-    mb.tray.setHighlightMode(true)
+    menubar.tray.setHighlightMode(true)
 
     ipcMain.on('request-state', onRequestState.bind(null, node))
     ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
     ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
+    ipcMain.on('quit-application', () => {
+      config.settingsWindow.destroy()
+      app.quit()
+    })
     app.once('will-quit', onWillQuit.bind(null, node))
 
-    registerControls({
-      ipfs: () => {
-        return IPFS
-      },
-      send: send,
-      menubar: mb,
-      logger: config.logger,
-      fileHistory: config.fileHistory,
-      ipfsPath: config.ipfsPath
-    })
+    registerControls(config)
 
     if (!node.initialized) {
-      initialize(config.ipfsPath, node)
+      initialize(config.settingsStore.get('ipfsPath'), node)
     } else {
       // Start up the daemon
       onStartDaemon(node)
     }
   }
 
-  mb = new Menubar(config.menubar)
+  menubar = new Menubar(config.menubar)
+  config.menubar = menubar
 
-  if (mb.isReady()) appReady()
-  else mb.on('ready', appReady)
+  if (menubar.isReady()) appReady()
+  else menubar.on('ready', appReady)
 })

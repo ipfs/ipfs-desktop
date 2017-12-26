@@ -3,8 +3,8 @@ import {ipcRenderer} from 'electron'
 
 import Intro from '../panes/intro'
 
-import Loader from '../components/view/loader'
 import PaneContainer from '../components/view/pane-container'
+import Loader from '../components/view/loader'
 import Pane from '../components/view/pane'
 import Heartbeat from '../components/view/heartbeat'
 
@@ -15,7 +15,7 @@ const ADVANCED = 'advanced'
 
 const KEY_SIZES = [2048, 4096]
 
-export default class Setup extends Component {
+export default class Welcome extends Component {
   state = {
     status: INTRO,
     error: void 0,
