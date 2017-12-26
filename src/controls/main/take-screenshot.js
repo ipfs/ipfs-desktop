@@ -17,7 +17,10 @@ function handleScreenshot (opts) {
     }
 
     ipfs()
-      .add(Buffer.from(base64Data, 'base64'))
+      .add([{
+        path: `Screenshot ${new Date().toLocaleString()}.png`,
+        content: Buffer.from(base64Data, 'base64')
+      }])
       .then((res) => {
         res.forEach((file) => {
           const url = `https://ipfs.io/ipfs/${file.hash}`
