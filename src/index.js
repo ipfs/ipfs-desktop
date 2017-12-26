@@ -15,13 +15,22 @@ if (require('electron-squirrel-startup')) {
   app.quit()
 }
 
-// Ensure it's a single instance
+// Ensure it's a single instance.
 app.makeSingleInstance(() => {
   logger.error('Trying to start a second instance')
   dialog.showErrorBox(
     'Multiple instances',
     'Sorry, but there can be only one instance of Station running at the same time.'
   )
+})
+
+// Make sure Settings Window is closed when quitting the application.
+app.on('before-quit', (event) => {
+  const {settingsWindow} = config
+
+  if (settingsWindow instanceof BrowserWindow) {
+    settingsWindow.destroy()
+  }
 })
 
 // Local Variables
@@ -228,10 +237,7 @@ ipfsd.local((err, node) => {
     ipcMain.on('request-state', onRequestState.bind(null, node))
     ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
     ipcMain.on('stop-daemon', onStopDaemon.bind(null, node, () => {}))
-    ipcMain.on('quit-application', () => {
-      config.settingsWindow.destroy()
-      app.quit()
-    })
+    ipcMain.on('quit-application', app.quit.bind(app))
     app.once('will-quit', onWillQuit.bind(null, node))
 
     registerControls(config)
