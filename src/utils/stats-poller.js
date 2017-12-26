@@ -32,7 +32,7 @@ export default class StatsPoller extends EventEmitter {
       setTimeout(() => {
         this._poller()
       }, 1000)
-    }).catch(this.logger.error)
+    }).catch(e => { this.logger.error(e.stack) })
   }
 
   _handlePeers (raw) {

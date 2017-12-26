@@ -29,21 +29,25 @@ function handleScreenshot (opts) {
           fileHistory.add(file.path, file.hash)
         })
       })
-      .catch(logger.error)
+      .catch(e => { logger.error(e.stack) })
   }
 }
 
 export default function (opts) {
   let {send, logger, settingsStore} = opts
 
-  let activate = (value) => {
+  let activate = (value, oldValue) => {
+    if (value === oldValue) return
+
     if (value === true) {
       globalShortcut.register(shortcut, () => {
         logger.info('Taking Screenshot')
         send('screenshot')
       })
+      logger.info('Screenshot shortcut enabled')
     } else {
       globalShortcut.unregister(shortcut)
+      logger.info('Screenshot shortcut disabled')
     }
   }
 

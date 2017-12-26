@@ -24,6 +24,6 @@ export function uploadFiles (opts) {
           fileHistory.add(file.path, file.hash)
         })
       })
-      .catch(logger.error)
+      .catch(e => { logger.error(e.stack) })
   }
 }

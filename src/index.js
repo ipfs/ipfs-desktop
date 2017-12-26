@@ -222,11 +222,11 @@ function initialize (path, node) {
 }
 
 // main entry point
-ipfsd.local((err, node) => {
-  if (err) {
+ipfsd.local((e, node) => {
+  if (e) {
     // We can't start if we fail to aquire
     // a ipfs node
-    logger.error(err)
+    logger.error(e.stack)
     process.exit(1)
   }
 

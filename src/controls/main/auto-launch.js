@@ -8,11 +8,17 @@ const autoLauncher = new AutoLaunch({
 export default function (opts) {
   let {logger, settingsStore} = opts
 
-  let activate = (value) => {
+  let activate = (value, oldValue) => {
+    if (value === oldValue) return
+
     if (value === true) {
-      autoLauncher.enable().catch(logger.error)
+      autoLauncher.enable()
+        .then(() => { logger.info('Launch on startup enabled') })
+        .catch(e => { logger.error(e.stack) })
     } else {
-      autoLauncher.disable().catch(logger.error)
+      autoLauncher.disable()
+        .then(() => { logger.info('Launch on startup disabled') })
+        .catch(e => { logger.error(e.stack) })
     }
   }
 

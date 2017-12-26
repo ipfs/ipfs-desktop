@@ -9,7 +9,7 @@ function open (opts) {
       .then((res) => {
         shell.openExternal(apiAddrToUrl(res))
       })
-      .catch(logger.error)
+      .catch(e => { logger.error(e.stack) })
   }
 }
 
