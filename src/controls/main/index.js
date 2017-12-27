@@ -1,4 +1,5 @@
 import autoLaunch from './auto-launch'
+import downloadHash from './download-hash'
 import fileHistory from './file-history'
 import openFileDialog from './open-file-dialog'
 import openWebUI from './open-webui'
@@ -9,6 +10,7 @@ import uploadFiles from './upload-files'
 
 export default function (opts) {
   autoLaunch(opts)
+  downloadHash(opts)
   fileHistory(opts)
   openFileDialog(opts)
   openWebUI(opts)
