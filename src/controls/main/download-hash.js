@@ -53,8 +53,14 @@ function handler (opts) {
 
     ipfs().get(text)
       .then((files) => {
+        logger.info(`Hash ${text} downloaded.`)
         selectDirectory(opts)
           .then((dir) => {
+            if (!dir) {
+              logger.info(`Dropping hash ${text}: user didn't choose a path.`)
+              return
+            }
+
             if (files.length > 1) {
               fs.mkdirSync(path.join(dir, text))
             }
