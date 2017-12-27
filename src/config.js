@@ -8,16 +8,6 @@ import {app, dialog} from 'electron'
 import FileHistory from './utils/file-history'
 import KeyValueStore from './utils/key-value-store'
 
-// Set up what to do on Uncaught Exceptions
-process.on('uncaughtException', (error) => {
-  const msg = error.message || error
-  logger.error(`Uncaught Exception: ${error.stack}`)
-  // TODO: save error to somewhere (in .txt) and recommend the user
-  // to open an issue on the repo
-  dialog.showErrorBox('Uncaught Exception:', msg)
-  process.exit(1)
-})
-
 // Set up crash reporter or electron debug
 if (isDev) {
   require('electron-debug')()
@@ -33,15 +23,16 @@ function logo (color) {
   return path.join(p, `ipfs-logo-${color}.png`)
 }
 
-const ipfsAppData = (() => {
-  const p = path.join(app.getPath('appData'), 'ipfs-station')
-
-  if (!fs.existsSync(p)) {
-    fs.mkdirSync(p)
+function ensurePath (path) {
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path)
   }
 
-  return p
-})()
+  return path
+}
+
+const ipfsAppData = ensurePath(path.join(app.getPath('appData'), 'ipfs-station'))
+const logsPath = ensurePath(path.join(ipfsAppData, 'logs'))
 
 const fileHistory = new FileHistory(path.join(ipfsAppData, 'file-history.json'))
 const settingsStore = new KeyValueStore(path.join(ipfsAppData, 'config.json'))
@@ -56,12 +47,12 @@ const logger = winston.createLogger({
   format: winston.format.json(),
   transports: [
     new winston.transports.File({
-      filename: 'error.log',
+      filename: path.join(logsPath, 'error.log'),
       level: 'error',
       handleExceptions: false
     }),
     new winston.transports.File({
-      filename: 'combined.log',
+      filename: path.join(logsPath, 'combined.log'),
       handleExceptions: false
     })
   ]
@@ -76,6 +67,22 @@ if (isDev) {
     handleExceptions: false
   }))
 }
+
+function fatal (error) {
+  logger.error(`Uncaught Exception: ${error.stack}`)
+
+  dialog.showErrorBox(
+    'Something wrong happened',
+    `Some unexpected error occurred and we couldn't handle it. Please check ${path.join(logsPath, 'error.log')}` +
+    ` for the latest logs and open an issue on https://github.com/ipfs-shipyard/ipfs-station/issues.`
+  )
+
+  process.exit(1)
+}
+
+// Set up what to do on Uncaught Exceptions and Unhandled Rejections
+process.on('uncaughtException', fatal)
+process.on('unhandledRejection', fatal)
 
 export default {
   logger: logger,
