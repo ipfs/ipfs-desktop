@@ -64,6 +64,17 @@ export default class Settings extends Component {
               <span className='key'>ALT</span> + <span className='key'>S</span> <span />
               shortcut</span>
             )} />
+
+          <CheckboxItem
+            title='Download copied hash'
+            id='downloadHashShortcut'
+            onChange={this._generateOnChange('downloadHashShortcut')}
+            value={this.state.downloadHashShortcut}
+            info={(<span>
+              Download copied hash with <span className='key'>CTRL/CMD</span> + <span />
+              <span className='key'>ALT</span> + <span className='key'>D</span> <span />
+              shortcut</span>
+            )} />
         </div>
 
         <Footer>

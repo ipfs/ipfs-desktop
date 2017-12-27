@@ -13,7 +13,7 @@ export function uploadFiles (opts) {
 
   return (event, files) => {
     ipfs()
-      .add(files, {recursive: true, w: files.length > 1})
+      .add(files, {recursive: true, wrap: true})
       .then((res) => {
         logger.info('Uploading files', {files})
 
