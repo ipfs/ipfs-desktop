@@ -68,8 +68,7 @@ if (isDev) {
   }))
 }
 
-// Set up what to do on Uncaught Exceptions
-process.on('uncaughtException', (error) => {
+function fatal (error) {
   logger.error(`Uncaught Exception: ${error.stack}`)
 
   dialog.showErrorBox(
@@ -79,7 +78,11 @@ process.on('uncaughtException', (error) => {
   )
 
   process.exit(1)
-})
+}
+
+// Set up what to do on Uncaught Exceptions and Unhandled Rejections
+process.on('uncaughtException', fatal)
+process.on('unhandledRejection', fatal)
 
 export default {
   logger: logger,
