@@ -9,12 +9,18 @@ import PropTypes from 'prop-types'
  * @prop {String} title       - The title of the pane
  * @prop {String} [subtitle]  - Subtitle of the pane
  * @prop {Node}   [children]  - Header children (e.g.: buttons)
+ * @prop {Bool}   [loading]   - Show a loading animation
  *
  * @return {ReactElement}
  */
 export default function Header (props) {
+  let className = 'header'
+  if (props.loading) {
+    className += ' loading'
+  }
+
   return (
-    <div className='header'>
+    <div className={className}>
       <div>
         <p className='title'>{props.title}</p>
         { props.subtitle !== '' &&
@@ -31,10 +37,12 @@ export default function Header (props) {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node,
+  loading: PropTypes.bool,
   subtitle: PropTypes.string
 }
 
 Header.defaultProps = {
   title: '',
+  loading: false,
   subtitle: ''
 }

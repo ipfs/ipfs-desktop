@@ -43,11 +43,13 @@ export default function InfoBlock (props) {
 
   return (
     <div className={`info-block${clickable ? ' clickable' : ''}`} {...clickable && { onClick: props.onClick }}>
-      <div>
-        <p className='label'>{props.title}</p>
-        {info}
-        {button}
+      <div className='wrapper'>
+        <div>
+          <p className='label'>{props.title}</p>
+          {info}
+        </div>
       </div>
+      {button}
     </div>
   )
 }

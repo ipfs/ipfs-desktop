@@ -1,6 +1,7 @@
-import {clipboard, app, dialog, globalShortcut} from 'electron'
 import path from 'path'
 import fs from 'fs'
+import {clipboard, app, dialog, globalShortcut} from 'electron'
+import {validateIPFS} from '../utils'
 
 const settingsOption = 'downloadHashShortcut'
 const shortcut = 'CommandOrControl+Alt+D'
@@ -17,8 +18,11 @@ function selectDirectory (opts) {
         'createDirectory'
       ]
     }, (res) => {
-      if (!res) resolve()
-      resolve(res[0])
+      if (!res || res.length === 0) {
+        resolve()
+      } else {
+        resolve(res[0])
+      }
     })
   })
 }
@@ -51,6 +55,14 @@ function handler (opts) {
       return
     }
 
+    if (!validateIPFS(text)) {
+      dialog.showErrorBox(
+        'Invalid Hash',
+        'The hash you provided is invalid.'
+      )
+      return
+    }
+
     ipfs().get(text)
       .then((files) => {
         logger.info(`Hash ${text} downloaded.`)
@@ -69,7 +81,13 @@ function handler (opts) {
           })
           .catch(e => logger.error(e.stack))
       })
-      .catch(e => logger.warn(e.stack))
+      .catch(e => {
+        logger.error(e.stack)
+        dialog.showErrorBox(
+          'Error while downloading',
+          'Some error happened while getting the hash. Please check the logs.'
+        )
+      })
   }
 }
 

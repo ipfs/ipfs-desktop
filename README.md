@@ -116,6 +116,8 @@ Now, to incorporate your pane into Station iself so it is visible, you have to i
 
 The components are classes exported with CamelCase names. The corresponding files have the associated class name with hyphen-separated-words. So, e.g., `simple-stat.js` exports a class named `SimpleStat`.
 
+### [Stateless Components](./src/js/components/view)
+
 + [**Button**](./src/js/components/view/button.js) is a simple button with text.
 + [**CheckboxBlock**](./src/js/components/view/checkbox-block.js) is like an `InfoBlock`, but with a checkbox attached to it.
 + [**FileBlock**](./src/js/components/view/file-block.js) is used within a file list to describe a file with a button to copy its link.
@@ -126,7 +128,14 @@ The components are classes exported with CamelCase names. The corresponding file
 + [**IconDropdownList**](./src/js/components/view/icon-dropdown-list.js) is a dropdown list with an icon.
 + [**Icon**](./src/js/components/view/icon.js) shows an icon.
 + [**InfoBlock**](./src/js/components/view/info-block.js) shows a block of information (used on node info pane).
++ [**KeyCombo**](./src/js/components/view/key-combo.js) is a key combination.
++ [**Key**](./src/js/components/view/key.js) is a key.
 + [**MenuOption**](./src/js/components/view/menu-option.js) is a menu option to show within a menu bar.
++ [**PinnedHash**](./src/js/components/view/pinned-hash.js) is a pinned hash.
+
+### [Statefull Components](./src/js/components/logic)
+
++ [**NewPinnedHash**](./src/js/components/view/new-pinned-hash.js) is a new pinned hash form.
 
 ## Contribute
 

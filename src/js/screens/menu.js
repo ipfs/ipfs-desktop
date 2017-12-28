@@ -9,6 +9,7 @@ import MenuOption from '../components/view/menu-option'
 
 import Loader from '../panes/loader'
 import Files from '../panes/files'
+import Pinned from '../panes/pinned'
 import Peers from '../panes/peers'
 import Info from '../panes/info'
 import Settings from '../panes/settings'
@@ -30,6 +31,11 @@ const panes = [
     icon: 'files'
   },
   {
+    id: 'pinned',
+    title: 'Pin',
+    icon: 'pin'
+  },
+  {
     id: 'peers',
     title: 'Peers',
     icon: 'pulse'
@@ -46,7 +52,9 @@ class Menu extends Component {
     status: UNINITIALIZED,
     route: panes[0].id,
     stats: {},
-    settings: {}
+    settings: {},
+    adding: false,
+    pinning: false
   }
 
   listeners = {}
@@ -74,19 +82,26 @@ class Menu extends Component {
     ipcRenderer.on('node-status', this._onSomething('status'))
     ipcRenderer.on('stats', this._onSomething('stats'))
     ipcRenderer.on('files', this._onSomething('files'))
+    ipcRenderer.on('pinned', this._onSomething('pinned'))
     ipcRenderer.on('settings', this._onSomething('settings'))
+    ipcRenderer.on('adding', this._onSomething('adding'))
+    ipcRenderer.on('pinning', this._onSomething('pinning'))
 
     ipcRenderer.send('request-state')
     ipcRenderer.send('request-files')
     ipcRenderer.send('request-settings')
+    ipcRenderer.send('request-pinned')
   }
 
   componentWillUnmount () {
     // -- Remove control events
     ipcRenderer.removeListener('node-status', this._onSomething('status'))
     ipcRenderer.removeListener('stats', this._onSomething('stats'))
-    ipcRenderer.removeListeneron('files', this._onSomething('files'))
+    ipcRenderer.removeListener('files', this._onSomething('files'))
+    ipcRenderer.removeListener('pinned', this._onSomething('pinned'))
     ipcRenderer.removeListener('settings', this._onSomething('settings'))
+    ipcRenderer.removeListener('adding', this._onSomething('adding'))
+    ipcRenderer.removeListener('pinning', this._onSomething('pinning'))
   }
 
   _getRouteScreen () {
@@ -96,7 +111,7 @@ class Menu extends Component {
 
     switch (this.state.route) {
       case 'files':
-        return <Files files={this.state.files} />
+        return <Files files={this.state.files} adding={this.state.adding} />
       case 'settings':
         return <Settings settings={this.state.settings} />
       case 'peers':
@@ -113,6 +128,13 @@ class Menu extends Component {
             running={this.state.status === RUNNING}
             bandwidth={this.state.stats.bw}
             repo={this.state.stats.repo} />
+        )
+      case 'pinned':
+        return (
+          <Pinned
+            files={this.state.pinned}
+            pinning={this.state.pinning}
+            changeRoute={this._changeRoute} />
         )
       default:
         return (
