@@ -92,17 +92,6 @@ export default {
     ice: logo('ice'),
     black: logo('black')
   },
-  // Will be replaced by a BrowserWindow instance.
-  settingsWindow: {
-    index: `file://${__dirname}/views/settings.html`,
-    title: 'IPFS Station Settings',
-    show: false,
-    icon: logo('ice'),
-    backgroundColor: '#252525',
-    resizable: false,
-    width: 450,
-    height: 450
-  },
   // Will be replaced by a Menubar instance.
   menubar: {
     index: `file://${__dirname}/views/menubar.html`,

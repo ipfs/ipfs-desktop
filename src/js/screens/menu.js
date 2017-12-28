@@ -11,6 +11,7 @@ import Icon from '../components/view/icon'
 import Files from '../panes/files'
 import Peers from '../panes/peers'
 import NodeInfo from '../panes/node-info'
+import Settings from '../panes/settings'
 
 const UNINITIALIZED = 'uninitialized'
 const RUNNING = 'running'
@@ -23,7 +24,8 @@ class Menu extends Component {
     route: 'files',
     connected: false,
     version: null,
-    stats: {}
+    stats: {},
+    settings: {}
   }
 
   _onNodeStatus = (event, status) => {
@@ -38,6 +40,10 @@ class Menu extends Component {
     this.setState({files: files})
   }
 
+  _onSettings = (event, settings) => {
+    this.setState({settings: settings})
+  }
+
   _changeRoute = (route) => {
     this.setState({route: route})
   }
@@ -47,9 +53,11 @@ class Menu extends Component {
     ipcRenderer.on('node-status', this._onNodeStatus)
     ipcRenderer.on('stats', this._onStats)
     ipcRenderer.on('files', this._onFiles)
+    ipcRenderer.on('settings', this._onSettings)
 
     ipcRenderer.send('request-state')
     ipcRenderer.send('request-files')
+    ipcRenderer.send('request-settings')
   }
 
   componentWillUnmount () {
@@ -57,6 +65,7 @@ class Menu extends Component {
     ipcRenderer.removeListener('node-status', this._onNodeStatus)
     ipcRenderer.removeListener('stats', this._onStats)
     ipcRenderer.removeListener('files', this._onFiles)
+    ipcRenderer.removeListener('settings', this._onSettings)
   }
 
   _getRouteScreen () {
@@ -71,8 +80,7 @@ class Menu extends Component {
     switch (this.state.route) {
       case 'files':
         return (
-          <Files
-            files={this.state.files} />
+          <Files files={this.state.files} />
         )
       case 'peers':
         var location = 'Unknown'
@@ -92,6 +100,10 @@ class Menu extends Component {
             running={this.state.status === RUNNING}
             bandwidth={this.state.stats.bw}
             repo={this.state.stats.repo} />
+        )
+      case 'settings':
+        return (
+          <Settings settings={this.state.settings} />
         )
       default:
         return null
@@ -123,7 +135,7 @@ class Menu extends Component {
           <MenuOption
             name='Settings'
             icon='settings'
-            onClick={() => ipcRenderer.send('open-settings')} />
+            onClick={() => this._changeRoute('settings')} />
         </div>
       ),
       this._getRouteScreen()
