@@ -50,8 +50,7 @@ export default class Peers extends Component {
 
 Peers.propTypes = {
   location: PropTypes.string,
-  peers: PropTypes.array,
-  changeRoute: PropTypes.func.isRequired
+  peers: PropTypes.array
 }
 
 Peers.defaultProps = {

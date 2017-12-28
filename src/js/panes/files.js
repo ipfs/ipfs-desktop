@@ -32,7 +32,6 @@ class Files extends Component {
 
   static propTypes = {
     connectDropTarget: PropTypes.func.isRequired,
-    changeRoute: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
     files: PropTypes.array
@@ -94,6 +93,8 @@ class Files extends Component {
           </div>
 
           <Footer>
+            <IconButton active={this.state.sticky} onClick={this._toggleStickWindow} icon='eye' />
+
             <div className='right'>
               <IconButton onClick={this._selectFileDialog} icon='plus' />
               <IconButton onClick={this._selectDirectoryDialog} icon='folder' />

@@ -68,30 +68,22 @@ class Menu extends Component {
       )
     }
 
-    if (this.state.status !== RUNNING) {
-      return (
-        <Pane class='left-pane'>
-          <p className='notice'>
-            Oh snap, it looks like your node is not running yet.
-            Change that by clicking the button on the top right corner.
-          </p>
-        </Pane>
-      )
-    }
-
     switch (this.state.route) {
       case 'files':
         return (
           <Files
-            files={this.state.files}
-            changeRoute={this._changeRoute} />
+            files={this.state.files} />
         )
       case 'peers':
+        var location = 'Unknown'
+        if (this.state.stats.node) {
+          location = this.state.stats.node.location
+        }
+
         return (
           <Peers
             peers={this.state.stats.peers}
-            location={this.state.stats.node.location}
-            changeRoute={this._changeRoute} />
+            location={location} />
         )
       case 'info':
         return (

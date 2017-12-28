@@ -14,10 +14,6 @@ function onClickCopy (text) {
   return () => clipboard.writeText(text)
 }
 
-function openSettings () {
-  ipcRenderer.send('open-settings')
-}
-
 function openNodeSettings () {
   ipcRenderer.send('open-node-settings')
 }
@@ -101,12 +97,6 @@ export default function NodeInfo (props) {
           onClick={openWebUI} />
 
         <div className='always-on'>
-          <InfoBlock
-            title='Settings'
-            info='IPFS Station Settings'
-            button={false}
-            onClick={openSettings} />
-
           <InfoBlock
             title='Close'
             button={false}
