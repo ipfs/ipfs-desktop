@@ -156,6 +156,7 @@ class Menu extends Component {
 
       menu.push((
         <MenuOption
+          key={pane.option.name}
           name={pane.option.name}
           icon={pane.option.icon}
           active={this.state.route === paneName}
