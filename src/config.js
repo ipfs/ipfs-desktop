@@ -112,7 +112,7 @@ export default {
     window: {
       resizable: false,
       skipTaskbar: true,
-      width: 850,
+      width: 614,
       height: 400,
       backgroundColor: '#000000',
       webPreferences: {

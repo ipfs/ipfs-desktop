@@ -6,6 +6,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import PaneContainer from '../components/view/pane-container'
 import Pane from '../components/view/pane'
 import Loader from '../components/view/loader'
+import Icon from '../components/view/icon'
 
 import Files from '../panes/files'
 import Peers from '../panes/peers'
@@ -92,6 +93,14 @@ class Menu extends Component {
             location={this.state.stats.node.location}
             changeRoute={this._changeRoute} />
         )
+      case 'info':
+        return (
+          <NodeInfo
+            {...this.state.stats.node}
+            running={this.state.status === RUNNING}
+            bandwidth={this.state.stats.bw}
+            repo={this.state.stats.repo} />
+        )
       default:
         return null
     }
@@ -99,14 +108,32 @@ class Menu extends Component {
 
   render () {
     return (
-      <PaneContainer>
-        {this._getRouteScreen()}
-        <NodeInfo
-          {...this.state.stats.node}
-          running={this.state.status === RUNNING}
-          bandwidth={this.state.stats.bw}
-          repo={this.state.stats.repo} />
-      </PaneContainer>
+      <div className='menubar'>
+        <div className='menu'>
+          <button onClick={() => this._changeRoute('info')} className='menu-option'>
+            <Icon name='info' />
+            <p>Node</p>
+          </button>
+
+          <button onClick={() => this._changeRoute('files')} className='menu-option'>
+            <Icon name='files' />
+            <p>Files</p>
+          </button>
+
+          <button onClick={() => this._changeRoute('peers')} className='menu-option'>
+            <Icon name='pulse' />
+            <p>Peers</p>
+          </button>
+
+          <button onClick={() => ipcRenderer.send('open-settings')} className='menu-option'>
+            <Icon name='settings' />
+            <p>Settings</p>
+          </button>
+        </div>
+        <PaneContainer>
+          {this._getRouteScreen()}
+        </PaneContainer>
+      </div>
     )
   }
 }

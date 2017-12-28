@@ -1,7 +1,42 @@
 @import './variables.less';
 
+.menubar,
 .panes {
   display: flex;
+}
+
+.menu {
+  display: flex;
+  background: #252525;
+  flex-direction: column;
+}
+
+.menu-option:last-child {
+  margin-top: auto;
+}
+
+.menu-option {
+  line-height: 1;
+  border: 0;
+  outline: 0;
+  margin: 0.5em;
+  padding: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: .2s ease all;
+  width: 3em;
+  height: 3em;
+
+  p {
+    margin: 0.8em 0 0;
+    font-size: 0.8em;
+  }
+
+  &.active,
+  &:hover {
+    color: rgba(255, 255, 255, 0.6);
+  }
 }
 
 .pane {
@@ -9,6 +44,8 @@
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
+  width: calc(~"100vw - 4em");
+  background: #000;
 
   .header,
   .footer {
@@ -41,13 +78,13 @@
   .footer {
     height: 5.25em;
     display: flex;
-    background: linear-gradient(to top, #252525 0%, #252525 45%, transparent 100%);
+    background: linear-gradient(to top, #000000 0%, #000000 45%, transparent 100%);
     position: fixed;
     bottom: 0;
-    left: 0;
+    right: 0.5em;
     padding-top: 3em;
     box-sizing: border-box;
-    width: 100%;
+    width: calc(~"100vw - 4.5em");
   
     .right {
       margin-left: auto;
@@ -61,27 +98,6 @@
     input[type="text"] {
       font-size: @normal-font;
       margin-top: -0.5em;
-    }
-  }
-
-  &.left-pane {
-    width: 550px;
-    background: #000;
-  }
-
-  &.left-pane .footer {
-    background: linear-gradient(to top, #000000 0%, #000000 45%, transparent 100%);
-    width: calc(~"550px - 0.5em")
-  }
-
-  &.right-pane {
-    background-color: #252525;
-    color: #fff;
-    width: 300px;
-
-    .footer {
-      left: 550px;
-      width: calc(~"300px - 0.5em");
     }
   }
 }
