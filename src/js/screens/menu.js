@@ -17,26 +17,19 @@ const RUNNING = 'running'
 const STARTING = 'starting'
 const STOPPING = 'stopping'
 
-const panesOrder = [
-  'nodeInfo',
-  'files',
-  'peers',
-  'settings'
-]
-
 const panes = {
   nodeInfo: {
     option: {
       name: 'Node',
       icon: 'info'
     },
-    render: function () {
+    render (state) {
       return (
         <NodeInfo
-          {...this.state.stats.node}
-          running={this.state.status === RUNNING}
-          bandwidth={this.state.stats.bw}
-          repo={this.state.stats.repo} />
+          {...state.stats.node}
+          running={state.status === RUNNING}
+          bandwidth={state.stats.bw}
+          repo={state.stats.repo} />
       )
     }
   },
@@ -45,8 +38,8 @@ const panes = {
       name: 'Files',
       icon: 'files'
     },
-    render: function () {
-      return <Files files={this.state.files} />
+    render (state) {
+      return <Files files={state.files} />
     }
   },
   settings: {
@@ -54,8 +47,8 @@ const panes = {
       name: 'Settings',
       icon: 'settings'
     },
-    render: function () {
-      return <Settings settings={this.state.settings} />
+    render (state) {
+      return <Settings settings={state.settings} />
     }
   },
   peers: {
@@ -63,20 +56,27 @@ const panes = {
       name: 'Peers',
       icon: 'pulse'
     },
-    render: function () {
+    render (state) {
       let location = 'Unknown'
-      if (this.state.stats.node) {
-        location = this.state.stats.node.location
+      if (state.stats.node) {
+        location = state.stats.node.location
       }
 
       return (
         <Peers
-          peers={this.state.stats.peers}
+          peers={state.stats.peers}
           location={location} />
       )
     }
   }
 }
+
+const panesOrder = [
+  'nodeInfo',
+  'files',
+  'peers',
+  'settings'
+]
 
 class Menu extends Component {
   state = {
@@ -136,25 +136,25 @@ class Menu extends Component {
     }
 
     if (panes.hasOwnProperty(this.state.route)) {
-      return panes[this.state.route].render.call(this)
+      return panes[this.state.route].render(this.state)
     }
 
     return (
       <Pane class='left-pane'>
         <p className='notice'>
-          Hmmm... Something strange happened and you shouldn't be here.
+          Hmmm... Something strange happened and you should not be here.
         </p>
       </Pane>
     )
   }
 
-  render () {
-    const options = []
+  _getMenu () {
+    const menu = []
 
     panesOrder.forEach((paneName) => {
       const pane = panes[paneName]
 
-      options.push((
+      menu.push((
         <MenuOption
           name={pane.option.name}
           icon={pane.option.icon}
@@ -163,12 +163,14 @@ class Menu extends Component {
       ))
     })
 
+    return (
+      <div className='menu'>{menu}</div>
+    )
+  }
+
+  render () {
     return [
-      (
-        <div className='menu'>
-          {options}
-        </div>
-      ),
+      this._getMenu(),
       this._getRouteScreen()
     ]
   }
