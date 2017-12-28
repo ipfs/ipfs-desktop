@@ -30,7 +30,7 @@ export default class Peers extends Component {
     })
 
     return (
-      <Pane class='left-pane peers'>
+      <Pane class='peers'>
         <Header
           title={'Earth - ' + this.props.location}
           subtitle={this.props.peers.length + ' peers'} />

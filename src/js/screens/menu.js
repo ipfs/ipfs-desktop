@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import {ipcRenderer} from 'electron'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
 import Pane from '../components/view/pane'
 import Loader from '../components/view/loader'
-import Icon from '../components/view/icon'
+import MenuOption from '../components/view/menu-option'
 
 import Files from '../panes/files'
 import Peers from '../panes/peers'
@@ -22,26 +21,24 @@ class Menu extends Component {
   state = {
     status: UNINITIALIZED,
     route: 'files',
-    connected: false,
-    version: null,
     stats: {},
     settings: {}
   }
 
-  _onNodeStatus = (event, status) => {
-    this.setState({status: status})
-  }
+  listeners = {}
 
-  _onStats = (event, stats) => {
-    this.setState({stats: stats})
-  }
+  _onSomething = (key) => {
+    if (this.listeners[key]) {
+      return this.listeners[key]
+    }
 
-  _onFiles = (event, files) => {
-    this.setState({files: files})
-  }
+    this.listeners[key] = (event, value) => {
+      const obj = {}
+      obj[key] = value
+      this.setState(obj)
+    }
 
-  _onSettings = (event, settings) => {
-    this.setState({settings: settings})
+    return this.listeners[key]
   }
 
   _changeRoute = (route) => {
@@ -50,10 +47,10 @@ class Menu extends Component {
 
   componentDidMount () {
     // -- Listen to control events
-    ipcRenderer.on('node-status', this._onNodeStatus)
-    ipcRenderer.on('stats', this._onStats)
-    ipcRenderer.on('files', this._onFiles)
-    ipcRenderer.on('settings', this._onSettings)
+    ipcRenderer.on('node-status', this._onSomething('status'))
+    ipcRenderer.on('stats', this._onSomething('stats'))
+    ipcRenderer.on('files', this._onSomething('files'))
+    ipcRenderer.on('settings', this._onSomething('settings'))
 
     ipcRenderer.send('request-state')
     ipcRenderer.send('request-files')
@@ -62,16 +59,16 @@ class Menu extends Component {
 
   componentWillUnmount () {
     // -- Remove control events
-    ipcRenderer.removeListener('node-status', this._onNodeStatus)
-    ipcRenderer.removeListener('stats', this._onStats)
-    ipcRenderer.removeListener('files', this._onFiles)
-    ipcRenderer.removeListener('settings', this._onSettings)
+    ipcRenderer.removeListener('node-status', this._onSomething('status'))
+    ipcRenderer.removeListener('stats', this._onSomething('stats'))
+    ipcRenderer.removeListeneron('files', this._onSomething('files'))
+    ipcRenderer.removeListener('settings', this._onSomething('settings'))
   }
 
   _getRouteScreen () {
     if (this.state.status === STARTING || this.state.status === STOPPING) {
       return (
-        <Pane class='left-pane'>
+        <Pane>
           <Loader key='loader-screen' />
         </Pane>
       )
@@ -106,7 +103,13 @@ class Menu extends Component {
           <Settings settings={this.state.settings} />
         )
       default:
-        return null
+        return (
+          <Pane class='left-pane'>
+            <p className='notice'>
+              Hmmm... Something strange happened and you shouldn't be here.
+            </p>
+          </Pane>
+        )
     }
   }
 
@@ -141,25 +144,6 @@ class Menu extends Component {
       this._getRouteScreen()
     ]
   }
-}
-
-function MenuOption (props) {
-  let className = 'menu-option'
-  if (props.active) className += ' active'
-
-  return (
-    <button onClick={props.onClick} className={className}>
-      <Icon name={props.icon} />
-      <p>{props.name}</p>
-    </button>
-  )
-}
-
-MenuOption.propTypes = {
-  active: PropTypes.bool,
-  onClick: PropTypes.func,
-  icon: PropTypes.string,
-  name: PropTypes.string
 }
 
 export default DragDropContext(HTML5Backend)(Menu)

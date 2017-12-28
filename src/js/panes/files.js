@@ -81,7 +81,7 @@ class Files extends Component {
 
     return connectDropTarget(
       <div>
-        <Pane class='left-pane files'>
+        <Pane class='files'>
           <Header title='Your Files' />
 
           <div className='main'>

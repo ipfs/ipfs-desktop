@@ -90,7 +90,7 @@ import Footer from '../components/view/footer'
 
 export default function MyPane {
     return (
-      <Pane class='left-pane peers'>
+      <Pane class='peers'>
         <Header title='The title of your pane' />
 
         <div className='main'>
