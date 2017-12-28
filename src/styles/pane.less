@@ -1,13 +1,13 @@
 @import './variables.less';
 
-.menubar,
+#menubar,
 .panes {
   display: flex;
 }
 
 .menu {
   display: flex;
-  background: #252525;
+  background: #151515;
   flex-direction: column;
 }
 
@@ -19,23 +19,27 @@
   line-height: 1;
   border: 0;
   outline: 0;
-  margin: 0.5em;
-  padding: 0;
+  margin: 0;
+  padding: 0.5em;
   background: transparent;
   color: rgba(255, 255, 255, 0.4);
   cursor: pointer;
   transition: .2s ease all;
-  width: 3em;
-  height: 3em;
+  width: 4em;
+  height: 4em;
 
   p {
     margin: 0.8em 0 0;
     font-size: 0.8em;
   }
 
-  &.active,
   &:hover {
     color: rgba(255, 255, 255, 0.6);
+  }
+
+  &.active {
+    background: #000;
+    color: #fff;
   }
 }
 
@@ -44,7 +48,6 @@
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
-  width: calc(~"100vw - 4em");
   background: #000;
 
   .header,
@@ -84,7 +87,7 @@
     right: 0.5em;
     padding-top: 3em;
     box-sizing: border-box;
-    width: calc(~"100vw - 4.5em");
+    width: 100%;
   
     .right {
       margin-left: auto;
@@ -99,6 +102,14 @@
       font-size: @normal-font;
       margin-top: -0.5em;
     }
+  }
+}
+
+#menubar .pane {
+  width: calc(~"100vw - 4em");
+
+  .footer {
+    width: calc(~"100vw - 4.5em");
   }
 }
 

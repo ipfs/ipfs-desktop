@@ -5,7 +5,6 @@ import Pane from '../components/view/pane'
 import Peer from '../components/view/peer'
 import Header from '../components/view/header'
 import Footer from '../components/view/footer'
-import IconButton from '../components/view/icon-button'
 
 export default class Peers extends Component {
   constructor (props) {
@@ -40,8 +39,6 @@ export default class Peers extends Component {
         </div>
 
         <Footer>
-          <IconButton onClick={() => { this.props.changeRoute('files') }} icon='files' />
-
           <div className='right'>
             <input type='text' onChange={this.onChangeSearch} placeholder='Search peer' />
           </div>

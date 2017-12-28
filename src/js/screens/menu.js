@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {ipcRenderer} from 'electron'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
-import PaneContainer from '../components/view/pane-container'
 import Pane from '../components/view/pane'
 import Loader from '../components/view/loader'
 import Icon from '../components/view/icon'
@@ -107,35 +107,55 @@ class Menu extends Component {
   }
 
   render () {
-    return (
-      <div className='menubar'>
+    return [
+      (
         <div className='menu'>
-          <button onClick={() => this._changeRoute('info')} className='menu-option'>
-            <Icon name='info' />
-            <p>Node</p>
-          </button>
+          <MenuOption
+            name='Node'
+            icon='info'
+            active={this.state.route === 'info'}
+            onClick={() => this._changeRoute('info')} />
 
-          <button onClick={() => this._changeRoute('files')} className='menu-option'>
-            <Icon name='files' />
-            <p>Files</p>
-          </button>
+          <MenuOption
+            name='Files'
+            icon='files'
+            active={this.state.route === 'files'}
+            onClick={() => this._changeRoute('files')} />
 
-          <button onClick={() => this._changeRoute('peers')} className='menu-option'>
-            <Icon name='pulse' />
-            <p>Peers</p>
-          </button>
+          <MenuOption
+            name='Peers'
+            icon='pulse'
+            active={this.state.route === 'peers'}
+            onClick={() => this._changeRoute('peers')} />
 
-          <button onClick={() => ipcRenderer.send('open-settings')} className='menu-option'>
-            <Icon name='settings' />
-            <p>Settings</p>
-          </button>
+          <MenuOption
+            name='Settings'
+            icon='settings'
+            onClick={() => ipcRenderer.send('open-settings')} />
         </div>
-        <PaneContainer>
-          {this._getRouteScreen()}
-        </PaneContainer>
-      </div>
-    )
+      ),
+      this._getRouteScreen()
+    ]
   }
+}
+
+function MenuOption (props) {
+  let className = 'menu-option'
+  if (props.active) className += ' active'
+
+  return (
+    <button onClick={props.onClick} className={className}>
+      <Icon name={props.icon} />
+      <p>{props.name}</p>
+    </button>
+  )
+}
+
+MenuOption.propTypes = {
+  active: PropTypes.bool,
+  onClick: PropTypes.func,
+  icon: PropTypes.string,
+  name: PropTypes.string
 }
 
 export default DragDropContext(HTML5Backend)(Menu)
