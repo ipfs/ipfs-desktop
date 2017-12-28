@@ -17,6 +17,67 @@ const RUNNING = 'running'
 const STARTING = 'starting'
 const STOPPING = 'stopping'
 
+const panesOrder = [
+  'nodeInfo',
+  'files',
+  'peers',
+  'settings'
+]
+
+const panes = {
+  nodeInfo: {
+    option: {
+      name: 'Node',
+      icon: 'info'
+    },
+    render: function () {
+      return (
+        <NodeInfo
+          {...this.state.stats.node}
+          running={this.state.status === RUNNING}
+          bandwidth={this.state.stats.bw}
+          repo={this.state.stats.repo} />
+      )
+    }
+  },
+  files: {
+    option: {
+      name: 'Files',
+      icon: 'files'
+    },
+    render: function () {
+      return <Files files={this.state.files} />
+    }
+  },
+  settings: {
+    option: {
+      name: 'Settings',
+      icon: 'settings'
+    },
+    render: function () {
+      return <Settings settings={this.state.settings} />
+    }
+  },
+  peers: {
+    option: {
+      name: 'Peers',
+      icon: 'pulse'
+    },
+    render: function () {
+      let location = 'Unknown'
+      if (this.state.stats.node) {
+        location = this.state.stats.node.location
+      }
+
+      return (
+        <Peers
+          peers={this.state.stats.peers}
+          location={location} />
+      )
+    }
+  }
+}
+
 class Menu extends Component {
   state = {
     status: UNINITIALIZED,
@@ -74,71 +135,38 @@ class Menu extends Component {
       )
     }
 
-    switch (this.state.route) {
-      case 'files':
-        return (
-          <Files files={this.state.files} />
-        )
-      case 'peers':
-        var location = 'Unknown'
-        if (this.state.stats.node) {
-          location = this.state.stats.node.location
-        }
-
-        return (
-          <Peers
-            peers={this.state.stats.peers}
-            location={location} />
-        )
-      case 'info':
-        return (
-          <NodeInfo
-            {...this.state.stats.node}
-            running={this.state.status === RUNNING}
-            bandwidth={this.state.stats.bw}
-            repo={this.state.stats.repo} />
-        )
-      case 'settings':
-        return (
-          <Settings settings={this.state.settings} />
-        )
-      default:
-        return (
-          <Pane class='left-pane'>
-            <p className='notice'>
-              Hmmm... Something strange happened and you shouldn't be here.
-            </p>
-          </Pane>
-        )
+    if (panes.hasOwnProperty(this.state.route)) {
+      return panes[this.state.route].render.call(this)
     }
+
+    return (
+      <Pane class='left-pane'>
+        <p className='notice'>
+          Hmmm... Something strange happened and you shouldn't be here.
+        </p>
+      </Pane>
+    )
   }
 
   render () {
+    const options = []
+
+    panesOrder.forEach((paneName) => {
+      const pane = panes[paneName]
+
+      options.push((
+        <MenuOption
+          name={pane.option.name}
+          icon={pane.option.icon}
+          active={this.state.route === paneName}
+          onClick={() => this._changeRoute(paneName)} />
+      ))
+    })
+
     return [
       (
         <div className='menu'>
-          <MenuOption
-            name='Node'
-            icon='info'
-            active={this.state.route === 'info'}
-            onClick={() => this._changeRoute('info')} />
-
-          <MenuOption
-            name='Files'
-            icon='files'
-            active={this.state.route === 'files'}
-            onClick={() => this._changeRoute('files')} />
-
-          <MenuOption
-            name='Peers'
-            icon='pulse'
-            active={this.state.route === 'peers'}
-            onClick={() => this._changeRoute('peers')} />
-
-          <MenuOption
-            name='Settings'
-            icon='settings'
-            onClick={() => this._changeRoute('settings')} />
+          {options}
         </div>
       ),
       this._getRouteScreen()
