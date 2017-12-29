@@ -21,22 +21,22 @@ const STOPPING = 'stopping'
 const panes = [
   {
     id: 'info',
-    name: 'Node',
+    title: 'Node',
     icon: 'info'
   },
   {
     id: 'files',
-    name: 'Files',
+    title: 'Files',
     icon: 'files'
   },
   {
     id: 'peers',
-    name: 'Peers',
+    title: 'Peers',
     icon: 'pulse'
   },
   {
     id: 'settings',
-    name: 'Settings',
+    title: 'Settings',
     icon: 'settings'
   }
 ]
@@ -132,7 +132,7 @@ class Menu extends Component {
       menu.push((
         <MenuOption
           key={pane.id}
-          name={pane.name}
+          title={pane.title}
           icon={pane.icon}
           active={this.state.route === pane.id}
           onClick={() => this._changeRoute(pane.id)} />
@@ -145,8 +145,13 @@ class Menu extends Component {
   }
 
   render () {
+    let className = ''
+    if (this.state.settings.lightTheme) {
+      className = 'light'
+    }
+
     return (
-      <PaneContainer>
+      <PaneContainer className={className}>
         {this._getMenu()}
         {this._getRouteScreen()}
       </PaneContainer>

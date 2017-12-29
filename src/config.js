@@ -103,7 +103,7 @@ export default {
       skipTaskbar: true,
       width: 600,
       height: 400,
-      backgroundColor: '#000000',
+      backgroundColor: (settingsStore.get('lightTheme') ? '#FFFFFF' : '#000000'),
       webPreferences: {
         nodeIntegration: true,
         webSecurity: false

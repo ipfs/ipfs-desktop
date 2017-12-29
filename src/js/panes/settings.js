@@ -5,6 +5,7 @@ import {ipcRenderer} from 'electron'
 import Pane from '../components/view/pane'
 import Header from '../components/view/header'
 import CheckboxBlock from '../components/view/checkbox-block'
+import KeyCombo from '../components/view/key-combo'
 
 function generateOnChange (key) {
   return (value) => {
@@ -12,39 +13,55 @@ function generateOnChange (key) {
   }
 }
 
+const options = [
+  {
+    title: 'Launch on startup',
+    setting: 'autoLaunch'
+  },
+  {
+    title: 'Auto add screenshots',
+    setting: 'screenshotShortcut',
+    description: (
+      <span>
+        Upload screenshots taken with <KeyCombo keys={['CTRL/CMD', 'ALT', 'S']} /> shortcut
+      </span>
+    )
+  },
+  {
+    title: 'Download copied hash',
+    setting: 'downloadHashShortcut',
+    description: (
+      <span>
+        Download copied hash with <KeyCombo keys={['CTRL/CMD', 'ALT', 'D']} /> shortcut
+      </span>
+    )
+  },
+  {
+    title: 'Light theme',
+    setting: 'lightTheme'
+  }
+]
+
 export default function Settings (props) {
+  const opts = []
+
+  options.forEach((option) => {
+    opts.push((
+      <CheckboxBlock
+        title={option.title}
+        key={option.setting}
+        info={option.description}
+        onChange={generateOnChange(option.setting)}
+        value={props.settings[option.setting]} />
+    ))
+  })
+
   return (
     <Pane>
       <Header title='Settings' />
 
       <div className='main'>
-        <CheckboxBlock
-          title='Launch on startup'
-          id='autoLaunch'
-          onChange={generateOnChange('autoLaunch')}
-          value={props.settings.autoLaunch} />
-
-        <CheckboxBlock
-          title='Auto upload screenshots'
-          id='screenshotShortcut'
-          onChange={generateOnChange('screenshotShortcut')}
-          value={props.settings.screenshotShortcut}
-          info={(<span>
-            Upload screenshots taken with <span className='key'>CTRL/CMD</span> + <span />
-            <span className='key'>ALT</span> + <span className='key'>S</span> <span />
-            shortcut</span>
-          )} />
-
-        <CheckboxBlock
-          title='Download copied hash'
-          id='downloadHashShortcut'
-          onChange={generateOnChange('downloadHashShortcut')}
-          value={props.settings.downloadHashShortcut}
-          info={(<span>
-            Download copied hash with <span className='key'>CTRL/CMD</span> + <span />
-            <span className='key'>ALT</span> + <span className='key'>D</span> <span />
-            shortcut</span>
-          )} />
+        {opts}
       </div>
     </Pane>
   )

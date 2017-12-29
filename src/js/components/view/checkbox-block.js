@@ -1,6 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+/**
+ * Is a Checkbox Block.
+ *
+ * @param {Object} props
+ *
+ * @prop {Bool} value - the current value (checked or not)
+ * @prop {Any} info - the description
+ * @prop {String} title - the option's title
+ * @prop {Function} onChange - the on change handler
+ *
+ * @return {ReactElement}
+ */
 export default function CheckboxBlock (props) {
   const _onClick = () => {
     props.onChange(!props.value)
@@ -10,7 +22,7 @@ export default function CheckboxBlock (props) {
     <div onClick={_onClick} className='info-block checkbox'>
       <div>
         <div>
-          <input type='checkbox' id={props.id} checked={props.value} />
+          <input type='checkbox' onChange={_onClick} checked={props.value} />
           <span className='checkbox' />
         </div>
         <div>
@@ -24,7 +36,6 @@ export default function CheckboxBlock (props) {
 
 CheckboxBlock.propTypes = {
   value: PropTypes.bool.isRequired,
-  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   info: PropTypes.any
