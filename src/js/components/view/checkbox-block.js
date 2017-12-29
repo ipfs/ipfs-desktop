@@ -22,12 +22,12 @@ export default function CheckboxBlock (props) {
     <div onClick={_onClick} className='info-block checkbox'>
       <div>
         <div>
-          <input type='checkbox' onChange={_onClick} checked={props.value} />
-          <span className='checkbox' />
-        </div>
-        <div>
           <p className='label'>{props.title}</p>
           <p className='info'>{props.info}</p>
+        </div>
+        <div>
+          <input type='checkbox' onChange={_onClick} checked={props.value} />
+          <span className='checkbox' />
         </div>
       </div>
     </div>

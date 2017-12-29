@@ -30,10 +30,6 @@ function stopDaemon () {
   ipcRenderer.send('stop-daemon')
 }
 
-function close () {
-  ipcRenderer.send('quit-application')
-}
-
 export default function NodeInfo (props) {
   return (
     <Pane class={'node right-pane' + (props.running ? '' : ' translucent')}>
@@ -95,14 +91,6 @@ export default function NodeInfo (props) {
           info='Click to open'
           button={false}
           onClick={openWebUI} />
-
-        <div className='always-on'>
-          <InfoBlock
-            title='Close'
-            button={false}
-            onClick={close}
-            info='Click to close Station' />
-        </div>
       </div>
 
       <Footer>

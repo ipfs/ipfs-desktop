@@ -4,6 +4,7 @@ import {ipcRenderer} from 'electron'
 
 import Pane from '../components/view/pane'
 import Header from '../components/view/header'
+import InfoBlock from '../components/view/info-block'
 import CheckboxBlock from '../components/view/checkbox-block'
 import KeyCombo from '../components/view/key-combo'
 
@@ -11,6 +12,10 @@ function generateOnChange (key) {
   return (value) => {
     ipcRenderer.send('update-setting', key, value)
   }
+}
+
+function close () {
+  ipcRenderer.send('quit-application')
 }
 
 const options = [
@@ -62,6 +67,12 @@ export default function Settings (props) {
 
       <div className='main'>
         {opts}
+
+        <InfoBlock
+          title='Close'
+          button={false}
+          onClick={close}
+          info='Click to close Station' />
       </div>
     </Pane>
   )
