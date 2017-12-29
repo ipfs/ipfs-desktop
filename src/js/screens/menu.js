@@ -10,7 +10,7 @@ import MenuOption from '../components/view/menu-option'
 import Loader from '../panes/loader'
 import Files from '../panes/files'
 import Peers from '../panes/peers'
-import NodeInfo from '../panes/node-info'
+import Info from '../panes/info'
 import Settings from '../panes/settings'
 
 const UNINITIALIZED = 'uninitialized'
@@ -108,7 +108,7 @@ class Menu extends Component {
         return <Peers peers={this.state.stats.peers} location={location} />
       case 'info':
         return (
-          <NodeInfo
+          <Info
             {...this.state.stats.node}
             running={this.state.status === RUNNING}
             bandwidth={this.state.stats.bw}
