@@ -7,7 +7,7 @@ import {DropTarget} from 'react-dnd'
 import Pane from '../components/view/pane'
 import Header from '../components/view/header'
 import Footer from '../components/view/footer'
-import File from '../components/view/file'
+import File from '../components/view/file-block'
 import IconButton from '../components/view/icon-button'
 
 const fileTarget = {
@@ -32,7 +32,6 @@ class Files extends Component {
 
   static propTypes = {
     connectDropTarget: PropTypes.func.isRequired,
-    changeRoute: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
     files: PropTypes.array
@@ -82,7 +81,7 @@ class Files extends Component {
 
     return connectDropTarget(
       <div>
-        <Pane class='left-pane files'>
+        <Pane class='files'>
           <Header title='Your Files' />
 
           <div className='main'>
@@ -94,7 +93,6 @@ class Files extends Component {
           </div>
 
           <Footer>
-            <IconButton onClick={() => { this.props.changeRoute('peers') }} icon='pulse' />
             <IconButton active={this.state.sticky} onClick={this._toggleStickWindow} icon='eye' />
 
             <div className='right'>

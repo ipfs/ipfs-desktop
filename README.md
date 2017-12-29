@@ -90,7 +90,7 @@ import Footer from '../components/view/footer'
 
 export default function MyPane {
     return (
-      <Pane class='left-pane peers'>
+      <Pane class='peers'>
         <Header title='The title of your pane' />
 
         <div className='main'>
@@ -117,7 +117,8 @@ Now, to incorporate your pane into Station iself so it is visible, you have to i
 The components are classes exported with CamelCase names. The corresponding files have the associated class name with hyphen-separated-words. So, e.g., `simple-stat.js` exports a class named `SimpleStat`.
 
 + [**Button**](./src/js/components/view/button.js) is a simple button with text.
-+ [**File**](./src/js/components/view/file.js) is used within a file list to describe a file with a button to copy its link.
++ [**CheckboxBlock**](./src/js/components/view/checkbox-block.js) is like an `InfoBlock`, but with a checkbox attached to it.
++ [**FileBlock**](./src/js/components/view/file-block.js) is used within a file list to describe a file with a button to copy its link.
 + [**Footer**](./src/js/components/view/footer.js) is the footer of a pane.
 + [**Header**](./src/js/components/view/header.js) is the header of a pane.
 + [**Heartbeat**](./src/js/components/view/heartbeat.js) displays an heartbeat-like animation with the IPFS logo.
@@ -125,8 +126,7 @@ The components are classes exported with CamelCase names. The corresponding file
 + [**IconDropdownList**](./src/js/components/view/icon-dropdown-list.js) is a dropdown list with an icon.
 + [**Icon**](./src/js/components/view/icon.js) shows an icon.
 + [**InfoBlock**](./src/js/components/view/info-block.js) shows a block of information (used on node info pane).
-+ [**Loader**](./src/js/components/view/loader.js) is a loader.
-+ [**Peer**](./src/js/components/view/peer.js) shows a peer information.
++ [**MenuOption**](./src/js/components/view/menu-option.js) is a menu option to show within a menu bar.
 
 ## Contribute
 

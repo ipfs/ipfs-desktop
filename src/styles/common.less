@@ -11,8 +11,13 @@ body {
   font-family: 'Inter UI', sans-serif;
   overflow: hidden;
   color: #FFF;
-  background: #252525;
+  background: #000000;
   user-select: none;
+}
+
+.light {
+  color: #212121;
+  background: #fff;
 }
 
 ::-webkit-scrollbar {
@@ -24,6 +29,11 @@ body {
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 0.5em;
+}
+
+.light ::-webkit-scrollbar-thumb:window-inactive,
+.light ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .dropdown-list,
@@ -39,6 +49,13 @@ input[type="text"] {
   transition: .2s ease all;
 }
 
+.light .dropdown-list,
+.light .directory-input,
+.light .button,
+.light input[type="text"] {
+  background: rgba(0, 0, 0, 0.2);
+}
+
 .button {
   cursor: pointer;
 
@@ -48,6 +65,12 @@ input[type="text"] {
 
   span {
     font-size: @normal-font;
+  }
+}
+
+.light .button {
+  &:hover {
+    background: rgba(0, 0, 0, 0.3)
   }
 }
 
@@ -62,6 +85,11 @@ input[type="text"] {
     font-size: @normal-font;
     color: rgba(255, 255, 255, 0.4);
   }
+}
+
+.icon img {
+  width: 20px;
+  height: 20px;
 }
 
 .directory-input,
@@ -102,27 +130,6 @@ input[type="text"] {
   }
 }
 
-.node {
-  .sharing {
-    padding: 0 1em 1em;
-    p {
-      margin: 0;
-    }
-    p:first-of-type {
-      font-size: @big-font;
-    }
-    p:last-of-type {
-      font-size: @medium-font;
-      color: rgba(255, 255, 255, 0.5);
-    }
-  }
-
-  .header img {
-    cursor: pointer;
-    width: 1.15em;
-  }
-}
-
 .button-icon {
   line-height: 1;
   border: 0;
@@ -140,6 +147,15 @@ input[type="text"] {
   }
 }
 
+.light .button-icon {
+  color: rgba(0, 0, 0, 0.5);
+
+  &.active,
+  &:hover {
+    color: rgba(0, 0, 0, 0.8);
+  }
+}
+
 .notice {
   color: rgba(255, 255, 255, 0.5);
   position: absolute;
@@ -150,9 +166,17 @@ input[type="text"] {
   text-align: center;
 }
 
+.light .notice {
+  color: #212121
+}
+
 .key {
   font-size: 0.8em;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 0.2em;
   padding: 0 0.2em;
+}
+
+.light .key {
+  background: #eee;
 }

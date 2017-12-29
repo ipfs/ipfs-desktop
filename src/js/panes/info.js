@@ -4,7 +4,6 @@ import {clipboard, ipcRenderer} from 'electron'
 import prettyBytes from 'pretty-bytes'
 
 import Pane from '../components/view/Pane'
-import Heartbeat from '../components/view/heartbeat'
 import Header from '../components/view/header'
 import Footer from '../components/view/footer'
 import IconButton from '../components/view/icon-button'
@@ -12,10 +11,6 @@ import InfoBlock from '../components/view/info-block'
 
 function onClickCopy (text) {
   return () => clipboard.writeText(text)
-}
-
-function openSettings () {
-  ipcRenderer.send('open-settings')
 }
 
 function openNodeSettings () {
@@ -26,27 +21,18 @@ function openWebUI () {
   ipcRenderer.send('open-webui')
 }
 
-function startDaemon () {
-  ipcRenderer.send('start-daemon')
-}
+export default function Info (props) {
+  const onClick = () => {
+    if (props.running) {
+      ipcRenderer.send('stop-daemon')
+    } else {
+      ipcRenderer.send('start-daemon')
+    }
+  }
 
-function stopDaemon () {
-  ipcRenderer.send('stop-daemon')
-}
-
-function close () {
-  ipcRenderer.send('quit-application')
-}
-
-export default function NodeInfo (props) {
   return (
     <Pane class={'node right-pane' + (props.running ? '' : ' translucent')}>
-      <Header title='Your Node'>
-        <Heartbeat
-          dead={!props.running}
-          onClickAlive={stopDaemon}
-          onClickDead={startDaemon} />
-      </Header>
+      <Header title='Your Node' />
 
       <div className='main'>
         <div className='sharing'>
@@ -99,32 +85,18 @@ export default function NodeInfo (props) {
           info='Click to open'
           button={false}
           onClick={openWebUI} />
-
-        <div className='always-on'>
-          <InfoBlock
-            title='Settings'
-            info='IPFS Station Settings'
-            button={false}
-            onClick={openSettings} />
-
-          <InfoBlock
-            title='Close'
-            button={false}
-            onClick={close}
-            info='Click to close Station' />
-        </div>
       </div>
 
       <Footer>
-        <div className='right'>
-          <IconButton onClick={stopDaemon} icon='power-off' />
+        <div className='right always-on'>
+          <IconButton onClick={onClick} icon='power-off' />
         </div>
       </Footer>
     </Pane>
   )
 }
 
-NodeInfo.propTypes = {
+Info.propTypes = {
   id: PropTypes.string,
   running: PropTypes.bool.isRequired,
   location: PropTypes.string,
@@ -135,7 +107,7 @@ NodeInfo.propTypes = {
   bandwidth: PropTypes.object
 }
 
-NodeInfo.defaultProps = {
+Info.defaultProps = {
   id: 'Undefined',
   location: 'Unknown',
   protocolVersion: 'Undefined',

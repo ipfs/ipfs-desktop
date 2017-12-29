@@ -5,36 +5,64 @@ import HTML5Backend from 'react-dnd-html5-backend'
 
 import PaneContainer from '../components/view/pane-container'
 import Pane from '../components/view/pane'
-import Loader from '../components/view/loader'
+import MenuOption from '../components/view/menu-option'
 
+import Loader from '../panes/loader'
 import Files from '../panes/files'
 import Peers from '../panes/peers'
-import NodeInfo from '../panes/node-info'
+import Info from '../panes/info'
+import Settings from '../panes/settings'
 
 const UNINITIALIZED = 'uninitialized'
 const RUNNING = 'running'
 const STARTING = 'starting'
 const STOPPING = 'stopping'
 
+const panes = [
+  {
+    id: 'info',
+    title: 'Info',
+    icon: 'ipfs'
+  },
+  {
+    id: 'files',
+    title: 'Files',
+    icon: 'files'
+  },
+  {
+    id: 'peers',
+    title: 'Peers',
+    icon: 'pulse'
+  },
+  {
+    id: 'settings',
+    title: 'Settings',
+    icon: 'settings'
+  }
+]
+
 class Menu extends Component {
   state = {
     status: UNINITIALIZED,
-    route: 'files',
-    connected: false,
-    version: null,
-    stats: {}
+    route: panes[0].id,
+    stats: {},
+    settings: {}
   }
 
-  _onNodeStatus = (event, status) => {
-    this.setState({status: status})
-  }
+  listeners = {}
 
-  _onStats = (event, stats) => {
-    this.setState({stats: stats})
-  }
+  _onSomething = (key) => {
+    if (this.listeners[key]) {
+      return this.listeners[key]
+    }
 
-  _onFiles = (event, files) => {
-    this.setState({files: files})
+    this.listeners[key] = (event, value) => {
+      const obj = {}
+      obj[key] = value
+      this.setState(obj)
+    }
+
+    return this.listeners[key]
   }
 
   _changeRoute = (route) => {
@@ -43,69 +71,89 @@ class Menu extends Component {
 
   componentDidMount () {
     // -- Listen to control events
-    ipcRenderer.on('node-status', this._onNodeStatus)
-    ipcRenderer.on('stats', this._onStats)
-    ipcRenderer.on('files', this._onFiles)
+    ipcRenderer.on('node-status', this._onSomething('status'))
+    ipcRenderer.on('stats', this._onSomething('stats'))
+    ipcRenderer.on('files', this._onSomething('files'))
+    ipcRenderer.on('settings', this._onSomething('settings'))
 
     ipcRenderer.send('request-state')
     ipcRenderer.send('request-files')
+    ipcRenderer.send('request-settings')
   }
 
   componentWillUnmount () {
     // -- Remove control events
-    ipcRenderer.removeListener('node-status', this._onNodeStatus)
-    ipcRenderer.removeListener('stats', this._onStats)
-    ipcRenderer.removeListener('files', this._onFiles)
+    ipcRenderer.removeListener('node-status', this._onSomething('status'))
+    ipcRenderer.removeListener('stats', this._onSomething('stats'))
+    ipcRenderer.removeListeneron('files', this._onSomething('files'))
+    ipcRenderer.removeListener('settings', this._onSomething('settings'))
   }
 
   _getRouteScreen () {
     if (this.state.status === STARTING || this.state.status === STOPPING) {
-      return (
-        <Pane class='left-pane'>
-          <Loader key='loader-screen' />
-        </Pane>
-      )
-    }
-
-    if (this.state.status !== RUNNING) {
-      return (
-        <Pane class='left-pane'>
-          <p className='notice'>
-            Oh snap, it looks like your node is not running yet.
-            Change that by clicking the button on the top right corner.
-          </p>
-        </Pane>
-      )
+      return <Loader key='loader-screen' />
     }
 
     switch (this.state.route) {
       case 'files':
-        return (
-          <Files
-            files={this.state.files}
-            changeRoute={this._changeRoute} />
-        )
+        return <Files files={this.state.files} />
+      case 'settings':
+        return <Settings settings={this.state.settings} />
       case 'peers':
+        var location = 'Unknown'
+        if (this.state.stats.node) {
+          location = this.state.stats.node.location
+        }
+
+        return <Peers peers={this.state.stats.peers} location={location} />
+      case 'info':
         return (
-          <Peers
-            peers={this.state.stats.peers}
-            location={this.state.stats.node.location}
-            changeRoute={this._changeRoute} />
+          <Info
+            {...this.state.stats.node}
+            running={this.state.status === RUNNING}
+            bandwidth={this.state.stats.bw}
+            repo={this.state.stats.repo} />
         )
       default:
-        return null
+        return (
+          <Pane class='left-pane'>
+            <p className='notice'>
+              Hmmm... Something strange happened and you should not be here.
+            </p>
+          </Pane>
+        )
     }
   }
 
-  render () {
+  _getMenu () {
+    const menu = []
+
+    panes.forEach((pane) => {
+      menu.push((
+        <MenuOption
+          key={pane.id}
+          title={pane.title}
+          icon={pane.icon}
+          active={this.state.route === pane.id}
+          onClick={() => this._changeRoute(pane.id)} />
+      ))
+    })
+
     return (
-      <PaneContainer>
+      <div className='menu'>{menu}</div>
+    )
+  }
+
+  render () {
+    let className = ''
+    if (this.state.settings.lightTheme) {
+      className = 'light'
+    }
+
+    return (
+      <PaneContainer className={className}>
+        {this._getMenu()}
         {this._getRouteScreen()}
-        <NodeInfo
-          {...this.state.stats.node}
-          running={this.state.status === RUNNING}
-          bandwidth={this.state.stats.bw}
-          repo={this.state.stats.repo} />
       </PaneContainer>
     )
   }

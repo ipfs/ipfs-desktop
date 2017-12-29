@@ -24,15 +24,6 @@ app.makeSingleInstance(() => {
   )
 })
 
-// Make sure Settings Window is closed when quitting the application.
-app.on('before-quit', (event) => {
-  const {settingsWindow} = config
-
-  if (settingsWindow instanceof BrowserWindow) {
-    settingsWindow.destroy()
-  }
-})
-
 // Local Variables
 
 let poller = null

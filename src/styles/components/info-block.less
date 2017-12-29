@@ -1,4 +1,5 @@
-@import './variables.less';
+@import '../variables.less';
+
 .info-block {
   padding: 0 1em;
   transition: .2s ease background-color;
@@ -38,15 +39,6 @@
     font-size: @normal-font;
   }
 
-  pre {
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 0.5em;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    border-radius: .2em;
-    color: rgba(255, 255, 255, 0.4);
-  }
-
   button {
     opacity: 0;
     position: absolute;
@@ -75,60 +67,20 @@
   }
 }
 
-.info-block.file {
+.light .info-block {
   &>div {
-    display: flex;
-    align-items: center;
+    border-color: rgba(0, 0, 0, 0.1);
   }
 
-  &>div>div:nth-child(2) {
-    overflow: hidden;
+  &:hover {
+    background: #fbfbfb;
   }
 
-  & .icon {
-    font-size: 1.6em;
-    margin-right: 0.35em;
-    color: rgba(255, 255, 255, 0.5)
-  }
-}
-
-.info-block.checkbox {
-  cursor: pointer;
-
-  &>div {
-    display: flex;
-    align-items: center;
+  .info {
+    color: rgba(0, 0, 0, 0.5);
   }
 
-  &>div>div:first-of-type {
-    margin-right: 1em;
-  }
-
-  input[type='checkbox'] {
-    display: none;
-  }
-
-  p {
-    white-space: pre-wrap;
-  }
-
-  .checkbox {
-    width: 1em;
-    height: 1em;
-    background: #fff;
-    border-radius: 0.2em;
-    display: block;
-    transition: .2s ease-in-out all;
-    position: relative;
-  }
-
-  input[type='checkbox']:checked ~ .checkbox::before {
-    content: '\2714';
-    color: #5cb6bf;
-    font-size: 0.9em;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%)
+  .button-overlay {
+    background: linear-gradient(to left, #fbfbfb 0%, #fbfbfb 50%, transparent 100%);
   }
 }

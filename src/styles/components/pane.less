@@ -1,4 +1,4 @@
-@import './variables.less';
+@import '../variables.less';
 
 .panes {
   display: flex;
@@ -9,6 +9,8 @@
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
+  background: #000;
+  flex-grow: 1;
 
   .header,
   .footer {
@@ -41,10 +43,10 @@
   .footer {
     height: 5.25em;
     display: flex;
-    background: linear-gradient(to top, #252525 0%, #252525 45%, transparent 100%);
+    background: linear-gradient(to top, #000000 0%, #000000 45%, transparent 100%);
     position: fixed;
     bottom: 0;
-    left: 0;
+    right: 0.5em;
     padding-top: 3em;
     box-sizing: border-box;
     width: 100%;
@@ -63,33 +65,26 @@
       margin-top: -0.5em;
     }
   }
-
-  &.left-pane {
-    width: 550px;
-    background: #000;
-  }
-
-  &.left-pane .footer {
-    background: linear-gradient(to top, #000000 0%, #000000 45%, transparent 100%);
-    width: calc(~"550px - 0.5em")
-  }
-
-  &.right-pane {
-    background-color: #252525;
-    color: #fff;
-    width: 300px;
-
-    .footer {
-      left: 550px;
-      width: calc(~"300px - 0.5em");
-    }
-  }
 }
 
 .pane.translucent {
-  .footer>*,
+  .footer>*:not(.always-on),
   .main>*:not(.always-on) {
     opacity: 0.2;
     pointer-events: none;
+  }
+}
+
+.light .pane {
+  background: #fff;
+
+  .header {
+    .title {
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .footer {
+    background: linear-gradient(to top, #fff 0%, #fff 45%, transparent 100%);
   }
 }
