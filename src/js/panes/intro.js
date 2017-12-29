@@ -60,7 +60,7 @@ export default class Intro extends Component {
     }
 
     return (
-      <Pane class='intro right-pane'>
+      <Pane class='intro'>
         <div className='main'>
           <div>
             <p className='title'>Welcome to the Distributed Web</p>

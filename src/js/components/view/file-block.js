@@ -8,7 +8,7 @@ import Button from './button'
 import Icon from './icon'
 
 /**
- * Is a File.
+ * Is a File Block.
  *
  * @param {Object} props
  *
@@ -18,7 +18,7 @@ import Icon from './icon'
  *
  * @return {ReactElement}
  */
-export default function File (props) {
+export default function FileBlock (props) {
   const extension = fileExtension(props.name)
   let icon = 'file'
   if (fileTypes[extension]) {
@@ -45,7 +45,7 @@ export default function File (props) {
   )
 }
 
-File.propTypes = {
+FileBlock.propTypes = {
   name: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   hash: PropTypes.string.isRequired

@@ -125,7 +125,6 @@ The components are classes exported with CamelCase names. The corresponding file
 + [**IconDropdownList**](./src/js/components/view/icon-dropdown-list.js) is a dropdown list with an icon.
 + [**Icon**](./src/js/components/view/icon.js) shows an icon.
 + [**InfoBlock**](./src/js/components/view/info-block.js) shows a block of information (used on node info pane).
-+ [**Loader**](./src/js/components/view/loader.js) is a loader.
 + [**Peer**](./src/js/components/view/peer.js) shows a peer information.
 
 ## Contribute

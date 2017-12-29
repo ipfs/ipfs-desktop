@@ -4,7 +4,7 @@ import {ipcRenderer} from 'electron'
 
 import Pane from '../components/view/pane'
 import Header from '../components/view/header'
-import CheckboxItem from '../components/view/checkbox-item'
+import CheckboxBlock from '../components/view/checkbox-block'
 
 function generateOnChange (key) {
   return (value) => {
@@ -18,13 +18,13 @@ export default function Settings (props) {
       <Header title='Settings' />
 
       <div className='main'>
-        <CheckboxItem
+        <CheckboxBlock
           title='Launch on startup'
           id='autoLaunch'
           onChange={generateOnChange('autoLaunch')}
           value={props.settings.autoLaunch} />
 
-        <CheckboxItem
+        <CheckboxBlock
           title='Auto upload screenshots'
           id='screenshotShortcut'
           onChange={generateOnChange('screenshotShortcut')}
@@ -35,7 +35,7 @@ export default function Settings (props) {
             shortcut</span>
           )} />
 
-        <CheckboxItem
+        <CheckboxBlock
           title='Download copied hash'
           id='downloadHashShortcut'
           onChange={generateOnChange('downloadHashShortcut')}

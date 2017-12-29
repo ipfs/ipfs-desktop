@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import {ipcRenderer} from 'electron'
 
 import Intro from '../panes/intro'
+import Loader from '../panes/loader'
 
 import PaneContainer from '../components/view/pane-container'
-import Loader from '../components/view/loader'
 import Pane from '../components/view/pane'
 import Heartbeat from '../components/view/heartbeat'
 
@@ -68,7 +68,7 @@ export default class Welcome extends Component {
       case ADVANCED:
         return (
           <PaneContainer>
-            <Pane class='intro left-pane'>
+            <Pane class='heartbeat-pane'>
               <Heartbeat />
             </Pane>
             <Intro
@@ -85,7 +85,7 @@ export default class Welcome extends Component {
           <div key='error'>{this.state.error}</div>
         )
       default:
-        return <Loader key='loader' />
+        return <PaneContainer><Loader /></PaneContainer>
     }
   }
 }

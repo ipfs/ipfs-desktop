@@ -1,0 +1,31 @@
+@import '../variables.less';
+
+.node {
+  .sharing {
+    padding: 0 1em 1em;
+    p {
+      margin: 0;
+    }
+    p:first-of-type {
+      font-size: @big-font;
+    }
+    p:last-of-type {
+      font-size: @medium-font;
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .header img {
+    cursor: pointer;
+    width: 1.15em;
+  }
+}
+
+.light .node {
+  .sharing {
+    p:last-of-type {
+      font-size: @medium-font;
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+}

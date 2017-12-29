@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function CheckboxItem (props) {
+export default function CheckboxBlock (props) {
   const _onClick = () => {
     props.onChange(!props.value)
   }
@@ -22,7 +22,7 @@ export default function CheckboxItem (props) {
   )
 }
 
-CheckboxItem.propTypes = {
+CheckboxBlock.propTypes = {
   value: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

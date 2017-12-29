@@ -7,7 +7,7 @@ import {DropTarget} from 'react-dnd'
 import Pane from '../components/view/pane'
 import Header from '../components/view/header'
 import Footer from '../components/view/footer'
-import File from '../components/view/file'
+import File from '../components/view/file-block'
 import IconButton from '../components/view/icon-button'
 
 const fileTarget = {

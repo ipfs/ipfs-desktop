@@ -3,10 +3,11 @@ import {ipcRenderer} from 'electron'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
+import PaneContainer from '../components/view/pane-container'
 import Pane from '../components/view/pane'
-import Loader from '../components/view/loader'
 import MenuOption from '../components/view/menu-option'
 
+import Loader from '../panes/loader'
 import Files from '../panes/files'
 import Peers from '../panes/peers'
 import NodeInfo from '../panes/node-info'
@@ -17,65 +18,27 @@ const RUNNING = 'running'
 const STARTING = 'starting'
 const STOPPING = 'stopping'
 
-const panes = {
-  nodeInfo: {
-    option: {
-      name: 'Node',
-      icon: 'info'
-    },
-    render (state) {
-      return (
-        <NodeInfo
-          {...state.stats.node}
-          running={state.status === RUNNING}
-          bandwidth={state.stats.bw}
-          repo={state.stats.repo} />
-      )
-    }
+const panes = [
+  {
+    id: 'info',
+    name: 'Node',
+    icon: 'info'
   },
-  files: {
-    option: {
-      name: 'Files',
-      icon: 'files'
-    },
-    render (state) {
-      return <Files files={state.files} />
-    }
+  {
+    id: 'files',
+    name: 'Files',
+    icon: 'files'
   },
-  settings: {
-    option: {
-      name: 'Settings',
-      icon: 'settings'
-    },
-    render (state) {
-      return <Settings settings={state.settings} />
-    }
+  {
+    id: 'peers',
+    name: 'Peers',
+    icon: 'pulse'
   },
-  peers: {
-    option: {
-      name: 'Peers',
-      icon: 'pulse'
-    },
-    render (state) {
-      let location = 'Unknown'
-      if (state.stats.node) {
-        location = state.stats.node.location
-      }
-
-      return (
-        <Peers
-          peers={state.stats.peers}
-          location={location} />
-      )
-    }
+  {
+    id: 'settings',
+    name: 'Settings',
+    icon: 'settings'
   }
-}
-
-const panesOrder = [
-  'nodeInfo',
-  'files',
-  'peers',
-  'settings'
 ]
 
 class Menu extends Component {
@@ -128,39 +91,51 @@ class Menu extends Component {
 
   _getRouteScreen () {
     if (this.state.status === STARTING || this.state.status === STOPPING) {
-      return (
-        <Pane>
-          <Loader key='loader-screen' />
-        </Pane>
-      )
+      return <Loader key='loader-screen' />
     }
 
-    if (panes.hasOwnProperty(this.state.route)) {
-      return panes[this.state.route].render(this.state)
-    }
+    switch (this.state.route) {
+      case 'files':
+        return <Files files={this.state.files} />
+      case 'settings':
+        return <Settings settings={this.state.settings} />
+      case 'peers':
+        var location = 'Unknown'
+        if (this.state.stats.node) {
+          location = this.state.stats.node.location
+        }
 
-    return (
-      <Pane class='left-pane'>
-        <p className='notice'>
-          Hmmm... Something strange happened and you should not be here.
-        </p>
-      </Pane>
-    )
+        return <Peers peers={this.state.stats.peers} location={location} />
+      case 'info':
+        return (
+          <NodeInfo
+            {...this.state.stats.node}
+            running={this.state.status === RUNNING}
+            bandwidth={this.state.stats.bw}
+            repo={this.state.stats.repo} />
+        )
+      default:
+        return (
+          <Pane class='left-pane'>
+            <p className='notice'>
+              Hmmm... Something strange happened and you should not be here.
+            </p>
+          </Pane>
+        )
+    }
   }
 
   _getMenu () {
     const menu = []
 
-    panesOrder.forEach((paneName) => {
-      const pane = panes[paneName]
-
+    panes.forEach((pane) => {
       menu.push((
         <MenuOption
-          key={pane.option.name}
-          name={pane.option.name}
-          icon={pane.option.icon}
-          active={this.state.route === paneName}
-          onClick={() => this._changeRoute(paneName)} />
+          key={pane.id}
+          name={pane.name}
+          icon={pane.icon}
+          active={this.state.route === pane.id}
+          onClick={() => this._changeRoute(pane.id)} />
       ))
     })
 
@@ -170,10 +145,12 @@ class Menu extends Component {
   }
 
   render () {
-    return [
-      this._getMenu(),
-      this._getRouteScreen()
-    ]
+    return (
+      <PaneContainer>
+        {this._getMenu()}
+        {this._getRouteScreen()}
+      </PaneContainer>
+    )
   }
 }
 

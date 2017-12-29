@@ -1,46 +1,7 @@
-@import './variables.less';
+@import '../variables.less';
 
-#menubar,
 .panes {
   display: flex;
-}
-
-.menu {
-  display: flex;
-  background: #151515;
-  flex-direction: column;
-}
-
-.menu-option:last-child {
-  margin-top: auto;
-}
-
-.menu-option {
-  line-height: 1;
-  border: 0;
-  outline: 0;
-  margin: 0;
-  padding: 0.5em;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.4);
-  cursor: pointer;
-  transition: .2s ease all;
-  width: 4em;
-  height: 4em;
-
-  p {
-    margin: 0.8em 0 0;
-    font-size: 0.8em;
-  }
-
-  &:hover {
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  &.active {
-    background: #000;
-    color: #fff;
-  }
 }
 
 .pane {
@@ -105,18 +66,24 @@
   }
 }
 
-#menubar .pane {
-  width: calc(~"100vw - 4em");
-
-  .footer {
-    width: calc(~"100vw - 4.5em");
-  }
-}
-
 .pane.translucent {
   .footer>*,
   .main>*:not(.always-on) {
     opacity: 0.2;
     pointer-events: none;
+  }
+}
+
+.light .pane {
+  background: #fff;
+
+  .header {
+    .title {
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .footer {
+    background: linear-gradient(to top, #fff 0%, #fff 45%, transparent 100%);
   }
 }

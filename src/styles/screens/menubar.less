@@ -1,0 +1,63 @@
+#menubar .pane {
+  width: calc(~"100vw - 4em");
+
+  .footer {
+    width: calc(~"100vw - 4.5em");
+  }
+}
+
+.menu {
+  display: flex;
+  background: #292929;
+  flex-direction: column;
+}
+
+.light .menu {
+  background: #eee;
+}
+
+.menu-option {
+  line-height: 1;
+  border: 0;
+  outline: 0;
+  margin: 0;
+  padding: 0.5em;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: .2s ease all;
+  width: 4em;
+  height: 4em;
+
+  p {
+    margin: 0.8em 0 0;
+    font-size: 0.8em;
+  }
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &.active {
+    background: #000;
+    color: #fff;
+  }
+}
+
+.light .menu-option {
+  color: #212121;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  &.active {
+    background: #000;
+    color: #fff;
+  }
+}
+
+.menu-option:last-child {
+  margin-top: auto;
+}
+
