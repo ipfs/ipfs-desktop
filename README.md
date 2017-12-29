@@ -127,7 +127,6 @@ The components are classes exported with CamelCase names. The corresponding file
 + [**Icon**](./src/js/components/view/icon.js) shows an icon.
 + [**InfoBlock**](./src/js/components/view/info-block.js) shows a block of information (used on node info pane).
 + [**MenuOption**](./src/js/components/view/menu-option.js) is a menu option to show within a menu bar.
-+ [**Peer**](./src/js/components/view/peer.js) shows a peer information.
 
 ## Contribute
 

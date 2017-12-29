@@ -14,7 +14,7 @@ function generateOnChange (key) {
   }
 }
 
-function close () {
+function quit () {
   ipcRenderer.send('quit-application')
 }
 
@@ -69,10 +69,10 @@ export default function Settings (props) {
         {opts}
 
         <InfoBlock
-          title='Close'
+          title='Quit'
           button={false}
-          onClick={close}
-          info='Click to close Station' />
+          onClick={quit}
+          info='Click to quit Station' />
       </div>
     </Pane>
   )

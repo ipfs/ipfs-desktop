@@ -11,6 +11,14 @@ import PropTypes from 'prop-types'
  * @return {ReactElement}
  */
 export default function Icon (props) {
+  if (props.name === 'ipfs') {
+    return (
+      <span className='icon'>
+        <img src='../img/ipfs-logo-black.png' />
+      </span>
+    )
+  }
+
   return (
     <span className={`icon ti-${props.name}`} />
   )

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 import Pane from '../components/view/pane'
-import Peer from '../components/view/peer'
+import InfoBlock from '../components/view/info-block'
 import Header from '../components/view/header'
 import Footer from '../components/view/footer'
 
@@ -26,7 +26,7 @@ export default class Peers extends Component {
     }
 
     peers = peers.map((peer, i) => {
-      return (<Peer key={i} {...peer} />)
+      return (<InfoBlock key={i} title={peer.id} info={peer.location.formatted} />)
     })
 
     return (

@@ -21,8 +21,8 @@ const STOPPING = 'stopping'
 const panes = [
   {
     id: 'info',
-    title: 'Node',
-    icon: 'info'
+    title: 'Info',
+    icon: 'ipfs'
   },
   {
     id: 'files',
