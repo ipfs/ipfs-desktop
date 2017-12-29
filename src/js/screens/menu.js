@@ -44,7 +44,7 @@ const panes = [
 class Menu extends Component {
   state = {
     status: UNINITIALIZED,
-    route: 'files',
+    route: panes[0].id,
     stats: {},
     settings: {}
   }
