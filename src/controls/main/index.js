@@ -3,6 +3,7 @@ import downloadHash from './download-hash'
 import fileHistory from './file-history'
 import openFileDialog from './open-file-dialog'
 import openWebUI from './open-webui'
+import pinnedFiles from './pinned-files'
 import settings from './settings'
 import takeScreenshot from './take-screenshot'
 import toggleSticky from './toggle-sticky'
@@ -14,6 +15,7 @@ export default function (opts) {
   fileHistory(opts)
   openFileDialog(opts)
   openWebUI(opts)
+  pinnedFiles(opts)
   settings(opts)
   takeScreenshot(opts)
   toggleSticky(opts)

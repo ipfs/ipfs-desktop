@@ -1,7 +1,16 @@
 import {EventEmitter} from 'events'
 import {lookupPretty} from 'ipfs-geoip'
 
+/**
+ * It's a Stats Poller.
+ * @extends EventEmitter
+ */
 export default class StatsPoller extends EventEmitter {
+  /**
+   * Stats Poller constructor.
+   * @param {IpfsApi} ipfs
+   * @param {winston.Logger} logger
+   */
   constructor (ipfs, logger) {
     super()
     this.ipfs = ipfs
@@ -76,10 +85,18 @@ export default class StatsPoller extends EventEmitter {
     })
   }
 
+  /**
+   * Stops the poller.
+   * @return {Void}
+   */
   stop () {
     this.shouldPoll = false
   }
 
+  /**
+   * Starts the poller.
+   * @return {Void}
+   */
   start () {
     this.shouldPoll = true
     this._poller()

@@ -1,5 +1,6 @@
 import multiaddr from 'multiaddr'
 import {clipboard} from 'electron'
+import isIPFS from 'is-ipfs'
 
 export function apiAddrToUrl (apiAddr) {
   const parts = multiaddr(apiAddr).nodeAddress()
@@ -9,13 +10,21 @@ export function apiAddrToUrl (apiAddr) {
 }
 
 export function uploadFiles (opts) {
-  let {ipfs, logger, fileHistory} = opts
+  let {ipfs, logger, fileHistory, send} = opts
+  let adding = 0
+
+  const sendAdding = () => { send('adding', adding > 0) }
+  const inc = () => { adding++; sendAdding() }
+  const dec = () => { adding--; sendAdding() }
 
   return (event, files) => {
+    logger.info('Uploading files', {files})
+    inc()
+
     ipfs()
       .add(files, {recursive: true, wrap: true})
       .then((res) => {
-        logger.info('Uploading files', {files})
+        dec()
 
         res.forEach((file) => {
           const url = `https://ipfs.io/ipfs/${file.hash}`
@@ -24,6 +33,16 @@ export function uploadFiles (opts) {
           fileHistory.add(file.path, file.hash)
         })
       })
-      .catch(e => { logger.error(e.stack) })
+      .catch(e => {
+        dec()
+        logger.error(e.stack)
+      })
   }
+}
+
+export function validateIPFS (text) {
+  return isIPFS.multihash(text) ||
+    isIPFS.cid(text) ||
+    isIPFS.ipfsPath(text) ||
+    isIPFS.ipfsPath(`/ipfs/${text}`)
 }

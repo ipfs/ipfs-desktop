@@ -9,9 +9,14 @@
     cursor: pointer;
   }
 
-  &>div {
+  .wrapper {
     padding: 1em 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+  }
+
+  .wrapper > div {
+    max-width: 100%;
   }
 
   &:hover {
@@ -64,6 +69,20 @@
 
   &:hover .button-overlay {
     opacity: 1;
+  }
+
+  input.info,
+  input.label {
+    background: transparent;
+    display: block;
+    padding: 0;
+    color: inherit;
+    width: 100%;
+  }
+
+  .right {
+    margin-left: auto;
+    padding-left: 1em;
   }
 }
 

@@ -28,7 +28,7 @@ const options = [
     setting: 'screenshotShortcut',
     description: (
       <span>
-        Upload screenshots taken with <KeyCombo keys={['CTRL/CMD', 'ALT', 'S']} /> shortcut
+        Enable <KeyCombo keys={['CTRL/CMD', 'ALT', 'S']} /> to take screenshots and add them to the repository.
       </span>
     )
   },
@@ -37,7 +37,7 @@ const options = [
     setting: 'downloadHashShortcut',
     description: (
       <span>
-        Download copied hash with <KeyCombo keys={['CTRL/CMD', 'ALT', 'D']} /> shortcut
+        Enable <KeyCombo keys={['CTRL/CMD', 'ALT', 'D']} /> to download the last copied hash.
       </span>
     )
   },
@@ -62,7 +62,7 @@ export default function Settings (props) {
   })
 
   return (
-    <Pane>
+    <Pane class='footerless'>
       <Header title='Settings' />
 
       <div className='main'>

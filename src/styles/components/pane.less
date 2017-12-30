@@ -19,6 +19,7 @@
 
   .header {
     display: flex;
+    position: relative;
 
     .title {
       font-size: @medium-font;
@@ -34,10 +35,26 @@
     &>div:first-child {
       margin-right: auto;
     }
+
+    &.loading:after{
+      display: block;
+      position: absolute;
+      content: "";
+      left: -20em;
+      width: 20em;
+      height: 4px;
+      bottom: 0;
+      background-color: #FFEB3B;
+      animation: loading 2s linear infinite;
+    }
   }
 
   .main {
     padding-bottom: 5.25em;
+  }
+
+  &.footerless .main {
+    padding-bottom: 0;
   }
 
   .footer {
@@ -86,5 +103,27 @@
 
   .footer {
     background: linear-gradient(to top, #fff 0%, #fff 45%, transparent 100%);
+  }
+}
+
+@keyframes loading {
+  from {
+    left: -20em;
+    width: 30%;
+  }
+  50% {
+    width: 30%;
+  }
+  70% {
+    width: 70%;
+  }
+  80% {
+    left: 50%;
+  }
+  95% {
+    left: 120%;
+  }
+  to {
+    left: 100%;
   }
 }

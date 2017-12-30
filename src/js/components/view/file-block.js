@@ -27,7 +27,7 @@ export default function FileBlock (props) {
 
   return (
     <div className='info-block file'>
-      <div>
+      <div className='wrapper'>
         <div className='icon'>
           <Icon name={icon} />
         </div>
@@ -35,11 +35,17 @@ export default function FileBlock (props) {
           <p className='label'>{props.name}</p>
           <p className='info'>{moment(props.date).fromNow()}</p>
         </div>
-        <div className='button-overlay'>
-          <Button text='Copy Link' onClick={() => {
-            clipboard.writeText(`https://ipfs.io/ipfs/${props.hash}`)
-          }} />
-        </div>
+        { props.uploading &&
+          <div className='right'>
+            <Icon name='reload' />
+          </div>
+        }
+      </div>
+
+      <div className='button-overlay'>
+        <Button text='Copy Link' onClick={() => {
+          clipboard.writeText(`https://ipfs.io/ipfs/${props.hash}`)
+        }} />
       </div>
     </div>
   )
@@ -48,7 +54,8 @@ export default function FileBlock (props) {
 FileBlock.propTypes = {
   name: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  hash: PropTypes.string.isRequired
+  hash: PropTypes.string.isRequired,
+  uploading: PropTypes.bool
 }
 
 const fileTypes = {
