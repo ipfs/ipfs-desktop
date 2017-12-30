@@ -23,7 +23,11 @@
   <br>
 </p>
 
-![](https://ipfs.io/ipfs/QmYo91nuMF6QqRVNJbHjKkdpk4nay1qkjq1ztwxFchtDWU)
+| ![](https://ipfs.io/ipfs/QmPBMMG4HUB1U1kLfwWvr6zQhGMcuvWYtGEFeTqBjG2jxW) | ![](https://ipfs.io/ipfs/QmQKdHbDnEAp7ajW7QNayxsuEWywRNyZaX6VbTzvWnHxex) | ![](https://ipfs.io/ipfs/QmTUS8rRufkXQp7ePRogMFLMxmf6YziYcb8HnDrVCvC2DF)|
+|:---:|:---:|:---:|
+| Info | Add Files | Pin Hashes |
+| ![](https://ipfs.io/ipfs/QmW1SWU1aALf8sqSvEFGUtzK8oqX9BGNA6r4bzS8MPg94B) | <img src="https://ipfs.io/ipfs/QmYo91nuMF6QqRVNJbHjKkdpk4nay1qkjq1ztwxFchtDWU" width="260"> | ![](https://ipfs.io/ipfs/QmS9mHTza1U6CjE1ehnaSxpKw7YDBsY3mvBZdBHVoTMLbm) |
+| Peers | Overview | Light Theme | 
 
 ## Table of Contents
 
