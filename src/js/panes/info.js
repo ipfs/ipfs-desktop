@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {clipboard, ipcRenderer} from 'electron'
 import prettyBytes from 'pretty-bytes'
 
-import Pane from '../components/view/Pane'
+import Pane from '../components/view/pane'
 import Header from '../components/view/header'
 import Footer from '../components/view/footer'
 import IconButton from '../components/view/icon-button'
