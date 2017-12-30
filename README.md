@@ -79,7 +79,7 @@ All of the important files of this application are into `src` folder, which can 
 
 ### How to add an new pane
 
-To create a new pane, you should start by creating a new file inside `./src/js/panes` with the following bootstrap content:
+Start by creating a new file inside `./src/js/panes` with the following bootstrap content. For more information about each piece, take a look at the [`Header`](./src/js/components/view/header.js) and [`Footer`](./src/js/components/view/footer.js) components.
 
 ```js
 import React from 'react'
@@ -90,7 +90,7 @@ import Footer from '../components/view/footer'
 
 export default function MyPane {
     return (
-      <Pane class='peers'>
+      <Pane>
         <Header title='The title of your pane' />
 
         <div className='main'>
@@ -106,11 +106,17 @@ export default function MyPane {
 }
 ```
 
-For more information about each piece, take a look at the [`Header`](./src/js/components/view/header.js) and [`Footer`](./src/js/components/view/footer.js) components.
+Then, you'll have to import the file and create an entry on `panes` array on [`./src/js/screens/menu.js`](./src/js/components/view/icon.js) with a content similar to this one: 
 
-Now, to incorporate your pane into Station iself so it is visible, you have to import it on `./src/js/screens/menubar.js` and add it to `_getRouteScreen`.
+```
+{
+  id: 'my-pane-id',       // A simple slug to identify your pane.
+  title: 'Title',         // To be shown in the menu.
+  icon: 'ipfs'            // A themify icon ID (themify.me/themify-icons)
+}
+```
 
-**Note:** soon, there will be more information on how to add a new pane.
+Now, you already have your pane created and its menu entry. Although, it you click on it, you'll probably get an error message since you aren't really routing that path to it. On the same file, go to `_getRouteScreen` function, and add a `case` for your pane on the `switch`. The value must be the same as the `id` you put on the menu entry.
 
 ## Components
 
