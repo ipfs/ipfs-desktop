@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="ipfs.io">IPFS Station<!--<img width="650px" src="" alt="IPFS Station" />--></a>
+  <a href="https://ipfs.io">IPFS Station<!--<img width="650px" src="" alt="IPFS Station" />--></a>
 </h1>
 
 <h3 align="center">A menubar IPFS application to get you on the Distributed Web!</h3>
