@@ -1,7 +1,7 @@
 import {Menubar} from 'electron-menubar'
 import ipfsd from 'ipfsd-ctl'
 import {join} from 'path'
-import {dialog, ipcMain, app, BrowserWindow} from 'electron'
+import {dialog, ipcMain, app, Menu, BrowserWindow} from 'electron'
 
 import config from './config'
 import registerControls from './controls/main'
@@ -224,6 +224,26 @@ ipfsd.local((e, node) => {
   let appReady = () => {
     logger.info('Application is ready')
     menubar.tray.setHighlightMode(true)
+
+    if (process.platform === 'darwin') {
+      // Create our menu entries so that we can use MAC shortcuts
+      Menu.setApplicationMenu(Menu.buildFromTemplate([
+        {
+          label: 'Edit',
+          submenu: [
+            { role: 'undo' },
+            { role: 'redo' },
+            { type: 'separator' },
+            { role: 'cut' },
+            { role: 'copy' },
+            { role: 'paste' },
+            { role: 'pasteandmatchstyle' },
+            { role: 'delete' },
+            { role: 'selectall' }
+          ]
+        }
+      ]))
+    }
 
     ipcMain.on('request-state', onRequestState.bind(null, node))
     ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
