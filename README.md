@@ -156,5 +156,3 @@ This repository falls under the IPFS [Code of Conduct](https://github.com/ipfs/c
 ## License
 
 [MIT 2016 Protocol Labs, Inc.](./LICENSE)
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git+https://github.com/ipfs-shipyard/ipfs-desktop.svg?type=large)](https://app.fossa.io/projects/git+https://github.com/ipfs-shipyard/ipfs-desktop?ref=badge_large)
