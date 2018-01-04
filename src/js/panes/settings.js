@@ -72,7 +72,7 @@ export default function Settings (props) {
           title='Quit'
           button={false}
           onClick={quit}
-          info='Click to quit Station' />
+          info='Click to quit the application.' />
       </div>
     </Pane>
   )
