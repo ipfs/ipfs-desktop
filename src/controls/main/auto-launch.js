@@ -2,7 +2,7 @@ const AutoLaunch = require('auto-launch')
 
 const settingsOption = 'autoLaunch'
 const autoLauncher = new AutoLaunch({
-  name: 'IPFS Station'
+  name: 'IPFS Desktop'
 })
 
 export default function (opts) {

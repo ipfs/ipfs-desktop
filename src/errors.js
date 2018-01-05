@@ -7,7 +7,7 @@ const errors = [
       'already locked'
     ],
     title: 'IPFS is already running',
-    message: 'Please stop your IPFS daemon before running Station.'
+    message: 'Please stop your IPFS daemon before running this application.'
   }
 ]
 

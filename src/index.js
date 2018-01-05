@@ -20,7 +20,7 @@ app.makeSingleInstance(() => {
   logger.error('Trying to start a second instance')
   dialog.showErrorBox(
     'Multiple instances',
-    'Sorry, but there can be only one instance of Station running at the same time.'
+    'Sorry, but there can be only one instance of IPFS Desktop running at the same time.'
   )
 })
 

@@ -32,7 +32,7 @@ function ensurePath (path) {
   return path
 }
 
-const ipfsAppData = ensurePath(path.join(app.getPath('appData'), 'ipfs-station'))
+const ipfsAppData = ensurePath(path.join(app.getPath('appData'), 'ipfs-desktop'))
 const logsPath = ensurePath(path.join(ipfsAppData, 'logs'))
 
 const pinnedFiles = new PinnedFiles(path.join(ipfsAppData, 'pinned-files.json'))
@@ -76,7 +76,7 @@ function fatal (error) {
   dialog.showErrorBox(
     'Something wrong happened',
     `Some unexpected error occurred and we couldn't handle it. Please check ${path.join(logsPath, 'error.log')}` +
-    ` for the latest logs and open an issue on https://github.com/ipfs-shipyard/ipfs-station/issues.`
+    ` for the latest logs and open an issue on https://github.com/ipfs-shipyard/ipfs-desktop/issues.`
   )
 
   process.exit(1)
