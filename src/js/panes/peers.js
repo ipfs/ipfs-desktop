@@ -21,7 +21,8 @@ export default class Peers extends Component {
 
     if (this.state.search !== null && this.state.search !== '') {
       peers = peers.filter(peer => {
-        return peer.id.toLowerCase().indexOf(this.state.search) > -1
+        return peer.id.toLowerCase().indexOf(this.state.search) > -1 ||
+          peer.location.formatted.toLowerCase().indexOf(this.state.search) > -1
       })
     }
 
