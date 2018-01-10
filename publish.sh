@@ -24,4 +24,4 @@ find . -type f -name 'RELEASES' -delete
 find . -type d -empty -delete
 find . -mindepth 2 -type f -exec mv -i '{}' . ';'
 
-ghr "$tag" .
+ghr -u ipfs-shipyard -r ipfs-desktop "$tag" .
