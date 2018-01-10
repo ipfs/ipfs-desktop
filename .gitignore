@@ -5,3 +5,5 @@ out
 *.log
 *.lock
 package-lock.json
+dist
+*.zip
