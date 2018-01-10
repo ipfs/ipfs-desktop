@@ -2,14 +2,14 @@ import {shell, ipcMain} from 'electron'
 import {apiAddrToUrl} from '../utils'
 
 function open (opts) {
-  let {logger, ipfs} = opts
+  let {debug, ipfs} = opts
 
   return () => {
     ipfs().config.get('Addresses.API')
       .then((res) => {
         shell.openExternal(apiAddrToUrl(res))
       })
-      .catch(e => { logger.error(e.stack) })
+      .catch(e => { debug(e.stack) })
   }
 }
 

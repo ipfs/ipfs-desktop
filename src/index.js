@@ -1,5 +1,6 @@
 import {Menubar} from 'electron-menubar'
 import ipfsd from 'ipfsd-ctl'
+import fs from 'fs'
 import {join} from 'path'
 import {dialog, ipcMain, app, Menu, BrowserWindow} from 'electron'
 
@@ -8,7 +9,7 @@ import registerControls from './controls/main'
 import handleKnownErrors from './errors'
 import StatsPoller from './utils/stats-poller'
 
-const {logger} = config
+const {debug} = config
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -17,7 +18,7 @@ if (require('electron-squirrel-startup')) {
 
 // Ensure it's a single instance.
 app.makeSingleInstance(() => {
-  logger.error('Trying to start a second instance')
+  debug('Trying to start a second instance')
   dialog.showErrorBox(
     'Multiple instances',
     'Sorry, but there can be only one instance of IPFS Desktop running at the same time.'
@@ -66,7 +67,7 @@ function onRequestState (node, event) {
 }
 
 function onStartDaemon (node) {
-  logger.info('Start daemon')
+  debug('Starting daemon')
   send('node-status', 'starting')
 
   node.startDaemon((err, ipfsNode) => {
@@ -75,12 +76,19 @@ function onStartDaemon (node) {
       return
     }
 
-    logger.info('Started daemon')
-    poller = new StatsPoller(ipfsNode, logger)
+    debug('Daemon started')
+    poller = new StatsPoller(ipfsNode, debug)
 
     if (menubar.window && menubar.window.isVisible()) {
       poller.start()
     }
+
+    // Stop the executation of the program if some error
+    // occurs on the node.
+    node.subprocess.on('error', (e) => {
+      send('node-status', 'stopped')
+      debug(e)
+    })
 
     poller.on('change', onPollerChange)
     menubar.on('show', startPolling)
@@ -94,7 +102,7 @@ function onStartDaemon (node) {
 }
 
 function onStopDaemon (node, done) {
-  logger.info('Stopping daemon')
+  debug('Stopping daemon')
   send('node-status', 'stopping')
 
   if (poller) {
@@ -108,9 +116,9 @@ function onStopDaemon (node, done) {
   }
 
   node.stopDaemon((err) => {
-    if (err) { return logger.error(err.stack) }
+    if (err) { return debug(err.stack) }
 
-    logger.info('Stopped daemon')
+    debug('Stopped daemon')
     menubar.tray.setImage(config.logo.black)
 
     IPFS = null
@@ -120,7 +128,7 @@ function onStopDaemon (node, done) {
 }
 
 function onWillQuit (node, event) {
-  logger.info('Shutting down application')
+  debug('Shutting down application')
 
   if (IPFS == null) {
     return
@@ -134,7 +142,7 @@ function onWillQuit (node, event) {
 
 // Initalize a new IPFS node
 function initialize (path, node) {
-  logger.info('Initialzing new node')
+  debug('Initialzing new node')
 
   // Initialize the welcome window.
   const window = new BrowserWindow({
@@ -190,7 +198,7 @@ function initialize (path, node) {
 
   // Wait for the user to hit 'Install IPFS'
   ipcMain.on('initialize', (event, { keySize }) => {
-    logger.info(`Initializing new node with key size: ${keySize} in ${userPath}.`)
+    debug(`Initializing new node with key size: ${keySize} in ${userPath}.`)
     window.webContents.send('initializing')
 
     node.init({
@@ -217,12 +225,12 @@ ipfsd.local((e, node) => {
   if (e) {
     // We can't start if we fail to aquire
     // a ipfs node
-    logger.error(e.stack)
+    debug(e.stack)
     process.exit(1)
   }
 
   let appReady = () => {
-    logger.info('Application is ready')
+    debug('Application is ready')
     menubar.tray.setHighlightMode(true)
 
     if (process.platform === 'darwin') {

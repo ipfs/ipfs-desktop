@@ -10,7 +10,7 @@ export function apiAddrToUrl (apiAddr) {
 }
 
 export function uploadFiles (opts) {
-  let {ipfs, logger, fileHistory, send} = opts
+  let {ipfs, debug, fileHistory, send} = opts
   let adding = 0
 
   const sendAdding = () => { send('adding', adding > 0) }
@@ -18,7 +18,7 @@ export function uploadFiles (opts) {
   const dec = () => { adding--; sendAdding() }
 
   return (event, files) => {
-    logger.info('Uploading files', {files})
+    debug('Uploading files', {files})
     inc()
 
     ipfs()
@@ -29,13 +29,13 @@ export function uploadFiles (opts) {
         res.forEach((file) => {
           const url = `https://ipfs.io/ipfs/${file.hash}`
           clipboard.writeText(url)
-          logger.info('Uploaded file', {path: file.path})
+          debug('Uploaded file', {path: file.path})
           fileHistory.add(file.path, file.hash)
         })
       })
       .catch(e => {
         dec()
-        logger.error(e.stack)
+        debug(e.stack)
       })
   }
 }

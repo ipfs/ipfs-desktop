@@ -2,7 +2,7 @@ import {dialog, ipcMain} from 'electron'
 import {validateIPFS} from '../utils'
 
 function pinHash (opts) {
-  const {pinnedFiles, ipfs, send, logger} = opts
+  const {pinnedFiles, ipfs, send, debug} = opts
 
   let pinning = 0
 
@@ -20,17 +20,17 @@ function pinHash (opts) {
     }
 
     inc()
-    logger.info(`Pinning ${hash}`)
+    debug(`Pinning ${hash}`)
 
     ipfs().pin.add(hash)
       .then(() => {
         dec()
-        logger.info(`${hash} pinned`)
+        debug(`${hash} pinned`)
         pinnedFiles.add(hash, tag)
       })
       .catch(e => {
         dec()
-        logger.error(e.stack)
+        debug(e.stack)
         dialog.showErrorBox(
           'Error while pinning',
           'Some error happened while pinning the hash. Please check the logs.'
@@ -40,17 +40,17 @@ function pinHash (opts) {
 }
 
 function unpinHash (opts) {
-  const {pinnedFiles, ipfs, logger} = opts
+  const {pinnedFiles, ipfs, debug} = opts
 
   return (event, hash) => {
-    logger.info(`Unpinning ${hash}`)
+    debug(`Unpinning ${hash}`)
 
     ipfs().pin.rm(hash)
       .then(() => {
-        logger.info(`${hash} unpinned`)
+        debug(`${hash} unpinned`)
         pinnedFiles.remove(hash)
       })
-      .catch(e => { logger.error(e.stack) })
+      .catch(e => { debug(e.stack) })
   }
 }
 

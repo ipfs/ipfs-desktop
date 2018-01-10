@@ -1,13 +1,15 @@
-import winston from 'winston'
 import path from 'path'
 import fs from 'fs'
 import os from 'os'
 import isDev from 'electron-is-dev'
 import {app, dialog} from 'electron'
+import dbgger from 'debug'
 
 import FileHistory from './utils/file-history'
 import KeyValueStore from './utils/key-value-store'
 import PinnedFiles from './utils/pinned-files'
+
+const debug = dbgger('desktop')
 
 // Set up crash reporter or electron debug
 if (isDev) {
@@ -44,34 +46,8 @@ if (!settingsStore.get('ipfsPath')) {
   settingsStore.set('ipfsPath', p)
 }
 
-// Sets up the Logger
-const logger = winston.createLogger({
-  format: winston.format.json(),
-  transports: [
-    new winston.transports.File({
-      filename: path.join(logsPath, 'error.log'),
-      level: 'error',
-      handleExceptions: false
-    }),
-    new winston.transports.File({
-      filename: path.join(logsPath, 'combined.log'),
-      handleExceptions: false
-    })
-  ]
-})
-
-if (isDev) {
-  logger.add(new winston.transports.Console({
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.simple()
-    ),
-    handleExceptions: false
-  }))
-}
-
 function fatal (error) {
-  logger.error(`Uncaught Exception: ${error.stack}`)
+  debug(`Uncaught Exception: ${error.stack}`)
 
   dialog.showErrorBox(
     'Something wrong happened',
@@ -87,7 +63,7 @@ process.on('uncaughtException', fatal)
 process.on('unhandledRejection', fatal)
 
 export default {
-  logger: logger,
+  debug: debug,
   fileHistory: fileHistory,
   pinnedFiles: pinnedFiles,
   settingsStore: settingsStore,

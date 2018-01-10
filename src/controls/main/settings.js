@@ -6,7 +6,7 @@ function openNodeConfig (opts) {
 
   return () => {
     const path = settingsStore.get('ipfsPath')
-    shell.openExternal(join(path, 'config'))
+    shell.openItem(join(path, 'config'))
   }
 }
 
