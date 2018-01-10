@@ -3,6 +3,7 @@ set -e
 
 # Pre-requisites:
 #   GITHUB_TOKEN must be set
+#   tag must be set
 
 LAST_BUILD="https://ci.ipfs.team/job/IPFS%20Shipyard/job/ipfs-desktop/job/master/lastSuccessfulBuild/artifact/out/make/*zip*/make.zip"
 
