@@ -37,7 +37,7 @@
 
 ## Install pre-compiled version
 
-`Soon™` you will be able to install it via dist.ipfs.io. Track progress at https://github.com/ipfs-shipyard/ipfs-desktop/pull/514
+`Soon™` you will be able to install it via dist.ipfs.io. In the meanwhile, you can head to the [latest release](https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest) and download the binary for your OS. Just click and install!
 
 ## Install from Source
 
