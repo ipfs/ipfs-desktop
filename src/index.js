@@ -1,6 +1,5 @@
 import {Menubar} from 'electron-menubar'
 import ipfsd from 'ipfsd-ctl'
-import fs from 'fs'
 import {join} from 'path'
 import {dialog, ipcMain, app, Menu, BrowserWindow} from 'electron'
 
