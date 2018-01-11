@@ -9,39 +9,70 @@ export default class StatsPoller extends EventEmitter {
   /**
    * Stats Poller constructor.
    * @param {IpfsApi} ipfs
-   * @param {winston.Logger} logger
+   * @param {Debugger} debug
    */
-  constructor (ipfs, logger) {
+  constructor (ipfs, debug) {
     super()
     this.ipfs = ipfs
-    this.logger = logger
+    this.debug = debug
     this.shouldPoll = false
     this.statsCache = {}
     this.locationsCache = {}
   }
 
-  _poller () {
+  _error (error) {
+    this.debug(error.stack)
+  }
+
+  /**
+   * Poll stats which do not require an Internet
+   * connection to work.
+   * @return {Void}
+   */
+  _pollOfflineStats () {
     if (!this.shouldPoll) {
       return
     }
 
     Promise.all([
       this.ipfs.id(),
-      this.ipfs.swarm.peers(),
       this.ipfs.stats.bw(),
       this.ipfs.repo.stat()
-    ]).then(([id, peers, bw, repo]) => {
+    ]).then(([id, bw, repo]) => {
+      this._handleId(id)
       this.statsCache.bw = bw
       this.statsCache.repo = repo
-      this._handleId(id)
-      this._handlePeers(peers)
-
       this.emit('change', this.statsCache)
 
       setTimeout(() => {
-        this._poller()
+        this._pollOfflineStats()
       }, 1000)
-    }).catch(e => { this.logger.error(e.stack) })
+    }).catch(this._error.bind(this))
+  }
+
+  /**
+   * Poll stats which require an Internet connection
+   * to work.
+   * @return {Void}
+   */
+  _pollOnlineStats () {
+    if (!this.shouldPoll) {
+      return
+    }
+
+    this.ipfs.swarm.peers()
+      .then((peers) => {
+        this._handlePeers(peers)
+        setTimeout(() => {
+          this._pollOnlineStats()
+        }, 1000)
+      })
+      .catch(this._error.bind(this))
+  }
+
+  _poller () {
+    this._pollOfflineStats()
+    this._pollOnlineStats()
   }
 
   _handlePeers (raw) {

@@ -28,7 +28,7 @@ function selectDirectory (opts) {
 }
 
 function saveFile (opts, dir, file) {
-  const {logger} = opts
+  const {debug} = opts
   const location = path.join(dir, file.path)
 
   if (fs.existsSync(location)) {
@@ -38,15 +38,15 @@ function saveFile (opts, dir, file) {
 
   fs.writeFile(location, file.content, (err) => {
     if (err) {
-      logger.error(err.stack)
+      debug(err.stack)
     } else {
-      logger.info(`File '${file.path}' downloaded to ${location}.`)
+      debug(`File '${file.path}' downloaded to ${location}.`)
     }
   })
 }
 
 function handler (opts) {
-  const {logger, ipfs} = opts
+  const {debug, ipfs} = opts
 
   return () => {
     const text = clipboard.readText().trim()
@@ -65,11 +65,11 @@ function handler (opts) {
 
     ipfs().get(text)
       .then((files) => {
-        logger.info(`Hash ${text} downloaded.`)
+        debug(`Hash ${text} downloaded.`)
         selectDirectory(opts)
           .then((dir) => {
             if (!dir) {
-              logger.info(`Dropping hash ${text}: user didn't choose a path.`)
+              debug(`Dropping hash ${text}: user didn't choose a path.`)
               return
             }
 
@@ -79,10 +79,10 @@ function handler (opts) {
 
             files.forEach(file => { saveFile(opts, dir, file) })
           })
-          .catch(e => logger.error(e.stack))
+          .catch(e => debug(e.stack))
       })
       .catch(e => {
-        logger.error(e.stack)
+        debug(e.stack)
         dialog.showErrorBox(
           'Error while downloading',
           'Some error happened while getting the hash. Please check the logs.'
@@ -92,17 +92,17 @@ function handler (opts) {
 }
 
 export default function (opts) {
-  let {logger, settingsStore} = opts
+  let {debug, settingsStore} = opts
 
   let activate = (value, oldValue) => {
     if (value === oldValue) return
 
     if (value === true) {
       globalShortcut.register(shortcut, handler(opts))
-      logger.info('Hash download shortcut enabled')
+      debug('Hash download shortcut enabled')
     } else {
       globalShortcut.unregister(shortcut)
-      logger.info('Hash download shortcut disabled')
+      debug('Hash download shortcut disabled')
     }
   }
 

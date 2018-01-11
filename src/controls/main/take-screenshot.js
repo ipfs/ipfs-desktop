@@ -4,15 +4,15 @@ const settingsOption = 'screenshotShortcut'
 const shortcut = 'CommandOrControl+Alt+S'
 
 function handleScreenshot (opts) {
-  let {logger, fileHistory, ipfs} = opts
+  let {debug, fileHistory, ipfs} = opts
 
   return (event, image) => {
     let base64Data = image.replace(/^data:image\/png;base64,/, '')
 
-    logger.info('Screenshot taken')
+    debug('Screenshot taken')
 
     if (!ipfs()) {
-      logger.info('Daemon not running. Aborting screenshot upload.')
+      debug('Daemon not running. Aborting screenshot upload.')
       return
     }
 
@@ -25,29 +25,29 @@ function handleScreenshot (opts) {
         res.forEach((file) => {
           const url = `https://ipfs.io/ipfs/${file.hash}`
           clipboard.writeText(url)
-          logger.info('Screenshot uploaded', {path: file.path})
+          debug('Screenshot uploaded', {path: file.path})
           fileHistory.add(file.path, file.hash)
         })
       })
-      .catch(e => { logger.error(e.stack) })
+      .catch(e => { debug(e.stack) })
   }
 }
 
 export default function (opts) {
-  let {send, logger, settingsStore} = opts
+  let {send, debug, settingsStore} = opts
 
   let activate = (value, oldValue) => {
     if (value === oldValue) return
 
     if (value === true) {
       globalShortcut.register(shortcut, () => {
-        logger.info('Taking Screenshot')
+        debug('Taking Screenshot')
         send('screenshot')
       })
-      logger.info('Screenshot shortcut enabled')
+      debug('Screenshot shortcut enabled')
     } else {
       globalShortcut.unregister(shortcut)
-      logger.info('Screenshot shortcut disabled')
+      debug('Screenshot shortcut disabled')
     }
   }
 
