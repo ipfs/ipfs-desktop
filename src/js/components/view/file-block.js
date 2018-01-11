@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {clipboard} from 'electron'
 import moment from 'moment'
 import fileExtension from 'file-extension'
+import {ipcRenderer, clipboard} from 'electron'
 
 import Button from './button'
 import Icon from './icon'
@@ -25,6 +25,18 @@ export default function FileBlock (props) {
     icon = fileTypes[extension]
   }
 
+  const url = `https://ipfs.io/ipfs/${props.hash}`
+
+  const open = () => {
+    ipcRenderer.send('open-url', url)
+  }
+
+  const copy = (event) => {
+    event.stopPropagation()
+    event.preventDefault()
+    clipboard.writeText(url)
+  }
+
   return (
     <div className='info-block file'>
       <div className='wrapper'>
@@ -43,9 +55,8 @@ export default function FileBlock (props) {
       </div>
 
       <div className='button-overlay'>
-        <Button text='Copy Link' onClick={() => {
-          clipboard.writeText(`https://ipfs.io/ipfs/${props.hash}`)
-        }} />
+        <Button text='Open' onClick={open} />
+        <Button text='Copy Link' onClick={copy} />
       </div>
     </div>
   )
