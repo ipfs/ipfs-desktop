@@ -1,8 +1,8 @@
 <h1 align="center">
-  <a href="https://ipfs.io">IPFS Desktop</a>
+  IPFS Desktop
 </h1>
 
-<h3 align="center">A menubar IPFS application to get you on the Distributed Web!</h3>
+![ipfs-desktop-screenshot](https://user-images.githubusercontent.com/58871/34874493-0d306e5a-f791-11e7-94cb-5ac5a0d225b9.png)
 
 <p align="center">
   <a href="http://protocol.ai"><img src="https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square" /></a>
@@ -12,55 +12,68 @@
 
 <p align="center">
   <a href="https://travis-ci.org/ipfs-shipyard/ipfs-desktop"><img src="https://travis-ci.org/ipfs-shipyard/ipfs-desktop.svg?branch=master" /></a>
-  <br>
   <a href="https://david-dm.org/ipfs-shipyard/ipfs-desktop"><img src="https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square" /></a>
   <a href="https://github.com/feross/standard"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square"></a>
   <a href="https://github.com/RichardLitt/standard-readme"><img src="https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square" /></a>
-  <a href=""><img src="https://img.shields.io/badge/npm-%3E%3D3.0.0-orange.svg?style=flat-square" /></a>
-  <a href=""><img src="https://img.shields.io/badge/Node.js-%3E%3D6.0.0-orange.svg?style=flat-square" /></a>
-  <br>
 </p>
 
-| ![](https://ipfs.io/ipfs/QmPBMMG4HUB1U1kLfwWvr6zQhGMcuvWYtGEFeTqBjG2jxW) | ![](https://ipfs.io/ipfs/QmQKdHbDnEAp7ajW7QNayxsuEWywRNyZaX6VbTzvWnHxex) | ![](https://ipfs.io/ipfs/QmTUS8rRufkXQp7ePRogMFLMxmf6YziYcb8HnDrVCvC2DF)|
-|:---:|:---:|:---:|
-| Info | Add Files | Pin Hashes |
-| ![](https://ipfs.io/ipfs/QmW1SWU1aALf8sqSvEFGUtzK8oqX9BGNA6r4bzS8MPg94B) | <img src="https://ipfs.io/ipfs/QmYo91nuMF6QqRVNJbHjKkdpk4nay1qkjq1ztwxFchtDWU" width="260"> | ![](https://ipfs.io/ipfs/QmS9mHTza1U6CjE1ehnaSxpKw7YDBsY3mvBZdBHVoTMLbm) |
-| Peers | Overview | Light Theme | 
+<h3 align="center">
+A menubar <a href="https://ipfs.io">IPFS</a> application to get you on the Distributed Web!
+</h3>
 
 ## Table of Contents
 
-- [Install pre-compiled version](#install-pre-compiled-version)
-- [Install from Source](#install-from-source)
+- [Install](#install)
+- [Usage](#usage)
+- [Developer Guide](#developer-guide)
 - [Contribute](#contribute)
 - [File Structure](#file-structure)
 - [Components](#components)
 
-## Install pre-compiled version
-Head to the [latest release](https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest) and download the binary for your OS. Just click and install!
+## Install
 
-`Soon™` you will also be able to install it via dist.ipfs.io.
+Go to the **[latest release](https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest)** page and download IPFS Desktop for your OS.
 
-## Install from Source
+If you're interested in developing IPFS Desktop, you can also install it from source...
 
-You will need [Node.js](https://nodejs.org/en/) installed, preferrably a version `>=6.0.0`. On macOS you may also need Xcode command line tools, if you haven't already, do so by:
+### Install from Source
+
+You will need [Node.js](https://nodejs.org/en/) `>=6.0.0` and
+need [npm](npmjs.org) `>=3.0` installed.
+
+On macOS you may also need Xcode command line tools, if you haven't already, do so by:
 
 ```bash
 xcode-select --install
 sudo xcode-select --switch /Library/Developer/CommandLineTools
 ```
 
-Also you will need [npm](npmjs.org) `>=3.0`. After that you should run
+Then the follow the steps below to clone the source code, install the dependancies and run it the app:
 
 ```bash
-> git clone https://github.com/ipfs-shipyard/ipfs-desktop.git
-> cd ipfs-desktop
-> npm install
-> npm start
+git clone https://github.com/ipfs-shipyard/ipfs-desktop.git
+cd ipfs-desktop
+npm install
+npm start
 ```
 
-This launches the app and runs it in your menu bar.
+The IPFS Desktop app will launch and should appear in your OS menu bar.
 
-## File Structure
+## Usage
+
+Click on the IPFS icon in the menubar to open the app.
+
+| See IPFS Node Info | Share Files |
+|:---:|:---:|
+| ![](https://ipfs.io/ipfs/QmPBMMG4HUB1U1kLfwWvr6zQhGMcuvWYtGEFeTqBjG2jxW) | ![](https://ipfs.io/ipfs/QmQKdHbDnEAp7ajW7QNayxsuEWywRNyZaX6VbTzvWnHxex) |
+
+| Pin Hashes | See connected Peers |
+|:---:|:---:|
+| ![](https://ipfs.io/ipfs/QmTUS8rRufkXQp7ePRogMFLMxmf6YziYcb8HnDrVCvC2DF)| ![](https://ipfs.io/ipfs/QmW1SWU1aALf8sqSvEFGUtzK8oqX9BGNA6r4bzS8MPg94B) |
+
+## Developer Guide
+
+### File Structure
 
 All of the important files of this application are into `src` folder, which can be seen as the following tree:
 
@@ -109,7 +122,7 @@ export default function MyPane {
 }
 ```
 
-Then, you'll have to import the file and create an entry on `panes` array on [`./src/js/screens/menu.js`](./src/js/components/view/icon.js) with a content similar to this one: 
+Then, you'll have to import the file and create an entry on `panes` array on [`./src/js/screens/menu.js`](./src/js/components/view/icon.js) with a content similar to this one:
 
 ```
 {
@@ -121,11 +134,11 @@ Then, you'll have to import the file and create an entry on `panes` array on [`.
 
 Now, you already have your pane created and its menu entry. Although, it you click on it, you'll probably get an error message since you aren't really routing that path to it. On the same file, go to `_getRouteScreen` function, and add a `case` for your pane on the `switch`. The value must be the same as the `id` you put on the menu entry.
 
-## Components
+### Components
 
 The components are classes exported with CamelCase names. The corresponding files have the associated class name with hyphen-separated-words. So, e.g., `simple-stat.js` exports a class named `SimpleStat`.
 
-### [Stateless Components](./src/js/components/view)
+#### [Stateless Components](./src/js/components/view)
 
 + [**Button**](./src/js/components/view/button.js) is a simple button with text.
 + [**CheckboxBlock**](./src/js/components/view/checkbox-block.js) is like an `InfoBlock`, but with a checkbox attached to it.
@@ -142,7 +155,7 @@ The components are classes exported with CamelCase names. The corresponding file
 + [**MenuOption**](./src/js/components/view/menu-option.js) is a menu option to show within a menu bar.
 + [**PinnedHash**](./src/js/components/view/pinned-hash.js) is a pinned hash.
 
-### [Statefull Components](./src/js/components/logic)
+#### [Statefull Components](./src/js/components/logic)
 
 + [**NewPinnedHash**](./src/js/components/view/new-pinned-hash.js) is a new pinned hash form.
 
