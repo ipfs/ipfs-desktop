@@ -27,8 +27,6 @@ A menubar <a href="https://ipfs.io">IPFS</a> application to get you on the Distr
 - [Usage](#usage)
 - [Developer Guide](#developer-guide)
 - [Contribute](#contribute)
-- [File Structure](#file-structure)
-- [Components](#components)
 
 ## Install
 
