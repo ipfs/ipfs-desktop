@@ -1,7 +1,6 @@
 import path from 'path'
 import fs from 'fs'
 import os from 'os'
-import isDev from 'electron-is-dev'
 import {app, dialog} from 'electron'
 import dbgger from 'debug'
 
@@ -10,11 +9,6 @@ import KeyValueStore from './utils/key-value-store'
 import PinnedFiles from './utils/pinned-files'
 
 const debug = dbgger('desktop')
-
-// Set up crash reporter or electron debug
-if (isDev) {
-  require('electron-debug')()
-}
 
 function logo (color) {
   const p = path.resolve(path.join(__dirname, 'img'))
@@ -79,6 +73,7 @@ export default {
     preloadWindow: true,
     window: {
       resizable: false,
+      fullscreen: false,
       skipTaskbar: true,
       width: 600,
       height: 400,
