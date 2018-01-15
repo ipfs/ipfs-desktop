@@ -44,18 +44,6 @@
     font-size: @normal-font;
   }
 
-  button {
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translate(0, -50%);
-  }
-
-  &:hover button {
-    opacity: 1;
-  }
-
   .button-overlay {
     opacity: 0;
     transition: .2s ease opacity;
@@ -65,6 +53,13 @@
     height: calc(~"100% - 2em");
     width: 50%;
     background: linear-gradient(to left, #202020 0%, #202020 50%, transparent 100%);
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+  }
+
+  .button-overlay .button {
+    margin-left: 0.5em;
   }
 
   &:hover .button-overlay {
