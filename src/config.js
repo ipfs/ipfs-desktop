@@ -4,7 +4,6 @@ import os from 'os'
 import {app, dialog} from 'electron'
 import dbgger from 'debug'
 
-import FileHistory from './utils/file-history'
 import KeyValueStore from './utils/key-value-store'
 import PinnedFiles from './utils/pinned-files'
 
@@ -32,7 +31,6 @@ const ipfsAppData = ensurePath(path.join(app.getPath('appData'), 'ipfs-desktop')
 const logsPath = ensurePath(path.join(ipfsAppData, 'logs'))
 
 const pinnedFiles = new PinnedFiles(path.join(ipfsAppData, 'pinned-files.json'))
-const fileHistory = new FileHistory(path.join(ipfsAppData, 'file-history.json'))
 const settingsStore = new KeyValueStore(path.join(ipfsAppData, 'config.json'))
 
 if (!settingsStore.get('ipfsPath')) {
@@ -58,7 +56,6 @@ process.on('unhandledRejection', fatal)
 
 export default {
   debug: debug,
-  fileHistory: fileHistory,
   pinnedFiles: pinnedFiles,
   settingsStore: settingsStore,
   logo: {

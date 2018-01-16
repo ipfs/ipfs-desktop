@@ -38,9 +38,7 @@ function send (type, ...args) {
 }
 
 config.send = send
-config.ipfs = () => {
-  return IPFS
-}
+config.ipfs = () => IPFS
 
 function stopPolling () {
   if (poller) poller.stop()
@@ -55,17 +53,19 @@ function onPollerChange (stats) {
 }
 
 function onRequestState (node, event) {
-  if (!node.initialized) {
+  if (!node.started) {
     return
   }
 
   let status = 'stopped'
 
-  if (node.pid()) {
-    status = IPFS ? 'running' : 'starting'
-  }
+  node.pid((pid) => {
+    if (pid) {
+      status = IPFS ? 'running' : 'starting'
+    }
 
-  send('node-status', status)
+    send('node-status', status)
+  })
 }
 
 function onStartDaemon (node) {
@@ -79,7 +79,7 @@ function onStartDaemon (node) {
     }
 
     debug('Daemon started')
-    poller = new StatsPoller(api, 1000, debug)
+    poller = new StatsPoller(api, 1000)
 
     if (menubar.window && menubar.window.isVisible()) {
       poller.start()
@@ -224,9 +224,23 @@ function initialize (path, node) {
   })
 }
 
+// Tries to remove the repo.lock file if it already exists.
+// This fixes a bug on Windows, where the daemon seems
+// not to be exiting correctly, hence the file is not
+// removed.
+const lockPath = join(config.settingsStore.get('ipfsPath'), 'repo.lock')
+
+if (fs.existsSync(lockPath)) {
+  try {
+    fs.unlinkSync(lockPath)
+  } catch (e) {
+    debug('Could not remove lock. Daemon might be running.')
+  }
+}
+
 // main entry point
 DaemonFactory.create().spawn({
-  repoPath: config.ipfsPath,
+  repoPath: config.settingsStore.get('ipfsPath'),
   disposable: false,
   init: false,
   start: false

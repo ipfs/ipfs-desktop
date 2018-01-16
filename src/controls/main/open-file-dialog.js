@@ -1,15 +1,15 @@
 import {dialog, ipcMain} from 'electron'
-import {uploadFiles} from '../utils'
+import uploadFiles from '../utils/upload-files'
 
 function openFileDialog (opts, dir = false) {
   let window = opts.window
 
-  return (event) => {
+  return (event, root) => {
     dialog.showOpenDialog(window, {
       properties: [dir ? 'openDirectory' : 'openFile', 'multiSelections']
     }, (files) => {
       if (!files || files.length === 0) return
-      uploadFiles(opts)(event, files)
+      uploadFiles(opts)(event, files, root)
     })
   }
 }
