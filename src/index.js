@@ -77,7 +77,7 @@ function onStartDaemon (node) {
       handleKnownErrors(err)
       return
     }
-    
+
     debug('Daemon started')
     poller = new StatsPoller(api, 1000, debug)
 
@@ -117,15 +117,10 @@ function onStopDaemon (node, done) {
     menubar.removeListener('hide', stopPolling)
   }
 
-<<<<<<< HEAD
-  node.stopDaemon((err) => {
-    if (err) { return debug(err.stack) }
-=======
   node.stop((err) => {
     if (err) {
-      return logger.error(err.stack)
+      return debug(err.stack)
     }
->>>>>>> feat: js-ipfsd-ctl daemon-remote
 
     debug('Stopped daemon')
     menubar.tray.setImage(config.logo.black)
@@ -230,13 +225,6 @@ function initialize (path, node) {
 }
 
 // main entry point
-<<<<<<< HEAD
-ipfsd.local((e, node) => {
-  if (e) {
-    // We can't start if we fail to aquire
-    // a ipfs node
-    debug(e.stack)
-=======
 DaemonFactory.create().spawn({
   repoPath: config.ipfsPath,
   disposable: false,
@@ -244,8 +232,9 @@ DaemonFactory.create().spawn({
   start: false
 }, (err, node) => {
   if (err) {
-    logger.error(err)
->>>>>>> feat: js-ipfsd-ctl daemon-remote
+    // We can't start if we fail to aquire
+    // a ipfs node
+    debug(err.stack)
     process.exit(1)
   }
 
