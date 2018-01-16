@@ -12,7 +12,7 @@
     "electron-menubar": "^1.0.1",
     "electron-squirrel-startup": "^1.0.0",
     "file-extension": "^4.0.1",
-    "ipfs-geoip": "^2.3.0",
+    "ipfs-stats": "^1.0.4",
     "ipfsd-ctl": "^0.26.0",
     "is-ipfs": "^0.3.2",
     "moment": "^2.20.1",

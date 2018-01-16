@@ -6,7 +6,7 @@ import {dialog, ipcMain, app, BrowserWindow} from 'electron'
 import config from './config'
 import registerControls from './controls/main'
 import handleKnownErrors from './errors'
-import StatsPoller from './utils/stats-poller'
+import StatsPoller from 'ipfs-stats'
 
 const {debug} = config
 
@@ -76,7 +76,7 @@ function onStartDaemon (node) {
     }
 
     debug('Daemon started')
-    poller = new StatsPoller(ipfsNode, debug)
+    poller = new StatsPoller(ipfsNode, 1000, debug)
 
     if (menubar.window && menubar.window.isVisible()) {
       poller.start()
