@@ -1,5 +1,6 @@
 import {Menubar} from 'electron-menubar'
-import ipfsd from 'ipfsd-ctl'
+import fs from 'fs'
+import DaemonFactory from 'ipfsd-ctl'
 import {join} from 'path'
 import {dialog, ipcMain, app, BrowserWindow} from 'electron'
 
@@ -54,29 +55,31 @@ function onPollerChange (stats) {
 }
 
 function onRequestState (node, event) {
-  if (node.initialized) {
-    let status = 'stopped'
-
-    if (node.daemonPid()) {
-      status = IPFS ? 'running' : 'starting'
-    }
-
-    send('node-status', status)
+  if (!node.initialized) {
+    return
   }
+
+  let status = 'stopped'
+
+  if (node.pid()) {
+    status = IPFS ? 'running' : 'starting'
+  }
+
+  send('node-status', status)
 }
 
 function onStartDaemon (node) {
   debug('Starting daemon')
   send('node-status', 'starting')
 
-  node.startDaemon((err, ipfsNode) => {
+  node.start((err, api) => {
     if (err) {
       handleKnownErrors(err)
       return
     }
 
     debug('Daemon started')
-    poller = new StatsPoller(ipfsNode, 1000, debug)
+    poller = new StatsPoller(api, 1000, debug)
 
     if (menubar.window && menubar.window.isVisible()) {
       poller.start()
@@ -95,8 +98,8 @@ function onStartDaemon (node) {
 
     menubar.tray.setImage(config.logo.ice)
 
+    IPFS = api
     send('node-status', 'running')
-    IPFS = ipfsNode
   })
 }
 
@@ -114,8 +117,10 @@ function onStopDaemon (node, done) {
     menubar.removeListener('hide', stopPolling)
   }
 
-  node.stopDaemon((err) => {
-    if (err) { return debug(err.stack) }
+  node.stop((err) => {
+    if (err) {
+      return debug(err.stack)
+    }
 
     debug('Stopped daemon')
     menubar.tray.setImage(config.logo.black)
@@ -208,7 +213,7 @@ function initialize (path, node) {
         return send('initialization-error', String(err))
       }
 
-      config.settingsStore.set('ipfsPath', path)
+      config.settingsStore.set('ipfsPath', userPath)
 
       send('initialization-complete')
       send('node-status', 'stopped')
@@ -220,11 +225,16 @@ function initialize (path, node) {
 }
 
 // main entry point
-ipfsd.local((e, node) => {
-  if (e) {
+DaemonFactory.create().spawn({
+  repoPath: config.ipfsPath,
+  disposable: false,
+  init: false,
+  start: false
+}, (err, node) => {
+  if (err) {
     // We can't start if we fail to aquire
     // a ipfs node
-    debug(e.stack)
+    debug(err.stack)
     process.exit(1)
   }
 
@@ -240,10 +250,11 @@ ipfsd.local((e, node) => {
 
     registerControls(config)
 
-    if (!node.initialized) {
+    let exists = fs.existsSync(node.repoPath)
+
+    if (!exists) {
       initialize(config.settingsStore.get('ipfsPath'), node)
     } else {
-      // Start up the daemon
       onStartDaemon(node)
     }
   }
