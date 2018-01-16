@@ -1,18 +1,35 @@
 @import '../../node_modules/normalize.css/normalize.css';
-@import './fonts.less';
-@import './themify-icons.less';
 @import './common.less';
 
-@import './components/heartbeat.less';
-@import './components/pane.less';
-@import './components/info-block.less';
-@import './components/file-block.less';
-@import './components/checkbox-block.less';
-@import './components/new-pinned-hash.less';
+@import "./components/Block.less";
+@import "./components/Breadcrumbs.less";
+@import "./components/Button.less";
+@import "./components/CheckboxBlock.less";
+@import "./components/FileBlock.less";
+@import "./components/Footer.less";
+@import "./components/Header.less";
+@import "./components/Heartbeat.less";
+@import "./components/Icon.less";
+@import "./components/IconButton.less";
+@import "./components/Input.less";
+@import "./components/Key.less";
+@import "./components/Menu.less";
+@import "./components/MenuOption.less";
+@import "./components/NewPinnedHash.less";
+@import "./components/Pane.less";
+@import "./components/PaneContainer.less";
 
-@import './panes/node.less';
-@import './panes/files.less';
-@import './panes/loader.less';
+@import './panes/Files.less';
+@import './panes/Info.less';
+@import './panes/Loader.less';
+@import './panes/Start.less';
 
 @import './screens/welcome.less';
-@import './screens/menubar.less';
+
+#menubar .pane {
+  width: calc(~"100vw - 4em");
+
+  .footer {
+    width: calc(~"100vw - 4.5em");
+  }
+}

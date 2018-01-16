@@ -1,8 +1,86 @@
 import {dialog, ipcMain} from 'electron'
 import {validateIPFS} from '../utils'
+import bl from 'bl'
+
+const PATH = '/.pinset'
+
+var pins = {}
+
+function collect (stream) {
+  return new Promise((resolve, reject) => {
+    stream.pipe(bl((err, buf) => {
+      if (err) return reject(err)
+      resolve(buf)
+    }))
+  })
+}
+
+function makePinset (opts) {
+  const {ipfs} = opts
+
+  return new Promise((resolve, reject) => {
+    ipfs().files.stat(PATH)
+      .then(resolve)
+      .catch(() => {
+        ipfs().files.write(PATH, Buffer.from('{}'), {create: true})
+          .then(resolve)
+          .catch(reject)
+      })
+  })
+}
+
+function writePinset (opts) {
+  const {ipfs, send} = opts
+
+  return new Promise((resolve, reject) => {
+    const write = JSON.stringify(pins)
+    ipfs().files.rm(PATH, { recursive: true })
+      .then(() => ipfs().files.write(PATH, Buffer.from(write), {create: true}))
+      .then(() => {
+        send('pinned', pins)
+        send('files-updated')
+        resolve()
+      })
+      .catch(reject)
+  })
+}
+
+function pinset (opts) {
+  const {ipfs, debug} = opts
+
+  return () => {
+    pins = {}
+
+    ipfs().pin.ls()
+      .then((pinset) => {
+        pinset.forEach((pin) => {
+          if (pin.type === 'indirect') {
+            return
+          }
+
+          pins[pin.hash] = ''
+        })
+
+        return makePinset(opts)
+      })
+      .then(() => ipfs().files.read(PATH))
+      .then((res) => collect(res))
+      .then((buf) => JSON.parse(buf.toString()))
+      .then((res) => {
+        for (const hash in res) {
+          if (hash in pins) {
+            pins[hash] = res[hash]
+          }
+        }
+
+        return writePinset(opts)
+      })
+      .catch(error => debug(error.stack))
+  }
+}
 
 function pinHash (opts) {
-  const {pinnedFiles, ipfs, send, debug} = opts
+  const {ipfs, send, debug} = opts
 
   let pinning = 0
 
@@ -26,21 +104,18 @@ function pinHash (opts) {
       .then(() => {
         dec()
         debug(`${hash} pinned`)
-        pinnedFiles.add(hash, tag)
+        pins[hash] = tag
+        return writePinset(opts)
       })
       .catch(e => {
         dec()
         debug(e.stack)
-        dialog.showErrorBox(
-          'Error while pinning',
-          'Some error happened while pinning the hash. Please check the logs.'
-        )
       })
   }
 }
 
 function unpinHash (opts) {
-  const {pinnedFiles, ipfs, debug} = opts
+  const {ipfs, debug} = opts
 
   return (event, hash) => {
     debug(`Unpinning ${hash}`)
@@ -48,26 +123,25 @@ function unpinHash (opts) {
     ipfs().pin.rm(hash)
       .then(() => {
         debug(`${hash} unpinned`)
-        pinnedFiles.remove(hash)
+        delete pins[hash]
+        return writePinset(opts)
       })
       .catch(e => { debug(e.stack) })
   }
 }
 
-export default function (opts) {
-  const {pinnedFiles, send} = opts
+function tagHash (opts) {
+  const {debug} = opts
 
-  const handler = () => {
-    send('pinned', pinnedFiles.toObject())
+  return (event, hash, tag) => {
+    pins[hash] = tag
+    writePinset(opts).catch(e => { debug(e.stack) })
   }
+}
 
-  // Set event handlers.
-  ipcMain.on('tag-hash', (event, hash, tag) => {
-    pinnedFiles.add(hash, tag)
-  })
-
-  ipcMain.on('request-pinned', handler)
-  pinnedFiles.on('change', handler)
+export default function (opts) {
+  ipcMain.on('request-pinned', pinset(opts))
+  ipcMain.on('tag-hash', tagHash(opts))
   ipcMain.on('pin-hash', pinHash(opts))
   ipcMain.on('unpin-hash', unpinHash(opts))
 }

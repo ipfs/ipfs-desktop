@@ -6,20 +6,6 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  font-family: 'Inter UI', sans-serif;
-  overflow: hidden;
-  color: #FFF;
-  background: #000000;
-  user-select: none;
-}
-
-.light {
-  color: #212121;
-  background: #fff;
-}
-
 ::-webkit-scrollbar {
   background-color: transparent;
   width: .5em;
@@ -36,44 +22,6 @@ body {
   background: rgba(0, 0, 0, 0.3);
 }
 
-.dropdown-list,
-.directory-input,
-.button,
-input[type="text"] {
-  border-radius: 0.2em;
-  padding: 0.5em 1em;
-  border: 0;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.25);
-  outline: 0;
-  transition: .2s ease all;
-}
-
-.light .dropdown-list,
-.light .directory-input,
-.light .button,
-.light input[type="text"] {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.button {
-  cursor: pointer;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  span {
-    font-size: @normal-font;
-  }
-}
-
-.light .button {
-  &:hover {
-    background: rgba(0, 0, 0, 0.3)
-  }
-}
-
 .directory-input {
   cursor: pointer;
 
@@ -85,11 +33,6 @@ input[type="text"] {
     font-size: @normal-font;
     color: rgba(255, 255, 255, 0.4);
   }
-}
-
-.icon img {
-  width: 20px;
-  height: 20px;
 }
 
 .directory-input,
@@ -130,32 +73,6 @@ input[type="text"] {
   }
 }
 
-.button-icon {
-  line-height: 1;
-  border: 0;
-  outline: 0;
-  padding: 0;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.4);
-  cursor: pointer;
-  margin-left: 0.5em;
-  transition: .2s ease all;
-
-  &.active,
-  &:hover {
-    color: rgba(255, 255, 255, 0.6);
-  }
-}
-
-.light .button-icon {
-  color: rgba(0, 0, 0, 0.5);
-
-  &.active,
-  &:hover {
-    color: rgba(0, 0, 0, 0.8);
-  }
-}
-
 .notice {
   color: rgba(255, 255, 255, 0.5);
   position: absolute;
@@ -168,15 +85,4 @@ input[type="text"] {
 
 .light .notice {
   color: #212121
-}
-
-.key {
-  font-size: 0.8em;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 0.2em;
-  padding: 0 0.2em;
-}
-
-.light .key {
-  background: #eee;
 }
