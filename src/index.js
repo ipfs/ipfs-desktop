@@ -72,6 +72,20 @@ function onStartDaemon (node) {
   debug('Starting daemon')
   send('node-status', 'starting')
 
+  // Tries to remove the repo.lock file if it already exists.
+  // This fixes a bug on Windows, where the daemon seems
+  // not to be exiting correctly, hence the file is not
+  // removed.
+  const lockPath = join(config.settingsStore.get('ipfsPath'), 'repo.lock')
+
+  if (fs.existsSync(lockPath)) {
+    try {
+      fs.unlinkSync(lockPath)
+    } catch (e) {
+      debug('Could not remove lock. Daemon might be running.')
+    }
+  }
+
   node.start((err, api) => {
     if (err) {
       handleKnownErrors(err)
@@ -222,20 +236,6 @@ function initialize (path, node) {
       window.close()
     })
   })
-}
-
-// Tries to remove the repo.lock file if it already exists.
-// This fixes a bug on Windows, where the daemon seems
-// not to be exiting correctly, hence the file is not
-// removed.
-const lockPath = join(config.settingsStore.get('ipfsPath'), 'repo.lock')
-
-if (fs.existsSync(lockPath)) {
-  try {
-    fs.unlinkSync(lockPath)
-  } catch (e) {
-    debug('Could not remove lock. Daemon might be running.')
-  }
 }
 
 // main entry point

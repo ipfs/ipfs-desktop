@@ -29,7 +29,10 @@ function listAndSend (opts, root) {
           .then(stats => Object.assign({}, file, stats))
       }))
         .then(res => res.sort(sort))
-        .then(res => send('files', root, res))
+        .then(res => send('files', {
+          root: root,
+          contents: res
+        }))
         .catch(e => { debug(e.stack) })
     })
 }

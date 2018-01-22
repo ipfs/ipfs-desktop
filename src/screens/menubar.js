@@ -10,7 +10,7 @@ import Menu from '../components/Menu'
 
 import Peers from '../panes/Peers'
 import Loader from '../panes/Loader'
-
+import Start from '../panes/Start'
 import Files from '../panes/Files'
 import Pinned from '../panes/Pinned'
 import Info from '../panes/Info'
@@ -20,6 +20,7 @@ const UNINITIALIZED = 'uninitialized'
 const STOPPED = 'stopped'
 const STARTING = 'starting'
 const STOPPING = 'stopping'
+const RUNNING = 'running'
 
 const panes = [
   {
@@ -55,6 +56,10 @@ class Menubar extends Component {
     route: panes[0].id,
     stats: {},
     settings: {},
+    files: {
+      root: '/',
+      contents: []
+    },
     adding: false,
     pinning: false
   }
@@ -67,6 +72,12 @@ class Menubar extends Component {
     }
 
     this.listeners[key] = (event, value) => {
+      if (key === 'status') {
+        if (value === RUNNING) {
+          this.onRunning()
+        }
+      }
+
       const obj = {}
       obj[key] = value
       this.setState(obj)
@@ -79,27 +90,33 @@ class Menubar extends Component {
     this.setState({route: route})
   }
 
+  onRunning = () => {
+    ipcRenderer.send('request-pinned')
+    ipcRenderer.send('request-files', this.state.files.root)
+  }
+
   componentDidMount () {
-    // -- Listen to control events
+    // Listen to control events
     ipcRenderer.on('node-status', this._onSomething('status'))
     ipcRenderer.on('stats', this._onSomething('stats'))
     ipcRenderer.on('pinned', this._onSomething('pinned'))
     ipcRenderer.on('settings', this._onSomething('settings'))
     ipcRenderer.on('adding', this._onSomething('adding'))
+    ipcRenderer.on('files', this._onSomething('files'))
     ipcRenderer.on('pinning', this._onSomething('pinning'))
 
     ipcRenderer.send('request-state')
     ipcRenderer.send('request-settings')
-    ipcRenderer.send('request-pinned')
   }
 
   componentWillUnmount () {
-    // -- Remove control events
+    // Remove control events
     ipcRenderer.removeListener('node-status', this._onSomething('status'))
     ipcRenderer.removeListener('stats', this._onSomething('stats'))
     ipcRenderer.removeListener('pinned', this._onSomething('pinned'))
     ipcRenderer.removeListener('settings', this._onSomething('settings'))
     ipcRenderer.removeListener('adding', this._onSomething('adding'))
+    ipcRenderer.removeListener('files', this._onSomething('files'))
     ipcRenderer.removeListener('pinning', this._onSomething('pinning'))
   }
 
@@ -111,12 +128,15 @@ class Menubar extends Component {
     if (this.state.status === STOPPED || this.state.status === UNINITIALIZED) {
       // TODO: add start running screen here :)
       // It should overlap all of the interface so it is the only thing available.
-      return <Loader key='loader-screen' />
+      return <Start />
     }
 
     switch (this.state.route) {
       case 'files':
-        return <Files adding={this.state.adding} />
+        return <Files
+          adding={this.state.adding}
+          files={this.state.files.contents}
+          root={this.state.files.root} />
       case 'settings':
         return <Settings settings={this.state.settings} />
       case 'peers':
@@ -137,8 +157,7 @@ class Menubar extends Component {
         return (
           <Pinned
             files={this.state.pinned}
-            pinning={this.state.pinning}
-            changeRoute={this._changeRoute} />
+            pinning={this.state.pinning} />
         )
       default:
         return (

@@ -32,9 +32,7 @@ class Files extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      sticky: false,
-      root: '/',
-      files: []
+      sticky: false
     }
   }
 
@@ -42,22 +40,17 @@ class Files extends Component {
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
-    adding: PropTypes.bool
-  }
-
-  onFiles = (event, root, files) => {
-    this.setState({
-      root: root,
-      files: files
-    })
+    adding: PropTypes.bool,
+    files: PropTypes.array.isRequired,
+    root: PropTypes.string.isRequired
   }
 
   selectFileDialog = (event) => {
-    ipcRenderer.send('open-file-dialog', this.state.root)
+    ipcRenderer.send('open-file-dialog', this.props.root)
   }
 
   selectDirectoryDialog = (event) => {
-    ipcRenderer.send('open-dir-dialog', this.state.root)
+    ipcRenderer.send('open-dir-dialog', this.props.root)
   }
 
   toggleStickWindow = (event) => {
@@ -69,17 +62,17 @@ class Files extends Component {
   }
 
   navigate = (name) => {
-    const root = join(this.state.root, name)
+    const root = join(this.props.root, name)
     ipcRenderer.send('request-files', root)
   }
 
   trash = (name) => {
-    name = join(this.state.root, name)
+    name = join(this.props.root, name)
     ipcRenderer.send('remove-file', name)
   }
 
   filesUpdated = () => {
-    ipcRenderer.send('request-files', this.state.root)
+    ipcRenderer.send('request-files', this.props.root)
   }
 
   onSticky = (event, sticky) => {
@@ -91,15 +84,11 @@ class Files extends Component {
   }
 
   componentDidMount () {
-    ipcRenderer.on('files', this.onFiles)
     ipcRenderer.on('sticky-window', this.onSticky)
     ipcRenderer.on('files-updated', this.filesUpdated)
-
-    ipcRenderer.send('request-files', this.state.root)
   }
 
   componentWillUnmount () {
-    ipcRenderer.removeListener('files', this.onFiles)
     ipcRenderer.removeListener('files-updated', this.filesUpdated)
     ipcRenderer.removeListener('sticky-window', this.onSticky)
 
@@ -109,7 +98,7 @@ class Files extends Component {
   makeBreadcrumbs = () => {
     const navigate = (root) => { ipcRenderer.send('request-files', root) }
 
-    return <Breadcrumbs navigate={navigate} path={this.state.root} />
+    return <Breadcrumbs navigate={navigate} path={this.props.root} />
   }
 
   render () {
@@ -119,7 +108,7 @@ class Files extends Component {
       visibility: (isOver && canDrop) ? 'visible' : 'hidden'
     }
 
-    let files = this.state.files.map((file, index) => {
+    let files = this.props.files.map((file, index) => {
       return (
         <FileBlock
           name={file.Name}

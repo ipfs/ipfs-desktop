@@ -1,0 +1,24 @@
+.start {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.start .main {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+  & > div {
+    display: flex;
+    justify-content: space-between;
+
+    & > * {
+      width: 48%;
+    }
+  }
+}
