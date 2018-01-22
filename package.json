@@ -33,7 +33,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "electron-forge": "^4.2.0",
-    "electron-prebuilt-compile": "1.8.1",
+    "electron-prebuilt-compile": "1.8.2-beta.3",
     "eslint": "^4",
     "eslint-config-aegir": "^1.0.1",
     "eslint-config-standard-react": "^5.0.0",
