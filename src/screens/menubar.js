@@ -95,6 +95,10 @@ class Menubar extends Component {
     ipcRenderer.send('request-files', this.state.files.root)
   }
 
+  filesUpdated = () => {
+    ipcRenderer.send('request-files', this.state.files.root)
+  }
+
   componentDidMount () {
     // Listen to control events
     ipcRenderer.on('node-status', this._onSomething('status'))
@@ -104,6 +108,7 @@ class Menubar extends Component {
     ipcRenderer.on('adding', this._onSomething('adding'))
     ipcRenderer.on('files', this._onSomething('files'))
     ipcRenderer.on('pinning', this._onSomething('pinning'))
+    ipcRenderer.on('files-updated', this.filesUpdated)
 
     ipcRenderer.send('request-state')
     ipcRenderer.send('request-settings')
@@ -118,6 +123,7 @@ class Menubar extends Component {
     ipcRenderer.removeListener('adding', this._onSomething('adding'))
     ipcRenderer.removeListener('files', this._onSomething('files'))
     ipcRenderer.removeListener('pinning', this._onSomething('pinning'))
+    ipcRenderer.removeListener('files-updated', this.filesUpdated)
   }
 
   _getRouteScreen () {
@@ -149,7 +155,7 @@ class Menubar extends Component {
       case 'info':
         return (
           <Info
-            node={this.state.stats.node}
+            node={this.state.stats.id}
             bw={this.state.stats.bw}
             repo={this.state.stats.repo} />
         )

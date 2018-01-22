@@ -71,10 +71,6 @@ class Files extends Component {
     ipcRenderer.send('remove-file', name)
   }
 
-  filesUpdated = () => {
-    ipcRenderer.send('request-files', this.props.root)
-  }
-
   onSticky = (event, sticky) => {
     this.setState({ sticky: sticky })
   }
@@ -85,11 +81,9 @@ class Files extends Component {
 
   componentDidMount () {
     ipcRenderer.on('sticky-window', this.onSticky)
-    ipcRenderer.on('files-updated', this.filesUpdated)
   }
 
   componentWillUnmount () {
-    ipcRenderer.removeListener('files-updated', this.filesUpdated)
     ipcRenderer.removeListener('sticky-window', this.onSticky)
 
     if (this.state.sticky) this.toggleStickWindow()
