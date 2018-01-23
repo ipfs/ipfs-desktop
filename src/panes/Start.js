@@ -16,7 +16,7 @@ export default function Info (props) {
   return (
     <Pane class='start'>
       <div className='main'>
-        <p>It seems your daemon is not running yet.</p>
+        <p>It seems your daemon is not running yet. You can either start the daemon or quit the application.</p>
 
         <div>
           <Button text='Start Daemon' onClick={startDaemon} />
