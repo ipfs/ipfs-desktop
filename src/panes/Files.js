@@ -105,11 +105,11 @@ class Files extends Component {
     let files = this.props.files.map((file, index) => {
       return (
         <FileBlock
-          name={file.Name}
-          hash={file.Hash}
-          type={file.Type}
+          name={file.name}
+          hash={file.hash}
+          type={file.type}
           key={index}
-          size={file.CumulativeSize}
+          size={file.cumulativeSize}
           remove={this.trash}
           open={this.open}
           copy={this.copy}

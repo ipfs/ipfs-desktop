@@ -8,24 +8,22 @@ function basename (path) {
 }
 
 function sort (a, b) {
-  if (a.Type === 'directory' && b.Type !== 'directory') {
+  if (a.type === 'directory' && b.type !== 'directory') {
     return -1
-  } else if (b.Type === 'directory' && a.Type !== 'directory') {
+  } else if (b.type === 'directory' && a.type !== 'directory') {
     return 1
   }
 
-  return a.Name > b.Name
+  return a.name > b.name
 }
 
 function listAndSend (opts, root) {
   const {debug, ipfs, send} = opts
 
   ipfs().files.ls(root)
-    .then(res => {
-      const files = res.Entries || []
-
+    .then(files => {
       Promise.all(files.map(file => {
-        return ipfs().files.stat([root, file.Name].join('/'))
+        return ipfs().files.stat([root, file.name].join('/'))
           .then(stats => Object.assign({}, file, stats))
       }))
         .then(res => res.sort(sort))
