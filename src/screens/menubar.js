@@ -54,25 +54,7 @@ class Menubar extends Component {
   state = {
     status: UNINITIALIZED,
     route: panes[0].id,
-    stats: {
-      node: {
-        id: 'Undefined',
-        location: 'Unknown',
-        protocolVersion: 'Undefined',
-        publicKey: 'Undefined',
-        addresses: []
-      },
-      repo: {
-        RepoSize: 0,
-        NumObjects: 0
-      },
-      bw: {
-        TotalIn: 0,
-        TotalOut: 0,
-        RateIn: 0,
-        RateOut: 0
-      }
-    },
+    stats: {},
     settings: {},
     files: {
       root: '/',

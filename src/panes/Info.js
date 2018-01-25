@@ -30,8 +30,8 @@ export default function Info (props) {
 
       <div className='main'>
         <div className='sharing'>
-          <p>{prettyBytes(props.repo.RepoSize)}</p>
-          <p>Sharing {props.repo.NumObjects} objects</p>
+          <p>{prettyBytes(props.repo.repoSize)}</p>
+          <p>Sharing {props.repo.numObjects} objects</p>
         </div>
 
         <InfoBlock
@@ -45,15 +45,15 @@ export default function Info (props) {
 
         <InfoBlock
           title='Bandwidth Used'
-          info={prettyBytes(props.bw.TotalIn + props.bw.TotalOut)} />
+          info={prettyBytes(props.bw.totalIn + props.bw.totalOut)} />
 
         <InfoBlock
           title='Down Speed'
-          info={prettyBytes(props.bw.RateIn) + '/s'} />
+          info={prettyBytes(props.bw.rateIn) + '/s'} />
 
         <InfoBlock
           title='Up Speed'
-          info={prettyBytes(props.bw.RateOut) + '/s'} />
+          info={prettyBytes(props.bw.rateOut) + '/s'} />
 
         <InfoBlock
           title='Protocol Version'
@@ -108,13 +108,13 @@ Info.defaultProps = {
     addresses: []
   },
   repo: {
-    RepoSize: 0,
-    NumObjects: 0
+    repoSize: 0,
+    numObjects: 0
   },
   bw: {
-    TotalIn: 0,
-    TotalOut: 0,
-    RateIn: 0,
-    RateOut: 0
+    totalIn: 0,
+    totalOut: 0,
+    rateIn: 0,
+    rateOut: 0
   }
 }
