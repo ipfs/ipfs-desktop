@@ -30,8 +30,8 @@ export default function Info (props) {
 
       <div className='main'>
         <div className='sharing'>
-          <p>{prettyBytes(props.repo.repoSize)}</p>
-          <p>Sharing {props.repo.numObjects} objects</p>
+          <p>{prettyBytes(props.repo.RepoSize)}</p>
+          <p>Sharing {props.repo.NumObjects} objects</p>
         </div>
 
         <InfoBlock
@@ -108,8 +108,8 @@ Info.defaultProps = {
     addresses: []
   },
   repo: {
-    repoSize: 0,
-    numObjects: 0
+    RepoSize: 0,
+    NumObjects: 0
   },
   bw: {
     totalIn: 0,
