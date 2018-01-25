@@ -132,8 +132,6 @@ class Menubar extends Component {
     }
 
     if (this.state.status === STOPPED || this.state.status === UNINITIALIZED) {
-      // TODO: add start running screen here :)
-      // It should overlap all of the interface so it is the only thing available.
       return <Start />
     }
 
