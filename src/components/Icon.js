@@ -14,19 +14,25 @@ const logoBlack = resolve(join(__dirname, '../img/ipfs-logo-black.png'))
  * @return {ReactElement}
  */
 export default function Icon (props) {
+  let style = {}
+  if (props.color) {
+    style.color = props.color
+  }
+
   if (props.name === 'ipfs') {
     return (
-      <span className='icon'>
+      <span className='icon' styles={style}>
         <img alt='IPFS Logo' src={`file://${logoBlack}`} />
       </span>
     )
   }
 
   return (
-    <span className={`icon ti-${props.name}`} />
+    <span style={style} className={`icon ti-${props.name}`} />
   )
 }
 
 Icon.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  color: PropTypes.string
 }

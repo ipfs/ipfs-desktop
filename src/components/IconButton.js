@@ -16,7 +16,7 @@ import Icon from './Icon'
 export default function IconButton (props) {
   return (
     <button onClick={props.onClick} className={`button-icon${props.active ? ' active' : ''}`}>
-      <Icon name={props.icon} />
+      <Icon color={props.color} name={props.icon} />
     </button>
   )
 }
@@ -24,7 +24,8 @@ export default function IconButton (props) {
 IconButton.propTypes = {
   icon: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  active: PropTypes.bool
+  active: PropTypes.bool,
+  color: PropTypes.string
 }
 
 IconButton.defaultProps = {

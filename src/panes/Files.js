@@ -102,13 +102,15 @@ class Files extends Component {
       visibility: (isOver && canDrop) ? 'visible' : 'hidden'
     }
 
-    let files = this.props.files.map((file, index) => {
+    let files = this.props.files.filter((file) => {
+      return !(file.name === '.pinset' && this.props.root === '/')
+    }).map((file) => {
       return (
         <FileBlock
           name={file.name}
           hash={file.hash}
           type={file.type}
-          key={index}
+          key={`${file.hash}${file.name}`}
           size={file.cumulativeSize}
           remove={this.trash}
           open={this.open}

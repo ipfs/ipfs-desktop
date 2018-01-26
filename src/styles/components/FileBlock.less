@@ -3,6 +3,17 @@
   align-items: center;
 }
 
+.block.file {
+  &.deleting {
+    background: #F44336;
+
+    .button-overlay {
+      opacity: 1;
+      background: linear-gradient(to left, #f44336 0%, #f44336 50%, transparent 100%);
+    }
+  }
+}
+
 .block.file > div > div div:nth-child(2) {
   overflow: hidden;
 }

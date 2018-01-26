@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import fileExtension from 'file-extension'
 import prettyBytes from 'pretty-bytes'
@@ -6,6 +6,7 @@ import prettyBytes from 'pretty-bytes'
 import Block from './Block'
 import Icon from './Icon'
 import IconButton from './IconButton'
+import Button from './Button'
 
 const wrapper = (fn) => {
   return (event) => {
@@ -26,57 +27,102 @@ const wrapper = (fn) => {
  *
  * @return {ReactElement}
  */
-export default function FileBlock (props) {
-  const extension = fileExtension(props.name)
-  let icon = 'file'
+export default class FileBlock extends Component {
+  constructor (props) {
+    super(props)
 
-  if (props.type === 'directory') {
-    icon = 'folder'
-  } else if (fileTypes[extension]) {
-    icon = fileTypes[extension]
-  }
+    const extension = fileExtension(this.props.name)
+    let icon = 'file'
 
-  const open = () => {
-    if (props.type === 'directory') {
-      props.navigate(props.name, props.hash)
-    } else {
-      props.open(props.name, props.hash)
+    if (this.props.type === 'directory') {
+      icon = 'folder'
+    } else if (fileTypes[extension]) {
+      icon = fileTypes[extension]
+    }
+
+    this.state = {
+      icon: icon,
+      deleting: false
     }
   }
 
-  const copy = wrapper(() => { props.copy(props.hash) })
-  const remove = wrapper(() => { props.remove(props.name) })
+  open = () => {
+    if (this.props.type === 'directory') {
+      this.props.navigate(this.props.name, this.props.hash)
+    } else {
+      this.props.open(this.props.name, this.props.hash)
+    }
+  }
 
-  const wrapped = (
-    <div>
-      <div className='icon'>
-        <Icon name={icon} />
-      </div>
+  copy = wrapper(() => {
+    this.props.copy(this.props.hash)
+  })
+
+  remove = wrapper(() => {
+    this.props.remove(this.props.name)
+  })
+
+  delete = wrapper(() => {
+    this.setState({ deleting: true })
+  })
+
+  undelete = () => {
+    this.setState({ deleting: false })
+  }
+
+  render () {
+    const wrapped = (
       <div>
-        <p className='label'>{props.name}</p>
-        <p className='info'>{prettyBytes(props.size)} | {props.hash}</p>
+        <div className='icon'>
+          <Icon name={this.state.icon} />
+        </div>
+        <div>
+          <p className='label'>{this.props.name}</p>
+          { this.state.deleting &&
+            <p className='info'>Are you sure? This is permanent.</p>
+          }
+          { !this.state.deleting &&
+            <p className='info'>{prettyBytes(this.props.size)} | {this.props.hash}</p>
+          }
+        </div>
       </div>
-    </div>
-  )
+    )
 
-  const unwrapped = (
-    <div className='button-overlay'>
-      { typeof props.copy === 'function' &&
-        <IconButton icon='clipboard' onClick={copy} />
-      }
-      { typeof props.remove === 'function' &&
-        <IconButton icon='trash' onClick={remove} />
-      }
-    </div>
-  )
+    let unwrapped = null
 
-  return (
-    <Block
-      {...props.open !== null && { onClick: open }}
-      className='file'
-      wrapped={wrapped}
-      unwrapped={unwrapped} />
-  )
+    if (this.state.deleting) {
+      unwrapped = (
+        <div className='button-overlay'>
+          <Button text='Cancel' onClick={this.undelete} />
+          <Button text='Delete' onClick={this.remove} />
+        </div>
+      )
+    } else {
+      unwrapped = (
+        <div className='button-overlay'>
+          { typeof this.props.copy === 'function' &&
+            <IconButton icon='clipboard' onClick={this.copy} />
+          }
+          { typeof this.props.remove === 'function' &&
+            <IconButton icon='trash' color='#F44336' onClick={this.delete} />
+          }
+        </div>
+      )
+    }
+
+    let className = 'file'
+    if (this.state.deleting) {
+      className += ' deleting'
+    }
+
+    return (
+      <Block
+        {...this.props.open !== null && !this.state.deleting && { onClick: this.open }}
+        className={className}
+        wrapped={wrapped}
+        unwrapped={unwrapped} />
+    )
+  }
 }
 
 FileBlock.propTypes = {
