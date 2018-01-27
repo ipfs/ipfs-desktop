@@ -52,7 +52,8 @@
     "mocha": "^5.0.0",
     "nyc": "^11.4.1",
     "pre-commit": "^1.2.2",
-    "sinon": "^4.2.2"
+    "sinon": "^4.2.2",
+    "spectron": "^3.8.0"
   },
   "scripts": {
     "start": "electron-forge start",
@@ -60,7 +61,7 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint .",
-    "test": "cross-env NODE_ENV=test nyc --all mocha --require babel-core/register --require ./test/setup.js --recursive",
+    "test": "cross-env NODE_ENV=test mocha --require babel-core/register --require ./test/setup.js --recursive",
     "coverage": "(nyc report --reporter=text-lcov > coverage.lcov) && codecov"
   },
   "nyc": {
