@@ -13,7 +13,7 @@ describe('<Breadcrumbs />', () => {
   let navigate
 
   before(() => {
-    path = '/this/is/a/path/'
+    path = '/this/is/a/path'
     navigate = sinon.spy()
 
     element = shallow((
@@ -21,6 +21,11 @@ describe('<Breadcrumbs />', () => {
         path={path}
         navigate={navigate} />
     ))
+  })
+
+  it('with trailing slash', () => {
+    const el = shallow(<Breadcrumbs path={`${path}/`} navigate={navigate} />)
+    expect(el.html()).to.eql(element.html())
   })
 
   it('number of divisors', () => {
