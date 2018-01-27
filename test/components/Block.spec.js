@@ -29,7 +29,7 @@ describe('<Block />', () => {
     ))
   })
 
-  it('has class', () => {
+  it('has custom class', () => {
     expect(element.hasClass(className)).to.equal(true)
   })
 
