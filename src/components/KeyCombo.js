@@ -21,7 +21,7 @@ export default function KeyCombo (props) {
   })
 
   keys.pop()
-  return keys
+  return <span>{keys}</span>
 }
 
 KeyCombo.propTypes = {
