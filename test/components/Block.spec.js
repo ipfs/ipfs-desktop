@@ -54,3 +54,55 @@ describe('<Block />', () => {
     expect(onClick.calledOnce).to.equal(true)
   })
 })
+
+describe('<Block /> without onClick', () => {
+  let element
+  let wrapped
+  let className
+
+  before(() => {
+    wrapped = 'Hello, World'
+    className = 'class'
+
+    element = shallow((
+      <Block wrapped={wrapped} className={className} />
+    ))
+  })
+
+  it('has custom class', () => {
+    expect(element.hasClass(className)).to.equal(true)
+  })
+
+  it('two divs', () => {
+    expect(element.find('div')).to.have.length(2)
+  })
+
+  it('wrapped', () => {
+    const div = element.children().find('div')
+    expect(div).to.have.length(1)
+    expect(div.text()).to.eql(wrapped)
+  })
+})
+
+describe('<Block /> without custom className', () => {
+  let element
+  let wrapped
+
+  before(() => {
+    wrapped = 'Hello, World'
+
+    element = shallow((
+      <Block wrapped={wrapped} />
+    ))
+  })
+
+  it('two divs', () => {
+    expect(element.find('div')).to.have.length(2)
+  })
+
+  it('wrapped', () => {
+    const div = element.children().find('div')
+    expect(div).to.have.length(1)
+    expect(div.text()).to.eql(wrapped)
+  })
+})

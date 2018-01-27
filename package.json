@@ -61,7 +61,7 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint .",
-    "test": "cross-env NODE_ENV=test mocha --require babel-core/register --require ./test/setup.js --recursive",
+    "test": "cross-env NODE_ENV=test nyc --all mocha --require babel-core/register --require ./test/setup.js --recursive",
     "coverage": "(nyc report --reporter=text-lcov > coverage.lcov) && codecov"
   },
   "nyc": {
