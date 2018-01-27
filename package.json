@@ -33,22 +33,30 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "chai": "^4.1.2",
     "electron-forge": "^4.2.0",
     "electron-prebuilt-compile": "1.8.2-beta.3",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4",
     "eslint-config-aegir": "^1.0.1",
     "eslint-config-standard-react": "^5.0.0",
     "eslint-plugin-import": "^2",
     "eslint-plugin-jsx-a11y": "^6",
     "eslint-plugin-react": "^7",
-    "pre-commit": "^1.2.2"
+    "expect": "^22.1.0",
+    "jsdom": "^11.6.1",
+    "mocha": "^5.0.0",
+    "pre-commit": "^1.2.2",
+    "sinon": "^4.2.2"
   },
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "mocha --require babel-core/register --require ./test/setup.js --recursive"
   },
   "config": {
     "forge": {
