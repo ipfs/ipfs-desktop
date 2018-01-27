@@ -14,9 +14,6 @@
           "stage-2",
           "react"
         ],
-        "plugins": [
-          "transform-async-to-generator"
-        ],
         "sourceMaps": "inline"
       }
     },
@@ -33,9 +30,6 @@
           ],
           "stage-2",
           "react"
-        ],
-        "plugins": [
-          "transform-async-to-generator"
         ],
         "sourceMaps": "none"
       }

@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-istanbul": "^4.1.5",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
@@ -45,8 +45,10 @@
     "eslint-plugin-jsx-a11y": "^6",
     "eslint-plugin-react": "^7",
     "expect": "^22.1.0",
+    "istanbul": "^0.4.5",
     "jsdom": "^11.6.1",
     "mocha": "^5.0.0",
+    "nyc": "^11.4.1",
     "pre-commit": "^1.2.2",
     "sinon": "^4.2.2"
   },
@@ -56,7 +58,18 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint .",
-    "test": "mocha --require babel-core/register --require ./test/setup.js --recursive"
+    "test": "nyc --all mocha --require babel-core/register --require ./test/setup.js --recursive"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js*"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
   },
   "config": {
     "forge": {

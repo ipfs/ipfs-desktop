@@ -7,3 +7,5 @@ out
 package-lock.json
 dist
 *.zip
+coverage
+.nyc_output
