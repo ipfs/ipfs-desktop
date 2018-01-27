@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 function makeBread (root) {
-  root = root || '/'
   if (root.endsWith('/')) {
-    root = root.substring(0, root.length - 2)
+    root = root.substring(0, root.length - 1)
   }
 
   let parts = root.split('/').map(part => {
