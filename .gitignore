@@ -9,3 +9,4 @@ dist
 *.zip
 coverage
 .nyc_output
+coverage.lcov
