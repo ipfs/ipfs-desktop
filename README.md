@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/ipfs-shipyard/ipfs-desktop"><img src="https://travis-ci.org/ipfs-shipyard/ipfs-desktop.svg?branch=master" /></a>
+  <a href="https://travis-ci.org/ipfs-shipyard/ipfs-desktop"><img src="https://img.shields.io/travis/ipfs-shipyard/ipfs-desktop.svg?style=flat-square" /></a>
   <a href="https://david-dm.org/ipfs-shipyard/ipfs-desktop"><img src="https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square" /></a>
   <a href="https://codecov.io/gh/ipfs-shipyard/ipfs-desktop"><img src="https://img.shields.io/codecov/c/github/ipfs-shipyard/ipfs-desktop.svg?style=flat-square"></a>
   <a href="https://github.com/feross/standard"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square"></a>
