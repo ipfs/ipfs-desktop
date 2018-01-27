@@ -3,8 +3,22 @@ import {clipboard, ipcMain, globalShortcut} from 'electron'
 const settingsOption = 'screenshotShortcut'
 const shortcut = 'CommandOrControl+Alt+S'
 
+function makeScreenshotDir (opts) {
+  const {ipfs} = opts
+
+  return new Promise((resolve, reject) => {
+    ipfs().files.stat('/screenshots')
+      .then(resolve)
+      .catch(() => {
+        ipfs().files.mkdir('/screenshots')
+          .then(resolve)
+          .catch(reject)
+      })
+  })
+}
+
 function handleScreenshot (opts) {
-  let {debug, fileHistory, ipfs} = opts
+  let {debug, ipfs, send} = opts
 
   return (event, image) => {
     let base64Data = image.replace(/^data:image\/png;base64,/, '')
@@ -16,18 +30,17 @@ function handleScreenshot (opts) {
       return
     }
 
-    ipfs()
-      .add([{
-        path: `Screenshot ${new Date().toLocaleString()}.png`,
-        content: Buffer.from(base64Data, 'base64')
-      }])
+    const path = `/screenshots/${new Date().toISOString()}.png`
+    const content = Buffer.from(base64Data, 'base64')
+
+    makeScreenshotDir(opts)
+      .then(() => ipfs().files.write(path, content, {create: true}))
+      .then(() => ipfs().files.stat(path))
       .then((res) => {
-        res.forEach((file) => {
-          const url = `https://ipfs.io/ipfs/${file.hash}`
-          clipboard.writeText(url)
-          debug('Screenshot uploaded', {path: file.path})
-          fileHistory.add(file.path, file.hash)
-        })
+        const url = `https://ipfs.io/ipfs/${res.Hash}`
+        clipboard.writeText(url)
+        send('files-updated')
+        debug('Screenshot uploaded', {path: path})
       })
       .catch(e => { debug(e.stack) })
   }
