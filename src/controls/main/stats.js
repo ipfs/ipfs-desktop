@@ -60,7 +60,11 @@ export default function (opts) {
   events.on('node:started', () => {
     debug('Configuring Stats Poller')
 
-    poller = new StatsPoller(ipfs(), 1000)
+    poller = new StatsPoller(ipfs(), {
+      all: 3 * 1000,
+      peers: 5 * 1000,
+      repo: 30 * 60 * 1000
+    })
 
     if (menubar.window && menubar.window.isVisible() && polling.length !== 0) {
       poller.start(polling)
