@@ -14,7 +14,7 @@ import Input from './Input'
  */
 export default function Button (props) {
   return (
-    <Input class='button'>
+    <Input className='button'>
       <button onClick={props.onClick}>
         <span>{props.text}</span>
       </button>

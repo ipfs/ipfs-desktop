@@ -131,7 +131,7 @@ class Files extends Component {
 
     return connectDropTarget(
       <div>
-        <Pane class='files'>
+        <Pane className='files'>
           <Header title={this.makeBreadcrumbs()} loading={this.props.adding} />
 
           <div className='main'>

@@ -68,7 +68,7 @@ export default class Welcome extends Component {
       case ADVANCED:
         return (
           <PaneContainer>
-            <Pane class='heartbeat-pane'>
+            <Pane className='heartbeat-pane'>
               <Heartbeat />
             </Pane>
             <Intro

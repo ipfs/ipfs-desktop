@@ -73,7 +73,7 @@ export default class Pinned extends Component {
 
     return (
       <div>
-        <Pane class='left-pane files'>
+        <Pane className='left-pane files'>
           <Header title='Pinned Hashes' loading={this.props.pinning} />
 
           <div className='main'>

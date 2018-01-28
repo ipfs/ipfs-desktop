@@ -165,7 +165,7 @@ class Menubar extends Component {
         )
       default:
         return (
-          <Pane class='left-pane'>
+          <Pane className='left-pane'>
             <p className='notice'>
               Hmmm... Something strange happened and you should not be here.
             </p>
