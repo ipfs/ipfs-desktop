@@ -4,21 +4,20 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import {expect} from 'chai'
 
-import Pane from '../../src/components/Pane'
-import Footer from '../../src/components/Footer'
+import PaneContainer from '../../src/components/PaneContainer'
 
-describe('<Pane />', () => {
+describe('<PaneContainer />', () => {
   describe('with className', () => {
     let element
     let content
     let className
 
     before(() => {
-      content = 'Hello, world!'
-      className = 'my-pane'
+      content = 'Hello, World!'
+      className = 'hey'
 
       element = shallow((
-        <Pane className={className}>{content}</Pane>
+        <PaneContainer className={className}>{content}</PaneContainer>
       ))
     })
 
@@ -34,33 +33,23 @@ describe('<Pane />', () => {
   describe('without className', () => {
     let element
     let content
+    let className
 
     before(() => {
-      content = 'Hello, world!'
+      content = 'Hello, World!'
+      className = 'hey'
 
       element = shallow((
-        <Pane>{content}</Pane>
+        <PaneContainer>{content}</PaneContainer>
       ))
     })
 
     it('right content', () => {
       expect(element.text()).to.be.eql(content)
     })
-  })
 
-  describe('with Footer', () => {
-    let element
-
-    before(() => {
-      element = shallow((
-        <Pane>
-          <Footer>Hello, World!</Footer>
-        </Pane>
-      ))
-    })
-
-    it('footer class', () => {
-      expect(element.hasClass('has-footer')).to.be.eql(true)
+    it('right class', () => {
+      expect(element.hasClass(className)).to.be.eql(false)
     })
   })
 })

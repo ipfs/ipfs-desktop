@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import {shallow} from 'enzyme'
 import {expect} from 'chai'
 
 import Icon from '../../src/components/Icon'

@@ -4,17 +4,17 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import {expect} from 'chai'
 
-import Footer from '../../src/components/Footer'
+import Menu from '../../src/components/Menu'
 
-describe('<Footer />', () => {
+describe('<Menu />', () => {
   let element
   let content
 
   before(() => {
-    content = 'Hello, world!'
+    content = 'Menu Content'
 
     element = shallow((
-      <Footer>{content}</Footer>
+      <Menu>{content}</Menu>
     ))
   })
 
