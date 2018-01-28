@@ -10,7 +10,7 @@ export default function InputText (props) {
   }
 
   return (
-    <Input class='text'>
+    <Input className='text'>
       <input
         type='text'
         value={props.value}

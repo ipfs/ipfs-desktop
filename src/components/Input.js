@@ -12,8 +12,8 @@ import PropTypes from 'prop-types'
  */
 export default function Input (props) {
   let className = 'input'
-  if (props.class) {
-    className += ' ' + props.class
+  if (props.className) {
+    className += ' ' + props.className
   }
 
   return (
@@ -22,6 +22,6 @@ export default function Input (props) {
 }
 
 Input.propTypes = {
-  class: PropTypes.string,
+  className: PropTypes.string,
   children: PropTypes.any.isRequired
 }
