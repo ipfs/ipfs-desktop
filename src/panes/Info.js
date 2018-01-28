@@ -25,7 +25,7 @@ function stopDaemon () {
 
 export default function Info (props) {
   return (
-    <Pane class='info'>
+    <Pane className='info'>
       <Header title='Your Node' />
 
       <div className='main'>

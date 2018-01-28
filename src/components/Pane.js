@@ -14,8 +14,8 @@ import Footer from './Footer'
  */
 export default function Pane (props) {
   let className = 'pane'
-  if (props.class) {
-    className += ' ' + props.class
+  if (props.className) {
+    className += ' ' + props.className
   }
 
   React.Children.forEach(props.children, (child) => {
@@ -33,9 +33,9 @@ export default function Pane (props) {
 
 Pane.propTypes = {
   children: PropTypes.node.isRequired,
-  class: PropTypes.string
+  className: PropTypes.string
 }
 
 Pane.defaultProps = {
-  class: null
+  className: null
 }
