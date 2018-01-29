@@ -3,6 +3,7 @@ import fs from 'fs'
 import os from 'os'
 import {app, dialog} from 'electron'
 import dbgger from 'debug'
+import {EventEmitter} from 'events'
 
 import KeyValueStore from './utils/key-value-store'
 
@@ -53,6 +54,7 @@ process.on('uncaughtException', fatal)
 process.on('unhandledRejection', fatal)
 
 export default {
+  events: new EventEmitter(),
   debug: debug,
   settingsStore: settingsStore,
   logo: {
