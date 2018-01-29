@@ -7,7 +7,6 @@ import {dialog, ipcMain, app, BrowserWindow} from 'electron'
 import config from './config'
 import registerControls from './controls/main'
 import handleKnownErrors from './errors'
-import StatsPoller from 'ipfs-stats'
 
 const {debug} = config
 
@@ -27,7 +26,6 @@ app.makeSingleInstance(() => {
 
 // Local Variables
 
-let poller = null
 let IPFS
 let menubar
 
@@ -39,18 +37,6 @@ function send (type, ...args) {
 
 config.send = send
 config.ipfs = () => IPFS
-
-function stopPolling () {
-  if (poller) poller.stop()
-}
-
-function startPolling () {
-  if (poller) poller.start()
-}
-
-function onPollerChange (stats) {
-  send('stats', stats)
-}
 
 function onRequestState (node, event) {
   if (!node.started) {
@@ -92,12 +78,9 @@ function onStartDaemon (node) {
       return
     }
 
+    IPFS = api
     debug('Daemon started')
-    poller = new StatsPoller(api, 1000)
-
-    if (menubar.window && menubar.window.isVisible()) {
-      poller.start()
-    }
+    config.events.emit('node:started')
 
     // Stop the executation of the program if some error
     // occurs on the node.
@@ -106,13 +89,7 @@ function onStartDaemon (node) {
       debug(e)
     })
 
-    poller.on('change', onPollerChange)
-    menubar.on('show', startPolling)
-    menubar.on('hide', stopPolling)
-
     menubar.tray.setImage(config.logo.ice)
-
-    IPFS = api
     send('node-status', 'running')
   })
 }
@@ -121,15 +98,7 @@ function onStopDaemon (node, done) {
   debug('Stopping daemon')
   send('node-status', 'stopping')
 
-  if (poller) {
-    poller.stop()
-    poller = null
-  }
-
-  if (menubar) {
-    menubar.removeListener('show', startPolling)
-    menubar.removeListener('hide', stopPolling)
-  }
+  config.events.emit('node:stopped')
 
   node.stop((err) => {
     if (err) {

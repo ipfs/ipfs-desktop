@@ -7,6 +7,7 @@ import openUrl from './open-url'
 import openWebUI from './open-webui'
 import pinnedFiles from './pinned-files'
 import settings from './settings'
+import stats from './stats'
 import takeScreenshot from './take-screenshot'
 import toggleSticky from './toggle-sticky'
 
@@ -20,6 +21,7 @@ export default function (opts) {
   openWebUI(opts)
   pinnedFiles(opts)
   settings(opts)
+  stats(opts)
   takeScreenshot(opts)
   toggleSticky(opts)
 }
