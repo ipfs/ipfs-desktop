@@ -1,34 +1,74 @@
 import StatsPoller from 'ipfs-stats'
+import {ipcMain} from 'electron'
 
 let poller
+let polling = []
 
-const stopPolling = () => {
-  if (poller) poller.stop()
+function requestStats (event, stats) {
+  if (!poller) {
+    // Save what to poll next.
+    polling = stats
+    return
+  }
+
+  if (stats === polling) {
+    // Already polling this stats.
+    return
+  }
+
+  if (stats.length === 0) {
+    // No stats to poll. Let's stop.
+    polling = []
+    poller.stop()
+    return
+  }
+
+  // If currently pollint something, let's stop it.
+  if (polling.length !== 0) {
+    poller.stop(polling)
+  }
+
+  // Poll the needed stats.
+  polling = stats
+  poller.start(polling)
 }
 
-const startPolling = () => {
-  if (poller) poller.start()
+function menubarShow () {
+  if (!poller) return
+
+  if (polling.length !== 0) {
+    poller.start(polling)
+  }
 }
 
-const onPollerChange = (opts) => (stats) => {
-  opts.send('stats', stats)
+function menubarHide () {
+  if (!poller) return
+  poller.stop()
+}
+
+function onChange (opts) {
+  return (stats) => {
+    opts.send('stats', stats)
+  }
 }
 
 export default function (opts) {
   const {debug, events, menubar, ipfs} = opts
+
+  ipcMain.on('request-stats', requestStats)
 
   events.on('node:started', () => {
     debug('Configuring Stats Poller')
 
     poller = new StatsPoller(ipfs(), 1000)
 
-    if (menubar.window && menubar.window.isVisible()) {
-      poller.start()
+    if (menubar.window && menubar.window.isVisible() && polling.length !== 0) {
+      poller.start(polling)
     }
 
-    poller.on('change', onPollerChange(opts))
-    menubar.on('show', startPolling)
-    menubar.on('hide', stopPolling)
+    poller.on('change', onChange(opts))
+    menubar.on('show', menubarShow)
+    menubar.on('hide', menubarHide)
   })
 
   events.on('node:stopped', () => {
@@ -40,8 +80,8 @@ export default function (opts) {
     }
 
     if (menubar) {
-      menubar.removeListener('show', startPolling)
-      menubar.removeListener('hide', stopPolling)
+      menubar.removeListener('show', menubarShow)
+      menubar.removeListener('hide', menubarHide)
     }
   })
 }

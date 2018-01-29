@@ -87,6 +87,20 @@ class Menubar extends Component {
   }
 
   _changeRoute = (route) => {
+    if (route === this.state.route) return
+
+    switch (route) {
+      case 'info':
+        ipcRenderer.send('request-stats', ['id', 'bw', 'repo'])
+        break
+      case 'peers':
+        ipcRenderer.send('request-stats', ['peers'])
+        break
+      default:
+        ipcRenderer.send('request-stats', [])
+        break
+    }
+
     this.setState({route: route})
   }
 
@@ -112,6 +126,7 @@ class Menubar extends Component {
 
     ipcRenderer.send('request-state')
     ipcRenderer.send('request-settings')
+    ipcRenderer.send('request-stats', ['id', 'bw', 'repo'])
   }
 
   componentWillUnmount () {
