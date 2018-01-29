@@ -5,8 +5,8 @@ import Intro from '../panes/intro'
 
 import Pane from '../components/Pane'
 import PaneContainer from '../components/PaneContainer'
-import Loader from '../components/Loader'
 import Heartbeat from '../components/Heartbeat'
+import Loader from '../panes/Loader'
 
 const INTRO = 'intro'
 const INTITIALZING = 'initializing'
