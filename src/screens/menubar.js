@@ -86,6 +86,16 @@ class Menubar extends Component {
     return this.listeners[key]
   }
 
+  onPinned = (event, pinset) => {
+    this.setState({pinned: pinset})
+
+    setTimeout(() => {
+      if (this.state.route === 'pinned') {
+        ipcRenderer.send('request-pinned')
+      }
+    }, 5000)
+  }
+
   _changeRoute = (route) => {
     if (route === this.state.route) return
 
@@ -95,6 +105,9 @@ class Menubar extends Component {
         break
       case 'peers':
         ipcRenderer.send('request-stats', ['peers'])
+        break
+      case 'pinned':
+        ipcRenderer.send('request-pinned')
         break
       default:
         ipcRenderer.send('request-stats', [])
@@ -117,11 +130,11 @@ class Menubar extends Component {
     // Listen to control events
     ipcRenderer.on('node-status', this._onSomething('status'))
     ipcRenderer.on('stats', this._onSomething('stats'))
-    ipcRenderer.on('pinned', this._onSomething('pinned'))
     ipcRenderer.on('settings', this._onSomething('settings'))
     ipcRenderer.on('adding', this._onSomething('adding'))
     ipcRenderer.on('files', this._onSomething('files'))
     ipcRenderer.on('pinning', this._onSomething('pinning'))
+    ipcRenderer.on('pinned', this.onPinned)
     ipcRenderer.on('files-updated', this.filesUpdated)
 
     ipcRenderer.send('request-state')
@@ -133,11 +146,11 @@ class Menubar extends Component {
     // Remove control events
     ipcRenderer.removeListener('node-status', this._onSomething('status'))
     ipcRenderer.removeListener('stats', this._onSomething('stats'))
-    ipcRenderer.removeListener('pinned', this._onSomething('pinned'))
     ipcRenderer.removeListener('settings', this._onSomething('settings'))
     ipcRenderer.removeListener('adding', this._onSomething('adding'))
     ipcRenderer.removeListener('files', this._onSomething('files'))
     ipcRenderer.removeListener('pinning', this._onSomething('pinning'))
+    ipcRenderer.removeListener('pinned', this.onPinned)
     ipcRenderer.removeListener('files-updated', this.filesUpdated)
   }
 
