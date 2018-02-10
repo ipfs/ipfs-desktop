@@ -1,56 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import TextInput from './TextInput'
+
 /**
  * Is a Pane's Header.
  *
  * @param {Object} props
  *
- * @prop {String|Node} title       - The title of the pane
- * @prop {String|Node} [subtitle]  - Subtitle of the pane
- * @prop {Node}   [children]  - Header children (e.g.: buttons)
- * @prop {Bool}   [loading]   - Show a loading animation
+ * @prop {Function} search
  *
  * @return {ReactElement}
  */
 export default function Header (props) {
-  let className = 'header'
-  if (props.loading) {
-    className += ' loading'
-  }
-
   return (
-    <div className={className}>
-      <div>
-        <p className='title'>{props.title}</p>
-        { props.subtitle !== '' &&
-          <p className='subtitle'>{props.subtitle}</p>
-        }
-      </div>
-      <div>
-        {props.children}
-      </div>
+    <div className='mv3 center w-100 pb3 flex justify-between items-center flex-shrink-0 bb b--moon-gray'>
+      <img className='h2-25' src='../img/ipfs-logo.png' />
+      <TextInput value='' onChange={() => {}} placeholder='Search' />
     </div>
   )
 }
 
 Header.propTypes = {
-  title: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node)
-  ]).isRequired,
-  subtitle: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node)
-  ]).isRequired,
-  children: PropTypes.node,
-  loading: PropTypes.bool
+  search: PropTypes.func
 }
 
 Header.defaultProps = {
-  title: '',
-  loading: false,
-  subtitle: ''
+  search: () => {}
 }

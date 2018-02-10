@@ -6,7 +6,7 @@ import Pane from '../components/Pane'
 import Header from '../components/Header'
 import InfoBlock from '../components/InfoBlock'
 import CheckboxBlock from '../components/CheckboxBlock'
-import KeyCombo from '../components/KeyCombo'
+import {KeyCombo} from '../components/Key'
 
 function generateOnChange (key) {
   return (value) => {
@@ -16,6 +16,10 @@ function generateOnChange (key) {
 
 function quit () {
   ipcRenderer.send('quit-application')
+}
+
+function openNodeSettings () {
+  ipcRenderer.send('open-node-settings')
 }
 
 const options = [
@@ -40,10 +44,6 @@ const options = [
         Enable <KeyCombo keys={['CTRL/CMD', 'ALT', 'D']} /> to download the last copied hash.
       </span>
     )
-  },
-  {
-    title: 'Light theme',
-    setting: 'lightTheme'
   }
 ]
 
@@ -67,6 +67,13 @@ export default function Settings (props) {
 
       <div className='main'>
         {opts}
+
+        <InfoBlock
+          title='Node Settings'
+          info='Click to edit'
+          key='node-settings'
+          button={false}
+          onClick={openNodeSettings} />
 
         <InfoBlock
           title='Quit'

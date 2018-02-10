@@ -1,9 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import fileExtension from 'file-extension'
-import prettyBytes from 'pretty-bytes'
+import prettyBytes from '../utils/pretty-bytes'
 
-import Block from './Block'
 import Icon from './Icon'
 import IconButton from './IconButton'
 import Button from './Button'
@@ -27,17 +25,14 @@ const wrapper = (fn) => {
  *
  * @return {ReactElement}
  */
-export default class FileBlock extends Component {
+export default class File extends Component {
   constructor (props) {
     super(props)
 
-    const extension = fileExtension(this.props.name)
-    let icon = 'file'
+    let icon = 'document'
 
     if (this.props.type === 'directory') {
       icon = 'folder'
-    } else if (fileTypes[extension]) {
-      icon = fileTypes[extension]
     }
 
     this.state = {
@@ -73,9 +68,6 @@ export default class FileBlock extends Component {
   render () {
     const wrapped = (
       <div>
-        <div className='icon'>
-          <Icon name={this.state.icon} />
-        </div>
         <div>
           <p className='label'>{this.props.name}</p>
           { this.state.deleting &&
@@ -110,22 +102,26 @@ export default class FileBlock extends Component {
       )
     }
 
-    let className = 'file'
-    if (this.state.deleting) {
-      className += ' deleting'
+    let className = 'flex pointer charcoal-muted items-center hover-bg-aqua-muted hover-navy transition-all ph3'
+    if (this.props.odd) {
+      className += ' bg-snow-muted'
     }
 
     return (
-      <Block
-        {...this.props.open !== null && !this.state.deleting && { onClick: this.open }}
-        className={className}
-        wrapped={wrapped}
-        unwrapped={unwrapped} />
+      <div {...this.props.open !== null && !this.state.deleting && { onClick: this.open }}
+        className={className}>
+
+        <Icon stroke className='w1 mr3' color='charcoal-muted' name={this.state.icon} />
+        <p className='ma0 pv2 w-40'>{this.props.name}</p>
+        <p className='ma0 pv2 w-15'>{prettyBytes(this.props.size)}</p>
+
+      </div>
     )
   }
 }
 
-FileBlock.propTypes = {
+File.propTypes = {
+  odd: PropTypes.bool,
   name: PropTypes.string.isRequired,
   hash: PropTypes.string.isRequired,
   size: PropTypes.number.isRequired,
@@ -136,35 +132,7 @@ FileBlock.propTypes = {
   open: PropTypes.func
 }
 
-FileBlock.defaultProps = {
+File.defaultProps = {
+  odd: false,
   type: 'file'
-}
-
-const fileTypes = {
-  png: 'image',
-  jpg: 'image',
-  tif: 'image',
-  tiff: 'image',
-  bmp: 'image',
-  gif: 'image',
-  eps: 'image',
-  raw: 'image',
-  cr2: 'image',
-  nef: 'image',
-  orf: 'image',
-  sr2: 'image',
-  jpeg: 'image',
-  mp3: 'music-alt',
-  flac: 'music-alt',
-  ogg: 'music-alt',
-  oga: 'music-alt',
-  aa: 'music-alt',
-  aac: 'music-alt',
-  m4p: 'music-alt',
-  webm: 'music-alt',
-  mp4: 'video-clapper',
-  mkv: 'video-clapper',
-  avi: 'video-clapper',
-  asf: 'video-clapper',
-  flv: 'video-clapper'
 }

@@ -4,7 +4,7 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import {expect} from 'chai'
 
-import Menu from '../../src/components/Menu'
+import {Menu} from '../../src/components/Menu'
 
 describe('<Menu />', () => {
   let element

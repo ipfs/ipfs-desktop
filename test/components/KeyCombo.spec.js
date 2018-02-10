@@ -4,8 +4,7 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import {expect} from 'chai'
 
-import Key from '../../src/components/Key'
-import KeyCombo from '../../src/components/KeyCombo'
+import {Key, KeyCombo} from '../../src/components/Key'
 
 describe('<KeyCombo />', () => {
   let element

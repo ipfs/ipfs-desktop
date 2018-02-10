@@ -1,31 +1,22 @@
-@import '../variables.less';
-
 .info {
-  .sharing {
-    padding: 0 1em 1em;
-    p {
-      margin: 0;
-    }
-    p:first-of-type {
-      font-size: @big-font;
-    }
-    p:last-of-type {
-      font-size: @medium-font;
-      color: rgba(255, 255, 255, 0.5);
-    }
+  p code {
+    background: #eeeeed;
+    opacity: 0.72;
+    padding: 0 0.3em;
+    border-radius: .2em;
+    font-family: inherit;
   }
 
-  .header img {
-    cursor: pointer;
-    width: 1.15em;
+  hr {
+    color: #f3f3f2;
+    border: 1px solid;
   }
-}
 
-.light .info {
-  .sharing {
-    p:last-of-type {
-      font-size: @medium-font;
-      color: rgba(0, 0, 0, 0.5);
-    }
+  .informations p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.8em;
+    margin: 1em 0;
   }
 }

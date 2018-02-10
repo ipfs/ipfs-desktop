@@ -7,8 +7,8 @@ import {DropTarget} from 'react-dnd'
 import Pane from '../components/Pane'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import IconButton from '../components/IconButton'
-import FileBlock from '../components/FileBlock'
+import Button from '../components/Button'
+import File from '../components/File'
 import Breadcrumbs from '../components/Breadcrumbs'
 
 function join (...parts) {
@@ -26,6 +26,22 @@ const fileTarget = {
 
     ipcRenderer.send('drop-files', filesArray, component.state.root)
   }
+}
+
+function Tab (props) {
+  let classList = 'button-reset outline-0 pointer ph3 pv2 bn '
+  if (props.active) {
+    classList += 'bg-white black-80'
+  } else {
+    classList += 'bg-transparent charcoal-muted'
+  }
+
+  return <button className={classList}>{props.children}</button>
+}
+
+Tab.propTypes = {
+  children: PropTypes.any.isRequired,
+  active: PropTypes.bool
 }
 
 class Files extends Component {
@@ -104,9 +120,10 @@ class Files extends Component {
 
     let files = this.props.files.filter((file) => {
       return !(file.name === '.pinset' && this.props.root === '/')
-    }).map((file) => {
+    }).map((file, index) => {
       return (
-        <FileBlock
+        <File
+          odd={index % 2 === 0 /* it starts with 0 */}
           name={file.name}
           hash={file.hash}
           type={file.type}
@@ -130,27 +147,28 @@ class Files extends Component {
     }
 
     return connectDropTarget(
-      <div>
-        <Pane className='files'>
-          <Header title={this.makeBreadcrumbs()} loading={this.props.adding} />
+      <div className='files relative h-100 flex flex-column justify-between mh4 mv0 flex-grow-1'>
+        <Header title={this.makeBreadcrumbs()} loading={this.props.adding} />
 
-          <div className='main'>
-            {files}
+        <div>
+          <Tab active>Recent files</Tab>
+          <Tab>Pinned files</Tab>
+        </div>
+
+        <div className='bg-white w-100 overflow-y-scroll'>
+          {files}
+        </div>
+
+        <div className='dropper' style={dropper}>
+          Drop to upload to IPFS
+        </div>
+
+        <Footer>
+          <div className='right'>
+            <Button className='mr2' onClick={this.selectFileDialog}>Add file</Button>
+            <Button onClick={this.selectDirectoryDialog}>Add folder</Button>
           </div>
-
-          <div className='dropper' style={dropper}>
-            Drop to upload to IPFS
-          </div>
-
-          <Footer>
-            <IconButton active={this.state.sticky} onClick={this.toggleStickWindow} icon='eye' />
-
-            <div className='right'>
-              <IconButton onClick={this.selectFileDialog} icon='plus' />
-              <IconButton onClick={this.selectDirectoryDialog} icon='folder' />
-            </div>
-          </Footer>
-        </Pane>
+        </Footer>
       </div>
     )
   }

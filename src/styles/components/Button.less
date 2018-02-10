@@ -1,16 +1,21 @@
-.input button,
-.input.button {
+.button {
+  border-radius: 3px;
+  color: #ffffff;
+  font-weight: 500;
+  border: 0;
+  outline: 0;
   cursor: pointer;
+  background-color: #69c4cd;
+  transition: .2s ease background-color;
+  padding: 0.5em 1em;
 }
 
-.input.button:hover {
-  background: rgba(255,255,255,0.1);
+.button:hover {
+  background: #79d6df;
 }
 
-.input.button span {
-  font-size: 14px;
-}
-
-.light .input.button:hover {
-  background: rgba(0,0,0,0.3);
+.button:disabled {
+  cursor: not-allowed;
+  background-color: #d9dbe2;
+  color: #b7bbc8;
 }

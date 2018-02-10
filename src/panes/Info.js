@@ -1,94 +1,72 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {clipboard, ipcRenderer} from 'electron'
-import prettyBytes from 'pretty-bytes'
+import prettyBytes from '../utils/pretty-bytes'
 
 import Pane from '../components/Pane'
 import Header from '../components/Header'
-import InfoBlock from '../components/InfoBlock'
-
-function copy (text) {
-  return () => { clipboard.writeText(text) }
-}
-
-function openNodeSettings () {
-  ipcRenderer.send('open-node-settings')
-}
+import Footer from '../components/Footer'
+import Button from '../components/Button'
+import IconButton from '../components/IconButton'
 
 function openWebUI () {
   ipcRenderer.send('open-webui')
 }
 
-function stopDaemon () {
-  ipcRenderer.send('stop-daemon')
+function copy (text) {
+  return () => { clipboard.writeText(text) }
 }
 
 export default function Info (props) {
   return (
-    <Pane className='info'>
-      <Header title='Your Node' />
+    <Pane className='info charcoal-muted flex flex-column justify-between'>
+      <Header />
 
-      <div className='main'>
-        <div className='sharing'>
-          <p>{prettyBytes(props.repo.repoSize)}</p>
-          <p>Sharing {props.repo.numObjects} objects</p>
+      <div className='bg-white flex flex-grow-1 w-100'>
+        <div className='w-60 pa3'>
+          <div className='flex justify-between items-center w-100'>
+            <div className='w-third'>
+              <p className='ma0 f6'>Space Used</p>
+              <p className='ma0 f4 fw5'>{prettyBytes(props.repo.repoSize)}</p>
+            </div>
+
+            <div className='w-third'>
+              <p className='ma0 f6'>Down Speed</p>
+              <p className='ma0 f4 fw5'>{prettyBytes(props.bw.rateIn) + '/s'}</p>
+            </div>
+
+            <div className='w-third'>
+              <p className='ma0 f6'>Up Speed</p>
+              <p className='ma0 f4 fw5'>{prettyBytes(props.bw.rateOut) + '/s'}</p>
+            </div>
+          </div>
+
+          <hr />
+
+          <div className='informations'>
+            <h2 className='f3 fw5'>Your node informations</h2>
+
+            <p><strong>Location:</strong> {props.node.location}</p>
+            <p><strong>Protocol Version:</strong> {props.node.protocolVersion}</p>
+            <p>
+              <strong>Peer ID:</strong> <code>{props.node.id}</code>
+              <IconButton icon='copy' color='gray' onClick={copy(props.node.id)} />
+            </p>
+            <p>
+              <strong>Public Key:</strong> <code>{props.node.publicKey.substr(0, 30)}</code>
+              <IconButton icon='copy' color='gray' onClick={copy(props.node.publicKey)} />
+            </p>
+          </div>
         </div>
 
-        <InfoBlock
-          title='Peer ID'
-          info={props.node.id}
-          onClick={copy(props.node.id)} />
-
-        <InfoBlock
-          title='Location'
-          info={props.node.location} />
-
-        <InfoBlock
-          title='Bandwidth Used'
-          info={prettyBytes(props.bw.totalIn + props.bw.totalOut)} />
-
-        <InfoBlock
-          title='Down Speed'
-          info={prettyBytes(props.bw.rateIn) + '/s'} />
-
-        <InfoBlock
-          title='Up Speed'
-          info={prettyBytes(props.bw.rateOut) + '/s'} />
-
-        <InfoBlock
-          title='Protocol Version'
-          info={props.node.protocolVersion} />
-
-        <InfoBlock
-          title='Addresses'
-          info={props.node.addresses} />
-
-        <InfoBlock
-          title='Public Key'
-          info={props.node.publicKey}
-          onClick={copy(props.node.publicKey)} />
-
-        <InfoBlock
-          title='Node Settings'
-          info='Click to edit'
-          key='node-settings'
-          button={false}
-          onClick={openNodeSettings} />
-
-        <InfoBlock
-          title='Open WebUI'
-          info='Click to open'
-          key='open-webui'
-          button={false}
-          onClick={openWebUI} />
-
-        <InfoBlock
-          title='Stop Daemon'
-          info='Click to stop'
-          key='stop-daemon'
-          button={false}
-          onClick={stopDaemon} />
+        <div className='w-40 bg-navy-muted'>
+          GRAPH
+        </div>
       </div>
+
+      <Footer>
+        <Button onClick={openWebUI}>Open IPFS Control</Button>
+      </Footer>
     </Pane>
   )
 }

@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
  */
 export default function Footer (props) {
   return (
-    <div className='footer'>
+    <div className='mv3 w-100 flex-shrink-0'>
       {props.children}
     </div>
   )

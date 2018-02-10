@@ -1,11 +1,16 @@
 @import './variables.less';
 
+body {
+  background-color: #eee;
+}
+
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
 
+/*
 ::-webkit-scrollbar {
   background-color: transparent;
   width: .5em;
@@ -15,12 +20,7 @@
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 0.5em;
-}
-
-.light ::-webkit-scrollbar-thumb:window-inactive,
-.light ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.3);
-}
+}*/
 
 .directory-input {
   cursor: pointer;
@@ -81,8 +81,4 @@
   transform: translate(-50%, -50%);
   width: 250px;
   text-align: center;
-}
-
-.light .notice {
-  color: #212121
 }

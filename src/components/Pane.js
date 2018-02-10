@@ -13,16 +13,10 @@ import Footer from './Footer'
  * @return {ReactElement}
  */
 export default function Pane (props) {
-  let className = 'pane'
+  let className = 'relative h-100 overflow-y-auto overflow-x-hidden mh4 mv0 flex-grow-1'
   if (props.className) {
     className += ' ' + props.className
   }
-
-  React.Children.forEach(props.children, (child) => {
-    if (child.type === Footer) {
-      className += ' has-footer'
-    }
-  })
 
   return (
     <div className={className}>
