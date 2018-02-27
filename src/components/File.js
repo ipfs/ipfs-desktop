@@ -111,10 +111,13 @@ export default class File extends Component {
       <div {...this.props.open !== null && !this.state.deleting && { onClick: this.open }}
         className={className}>
 
-        <Icon stroke className='w1 mr3' color='charcoal-muted' name={this.state.icon} />
-        <p className='ma0 pv2 w-40'>{this.props.name}</p>
-        <p className='ma0 pv2 w-15'>{prettyBytes(this.props.size)}</p>
+        <Icon stroke className='w1-5 mr2' color='charcoal-muted' name={this.state.icon} />
+        <p className='ma0 pv2 w-50'>{this.props.name}</p>
+        <p className='ma0 pv2 w-20'>{prettyBytes(this.props.size)}</p>
 
+        <Icon className='w1-5 mr2 bg-aqua br-100' color='white' name='pencil' />
+        <Icon className='w1-5 mr2 bg-aqua br-100' color='white' name='window' />
+        <Icon className='w1-5 mr2 bg-red br-100' color='white' name='trash' />
       </div>
     )
   }

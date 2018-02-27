@@ -16,23 +16,16 @@ Menu.propTypes = {
 }
 
 export function MenuOption (props) {
-  let className = 'button-reset sans-serif pointer bg-transparent bn outline-0 mv3'
+  let className = 'button-reset sans-serif pointer bg-transparent bn outline-0 mv3 transition-all'
   if (props.active) {
-    className += ' white'
+    className += ' snow fill-snow'
   } else {
-    className += ' aqua-muted hover-white'
-  }
-
-  let icon
-  if (props.active) {
-    icon = <Icon stroke className='center w3 mb3' name={props.icon} color='snow' />
-  } else {
-    icon = <Icon stroke className='center w3 mb3' name={props.icon} color='aqua-muted' />
+    className += ' aqua-muted fill-aqua-muted hover-snow hover-fill-snow'
   }
 
   return (
     <button onClick={props.onClick} className={className}>
-      {icon}
+      <Icon stroke className='center w3 mb3' name={props.icon} />
       <p className='ma0'>{props.title}</p>
     </button>
   )

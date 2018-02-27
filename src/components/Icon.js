@@ -37,7 +37,7 @@ export default function Icon (props) {
 
   return <div
     {...options}
-    className={`fill-${props.color} ${props.className}`}
+    className={`${props.color ? 'fill-' + props.color : ''} ${props.className}`}
     dangerouslySetInnerHTML={{__html: getSVG(props.name, props.stroke)}} />
 }
 
@@ -50,6 +50,5 @@ Icon.propTypes = {
 
 Icon.defaultProps = {
   className: '',
-  stroke: false,
-  color: 'snow'
+  stroke: false
 }
