@@ -4,12 +4,12 @@ import {ipcRenderer, clipboard} from 'electron'
 import {NativeTypes} from 'react-dnd-html5-backend'
 import {DropTarget} from 'react-dnd'
 
-import Pane from '../components/Pane'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
 import File from '../components/File'
 import Breadcrumbs from '../components/Breadcrumbs'
+import Pin from '../components/Pin'
 
 function join (...parts) {
   const replace = new RegExp('/{1,}', 'g')
@@ -58,6 +58,7 @@ class Files extends Component {
     canDrop: PropTypes.bool.isRequired,
     adding: PropTypes.bool,
     files: PropTypes.array.isRequired,
+    pins: PropTypes.any.isRequired,
     root: PropTypes.string.isRequired
   }
 
@@ -112,6 +113,8 @@ class Files extends Component {
   }
 
   render () {
+    return <Pins pins={this.props.pins} />
+
     const {connectDropTarget, isOver, canDrop} = this.props
 
     const dropper = {
@@ -179,3 +182,71 @@ export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
 }))(Files)
+
+const getHashCopier = (hash) => (event) => {
+  if (event) event.stopPropagation()
+  clipboard.writeText(`https://ipfs.io/ipfs/${hash}`)
+}
+
+const getOpener = (hash) => (event) => {
+  if (event) event.stopPropagation()
+  ipcRenderer.send('open-url', `https://ipfs.io/ipfs/${hash}`)
+}
+
+const getUnpinner = (hash) => (event) => {
+  if (event) event.stopPropagation()
+  ipcRenderer.send('unpin-hash', hash)
+}
+
+export function Pins ({ pins }) {
+  const content = []
+
+  let i = 0
+  for (const hash of Object.keys(pins)) {
+    content.push((
+      <Pin
+        odd={i % 2 === 0 /* it starts with 0 */}
+        tag={pins[hash]}
+        key={hash}
+        hash={hash}
+        copy={getHashCopier(hash)}
+        open={getOpener(hash)}
+        unpin={getUnpinner(hash)} />
+    ))
+    i++
+  }
+
+  if (content.length === 0) {
+    content.push(
+      <p className='notice'>
+        You do not have any pinned hashes yet. Pin one by
+        clicking the button on the bottom left.
+      </p>
+    )
+  }
+
+  return (
+    <div className='files relative h-100 flex flex-column justify-between mh4 mv0 flex-grow-1'>
+      <Header />
+
+      <div>
+        <Tab>Recent files</Tab>
+        <Tab active>Pinned files</Tab>
+      </div>
+
+      <div className='bg-white w-100 flex-grow-1 overflow-y-scroll'>
+        {content}
+      </div>
+
+      <Footer>
+        <div className='right'>
+          <Button className='mr2' onClick={() => {}}>Pin hash</Button>
+        </div>
+      </Footer>
+    </div>
+  )
+}
+
+Pins.propTypes = {
+  pins: PropTypes.object.isRequired
+}

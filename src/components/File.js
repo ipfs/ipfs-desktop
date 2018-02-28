@@ -102,7 +102,7 @@ export default class File extends Component {
       )
     }
 
-    let className = 'flex pointer charcoal-muted items-center hover-bg-aqua-muted hover-navy transition-all ph3'
+    let className = 'file flex pointer charcoal-muted items-center hover-navy transition-all ph3'
     if (this.props.odd) {
       className += ' bg-snow-muted'
     }
@@ -115,9 +115,11 @@ export default class File extends Component {
         <p className='ma0 pv2 w-50'>{this.props.name}</p>
         <p className='ma0 pv2 w-20'>{prettyBytes(this.props.size)}</p>
 
-        <Icon className='w1-5 mr2 bg-aqua br-100' color='white' name='pencil' />
-        <Icon className='w1-5 mr2 bg-aqua br-100' color='white' name='window' />
-        <Icon className='w1-5 mr2 bg-red br-100' color='white' name='trash' />
+        <div className='actions ml-auto flex o-0 transition-all'>
+          <Icon className='w1-5 mr2 bg-aqua br-100' color='white' name='pencil' />
+          <Icon className='w1-5 mr2 bg-aqua br-100' color='white' name='link' />
+          <Icon className='w1-5 mr2 bg-red br-100' color='white' name='trash' />
+        </div>
       </div>
     )
   }

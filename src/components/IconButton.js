@@ -18,7 +18,10 @@ export default function IconButton (props) {
     <button
       className='button-reset bg-transparent ma0 pa0 outline-0 bn pointer'
       onClick={props.onClick} >
-      <Icon name={props.icon} color={props.color} className='w2 h2' />
+      <Icon
+        className={`w2 h2 ${props.iconClass}`}
+        name={props.icon}
+        color={props.color} />
     </button>
   )
 }
@@ -26,9 +29,11 @@ export default function IconButton (props) {
 IconButton.propTypes = {
   icon: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  iconClass: PropTypes.string,
   color: PropTypes.string
 }
 
 IconButton.defaultProps = {
-  active: false
+  active: false,
+  iconClass: ''
 }

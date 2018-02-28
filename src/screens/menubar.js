@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {ipcRenderer} from 'electron'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import theme from 'ipfs-css/theme.json'
 
 import Pane from '../components/Pane'
 import {Menu, MenuOption} from '../components/Menu'
@@ -30,6 +29,7 @@ class Menubar extends Component {
       root: '/',
       contents: []
     },
+    pinned: {},
     adding: false,
     pinning: false
   }
@@ -72,9 +72,6 @@ class Menubar extends Component {
     switch (route) {
       case 'info':
         ipcRenderer.send('request-stats', ['id', 'bw', 'repo'])
-        break
-      case 'pinned':
-        ipcRenderer.send('request-pinned')
         break
       default:
         ipcRenderer.send('request-stats', [])

@@ -1,6 +1,10 @@
 @import '../../node_modules/tachyons/css/tachyons.min.css';
 @import '../../node_modules/ipfs-css/ipfs.css';
 
+.h1-5 {
+  height: 1.5rem;
+}
+
 .h2-25 {
   height: 2.25rem;
 }
@@ -21,6 +25,10 @@
   margin-top: auto;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
 .fill-white {
   fill: white;
 }
@@ -35,7 +43,6 @@
 @import "./components/Breadcrumbs.less";
 @import "./components/Button.less";
 @import "./components/CheckboxBlock.less";
-@import "./components/FileBlock.less";
 @import "./components/Heartbeat.less";
 @import "./components/IconButton.less";
 @import "./components/Input.less";
@@ -48,6 +55,14 @@
 @import './panes/Start.less';
 
 @import './screens/welcome.less';
+
+.file:hover {
+  background-color: #d4f3f6;
+}
+
+.file:hover .actions {
+  opacity: 1;
+}
 
 @keyframes loading {
   from {
