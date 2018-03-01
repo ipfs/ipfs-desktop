@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {ipcRenderer} from 'electron'
 
 import Icon from './Icon'
-import Button from './Button'
 import IconButton from './IconButton'
 
 /**
@@ -39,6 +37,7 @@ export default function Pin (props) {
 }
 
 Pin.propTypes = {
+  odd: PropTypes.bool,
   open: PropTypes.func.isRequired,
   unpin: PropTypes.func.isRequired,
   copy: PropTypes.func.isRequired,

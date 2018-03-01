@@ -12,6 +12,7 @@ import Start from '../panes/Start'
 import Files from '../panes/Files'
 import Info from '../panes/Info'
 import Settings from '../panes/Settings'
+import Pins from '../panes/Pins'
 
 const UNINITIALIZED = 'uninitialized'
 const STOPPED = 'stopped'
@@ -132,8 +133,12 @@ class Menubar extends Component {
         return <Files
           adding={this.state.adding}
           files={this.state.files.contents}
-          pins={this.state.pinned}
+          changeRoute={this._changeRoute}
           root={this.state.files.root} />
+      case 'pins':
+        return <Pins
+          changeRoute={this._changeRoute}
+          pins={this.state.pinned} />
       case 'settings':
         return <Settings settings={this.state.settings} />
       case 'info':

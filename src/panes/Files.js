@@ -1,15 +1,16 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {ipcRenderer, clipboard} from 'electron'
+import {ipcRenderer} from 'electron'
 import {NativeTypes} from 'react-dnd-html5-backend'
 import {DropTarget} from 'react-dnd'
+import {getHashCopier, getOpener} from '../utils/event-handlers'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
 import File from '../components/File'
 import Breadcrumbs from '../components/Breadcrumbs'
-import Pin from '../components/Pin'
+import Tab from '../components/Tab'
 
 function join (...parts) {
   const replace = new RegExp('/{1,}', 'g')
@@ -24,42 +25,21 @@ const fileTarget = {
       filesArray.push(files[i].path)
     }
 
-    ipcRenderer.send('drop-files', filesArray, component.state.root)
+    ipcRenderer.send('drop-files', filesArray, component.props.root)
   }
-}
-
-function Tab (props) {
-  let classList = 'button-reset outline-0 pointer ph3 pv2 bn '
-  if (props.active) {
-    classList += 'bg-white black-80'
-  } else {
-    classList += 'bg-transparent charcoal-muted'
-  }
-
-  return <button className={classList}>{props.children}</button>
-}
-
-Tab.propTypes = {
-  children: PropTypes.any.isRequired,
-  active: PropTypes.bool
 }
 
 class Files extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      sticky: false
-    }
-  }
-
   static propTypes = {
+    // Drop Files
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
+    // Actual Props
     adding: PropTypes.bool,
     files: PropTypes.array.isRequired,
-    pins: PropTypes.any.isRequired,
-    root: PropTypes.string.isRequired
+    root: PropTypes.string.isRequired,
+    changeRoute: PropTypes.func.isRequired
   }
 
   selectFileDialog = (event) => {
@@ -70,40 +50,14 @@ class Files extends Component {
     ipcRenderer.send('open-dir-dialog', this.props.root)
   }
 
-  toggleStickWindow = (event) => {
-    ipcRenderer.send('toggle-sticky')
-  }
-
-  open = (name, hash) => {
-    ipcRenderer.send('open-url', `https://ipfs.io/ipfs/${hash}`)
-  }
-
-  navigate = (name) => {
+  getNavigator = (name) => () => {
     const root = join(this.props.root, name)
     ipcRenderer.send('request-files', root)
   }
 
-  trash = (name) => {
+  getRemover = (name) => () => {
     name = join(this.props.root, name)
     ipcRenderer.send('remove-file', name)
-  }
-
-  onSticky = (event, sticky) => {
-    this.setState({ sticky: sticky })
-  }
-
-  copy = (hash) => {
-    clipboard.writeText(`https://ipfs.io/ipfs/${hash}`)
-  }
-
-  componentDidMount () {
-    ipcRenderer.on('sticky-window', this.onSticky)
-  }
-
-  componentWillUnmount () {
-    ipcRenderer.removeListener('sticky-window', this.onSticky)
-
-    if (this.state.sticky) this.toggleStickWindow()
   }
 
   makeBreadcrumbs = () => {
@@ -112,18 +66,26 @@ class Files extends Component {
     return <Breadcrumbs navigate={navigate} path={this.props.root} />
   }
 
-  render () {
-    return <Pins pins={this.props.pins} />
+  getFiles () {
+    const files = this.props.files.filter((file) => {
+      return !(file.name === '.pinset' && this.props.root === '/')
+    })
 
-    const {connectDropTarget, isOver, canDrop} = this.props
-
-    const dropper = {
-      visibility: (isOver && canDrop) ? 'visible' : 'hidden'
+    if (files.length === 0) {
+      return <p className='notice'>
+        You do not have any files yet. Add your first one by dropping
+        it here or clicking on one of the buttons on the bottom right side.
+      </p>
     }
 
-    let files = this.props.files.filter((file) => {
-      return !(file.name === '.pinset' && this.props.root === '/')
-    }).map((file, index) => {
+    return files.map((file, index) => {
+      let open
+      if (file.type === 'directory') {
+        open = this.getNavigator(file.name)
+      } else {
+        open = getOpener(file.hash)
+      }
+
       return (
         <File
           odd={index % 2 === 0 /* it starts with 0 */}
@@ -132,34 +94,36 @@ class Files extends Component {
           type={file.type}
           key={`${file.hash}${file.name}`}
           size={file.cumulativeSize}
-          remove={this.trash}
-          open={this.open}
-          copy={this.copy}
-          navigate={this.navigate}
+          remove={this.getRemover(file.name)}
+          open={open}
+          copy={getHashCopier(file.hash)}
         />
       )
     })
+  }
 
-    if (files.length === 0) {
-      files = (
-        <p className='notice'>
-          You do not have any files yet. Add your first one by dropping
-          it here or clicking on one of the buttons on the bottom right side.
-        </p>
-      )
+  render () {
+    const {connectDropTarget, isOver, canDrop} = this.props
+
+    const dropper = {
+      visibility: (isOver && canDrop) ? 'visible' : 'hidden'
     }
 
     return connectDropTarget(
       <div className='files relative h-100 flex flex-column justify-between mh4 mv0 flex-grow-1'>
-        <Header title={this.makeBreadcrumbs()} loading={this.props.adding} />
+        <Header />
 
         <div>
           <Tab active>Recent files</Tab>
-          <Tab>Pinned files</Tab>
+          <Tab onClick={() => { this.props.changeRoute('pins') }}>Pinned files</Tab>
         </div>
 
-        <div className='bg-white w-100 overflow-y-scroll'>
-          {files}
+        <div className='bg-white w-100 pa2'>
+          {this.makeBreadcrumbs()}
+        </div>
+
+        <div className='bg-white w-100 flex-grow-1 overflow-y-scroll'>
+          {this.getFiles()}
         </div>
 
         <div className='dropper' style={dropper}>
@@ -182,71 +146,3 @@ export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
 }))(Files)
-
-const getHashCopier = (hash) => (event) => {
-  if (event) event.stopPropagation()
-  clipboard.writeText(`https://ipfs.io/ipfs/${hash}`)
-}
-
-const getOpener = (hash) => (event) => {
-  if (event) event.stopPropagation()
-  ipcRenderer.send('open-url', `https://ipfs.io/ipfs/${hash}`)
-}
-
-const getUnpinner = (hash) => (event) => {
-  if (event) event.stopPropagation()
-  ipcRenderer.send('unpin-hash', hash)
-}
-
-export function Pins ({ pins }) {
-  const content = []
-
-  let i = 0
-  for (const hash of Object.keys(pins)) {
-    content.push((
-      <Pin
-        odd={i % 2 === 0 /* it starts with 0 */}
-        tag={pins[hash]}
-        key={hash}
-        hash={hash}
-        copy={getHashCopier(hash)}
-        open={getOpener(hash)}
-        unpin={getUnpinner(hash)} />
-    ))
-    i++
-  }
-
-  if (content.length === 0) {
-    content.push(
-      <p className='notice'>
-        You do not have any pinned hashes yet. Pin one by
-        clicking the button on the bottom left.
-      </p>
-    )
-  }
-
-  return (
-    <div className='files relative h-100 flex flex-column justify-between mh4 mv0 flex-grow-1'>
-      <Header />
-
-      <div>
-        <Tab>Recent files</Tab>
-        <Tab active>Pinned files</Tab>
-      </div>
-
-      <div className='bg-white w-100 flex-grow-1 overflow-y-scroll'>
-        {content}
-      </div>
-
-      <Footer>
-        <div className='right'>
-          <Button className='mr2' onClick={() => {}}>Pin hash</Button>
-        </div>
-      </Footer>
-    </div>
-  )
-}
-
-Pins.propTypes = {
-  pins: PropTypes.object.isRequired
-}

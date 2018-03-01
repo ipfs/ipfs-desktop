@@ -29,29 +29,11 @@ export default class File extends Component {
   constructor (props) {
     super(props)
 
-    let icon = 'document'
-
-    if (this.props.type === 'directory') {
-      icon = 'folder'
-    }
-
     this.state = {
-      icon: icon,
+      icon: (props.type === 'directory') ? 'folder' : 'document',
       deleting: false
     }
   }
-
-  open = () => {
-    if (this.props.type === 'directory') {
-      this.props.navigate(this.props.name, this.props.hash)
-    } else {
-      this.props.open(this.props.name, this.props.hash)
-    }
-  }
-
-  copy = wrapper(() => {
-    this.props.copy(this.props.hash)
-  })
 
   remove = wrapper(() => {
     this.props.remove(this.props.name)
@@ -65,21 +47,28 @@ export default class File extends Component {
     this.setState({ deleting: false })
   }
 
-  render () {
-    const wrapped = (
-      <div>
-        <div>
-          <p className='label'>{this.props.name}</p>
-          { this.state.deleting &&
-            <p className='info'>Are you sure? This is permanent.</p>
-          }
-          { !this.state.deleting &&
-            <p className='info'>{prettyBytes(this.props.size)} | {this.props.hash}</p>
-          }
+  getContent () {
+    if (this.state.deleting) {
+      return [
+        <p key='question' className='ma0 pv2 w-20'>Are you sure?</p>,
+        <div key='actions-delete' className='ml-auto flex'>
+          <Icon className='w1-5 mr2 bg-white br-100' color='red' name='tick' onClick={this.props.remove} />
+          <Icon className='w1-5 mr2 bg-white br-100' color='red' name='cancel' onClick={this.undelete} />
         </div>
-      </div>
-    )
+      ]
+    }
 
+    return [
+      <p key='size' className='ma0 pv2 w-20'>{prettyBytes(this.props.size)}</p>,
+      <div key='actions' className='actions ml-auto flex o-0 transition-all'>
+        <Icon className='w1-5 mr2 bg-aqua br-100' color='white' name='pencil' />
+        <Icon className='w1-5 mr2 bg-aqua br-100' color='white' name='link' onClick={this.props.copy} />
+        <Icon className='w1-5 mr2 bg-red br-100' color='white' name='trash' onClick={this.delete} />
+      </div>
+    ]
+  }
+
+  render () {
     let unwrapped = null
 
     if (this.state.deleting) {
@@ -92,9 +81,6 @@ export default class File extends Component {
     } else {
       unwrapped = (
         <div className='button-overlay'>
-          { typeof this.props.copy === 'function' &&
-            <IconButton icon='clipboard' onClick={this.copy} />
-          }
           { typeof this.props.remove === 'function' &&
             <IconButton icon='trash' color='#F44336' onClick={this.delete} />
           }
@@ -102,24 +88,24 @@ export default class File extends Component {
       )
     }
 
-    let className = 'file flex pointer charcoal-muted items-center hover-navy transition-all ph3'
-    if (this.props.odd) {
+    let className = 'file flex pointer items-center transition-all ph3'
+    if (this.props.odd && !this.state.deleting) {
       className += ' bg-snow-muted'
     }
 
+    if (this.state.deleting) {
+      className += ' bg-red-muted white'
+    } else {
+      className += ' hover-navy charcoal-muted'
+    }
+
     return (
-      <div {...this.props.open !== null && !this.state.deleting && { onClick: this.open }}
+      <div {...this.props.open !== null && !this.state.deleting && { onClick: this.props.open }}
         className={className}>
 
-        <Icon stroke className='w1-5 mr2' color='charcoal-muted' name={this.state.icon} />
-        <p className='ma0 pv2 w-50'>{this.props.name}</p>
-        <p className='ma0 pv2 w-20'>{prettyBytes(this.props.size)}</p>
-
-        <div className='actions ml-auto flex o-0 transition-all'>
-          <Icon className='w1-5 mr2 bg-aqua br-100' color='white' name='pencil' />
-          <Icon className='w1-5 mr2 bg-aqua br-100' color='white' name='link' />
-          <Icon className='w1-5 mr2 bg-red br-100' color='white' name='trash' />
-        </div>
+        <Icon stroke className='w1-5 mr2' color={this.state.deleting ? 'white' : 'charcoal-muted'} name={this.state.icon} />
+        <p className='ma0 mr2 pv2 w-50 truncate'>{this.props.name}</p>
+        {this.getContent()}
       </div>
     )
   }
@@ -130,7 +116,6 @@ File.propTypes = {
   name: PropTypes.string.isRequired,
   hash: PropTypes.string.isRequired,
   size: PropTypes.number.isRequired,
-  navigate: PropTypes.func,
   copy: PropTypes.func,
   remove: PropTypes.func,
   type: PropTypes.string,
