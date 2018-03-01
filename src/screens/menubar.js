@@ -166,7 +166,7 @@ class Menubar extends Component {
           <MenuOption
             title='My Files'
             icon='document'
-            active={this.state.route === 'files'}
+            active={this.state.route === 'files' || this.state.route === 'pins'}
             onClick={() => this._changeRoute('files')} />
 
           <MenuOption

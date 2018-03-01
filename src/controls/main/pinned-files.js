@@ -140,8 +140,8 @@ function tagHash (opts) {
 }
 
 export default function (opts) {
-  ipcMain.on('request-pinned', pinset(opts))
-  ipcMain.on('tag-hash', tagHash(opts))
-  ipcMain.on('pin-hash', pinHash(opts))
-  ipcMain.on('unpin-hash', unpinHash(opts))
+  //ipcMain.on('request-pinned', pinset(opts))
+  //ipcMain.on('tag-hash', tagHash(opts))
+  //ipcMain.on('pin-hash', pinHash(opts))
+  //ipcMain.on('unpin-hash', unpinHash(opts))
 }

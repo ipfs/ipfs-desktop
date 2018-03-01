@@ -118,7 +118,7 @@ class Files extends Component {
           <Tab onClick={() => { this.props.changeRoute('pins') }}>Pinned files</Tab>
         </div>
 
-        <div className='bg-white w-100 pa2'>
+        <div className='bg-white w-100 pv2 ph3'>
           {this.makeBreadcrumbs()}
         </div>
 

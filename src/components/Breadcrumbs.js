@@ -33,13 +33,13 @@ export default function Breadcrumbs ({path, navigate}) {
   const res = []
 
   bread.forEach((link, index) => {
-    res.push(<a key={`${index}link`} onClick={() => { navigate(link.path) }}>{link.name}</a>)
-    res.push(<span key={`${index}divisor`}>/</span>)
+    res.push(<a key={`${index}link`} className='pointer black-80 bb' onClick={() => { navigate(link.path) }}>{link.name}</a>)
+    res.push(<span key={`${index}divisor`} className='mh1'>/</span>)
   })
 
   res.pop()
   return (
-    <span className='breadcrumbs'>{res}</span>
+    <span className='truncated'>{res}</span>
   )
 }
 
