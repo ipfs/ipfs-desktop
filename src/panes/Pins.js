@@ -57,7 +57,7 @@ export default class Pins extends Component {
           <Tab active>Pinned files</Tab>
         </div>
 
-        <div className='bg-white w-100 flex-grow-1 overflow-y-scroll'>
+        <div className='bg-white w-100 flex-grow-1 overflow-y-scroll scrollable'>
           {this.getContent()}
         </div>
 

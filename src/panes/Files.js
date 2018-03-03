@@ -122,7 +122,7 @@ class Files extends Component {
           {this.makeBreadcrumbs()}
         </div>
 
-        <div className='bg-white w-100 flex-grow-1 overflow-y-scroll'>
+        <div className='bg-white w-100 flex-grow-1 overflow-y-scroll scrollable'>
           {this.getFiles()}
         </div>
 

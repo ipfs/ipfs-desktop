@@ -10,6 +10,27 @@ body {
   box-sizing: border-box;
 }
 
+.scrollable {
+  margin-right: -8px;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: transparent;
+  }
+}
+
+.scrollable:hover {
+  &::-webkit-scrollbar-thumb {
+      background-color: #d9d9dd;
+  }
+}
+
+
 .directory-input {
   cursor: pointer;
 
