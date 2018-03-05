@@ -43,18 +43,18 @@ export default function Info (props) {
 
           <hr />
 
-          <div className='informations'>
+          <div className='informations mt-auto'>
             <h2 className='f3 fw5'>Your node informations</h2>
 
             <p><strong>Location:</strong> {props.node.location}</p>
             <p><strong>Protocol Version:</strong> {props.node.protocolVersion}</p>
             <p>
               <strong>Peer ID:</strong> <code>{props.node.id}</code>
-              <IconButton icon='copy' color='gray' onClick={copy(props.node.id)} />
+              <IconButton className='v-mid' icon='copy' w={1} h={1} color='gray' onClick={copy(props.node.id)} />
             </p>
             <p>
               <strong>Public Key:</strong> <code>{props.node.publicKey.substr(0, 30)}</code>
-              <IconButton icon='copy' color='gray' onClick={copy(props.node.publicKey)} />
+              <IconButton className='v-mid' icon='copy' w={1} h={1} color='gray' onClick={copy(props.node.publicKey)} />
             </p>
           </div>
         </div>

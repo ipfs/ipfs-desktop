@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import fs from 'fs'
 
 function getSVG (pkg, stroke) {
+  pkg = pkg.replace(' ', '_', -1)
   const path = `./node_modules/ipfs-css/icons/${stroke ? 'stroke' : 'glyph'}_${pkg}.svg`
 
   if (fs.existsSync(path)) {

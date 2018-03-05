@@ -52,8 +52,8 @@ export default class File extends Component {
       return [
         <p key='question' className='ma0 pv2 w-20'>Are you sure?</p>,
         <div key='actions-delete' className='ml-auto flex'>
-          <Icon className='w1-5 mr2 bg-white br-100' color='red' name='tick' onClick={this.props.remove} />
-          <Icon className='w1-5 mr2 bg-white br-100' color='red' name='cancel' onClick={this.undelete} />
+          <Icon className='w1-5 mr2 bg-red br-100' color='white' name='small tick' onClick={this.props.remove} />
+          <Icon className='w1-5 mr2 bg-red br-100' color='white' name='small cancel' onClick={this.undelete} />
         </div>
       ]
     }

@@ -45,6 +45,77 @@ const options = [
   }
 ]
 
+/*
+
+.tgl {
+	display: none;
+  
+	// add default box-sizing for this scope
+	&,
+  &:after,
+  &:before,
+	& *,
+  & *:after,
+  & *:before,
+	& + .tgl-btn {
+		box-sizing: border-box;
+		&::selection {
+			background: none;
+		}
+	}
+  
+	+ .tgl-btn {
+		outline: 0;
+		display: block;
+		width: 4em;
+		height: 2em;
+		position: relative;
+		cursor: pointer;
+    user-select: none;
+		&:after,
+    &:before {
+			position: relative;
+			display: block;
+			content: "";
+			width: 50%;
+			height: 100%;
+		}
+    
+		&:after {
+			left: 0;
+		}
+    
+		&:before {
+			display: none;
+		}
+	}
+  
+	&:checked + .tgl-btn:after {
+		left: 50%;
+	}
+}
+
+// themes
+.tgl-light {
+	+ .tgl-btn {
+		background: #f0f0f0;
+		border-radius: 2em;
+		padding: 2px;
+		transition: all .4s ease;
+		&:after {
+			border-radius: 50%;
+			background: #fff;
+			transition: all .2s ease;
+		}
+	}
+  
+	&:checked + .tgl-btn {
+		background: #9FD6AE;
+	}
+}
+
+*/
+
 // TODO: show the checkbox
 function Checkbox (props) {
   const _onClick = () => {
@@ -53,8 +124,15 @@ function Checkbox (props) {
 
   return (
     <div className={`pointer ph3 pv2 charcoal ${props.coloured ? 'bg-snow-muted' : ''}`} onClick={_onClick}>
-      <p className='f6 b mt0 mb1'>{props.title}</p>
-      <p className='f6 ma0'>{props.description}</p>
+      <div className='flex'>
+        <div>
+          <input type='checkbox' checked={props.value} />
+        </div>
+        <div>
+          <p className='f6 b mt0 mb1'>{props.title}</p>
+          <p className='f6 ma0'>{props.description}</p>
+        </div>
+      </div>
     </div>
   )
 }

@@ -13,7 +13,7 @@
     "electron-menubar": "^1.0.1",
     "electron-squirrel-startup": "^1.0.0",
     "go-ipfs-dep": "^0.4.13",
-    "ipfs-css": "ipfs-shipyard/ipfs-css#7425f95",
+    "ipfs-css": "ipfs-shipyard/ipfs-css#438da14",
     "ipfs-stats": "^1.2.4",
     "ipfsd-ctl": "^0.29.1",
     "is-ipfs": "^0.3.2",
