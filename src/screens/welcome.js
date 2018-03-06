@@ -4,7 +4,6 @@ import {ipcRenderer} from 'electron'
 import Intro from '../panes/intro'
 
 import Pane from '../components/Pane'
-import PaneContainer from '../components/PaneContainer'
 import Heartbeat from '../components/Heartbeat'
 import Loader from '../panes/Loader'
 
@@ -67,7 +66,7 @@ export default class Welcome extends Component {
       case INTRO:
       case ADVANCED:
         return (
-          <PaneContainer>
+          <div className='sans-serif flex overflow-hidden'>
             <Pane className='heartbeat-pane'>
               <Heartbeat />
             </Pane>
@@ -78,14 +77,14 @@ export default class Welcome extends Component {
               keySizes={KEY_SIZES}
               keySize={KEY_SIZES[1]}
               onKeySizeChange={this._onKeySizeChange} />
-          </PaneContainer>
+          </div>
         )
       case ERROR:
         return (
           <div key='error'>{this.state.error}</div>
         )
       default:
-        return <PaneContainer><Loader /></PaneContainer>
+        return <Loader />
     }
   }
 }

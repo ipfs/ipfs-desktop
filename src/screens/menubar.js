@@ -4,17 +4,15 @@ import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
 import Pane from '../components/Pane'
-import PaneContainer from '../components/PaneContainer'
-import MenuOption from '../components/MenuOption'
-import Menu from '../components/Menu'
+import {Menu, MenuOption} from '../components/Menu'
+import Icon from '../components/Icon'
 
-import Peers from '../panes/Peers'
 import Loader from '../panes/Loader'
 import Start from '../panes/Start'
 import Files from '../panes/Files'
-import Pinned from '../panes/Pinned'
 import Info from '../panes/Info'
 import Settings from '../panes/Settings'
+import Pins from '../panes/Pins'
 
 const UNINITIALIZED = 'uninitialized'
 const STOPPED = 'stopped'
@@ -22,44 +20,17 @@ const STARTING = 'starting'
 const STOPPING = 'stopping'
 const RUNNING = 'running'
 
-const panes = [
-  {
-    id: 'info',
-    title: 'Info',
-    icon: 'ipfs'
-  },
-  {
-    id: 'files',
-    title: 'Files',
-    icon: 'files'
-  },
-  {
-    id: 'pinned',
-    title: 'Pin',
-    icon: 'pin'
-  },
-  {
-    id: 'peers',
-    title: 'Peers',
-    icon: 'pulse'
-  },
-  {
-    id: 'settings',
-    title: 'Settings',
-    icon: 'settings'
-  }
-]
-
 class Menubar extends Component {
   state = {
     status: UNINITIALIZED,
-    route: panes[0].id,
+    route: 'files',
     stats: {},
     settings: {},
     files: {
       root: '/',
       contents: []
     },
+    pinned: {},
     adding: false,
     pinning: false
   }
@@ -102,12 +73,6 @@ class Menubar extends Component {
     switch (route) {
       case 'info':
         ipcRenderer.send('request-stats', ['id', 'bw', 'repo'])
-        break
-      case 'peers':
-        ipcRenderer.send('request-stats', ['peers'])
-        break
-      case 'pinned':
-        ipcRenderer.send('request-pinned')
         break
       default:
         ipcRenderer.send('request-stats', [])
@@ -168,28 +133,20 @@ class Menubar extends Component {
         return <Files
           adding={this.state.adding}
           files={this.state.files.contents}
+          changeRoute={this._changeRoute}
           root={this.state.files.root} />
+      case 'pins':
+        return <Pins
+          changeRoute={this._changeRoute}
+          pins={this.state.pinned} />
       case 'settings':
         return <Settings settings={this.state.settings} />
-      case 'peers':
-        var location = 'Unknown'
-        if (this.state.stats.node) {
-          location = this.state.stats.node.location
-        }
-
-        return <Peers peers={this.state.stats.peers} location={location} />
       case 'info':
         return (
           <Info
             node={this.state.stats.id}
             bw={this.state.stats.bw}
             repo={this.state.stats.repo} />
-        )
-      case 'pinned':
-        return (
-          <Pinned
-            files={this.state.pinned}
-            pinning={this.state.pinning} />
         )
       default:
         return (
@@ -202,36 +159,38 @@ class Menubar extends Component {
     }
   }
 
-  _getMenu () {
-    const menu = []
-
-    panes.forEach((pane) => {
-      menu.push((
-        <MenuOption
-          key={pane.id}
-          title={pane.title}
-          icon={pane.icon}
-          active={this.state.route === pane.id}
-          onClick={() => this._changeRoute(pane.id)} />
-      ))
-    })
-
-    return (
-      <Menu>{menu}</Menu>
-    )
-  }
-
   render () {
-    let className = ''
-    if (this.state.settings.lightTheme) {
-      className = 'light'
-    }
-
     return (
-      <PaneContainer className={className}>
-        {this._getMenu()}
+      <div className='sans-serif flex overflow-hidden'>
+        <Menu>
+          <MenuOption
+            title='My Files'
+            icon='document'
+            active={this.state.route === 'files' || this.state.route === 'pins'}
+            onClick={() => this._changeRoute('files')} />
+
+          <MenuOption
+            title='Node Info'
+            icon='decentralization'
+            active={this.state.route === 'info'}
+            onClick={() => this._changeRoute('info')} />
+
+          <div className='mt-auto flex justify-center pv3 ph2'>
+            <Icon
+              onClick={() => this._changeRoute('settings')}
+              className='w2-75 h2-75 mr1 pointer dim'
+              name='settings'
+              color='navy' />
+
+            <Icon
+              onClick={() => ipcRenderer.send('stop-daemon')}
+              className='w2-75 h2-75 ml1 pointer dim'
+              name='power'
+              color='navy' />
+          </div>
+        </Menu>
         {this._getRouteScreen()}
-      </PaneContainer>
+      </div>
     )
   }
 }

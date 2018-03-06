@@ -1,23 +1,46 @@
-@import '../../node_modules/normalize.css/normalize.css';
+@import '../../node_modules/tachyons/css/tachyons.min.css';
+@import '../../node_modules/ipfs-css/ipfs.css';
+
+.h1-5 {
+  height: 1.5rem;
+}
+
+.h2-25 {
+  height: 2.25rem;
+}
+
+.h2-75 {
+  height: 2.75rem;
+}
+
+.w1-5 {
+  width: 1.5rem;
+}
+
+.w2-75 {
+  width: 2.75rem;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.fill-white {
+  fill: white;
+}
+
+.hover-fill-white:hover {
+  fill: white;
+}
+
 @import './common.less';
 
-@import "./components/Block.less";
-@import "./components/Breadcrumbs.less";
-@import "./components/Button.less";
-@import "./components/CheckboxBlock.less";
-@import "./components/FileBlock.less";
-@import "./components/Footer.less";
-@import "./components/Header.less";
 @import "./components/Heartbeat.less";
-@import "./components/Icon.less";
-@import "./components/IconButton.less";
-@import "./components/Input.less";
 @import "./components/Key.less";
-@import "./components/Menu.less";
-@import "./components/MenuOption.less";
-@import "./components/NewPinnedHash.less";
-@import "./components/Pane.less";
-@import "./components/PaneContainer.less";
 
 @import './panes/Files.less';
 @import './panes/Info.less';
@@ -26,10 +49,32 @@
 
 @import './screens/welcome.less';
 
-#menubar .pane {
-  width: calc(~"100vw - 4em");
+.file:hover {
+  background-color: #d4f3f6;
+}
 
-  .footer {
-    width: calc(~"100vw - 4.5em");
+.file:hover .actions {
+  opacity: 1;
+}
+
+@keyframes loading {
+  from {
+    left: -20em;
+    width: 30%;
+  }
+  50% {
+    width: 30%;
+  }
+  70% {
+    width: 70%;
+  }
+  80% {
+    left: 50%;
+  }
+  95% {
+    left: 120%;
+  }
+  to {
+    left: 100%;
   }
 }

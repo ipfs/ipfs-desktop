@@ -71,9 +71,9 @@ export default {
       resizable: false,
       fullscreen: false,
       skipTaskbar: true,
-      width: 600,
-      height: 400,
-      backgroundColor: (settingsStore.get('lightTheme') ? '#FFFFFF' : '#000000'),
+      width: 900,
+      height: 450,
+      backgroundColor: '#eeeeee',
       webPreferences: {
         nodeIntegration: true,
         webSecurity: false

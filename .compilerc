@@ -7,7 +7,7 @@
             "env",
             {
               "targets": {
-                "electron": "1.7.11"
+                "electron": "1.8.2"
               }
             }
           ],
@@ -24,7 +24,7 @@
             "env",
             {
               "targets": {
-                "electron": "1.7.11"
+                "electron": "1.8.2"
               }
             }
           ],

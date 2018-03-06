@@ -1,26 +1,35 @@
 @import './variables.less';
 
+body {
+  background-color: #eee;
+}
+
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
 
-::-webkit-scrollbar {
-  background-color: transparent;
-  width: .5em;
+.scrollable {
+  margin-right: -8px;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: transparent;
+  }
 }
 
-::-webkit-scrollbar-thumb:window-inactive,
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 0.5em;
+.scrollable:hover {
+  &::-webkit-scrollbar-thumb {
+      background-color: #d9d9dd;
+  }
 }
 
-.light ::-webkit-scrollbar-thumb:window-inactive,
-.light ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.3);
-}
 
 .directory-input {
   cursor: pointer;
@@ -74,15 +83,10 @@
 }
 
 .notice {
-  color: rgba(255, 255, 255, 0.5);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 250px;
   text-align: center;
-}
-
-.light .notice {
-  color: #212121
 }
