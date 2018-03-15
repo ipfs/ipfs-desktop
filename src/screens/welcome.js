@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {ipcRenderer} from 'electron'
 
-import Intro from '../panes/intro'
+import Intro from '../panes/Intro'
 
 import Pane from '../components/Pane'
 import PaneContainer from '../components/PaneContainer'
