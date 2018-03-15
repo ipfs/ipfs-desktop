@@ -1,5 +1,6 @@
 import StatsPoller from 'ipfs-stats'
 import {ipcMain} from 'electron'
+import cloneDeep from 'lodash.clonedeep'
 
 let poller
 let polling = []
@@ -23,7 +24,7 @@ function requestStats (event, stats) {
     return
   }
 
-  // If currently pollint something, let's stop it.
+  // If currently polling something, let's stop it.
   if (polling.length !== 0) {
     poller.stop(polling)
   }
@@ -47,7 +48,26 @@ function menubarHide () {
 }
 
 function onChange (opts) {
-  return (stats) => {
+  return (raw) => {
+    let stats = cloneDeep(raw)
+
+    // Electron passes information from the main <--> renderer process
+    // through JSON so the Big.js object would lose all of its functions.
+    // We convert those 'big' numbers to the Number object. Let's pray they
+    // are not that big.
+    if (stats.repo) {
+      stats.repo.numObjects = Number(stats.repo.numObjects.toFixed(2))
+      stats.repo.repoSize = Number(stats.repo.repoSize.toFixed(2))
+      stats.repo.storageMax = Number(stats.repo.storageMax.toFixed(2))
+    }
+
+    if (stats.bw) {
+      stats.bw.rateIn = Number(stats.bw.rateIn.toFixed(2))
+      stats.bw.rateOut = Number(stats.bw.rateOut.toFixed(2))
+      stats.bw.totalIn = Number(stats.bw.totalIn.toFixed(2))
+      stats.bw.totalOut = Number(stats.bw.totalOut.toFixed(2))
+    }
+
     opts.send('stats', stats)
   }
 }
