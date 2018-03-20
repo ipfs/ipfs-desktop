@@ -11,16 +11,8 @@ function copy (text) {
   return () => { clipboard.writeText(text) }
 }
 
-function openNodeSettings () {
-  ipcRenderer.send('open-node-settings')
-}
-
 function openWebUI () {
   ipcRenderer.send('open-webui')
-}
-
-function stopDaemon () {
-  ipcRenderer.send('stop-daemon')
 }
 
 export default function Info (props) {
@@ -69,25 +61,11 @@ export default function Info (props) {
           onClick={copy(props.node.publicKey)} />
 
         <InfoBlock
-          title='Node Settings'
-          info='Click to edit'
-          key='node-settings'
-          button={false}
-          onClick={openNodeSettings} />
-
-        <InfoBlock
           title='Open WebUI'
           info='Click to open'
           key='open-webui'
           button={false}
           onClick={openWebUI} />
-
-        <InfoBlock
-          title='Stop Daemon'
-          info='Click to stop'
-          key='stop-daemon'
-          button={false}
-          onClick={stopDaemon} />
       </div>
     </Pane>
   )

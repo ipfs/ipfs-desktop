@@ -33,11 +33,11 @@ const panes = [
     title: 'Files',
     icon: 'files'
   },
-  {
+  /* {
     id: 'pinned',
     title: 'Pin',
     icon: 'pin'
-  },
+  }, */
   {
     id: 'peers',
     title: 'Peers',
@@ -229,8 +229,8 @@ class Menubar extends Component {
 
     return (
       <PaneContainer className={className}>
-        {this._getMenu()}
         {this._getRouteScreen()}
+        {this._getMenu()}
       </PaneContainer>
     )
   }

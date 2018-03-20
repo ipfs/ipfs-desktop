@@ -18,6 +18,14 @@ function quit () {
   ipcRenderer.send('quit-application')
 }
 
+function openNodeSettings () {
+  ipcRenderer.send('open-node-settings')
+}
+
+function stopDaemon () {
+  ipcRenderer.send('stop-daemon')
+}
+
 const options = [
   {
     title: 'Launch on startup',
@@ -83,6 +91,20 @@ export default function Settings (props) {
           button={false}
           onClick={quit}
           info='Click to quit the application.' />
+
+        <InfoBlock
+          title='Node Settings'
+          info='Click to edit'
+          key='node-settings'
+          button={false}
+          onClick={openNodeSettings} />
+
+        <InfoBlock
+          title='Stop Daemon'
+          info='Click to stop'
+          key='stop-daemon'
+          button={false}
+          onClick={stopDaemon} />
       </div>
     </Pane>
   )
