@@ -72,7 +72,12 @@ function onStartDaemon (node) {
     }
   }
 
-  node.start(['--routing=dhtclient'], (err, api) => {
+  const flags = []
+  if (config.settingsStore.get('dhtClient')) {
+    flags.push('--routing=dhtclient')
+  }
+
+  node.start(flags, (err, api) => {
     if (err) {
       handleKnownErrors(err)
       return
