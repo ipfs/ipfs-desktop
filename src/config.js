@@ -30,7 +30,9 @@ function ensurePath (path) {
 const ipfsAppData = ensurePath(path.join(app.getPath('appData'), 'ipfs-desktop'))
 const logsPath = ensurePath(path.join(ipfsAppData, 'logs'))
 
-const settingsStore = new KeyValueStore(path.join(ipfsAppData, 'config.json'))
+const settingsStore = new KeyValueStore(path.join(ipfsAppData, 'config.json'), {
+  dhtClient: true
+})
 
 if (!settingsStore.get('ipfsPath')) {
   const p = path.join(process.env.IPFS_PATH || (process.env.HOME || process.env.USERPROFILE), '.ipfs')

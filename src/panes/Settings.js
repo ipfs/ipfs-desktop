@@ -42,6 +42,16 @@ const options = [
     )
   },
   {
+    title: 'DHT client profile',
+    setting: 'dhtClient',
+    description: (
+      <span>
+        Make your IPFS node act as a DHT client and not a DHT server, consuming less network and battery.
+        Restarting your node is required.
+      </span>
+    )
+  },
+  {
     title: 'Light theme',
     setting: 'lightTheme'
   }

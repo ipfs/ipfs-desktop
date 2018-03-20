@@ -5,8 +5,8 @@ import FileStore from './file-store'
  * @extends FileStore
  */
 export default class KeyValueStore extends FileStore {
-  constructor (location) {
-    super(location, {})
+  constructor (location, d = {}) {
+    super(location, d)
   }
 
   /**
