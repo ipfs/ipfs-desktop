@@ -72,7 +72,7 @@ function onStartDaemon (node) {
     }
   }
 
-  node.start((err, api) => {
+  node.start(['--routing=dhtclient'], (err, api) => {
     if (err) {
       handleKnownErrors(err)
       return
