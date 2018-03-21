@@ -28,6 +28,7 @@ app.makeSingleInstance(() => {
 
 let IPFS
 let menubar
+let state = 'stopped'
 
 function send (type, ...args) {
   if (menubar && menubar.window && menubar.window.webContents) {
@@ -38,25 +39,18 @@ function send (type, ...args) {
 config.send = send
 config.ipfs = () => IPFS
 
+function updateState (st) {
+  state = st
+  onRequestState()
+}
+
 function onRequestState (node, event) {
-  if (!node.started) {
-    return
-  }
-
-  let status = 'stopped'
-
-  node.pid((pid) => {
-    if (pid) {
-      status = IPFS ? 'running' : 'starting'
-    }
-
-    send('node-status', status)
-  })
+  send('node-status', state)
 }
 
 function onStartDaemon (node) {
   debug('Starting daemon')
-  send('node-status', 'starting')
+  updateState('starting')
 
   // Tries to remove the repo.lock file if it already exists.
   // This fixes a bug on Windows, where the daemon seems
@@ -87,21 +81,23 @@ function onStartDaemon (node) {
     debug('Daemon started')
     config.events.emit('node:started')
 
-    // Stop the executation of the program if some error
-    // occurs on the node.
-    node.subprocess.on('error', (e) => {
-      send('node-status', 'stopped')
-      debug(e)
-    })
+    if (node.subprocess) {
+      // Stop the executation of the program if some error
+      // occurs on the node.
+      node.subprocess.on('error', (e) => {
+        updateState('stopped')
+        debug(e)
+      })
+    }
 
     menubar.tray.setImage(config.logo.ice)
-    send('node-status', 'running')
+    updateState('running')
   })
 }
 
 function onStopDaemon (node, done) {
   debug('Stopping daemon')
-  send('node-status', 'stopping')
+  updateState('stopping')
 
   config.events.emit('node:stopped')
 
@@ -114,7 +110,7 @@ function onStopDaemon (node, done) {
     menubar.tray.setImage(config.logo.black)
 
     IPFS = null
-    send('node-status', 'stopped')
+    updateState('stopped')
     done()
   })
 }
@@ -204,7 +200,7 @@ function initialize (path, node) {
       config.settingsStore.set('ipfsPath', userPath)
 
       send('initialization-complete')
-      send('node-status', 'stopped')
+      updateState('stopped')
 
       onStartDaemon(node)
       window.close()
