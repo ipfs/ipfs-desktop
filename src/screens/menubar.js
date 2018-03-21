@@ -222,13 +222,8 @@ class Menubar extends Component {
   }
 
   render () {
-    let className = ''
-    if (this.state.settings.lightTheme) {
-      className = 'light'
-    }
-
     return (
-      <PaneContainer className={className}>
+      <PaneContainer>
         {this._getRouteScreen()}
         {this._getMenu()}
       </PaneContainer>

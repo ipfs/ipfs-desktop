@@ -58,10 +58,6 @@ const options = [
         Restarting your node is required.
       </span>
     )
-  },
-  {
-    title: 'Light theme',
-    setting: 'lightTheme'
   }
 ]
 
