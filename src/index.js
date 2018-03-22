@@ -61,6 +61,7 @@ function onStartDaemon (node) {
   if (fs.existsSync(lockPath)) {
     try {
       fs.unlinkSync(lockPath)
+      fs.unlinkSync(join(config.settingsStore.get('ipfsPath'), 'api'))
     } catch (e) {
       debug('Could not remove lock. Daemon might be running.')
     }
