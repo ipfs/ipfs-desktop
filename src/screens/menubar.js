@@ -8,11 +8,11 @@ import PaneContainer from '../components/PaneContainer'
 import MenuOption from '../components/MenuOption'
 import Menu from '../components/Menu'
 
-import Peers from '../panes/Peers'
+/* import Peers from '../panes/Peers'
+import Pinned from '../panes/Pinned' */
 import Loader from '../panes/Loader'
 import Start from '../panes/Start'
 import Files from '../panes/Files'
-import Pinned from '../panes/Pinned'
 import Info from '../panes/Info'
 import Settings from '../panes/Settings'
 
@@ -25,7 +25,7 @@ const RUNNING = 'running'
 const panes = [
   {
     id: 'info',
-    title: 'Info',
+    title: 'Home',
     icon: 'ipfs'
   },
   {
@@ -37,12 +37,12 @@ const panes = [
     id: 'pinned',
     title: 'Pin',
     icon: 'pin'
-  }, */
+  },
   {
     id: 'peers',
     title: 'Peers',
     icon: 'pulse'
-  },
+  }, */
   {
     id: 'settings',
     title: 'Settings',
@@ -171,13 +171,13 @@ class Menubar extends Component {
           root={this.state.files.root} />
       case 'settings':
         return <Settings settings={this.state.settings} />
-      case 'peers':
+      /* case 'peers':
         var location = 'Unknown'
         if (this.state.stats.node) {
           location = this.state.stats.node.location
         }
 
-        return <Peers peers={this.state.stats.peers} location={location} />
+        return <Peers peers={this.state.stats.peers} location={location} /> */
       case 'info':
         return (
           <Info
@@ -185,12 +185,12 @@ class Menubar extends Component {
             bw={this.state.stats.bw}
             repo={this.state.stats.repo} />
         )
-      case 'pinned':
+      /* case 'pinned':
         return (
           <Pinned
             files={this.state.pinned}
             pinning={this.state.pinning} />
-        )
+        ) */
       default:
         return (
           <Pane className='left-pane'>
@@ -224,8 +224,8 @@ class Menubar extends Component {
   render () {
     return (
       <PaneContainer>
-        {this._getRouteScreen()}
         {this._getMenu()}
+        {this._getRouteScreen()}
       </PaneContainer>
     )
   }

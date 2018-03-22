@@ -132,6 +132,11 @@ class Files extends Component {
     return connectDropTarget(
       <div>
         <Pane className='files'>
+          <div>
+            <IconButton active={this.state.sticky} onClick={this.toggleStickWindow} icon='eye' />
+            <IconButton onClick={this.selectFileDialog} icon='plus' />
+            <IconButton onClick={this.selectDirectoryDialog} icon='folder' />
+          </div>
           <Header title={this.makeBreadcrumbs()} loading={this.props.adding} />
 
           <div className='main'>
@@ -141,15 +146,6 @@ class Files extends Component {
           <div className='dropper' style={dropper}>
             Drop to upload to IPFS
           </div>
-
-          <Footer>
-            <IconButton active={this.state.sticky} onClick={this.toggleStickWindow} icon='eye' />
-
-            <div className='right'>
-              <IconButton onClick={this.selectFileDialog} icon='plus' />
-              <IconButton onClick={this.selectDirectoryDialog} icon='folder' />
-            </div>
-          </Footer>
         </Pane>
       </div>
     )
