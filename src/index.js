@@ -57,13 +57,21 @@ function onStartDaemon (node) {
   // not to be exiting correctly, hence the file is not
   // removed.
   const lockPath = join(config.settingsStore.get('ipfsPath'), 'repo.lock')
+  const apiPath = join(config.settingsStore.get('ipfsPath'), 'api')
 
   if (fs.existsSync(lockPath)) {
     try {
       fs.unlinkSync(lockPath)
-      fs.unlinkSync(join(config.settingsStore.get('ipfsPath'), 'api'))
     } catch (e) {
       debug('Could not remove lock. Daemon might be running.')
+    }
+  }
+
+  if (fs.existsSync(apiPath)) {
+    try {
+      fs.unlinkSync(apiPath)
+    } catch (e) {
+      debug('Could not remove API file. Daemon might be running.')
     }
   }
 
