@@ -24,7 +24,7 @@ const fileTarget = {
       filesArray.push(files[i].path)
     }
 
-    ipcRenderer.send('drop-files', filesArray, component.state.root)
+    ipcRenderer.send('drop-files', filesArray, component.props.root)
   }
 }
 

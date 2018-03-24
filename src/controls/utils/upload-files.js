@@ -1,56 +1,41 @@
 import path from 'path'
-import fs from 'fs'
 
 function join (...parts) {
   const replace = new RegExp('/{1,}', 'g')
   return parts.join('/').replace(replace, '/')
 }
 
-function clean (files, root) {
-  const res = []
+let adding = 0
 
-  files.forEach((file) => {
-    const stat = fs.lstatSync(file)
-    const dst = join(root, path.basename(file))
+async function add (files, root, ipfs) {
+  for (const file of files) {
+    const res = await ipfs().add([file], {recursive: true, wrap: true})
+    const f = res[res.length - 1]
+    const src = `/ipfs/${f.hash}`
+    const dst = join(root, path.basename(f.path))
 
-    if (stat.isDirectory()) {
-      const files = clean(fs.readdirSync(file).map(f => path.join(file, f)), dst)
-      res.push({dir: true, dst: dst}, ...files)
-    } else {
-      res.push({
-        dst: dst,
-        src: file
-      })
-    }
-  })
-
-  return res
+    await ipfs().files.cp([src, dst])
+  }
 }
 
 export default function uploadFiles (opts) {
   let {ipfs, debug, send} = opts
-  let adding = 0
 
   const sendAdding = () => { send('adding', adding > 0) }
   const inc = () => { adding++; sendAdding() }
   const dec = () => { adding--; sendAdding() }
 
+  const anyway = () => {
+    dec()
+    send('files-updated')
+  }
+
   return (event, files, root = '/') => {
     debug('Uploading files', {files})
-    files = clean(files, root)
-
     inc()
-    Promise.all(files.map(file => {
-      if (file.dir) {
-        return ipfs().files.mkdir(file.dst)
-      }
 
-      return ipfs().files.write(file.dst, file.src, {create: true})
-    })).then(() => {
-      dec()
-      send('files-updated')
-    }).catch((e) => {
-      debug(e.stack)
-    })
+    add(files, root, ipfs)
+      .then(anyway)
+      .catch((e) => { anyway(); debug(e.stack) })
   }
 }
