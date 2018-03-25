@@ -9,8 +9,6 @@ import KeyValueStore from './utils/key-value-store'
 
 const debug = dbgger('desktop')
 
-process.setFdLimit(2048)
-
 function logo (color) {
   const p = path.resolve(path.join(__dirname, 'img'))
 
