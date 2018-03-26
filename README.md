@@ -64,7 +64,7 @@ Click on the IPFS icon in the menubar to open the app.
 
 | See IPFS Node Info | Share Files |
 |:---:|:---:|
-| ![](https://ipfs.io/ipfs/QmPBMMG4HUB1U1kLfwWvr6zQhGMcuvWYtGEFeTqBjG2jxW) | ![](https://ipfs.io/ipfs/QmQKdHbDnEAp7ajW7QNayxsuEWywRNyZaX6VbTzvWnHxex) |
+| ![](https://ipfs.io/ipfs/QmPBMMG4HUB1U1kLfwWvr6zQhGMcuvWYtGEFeTqBjG2jxW) | ![](https://ipfs.io/ipfs/QmSL8L5kMevXWDZguBwiwDVsQX6qkRFt1yTCDdnA1LmyR9) |
 
 | Pin Hashes | See connected Peers |
 |:---:|:---:|
