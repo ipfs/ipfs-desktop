@@ -48,6 +48,34 @@ function onRequestState (node, event) {
   send('node-status', state)
 }
 
+// Moves files from appData/file-history.json to MFS so
+// v0.4.0 is backwards compatible with v0.3.0.
+function moveFilesOver () {
+  const path = join(config.appData, 'file-history.json')
+
+  if (!fs.existsSync(path)) {
+    return
+  }
+
+  let files
+
+  try {
+    files = JSON.parse(fs.readFileSync(path))
+  } catch (e) {
+    debug(e)
+    return
+  }
+
+  Promise.all(files.map((file) => IPFS.files.cp([`/ipfs/${file.hash}`, `/${file.name}`])))
+    .then(() => {
+      fs.unlinkSync(path)
+    })
+    .catch((e) => {
+      fs.unlinkSync(path)
+      debug(e)
+    })
+}
+
 function onStartDaemon (node) {
   debug('Starting daemon')
   updateState('starting')
@@ -98,6 +126,9 @@ function onStartDaemon (node) {
         debug(e)
       })
     }
+
+    // Move files from V0.3.0
+    moveFilesOver()
 
     menubar.tray.setImage(config.logo.ice)
     updateState('running')

@@ -58,6 +58,7 @@ process.on('unhandledRejection', fatal)
 export default {
   events: new EventEmitter(),
   debug: debug,
+  appData: ipfsAppData,
   settingsStore: settingsStore,
   logo: {
     ice: logo('ice'),
