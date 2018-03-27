@@ -22,10 +22,13 @@
 A menubar <a href="https://ipfs.io">IPFS</a> application to get you on the Distributed Web!
 </h3>
 
+IPFS Desktop allows you to run your IPFS node on your machine without having to bother with command line tools. You can manage your node, add your files, easily change the settings... [everything](#features) from just one interface.
+
 ## Table of Contents
 
 - [Install](#install)
 - [Usage](#usage)
+- [Features](#features)
 - [Developer Guide](#developer-guide)
 - [Contribute](#contribute)
 
@@ -69,6 +72,19 @@ Click on the IPFS icon in the menubar to open the app.
 | Pin Hashes | See connected Peers |
 |:---:|:---:|
 | ![](https://ipfs.io/ipfs/QmTUS8rRufkXQp7ePRogMFLMxmf6YziYcb8HnDrVCvC2DF)| ![](https://ipfs.io/ipfs/QmW1SWU1aALf8sqSvEFGUtzK8oqX9BGNA6r4bzS8MPg94B) |
+
+## Features
+
+| Stats and Information | Files                   | Other                           |
+|-----------------------|-------------------------|---------------------------------|
+| Peer ID               | Add by drag'n'drop      | Easy access to the WebUI        |
+| Location              | Add entire directories  | Easy access to Node Settings    |
+| Addresses             | Delete files            | Pin hashes with labels          |
+| Public Key            | Copy and share links    | Optional launch on startup      |
+| Repository Size       |                         | Auto add screenshots            |
+| Bandwidth Usage       |                         | Download copied hash            |
+| Down/Up Speeds        |                         |
+| Peers                 |                         |
 
 ## Developer Guide
 
