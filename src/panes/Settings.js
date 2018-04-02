@@ -14,6 +14,10 @@ function generateOnChange (key) {
   }
 }
 
+function garbageCollector () {
+  ipcRenderer.send('run-gc')
+}
+
 function quit () {
   ipcRenderer.send('quit-application')
 }
@@ -77,6 +81,12 @@ export default function Settings (props) {
 
       <div className='main'>
         {opts}
+
+        <InfoBlock
+          title='Run garbage collector'
+          info='Delete all unpinned files to free up disk space.'
+          button={false}
+          onClick={garbageCollector} />
 
         <InfoBlock
           title='Quit'
