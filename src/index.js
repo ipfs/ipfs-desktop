@@ -253,7 +253,8 @@ DaemonFactory.create().spawn({
   repoPath: config.settingsStore.get('ipfsPath'),
   disposable: false,
   init: false,
-  start: false
+  start: false,
+  defaultAddrs: true
 }, (err, node) => {
   if (err) {
     // We can't start if we fail to aquire
