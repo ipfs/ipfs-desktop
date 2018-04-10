@@ -2,7 +2,7 @@
   "name": "ipfs-desktop",
   "productName": "IPFS Desktop",
   "private": true,
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "IPFS Native Application",
   "main": "src/index.js",
   "dependencies": {
