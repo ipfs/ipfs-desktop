@@ -38,7 +38,7 @@
     "codecov": "^3.0.4",
     "cross-env": "^5.2.0",
     "electron-forge": "^5.2.2",
-    "electron-prebuilt-compile": "2.0.4",
+    "electron-prebuilt-compile": "2.0.6",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^5",
