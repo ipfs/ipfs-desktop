@@ -265,7 +265,7 @@ DaemonFactory.create().spawn({
 
   let appReady = () => {
     debug('Application is ready')
-    menubar.tray.setHighlightMode(true)
+    menubar.tray.setHighlightMode('always')
 
     ipcMain.on('request-state', onRequestState.bind(null, node))
     ipcMain.on('start-daemon', onStartDaemon.bind(null, node))
