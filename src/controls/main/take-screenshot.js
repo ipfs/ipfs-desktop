@@ -37,7 +37,7 @@ function handleScreenshot (opts) {
       .then(() => ipfs().files.write(path, content, {create: true}))
       .then(() => ipfs().files.stat(path))
       .then((res) => {
-        const url = `https://ipfs.io/ipfs/${res.Hash}`
+        const url = `https://ipfs.io/ipfs/${res.hash}`
         clipboard.writeText(url)
         send('files-updated')
         debug('Screenshot uploaded', {path: path})
