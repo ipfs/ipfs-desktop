@@ -2,6 +2,7 @@
   "name": "ipfs-desktop",
   "private": true,
   "version": "0.4.2",
+  "productName": "IPFS Desktop",
   "description": "IPFS Native Application",
   "main": "src/index.js",
   "dependencies": {
@@ -90,21 +91,18 @@
         ]
       },
       "electronPackagerConfig": {
-        "name": "IPFS Desktop",
         "packageManager": "yarn",
         "executableName": "ipfs-desktop",
         "icon": "./src/img/icons/executable/ipfs.ico"
       },
       "electronInstallerDebian": {
-        "productName": "IPFS Desktop",
         "icon": "./src/img/icons/executable/ipfs.ico",
         "scripts": {
           "postinst": "postinst.sh"
         }
       },
       "electronWinstallerConfig": {
-        "title": "IPFSDesktop",
-        "name": "IPFS Desktop",
+        "name": "Desktop",
         "setupIcon": "./src/img/icons/executable/ipfs.ico",
         "loadingGif": "./src/img/loading.gif",
         "exe": "ipfs-desktop.exe"
