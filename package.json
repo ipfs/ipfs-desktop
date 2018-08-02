@@ -103,7 +103,8 @@
         }
       },
       "electronWinstallerConfig": {
-        "title": "IPFS Desktop",
+        "title": "IPFSDesktop",
+        "name": "IPFS Desktop",
         "setupIcon": "./src/img/icons/executable/ipfs.ico",
         "loadingGif": "./src/img/loading.gif",
         "exe": "ipfs-desktop.exe"
