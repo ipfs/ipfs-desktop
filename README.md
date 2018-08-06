@@ -32,12 +32,12 @@ IPFS Desktop allows you to run your IPFS node on your machine without having to 
 - [Developer Guide](#developer-guide)
 - [Contribute](#contribute)
 
-## Install
+## Install a Release
 
-Go to the **[latest release](https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest)** page and download IPFS Desktop for your OS.
+### Go to the [*latest release*](https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest) page and download IPFS Desktop for your OS.
 
 
-- Note for **Debian** and **Ubuntu** users: starting with apt 1.1 (Ubuntu 16.04, Debian Stretch) `apt install` allows local files:
+Note for **Debian** and **Ubuntu** users: starting with apt 1.1 (Ubuntu 16.04, Debian Stretch) `apt install` allows local files:
   ```
   sudo apt install ./ipfs-desktop*.deb
   ```
