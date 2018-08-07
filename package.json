@@ -14,6 +14,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "file-extension": "^4.0.5",
     "go-ipfs-dep": "^0.4.17",
+    "ipfs": "^0.31.2",
     "ipfs-stats": "^1.2.4",
     "ipfsd-ctl": "^0.39.0",
     "is-ipfs": "^0.4.2",

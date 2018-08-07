@@ -11,7 +11,6 @@ import Loader from '../panes/Loader'
 const INTRO = 'intro'
 const INTITIALZING = 'initializing'
 const ERROR = 'error'
-const ADVANCED = 'advanced'
 
 const KEY_SIZES = [2048, 4096]
 
@@ -38,12 +37,8 @@ export default class Welcome extends Component {
     this.setState({configPath: path})
   }
 
-  _selectAdvanced = () => {
-    this.setState({status: ADVANCED})
-  }
-
-  _startInstallation = () => {
-    ipcRenderer.send('initialize', {keySize: this.state.keySize})
+  _startInstallation = (options) => {
+    ipcRenderer.send('install', options)
   }
 
   _onKeySizeChange = (keySize) => {
@@ -65,7 +60,6 @@ export default class Welcome extends Component {
   render () {
     switch (this.state.status) {
       case INTRO:
-      case ADVANCED:
         return (
           <PaneContainer>
             <Pane className='heartbeat-pane'>
@@ -76,8 +70,7 @@ export default class Welcome extends Component {
               onInstallClick={this._startInstallation}
               configPath={this.state.configPath}
               keySizes={KEY_SIZES}
-              keySize={KEY_SIZES[1]}
-              onKeySizeChange={this._onKeySizeChange} />
+              defaultKeySize={KEY_SIZES[1]} />
           </PaneContainer>
         )
       case ERROR:

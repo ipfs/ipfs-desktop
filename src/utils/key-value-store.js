@@ -12,10 +12,11 @@ export default class KeyValueStore extends FileStore {
   /**
    * Gets a value.
    * @param {String} key
+   * @param {Any} def
    * @returns {Any}
    */
-  get (key) {
-    return this.data[key]
+  get (key, def) {
+    return this.data[key] || def
   }
 
   /**

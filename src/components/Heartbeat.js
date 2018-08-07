@@ -15,14 +15,14 @@ const blackLogo = resolve(join(__dirname, '../img/ipfs-logo-black.png'))
  *
  * @return {ReactElement}
  */
-export default function Heartbeat (props) {
-  if (props.dead) {
+export default function Heartbeat ({dead, className, ...props}) {
+  if (dead) {
     return (
-      <img src={`file://${blackLogo}`} />
+      <img src={`file://${blackLogo}`} {...props} />
     )
   } else {
     return (
-      <img src={`file://${icyLogo}`} className='heartbeat' />
+      <img src={`file://${icyLogo}`} className={`heartbeat ${className}`} {...props} />
     )
   }
 }
@@ -32,5 +32,6 @@ Heartbeat.propTypes = {
 }
 
 Heartbeat.defaultProps = {
-  dead: false
+  dead: false,
+  className: ''
 }

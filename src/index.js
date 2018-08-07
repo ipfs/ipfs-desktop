@@ -4,6 +4,8 @@ import DaemonFactory from 'ipfsd-ctl'
 import {join} from 'path'
 import {dialog, ipcMain, app, BrowserWindow} from 'electron'
 
+import init from './init'
+
 import config from './config'
 import registerControls from './controls/main'
 import handleKnownErrors from './errors'
@@ -46,34 +48,6 @@ function updateState (st) {
 
 function onRequestState (node, event) {
   send('node-status', state)
-}
-
-// Moves files from appData/file-history.json to MFS so
-// v0.4.0 is backwards compatible with v0.3.0.
-function moveFilesOver () {
-  const path = join(config.appData, 'file-history.json')
-
-  if (!fs.existsSync(path)) {
-    return
-  }
-
-  let files
-
-  try {
-    files = JSON.parse(fs.readFileSync(path))
-  } catch (e) {
-    debug(e)
-    return
-  }
-
-  Promise.all(files.map((file) => IPFS.files.cp([`/ipfs/${file.hash}`, `/${file.name}`])))
-    .then(() => {
-      fs.unlinkSync(path)
-    })
-    .catch((e) => {
-      fs.unlinkSync(path)
-      debug(e)
-    })
 }
 
 function onStartDaemon (node) {
@@ -126,9 +100,6 @@ function onStartDaemon (node) {
         debug(e)
       })
     }
-
-    // Move files from V0.3.0
-    moveFilesOver()
 
     menubar.tray.setImage(config.logo.ice)
     updateState('running')
@@ -248,6 +219,7 @@ function initialize (path, node) {
   })
 }
 
+/* 
 // main entry point
 DaemonFactory.create().spawn({
   repoPath: config.settingsStore.get('ipfsPath'),
@@ -289,4 +261,10 @@ DaemonFactory.create().spawn({
 
   if (menubar.isReady()) appReady()
   else menubar.on('ready', appReady)
-})
+}) */
+
+menubar = new Menubar(config.menubar)
+config.menubar = menubar
+
+if (menubar.isReady()) init()
+else menubar.on('ready', init)

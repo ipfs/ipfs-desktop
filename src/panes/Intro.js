@@ -8,19 +8,11 @@ import Icon from '../components/Icon'
 import IconDropdownList from '../components/IconDropdownList'
 
 export default class Intro extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      showAdvanced: false
-    }
-  }
-
   static propTypes = {
     onInstallClick: PropTypes.func,
     configPath: PropTypes.string,
     keySizes: PropTypes.arrayOf(PropTypes.number),
-    keySize: PropTypes.number,
-    onKeySizeChange: PropTypes.func
+    defaultKeySize: PropTypes.number
   }
 
   static defaultProps = {
@@ -31,8 +23,21 @@ export default class Intro extends Component {
     onKeySizeChange () {}
   }
 
+  state = {
+    advanced: false,
+    type: 'Embedded',
+    engine: 'Go',
+    keysize: 2048
+  }
+
+  onTypeChange = type => { this.setState({ type }) }
+
+  onEngineChange = engine => { this.setState({ engine }) }
+
+  onKeySizeChange = keysize => { this.setState({ keysize }) }
+
   onAdvancedClick = () => {
-    this.setState({ showAdvanced: true })
+    this.setState({ advanced: true })
   }
 
   onClick = (e) => {
@@ -41,24 +46,6 @@ export default class Intro extends Component {
   }
 
   render () {
-    let advanced = null
-    if (this.state.showAdvanced) {
-      advanced = ([
-        <div className='directory-input'>
-          <Icon name='folder' />
-          <a onClick={this.onClick} >
-            {this.props.configPath}
-          </a>
-        </div>,
-        <IconDropdownList
-          icon='key'
-          data={this.props.keySizes}
-          defaultValue={this.props.keySize}
-          onChange={this.props.onKeySizeChange}
-        />
-      ])
-    }
-
     return (
       <Pane className='intro'>
         <div className='main'>
@@ -66,12 +53,53 @@ export default class Intro extends Component {
             <p className='title'>Welcome to the Distributed Web</p>
             <p className='subtitle'>You are about to install IPFS, the InterPlanetary File System.</p>
           </div>
-          <div>
-            {advanced}
-          </div>
+          { this.state.advanced &&
+            <div>
+              <IconDropdownList
+                icon='wand'
+                data={['Embedded', 'External']}
+                defaultValue={'Embedded'}
+                onChange={this.onTypeChange}
+              />
+
+              { this.state.type === 'Embedded'
+                ? (
+                  <div>
+                    <IconDropdownList
+                      icon='package'
+                      data={['Go', 'JavaScript']}
+                      defaultValue={'Go'}
+                      onChange={this.onEngineChange}
+                    />
+
+                    <div className='directory-input'>
+                      <Icon name='folder' />
+                      <a onClick={this.onClick} >
+                        {this.props.configPath}
+                      </a>
+                    </div>
+
+                    <IconDropdownList
+                      icon='key'
+                      data={this.props.keySizes}
+                      defaultValue={this.props.defaultKeySize}
+                      onChange={this.onKeySizeChange}
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)' }}>Please insert the API address of the node you want to connect to:</p>
+                    <input
+                      style={{ width: '100%', borderRadius: '0.2rem', border: 0, outline: 0, padding: '0.5em 1em' }}
+                      type='text' />
+                  </div>
+                )
+              }
+            </div>
+          }
           <div>
             <Button text='Install IPFS' onClick={this.props.onInstallClick} />
-            { !this.state.showAdvanced &&
+            { !this.state.advanced &&
               <a className='advanced-options' onClick={this.onAdvancedClick} >
                 Advanced Options
               </a>
