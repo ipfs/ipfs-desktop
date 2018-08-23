@@ -1,5 +1,7 @@
 import {dialog} from 'electron'
 
+import { logger } from './utils'
+
 const errors = [
   {
     find: [
@@ -11,7 +13,7 @@ const errors = [
   }
 ]
 
-export default function (e) {
+export function handleKnownErrors (e) {
   const msg = e.toString()
 
   const error = errors.find((error) => {
@@ -28,6 +30,23 @@ export default function (e) {
       error.message
     )
 
-    process.exit(1)
+    process.exit(0)
   }
+}
+
+function fatal (error) {
+  logger.error(error)
+  logger.end()
+
+  dialog.showErrorBox(
+    'Something wrong happened',
+    `Some unexpected error occurred and we couldn't handle it.` +
+    ` for the latest logs and open an issue on https://github.com/ipfs-shipyard/ipfs-desktop/issues.`
+  )
+}
+
+export default function setupErrorHandling () {
+  // Set up what to do on Uncaught Exceptions and Unhandled Rejections
+  process.on('uncaughtException', fatal)
+  process.on('unhandledRejection', fatal)
 }

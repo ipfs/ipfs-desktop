@@ -45,6 +45,15 @@ export default class Intro extends Component {
     ipcRenderer.send('setup-browse-path')
   }
 
+  onInstall = () => {
+    this.props.onInstallClick({
+      type: this.state.engine.toLowerCase(),
+      path: this.props.configPath,
+      flags: ['--routing=dhtclient'],
+      keysize: this.state.keysize
+    })
+  }
+
   render () {
     return (
       <Pane className='intro'>
@@ -98,7 +107,7 @@ export default class Intro extends Component {
             </div>
           }
           <div>
-            <Button text='Install IPFS' onClick={this.props.onInstallClick} />
+            <Button text='Install IPFS' onClick={this.onInstall} />
             { !this.state.advanced &&
               <a className='advanced-options' onClick={this.onAdvancedClick} >
                 Advanced Options

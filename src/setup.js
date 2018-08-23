@@ -1,59 +1,16 @@
-import IPFSFactory from 'ipfsd-ctl'
-import config from './config'
+import { logo, getIpfs, logger, store } from './utils'
 import { join } from 'path'
+import fs from 'fs-extra'
 import { BrowserWindow, dialog, ipcMain, app } from 'electron'
 
-async function getIpfs ({ type, path, flags, keysize, init }) {
-  let factOpts = { type: type }
-
-  if (type === 'proc') {
-    factOpts.exec = require('ipfs')
-  }
-
-  const factory = IPFSFactory.create(factOpts)
-
-  return new Promise((resolve, reject) => {
-    const start = (ipfsd) => ipfsd.start(flags, (err, api) => {
-      if (err) return reject(err)
-      else resolve(ipfsd)
-    })
-
-    factory.spawn({
-      init: false,
-      start: false,
-      disposable: false,
-      defaultAddrs: true,
-      repoPath: path
-    }, (err, ipfsd) => {
-      if (err) return reject(err)
-
-      if (ipfsd.started) {
-        return resolve(ipfsd)
-      }
-
-      if (!ipfsd.initialized && init) {
-        return ipfsd.init({
-          directory: path,
-          keysize: keysize
-        }, err => {
-          if (err) return reject(err)
-          else start(ipfsd)
-        })
-      }
-
-      start(ipfsd)
-    })
-  })
-}
-
 function welcome ({ path }) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     let ipfs = null
 
     // Initialize the welcome window.
     const window = new BrowserWindow({
       title: 'Welcome to IPFS',
-      icon: config.logo.ice,
+      icon: logo('ice'),
       show: false,
       // resizable: false,
       width: 850,
@@ -64,6 +21,7 @@ function welcome ({ path }) {
     window.on('ready-to-show', () => {
       window.show()
       window.focus()
+      logger.info('Welcome window ready')
     })
 
     // window.setMenu(null)
@@ -72,9 +30,11 @@ function welcome ({ path }) {
     // Send the default path as soon as the window is ready.
     window.webContents.on('did-finish-load', () => {
       window.webContents.send('setup-config-path', path)
+      logger.info('Welcome window has path')
     })
 
     window.once('close', () => {
+      logger.info('Welcome screen was closed')
       if (!ipfs) app.quit()
     })
 
@@ -95,6 +55,7 @@ function welcome ({ path }) {
           userPath = join(userPath, '.ipfs')
         }
 
+        logger.info('Got new path %s', userPath)
         window.webContents.send('setup-config-path', userPath)
       })
     })
@@ -102,32 +63,49 @@ function welcome ({ path }) {
     ipcMain.on('install', async (event, opts) => {
       window.webContents.send('initializing')
 
+      opts = {
+        ...opts,
+        init: !(await fs.pathExists(opts.path))
+      }
+
+      logger.info('Trying connection with: %o', opts)
+
       try {
         ipfs = await getIpfs(opts)
+
+        ipfs.version(err => {
+          if (err) {
+            throw err
+          }
+        })
+
+        store.set('ipfs', opts)
         window.close()
         resolve(ipfs)
-      } catch (_) {
+      } catch (e) {
+        logger.info('Connection failed with error: %o', e)
         window.webContents.send('errored')
       }
     })
   })
 }
 
-export default async function init () {
-  // const opts = applyDefaults(config.settingsStore.get('connection', {}))
-  const opts = {
-    type: 'go',
-    path: config.settingsStore.get('ipfsPath'),
-    flags: []
-  }
+export default async function () {
+  const opts = store.get('ipfs', {
+    path: join(process.env.IPFS_PATH || (process.env.HOME || process.env.USERPROFILE), '.ipfs')
+  })
 
   let ipfs
 
-  try {
-    ipfs = await getIpfs(opts)
-  } catch (_) {
+  if (Object.keys(opts).length === 1) {
     ipfs = await welcome(opts)
+  } else {
+    try {
+      ipfs = await getIpfs(opts)
+    } catch (_) {
+      ipfs = await welcome(opts)
+    }
   }
 
-  console.log(await ipfs.api.id())
+  return ipfs
 }

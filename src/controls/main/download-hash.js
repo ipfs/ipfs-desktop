@@ -1,7 +1,8 @@
 import path from 'path'
 import fs from 'fs'
-import {clipboard, app, dialog, globalShortcut} from 'electron'
-import {validateIPFS} from '../utils'
+import { clipboard, app, dialog, globalShortcut } from 'electron'
+import { validateIPFS } from '../utils'
+import { store, logger } from '../../utils'
 
 const settingsOption = 'downloadHashShortcut'
 const shortcut = 'CommandOrControl+Alt+D'
@@ -28,7 +29,6 @@ function selectDirectory (opts) {
 }
 
 function saveFile (opts, dir, file) {
-  const {debug} = opts
   const location = path.join(dir, file.path)
 
   if (fs.existsSync(location)) {
@@ -38,15 +38,15 @@ function saveFile (opts, dir, file) {
 
   fs.writeFile(location, file.content, (err) => {
     if (err) {
-      debug(err.stack)
+      logger.error(err.stack)
     } else {
-      debug(`File '${file.path}' downloaded to ${location}.`)
+      logger.info(`File '${file.path}' downloaded to ${location}.`)
     }
   })
 }
 
 function handler (opts) {
-  const {debug, ipfs} = opts
+  const {ipfs} = opts
 
   return () => {
     const text = clipboard.readText().trim()
@@ -65,11 +65,11 @@ function handler (opts) {
 
     ipfs().get(text)
       .then((files) => {
-        debug(`Hash ${text} downloaded.`)
+        logger.info(`Hash ${text} downloaded.`)
         selectDirectory(opts)
           .then((dir) => {
             if (!dir) {
-              debug(`Dropping hash ${text}: user didn't choose a path.`)
+              logger.info(`Dropping hash ${text}: user didn't choose a path.`)
               return
             }
 
@@ -79,10 +79,10 @@ function handler (opts) {
 
             files.forEach(file => { saveFile(opts, dir, file) })
           })
-          .catch(e => debug(e.stack))
+          .catch(e => logger.error(e.stack))
       })
       .catch(e => {
-        debug(e.stack)
+        logger.error(e.stack)
         dialog.showErrorBox(
           'Error while downloading',
           'Some error happened while getting the hash. Please check the logs.'
@@ -92,20 +92,18 @@ function handler (opts) {
 }
 
 export default function (opts) {
-  let {debug, settingsStore} = opts
-
   let activate = (value, oldValue) => {
     if (value === oldValue) return
 
     if (value === true) {
       globalShortcut.register(shortcut, handler(opts))
-      debug('Hash download shortcut enabled')
+      logger.info('Hash download shortcut enabled')
     } else {
       globalShortcut.unregister(shortcut)
-      debug('Hash download shortcut disabled')
+      logger.info('Hash download shortcut disabled')
     }
   }
 
-  activate(settingsStore.get(settingsOption))
-  settingsStore.on(settingsOption, activate)
+  activate(store.get(settingsOption))
+  store.onDidChange(settingsOption, activate)
 }

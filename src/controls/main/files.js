@@ -1,5 +1,6 @@
 import {ipcMain} from 'electron'
 import uploadFiles from '../utils/upload-files'
+import { logger } from '../../utils'
 
 function basename (path) {
   const parts = path.split('/')
@@ -18,7 +19,7 @@ function sort (a, b) {
 }
 
 function listAndSend (opts, root) {
-  const {debug, ipfs, send} = opts
+  const {ipfs, send} = opts
 
   ipfs().files.ls(root)
     .then(files => {
@@ -31,7 +32,7 @@ function listAndSend (opts, root) {
           root: root,
           contents: res
         }))
-        .catch(e => { debug(e.stack) })
+        .catch(e => { logger.error(e.stack) })
     })
 }
 
@@ -42,32 +43,32 @@ function list (opts) {
 }
 
 function createDirectory (opts) {
-  const {ipfs, debug} = opts
+  const {ipfs} = opts
 
   return (event, path) => {
     ipfs().files.mkdir(path, {parents: true})
       .then(() => { listAndSend(opts, basename(path)) })
-      .catch(e => { debug(e.stack) })
+      .catch(e => { logger.error(e.stack) })
   }
 }
 
 function remove (opts) {
-  const {ipfs, debug} = opts
+  const {ipfs} = opts
 
   return (event, path) => {
     ipfs().files.rm(path, {recursive: true})
       .then(() => { listAndSend(opts, basename(path)) })
-      .catch(e => { debug(e.stack) })
+      .catch(e => { logger.error(e.stack) })
   }
 }
 
 function move (opts) {
-  const {ipfs, debug} = opts
+  const {ipfs} = opts
 
   return (event, from, to) => {
     ipfs().files.mv([from, to])
       .then(() => { listAndSend(opts, basename(to)) })
-      .catch(e => { debug(e.stack) })
+      .catch(e => { logger.error(e.stack) })
   }
 }
 

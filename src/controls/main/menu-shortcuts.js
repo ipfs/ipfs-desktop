@@ -1,6 +1,6 @@
 import {Menu} from 'electron'
 
-export default function (opts) {
+export default function () {
   Menu.setApplicationMenu(Menu.buildFromTemplate([
     {
       // Edit menu entries so the shortcuts work on macOS
