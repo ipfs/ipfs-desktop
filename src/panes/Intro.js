@@ -10,9 +10,7 @@ import IconDropdownList from '../components/IconDropdownList'
 export default class Intro extends Component {
   static propTypes = {
     onInstallClick: PropTypes.func,
-    configPath: PropTypes.string,
-    keySizes: PropTypes.arrayOf(PropTypes.number),
-    defaultKeySize: PropTypes.number
+    configPath: PropTypes.string
   }
 
   static defaultProps = {
@@ -27,7 +25,7 @@ export default class Intro extends Component {
     advanced: false,
     type: 'Embedded',
     engine: 'Go',
-    keysize: 2048
+    keysize: 4096
   }
 
   onTypeChange = type => { this.setState({ type }) }
@@ -90,8 +88,8 @@ export default class Intro extends Component {
 
                     <IconDropdownList
                       icon='key'
-                      data={this.props.keySizes}
-                      defaultValue={this.props.defaultKeySize}
+                      data={[2048, 4096]}
+                      defaultValue={this.state.keysize}
                       onChange={this.onKeySizeChange}
                     />
                   </div>

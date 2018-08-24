@@ -12,37 +12,30 @@ const INTRO = 'intro'
 const INTITIALZING = 'initializing'
 const ERROR = 'error'
 
-const KEY_SIZES = [2048, 4096]
-
 export default class Welcome extends Component {
   state = {
     status: INTRO,
     error: void 0,
-    configPath: '',
-    keySize: KEY_SIZES[1]
+    configPath: ''
   }
 
   _onInitializing = () => {
     this.setState({status: INTITIALZING})
   }
 
-  _onError = (event, error) => {
+  _onError = (_, error) => {
     this.setState({
       status: ERROR,
       error
     })
   }
 
-  _onConfigPath = (event, path) => {
+  _onConfigPath = (_, path) => {
     this.setState({configPath: path})
   }
 
   _startInstallation = (options) => {
     ipcRenderer.send('install', options)
-  }
-
-  _onKeySizeChange = (keySize) => {
-    this.setState({keySize})
   }
 
   componentDidMount () {
@@ -68,9 +61,7 @@ export default class Welcome extends Component {
             <Intro
               key='intro'
               onInstallClick={this._startInstallation}
-              configPath={this.state.configPath}
-              keySizes={KEY_SIZES}
-              defaultKeySize={KEY_SIZES[1]} />
+              configPath={this.state.configPath} />
           </PaneContainer>
         )
       case ERROR:
