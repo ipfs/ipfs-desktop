@@ -20,8 +20,7 @@ export default async function (ipfsd) {
       height: 400,
       backgroundColor: (store.get('lightTheme', false) ? '#FFFFFF' : '#000000'),
       webPreferences: {
-        nodeIntegration: true,
-        webSecurity: false
+        nodeIntegration: true
       }
     }
   })
