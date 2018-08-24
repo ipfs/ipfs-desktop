@@ -2,12 +2,16 @@ import {ipcMain} from 'electron'
 import { logger } from '../../utils'
 
 function gc (opts) {
-  let {ipfs} = opts
+  let { ipfs } = opts
 
-  return () => {
-    ipfs().repo.gc()
-      .then(() => { logger.info('Garbage collector run sucessfully') })
-      .catch(e => { logger.error(e.stack) })
+  return async () => {
+    try {
+      logger.info('Garbage collector starting')
+      await ipfs().repo.gc()
+      logger.info('Garbage collector run sucessfully')
+    } catch (e) {
+      logger.error(e.stack)
+    }
   }
 }
 

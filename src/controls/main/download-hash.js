@@ -1,5 +1,5 @@
 import path from 'path'
-import fs from 'fs'
+import fs from 'fs-extra'
 import { clipboard, app, dialog, globalShortcut } from 'electron'
 import { validateIPFS } from '../utils'
 import { store, logger } from '../../utils'
@@ -8,9 +8,9 @@ const settingsOption = 'downloadHashShortcut'
 const shortcut = 'CommandOrControl+Alt+D'
 
 function selectDirectory (opts) {
-  const {menubar} = opts
+  const { menubar } = opts
 
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     dialog.showOpenDialog(menubar.window, {
       title: 'Select a directory',
       defaultPath: app.getPath('downloads'),
@@ -28,27 +28,26 @@ function selectDirectory (opts) {
   })
 }
 
-function saveFile (opts, dir, file) {
+async function saveFile (dir, file) {
   const location = path.join(dir, file.path)
 
-  if (fs.existsSync(location)) {
-    // Ignore the hash itself.
+  if (await fs.pathExists(location)) {
+    // ignore the hash itself
     return
   }
 
-  fs.writeFile(location, file.content, (err) => {
-    if (err) {
-      logger.error(err.stack)
-    } else {
-      logger.info(`File '${file.path}' downloaded to ${location}.`)
-    }
-  })
+  try {
+    await fs.writeFile(location, file.content)
+    logger.info(`File '${file.path}' downloaded to ${location}.`)
+  } catch (e) {
+    logger.error(e.stack)
+  }
 }
 
 function handler (opts) {
-  const {ipfs} = opts
+  const { ipfs } = opts
 
-  return () => {
+  return async () => {
     const text = clipboard.readText().trim()
 
     if (!ipfs() || !text) {
@@ -63,31 +62,29 @@ function handler (opts) {
       return
     }
 
-    ipfs().get(text)
-      .then((files) => {
-        logger.info(`Hash ${text} downloaded.`)
-        selectDirectory(opts)
-          .then((dir) => {
-            if (!dir) {
-              logger.info(`Dropping hash ${text}: user didn't choose a path.`)
-              return
-            }
+    try {
+      const files = await ipfs().get(text)
+      logger.info(`Hash ${text} downloaded.`)
 
-            if (files.length > 1) {
-              fs.mkdirSync(path.join(dir, text))
-            }
+      const dir = await selectDirectory(opts)
 
-            files.forEach(file => { saveFile(opts, dir, file) })
-          })
-          .catch(e => logger.error(e.stack))
-      })
-      .catch(e => {
-        logger.error(e.stack)
-        dialog.showErrorBox(
-          'Error while downloading',
-          'Some error happened while getting the hash. Please check the logs.'
-        )
-      })
+      if (!dir) {
+        logger.info(`Dropping hash ${text}: user didn't choose a path.`)
+        return
+      }
+
+      if (files.length > 1) {
+        fs.mkdirSync(path.join(dir, text))
+      }
+
+      files.forEach(file => { saveFile(dir, file) })
+    } catch (e) {
+      logger.error(e.stack)
+      dialog.showErrorBox(
+        'Error while downloading',
+        'Some error happened while getting the hash. Please check the logs.'
+      )
+    }
   }
 }
 

@@ -7,17 +7,19 @@ const autoLauncher = new AutoLaunch({
 })
 
 export default function () {
-  let activate = (value, oldValue) => {
+  let activate = async (value, oldValue) => {
     if (value === oldValue) return
 
-    if (value === true) {
-      autoLauncher.enable()
-        .then(() => { logger.info('Launch on startup enabled') })
-        .catch(e => { logger.error(e.stack) })
-    } else {
-      autoLauncher.disable()
-        .then(() => { logger.info('Launch on startup disabled') })
-        .catch(e => { logger.error(e.stack) })
+    try {
+      if (value === true) {
+        await autoLauncher.enable()
+        logger.info('Launch on startup enabled')
+      } else {
+        await autoLauncher.disable()
+        logger.info('Launch on startup disabled')
+      }
+    } catch (e) {
+      logger.error(e.stack)
     }
   }
 

@@ -5,12 +5,13 @@ import { logger } from '../../utils'
 function open (opts) {
   let { ipfs } = opts
 
-  return () => {
-    ipfs().config.get('Addresses.API')
-      .then((res) => {
-        shell.openExternal(apiAddrToUrl(res))
-      })
-      .catch(e => { logger.error(e.stack) })
+  return async () => {
+    try {
+      const res = await ipfs().config.get('Addresses.API')
+      shell.openExternal(apiAddrToUrl(res))
+    } catch (e) {
+      logger.error(e.stack)
+    }
   }
 }
 

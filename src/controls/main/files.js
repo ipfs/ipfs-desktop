@@ -18,62 +18,73 @@ function sort (a, b) {
   return a.name > b.name
 }
 
-function listAndSend (opts, root) {
+async function listAndSend (opts, root) {
   const {ipfs, send} = opts
 
-  ipfs().files.ls(root)
-    .then(files => {
-      Promise.all(files.map(file => {
-        return ipfs().files.stat([root, file.name].join('/'))
-          .then(stats => Object.assign({}, file, stats))
-      }))
-        .then(res => res.sort(sort))
-        .then(res => send('files', {
-          root: root,
-          contents: res
-        }))
-        .catch(e => { logger.error(e.stack) })
+  try {
+    const files = await ipfs().files.ls(root)
+
+    const res = (await Promise.all(files.map(file => (
+      ipfs().files.stat([root, file.name].join('/'))
+        .then(stats => Object.assign({}, file, stats))
+    )))).sort(sort)
+
+    send('files', {
+      root: root,
+      contents: res
     })
+  } catch (e) {
+    logger.error(e.stack)
+  }
 }
 
 function list (opts) {
-  return (event, root) => {
+  return (_, root) => {
     listAndSend(opts, root)
   }
 }
 
 function createDirectory (opts) {
-  const {ipfs} = opts
+  const { ipfs } = opts
 
-  return (event, path) => {
-    ipfs().files.mkdir(path, {parents: true})
-      .then(() => { listAndSend(opts, basename(path)) })
-      .catch(e => { logger.error(e.stack) })
+  return async (_, path) => {
+    try {
+      await ipfs().files.mkdir(path, {parents: true})
+      listAndSend(opts, basename(path))
+    } catch (e) {
+      logger.error(e.stack)
+    }
   }
 }
 
 function remove (opts) {
-  const {ipfs} = opts
+  const { ipfs } = opts
 
-  return (event, path) => {
-    ipfs().files.rm(path, {recursive: true})
-      .then(() => { listAndSend(opts, basename(path)) })
-      .catch(e => { logger.error(e.stack) })
+  return async (_, path) => {
+    try {
+      await ipfs().files.rm(path, {recursive: true})
+      listAndSend(opts, basename(path))
+    } catch (e) {
+      logger.error(e.stack)
+    }
   }
 }
 
 function move (opts) {
-  const {ipfs} = opts
+  const { ipfs } = opts
 
-  return (event, from, to) => {
-    ipfs().files.mv([from, to])
-      .then(() => { listAndSend(opts, basename(to)) })
-      .catch(e => { logger.error(e.stack) })
+  return async (_, from, to) => {
+    try {
+      await ipfs().files.mv([from, to])
+      listAndSend(opts, basename(to))
+    } catch (e) {
+      logger.error(e.stack)
+    }
   }
 }
 
 export default function (opts) {
-  const {menubar} = opts
+  const { menubar } = opts
 
   ipcMain.on('request-files', list(opts))
   ipcMain.on('create-directory', createDirectory(opts))
