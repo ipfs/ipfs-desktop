@@ -1,11 +1,13 @@
 import { createLogger, format, transports } from 'winston'
 import { join } from 'path'
+import { app } from 'electron'
 
 const { combine, splat, timestamp, printf } = format
+const logsPath = app.getPath('userData')
 
 const errorFile = new transports.File({
   level: 'error',
-  filename: join(__dirname, 'error.log')
+  filename: join(logsPath, 'error.log')
 })
 
 errorFile.on('finish', () => {
@@ -26,7 +28,7 @@ const logger = createLogger({
     errorFile,
     new transports.File({
       level: 'debug',
-      filename: join(__dirname, 'combined.log')
+      filename: join(logsPath, 'combined.log')
     })
   ]
 })
