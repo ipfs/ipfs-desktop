@@ -51,7 +51,7 @@ function welcome ({ path }) {
 
         let userPath = res[0]
 
-        if (!userPath.match(/.ipfs\/?$/)) {
+        if (!userPath.endsWith('ipfs')) {
           userPath = join(userPath, '.ipfs')
         }
 
@@ -65,7 +65,7 @@ function welcome ({ path }) {
 
       opts = {
         ...opts,
-        init: !(await fs.pathExists(opts.path))
+        init: !(await fs.pathExists(opts.path)) || fs.readdirSync(opts.path).length === 0
       }
 
       logger.info('Trying connection with: %o', opts)
