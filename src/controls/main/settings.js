@@ -1,5 +1,5 @@
-import {join} from 'path'
-import {shell, ipcMain} from 'electron'
+import { join } from 'path'
+import { shell, ipcMain, app, dialog } from 'electron'
 import { store } from '../../utils'
 
 const openNodeConfig = () => {
@@ -26,7 +26,7 @@ const sendSettings = ({ send }) => () => {
     options[opt] = store.get(opt, false)
   }
 
-  const flags = store.get('ipfs.flags')
+  const flags = store.get('ipfs.flags', [])
 
   for (const flag of Object.keys(settingsToSend.flags)) {
     options[flag] = flags.includes(settingsToSend.flags[flag])
@@ -59,8 +59,19 @@ const updateSettings = (opts) => (_, key, value) => {
   sendSettings(opts)()
 }
 
+const cleanIpfsSettings = () => {
+  store.delete('ipfs')
+  dialog.showMessageBox({
+    type: 'info',
+    message: 'The IPFS settings were cleared and IPFS Desktop will shutdown now. You need to start it again afterwards.'
+  }, () => {
+    app.quit()
+  })
+}
+
 export default function (opts) {
   ipcMain.on('request-settings', sendSettings(opts))
   ipcMain.on('update-setting', updateSettings(opts))
   ipcMain.on('open-node-settings', openNodeConfig)
+  ipcMain.on('clean-ipfs-settings', cleanIpfsSettings)
 }

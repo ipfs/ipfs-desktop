@@ -73,11 +73,11 @@ function welcome ({ path }) {
       try {
         ipfs = await getIpfs(opts)
 
-        ipfs.version(err => {
-          if (err) {
-            throw err
-          }
-        })
+        if (opts.type === 'api') {
+          await ipfs.id()
+        } else {
+          await ipfs.api.id()
+        }
 
         store.set('ipfs', opts)
         window.close()

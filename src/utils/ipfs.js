@@ -1,4 +1,5 @@
 import IPFSFactory from 'ipfsd-ctl'
+import IPFSApi from 'ipfs-api'
 import { join } from 'path'
 import fs from 'fs-extra'
 import logger from './logger'
@@ -28,13 +29,18 @@ function cleanLocks (path) {
   }
 }
 
-export default async function ({ type, path, flags, keysize, init }) {
-  cleanLocks(path)
+export default async function ({ type, apiAddress, path, flags, keysize, init }) {
   let factOpts = { type: type }
 
   if (type === 'proc') {
     factOpts.exec = require('ipfs')
   }
+
+  if (type === 'api') {
+    return IPFSApi(apiAddress)
+  }
+
+  cleanLocks(path)
 
   const factory = IPFSFactory.create(factOpts)
 

@@ -25,7 +25,8 @@ export default class Intro extends Component {
     advanced: false,
     type: 'Embedded',
     engine: 'Go',
-    keysize: 4096
+    keysize: 4096,
+    apiAddress: ''
   }
 
   onTypeChange = type => { this.setState({ type }) }
@@ -33,6 +34,8 @@ export default class Intro extends Component {
   onEngineChange = engine => { this.setState({ engine }) }
 
   onKeySizeChange = keysize => { this.setState({ keysize }) }
+
+  handleApiAddressInput = event => { this.setState({ apiAddress: event.target.value })}
 
   onAdvancedClick = () => {
     this.setState({ advanced: true })
@@ -44,12 +47,23 @@ export default class Intro extends Component {
   }
 
   onInstall = () => {
-    this.props.onInstallClick({
-      type: this.state.engine.toLowerCase(),
-      path: this.props.configPath,
-      flags: ['--routing=dhtclient'],
-      keysize: this.state.keysize
-    })
+    const settings = {}
+
+    if (this.state.type === 'Embedded') {
+      settings.type = this.state.engine.toLowerCase()
+      if (settings.type === 'javascript') {
+        settings.type = 'proc'
+      }
+
+      settings.path = this.props.configPath
+      settings.flags = ['--routing=dhtclient']
+      settings.keysize = this.state.keysize
+    } else {
+      settings.type = 'api'
+      settings.apiAddress = this.state.apiAddress
+    }
+
+    this.props.onInstallClick(settings)
   }
 
   render () {
@@ -97,6 +111,7 @@ export default class Intro extends Component {
                   <div>
                     <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)' }}>Please insert the API address of the node you want to connect to:</p>
                     <input
+                      onChange={this.handleApiAddressInput}
                       style={{ width: '100%', borderRadius: '0.2rem', border: 0, outline: 0, padding: '0.5em 1em' }}
                       type='text' />
                   </div>

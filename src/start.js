@@ -33,11 +33,14 @@ export default async function (ipfsd) {
     }
   }
 
+  const isApi = store.get('ipfs.type') === 'api'
+
   const config = {
     events: new EventEmitter(),
     menubar: menubar,
     send: send,
-    ipfs: () => ipfsd.api
+    isApi: isApi,
+    ipfs: () => isApi ? ipfsd : ipfsd.api
   }
 
   const updateState = (st) => {
