@@ -1,146 +1,43 @@
-import {dialog, ipcMain} from 'electron'
-import {validateIPFS} from '../utils'
-import { logger } from '../../utils'
-import bl from 'bl'
-
+import {dialog} from 'electron'
 const PATH = '/.pinset'
 
-var pins = {}
+// MIGRATE PINS
+export default async function (opts) {
+  const { ipfs } = opts
 
-function collect (stream) {
-  return new Promise((resolve, reject) => {
-    stream.pipe(bl((err, buf) => {
-      if (err) return reject(err)
-      resolve(buf)
-    }))
-  })
-}
-
-function makePinset (opts) {
-  const {ipfs} = opts
-
-  return new Promise((resolve, reject) => {
-    ipfs().files.stat(PATH)
-      .then(resolve)
-      .catch(() => {
-        ipfs().files.write(PATH, Buffer.from('{}'), {create: true})
-          .then(resolve)
-          .catch(reject)
-      })
-  })
-}
-
-function writePinset (opts) {
-  const {ipfs, send} = opts
-
-  return new Promise((resolve, reject) => {
-    const write = JSON.stringify(pins)
-    ipfs().files.rm(PATH, { recursive: true })
-      .then(() => ipfs().files.write(PATH, Buffer.from(write), {create: true}))
-      .then(() => {
-        send('pinned', pins)
-        send('files-updated')
-        resolve()
-      })
-      .catch(reject)
-  })
-}
-
-function pinset (opts) {
-  const {ipfs} = opts
-
-  return () => {
-    pins = {}
-
-    ipfs().pin.ls()
-      .then((pinset) => {
-        pinset.forEach((pin) => {
-          if (pin.type === 'indirect') {
-            return
-          }
-
-          pins[pin.hash] = ''
-        })
-
-        return makePinset(opts)
-      })
-      .then(() => ipfs().files.read(PATH))
-      .then((res) => collect(res))
-      .then((buf) => JSON.parse(buf.toString()))
-      .then((res) => {
-        for (const hash in res) {
-          if (hash in pins) {
-            pins[hash] = res[hash]
-          }
-        }
-
-        return writePinset(opts)
-      })
-      .catch(error => logger.error(error.stack))
+  if (!ipfs()) {
+    return
   }
-}
 
-function pinHash (opts) {
-  const {ipfs, send} = opts
+  try {
+    await ipfs().files.stat(PATH)
+  } catch (_) {
+    return
+  }
 
-  let pinning = 0
+  const buf = await ipfs().files.read(PATH)
+  const pins = JSON.parse(buf.toString())
 
-  const sendPinning = () => { send('pinning', pinning > 0) }
-  const inc = () => { pinning++; sendPinning() }
-  const dec = () => { pinning--; sendPinning() }
+  await ipfs().files.mkdir('/pinset_from_old_ipfs')
 
-  return (event, hash, tag) => {
-    if (!validateIPFS(hash)) {
-      dialog.showErrorBox(
-        'Invalid Hash',
-        'The hash you provided is invalid.'
-      )
-      return
+  for (const pin of Object.keys(pins)) {
+    let src = pin
+    if (!src.startsWith('/ipfs')) {
+      src = `/ipfs/${src}`
     }
 
-    inc()
-    logger.info(`Pinning ${hash}`)
+    let dst = pins[pin]
+    if (dst === '') {
+      dst = pin
+    }
+    dst = `/pinset_from_old_ipfs/${dst}`
 
-    ipfs().pin.add(hash)
-      .then(() => {
-        dec()
-        logger.info(`${hash} pinned`)
-        pins[hash] = tag
-        return writePinset(opts)
-      })
-      .catch(e => {
-        dec()
-        logger.error(e.stack)
-      })
+    await ipfs().files.cp([src, dst])
   }
-}
 
-function unpinHash (opts) {
-  const {ipfs} = opts
+  await ipfs().files.rm(PATH)
 
-  return (_, hash) => {
-    logger.info(`Unpinning ${hash}`)
-
-    ipfs().pin.rm(hash)
-      .then(() => {
-        logger.info(`${hash} unpinned`)
-        delete pins[hash]
-        return writePinset(opts)
-      })
-      .catch(e => { logger.error(e.stack) })
-  }
-}
-
-function tagHash (opts) {
-  return (_, hash, tag) => {
-    pins[hash] = tag
-    writePinset(opts).catch(e => { logger.error(e.stack) })
-  }
-}
-
-export default function (opts) {
-  ipcMain.on('request-pinned', pinset(opts))
-  ipcMain.on('tag-hash', tagHash(opts))
-  ipcMain.on('pin-hash', pinHash(opts))
-  ipcMain.on('unpin-hash', unpinHash(opts))
+  dialog.showMessageBox({
+    message: 'Pinned assets were moved to /pinset_from_old_ipfs. Everything in Files tab is implicitly pinned. You can add new files from the local machine or via IPFS Path.'
+  })
 }

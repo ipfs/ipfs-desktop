@@ -10,6 +10,7 @@
     "bl": "^2.0.1",
     "electron-compile": "^6.4.3",
     "electron-menubar": "^1.0.1",
+    "electron-prompt": "^1.1.0-1",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^2.0.0",
     "file-extension": "^4.0.5",

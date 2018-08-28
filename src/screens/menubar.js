@@ -12,7 +12,6 @@ import Peers from '../panes/Peers'
 import Loader from '../panes/Loader'
 import Start from '../panes/Start'
 import Files from '../panes/Files'
-import Pinned from '../panes/Pinned'
 import Info from '../panes/Info'
 import Settings from '../panes/Settings'
 
@@ -32,11 +31,6 @@ const panes = [
     id: 'files',
     title: 'Files',
     icon: 'files'
-  },
-  {
-    id: 'pinned',
-    title: 'Pin',
-    icon: 'pin'
   },
   {
     id: 'peers',
@@ -60,8 +54,7 @@ class Menubar extends Component {
       root: '/',
       contents: []
     },
-    adding: false,
-    pinning: false
+    adding: false
   }
 
   listeners = {}
@@ -86,16 +79,6 @@ class Menubar extends Component {
     return this.listeners[key]
   }
 
-  onPinned = (event, pinset) => {
-    this.setState({pinned: pinset})
-
-    setTimeout(() => {
-      if (this.state.route === 'pinned') {
-        ipcRenderer.send('request-pinned')
-      }
-    }, 5000)
-  }
-
   _changeRoute = (route) => {
     if (route === this.state.route) return
 
@@ -106,9 +89,6 @@ class Menubar extends Component {
       case 'peers':
         ipcRenderer.send('request-stats', ['peers'])
         break
-      case 'pinned':
-        ipcRenderer.send('request-pinned')
-        break
       default:
         ipcRenderer.send('request-stats', [])
         break
@@ -118,7 +98,6 @@ class Menubar extends Component {
   }
 
   onRunning = () => {
-    ipcRenderer.send('request-pinned')
     ipcRenderer.send('request-files', this.state.files.root)
   }
 
@@ -133,8 +112,6 @@ class Menubar extends Component {
     ipcRenderer.on('settings', this._onSomething('settings'))
     ipcRenderer.on('adding', this._onSomething('adding'))
     ipcRenderer.on('files', this._onSomething('files'))
-    ipcRenderer.on('pinning', this._onSomething('pinning'))
-    ipcRenderer.on('pinned', this.onPinned)
     ipcRenderer.on('files-updated', this.filesUpdated)
 
     ipcRenderer.send('request-state')
@@ -149,8 +126,6 @@ class Menubar extends Component {
     ipcRenderer.removeListener('settings', this._onSomething('settings'))
     ipcRenderer.removeListener('adding', this._onSomething('adding'))
     ipcRenderer.removeListener('files', this._onSomething('files'))
-    ipcRenderer.removeListener('pinning', this._onSomething('pinning'))
-    ipcRenderer.removeListener('pinned', this.onPinned)
     ipcRenderer.removeListener('files-updated', this.filesUpdated)
   }
 
@@ -184,12 +159,6 @@ class Menubar extends Component {
             node={this.state.stats.id}
             bw={this.state.stats.bw}
             repo={this.state.stats.repo} />
-        )
-      case 'pinned':
-        return (
-          <Pinned
-            files={this.state.pinned}
-            pinning={this.state.pinning} />
         )
       default:
         return (
