@@ -83,6 +83,23 @@ function move (opts) {
   }
 }
 
+function addByPath (opts) {
+  const { ipfs } = opts
+
+  return async (_, hash, path) => {
+    if (!hash.startsWith('/ipfs')) {
+      hash = `/ipfs/${hash}`
+    }
+
+    try {
+      await ipfs().files.cp([hash, path])
+      listAndSend(opts, basename(path))
+    } catch (e) {
+      logger.error(e.stack)
+    }
+  }
+}
+
 export default function (opts) {
   const { menubar } = opts
 
@@ -90,6 +107,7 @@ export default function (opts) {
   ipcMain.on('create-directory', createDirectory(opts))
   ipcMain.on('remove-file', remove(opts))
   ipcMain.on('move-file', move(opts))
+  ipcMain.on('add-by-path', addByPath(opts))
 
   ipcMain.on('drop-files', uploadFiles(opts))
   menubar.tray.on('drop-files', uploadFiles(opts))

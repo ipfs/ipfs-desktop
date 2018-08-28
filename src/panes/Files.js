@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {ipcRenderer, clipboard} from 'electron'
 import {NativeTypes} from 'react-dnd-html5-backend'
 import {DropTarget} from 'react-dnd'
+import {validateIPFS} from '../controls/utils'
 
 import Pane from '../components/Pane'
 import Header from '../components/Header'
@@ -95,6 +96,38 @@ class Files extends Component {
     return <Breadcrumbs navigate={navigate} path={this.props.root} />
   }
 
+  addFromIPFS = async () => {
+    const prompt = require('electron-prompt')
+
+    const hash = await prompt({
+      title: 'Add by IPFS Path',
+      label: 'Write the IPFS path to add:',
+      inputAttrs: {type: 'text', required: true}
+    })
+
+    if (hash === null) {
+      return
+    }
+
+    if (!validateIPFS(hash)) {
+      // es-no-alert
+      window.alert('Invalid IPFS Path!')
+      return
+    }
+
+    const path = await prompt({
+      title: 'Add by IPFS Path',
+      label: 'How do you want to tag it?',
+      inputAttrs: {type: 'text', required: true}
+    })
+
+    if (path === null) {
+      return
+    }
+
+    ipcRenderer.send('add-by-path', hash, join(this.props.root, path))
+  }
+
   render () {
     const {connectDropTarget, isOver, canDrop} = this.props
 
@@ -144,6 +177,7 @@ class Files extends Component {
             <IconButton active={this.state.sticky} onClick={this.toggleStickWindow} icon='eye' />
 
             <div className='right'>
+              <IconButton onClick={this.addFromIPFS} icon='plus' />
               <IconButton onClick={this.selectFileDialog} icon='plus' />
               <IconButton onClick={this.selectDirectoryDialog} icon='folder' />
             </div>
