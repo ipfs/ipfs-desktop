@@ -1,4 +1,5 @@
 import path from 'path'
+import { logger } from '../../utils'
 
 function join (...parts) {
   const replace = new RegExp('/{1,}', 'g')
@@ -19,7 +20,7 @@ async function add (files, root, ipfs) {
 }
 
 export default function uploadFiles (opts) {
-  let {ipfs, debug, send} = opts
+  let {ipfs, send} = opts
 
   const sendAdding = () => { send('adding', adding > 0) }
   const inc = () => { adding++; sendAdding() }
@@ -31,11 +32,11 @@ export default function uploadFiles (opts) {
   }
 
   return (event, files, root = '/') => {
-    debug('Uploading files', {files})
+    logger.info('Uploading files', {files})
     inc()
 
     add(files, root, ipfs)
       .then(anyway)
-      .catch((e) => { anyway(); debug(e.stack) })
+      .catch((e) => { anyway(); logger.error(e.stack) })
   }
 }

@@ -8,12 +8,14 @@
   "dependencies": {
     "auto-launch": "^5.0.5",
     "bl": "^2.0.1",
-    "debug": "^3.1.0",
     "electron-compile": "^6.4.3",
     "electron-menubar": "^1.0.1",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^2.0.0",
     "file-extension": "^4.0.5",
+    "fs-extra": "^7.0.0",
     "go-ipfs-dep": "^0.4.17",
+    "ipfs": "^0.31.2",
     "ipfs-stats": "^1.2.4",
     "ipfsd-ctl": "^0.39.0",
     "is-ipfs": "^0.4.2",
@@ -26,7 +28,8 @@
     "react": "^16.4.1",
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^5.0.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "winston": "^3.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",

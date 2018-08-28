@@ -1,5 +1,6 @@
 import {dialog, ipcMain} from 'electron'
 import {validateIPFS} from '../utils'
+import { logger } from '../../utils'
 import bl from 'bl'
 
 const PATH = '/.pinset'
@@ -46,7 +47,7 @@ function writePinset (opts) {
 }
 
 function pinset (opts) {
-  const {ipfs, debug} = opts
+  const {ipfs} = opts
 
   return () => {
     pins = {}
@@ -75,12 +76,12 @@ function pinset (opts) {
 
         return writePinset(opts)
       })
-      .catch(error => debug(error.stack))
+      .catch(error => logger.error(error.stack))
   }
 }
 
 function pinHash (opts) {
-  const {ipfs, send, debug} = opts
+  const {ipfs, send} = opts
 
   let pinning = 0
 
@@ -98,44 +99,42 @@ function pinHash (opts) {
     }
 
     inc()
-    debug(`Pinning ${hash}`)
+    logger.info(`Pinning ${hash}`)
 
     ipfs().pin.add(hash)
       .then(() => {
         dec()
-        debug(`${hash} pinned`)
+        logger.info(`${hash} pinned`)
         pins[hash] = tag
         return writePinset(opts)
       })
       .catch(e => {
         dec()
-        debug(e.stack)
+        logger.error(e.stack)
       })
   }
 }
 
 function unpinHash (opts) {
-  const {ipfs, debug} = opts
+  const {ipfs} = opts
 
-  return (event, hash) => {
-    debug(`Unpinning ${hash}`)
+  return (_, hash) => {
+    logger.info(`Unpinning ${hash}`)
 
     ipfs().pin.rm(hash)
       .then(() => {
-        debug(`${hash} unpinned`)
+        logger.info(`${hash} unpinned`)
         delete pins[hash]
         return writePinset(opts)
       })
-      .catch(e => { debug(e.stack) })
+      .catch(e => { logger.error(e.stack) })
   }
 }
 
 function tagHash (opts) {
-  const {debug} = opts
-
-  return (event, hash, tag) => {
+  return (_, hash, tag) => {
     pins[hash] = tag
-    writePinset(opts).catch(e => { debug(e.stack) })
+    writePinset(opts).catch(e => { logger.error(e.stack) })
   }
 }
 

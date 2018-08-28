@@ -1,11 +1,12 @@
 import StatsPoller from 'ipfs-stats'
 import {ipcMain} from 'electron'
 import cloneDeep from 'lodash.clonedeep'
+import { logger } from '../../utils'
 
 let poller
 let polling = []
 
-function requestStats (event, stats) {
+function requestStats (_, stats) {
   if (!poller) {
     // Save what to poll next.
     polling = stats
@@ -73,12 +74,12 @@ function onChange (opts) {
 }
 
 export default function (opts) {
-  const {debug, events, menubar, ipfs} = opts
+  const {events, menubar, ipfs} = opts
 
   ipcMain.on('request-stats', requestStats)
 
   events.on('node:started', () => {
-    debug('Configuring Stats Poller')
+    logger.info('Configuring Stats Poller')
 
     poller = new StatsPoller(ipfs(), {
       all: 3 * 1000,
@@ -96,7 +97,7 @@ export default function (opts) {
   })
 
   events.on('node:stopped', () => {
-    debug('Removing Stats Poller')
+    logger.info('Removing Stats Poller')
 
     if (poller) {
       poller.stop()

@@ -2,10 +2,8 @@ import {dialog, ipcMain} from 'electron'
 import uploadFiles from '../utils/upload-files'
 
 function openFileDialog (opts, dir = false) {
-  let window = opts.window
-
   return (event, root) => {
-    dialog.showOpenDialog(window, {
+    dialog.showOpenDialog(opts.menubar.window, {
       properties: [dir ? 'openDirectory' : 'openFile', 'multiSelections']
     }, (files) => {
       if (!files || files.length === 0) return

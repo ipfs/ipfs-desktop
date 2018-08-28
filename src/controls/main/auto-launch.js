@@ -1,27 +1,28 @@
-const AutoLaunch = require('auto-launch')
+import AutoLaunch from 'auto-launch'
+import { store, logger } from '../../utils'
 
 const settingsOption = 'autoLaunch'
 const autoLauncher = new AutoLaunch({
   name: 'IPFS Desktop'
 })
 
-export default function (opts) {
-  let {debug, settingsStore} = opts
-
-  let activate = (value, oldValue) => {
+export default function () {
+  let activate = async (value, oldValue) => {
     if (value === oldValue) return
 
-    if (value === true) {
-      autoLauncher.enable()
-        .then(() => { debug('Launch on startup enabled') })
-        .catch(e => { debug(e.stack) })
-    } else {
-      autoLauncher.disable()
-        .then(() => { debug('Launch on startup disabled') })
-        .catch(e => { debug(e.stack) })
+    try {
+      if (value === true) {
+        await autoLauncher.enable()
+        logger.info('Launch on startup enabled')
+      } else {
+        await autoLauncher.disable()
+        logger.info('Launch on startup disabled')
+      }
+    } catch (e) {
+      logger.error(e.stack)
     }
   }
 
-  activate(settingsStore.get(settingsOption))
-  settingsStore.on(settingsOption, activate)
+  activate(store.get(settingsOption))
+  store.onDidChange(settingsOption, activate)
 }

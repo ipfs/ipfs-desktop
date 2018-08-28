@@ -1,70 +1,72 @@
-import {clipboard, ipcMain, globalShortcut} from 'electron'
+import { clipboard, ipcMain, globalShortcut } from 'electron'
+import { store, logger } from '../../utils'
 
 const settingsOption = 'screenshotShortcut'
 const shortcut = 'CommandOrControl+Alt+S'
 
 function makeScreenshotDir (opts) {
-  const {ipfs} = opts
+  const { ipfs } = opts
 
-  return new Promise((resolve, reject) => {
-    ipfs().files.stat('/screenshots')
-      .then(resolve)
-      .catch(() => {
-        ipfs().files.mkdir('/screenshots')
-          .then(resolve)
-          .catch(reject)
-      })
-  })
+  return async () => {
+    try {
+      await ipfs().files.stat('/screenshots')
+    } catch (e) {
+      await ipfs().files.mkdir('/screenshots')
+    }
+  }
 }
 
 function handleScreenshot (opts) {
-  let {debug, ipfs, send} = opts
+  let { ipfs, send } = opts
 
-  return (event, image) => {
+  return async (_, image) => {
     let base64Data = image.replace(/^data:image\/png;base64,/, '')
 
-    debug('Screenshot taken')
+    logger.info('Screenshot taken')
 
     if (!ipfs()) {
-      debug('Daemon not running. Aborting screenshot upload.')
+      logger.info('Daemon not running. Aborting screenshot upload.')
       return
     }
 
     const path = `/screenshots/${new Date().toISOString()}.png`
     const content = Buffer.from(base64Data, 'base64')
 
-    makeScreenshotDir(opts)
-      .then(() => ipfs().files.write(path, content, {create: true}))
-      .then(() => ipfs().files.stat(path))
-      .then((res) => {
-        const url = `https://ipfs.io/ipfs/${res.hash}`
-        clipboard.writeText(url)
-        send('files-updated')
-        debug('Screenshot uploaded', {path: path})
-      })
-      .catch(e => { debug(e.stack) })
+    try {
+      await makeScreenshotDir(opts)
+      await ipfs().files.write(path, content, {create: true})
+
+      const stats = await ipfs().files.stat(path)
+      const url = `https://ipfs.io/ipfs/${stats.hash}`
+
+      clipboard.writeText(url)
+      send('files-updated')
+      logger.info('Screenshot uploaded', {path: path})
+    } catch (e) {
+      logger.error(e.stack)
+    }
   }
 }
 
 export default function (opts) {
-  let {send, debug, settingsStore} = opts
+  let { send } = opts
 
   let activate = (value, oldValue) => {
     if (value === oldValue) return
 
     if (value === true) {
       globalShortcut.register(shortcut, () => {
-        debug('Taking Screenshot')
+        logger.info('Taking Screenshot')
         send('screenshot')
       })
-      debug('Screenshot shortcut enabled')
+      logger.info('Screenshot shortcut enabled')
     } else {
       globalShortcut.unregister(shortcut)
-      debug('Screenshot shortcut disabled')
+      logger.info('Screenshot shortcut disabled')
     }
   }
 
-  activate(settingsStore.get(settingsOption))
-  settingsStore.on(settingsOption, activate)
+  activate(store.get(settingsOption))
+  store.onDidChange(settingsOption, activate)
   ipcMain.on('screenshot', handleScreenshot(opts))
 }

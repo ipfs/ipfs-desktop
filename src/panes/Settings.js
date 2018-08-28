@@ -18,6 +18,10 @@ function garbageCollector () {
   ipcRenderer.send('run-gc')
 }
 
+function cleanConnSettings () {
+  ipcRenderer.send('clean-ipfs-settings')
+}
+
 function quit () {
   ipcRenderer.send('quit-application')
 }
@@ -87,6 +91,12 @@ export default function Settings (props) {
           info='Delete all unpinned files to free up disk space.'
           button={false}
           onClick={garbageCollector} />
+
+        <InfoBlock
+          title='Clean connection settings'
+          info='Clean connection settings and shutdown IPFS Desktop. Then you can select a different node to connect.'
+          button={false}
+          onClick={cleanConnSettings} />
 
         <InfoBlock
           title='Quit'
