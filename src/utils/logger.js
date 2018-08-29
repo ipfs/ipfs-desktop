@@ -5,6 +5,8 @@ import { app } from 'electron'
 const { combine, splat, timestamp, printf } = format
 const logsPath = app.getPath('userData')
 
+export {logsPath}
+
 const errorFile = new transports.File({
   level: 'error',
   filename: join(logsPath, 'error.log')

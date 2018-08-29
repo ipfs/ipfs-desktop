@@ -1,6 +1,7 @@
 import {dialog} from 'electron'
 
 import { logger } from './utils'
+import { logsPath } from './utils/logger'
 
 const errors = [
   {
@@ -40,7 +41,7 @@ function fatal (error) {
 
   dialog.showErrorBox(
     'Something wrong happened',
-    `Some unexpected error occurred and we couldn't handle it.` +
+    `Some unexpected error occurred and we couldn't handle it. Check ${logsPath}` +
     ` for the latest logs and open an issue on https://github.com/ipfs-shipyard/ipfs-desktop/issues.`
   )
 }
