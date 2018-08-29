@@ -12,7 +12,7 @@ function welcome ({ path }) {
       title: 'Welcome to IPFS',
       icon: logo('ice'),
       show: false,
-      // resizable: false,
+      resizable: false,
       width: 850,
       height: 450
     })
@@ -24,7 +24,7 @@ function welcome ({ path }) {
       logger.info('Welcome window ready')
     })
 
-    // window.setMenu(null)
+    window.setMenu(null)
     window.loadURL(`file://${__dirname}/views/welcome.html`)
 
     // Send the default path as soon as the window is ready.
@@ -84,7 +84,7 @@ function welcome ({ path }) {
         resolve(ipfs)
       } catch (e) {
         logger.info('Connection failed with error: %o', e)
-        window.webContents.send('errored')
+        window.webContents.send('initialization-error', e.stack)
       }
     })
   })

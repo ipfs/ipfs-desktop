@@ -23,6 +23,10 @@ export default class Welcome extends Component {
     this.setState({status: INTITIALZING})
   }
 
+  _onIntro = () => {
+    this.setState({status: INTRO})
+  }
+
   _onError = (_, error) => {
     this.setState({
       status: ERROR,
@@ -66,7 +70,13 @@ export default class Welcome extends Component {
         )
       case ERROR:
         return (
-          <div key='error'>{this.state.error}</div>
+          <PaneContainer>
+            <Pane>
+              <h1>An error has happened</h1>
+              <pre>{ this.state.error }</pre>
+              <a onClick={this._onIntro}>Try a different configuration. Click here!</a>
+            </Pane>
+          </PaneContainer>
         )
       default:
         return <PaneContainer><Loader /></PaneContainer>
