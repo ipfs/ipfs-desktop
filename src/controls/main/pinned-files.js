@@ -44,6 +44,8 @@ export default async function (opts) {
   await ipfs().files.rm(PATH)
 
   dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
     message: 'Pinned assets were moved to /pinset_from_old_ipfs_desktop. Everything in Files tab is implicitly pinned. You can add new files from the local machine or via IPFS Path.'
   })
 }
