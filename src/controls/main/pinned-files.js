@@ -22,7 +22,7 @@ export default async function (opts) {
 
   for (const pin of Object.keys(pins)) {
     let src = pin
-    if (!src.startsWith('/ipfs')) {
+    if (!src.startsWith('/ipfs') && !src.startsWith('/ipns')) {
       src = `/ipfs/${src}`
     }
 
