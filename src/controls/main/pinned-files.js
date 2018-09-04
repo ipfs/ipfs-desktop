@@ -18,7 +18,7 @@ export default async function (opts) {
   const buf = await ipfs().files.read(PATH)
   const pins = JSON.parse(buf.toString())
 
-  await ipfs().files.mkdir('/pinset_from_old_ipfs')
+  await ipfs().files.mkdir('/pinset_from_old_ipfs_desktop')
 
   for (const pin of Object.keys(pins)) {
     let src = pin
@@ -30,7 +30,7 @@ export default async function (opts) {
     if (dst === '') {
       dst = pin
     }
-    dst = `/pinset_from_old_ipfs/${dst}`
+    dst = `/pinset_from_old_ipfs_desktop/${dst}`
 
     await ipfs().files.cp([src, dst])
   }
@@ -38,6 +38,6 @@ export default async function (opts) {
   await ipfs().files.rm(PATH)
 
   dialog.showMessageBox({
-    message: 'Pinned assets were moved to /pinset_from_old_ipfs. Everything in Files tab is implicitly pinned. You can add new files from the local machine or via IPFS Path.'
+    message: 'Pinned assets were moved to /pinset_from_old_ipfs_desktop. Everything in Files tab is implicitly pinned. You can add new files from the local machine or via IPFS Path.'
   })
 }
