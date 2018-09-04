@@ -177,7 +177,7 @@ class Files extends Component {
             <IconButton active={this.state.sticky} onClick={this.toggleStickWindow} icon='eye' />
 
             <div className='right'>
-              <IconButton onClick={this.addFromIPFS} icon='plus' />
+              <IconButton onClick={this.addFromIPFS} icon='pin-alt' />
               <IconButton onClick={this.selectFileDialog} icon='plus' />
               <IconButton onClick={this.selectDirectoryDialog} icon='folder' />
             </div>
