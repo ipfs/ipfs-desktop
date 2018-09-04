@@ -101,7 +101,7 @@ class Files extends Component {
 
     const hash = await prompt({
       title: 'Add by IPFS Path',
-      label: 'Write the IPFS path to add:',
+      label: 'Enter the IPFS path to add:',
       inputAttrs: {type: 'text', required: true}
     })
 
@@ -117,7 +117,7 @@ class Files extends Component {
 
     const path = await prompt({
       title: 'Add by IPFS Path',
-      label: 'How do you want to tag it?',
+      label: 'How do you want to name it?',
       inputAttrs: {type: 'text', required: true}
     })
 
@@ -177,9 +177,9 @@ class Files extends Component {
             <IconButton active={this.state.sticky} onClick={this.toggleStickWindow} icon='eye' />
 
             <div className='right'>
-              <IconButton onClick={this.addFromIPFS} icon='pin-alt' />
-              <IconButton onClick={this.selectFileDialog} icon='plus' />
-              <IconButton onClick={this.selectDirectoryDialog} icon='folder' />
+              <IconButton onClick={this.addFromIPFS} icon='pin-alt' title='Add by IPFS path' />
+              <IconButton onClick={this.selectFileDialog} icon='plus' title='Add files' />
+              <IconButton onClick={this.selectDirectoryDialog} icon='folder' title='Add folder' />
             </div>
           </Footer>
         </Pane>
