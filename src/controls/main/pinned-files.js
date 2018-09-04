@@ -1,4 +1,6 @@
 import {dialog} from 'electron'
+import { logger } from '../../utils'
+
 const PATH = '/.pinset'
 
 // MIGRATE PINS
@@ -11,7 +13,11 @@ export default async function (opts) {
 
   try {
     await ipfs().files.stat(PATH)
-  } catch (_) {
+  } catch (e) {
+    if (e.toString().indexOf('file does not exist') !== -1) {
+      logger.error(e)
+    }
+
     return
   }
 
