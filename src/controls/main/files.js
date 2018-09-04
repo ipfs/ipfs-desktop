@@ -87,7 +87,7 @@ function addByPath (opts) {
   const { ipfs } = opts
 
   return async (_, hash, path) => {
-    if (!hash.startsWith('/ipfs')) {
+    if (!hash.startsWith('/ipfs') && !hash.startsWith('/ipns')) {
       hash = `/ipfs/${hash}`
     }
 
