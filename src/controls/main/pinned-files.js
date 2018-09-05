@@ -1,146 +1,51 @@
-import {dialog, ipcMain} from 'electron'
-import {validateIPFS} from '../utils'
+import {dialog} from 'electron'
 import { logger } from '../../utils'
-import bl from 'bl'
 
 const PATH = '/.pinset'
 
-var pins = {}
+// MIGRATE PINS
+export default async function (opts) {
+  const { ipfs } = opts
 
-function collect (stream) {
-  return new Promise((resolve, reject) => {
-    stream.pipe(bl((err, buf) => {
-      if (err) return reject(err)
-      resolve(buf)
-    }))
-  })
-}
-
-function makePinset (opts) {
-  const {ipfs} = opts
-
-  return new Promise((resolve, reject) => {
-    ipfs().files.stat(PATH)
-      .then(resolve)
-      .catch(() => {
-        ipfs().files.write(PATH, Buffer.from('{}'), {create: true})
-          .then(resolve)
-          .catch(reject)
-      })
-  })
-}
-
-function writePinset (opts) {
-  const {ipfs, send} = opts
-
-  return new Promise((resolve, reject) => {
-    const write = JSON.stringify(pins)
-    ipfs().files.rm(PATH, { recursive: true })
-      .then(() => ipfs().files.write(PATH, Buffer.from(write), {create: true}))
-      .then(() => {
-        send('pinned', pins)
-        send('files-updated')
-        resolve()
-      })
-      .catch(reject)
-  })
-}
-
-function pinset (opts) {
-  const {ipfs} = opts
-
-  return () => {
-    pins = {}
-
-    ipfs().pin.ls()
-      .then((pinset) => {
-        pinset.forEach((pin) => {
-          if (pin.type === 'indirect') {
-            return
-          }
-
-          pins[pin.hash] = ''
-        })
-
-        return makePinset(opts)
-      })
-      .then(() => ipfs().files.read(PATH))
-      .then((res) => collect(res))
-      .then((buf) => JSON.parse(buf.toString()))
-      .then((res) => {
-        for (const hash in res) {
-          if (hash in pins) {
-            pins[hash] = res[hash]
-          }
-        }
-
-        return writePinset(opts)
-      })
-      .catch(error => logger.error(error.stack))
+  if (!ipfs()) {
+    return
   }
-}
 
-function pinHash (opts) {
-  const {ipfs, send} = opts
-
-  let pinning = 0
-
-  const sendPinning = () => { send('pinning', pinning > 0) }
-  const inc = () => { pinning++; sendPinning() }
-  const dec = () => { pinning--; sendPinning() }
-
-  return (event, hash, tag) => {
-    if (!validateIPFS(hash)) {
-      dialog.showErrorBox(
-        'Invalid Hash',
-        'The hash you provided is invalid.'
-      )
-      return
+  try {
+    await ipfs().files.stat(PATH)
+  } catch (e) {
+    if (!e.toString().includes('file does not exist')) {
+      logger.error(e)
     }
 
-    inc()
-    logger.info(`Pinning ${hash}`)
-
-    ipfs().pin.add(hash)
-      .then(() => {
-        dec()
-        logger.info(`${hash} pinned`)
-        pins[hash] = tag
-        return writePinset(opts)
-      })
-      .catch(e => {
-        dec()
-        logger.error(e.stack)
-      })
+    return
   }
-}
 
-function unpinHash (opts) {
-  const {ipfs} = opts
+  const buf = await ipfs().files.read(PATH)
+  const pins = JSON.parse(buf.toString())
 
-  return (_, hash) => {
-    logger.info(`Unpinning ${hash}`)
+  await ipfs().files.mkdir('/pinset_from_old_ipfs_desktop')
 
-    ipfs().pin.rm(hash)
-      .then(() => {
-        logger.info(`${hash} unpinned`)
-        delete pins[hash]
-        return writePinset(opts)
-      })
-      .catch(e => { logger.error(e.stack) })
+  for (const pin of Object.keys(pins)) {
+    let src = pin
+    if (!src.startsWith('/ipfs') && !src.startsWith('/ipns')) {
+      src = `/ipfs/${src}`
+    }
+
+    let dst = pins[pin]
+    if (dst === '') {
+      dst = pin
+    }
+    dst = `/pinset_from_old_ipfs_desktop/${dst}`
+
+    await ipfs().files.cp([src, dst])
   }
-}
 
-function tagHash (opts) {
-  return (_, hash, tag) => {
-    pins[hash] = tag
-    writePinset(opts).catch(e => { logger.error(e.stack) })
-  }
-}
+  await ipfs().files.rm(PATH)
 
-export default function (opts) {
-  ipcMain.on('request-pinned', pinset(opts))
-  ipcMain.on('tag-hash', tagHash(opts))
-  ipcMain.on('pin-hash', pinHash(opts))
-  ipcMain.on('unpin-hash', unpinHash(opts))
+  dialog.showMessageBox({
+    type: 'info',
+    buttons: ['OK'],
+    message: 'Pinned assets were moved to /pinset_from_old_ipfs_desktop. Everything in Files tab is implicitly pinned. You can add new files from the local machine or via IPFS Path.'
+  })
 }

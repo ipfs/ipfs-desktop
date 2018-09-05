@@ -75,9 +75,9 @@ Click on the IPFS icon in the menubar to open the app.
 |:---:|:---:|
 | ![](https://ipfs.io/ipfs/QmPBMMG4HUB1U1kLfwWvr6zQhGMcuvWYtGEFeTqBjG2jxW) | ![](https://ipfs.io/ipfs/QmSL8L5kMevXWDZguBwiwDVsQX6qkRFt1yTCDdnA1LmyR9) |
 
-| Pin Hashes | See connected Peers |
+| | See connected Peers |
 |:---:|:---:|
-| ![](https://ipfs.io/ipfs/QmTUS8rRufkXQp7ePRogMFLMxmf6YziYcb8HnDrVCvC2DF)| ![](https://ipfs.io/ipfs/QmW1SWU1aALf8sqSvEFGUtzK8oqX9BGNA6r4bzS8MPg94B) |
+| | ![](https://ipfs.io/ipfs/QmW1SWU1aALf8sqSvEFGUtzK8oqX9BGNA6r4bzS8MPg94B) |
 
 ## Features
 
@@ -85,10 +85,10 @@ Click on the IPFS icon in the menubar to open the app.
 |-----------------------|-------------------------|---------------------------------|
 | Peer ID               | Add by drag'n'drop      | Easy access to the WebUI        |
 | Location              | Add entire directories  | Easy access to Node Settings    |
-| Addresses             | Delete files            | Pin hashes with labels          |
-| Public Key            | Copy and share links    | Optional launch on startup      |
-| Repository Size       |                         | Auto add screenshots            |
-| Bandwidth Usage       |                         | Download copied hash            |
+| Addresses             | Delete files            | Optional launch on startup      |
+| Public Key            | Copy and share links    | Auto add screenshots            |
+| Repository Size       |                         | Download copied hash            |
+| Bandwidth Usage       |                         | 
 | Down/Up Speeds        |                         |
 | Peers                 |                         |
 
@@ -174,11 +174,6 @@ The components are classes exported with CamelCase names. The corresponding file
 + [**KeyCombo**](./src/js/components/view/key-combo.js) is a key combination.
 + [**Key**](./src/js/components/view/key.js) is a key.
 + [**MenuOption**](./src/js/components/view/menu-option.js) is a menu option to show within a menu bar.
-+ [**PinnedHash**](./src/js/components/view/pinned-hash.js) is a pinned hash.
-
-#### [Statefull Components](./src/js/components/logic)
-
-+ [**NewPinnedHash**](./src/js/components/view/new-pinned-hash.js) is a new pinned hash form.
 
 ## Contribute
 
