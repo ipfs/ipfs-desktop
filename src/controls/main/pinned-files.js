@@ -14,7 +14,7 @@ export default async function (opts) {
   try {
     await ipfs().files.stat(PATH)
   } catch (e) {
-    if (e.toString().indexOf('file does not exist') !== -1) {
+    if (!e.toString().includes('file does not exist')) {
       logger.error(e)
     }
 
