@@ -9,9 +9,12 @@ if (store.get('version', 1) === 1) {
 
   store.delete('ipfsPath')
   store.delete('dhtClient')
+  store.delete('ipfs')
 
-  store.set('ipfs.path', path)
-  store.set('ipfs.flags', dhtClient ? ['--routing=dhtclient'] : [])
+  if (path !== null) {
+    store.set('ipfs.path', path)
+    store.set('ipfs.flags', dhtClient ? ['--routing=dhtclient'] : [])
+  }
 
   // set new config version
   store.set('version', 2)
