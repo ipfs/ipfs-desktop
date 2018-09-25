@@ -1,5 +1,7 @@
 import { app, dialog } from 'electron'
 
+import welcome from './welcome'
+
 // Only one instance can run at a time
 if (!app.requestSingleInstanceLock()) {
   dialog.showErrorBox(
@@ -17,7 +19,7 @@ app.on('window-all-closed', e => e.preventDefault())
 async function run () {
   await app.whenReady()
 
-  console.log('APP IS READY. DO MAGIC')
+  welcome()
 }
 
 run()
