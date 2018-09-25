@@ -1,0 +1,150 @@
+{
+  "name": "ipfs-desktop",
+  "private": true,
+  "version": "0.5.0",
+  "productName": "IPFS Desktop",
+  "description": "IPFS Native Application",
+  "main": "src/index.js",
+  "dependencies": {
+    "auto-launch": "^5.0.5",
+    "bl": "^2.0.1",
+    "electron-compile": "^6.4.3",
+    "electron-menubar": "^1.0.1",
+    "electron-prompt": "^1.1.0-1",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^2.0.0",
+    "file-extension": "^4.0.5",
+    "fs-extra": "^7.0.0",
+    "go-ipfs-dep": "^0.4.17",
+    "ipfs": "^0.31.7",
+    "ipfs-stats": "^1.2.4",
+    "ipfsd-ctl": "^0.39.1",
+    "is-ipfs": "^0.4.2",
+    "lodash.clonedeep": "^4.5.0",
+    "moment": "^2.22.2",
+    "multiaddr": "^5.0.0",
+    "normalize.css": "^8.0.0",
+    "pretty-bytes": "^5.1.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2",
+    "react-dnd": "^5.0.0",
+    "react-dnd-html5-backend": "^5.0.1",
+    "react-dom": "^16.4.2",
+    "winston": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "babel-plugin-istanbul": "^5.0.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "chai": "^4.1.2",
+    "codecov": "^3.0.4",
+    "cross-env": "^5.2.0",
+    "electron-forge": "^5.2.2",
+    "electron-prebuilt-compile": "2.0.7",
+    "enzyme": "^3.5.1",
+    "enzyme-adapter-react-16": "^1.4.0",
+    "eslint": "^5",
+    "eslint-config-aegir": "^1.0.1",
+    "eslint-config-standard-react": "^7.0.2",
+    "eslint-plugin-import": "^2",
+    "eslint-plugin-jsx-a11y": "^6",
+    "eslint-plugin-react": "^7",
+    "expect": "^23.5.0",
+    "istanbul": "^0.4.5",
+    "jsdom": "^12.0.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.0.1",
+    "pre-commit": "^1.2.2",
+    "sinon": "^6.1.5",
+    "spectron": "^4.0.0"
+  },
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint ./src ./test",
+    "test": "cross-env NODE_ENV=test nyc --all mocha --require babel-core/register --require ./test/setup.js --recursive",
+    "coverage": "(nyc report --reporter=text-lcov > coverage.lcov) && codecov"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js*"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "dmg"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "yarn",
+        "executableName": "ipfs-desktop",
+        "icon": "./src/img/icons/executable/ipfs.ico"
+      },
+      "electronInstallerDebian": {
+        "icon": "./src/img/icons/executable/ipfs.ico",
+        "scripts": {
+          "postinst": "postinst.sh"
+        }
+      },
+      "electronWinstallerConfig": {
+        "name": "Desktop",
+        "setupIcon": "./src/img/icons/executable/ipfs.ico",
+        "loadingGif": "./src/img/loading.gif",
+        "exe": "ipfs-desktop.exe"
+      },
+      "electronInstallerDMG": {
+        "icon": "./src/img/icons/executable/ipfs.icns"
+      },
+      "github_repository": {
+        "owner": "ipfs-shipyard",
+        "name": "ipfs-desktop"
+      }
+    }
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "keywords": [
+    "ipfs",
+    "electron",
+    "station",
+    "desktop",
+    "app"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ipfs-shipyard/ipfs-desktop"
+  },
+  "author": "IPFS",
+  "contributors": [
+    "Kristoffer Ström <kristoffer@rymdkoloni.se>",
+    "David Dias <daviddias@ipfs.io>",
+    "Juan Benet <juan@ipfs.io>",
+    "Friedel Ziegelmayer <dignifiedquire@gmail.com>",
+    "Henrique Dias <hacdias@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ipfs-shipyard/ipfs-desktop/issues"
+  },
+  "homepage": "https://github.com/ipfs-shipyard/ipfs-desktop"
+}
