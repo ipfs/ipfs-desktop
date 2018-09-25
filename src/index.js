@@ -1,7 +1,9 @@
 import { app, dialog } from 'electron'
 
-import welcome from './welcome'
-import menubar from './menubar'
+// import welcome from './welcome'
+// import menubar from './menubar'
+
+import webui from './webui'
 
 // Only one instance can run at a time
 if (!app.requestSingleInstanceLock()) {
@@ -21,7 +23,7 @@ async function run () {
   await app.whenReady()
 
   // welcome()
-  menubar()
+  webui()
 }
 
 run()

@@ -55,6 +55,7 @@
     "electron-menubar": "^1.0.1",
     "electron-store": "^2.0.0",
     "fs-extra": "^7.0.0",
+    "ipfs-api": "^24.0.2",
     "ipfs-css": "^0.10.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

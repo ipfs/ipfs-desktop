@@ -21,22 +21,10 @@ export default async function (ipfsd) {
     }
   })
 
-  let state = 'running'
-
   const send = (type, ...args) => {
     if (menubar && menubar.window && menubar.window.webContents) {
       menubar.window.webContents.send(type, ...args)
     }
-  }
-
-  const isApi = store.get('ipfs.type') === 'api'
-
-  const config = {
-    events: new EventEmitter(),
-    menubar: menubar,
-    send: send,
-    isApi: isApi,
-    ipfs: () => isApi ? ipfsd : ipfsd.api
   }
 
   const ready = () => {
