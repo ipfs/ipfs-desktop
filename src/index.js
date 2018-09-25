@@ -1,6 +1,7 @@
 import { app, dialog } from 'electron'
 
 import welcome from './welcome'
+import menubar from './menubar'
 
 // Only one instance can run at a time
 if (!app.requestSingleInstanceLock()) {
@@ -19,7 +20,8 @@ app.on('window-all-closed', e => e.preventDefault())
 async function run () {
   await app.whenReady()
 
-  welcome()
+  // welcome()
+  menubar()
 }
 
 run()

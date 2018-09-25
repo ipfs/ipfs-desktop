@@ -51,6 +51,8 @@
     "standard": "^12.0.1"
   },
   "dependencies": {
+    "auto-launch": "^5.0.5",
+    "electron-menubar": "^1.0.1",
     "electron-store": "^2.0.0",
     "fs-extra": "^7.0.0",
     "ipfs-css": "^0.10.0",
