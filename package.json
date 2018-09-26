@@ -6,11 +6,11 @@
   "description": "IPFS Native Application",
   "main": "out/index.js",
   "scripts": {
-    "start": "electron -r @babel/register .",
+    "start": "electron -r @babel/register src/index.js",
     "lint": "standard",
-    "babel": "babel src --out-dir out --copy-files",
-    "pack": "babel && electron-builder --dir",
-    "dist": "babel && electron-builder"
+    "compile": "babel src --out-dir out --copy-files",
+    "pack": "npm run compile && electron-builder --dir",
+    "dist": "npm run compile && electron-builder"
   },
   "pre-commit": [
     "lint"

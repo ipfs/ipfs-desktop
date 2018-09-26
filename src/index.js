@@ -1,6 +1,5 @@
 import { app, dialog } from 'electron'
 import { store } from './utils'
-
 import menubar from './menubar'
 
 // Only one instance can run at a time
