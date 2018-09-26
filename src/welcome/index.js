@@ -1,11 +1,9 @@
 import { logo, logger } from '../utils'
-import { BrowserWindow, app } from 'electron'
+import { BrowserWindow } from 'electron'
 
 // Builds the Welcome window and does magic.
 export default function () {
   return new Promise(resolve => {
-    let ipfs = null
-
     // Initialize the welcome window.
     const window = new BrowserWindow({
       title: 'Welcome to IPFS',
@@ -28,8 +26,10 @@ export default function () {
 
     window.once('close', () => {
       logger.info('Welcome screen was closed')
+
+      // TODO: if closing through the right button, store.set('seenWelcome', true)
+
       resolve()
-      if (!ipfs) app.quit()
     })
   })
 }

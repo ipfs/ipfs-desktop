@@ -1,9 +1,8 @@
 import { app, dialog } from 'electron'
+import { store } from './utils'
 
-// import welcome from './welcome'
-// import menubar from './menubar'
-
-import webui from './webui'
+import welcome from './welcome'
+import menubar from './menubar'
 
 // Only one instance can run at a time
 if (!app.requestSingleInstanceLock()) {
@@ -16,14 +15,13 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
 
-// Avoid quitting the app when all windows are closed
-app.on('window-all-closed', e => e.preventDefault())
-
 async function run () {
   await app.whenReady()
+  await menubar()
 
-  // welcome()
-  webui()
+  if (!store.get('seenWelcome')) {
+    welcome()
+  }
 }
 
 run()
