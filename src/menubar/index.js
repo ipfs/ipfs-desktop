@@ -1,5 +1,5 @@
 import { Menubar } from 'electron-menubar'
-import { logo, logger } from '../utils'
+import { logo, logger, ConnectionManager } from '../utils'
 import registerHooks from '../hooks'
 
 export default async function () {
@@ -30,7 +30,7 @@ export default async function () {
 
     registerHooks({
       send: send,
-      getIpfs: () => null
+      connManager: new ConnectionManager()
     })
 
     // TODO:

@@ -50,11 +50,11 @@ async function saveFile (dir, file) {
 }
 
 function handler (opts) {
-  const { getIpfs } = opts
+  const { connManager } = opts
 
   return async () => {
     const text = clipboard.readText().trim()
-    const ipfs = getIpfs()
+    const ipfs = connManager.api
 
     if (ipfs || !text) {
       return

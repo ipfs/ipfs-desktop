@@ -1,35 +1,8 @@
 import fs from 'fs-extra'
 import shortid from 'shortid'
-import { join } from 'path'
 import { ipcMain } from 'electron'
 import { logger, store } from '../utils'
 import ipfsFactory from 'ipfsd-ctl'
-import ipfsApi from 'ipfs-api'
-
-function cleanLocks (path) {
-  // This fixes a bug on Windows, where the daemon seems
-  // not to be exiting correctly, hence the file is not
-  // removed.
-  logger.info('Cleaning repo.lock and api files')
-  const lockPath = join(path, 'repo.lock')
-  const apiPath = join(path, 'api')
-
-  if (fs.existsSync(lockPath)) {
-    try {
-      fs.unlinkSync(lockPath)
-    } catch (_) {
-      logger.warn('Could not remove repo.lock. Daemon might be running')
-    }
-  }
-
-  if (fs.existsSync(apiPath)) {
-    try {
-      fs.unlinkSync(apiPath)
-    } catch (_) {
-      logger.warn('Could not remove api. Daemon might be running')
-    }
-  }
-}
 
 const loadConfigurations = ({ send }) => () => {
   const configs = store.get('configs')
