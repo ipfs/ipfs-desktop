@@ -5,7 +5,7 @@ import registerHooks from '../hooks'
 export default async function (ipfsd) {
   return new Promise(resolve => {
     const menubar = new Menubar({
-      index: `file://${__dirname}/view.html`,
+      index: `file://${__dirname}/view/index.html`,
       icon: logo('black'),
       tooltip: 'Your IPFS instance',
       preloadWindow: true,

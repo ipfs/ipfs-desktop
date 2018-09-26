@@ -1,2 +1,0 @@
-
-console.log('Do MAGIC')
