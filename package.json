@@ -68,9 +68,11 @@
     "fs-extra": "^7.0.0",
     "ipfs-api": "^24.0.2",
     "ipfs-css": "^0.10.0",
+    "ipfsd-ctl": "^0.39.2",
     "is-ipfs": "^0.4.7",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "shortid": "^2.2.13",
     "tachyons": "^4.11.1",
     "winston": "^3.1.0"
   }

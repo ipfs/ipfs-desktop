@@ -6,7 +6,8 @@ if (store.get('version') !== 3) {
   // migrate data to v3 - the brand new version where we start from fresh!
   store.clear()
   store.set('seenWelcome', false)
-  store.set('configs', [])
+  store.set('configs', {})
+  store.set('defaultConfig', null)
   store.set('version', 3)
 }
 
