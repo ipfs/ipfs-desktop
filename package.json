@@ -43,6 +43,9 @@
     "appId": "io.ipfs.desktop",
     "mac": {
       "category": "public.app-category.utilities"
+    },
+    "nsis": {
+      "oneClick": false
     }
   },
   "devDependencies": {

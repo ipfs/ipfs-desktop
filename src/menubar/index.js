@@ -2,10 +2,10 @@ import { Menubar } from 'electron-menubar'
 import { logo, logger } from '../utils'
 import registerHooks from '../hooks'
 
-export default async function (ipfsd) {
+export default async function () {
   return new Promise(resolve => {
     const menubar = new Menubar({
-      index: `file://${__dirname}/view/index.html`,
+      index: `file://${__dirname}/app/index.html`,
       icon: logo('black'),
       tooltip: 'Your IPFS instance',
       preloadWindow: true,
