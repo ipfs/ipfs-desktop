@@ -1,11 +1,11 @@
 import logo from './logo'
 import store from './store'
 import logger from './logger'
-// import getIpfs from './ipfs'
+import startWebUI from './webui'
 
 export {
   logo,
   store,
-  logger // ,
-  // getIpfs
+  logger,
+  startWebUI
 }

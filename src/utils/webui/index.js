@@ -1,8 +1,8 @@
-import { logo, logger } from '../utils'
+import { logo, logger } from '../'
 import { join } from 'path'
 import { BrowserWindow } from 'electron'
 
-export default function (apiAddress = '/ip4/127.0.0.1/tcp/5001') {
+export default function (apiAddress = '/ip4/127.0.0.1', url = '/') {
   const window = new BrowserWindow({
     title: 'IPFS Desktop',
     icon: logo('ice'),
@@ -22,7 +22,7 @@ export default function (apiAddress = '/ip4/127.0.0.1/tcp/5001') {
     logger.info('WebUI window ready')
   })
 
-  window.loadURL(`https://webui.ipfs.io?api=${apiAddress}`)
+  window.loadURL(`https://webui.ipfs.io?api=${apiAddress}#${url}`)
 
   window.once('close', () => {
     logger.info('WebUI screen was closed')

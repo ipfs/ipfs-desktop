@@ -1,7 +1,6 @@
 import { app, dialog } from 'electron'
 import { store } from './utils'
 
-import welcome from './welcome'
 import menubar from './menubar'
 
 // Only one instance can run at a time
@@ -20,7 +19,7 @@ async function run () {
   await menubar()
 
   if (!store.get('seenWelcome')) {
-    welcome()
+    // TODO: open WebUI on Welcome screen
   }
 }
 
