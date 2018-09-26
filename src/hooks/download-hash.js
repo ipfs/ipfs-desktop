@@ -1,17 +1,22 @@
 import path from 'path'
 import fs from 'fs-extra'
+import isIPFS from 'is-ipfs'
 import { clipboard, app, dialog, globalShortcut } from 'electron'
-import { validateIPFS } from '../utils'
-import { store, logger } from '../../utils'
+import { store, logger } from '../utils'
 
 const settingsOption = 'downloadHashShortcut'
 const shortcut = 'CommandOrControl+Alt+D'
 
-function selectDirectory (opts) {
-  const { menubar } = opts
+function validateIPFS (text) {
+  return isIPFS.multihash(text) ||
+    isIPFS.cid(text) ||
+    isIPFS.ipfsPath(text) ||
+    isIPFS.ipfsPath(`/ipfs/${text}`)
+}
 
+function selectDirectory () {
   return new Promise(resolve => {
-    dialog.showOpenDialog(menubar.window, {
+    dialog.showOpenDialog({
       title: 'Select a directory',
       defaultPath: app.getPath('downloads'),
       properties: [
@@ -45,12 +50,13 @@ async function saveFile (dir, file) {
 }
 
 function handler (opts) {
-  const { ipfs } = opts
+  const { getIpfs } = opts
 
   return async () => {
     const text = clipboard.readText().trim()
+    const ipfs = getIpfs()
 
-    if (!ipfs() || !text) {
+    if (ipfs || !text) {
       return
     }
 
@@ -63,7 +69,7 @@ function handler (opts) {
     }
 
     try {
-      const files = await ipfs().get(text)
+      const files = await ipfs.get(text)
       logger.info(`Hash ${text} downloaded.`)
 
       const dir = await selectDirectory(opts)
@@ -101,6 +107,6 @@ export default function (opts) {
     }
   }
 
-  activate(store.get(settingsOption))
+  activate(store.get(settingsOption, false))
   store.onDidChange(settingsOption, activate)
 }

@@ -1,47 +1,44 @@
 import { clipboard, ipcMain, globalShortcut } from 'electron'
-import { store, logger } from '../../utils'
+import { store, logger } from '../utils'
 
 const settingsOption = 'screenshotShortcut'
 const shortcut = 'CommandOrControl+Alt+S'
 
-function makeScreenshotDir (opts) {
-  const { ipfs } = opts
-
-  return async () => {
-    try {
-      await ipfs().files.stat('/screenshots')
-    } catch (e) {
-      await ipfs().files.mkdir('/screenshots')
-    }
+async function makeScreenshotDir (ipfs) {
+  try {
+    await ipfs.files.stat('/screenshots')
+  } catch (_) {
+    await ipfs.files.mkdir('/screenshots')
   }
 }
 
 function handleScreenshot (opts) {
-  let { ipfs, send } = opts
+  let { getIpfs } = opts
 
   return async (_, image) => {
-    let base64Data = image.replace(/^data:image\/png;base64,/, '')
+    const ipfs = getIpfs()
 
-    logger.info('Screenshot taken')
-
-    if (!ipfs()) {
+    if (!ipfs) {
       logger.info('Daemon not running. Aborting screenshot upload.')
       return
     }
+
+    let base64Data = image.replace(/^data:image\/png;base64,/, '')
+
+    logger.info('Screenshot taken')
 
     const path = `/screenshots/${new Date().toISOString()}.png`
     const content = Buffer.from(base64Data, 'base64')
 
     try {
-      await makeScreenshotDir(opts)
-      await ipfs().files.write(path, content, {create: true})
+      await makeScreenshotDir(ipfs)
+      await ipfs.files.write(path, content, { create: true })
 
-      const stats = await ipfs().files.stat(path)
+      const stats = await ipfs.files.stat(path)
       const url = `https://ipfs.io/ipfs/${stats.hash}`
 
       clipboard.writeText(url)
-      send('files-updated')
-      logger.info('Screenshot uploaded', {path: path})
+      logger.info('Screenshot uploaded', { path: path })
     } catch (e) {
       logger.error(e.stack)
     }
@@ -59,6 +56,7 @@ export default function (opts) {
         logger.info('Taking Screenshot')
         send('screenshot')
       })
+
       logger.info('Screenshot shortcut enabled')
     } else {
       globalShortcut.unregister(shortcut)
@@ -66,7 +64,7 @@ export default function (opts) {
     }
   }
 
-  activate(store.get(settingsOption))
+  activate(store.get(settingsOption, false))
   store.onDidChange(settingsOption, activate)
   ipcMain.on('screenshot', handleScreenshot(opts))
 }

@@ -1,5 +1,5 @@
 import AutoLaunch from 'auto-launch'
-import { store, logger } from '../../utils'
+import { store, logger } from '../utils'
 
 const settingsOption = 'autoLaunch'
 const autoLauncher = new AutoLaunch({
@@ -23,6 +23,6 @@ export default function () {
     }
   }
 
-  activate(store.get(settingsOption))
+  activate(store.get(settingsOption, false))
   store.onDidChange(settingsOption, activate)
 }

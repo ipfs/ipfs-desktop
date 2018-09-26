@@ -57,6 +57,7 @@
     "fs-extra": "^7.0.0",
     "ipfs-api": "^24.0.2",
     "ipfs-css": "^0.10.0",
+    "is-ipfs": "^0.4.7",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "tachyons": "^4.11.1",

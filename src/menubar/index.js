@@ -1,6 +1,6 @@
 import { Menubar } from 'electron-menubar'
-import { logo, store, logger } from '../utils'
-import { EventEmitter } from 'events'
+import { logo, logger } from '../utils'
+import registerHooks from '../hooks'
 
 export default async function (ipfsd) {
   return new Promise(resolve => {
@@ -28,10 +28,15 @@ export default async function (ipfsd) {
       }
     }
 
+    registerHooks({
+      send: send,
+      getIpfs: () => null
+    })
+
     const ready = () => {
       logger.info('Menubar is ready')
-      resolve()
       menubar.tray.setHighlightMode('always')
+      resolve()
     }
 
     if (menubar.isReady()) ready()
