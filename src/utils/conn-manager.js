@@ -4,6 +4,8 @@ import { join } from 'path'
 import fs from 'fs-extra'
 import logger from './logger'
 
+// TODO: imcomplete. Might change a lot
+
 export default class ConnectionManager {
   constructor () {
     this.opts = {}
@@ -17,7 +19,7 @@ export default class ConnectionManager {
     return this.justApi ? this.instance : this.instance.api
   }
 
-  async disconnect () {
+  async stop () {
     if (!this.running && !this.instance) {
       return
     }
@@ -57,8 +59,17 @@ export default class ConnectionManager {
     })
   }
 
-  async connect (opts) {
+  async start (opts) {
     if (this.running) await this.disconnect()
+
+    if (!opts && !this.justApi) {
+      await new Promise((resolve, reject) => {
+        this.instance.start(this.opts.flags, err => {
+          if (err) return reject(err)
+          else resolve()
+        })
+      })
+    }
 
     this.opts = opts
     this.justApi = opts.type === 'api'

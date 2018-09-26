@@ -63,4 +63,8 @@ const addConfiguration = ({ send }) => async (_, { type, apiAddress, path, flags
 export default function (opts) {
   ipcMain.on('loadIpfsConfigurations', loadConfigurations(opts))
   ipcMain.on('addIpfsConfiguration', addConfiguration(opts))
+
+  // TODO:
+  // ipcMain.on('connectIpfsConfiguration', )
+  // ipcMain.on('stopIpfs', )
 }
