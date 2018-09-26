@@ -4,12 +4,13 @@
   "version": "1.0.0",
   "productName": "IPFS Desktop",
   "description": "IPFS Native Application",
-  "main": "src/index.js",
+  "main": "out/index.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron -r @babel/register .",
     "lint": "standard",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "babel": "babel src --out-dir out --copy-files",
+    "pack": "babel && electron-builder --dir",
+    "dist": "babel && electron-builder"
   },
   "pre-commit": [
     "lint"
@@ -45,12 +46,19 @@
     }
   },
   "devDependencies": {
+    "electron": "^3.0.0",
     "electron-builder": "^20.28.4",
-    "electron-prebuilt-compile": "^3.0.0",
     "pre-commit": "^1.2.2",
-    "standard": "^12.0.1"
+    "standard": "^12.0.1",
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0",
     "auto-launch": "^5.0.5",
     "electron-menubar": "^1.0.1",
     "electron-store": "^2.0.0",
