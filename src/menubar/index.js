@@ -2,6 +2,20 @@ import { Menubar } from 'electron-menubar'
 import { logo, store, logger, ConnectionManager, Connection } from '../utils'
 import registerHooks from '../hooks'
 
+async function initialSetup ({ send, connManager }) {
+  const configs = store.get('configs')
+  const defaultConfig = store.get('defaultConfig')
+
+  for (const id of Object.keys(configs)) {
+    const conn = new Connection(configs[id], id)
+    connManager.addConnection(conn)
+  }
+
+  if (defaultConfig) {
+    connManager.connectTo(defaultConfig)
+  }
+}
+
 export default async function () {
   return new Promise(resolve => {
     const menubar = new Menubar({
@@ -29,16 +43,11 @@ export default async function () {
     }
 
     const connManager = new ConnectionManager()
-    const conns = store.get('configs')
-
-    for (const id of Object.keys(conns)) {
-      const conn = new Connection(conns[id], id)
-      connManager.addConnection(conn)
-    }
 
     registerHooks({ send, connManager })
+    initialSetup({ send, connManager })
 
-    // TODO:
+    // TODO: only in DEV
     menubar.window.setAlwaysOnTop(true)
 
     const ready = () => {

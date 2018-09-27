@@ -1,8 +1,9 @@
 import { ipcMain } from 'electron'
 import { launchWebUI } from '../utils'
 
-export default function () {
-  ipcMain.on('launch-webui', (event, opts) => {
-    launchWebUI(opts)
+export default function ({ connManager }) {
+  ipcMain.on('launch-webui', async (event, url) => {
+    const apiAddress = await connManager.apiAddress()
+    launchWebUI({ url, apiAddress })
   })
 }

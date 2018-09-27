@@ -8,6 +8,7 @@
   "scripts": {
     "start": "electron -r @babel/register src/index.js",
     "lint": "standard",
+    "postinstall": "electron-builder node-gyp-rebuild",
     "compile": "babel src --out-dir out --copy-files",
     "pack": "npm run compile && electron-builder --dir",
     "dist": "npm run compile && electron-builder"
@@ -49,16 +50,16 @@
     }
   },
   "devDependencies": {
-    "electron": "^3.0.0",
-    "electron-builder": "^20.28.4",
-    "pre-commit": "^1.2.2",
-    "standard": "^12.0.1",
     "@babel/cli": "^7.1.0",
     "@babel/core": "^7.1.0",
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "@babel/register": "^7.0.0"
+    "@babel/register": "^7.0.0",
+    "electron": "^3.0.0",
+    "electron-builder": "^20.28.4",
+    "pre-commit": "^1.2.2",
+    "standard": "^12.0.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
@@ -66,6 +67,8 @@
     "electron-menubar": "^1.0.1",
     "electron-store": "^2.0.0",
     "fs-extra": "^7.0.0",
+    "go-ipfs-dep": "^0.4.17",
+    "ipfs": "^0.32.2",
     "ipfs-api": "^24.0.2",
     "ipfs-css": "^0.10.0",
     "ipfsd-ctl": "^0.39.2",

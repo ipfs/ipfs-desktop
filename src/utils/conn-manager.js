@@ -43,32 +43,30 @@ export class Connection {
     const { path, keysize, type } = this.opts
     const init = !(await fs.pathExists(path)) || fs.readdirSync(path).length === 0
 
-    const factory = IPFSFactory.create({
-      type: type,
-      exec: type === 'proc' ? require('ipfs') : null
-    })
+    const factory = IPFSFactory.create({ type })
 
-    const error = (e) => {
-      logger.warn(e.stack)
-      throw e
-    }
+    await new Promise((resolve, reject) => {
+      factory.spawn({
+        init: false,
+        start: false,
+        disposable: false,
+        defaultAddrs: true,
+        repoPath: path
+      }, (e, ipfsd) => {
+        if (e) return reject(e)
+        if (ipfsd.initialized || !init) {
+          this.instance = ipfsd
+          resolve()
+        }
 
-    factory.spawn({
-      init: false,
-      start: false,
-      disposable: false,
-      defaultAddrs: true,
-      repoPath: path
-    }, (e, ipfsd) => {
-      if (e) return error(e)
-      if (ipfsd.initialized || !init) return this.save()
-
-      ipfsd.init({
-        directory: path,
-        keysize: keysize
-      }, e => {
-        if (e) return error(e)
-        this.save()
+        ipfsd.init({
+          directory: path,
+          keysize: keysize
+        }, e => {
+          if (e) return reject(e)
+          this.instance = ipfsd
+          resolve()
+        })
       })
     })
   }
@@ -81,10 +79,7 @@ export class Connection {
     const { type, path } = this.opts
     cleanLocks(path)
 
-    const factory = IPFSFactory.create({
-      type: type,
-      exec: type === 'proc' ? require('ipfs') : null
-    })
+    const factory = IPFSFactory.create({ type })
 
     return new Promise((resolve, reject) => {
       factory.spawn({
@@ -158,6 +153,11 @@ export class ConnectionManager {
 
   get running () {
     return !!this.current
+  }
+
+  async apiAddress () {
+    if (!this.api) return null
+    return this.api.config.get('Addresses.API')
   }
 
   addConnection (conn) {

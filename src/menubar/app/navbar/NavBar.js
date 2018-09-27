@@ -2,7 +2,7 @@ import React from 'react'
 import { ipcRenderer } from 'electron'
 
 const makeLauncher = (url) => () => {
-  ipcRenderer.send('launch-webui', { url })
+  ipcRenderer.send('launch-webui', url)
 }
 
 const NavLink = ({ to, children }) => {
