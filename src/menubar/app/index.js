@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
+import registerScreenshot from './utils/screenshot'
 import NavBar from './navbar/NavBar'
 
 class Menubar extends React.Component {
@@ -14,7 +15,7 @@ class Menubar extends React.Component {
   }
 }
 
-// TODO: register screenshot hook
+registerScreenshot()
 
 document.addEventListener('DOMContentLoaded', () => {
   render(<Menubar />, document.getElementById('root'))
