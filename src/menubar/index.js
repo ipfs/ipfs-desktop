@@ -1,5 +1,5 @@
 import { Menubar } from 'electron-menubar'
-import { logo, logger, ConnectionManager } from '../utils'
+import { logo, store, logger, ConnectionManager, Connection } from '../utils'
 import registerHooks from '../hooks'
 
 export default async function () {
@@ -28,10 +28,15 @@ export default async function () {
       }
     }
 
-    registerHooks({
-      send: send,
-      connManager: new ConnectionManager()
-    })
+    const connManager = new ConnectionManager()
+    const conns = store.get('configs')
+
+    for (const id of Object.keys(conns)) {
+      const conn = new Connection(conns[id], id)
+      connManager.addConnection(conn)
+    }
+
+    registerHooks({ send, connManager })
 
     // TODO:
     menubar.window.setAlwaysOnTop(true)
