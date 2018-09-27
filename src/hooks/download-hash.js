@@ -56,7 +56,7 @@ function handler (opts) {
     const text = clipboard.readText().trim()
     const ipfs = connManager.api
 
-    if (ipfs || !text) {
+    if (!ipfs || !text) {
       return
     }
 
