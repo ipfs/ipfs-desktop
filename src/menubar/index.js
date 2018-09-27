@@ -12,7 +12,7 @@ async function initialSetup ({ send, connManager }) {
   }
 
   if (defaultConfig) {
-    connManager.connectTo(defaultConfig)
+    connManager.connect(defaultConfig)
   }
 }
 
@@ -43,6 +43,14 @@ export default async function () {
     }
 
     const connManager = new ConnectionManager()
+
+    connManager.on('started', () => {
+      menubar.tray.setImage(logo('ice'))
+    })
+
+    connManager.on('stopped', () => {
+      menubar.tray.setImage(logo('black'))
+    })
 
     registerHooks({ send, connManager })
     initialSetup({ send, connManager })

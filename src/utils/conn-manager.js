@@ -1,4 +1,5 @@
 import IPFSFactory from 'ipfsd-ctl'
+import EventEmitter from 'events'
 import IPFSApi from 'ipfs-api'
 import { join } from 'path'
 import fs from 'fs-extra'
@@ -141,8 +142,9 @@ export class Connection {
   }
 }
 
-export class ConnectionManager {
+export class ConnectionManager extends EventEmitter {
   constructor () {
+    super()
     this.conns = {}
     this.current = null
   }
@@ -167,16 +169,27 @@ export class ConnectionManager {
   async removeConnection (connId) {
     if (this.current && this.current.id === connId) {
       this.current = null
+      this.emit('stopped')
     }
 
     await this.conns[connId].stop()
     delete this.conns[connId]
   }
 
-  async connectTo (connId) {
+  async connect (connId) {
     const conn = this.conns[connId]
     await conn.start()
     this.current = conn
+    this.emit('started')
+  }
+
+  async disconnect () {
+    if (this.current) {
+      await this.current.stop()
+    }
+
+    this.current = null
+    this.emit('stopped')
   }
 
   async disconnectAll () {

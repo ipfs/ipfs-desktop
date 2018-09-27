@@ -1,11 +1,6 @@
 import { ipcMain } from 'electron'
 import { Connection, logger, store } from '../utils'
 
-const loadConfigurations = ({ send }) => () => {
-  const configs = store.get('configs')
-  send('ipfsConfigurations', configs)
-}
-
 const addConfiguration = ({ connManager, send }) => async (_, opts) => {
   try {
     const conn = new Connection(opts)
@@ -41,19 +36,25 @@ const removeConfiguration = ({ connManager, send }) => async (_, id) => {
 
 const connectToConfiguration = ({ connManager, send }) => async (_, id) => {
   try {
-    await connManager.connectTo(id)
+    await connManager.connect(id)
   } catch (e) {
     logger.error(e)
     send('connectIpfsConfigurationError', e)
   }
 }
 
+const stopIpfs = ({ connManager, send }) => async () => {
+  try {
+    await connManager.disconnect()
+  } catch (e) {
+    logger.error(e)
+    send('stopIpfsError', e)
+  }
+}
+
 export default function (opts) {
-  ipcMain.on('loadIpfsConfigurations', loadConfigurations(opts))
   ipcMain.on('addIpfsConfiguration', addConfiguration(opts))
   ipcMain.on('removeIpfsConfiguration', removeConfiguration(opts))
   ipcMain.on('connectToIpfsConfiguration', connectToConfiguration(opts))
-
-  // TODO:
-  // ipcMain.on('stopIpfs', )
+  ipcMain.on('stopIpfs', stopIpfs(opts))
 }
