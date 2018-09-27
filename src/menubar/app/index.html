@@ -7,7 +7,12 @@
   <body>
     <div id='root'></div>
     <script>
-      require("@babel/register") // TODO: only do this is developemnt. see HOW
+      try {
+        require('@babel/register')
+      } catch (_) {
+        console.log('Running in packaged application.')
+      }
+
       require('./index')
     </script>
   </body>
