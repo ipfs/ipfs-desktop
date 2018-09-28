@@ -11,7 +11,8 @@
     "postinstall": "electron-builder node-gyp-rebuild",
     "compile": "babel src --out-dir out --copy-files",
     "pack": "npm run compile && electron-builder --dir",
-    "dist": "npm run compile && electron-builder"
+    "icons": "svgr -d src/icons node_modules/ipfs-css/icons && standard --fix src/icons/*.js",
+    "build": "npm run compile && electron-builder"
   },
   "pre-commit": [
     "lint"
@@ -56,6 +57,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "@svgr/cli": "^2.4.1",
     "electron": "^3.0.0",
     "electron-builder": "^20.28.4",
     "pre-commit": "^1.2.2",
