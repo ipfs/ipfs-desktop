@@ -8,7 +8,6 @@
   "scripts": {
     "start": "electron -r @babel/register src/index.js",
     "lint": "standard",
-    "postinstall": "electron-builder node-gyp-rebuild",
     "compile": "babel src --out-dir out --copy-files",
     "pack": "npm run compile && electron-builder --dir",
     "icons": "svgr -d src/icons node_modules/ipfs-css/icons && standard --fix src/icons/*.js",
