@@ -147,6 +147,7 @@ export class ConnectionManager extends EventEmitter {
     super()
     this.conns = {}
     this.current = null
+    this.currentId = null
   }
 
   get api () {
@@ -169,6 +170,7 @@ export class ConnectionManager extends EventEmitter {
   async removeConnection (connId) {
     if (this.current && this.current.id === connId) {
       this.current = null
+      this.currentId = null
       this.emit('stopped')
     }
 
@@ -177,9 +179,14 @@ export class ConnectionManager extends EventEmitter {
   }
 
   async connect (connId) {
+    if (!connId) {
+      connId = this.currentId
+    }
+
     const conn = this.conns[connId]
     await conn.start()
     this.current = conn
+    this.currentId = connId
     this.emit('started')
   }
 
