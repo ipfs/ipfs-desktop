@@ -39,33 +39,18 @@ const removeConfiguration = ({ connManager, send }) => async (_, id) => {
   }
 }
 
-const connectToConfiguration = ({ connManager, send }) => async (_, id) => {
-  try {
-    logger.info(`Connecting to IPFS configuration ${id}`)
-    await connManager.connect(id)
-    logger.info('Connected!')
-  } catch (e) {
-    logger.error(e)
-    send('connectIpfsConfigurationError', e)
-  }
-}
-
 const stopIpfs = ({ connManager, send }) => async () => {
   try {
-    logger.info('Stopping IPFS')
     await connManager.disconnect()
-    logger.info('IPFS stopped')
   } catch (e) {
     logger.error(e)
     send('stopIpfsError', e)
   }
 }
 
-const startIpfs = ({ connManager, send }) => async () => {
+const startIpfs = ({ connManager, send }) => async (_, id) => {
   try {
-    logger.info('Starting IPFS')
-    await connManager.connect()
-    logger.info('IPFS started')
+    await connManager.connect(id)
   } catch (e) {
     logger.error(e)
     send('startIpfsError', e)
@@ -73,9 +58,8 @@ const startIpfs = ({ connManager, send }) => async () => {
 }
 
 export default function (opts) {
-  ipcMain.on('addIpfsConfiguration', addConfiguration(opts))
-  ipcMain.on('removeIpfsConfiguration', removeConfiguration(opts))
-  ipcMain.on('connectToIpfsConfiguration', connectToConfiguration(opts))
-  ipcMain.on('stopIpfs', stopIpfs(opts))
-  ipcMain.on('startIpfs', startIpfs(opts))
+  ipcMain.on('config.ipfs.add', addConfiguration(opts))
+  ipcMain.on('config.ipfs.remove', removeConfiguration(opts))
+  ipcMain.on('ipfs.stop', stopIpfs(opts))
+  ipcMain.on('ipfs.start', startIpfs(opts))
 }

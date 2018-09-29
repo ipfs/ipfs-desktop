@@ -44,11 +44,13 @@ export default async function () {
 
     const connManager = new ConnectionManager()
 
-    connManager.on('started', () => {
+    connManager.on('started', (id) => {
+      send('ipfs.started', id)
       menubar.tray.setImage(logo('ice'))
     })
 
     connManager.on('stopped', () => {
+      send('ipfs.stopped')
       menubar.tray.setImage(logo('black'))
     })
 
@@ -61,6 +63,11 @@ export default async function () {
     const ready = () => {
       logger.info('Menubar is ready')
       menubar.tray.setHighlightMode('always')
+
+      if (connManager.running) {
+        send('ipfs.started', connManager.currentId)
+      }
+
       resolve()
     }
 

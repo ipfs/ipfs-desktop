@@ -97,7 +97,12 @@ export class Connection {
   }
 
   async start () {
-    if (this.running) return
+    if (this.running) {
+      logger.info('IPFS %o already running', this.toJSON())
+      return
+    }
+
+    logger.info('Starting IPFS %o', this.toJSON())
 
     if (this.justApi) {
       this.instance = IPFSApi(this.opts.apiAddress)
@@ -118,15 +123,21 @@ export class Connection {
 
     await this.api.id()
     this.running = true
+    logger.info('Started IPFS')
   }
 
   async stop () {
-    if (!this.running || this.justApi) return
+    if (!this.running || this.justApi) {
+      logger.info('IPFS %o already stopped or just an API connection', this.toJSON())
+      return
+    }
 
+    logger.info('Stopping IPFS %o', this.toJSON())
     return new Promise((resolve, reject) => {
       this.instance.stop(err => {
         if (err) return reject(err)
         this.running = false
+        logger.info('Stopped IPFS')
         resolve()
       })
     })
@@ -147,7 +158,7 @@ export class ConnectionManager extends EventEmitter {
     super()
     this.conns = {}
     this.current = null
-    this.currentId = null
+    this.prevId = null
   }
 
   get api () {
@@ -156,6 +167,10 @@ export class ConnectionManager extends EventEmitter {
 
   get running () {
     return !!this.current
+  }
+
+  get currentId () {
+    return this.current.id
   }
 
   async apiAddress () {
@@ -170,7 +185,7 @@ export class ConnectionManager extends EventEmitter {
   async removeConnection (connId) {
     if (this.current && this.current.id === connId) {
       this.current = null
-      this.currentId = null
+      this.prevId = null
       this.emit('stopped')
     }
 
@@ -180,14 +195,13 @@ export class ConnectionManager extends EventEmitter {
 
   async connect (connId) {
     if (!connId) {
-      connId = this.currentId
+      connId = this.prevId
     }
 
     const conn = this.conns[connId]
     await conn.start()
     this.current = conn
-    this.currentId = connId
-    this.emit('started')
+    this.emit('started', connId)
   }
 
   async disconnect () {
@@ -195,6 +209,7 @@ export class ConnectionManager extends EventEmitter {
       await this.current.stop()
     }
 
+    this.prevId = this.current.id
     this.current = null
     this.emit('stopped')
   }

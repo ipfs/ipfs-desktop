@@ -5,11 +5,16 @@ import NavBar from './navbar/NavBar'
 import { ipcRenderer } from 'electron'
 
 class Menubar extends React.Component {
+  componentWillMount () {
+    ipcRenderer.on('ipfs.started', (_, id) => console.log(id))
+    ipcRenderer.on('ipfs.stopped', () => console.log('IPFS stopped'))
+  }
+
   render () {
     return (
       <div className='flex flex-column h-100'>
-        <a onClick={() => ipcRenderer.send('stopIpfs')}>Stop IPFS</a>
-        <a onClick={() => ipcRenderer.send('startIpfs')}>Start IPFS</a>
+        <a onClick={() => ipcRenderer.send('ipfs.stop')}>Stop IPFS</a>
+        <a onClick={() => ipcRenderer.send('ipfs.start')}>Start IPFS</a>
         <NavBar />
       </div>
     )
