@@ -11,7 +11,7 @@
     "compile": "babel src --out-dir out --copy-files",
     "pack": "npm run compile && electron-builder --dir",
     "icons": "svgr -d src/icons node_modules/ipfs-css/icons && standard --fix src/icons/*.js",
-    "build": "npm run compile && electron-builder"
+    "build": "npm run compile && electron-builder -p never"
   },
   "pre-commit": [
     "lint"
