@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GlyphShare = props => (
+const SvgGlyphShare = props => (
   <svg viewBox='0 0 100 100' {...props}>
     <circle cx={31.6} cy={50} r={10.05} />
     <path d='M30.55 47.74l34.963-16.193 2.102 4.537-34.963 16.192z' />
@@ -10,4 +10,4 @@ const GlyphShare = props => (
   </svg>
 )
 
-export default GlyphShare
+export default SvgGlyphShare

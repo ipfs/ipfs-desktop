@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GlyphFolder = props => (
+const SvgGlyphFolder = props => (
   <svg viewBox='0 0 18.42 21' {...props}>
     <path
       d='M16.85 8v-.6a1.34 1.34 0 0 0-1.3-1.4h-5.2L8.4 4.66H3.85A1.33 1.33 0 0 0 2.55 6v2z'
@@ -15,4 +15,4 @@ const GlyphFolder = props => (
   </svg>
 )
 
-export default GlyphFolder
+export default SvgGlyphFolder

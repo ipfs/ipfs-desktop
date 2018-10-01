@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GlyphDocPicture = props => (
+const SvgGlyphDocPicture = props => (
   <svg viewBox='0 0 18.42 21' {...props}>
     <path d='M5.52 10.31V16h7.38v-5.69zm6.81 4l-1.93-1.73-2.07 1.84-.82-.71-1.42 1.14v-4h6.24z' />
     <path d='M7.79 12.58a.57.57 0 1 0-.57-.58.58.58 0 0 0 .57.57z' />
@@ -14,4 +14,4 @@ const GlyphDocPicture = props => (
   </svg>
 )
 
-export default GlyphDocPicture
+export default SvgGlyphDocPicture

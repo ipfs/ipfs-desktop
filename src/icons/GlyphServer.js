@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GlyphServer = props => (
+const SvgGlyphServer = props => (
   <svg viewBox='0 0 100 100' {...props}>
     <path d='M50.1 79.53a2 2 0 0 1-2-2V22a2 2 0 0 1 4 0v55.53a2 2 0 0 1-2 2z' />
     <rect x={22.94} y={18.5} width={54.12} height={13.78} rx={3.21} ry={3.21} />
@@ -25,4 +25,4 @@ const GlyphServer = props => (
   </svg>
 )
 
-export default GlyphServer
+export default SvgGlyphServer

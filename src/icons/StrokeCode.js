@@ -1,6 +1,6 @@
 import React from 'react'
 
-const StrokeCode = props => (
+const SvgStrokeCode = props => (
   <svg viewBox='0 0 100 100' {...props}>
     <path d='M75 24H25.11c-4.19 0-8 4.11-8 8.61v35.26a8.29 8.29 0 0 0 8 8.13H75a8.11 8.11 0 0 0 7.87-8.13V32.61C82.91 28.55 79.54 24 75 24zm-49.89 3H75c2.74 0 4.87 3 4.87 5.61v1.32H20.09v-1.32c0-2.83 2.49-5.61 5.02-5.61zm-5 39.59V35.93h59.8v30.66zM75 73H25.11a5.28 5.28 0 0 1-4.95-4.41h59.67A5.09 5.09 0 0 1 75 73z' />
     <circle cx={26.22} cy={30.54} r={1.33} />
@@ -8,4 +8,4 @@ const StrokeCode = props => (
   </svg>
 )
 
-export default StrokeCode
+export default SvgStrokeCode

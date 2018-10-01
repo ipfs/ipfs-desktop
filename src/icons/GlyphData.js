@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GlyphData = props => (
+const SvgGlyphData = props => (
   <svg viewBox='0 0 100 100' {...props}>
     <path d='M50 68c-9.95 0-20.38-1.7-25-4.93v8.74c.68 3.54 11.58 7.32 24.92 7.32s24.23-3.78 24.91-7.32v-8.66C70.2 66.32 59.88 68 50 68z' />
     <ellipse cx={50} cy={42.11} rx={1.51} ry={1.7} />
@@ -12,4 +12,4 @@ const GlyphData = props => (
   </svg>
 )
 
-export default GlyphData
+export default SvgGlyphData

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GlyphDocGeneric = props => (
+const SvgGlyphDocGeneric = props => (
   <svg viewBox='0 0 18.42 21' {...props}>
     <path
       d='M10.22 2.37H4.64a1.11 1.11 0 0 0-1.11 1.11v14a1.11 1.11 0 0 0 1.11 1.11h9.14a1.11 1.11 0 0 0 1.1-1.11V7z'
@@ -12,4 +12,4 @@ const GlyphDocGeneric = props => (
   </svg>
 )
 
-export default GlyphDocGeneric
+export default SvgGlyphDocGeneric
