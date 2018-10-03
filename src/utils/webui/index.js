@@ -1,6 +1,9 @@
 import { logo, logger } from '../'
 import { join } from 'path'
 import { BrowserWindow } from 'electron'
+import serve from 'electron-serve'
+
+const loadURL = serve({ scheme: 'webui', directory: `${__dirname}/app` })
 
 export default function (opts = {}) {
   opts.apiAddress = opts.apiAddress || '/ip4/127.0.0.1'
@@ -25,7 +28,7 @@ export default function (opts = {}) {
     logger.info('WebUI window ready')
   })
 
-  window.loadURL(`https://webui.ipfs.io?api=${opts.apiAddress}#${opts.url}`)
+  loadURL(window)
 
   window.once('close', () => {
     logger.info('WebUI screen was closed')
