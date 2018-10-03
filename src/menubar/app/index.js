@@ -14,6 +14,7 @@ const PAGE_SETTINGS = 'settings'
 // TODO: home icon is ugh https://github.com/ipfs-shipyard/ipfs-css/pull/28
 // TODO: choose conn when disconnected
 // TODO: better config (choose default - maybe checkbox?)
+// TODO: add loading/thinkking state
 
 class Menubar extends React.Component {
   constructor (props) {
