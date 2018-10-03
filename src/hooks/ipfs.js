@@ -57,9 +57,18 @@ const startIpfs = ({ connManager, send }) => async (_, id) => {
   }
 }
 
+const ipfsState = ({ connManager, send }) => async () => {
+  if (connManager.running) {
+    send('ipfs.started', connManager.currentId)
+  } else {
+    send('ipfs.stopped')
+  }
+}
+
 export default function (opts) {
   ipcMain.on('config.ipfs.add', addConfiguration(opts))
   ipcMain.on('config.ipfs.remove', removeConfiguration(opts))
   ipcMain.on('ipfs.stop', stopIpfs(opts))
   ipcMain.on('ipfs.start', startIpfs(opts))
+  ipcMain.on('ipfs.running', ipfsState(opts))
 }

@@ -32,8 +32,8 @@ export default async function () {
         resizable: false,
         fullscreen: false,
         skipTaskbar: true,
-        width: 400,
-        height: 500,
+        width: 300,
+        height: 350,
         backgroundColor: '#ffffff',
         webPreferences: {
           nodeIntegration: true
@@ -68,11 +68,6 @@ export default async function () {
     const ready = () => {
       logger.info('Menubar is ready')
       menubar.tray.setHighlightMode('always')
-
-      if (connManager.running) {
-        send('ipfs.started', connManager.currentId)
-      }
-
       resolve()
     }
 
