@@ -1,10 +1,15 @@
 import React from 'react'
-import { ipcRenderer } from 'electron'
 import Button from '../button/Button'
-import Summary from '../summary/Summary'
 
-const Config = ({ running, summary }) => (
+const Settings = ({ settings }) => (
   <div className='pa2'>
+    <p>Launch on startup</p>
+
+    <p>Auto add screenshots</p>
+
+    <p>Download copied hash</p>
+
+    <p>Edit connections</p>
 
     <div className='mt3'>
       <Button onClick={() => {}} className='f6 w-100'>Save</Button>
@@ -12,4 +17,4 @@ const Config = ({ running, summary }) => (
   </div>
 )
 
-export default Config
+export default Settings

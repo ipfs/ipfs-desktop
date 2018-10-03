@@ -1,5 +1,5 @@
 import { ipcMain } from 'electron'
-import { Connection, logger, store } from '../utils'
+import { Connection, logger, logo, store } from '../utils'
 
 const addConfiguration = ({ connManager, send }) => async (_, opts) => {
   try {
@@ -21,9 +21,10 @@ const addConfiguration = ({ connManager, send }) => async (_, opts) => {
     }
 
     logger.info('Added')
+    send('config.changed')
   } catch (e) {
     logger.error(e)
-    send('addIpfsConfigurationError', e)
+    send('config.ipfs.addError', e)
   }
 }
 
@@ -33,9 +34,10 @@ const removeConfiguration = ({ connManager, send }) => async (_, id) => {
     await connManager.removeConnection(id)
     store.delete(`configs.${id}`)
     logger.info('Removed!')
+    send('config.changed')
   } catch (e) {
     logger.error(e)
-    send('removeIpfsConfigurationError', e)
+    send('config.ipfs.removeError', e)
   }
 }
 
@@ -44,7 +46,7 @@ const stopIpfs = ({ connManager, send }) => async () => {
     await connManager.disconnect()
   } catch (e) {
     logger.error(e)
-    send('stopIpfsError', e)
+    send('ipfs.stopError', e)
   }
 }
 
@@ -53,22 +55,38 @@ const startIpfs = ({ connManager, send }) => async (_, id) => {
     await connManager.connect(id)
   } catch (e) {
     logger.error(e)
-    send('startIpfsError', e)
+    send('ipfs.startError', e)
   }
 }
 
 const ipfsState = ({ connManager, send }) => async () => {
   if (connManager.running) {
-    send('ipfs.started', connManager.currentId)
+    send('ipfs.started', connManager.currentId, {
+      ...(await connManager.api.id()),
+      apiAddress: await connManager.apiAddress(),
+      gatewayAddress: await connManager.gatewayAddress()
+    })
   } else {
     send('ipfs.stopped')
   }
 }
 
 export default function (opts) {
+  const { connManager, menubar } = opts
+
   ipcMain.on('config.ipfs.add', addConfiguration(opts))
   ipcMain.on('config.ipfs.remove', removeConfiguration(opts))
   ipcMain.on('ipfs.stop', stopIpfs(opts))
   ipcMain.on('ipfs.start', startIpfs(opts))
   ipcMain.on('ipfs.running', ipfsState(opts))
+
+  connManager.on('started', () => {
+    ipfsState(opts)()
+    menubar.tray.setImage(logo('ice'))
+  })
+
+  connManager.on('stopped', () => {
+    ipfsState(opts)()
+    menubar.tray.setImage(logo('black'))
+  })
 }

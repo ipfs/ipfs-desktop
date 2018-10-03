@@ -192,6 +192,11 @@ export class ConnectionManager extends EventEmitter {
     return this.api.config.get('Addresses.API')
   }
 
+  async gatewayAddress () {
+    if (!this.api) return null
+    return this.api.config.get('Addresses.Gateway')
+  }
+
   addConnection (conn) {
     this.conns[conn.id] = conn
   }

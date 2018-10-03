@@ -2,7 +2,7 @@ import { Menubar } from 'electron-menubar'
 import { logo, store, logger, ConnectionManager, Connection } from '../utils'
 import registerHooks from '../hooks'
 
-async function initialSetup ({ send, connManager }) {
+async function initialSetup ({ connManager }) {
   const configs = store.get('configs')
   const defaultConfig = store.get('defaultConfig')
 
@@ -41,26 +41,18 @@ export default async function () {
       }
     })
 
-    const send = (type, ...args) => {
-      if (menubar && menubar.window && menubar.window.webContents) {
-        menubar.window.webContents.send(type, ...args)
+    const opts = {
+      menubar: menubar,
+      connManager: new ConnectionManager(),
+      send: (type, ...args) => {
+        if (menubar && menubar.window && menubar.window.webContents) {
+          menubar.window.webContents.send(type, ...args)
+        }
       }
     }
 
-    const connManager = new ConnectionManager()
-
-    connManager.on('started', (id) => {
-      send('ipfs.started', id)
-      menubar.tray.setImage(logo('ice'))
-    })
-
-    connManager.on('stopped', () => {
-      send('ipfs.stopped')
-      menubar.tray.setImage(logo('black'))
-    })
-
-    registerHooks({ send, connManager })
-    initialSetup({ send, connManager })
+    registerHooks(opts)
+    initialSetup(opts)
 
     // TODO: only in DEV
     menubar.window.setAlwaysOnTop(true)
