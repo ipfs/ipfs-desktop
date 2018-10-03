@@ -8,6 +8,11 @@ async function initialSetup ({ send, connManager }) {
 
   for (const id of Object.keys(configs)) {
     const conn = new Connection(configs[id], id)
+
+    if (!conn.justApi) {
+      await conn.init()
+    }
+
     connManager.addConnection(conn)
   }
 

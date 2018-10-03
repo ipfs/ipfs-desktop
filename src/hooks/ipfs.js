@@ -10,7 +10,7 @@ const addConfiguration = ({ connManager, send }) => async (_, opts) => {
     }
 
     const id = conn.id
-    connManager.addConfiguration(conn)
+    connManager.addConnection(conn)
 
     if (!store.get(`configs.${id}`)) {
       store.set(`configs.${id}`, conn)
@@ -30,7 +30,7 @@ const addConfiguration = ({ connManager, send }) => async (_, opts) => {
 const removeConfiguration = ({ connManager, send }) => async (_, id) => {
   try {
     logger.info(`Removing configuration ${id}`)
-    await connManager.removeConfiguration(id)
+    await connManager.removeConnection(id)
     store.delete(`configs.${id}`)
     logger.info('Removed!')
   } catch (e) {

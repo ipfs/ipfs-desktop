@@ -44,6 +44,10 @@ export class Connection {
     const { path, keysize, type } = this.opts
     const init = !(await fs.pathExists(path)) || fs.readdirSync(path).length === 0
 
+    if (!init) {
+      await cleanLocks(path)
+    }
+
     const factory = IPFSFactory.create({ type })
 
     await new Promise((resolve, reject) => {
@@ -96,7 +100,7 @@ export class Connection {
     })
   }
 
-  async start () {
+  async start (init = true) {
     if (this.running) {
       logger.info('IPFS %o already running', this.toJSON())
       return
@@ -114,8 +118,18 @@ export class Connection {
       if (!this.instance.started) {
         await new Promise((resolve, reject) => {
           this.instance.start(this.opts.flags, err => {
-            if (err) return reject(err)
-            else resolve()
+            if (err && err.stack.includes('init') && init) {
+              this.init()
+                .then(() => this.start(false))
+                .then(resolve)
+                .catch(reject)
+
+              return
+            } else if (err) {
+              return reject(err)
+            }
+
+            resolve()
           })
         })
       }
