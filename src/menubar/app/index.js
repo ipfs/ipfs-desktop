@@ -10,10 +10,10 @@ import Settings from './settings/Settings'
 const PAGE_HOME = 'home'
 const PAGE_SETTINGS = 'settings'
 
-// TODO: get peers
 // TODO: show errors
 // TODO: home icon is ugh
 // TODO: config page
+// TODO: button to exit IPFS Desktop
 
 class Menubar extends React.Component {
   constructor (props) {
@@ -21,7 +21,8 @@ class Menubar extends React.Component {
     this.state = {
       page: PAGE_HOME,
       running: false,
-      runningId: null
+      runningId: null,
+      peers: 0
     }
 
     this.toggleIpfs = this.toggleIpfs.bind(this)
@@ -31,7 +32,7 @@ class Menubar extends React.Component {
     return {
       ...this.state.addresses,
       agentVersion: this.state.agentVersion,
-      peers: 0
+      peers: this.state.peers
     }
   }
 
@@ -50,6 +51,7 @@ class Menubar extends React.Component {
 
     ipcRenderer.on('ipfs.stopped', () => this.setState({ running: false }))
     ipcRenderer.on('config.changed', (_, config) => this.setState({ settings: config }))
+    ipcRenderer.on('peersCount', (_, count) => this.setState({ peers: count }))
 
     ipcRenderer.send('ipfs.running')
     ipcRenderer.send('config.get')

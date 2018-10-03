@@ -71,6 +71,15 @@ const ipfsState = ({ connManager, send }) => async () => {
   }
 }
 
+const getPeers = ({ send, connManager }) => async () => {
+  if (connManager.running) {
+    const peers = await connManager.api.swarm.peers()
+    send('peersCount', peers.length)
+  } else {
+    send('peersCount', 0)
+  }
+}
+
 export default function (opts) {
   const { connManager, menubar } = opts
 
@@ -89,4 +98,6 @@ export default function (opts) {
     ipfsState(opts)()
     menubar.tray.setImage(logo('black'))
   })
+
+  setInterval(getPeers(opts), 5000)
 }
