@@ -3,14 +3,23 @@ import { render } from 'react-dom'
 import registerScreenshot from './utils/screenshot'
 import { ipcRenderer } from 'electron'
 
-import NavBar from './navbar/NavBar'
 import Header from './header/Header'
-import Summary from './summary/Summary'
+import Home from './home/Home'
+import Config from './config/Config'
+
+const PAGE_HOME = 'home'
+const PAGE_SETTINGS = 'prefs'
+
+// TODO: get real info
+// TODO: show errors
+// TODO: home icon is ugh
+// TODO: config page
 
 class Menubar extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      page: PAGE_HOME,
       running: false,
       runningId: null,
       summary: {
@@ -44,22 +53,21 @@ class Menubar extends React.Component {
   }
 
   render () {
-    const { running, summary } = this.state
+    const { running, page, summary } = this.state
 
     return (
       <div className='flex flex-column h-100 sans-serif'>
-        <Header toggleIpfs={this.toggleIpfs} on={running} />
+        <Header
+          openSettings={() => { this.setState({ page: PAGE_SETTINGS }) }}
+          openHome={() => { this.setState({ page: PAGE_HOME }) }}
+          toggleIpfs={this.toggleIpfs}
+          ipfsType={'js'}
+          showHome={page === PAGE_SETTINGS}
+          heartbeat={page === PAGE_HOME}
+          ipfsOnline={running} />
 
-        { running ? (
-          <div>
-            <Summary {...summary} />
-            <NavBar />
-          </div>
-        ) : (
-          <div className='pa2'>
-            <p>IPFS not running</p>
-          </div>
-        )}
+        { page === PAGE_HOME && <Home running={running} summary={summary} /> }
+        { page === PAGE_SETTINGS && <Config /> }
       </div>
     )
   }

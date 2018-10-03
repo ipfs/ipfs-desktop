@@ -9,7 +9,7 @@ const Field = ({ label, children }) => (
 
 export const Summary = ({ gateway, api, version, peers }) => {
   return (
-    <div className='pa2 flex flex-column'>
+    <div className='flex flex-column'>
       <Field label='Gateway'>{gateway}</Field>
       <Field label='API'>{api}</Field>
       <Field label='Version'>{version}</Field>

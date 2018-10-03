@@ -1,0 +1,18 @@
+.Button {
+  opacity: 0.9;
+}
+
+.Button:hover {
+  opacity: 1;
+}
+
+.Button:active {
+  opacity: 0.95;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+}
+
+.Button:disabled {
+  opacity: 0.8;
+  box-shadow: initial;
+  cursor: default;
+}

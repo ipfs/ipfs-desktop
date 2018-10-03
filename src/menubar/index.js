@@ -32,8 +32,8 @@ export default async function () {
         resizable: false,
         fullscreen: false,
         skipTaskbar: true,
-        width: 300,
-        height: 350,
+        width: 280,
+        height: 300,
         backgroundColor: '#ffffff',
         webPreferences: {
           nodeIntegration: true
