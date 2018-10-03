@@ -32,8 +32,8 @@ const removeConfiguration = ({ connManager, send }) => async (_, id) => {
     await connManager.removeConnection(id)
     store.delete(`configs.${id}`)
 
-    if (store.get('config.defaultConfig') === id) {
-      store.delete('config.defaultConfig')
+    if (store.get('defaultConfig') === id) {
+      store.delete('defaultConfig')
     }
 
     logger.info('Removed!')

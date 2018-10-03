@@ -11,9 +11,9 @@ const PAGE_HOME = 'home'
 const PAGE_SETTINGS = 'settings'
 
 // TODO: show errors
-// TODO: home icon is ugh
-// TODO: config page
-// TODO: button to exit IPFS Desktop
+// TODO: home icon is ugh https://github.com/ipfs-shipyard/ipfs-css/pull/28
+// TODO: choose conn when disconnected
+// TODO: better config (choose default - maybe checkbox?)
 
 class Menubar extends React.Component {
   constructor (props) {
