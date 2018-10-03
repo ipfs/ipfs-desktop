@@ -33,7 +33,7 @@ const Settings = ({ autoLaunch, downloadHashShortcut, screenshotShortcut }) => (
     </CheckSetting>
 
     <div className='mt3'>
-      <Button onClick={() => {}} className='f6 w-100 tl'>Edit connections</Button>
+      <Button onClick={() => {}} className='w-100 tl'>Edit connections</Button>
     </div>
   </div>
 )
