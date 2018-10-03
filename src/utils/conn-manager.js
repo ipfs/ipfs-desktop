@@ -199,6 +199,10 @@ export class ConnectionManager extends EventEmitter {
 
   addConnection (conn) {
     this.conns[conn.id] = conn
+
+    if (!this.current && !this.prevId) {
+      this.prevId = conn.id
+    }
   }
 
   async removeConnection (connId) {

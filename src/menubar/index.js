@@ -1,7 +1,7 @@
 import { Menubar } from 'electron-menubar'
 import { logo, store, logger, ConnectionManager, Connection } from '../utils'
 import registerHooks from '../hooks'
-import { ipcMain } from 'electron'
+import { app, ipcMain } from 'electron'
 
 async function initialSetup ({ connManager }) {
   const configs = store.get('configs')
@@ -66,6 +66,13 @@ export default async function () {
 
     ipcMain.on('config.get', () => {
       opts.send('config.changed', store.store)
+    })
+
+    ipcMain.on('app.quit', async () => {
+      logger.info('Disconnecting all IPFS instances')
+      await opts.connManager.disconnectAll()
+      logger.info('Done. Quitting app')
+      app.quit()
     })
 
     if (menubar.isReady()) ready()

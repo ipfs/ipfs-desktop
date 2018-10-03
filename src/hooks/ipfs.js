@@ -1,15 +1,15 @@
 import { ipcMain } from 'electron'
 import { Connection, logger, logo, store } from '../utils'
 
-const addConfiguration = ({ connManager, send }) => async (_, opts) => {
+const changeConfiguration = ({ connManager, send }) => async (_, id, opts) => {
   try {
-    logger.info('Adding configuration %o', opts)
-    const conn = new Connection(opts)
+    logger.info('Adding/changing configuration %o', opts)
+    const conn = new Connection(opts, id)
     if (!conn.justApi) {
       await conn.init()
     }
 
-    const id = conn.id
+    id = conn.id
     connManager.addConnection(conn)
 
     store.set(`configs.${id}`, conn)
@@ -31,6 +31,11 @@ const removeConfiguration = ({ connManager, send }) => async (_, id) => {
     logger.info(`Removing configuration ${id}`)
     await connManager.removeConnection(id)
     store.delete(`configs.${id}`)
+
+    if (store.get('config.defaultConfig') === id) {
+      store.delete('config.defaultConfig')
+    }
+
     logger.info('Removed!')
     send('config.changed', store.store)
   } catch (e) {
@@ -81,7 +86,7 @@ const getPeers = ({ send, connManager }) => async () => {
 export default function (opts) {
   const { connManager, menubar } = opts
 
-  ipcMain.on('config.ipfs.add', addConfiguration(opts))
+  ipcMain.on('config.ipfs.changed', changeConfiguration(opts))
   ipcMain.on('config.ipfs.remove', removeConfiguration(opts))
   ipcMain.on('ipfs.stop', stopIpfs(opts))
   ipcMain.on('ipfs.start', startIpfs(opts))
