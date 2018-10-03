@@ -1,8 +1,10 @@
 import React from 'react'
-import Button from '../button/Button'
+import Button from '../components/button/Button'
+import Checkbox from '../components/checkbox/Checkbox'
 
 const Settings = ({ settings }) => (
   <div className='pa2'>
+    <Checkbox />
     <p>Launch on startup</p>
 
     <p>Auto add screenshots</p>

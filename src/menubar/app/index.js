@@ -30,7 +30,7 @@ class Menubar extends React.Component {
   get summary () {
     return {
       ...this.state.addresses,
-      version: this.state.version,
+      agentVersion: this.state.agentVersion,
       peers: 0
     }
   }
@@ -44,7 +44,7 @@ class Menubar extends React.Component {
           gateway: info.gatewayAddress,
           api: info.apiAddress
         },
-        version: info.agentVersion.split('/').join(' ')
+        agentVersion: info.agentVersion
       })
     })
     ipcRenderer.on('ipfs.stopped', (_) => {

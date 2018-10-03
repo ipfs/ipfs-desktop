@@ -1,4 +1,6 @@
 import React from 'react'
+import Address from '../components/address/Address'
+import VersionLink from '../components/version-link/VersionLink'
 
 const Field = ({ label, children }) => (
   <div className='dt dt--fixed pt2'>
@@ -7,12 +9,12 @@ const Field = ({ label, children }) => (
   </div>
 )
 
-export const Summary = ({ gateway, api, version, peers }) => {
+export const Summary = ({ gateway, api, agentVersion, peers }) => {
   return (
     <div className='flex flex-column'>
-      <Field label='Gateway'>{gateway}</Field>
-      <Field label='API'>{api}</Field>
-      <Field label='Version'>{version}</Field>
+      <Field label='Gateway'><Address value={gateway} /></Field>
+      <Field label='API'><Address value={api} /></Field>
+      <Field label='Version'><VersionLink agentVersion={agentVersion} /></Field>
       <Field label='Peers'>{peers}</Field>
     </div>
   )
