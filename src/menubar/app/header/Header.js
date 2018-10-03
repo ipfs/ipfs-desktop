@@ -2,7 +2,7 @@ import React from 'react'
 import GlyphSettings from '../../../icons/GlyphSettings'
 import GlyphPower from '../../../icons/GlyphPower'
 import GlyphHome from '../../../icons/GlyphHome'
-import Heartbeat from '../heartbeat/Heartbeat'
+import Heartbeat from './heartbeat/Heartbeat'
 
 const Button = ({ children, on, ...props }) => (
   <button

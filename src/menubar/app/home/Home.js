@@ -1,7 +1,7 @@
 import React from 'react'
 import { ipcRenderer } from 'electron'
 import Button from '../components/button/Button'
-import Summary from '../summary/Summary'
+import Summary from './summary/Summary'
 
 const Home = ({ running, summary }) => (
   <div>

@@ -2,4 +2,15 @@
 @import "../../../node_modules/ipfs-css/ipfs.css";
 @import "./components/button/Button.css";
 @import "./components/checkbox/Checkbox.css";
-@import "./heartbeat/heartbeat.css";
+@import "./header/heartbeat/heartbeat.css";
+
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: .25em;
+}
+
+::-webkit-scrollbar-thumb:window-inactive,
+::-webkit-scrollbar-thumb {
+  background: #eee;
+  border-radius: 0;
+}

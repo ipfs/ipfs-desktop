@@ -1,6 +1,6 @@
 import React from 'react'
-import Address from '../components/address/Address'
-import VersionLink from '../components/version-link/VersionLink'
+import Address from '../../components/address/Address'
+import VersionLink from '../../components/version-link/VersionLink'
 
 const Field = ({ label, children }) => (
   <div className='dt dt--fixed pt2'>

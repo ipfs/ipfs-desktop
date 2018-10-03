@@ -8,7 +8,9 @@ const progress = require('request-progress')
 const cid = process.argv[2]
 const destination = process.argv[3]
 
-const url = 'https://venus.i.ipfs.io/api/v0/get?arg=' + cid + '&archive=true&compress=true'
+// pick random preloader
+const no = Math.round(Math.random()) // 0 or 1
+const url = 'https://node' + no + '.preload.ipfs.io/api/v0/get?arg=' + cid + '&archive=true&compress=true'
 
 console.log('Fallback to HTTP GET from: ' + url)
 

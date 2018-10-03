@@ -20,8 +20,8 @@ class Menubar extends React.Component {
     super(props)
     this.state = {
       page: PAGE_HOME,
-      running: false,
-      runningId: null,
+      current: null,
+      prev: null,
       peers: 0
     }
 
@@ -39,8 +39,7 @@ class Menubar extends React.Component {
   componentDidMount () {
     ipcRenderer.on('ipfs.started', (_, id, info) => {
       this.setState({
-        running: true,
-        runningId: id,
+        current: id,
         addresses: {
           gateway: info.gatewayAddress,
           api: info.apiAddress
@@ -49,7 +48,13 @@ class Menubar extends React.Component {
       })
     })
 
-    ipcRenderer.on('ipfs.stopped', () => this.setState({ running: false }))
+    ipcRenderer.on('ipfs.stopped', () => {
+      this.setState(s => ({
+        prev: s.current,
+        current: null
+      }))
+    })
+
     ipcRenderer.on('config.changed', (_, config) => this.setState({ settings: config }))
     ipcRenderer.on('peersCount', (_, count) => this.setState({ peers: count }))
 
@@ -58,7 +63,7 @@ class Menubar extends React.Component {
   }
 
   toggleIpfs () {
-    if (this.state.running) {
+    if (this.state.current) {
       ipcRenderer.send('ipfs.stop')
     } else {
       ipcRenderer.send('ipfs.start')
@@ -66,10 +71,10 @@ class Menubar extends React.Component {
   }
 
   render () {
-    const { running, page, settings, agentVersion } = this.state
+    const { current, page, settings, agentVersion } = this.state
 
     return (
-      <div className='flex flex-column h-100 sans-serif'>
+      <div className='flex flex-column h-100 overflow-hidden sans-serif'>
         <Header
           openSettings={() => { this.setState({ page: PAGE_SETTINGS }) }}
           openHome={() => { this.setState({ page: PAGE_HOME }) }}
@@ -77,10 +82,12 @@ class Menubar extends React.Component {
           ipfsType={agentVersion && agentVersion.includes('js') ? 'js' : 'go'}
           showHome={page === PAGE_SETTINGS}
           heartbeat={page === PAGE_HOME}
-          ipfsOnline={running} />
+          ipfsOnline={!!current} />
 
-        { page === PAGE_HOME && <Home running={running} summary={this.summary} /> }
-        { page === PAGE_SETTINGS && <Settings {...settings} /> }
+        <div className='overflow-auto'>
+          { page === PAGE_HOME && <Home running={!!current} summary={this.summary} /> }
+          { page === PAGE_SETTINGS && <Settings runningId={current} {...settings} /> }
+        </div>
       </div>
     )
   }

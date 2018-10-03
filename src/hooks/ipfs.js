@@ -12,9 +12,7 @@ const addConfiguration = ({ connManager, send }) => async (_, opts) => {
     const id = conn.id
     connManager.addConnection(conn)
 
-    if (!store.get(`configs.${id}`)) {
-      store.set(`configs.${id}`, conn)
-    }
+    store.set(`configs.${id}`, conn)
 
     if (!store.get('defaultConfig')) {
       store.set('defaultConfig', id)
