@@ -3,6 +3,7 @@ import fs from 'fs-extra'
 import isIPFS from 'is-ipfs'
 import { clipboard, app, dialog, globalShortcut } from 'electron'
 import { store, logger } from '../utils'
+import { createToggler } from './utils'
 
 const settingsOption = 'downloadHashShortcut'
 const shortcut = 'CommandOrControl+Alt+D'
@@ -108,5 +109,5 @@ export default function (opts) {
   }
 
   activate(store.get(settingsOption, false))
-  store.onDidChange(settingsOption, activate)
+  createToggler(opts, 'config.toggleDownloadHash', settingsOption, activate)
 }

@@ -47,11 +47,12 @@ class Menubar extends React.Component {
         agentVersion: info.agentVersion
       })
     })
-    ipcRenderer.on('ipfs.stopped', (_) => {
-      this.setState({ running: false })
-    })
+
+    ipcRenderer.on('ipfs.stopped', () => this.setState({ running: false }))
+    ipcRenderer.on('config.changed', (_, config) => this.setState({ settings: config }))
 
     ipcRenderer.send('ipfs.running')
+    ipcRenderer.send('config.get')
   }
 
   toggleIpfs () {
@@ -63,7 +64,7 @@ class Menubar extends React.Component {
   }
 
   render () {
-    const { running, page, version } = this.state
+    const { running, page, settings, agentVersion } = this.state
 
     return (
       <div className='flex flex-column h-100 sans-serif'>
@@ -71,13 +72,13 @@ class Menubar extends React.Component {
           openSettings={() => { this.setState({ page: PAGE_SETTINGS }) }}
           openHome={() => { this.setState({ page: PAGE_HOME }) }}
           toggleIpfs={this.toggleIpfs}
-          ipfsType={version && version.includes('js') ? 'js' : 'go'}
+          ipfsType={agentVersion && agentVersion.includes('js') ? 'js' : 'go'}
           showHome={page === PAGE_SETTINGS}
           heartbeat={page === PAGE_HOME}
           ipfsOnline={running} />
 
         { page === PAGE_HOME && <Home running={running} summary={this.summary} /> }
-        { page === PAGE_SETTINGS && <Settings /> }
+        { page === PAGE_SETTINGS && <Settings {...settings} /> }
       </div>
     )
   }

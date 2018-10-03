@@ -21,7 +21,7 @@ const addConfiguration = ({ connManager, send }) => async (_, opts) => {
     }
 
     logger.info('Added')
-    send('config.changed')
+    send('config.changed', store.store)
   } catch (e) {
     logger.error(e)
     send('config.ipfs.addError', e)
@@ -34,7 +34,7 @@ const removeConfiguration = ({ connManager, send }) => async (_, id) => {
     await connManager.removeConnection(id)
     store.delete(`configs.${id}`)
     logger.info('Removed!')
-    send('config.changed')
+    send('config.changed', store.store)
   } catch (e) {
     logger.error(e)
     send('config.ipfs.removeError', e)

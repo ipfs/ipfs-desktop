@@ -1,6 +1,7 @@
 import { Menubar } from 'electron-menubar'
 import { logo, store, logger, ConnectionManager, Connection } from '../utils'
 import registerHooks from '../hooks'
+import { ipcMain } from 'electron'
 
 async function initialSetup ({ connManager }) {
   const configs = store.get('configs')
@@ -33,7 +34,7 @@ export default async function () {
         fullscreen: false,
         skipTaskbar: true,
         width: 280,
-        height: 300,
+        height: 350,
         backgroundColor: '#ffffff',
         webPreferences: {
           nodeIntegration: true
@@ -62,6 +63,10 @@ export default async function () {
       menubar.tray.setHighlightMode('always')
       resolve()
     }
+
+    ipcMain.on('config.get', () => {
+      opts.send('config.changed', store.store)
+    })
 
     if (menubar.isReady()) ready()
     else menubar.on('ready', ready)

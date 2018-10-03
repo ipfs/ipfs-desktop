@@ -1,12 +1,13 @@
 import AutoLaunch from 'auto-launch'
 import { store, logger } from '../utils'
+import { createToggler } from './utils'
 
 const settingsOption = 'autoLaunch'
 const autoLauncher = new AutoLaunch({
   name: 'IPFS Desktop'
 })
 
-export default function () {
+export default function (opts) {
   let activate = async (value, oldValue) => {
     if (value === oldValue) return
 
@@ -24,5 +25,5 @@ export default function () {
   }
 
   activate(store.get(settingsOption, false))
-  store.onDidChange(settingsOption, activate)
+  createToggler(opts, 'config.toggleAutoLaunch', settingsOption, activate)
 }

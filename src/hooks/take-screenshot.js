@@ -1,5 +1,6 @@
 import { clipboard, ipcMain, globalShortcut } from 'electron'
 import { store, logger } from '../utils'
+import { createToggler } from './utils'
 
 const settingsOption = 'screenshotShortcut'
 const shortcut = 'CommandOrControl+Alt+S'
@@ -65,6 +66,6 @@ export default function (opts) {
   }
 
   activate(store.get(settingsOption, false))
-  store.onDidChange(settingsOption, activate)
+  createToggler(opts, 'config.toggleScreenshot', settingsOption, activate)
   ipcMain.on('screenshot', handleScreenshot(opts))
 }
