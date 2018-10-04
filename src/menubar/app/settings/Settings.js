@@ -59,7 +59,19 @@ export default class Settings extends React.Component {
               </p>
             </CheckboxSetting>
 
-            <Button bg='bg-red' className='w-100 mt2' onClick={() => ipcRenderer.send('app.quit')}>Quit IPFS Desktop</Button>
+            <div className='flex mt2'>
+              <Button
+                onClick={() => ipcRenderer.send('open.logs.folder')}
+                minWidth={0}
+                className='w-50 mr1'
+                title='Quit IPFS Desktop'>Logs Folder</Button>
+              <Button
+                onClick={() => ipcRenderer.send('app.quit')}
+                minWidth={0}
+                bg='bg-red'
+                className='w-50 ml1'
+                title='Quit IPFS Desktop'>Quit</Button>
+            </div>
           </div>
         ) : (
           <div className='pa2'>
