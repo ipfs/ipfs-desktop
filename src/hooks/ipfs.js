@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron'
 import { Connection, logger, logo, store } from '../utils'
 
-const changeConfiguration = ({ connManager, send }) => async (_, id, opts) => {
+const changeConfiguration = ({ connManager, send }) => async (_, id, opts, makeDefault) => {
   try {
     logger.info('Adding/changing configuration %o', opts)
     const conn = new Connection(opts, id)
@@ -14,7 +14,7 @@ const changeConfiguration = ({ connManager, send }) => async (_, id, opts) => {
 
     store.set(`configs.${id}`, conn)
 
-    if (!store.get('defaultConfig')) {
+    if (makeDefault || !store.get('defaultConfig')) {
       store.set('defaultConfig', id)
     }
 

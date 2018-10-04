@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '../../components/button/Button'
+import CheckboxSetting from '../checkbox-setting/CheckboxSetting'
 import { TextInput, Dropdown } from '../input/Input'
 import { ipcRenderer } from 'electron'
 
@@ -23,7 +24,8 @@ export default class Connection extends React.Component {
       path: props.path || '',
       type: props.type || TYPES.GO,
       flags: props.flags ? props.flags.join(' ') : '',
-      keysize: 4096
+      keysize: 4096,
+      makeDefault: false
     }
 
     this.save = this.save.bind(this)
@@ -32,7 +34,7 @@ export default class Connection extends React.Component {
 
   save () {
     const { id } = this.props
-    const { apiAddress, path, type, flags, keysize } = this.state
+    const { apiAddress, makeDefault, path, type, flags, keysize } = this.state
     let opts = { type }
 
     if (type === TYPES.API) {
@@ -47,7 +49,7 @@ export default class Connection extends React.Component {
       if (!id) opts.keysize = keysize
     }
 
-    ipcRenderer.send('config.ipfs.changed', id, opts)
+    ipcRenderer.send('config.ipfs.changed', id, opts, makeDefault)
   }
 
   delete () {
@@ -55,14 +57,19 @@ export default class Connection extends React.Component {
   }
 
   render () {
-    const { id, running } = this.props
+    const { isDefault, id, running } = this.props
     const { type, apiAddress, path, flags } = this.state
 
     return (
       <details className='bg-snow-muted mv2'>
         <summary className={`pa2 outline-0 pointer ${id ? '' : 'b'}`}>
           { id || 'New' }
-          { running && <span className='b green'> (active)</span>}
+          { (running || isDefault) &&
+            <span className='b gray'> (
+              { running && <span className='green'>active</span>}
+              { isDefault && <span className='yellow'> default</span>}
+            )</span>
+          }
         </summary>
 
         <div className='pa2 bt b--top b--snow'>
@@ -106,7 +113,13 @@ export default class Connection extends React.Component {
             </div>
           )}
 
-          <div className='flex'>
+          { !!id &&
+            <CheckboxSetting onChange={v => this.setState({ makeDefault: v })}>
+              <p className='ma0 f6 b'>Make default</p>
+            </CheckboxSetting>
+          }
+
+          <div className='flex mt2'>
             { !!id &&
               <Button onClick={this.delete} minWidth={0} className='w-50 bg-red hover-bg-red-muted mr1'>Delete</Button>
             }

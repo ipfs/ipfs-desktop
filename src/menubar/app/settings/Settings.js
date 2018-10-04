@@ -32,7 +32,7 @@ export default class Settings extends React.Component {
 
   render () {
     const { tab } = this.state
-    const { runningId, autoLaunch, downloadHashShortcut, screenshotShortcut, configs } = this.props
+    const { defaultConfig, runningId, autoLaunch, downloadHashShortcut, screenshotShortcut, configs } = this.props
 
     return (
       <div className='f6'>
@@ -76,7 +76,13 @@ export default class Settings extends React.Component {
         ) : (
           <div className='pa2'>
             <Connection />
-            { Object.keys(configs).map(k => <Connection running={runningId === k} key={k} id={k} {...configs[k]} />)}
+            { Object.keys(configs).map(k => {
+              return <Connection
+                isDefault={defaultConfig === k}
+                running={runningId === k}
+                key={k}
+                id={k} {...configs[k]} />
+            })}
           </div>
         )}
       </div>
