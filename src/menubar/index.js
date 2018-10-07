@@ -55,8 +55,9 @@ export default async function () {
     registerHooks(opts)
     initialSetup(opts)
 
-    // TODO: only in DEV
-    menubar.window.setAlwaysOnTop(true)
+    if (process.env.NODE_ENV === 'development') {
+      menubar.window.setAlwaysOnTop(true)
+    }
 
     const ready = () => {
       logger.info('Menubar is ready')

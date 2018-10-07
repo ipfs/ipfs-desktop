@@ -3,6 +3,7 @@ import { ipcRenderer } from 'electron'
 import Button from '../components/button/Button'
 import CheckboxSetting from './checkbox-setting/CheckboxSetting'
 import Connection from './connection/Connection'
+import shortid from 'shortid'
 
 const Key = ({ children }) => <span className='monospace br2 bg-snow ph1'>{ children }</span>
 
@@ -14,13 +15,23 @@ const TABS = {
 export default class Settings extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { tab: TABS.GENERAL }
+    this.state = {
+      tab: TABS.GENERAL,
+      showNewConnection: false,
+      newConnectionId: null
+    }
     this.changeTab = this.changeTab.bind(this)
     this.generateTab = this.generateTab.bind(this)
   }
 
   changeTab (tab) {
     this.setState({ tab })
+  }
+
+  componentDidUpdate (prevProps) {
+    if (this.props.configs.length !== prevProps.configs.length) {
+      this.setState({ newConnectionKey: shortid.generate() })
+    }
   }
 
   generateTab (tab, label) {
@@ -31,7 +42,7 @@ export default class Settings extends React.Component {
   }
 
   render () {
-    const { tab } = this.state
+    const { tab, showNewConnection, newConnectionId } = this.state
     const { defaultConfig, runningId, autoLaunch, downloadHashShortcut, screenshotShortcut, configs } = this.props
 
     return (
@@ -75,7 +86,6 @@ export default class Settings extends React.Component {
           </div>
         ) : (
           <div className='pa2'>
-            <Connection />
             { Object.keys(configs).map(k => {
               return <Connection
                 isDefault={defaultConfig === k}
@@ -83,6 +93,26 @@ export default class Settings extends React.Component {
                 key={k}
                 id={k} {...configs[k]} />
             })}
+
+            { showNewConnection ? (
+              <Connection open isNew onCancel={() => this.setState({
+                showNewConnection: false,
+                newConnectionId: null
+              })} key={newConnectionId} id={newConnectionId} />
+            ) : (
+              <div className='flex mt2'>
+                <Button
+                  onClick={() => {
+                    this.setState({
+                      showNewConnection: true,
+                      newConnectionId: shortid.generate()
+                    })
+                  }}
+                  minWidth={0}
+                  className='w-100 mr1'
+                  title='New Connection'>New Connection</Button>
+              </div>
+            )}
           </div>
         )}
       </div>

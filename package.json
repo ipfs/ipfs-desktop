@@ -6,7 +6,7 @@
   "description": "IPFS Native Application",
   "main": "out/index.js",
   "scripts": {
-    "start": "electron -r @babel/register src/index.js",
+    "start": "cross-env NODE_ENV=development electron -r @babel/register src/index.js",
     "lint": "standard",
     "postinstall": "electron-builder install-app-deps",
     "build": "run-s build:*",

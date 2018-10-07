@@ -57,17 +57,18 @@ export default class Connection extends React.Component {
   }
 
   render () {
-    const { isDefault, id, running } = this.props
+    const { isNew, onCancel, open, isDefault, id, running } = this.props
     const { type, apiAddress, path, flags } = this.state
 
     return (
-      <details className='bg-snow-muted mv2'>
-        <summary className={`pa2 outline-0 pointer ${id ? '' : 'b'}`}>
-          { id || 'New' }
+      <details open={open} className='bg-snow-muted mv2'>
+        <summary className={`pa2 outline-0 pointer`}>
+          { isNew ? <span className='b'>New</span> : id }
           { (running || isDefault) &&
             <span className='b gray'> (
               { running && <span className='green'>active</span>}
-              { isDefault && <span className='yellow'> default</span>}
+              { running && isDefault && <span className='dib' style={{ width: '0.25rem' }} />}
+              { isDefault && <span className='yellow'>default</span>}
             )</span>
           }
         </summary>
@@ -77,7 +78,7 @@ export default class Connection extends React.Component {
             onChange={e => this.setState({ type: e.target.value })}
             options={TYPES}
             defaultValue={type}
-            disabled={!!id} />
+            disabled={!isNew} />
 
           { type === TYPES.API ? (
             <div>
@@ -91,7 +92,7 @@ export default class Connection extends React.Component {
           ) : (
             <div>
               <TextInput
-                disabled={!!id}
+                disabled={!isNew}
                 label='Repo Path'
                 value={path}
                 onChange={e => this.setState({ path: e.target.value })}
@@ -104,7 +105,7 @@ export default class Connection extends React.Component {
                 placeholder='E.g.: --routing=dhtclient'
                 required />
 
-              { !id &&
+              { isNew &&
                 <Dropdown label='Key size'
                   onChange={e => this.setState({ keysize: e.target.value })}
                   options={KEYSIZES}
@@ -113,16 +114,16 @@ export default class Connection extends React.Component {
             </div>
           )}
 
-          { !!id &&
-            <CheckboxSetting onChange={v => this.setState({ makeDefault: v })}>
-              <p className='ma0 f6 b'>Make default</p>
-            </CheckboxSetting>
-          }
+          <CheckboxSetting onChange={v => this.setState({ makeDefault: v })}>
+            <p className='ma0 f6 b'>Make default</p>
+          </CheckboxSetting>
 
           <div className='flex mt2'>
-            { !!id &&
-              <Button onClick={this.delete} minWidth={0} className='w-50 bg-red hover-bg-red-muted mr1'>Delete</Button>
-            }
+            <Button onClick={isNew ? onCancel : this.delete}
+              minWidth={0}
+              className='w-50 bg-red hover-bg-red-muted mr1'>
+              { isNew ? 'Cancel' : 'Delete' }
+            </Button>
             <Button onClick={this.save} minWidth={0} className={id ? 'w-50 ml1' : 'w-100'}>Save</Button>
           </div>
         </div>
