@@ -23,7 +23,7 @@ export default class Connection extends React.Component {
       apiAddress: props.apiAddress || '',
       path: props.path || '',
       type: props.type || TYPES.GO,
-      flags: props.flags ? props.flags.join(' ') : '',
+      flags: props.flags ? props.flags.join(' ') : '--routing=dhtclient',
       keysize: 4096,
       makeDefault: false
     }

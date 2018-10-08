@@ -13,7 +13,6 @@ const PAGE_SETTINGS = 'settings'
 // TODO: show errors
 // TODO: home icon is ugh https://github.com/ipfs-shipyard/ipfs-css/pull/28
 // TODO: choose conn when disconnected
-// TODO: better config (choose default - maybe checkbox?)
 // TODO: add loading/thinkking state
 
 class Menubar extends React.Component {
@@ -23,7 +22,8 @@ class Menubar extends React.Component {
       page: PAGE_HOME,
       current: null,
       prev: null,
-      peers: 0
+      peers: 0,
+      settings: null
     }
 
     this.toggleIpfs = this.toggleIpfs.bind(this)
@@ -86,7 +86,7 @@ class Menubar extends React.Component {
           ipfsOnline={!!current} />
 
         <div className='overflow-auto'>
-          { page === PAGE_HOME && <Home running={!!current} summary={this.summary} /> }
+          { page === PAGE_HOME && <Home running={!!current} summary={this.summary} configs={settings ? settings.configs : {}} /> }
           { page === PAGE_SETTINGS && <Settings runningId={current} {...settings} /> }
         </div>
       </div>

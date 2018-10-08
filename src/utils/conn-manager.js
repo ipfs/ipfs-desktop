@@ -221,6 +221,10 @@ export class ConnectionManager extends EventEmitter {
       connId = this.prevId
     }
 
+    if (!connId) {
+      return
+    }
+
     const conn = this.conns[connId]
     await conn.start()
     this.current = conn
