@@ -1,5 +1,6 @@
 import React from 'react'
 import { ipcRenderer } from 'electron'
+import { connect } from 'redux-bundler-react'
 import Button from '../components/button/Button'
 import Summary from './summary/Summary'
 
@@ -31,12 +32,11 @@ const NotRunningMultiple = () => (
   </div>
 )
 
-const Home = (props) => {
-  const { running, configs } = props
-  const configsLength = Object.keys(configs).length
+const Home = ({ ipfsIsRunning, settings }) => {
+  const configsLength = Object.keys(settings.configs || {}).length
   let Element
 
-  if (running) {
+  if (ipfsIsRunning) {
     Element = Running
   } else if (configsLength === 0) {
     Element = NotRunningNoConfig
@@ -46,7 +46,11 @@ const Home = (props) => {
     Element = NotRunningMultiple
   }
 
-  return <Element {...props} />
+  return <Element />
 }
 
-export default Home
+export default connect(
+  'selectIpfsIsRunning',
+  'selectSettings',
+  Home
+)

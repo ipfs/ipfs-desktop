@@ -64,10 +64,9 @@ const startIpfs = ({ connManager, send }) => async (_, id) => {
 
 const ipfsState = ({ connManager, send }) => async () => {
   if (connManager.running) {
-    send('ipfs.started', connManager.currentId, {
-      ...(await connManager.api.id()),
-      apiAddress: await connManager.apiAddress(),
-      gatewayAddress: await connManager.gatewayAddress()
+    send('ipfs.started', connManager.currentId, (await connManager.api.id()), {
+      api: await connManager.apiAddress(),
+      gateway: await connManager.gatewayAddress()
     })
   } else {
     send('ipfs.stopped')

@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'redux-bundler-react'
 import GlyphSettings from '../../../icons/GlyphSettings'
 import GlyphPower from '../../../icons/GlyphPower'
 import GlyphHome from '../../../icons/GlyphHome'
@@ -13,7 +14,7 @@ const Button = ({ children, on, ...props }) => (
   </button>
 )
 
-export const Header = ({ toggleIpfs, openSettings, openHome, showHome, ipfsType = 'go', ipfsOnline = false, heartbeat = true }) => {
+export const Header = ({ doIpfsToggle, currentConfig, hash, doUpdateHash, ipfsIsRunning }) => {
   return (
     <div className='bg-navy pa2' style={{
       backgroundImage: 'url(./imgs/stars.png), linear-gradient(to bottom, #041727 0%,#043b55 100%)',
@@ -24,27 +25,36 @@ export const Header = ({ toggleIpfs, openSettings, openHome, showHome, ipfsType 
         <div className='montserrat f5 tc white normal'>IPFS Desktop</div>
 
         <div>
-          <Button onClick={toggleIpfs} on={ipfsOnline} title='Toggle IPFS Daemon'>
+          <Button onClick={doIpfsToggle} on={ipfsIsRunning} title='Toggle IPFS Daemon'>
             <GlyphPower className='w2 h2' />
           </Button>
-          { showHome ? (
-            <Button onClick={openHome} on={ipfsOnline} title='Go to Home Screen'>
+          { hash !== '/' ? (
+            <Button onClick={() => { doUpdateHash('/') }} on={ipfsIsRunning} title='Go to Home Screen'>
               <GlyphHome className='w2 h2' />
             </Button>
           ) : (
-            <Button onClick={openSettings} on={ipfsOnline} title='Go to Settings'>
+            <Button onClick={() => { doUpdateHash('/settings') }} on={ipfsIsRunning} title='Go to Settings'>
               <GlyphSettings className='w2 h2' />
             </Button>
           )}
         </div>
       </div>
-      { heartbeat &&
+      { hash === '/' &&
         <div className='tc pv2'>
-          <Heartbeat type={ipfsType} online={ipfsOnline} />
+          <Heartbeat
+            type={ipfsIsRunning && currentConfig.id.agentVersion.includes('js') ? 'js' : 'go'}
+            online={ipfsIsRunning} />
         </div>
       }
     </div>
   )
 }
 
-export default Header
+export default connect(
+  'doIpfsToggle',
+  'doUpdateHash',
+  'selectIpfsIsRunning',
+  'selectCurrentConfig',
+  'selectHash',
+  Header
+)
