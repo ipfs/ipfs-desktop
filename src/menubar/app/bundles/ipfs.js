@@ -28,6 +28,16 @@ const bundle = {
       }
     }
 
+    if (action.type === 'IPFS_PEERS' && state.current !== null) {
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          peers: action.payload
+        }
+      }
+    }
+
     return state
   },
 
@@ -41,12 +51,16 @@ const bundle = {
     ipcRenderer.on('ipfs.started', (_, configId, id, addresses) => {
       dispatch({
         type: 'IPFS_STARTED',
-        payload: { configId, id, addresses }
+        payload: { configId, id, addresses, peers: 0 }
       })
     })
 
     ipcRenderer.on('ipfs.stopped', () => {
       dispatch({ type: 'IPFS_STOPPED' })
+    })
+
+    ipcRenderer.on('peersCount', (_, count) => {
+      dispatch({ type: 'IPFS_PEERS', payload: count })
     })
 
     ipcRenderer.send('ipfs.running')

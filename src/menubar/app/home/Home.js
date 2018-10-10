@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'redux-bundler-react'
 import Button from '../components/button/Button'
-import Summary from './summary/Summary'
+import Summary from './Summary'
 
 const Running = connect(
   'selectCurrentConfig',
   'doOpenWebUI',
-  ({ currentConfig: { addresses, id }, doOpenWebUI }) => (
+  ({ currentConfig: { addresses, id, peers }, doOpenWebUI }) => (
     <div className='pa2'>
-      <Summary {...addresses} {...id} />
+      <Summary {...addresses} {...id} peers={peers} />
 
       <div className='mt3'>
         <Button onClick={doOpenWebUI} className='f6 w-100'>Open Web UI</Button>

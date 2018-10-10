@@ -3,16 +3,12 @@ import { connect } from 'redux-bundler-react'
 import Header from './header/Header'
 
 // TODO: show errors
-// TODO: home icon is ugh https://github.com/ipfs-shipyard/ipfs-css/pull/28
-// TODO: choose conn when disconnected
 // TODO: add loading/thinkking state
 
 class Menubar extends React.Component {
   componentDidMount () {
     this.props.doIpfsStartListening()
     this.props.doSettingsStartListening()
-
-    // ipcRenderer.on('peersCount', (_, count) => this.setState({ peers: count }))
   }
 
   render () {

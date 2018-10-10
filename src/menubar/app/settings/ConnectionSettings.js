@@ -29,18 +29,3 @@ export default connect(
   'doUpdateHash',
   ConnectionSettings
 )
-
-/*
-
-NEW conn
-
- { showNewConnection ? (
-    <Connection open isNew onCancel={() => this.setState({
-      showNewConnection: false,
-      newConnectionId: null
-    })} key={newConnectionId} id={newConnectionId} />
-  ) : (
-  
-  )}
-
-*/
