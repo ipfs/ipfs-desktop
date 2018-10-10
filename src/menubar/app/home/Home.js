@@ -1,23 +1,29 @@
 import React from 'react'
-import { ipcRenderer } from 'electron'
 import { connect } from 'redux-bundler-react'
 import Button from '../components/button/Button'
 import Summary from './summary/Summary'
 
-const Running = ({ summary }) => (
-  <div className='pa2'>
-    <Summary {...summary} />
+const Running = connect(
+  'selectCurrentConfig',
+  'doOpenWebUI',
+  ({ currentConfig: { addresses, id }, doOpenWebUI }) => (
+    <div className='pa2'>
+      <Summary {...addresses} {...id} />
 
-    <div className='mt3'>
-      <Button onClick={() => ipcRenderer.send('launchWebUI')} className='f6 w-100'>Open Web UI</Button>
+      <div className='mt3'>
+        <Button onClick={doOpenWebUI} className='f6 w-100'>Open Web UI</Button>
+      </div>
     </div>
-  </div>
+  )
 )
 
-const NotRunningNoConfig = () => (
-  <div className='tc f6 mt5'>
-    You haven't set up any configuration yet. Head down to <span className='b'>Settings</span> → <span className='b'>Connections</span>.
-  </div>
+const NotRunningNoConfig = connect(
+  'doUpdateHash',
+  ({ doUpdateHash }) => (
+    <div className='tc f6 mt5'>
+      You haven't set up any configuration yet. <span className='link a'>Set up one now!</span>
+    </div>
+  )
 )
 
 const NotRunningSingle = () => (

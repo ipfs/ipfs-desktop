@@ -66,6 +66,6 @@ export default function (opts) {
   }
 
   activate(store.get(settingsOption, false))
-  createToggler(opts, 'config.toggleScreenshot', settingsOption, activate)
+  createToggler(opts, settingsOption, activate)
   ipcMain.on('screenshot', handleScreenshot(opts))
 }

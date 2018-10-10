@@ -25,5 +25,5 @@ export default function (opts) {
   }
 
   activate(store.get(settingsOption, false))
-  createToggler(opts, 'config.toggleAutoLaunch', settingsOption, activate)
+  createToggler(opts, settingsOption, activate)
 }

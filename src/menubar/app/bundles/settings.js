@@ -26,6 +26,10 @@ const bundle = {
     })
 
     ipcRenderer.send('config.get')
+  },
+
+  doSettingsToggle: (setting) => async () => {
+    ipcRenderer.send('config.toggle', setting)
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
-import Button from '../../components/button/Button'
-import CheckboxSetting from '../checkbox-setting/CheckboxSetting'
-import { TextInput, Dropdown } from '../input/Input'
+import Button from '../components/button/Button'
+import CheckboxSetting from './CheckboxSetting'
+import { TextInput, Dropdown } from './Input'
 import { ipcRenderer } from 'electron'
 
 const TYPES = {

@@ -109,5 +109,5 @@ export default function (opts) {
   }
 
   activate(store.get(settingsOption, false))
-  createToggler(opts, 'config.toggleDownloadHash', settingsOption, activate)
+  createToggler(opts, settingsOption, activate)
 }

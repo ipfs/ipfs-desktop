@@ -1,5 +1,5 @@
 import React from 'react'
-import Checkbox from '../../components/checkbox/Checkbox'
+import Checkbox from '../components/checkbox/Checkbox'
 
 const CheckboxSetting = ({ children, ...props }) => (
   <div className='flex mt2 align-center'>

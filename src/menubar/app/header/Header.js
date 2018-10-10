@@ -33,7 +33,7 @@ export const Header = ({ doIpfsToggle, currentConfig, hash, doUpdateHash, ipfsIs
               <GlyphHome className='w2 h2' />
             </Button>
           ) : (
-            <Button onClick={() => { doUpdateHash('/settings') }} on={ipfsIsRunning} title='Go to Settings'>
+            <Button onClick={() => { doUpdateHash('/settings/general') }} on={ipfsIsRunning} title='Go to Settings'>
               <GlyphSettings className='w2 h2' />
             </Button>
           )}
