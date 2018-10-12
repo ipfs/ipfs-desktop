@@ -47,7 +47,7 @@ Note for **Debian** and **Ubuntu** users: starting with apt 1.1 (Ubuntu 16.04, D
 If you're interested in developing IPFS Desktop, you can also install it from source...
 
 You will need [Node.js](https://nodejs.org/en/) `>=6.0.0` and
-need [npm](npmjs.org) `>=3.0` installed.
+need [npm](https://npmjs.org) `>=3.0` installed.
 
 On macOS you may also need Xcode command line tools, if you haven't already, do so by:
 
