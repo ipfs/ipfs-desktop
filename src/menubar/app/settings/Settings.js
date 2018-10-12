@@ -2,10 +2,18 @@ import React from 'react'
 import { connect } from 'redux-bundler-react'
 import GeneralSettings from './GeneralSettings'
 import ConnectionSettings from './ConnectionSettings'
+import NewConnection from './NewConnection'
 
 const PAGES = {
   GENERAL: '/settings/general',
-  CONNECTIONS: '/settings/connections'
+  CONNECTIONS: '/settings/connections',
+  NEW_CONNECTION: '/settings/connections/new'
+}
+
+const PAGES_COMPONENTS = {
+  [PAGES.GENERAL]: GeneralSettings,
+  [PAGES.CONNECTIONS]: ConnectionSettings,
+  [PAGES.NEW_CONNECTION]: NewConnection
 }
 
 class Settings extends React.Component {
@@ -18,6 +26,7 @@ class Settings extends React.Component {
 
   render () {
     const { hash } = this.props
+    const Comp = PAGES_COMPONENTS[hash]
 
     return (
       <div className='f6'>
@@ -26,11 +35,7 @@ class Settings extends React.Component {
           {this.generateTab(PAGES.CONNECTIONS, 'Connections')}
         </div>
 
-        { hash === PAGES.GENERAL ? (
-          <GeneralSettings />
-        ) : (
-          <ConnectionSettings />
-        )}
+        <Comp />
       </div>
     )
   }

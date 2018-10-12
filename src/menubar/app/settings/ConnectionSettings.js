@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from '../components/button/Button'
-import Connection from './Connection'
+import Connection from './connection/Connection'
 import { connect } from 'redux-bundler-react'
 
 const ConnectionSettings = ({ currentConfig, doUpdateHash, settings: { configs, defaultConfig } }) => (
