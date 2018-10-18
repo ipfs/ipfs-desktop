@@ -20,16 +20,19 @@ const Running = connect(
 const NotRunningNoConfig = connect(
   'doUpdateHash',
   ({ doUpdateHash }) => (
-    <div className='tc f6 mt5'>
-      You haven't set up any configuration yet. <span className='link a'>Set up one now!</span>
+    <div className='pa3 tc f6'>
+      You haven't set up any configuration yet. <span onClick={() => doUpdateHash('/settings/connections/new')} className='link blue pointer'>Set up one now!</span>
     </div>
   )
 )
 
-const NotRunningSingle = () => (
-  <div>
-    Only one config, just run.
-  </div>
+const NotRunningSingle = connect(
+  'doUpdateHash',
+  ({ doUpdateHash }) => (
+    <div className='pa3 tc f6'>
+      Want to add more configurations? <span onClick={() => doUpdateHash('/settings/connections/new')} className='link blue pointer'>Go ahead!</span>
+    </div>
+  )
 )
 
 const NotRunningMultiple = () => (
