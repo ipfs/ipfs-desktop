@@ -28,7 +28,7 @@ const GeneralSettings = ({ doQuitApp, doOpenLogsDir, doSettingsToggle, settings 
         onClick={doOpenLogsDir}
         minWidth={0}
         className='w-50 mr1'
-        title='Quit IPFS Desktop'>Logs Folder</Button>
+        title='Open Logs'>Open Logs</Button>
       <Button
         onClick={doQuitApp}
         minWidth={0}

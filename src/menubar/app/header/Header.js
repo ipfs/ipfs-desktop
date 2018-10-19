@@ -22,7 +22,7 @@ export const Header = ({ doIpfsToggle, currentConfig, hash, doUpdateHash, ipfsIs
       backgroundRepeat: 'repeat'
     }}>
       <div className='flex items-center justify-between'>
-        <div className='montserrat f5 tc white normal'>IPFS Desktop</div>
+        <div className='montserrat f5 tc white normal'>{ hash !== '/' ? 'Settings' : 'IPFS Desktop' }</div>
 
         <div>
           <Button onClick={doIpfsToggle} on={ipfsIsRunning} title='Toggle IPFS Daemon'>

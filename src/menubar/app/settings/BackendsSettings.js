@@ -3,7 +3,7 @@ import Button from '../components/button/Button'
 import Connection from './connection/Connection'
 import { connect } from 'redux-bundler-react'
 
-const ConnectionSettings = ({ currentConfig, doUpdateHash, settings: { configs, defaultConfig } }) => (
+const BackendsSettings = ({ currentConfig, doUpdateHash, settings: { configs, defaultConfig } }) => (
   <div className='pa2'>
     { Object.keys(configs).map(k => {
       return <Connection
@@ -15,10 +15,10 @@ const ConnectionSettings = ({ currentConfig, doUpdateHash, settings: { configs, 
 
     <div className='flex mt2'>
       <Button
-        onClick={() => doUpdateHash('/settings/connections/new')}
+        onClick={() => doUpdateHash('/settings/backends/new')}
         minWidth={0}
         className='w-100 mr1'
-        title='New Connection'>New Connection</Button>
+        title='New Backend'>New Backend</Button>
     </div>
   </div>
 )
@@ -27,5 +27,5 @@ export default connect(
   'selectCurrentConfig',
   'selectSettings',
   'doUpdateHash',
-  ConnectionSettings
+  BackendsSettings
 )

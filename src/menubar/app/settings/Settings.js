@@ -1,19 +1,19 @@
 import React from 'react'
 import { connect } from 'redux-bundler-react'
 import GeneralSettings from './GeneralSettings'
-import ConnectionSettings from './ConnectionSettings'
-import NewConnection from './NewConnection'
+import BackendsSettings from './BackendsSettings'
+import NewBackend from './NewBackend'
 
 const PAGES = {
   GENERAL: '/settings/general',
-  CONNECTIONS: '/settings/connections',
-  NEW_CONNECTION: '/settings/connections/new'
+  BACKENDS: '/settings/backends',
+  NEW_BACKEND: '/settings/backends/new'
 }
 
 const PAGES_COMPONENTS = {
   [PAGES.GENERAL]: GeneralSettings,
-  [PAGES.CONNECTIONS]: ConnectionSettings,
-  [PAGES.NEW_CONNECTION]: NewConnection
+  [PAGES.BACKENDS]: BackendsSettings,
+  [PAGES.NEW_BACKEND]: NewBackend
 }
 
 class Settings extends React.Component {
@@ -32,7 +32,7 @@ class Settings extends React.Component {
       <div className='f6'>
         <div className='flex'>
           {this.generateTab(PAGES.GENERAL, 'General')}
-          {this.generateTab(PAGES.CONNECTIONS, 'Connections')}
+          {this.generateTab(PAGES.BACKENDS, 'Backends')}
         </div>
 
         <Comp />

@@ -4,8 +4,8 @@ import Settings from '../settings/Settings'
 
 export default createRouteBundle({
   '/settings/general': Settings,
-  '/settings/connections': Settings,
-  '/settings/connections/new': Settings,
+  '/settings/backends': Settings,
+  '/settings/backends/new': Settings,
   '/': Home,
   '': Home
 }, { routeInfoSelector: 'selectHash' })

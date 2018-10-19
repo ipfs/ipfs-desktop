@@ -46,7 +46,7 @@ export class NewConnnection extends React.Component {
   }
 
   cancel () {
-    this.props.doUpdateHash('/settings/connections')
+    this.props.doUpdateHash('/settings/backends')
   }
 
   render () {

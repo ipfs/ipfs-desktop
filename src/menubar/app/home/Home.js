@@ -21,7 +21,7 @@ const NotRunningNoConfig = connect(
   'doUpdateHash',
   ({ doUpdateHash }) => (
     <div className='pa3 tc f6'>
-      You haven't set up any configuration yet. <span onClick={() => doUpdateHash('/settings/connections/new')} className='link blue pointer'>Set up one now!</span>
+      You haven't set up any configuration yet. <span onClick={() => doUpdateHash('/settings/backends/new')} className='link blue pointer'>Set up one now!</span>
     </div>
   )
 )
@@ -30,7 +30,7 @@ const NotRunningSingle = connect(
   'doUpdateHash',
   ({ doUpdateHash }) => (
     <div className='pa3 tc f6'>
-      Want to add more configurations? <span onClick={() => doUpdateHash('/settings/connections/new')} className='link blue pointer'>Go ahead!</span>
+      Want to add more configurations? <span onClick={() => doUpdateHash('/settings/backends/new')} className='link blue pointer'>Go ahead!</span>
     </div>
   )
 )
