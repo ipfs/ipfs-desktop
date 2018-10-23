@@ -1,6 +1,8 @@
 import { app, dialog } from 'electron'
-import { store } from './utils'
-import menubar from './menubar'
+import { store, Connection, ConnectionManager } from './utils'
+import menubarWindow from './windows/menubar'
+import settingsWindow from './windows/settings'
+import registerHooks from './hooks'
 
 // Only one instance can run at a time
 if (!app.requestSingleInstanceLock()) {
@@ -13,9 +15,42 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
 
+async function setupConnectionManager () {
+  const configs = store.get('configs')
+  const defaultConfig = store.get('defaultConfig')
+  const connManager = new ConnectionManager()
+
+  for (const id of Object.keys(configs)) {
+    const conn = new Connection(configs[id], id)
+
+    if (!conn.justApi) {
+      await conn.init()
+    }
+
+    connManager.addConnection(conn)
+  }
+
+  if (defaultConfig) {
+    connManager.connect(defaultConfig)
+  }
+
+  return connManager
+}
+
 async function run () {
   await app.whenReady()
-  await menubar()
+
+  // Initial options object
+  let opts = {
+    connManager: await setupConnectionManager()
+  }
+
+  // Initialize windows. These can add properties to opts
+  await settingsWindow(opts)
+  await menubarWindow(opts)
+
+  // Register hooks
+  registerHooks(opts)
 
   if (!store.get('seenWelcome')) {
     // TODO: open WebUI on Welcome screen

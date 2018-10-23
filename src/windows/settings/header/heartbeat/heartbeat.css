@@ -1,0 +1,29 @@
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  5% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 1.05em rgba(95, 203, 207, 0.5));
+  }
+  10% {
+    transform: scale(1.025);
+    filter: drop-shadow(0 0 1.025em rgba(95, 203, 207, 0.25));
+  }
+  15% {
+    transform: scale(1.075);
+    filter: drop-shadow(0 0 1.075em rgba(95, 203, 207, 0.5));
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.heartbeat {
+  animation-name: heartbeat;
+  animation-iteration-count: infinite;
+  animation-duration: 2.5s;
+}

@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron'
 import { Connection, logger, logo, store } from '../utils'
 
-const changeConfiguration = ({ connManager, send }) => async (_, id, opts, makeDefault) => {
+const changeConfiguration = ({ connManager, menubarWindow: { send } }) => async (_, id, opts, makeDefault) => {
   try {
     logger.info('Adding/changing configuration %o', opts)
     const conn = new Connection(opts, id)
@@ -26,7 +26,7 @@ const changeConfiguration = ({ connManager, send }) => async (_, id, opts, makeD
   }
 }
 
-const removeConfiguration = ({ connManager, send }) => async (_, id) => {
+const removeConfiguration = ({ connManager, menubarWindow: { send } }) => async (_, id) => {
   try {
     logger.info(`Removing configuration ${id}`)
     await connManager.removeConnection(id)
@@ -44,7 +44,7 @@ const removeConfiguration = ({ connManager, send }) => async (_, id) => {
   }
 }
 
-const stopIpfs = ({ connManager, send }) => async () => {
+const stopIpfs = ({ connManager, menubarWindow: { send } }) => async () => {
   try {
     await connManager.disconnect()
   } catch (e) {
@@ -53,7 +53,7 @@ const stopIpfs = ({ connManager, send }) => async () => {
   }
 }
 
-const startIpfs = ({ connManager, send }) => async (_, id) => {
+const startIpfs = ({ connManager, menubarWindow: { send } }) => async (_, id) => {
   try {
     await connManager.connect(id)
   } catch (e) {
@@ -62,7 +62,7 @@ const startIpfs = ({ connManager, send }) => async (_, id) => {
   }
 }
 
-const ipfsState = ({ connManager, send }) => async () => {
+const ipfsState = ({ connManager, menubarWindow: { send } }) => async () => {
   if (connManager.running) {
     send('ipfs.started', connManager.currentId, (await connManager.api.id()), {
       api: await connManager.apiAddress(),
@@ -73,7 +73,7 @@ const ipfsState = ({ connManager, send }) => async () => {
   }
 }
 
-const getPeers = ({ send, connManager }) => async () => {
+const getPeers = ({ menubarWindow: { send }, connManager }) => async () => {
   if (connManager.running) {
     const peers = await connManager.api.swarm.peers()
     send('peersCount', peers.length)
@@ -83,7 +83,7 @@ const getPeers = ({ send, connManager }) => async () => {
 }
 
 export default function (opts) {
-  const { connManager, menubar } = opts
+  const { connManager, menubarWindow } = opts
 
   ipcMain.on('config.ipfs.changed', changeConfiguration(opts))
   ipcMain.on('config.ipfs.remove', removeConfiguration(opts))
@@ -93,12 +93,12 @@ export default function (opts) {
 
   connManager.on('started', () => {
     ipfsState(opts)()
-    menubar.tray.setImage(logo('ice'))
+    menubarWindow.it.tray.setImage(logo('ice'))
   })
 
   connManager.on('stopped', () => {
     ipfsState(opts)()
-    menubar.tray.setImage(logo('black'))
+    menubarWindow.it.tray.setImage(logo('black'))
   })
 
   setInterval(getPeers(opts), 5000)
