@@ -1,7 +1,6 @@
 import { app, dialog } from 'electron'
 import { store, Connection, ConnectionManager } from './utils'
-import menubarWindow from './windows/menubar'
-import settingsWindow from './windows/settings'
+import startupWindows from './windows'
 import registerHooks from './hooks'
 
 // Only one instance can run at a time
@@ -46,8 +45,7 @@ async function run () {
   }
 
   // Initialize windows. These can add properties to opts
-  await settingsWindow(opts)
-  await menubarWindow(opts)
+  await startupWindows(opts)
 
   // Register hooks
   registerHooks(opts)
