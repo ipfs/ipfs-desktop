@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'redux-bundler-react'
 import Heartbeat from '../common/components/heartbeat/Heartbeat'
+import GlyphPower from '../../icons/GlyphPower'
 import StrokeMarketing from '../../icons/StrokeMarketing'
 import StrokeWeb from '../../icons/StrokeWeb'
 import StrokeCube from '../../icons/StrokeCube'
@@ -20,15 +21,22 @@ const NavLink = connect(
   )
 )
 
+const Button = ({ children, on, ...props }) => (
+  <button
+    style={{ outline: 0 }}
+    className={`pa0 ma0 dib bn bg-transparent pointer transition-all fill-${on ? 'aqua' : 'gray'} hover-fill-snow`}
+    {...props} >
+    {children}
+  </button>
+)
+
 class Menubar extends React.Component {
   componentDidMount () {
     this.props.doIpfsStartListening()
   }
 
   render () {
-    const { ipfsIsRunning, currentConfig } = this.props
-
-    console.log(currentConfig)
+    const { ipfsIsRunning, doIpfsToggle, currentConfig } = this.props
 
     return (
       <div className='bg-navy sans-serif h-100'>
@@ -38,13 +46,17 @@ class Menubar extends React.Component {
               size={40}
               type={ipfsIsRunning && currentConfig.id.agentVersion.includes('js') ? 'js' : 'go'}
               online={ipfsIsRunning} />
-            <div className='montserrat f3 ml2 white'>IPFS</div>
+            <div className='montserrat f3 ml2 white' style={{ marginRight: 'auto' }}>IPFS</div>
+
+            <Button onClick={doIpfsToggle} on={ipfsIsRunning} title='Toggle IPFS Daemon'>
+              <GlyphPower className='w2 h2' />
+            </Button>
           </div>
         </div>
 
         <div>
           <NavLink to='/' exact icon={StrokeMarketing}>Status</NavLink>
-          <NavLink to='/files/' icon={StrokeWeb} info='2.0GB'>Files</NavLink>
+          <NavLink to='/files/' icon={StrokeWeb} info={currentConfig && '2.0GB'}>Files</NavLink>
           <NavLink to='/explore' icon={StrokeIpld}>Explore</NavLink>
           <NavLink to='/peers' icon={StrokeCube} info={currentConfig && currentConfig.peers}>Peers</NavLink>
           <NavLink to='/settings' icon={StrokeSettings}>Settings</NavLink>
@@ -55,6 +67,7 @@ class Menubar extends React.Component {
 }
 
 export default connect(
+  'doIpfsToggle',
   'doIpfsStartListening',
   'selectIpfsIsRunning',
   'selectCurrentConfig',
