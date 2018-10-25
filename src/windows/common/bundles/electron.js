@@ -11,8 +11,8 @@ export default {
     ipcRenderer.send('app.quit')
   },
 
-  doOpenWebUI: () => async () => {
-    ipcRenderer.send('launchWebUI')
+  doOpenWebUI: (url) => async () => {
+    ipcRenderer.send('launchWebUI', url)
   },
 
   doOpenSettings: () => async () => {

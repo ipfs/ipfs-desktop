@@ -3,14 +3,3 @@
 @import "./components/button/Button.css";
 @import "./components/checkbox/Checkbox.css";
 @import "./components/heartbeat/heartbeat.css";
-
-::-webkit-scrollbar {
-  background-color: transparent;
-  width: .25em;
-}
-
-::-webkit-scrollbar-thumb:window-inactive,
-::-webkit-scrollbar-thumb {
-  background: #eee;
-  border-radius: 0;
-}

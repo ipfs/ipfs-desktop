@@ -1,9 +1,24 @@
 import React from 'react'
 import { connect } from 'redux-bundler-react'
-import Header from './header/Header'
+import Heartbeat from '../common/components/heartbeat/Heartbeat'
+import StrokeMarketing from '../../icons/StrokeMarketing'
+import StrokeWeb from '../../icons/StrokeWeb'
+import StrokeCube from '../../icons/StrokeCube'
+import StrokeSettings from '../../icons/StrokeSettings'
+import StrokeIpld from '../../icons/StrokeIpld'
 
-// TODO: show errors
-// TODO: add loading/thinkking state
+const NavLink = connect(
+  'doOpenWebUI',
+  ({ doOpenWebUI, to, info, icon: Svg, children }) => (
+    <a onClick={() => doOpenWebUI(to)} className='pointer pv2 ph3 flex white items-center f5 hover-bg-white-10'>
+      <Svg width='45' height='45' className='fill-current-color o-50' />
+      <span className='flex justify-between pl3 flex-grow-1'>
+        <span>{children}</span>
+        <span className='w-25 tc f6 b'>{ info }</span>
+      </span>
+    </a>
+  )
+)
 
 class Menubar extends React.Component {
   componentDidMount () {
@@ -11,14 +26,28 @@ class Menubar extends React.Component {
   }
 
   render () {
-    const { route: Page } = this.props
+    const { ipfsIsRunning, currentConfig } = this.props
+
+    console.log(currentConfig)
 
     return (
-      <div className='flex flex-column h-100 overflow-hidden sans-serif'>
-        <Header />
+      <div className='bg-navy sans-serif h-100'>
+        <div className='pa3 bw3 bb b--aqua'>
+          <div className='flex items-center'>
+            <Heartbeat
+              size={40}
+              type={ipfsIsRunning && currentConfig.id.agentVersion.includes('js') ? 'js' : 'go'}
+              online={ipfsIsRunning} />
+            <div className='montserrat f3 ml2 white'>IPFS</div>
+          </div>
+        </div>
 
-        <div className='overflow-auto'>
-          <Page />
+        <div>
+          <NavLink to='/' exact icon={StrokeMarketing}>Status</NavLink>
+          <NavLink to='/files/' icon={StrokeWeb} info='2.0GB'>Files</NavLink>
+          <NavLink to='/explore' icon={StrokeIpld}>Explore</NavLink>
+          <NavLink to='/peers' icon={StrokeCube} info={currentConfig && currentConfig.peers}>Peers</NavLink>
+          <NavLink to='/settings' icon={StrokeSettings}>Settings</NavLink>
         </div>
       </div>
     )
@@ -26,7 +55,8 @@ class Menubar extends React.Component {
 }
 
 export default connect(
-  'selectRoute',
   'doIpfsStartListening',
+  'selectIpfsIsRunning',
+  'selectCurrentConfig',
   Menubar
 )

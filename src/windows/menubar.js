@@ -14,7 +14,7 @@ export default async function (opts) {
         fullscreen: false,
         skipTaskbar: true,
         width: 280,
-        height: 350,
+        height: 385,
         backgroundColor: '#ffffff',
         webPreferences: {
           nodeIntegration: true

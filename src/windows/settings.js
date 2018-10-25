@@ -5,7 +5,7 @@ export default async function (opts) {
   return new Promise(resolve => {
     const window = new BrowserWindow({
       icon: logo('ice'),
-      show: false
+      show: true
     })
 
     window.loadURL(`file://${__dirname}/settings/index.html`)
@@ -33,8 +33,6 @@ export default async function (opts) {
       window.hide()
     })
 
-    window.once('ready-to-show', () => {
-      resolve()
-    })
+    resolve()
   })
 }
