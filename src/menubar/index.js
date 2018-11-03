@@ -31,10 +31,6 @@ export default async function (opts) {
       }
     }
 
-    if (process.env.NODE_ENV === 'development') {
-      menubar.window.setAlwaysOnTop(true)
-    }
-
     const ready = () => {
       logger.info('Menubar is ready')
       menubar.tray.setHighlightMode('always')
