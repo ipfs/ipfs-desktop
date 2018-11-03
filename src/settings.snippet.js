@@ -1,3 +1,5 @@
+// JUST A REFERENCE
+
 import { ipcRenderer } from 'electron'
 
 const defaultState = {

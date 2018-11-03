@@ -1,15 +1,15 @@
 import autoLaunch from './auto-launch'
 import downloadHash from './download-hash'
 import ipfs from './ipfs'
-import launchWebUI from './launch-webui'
+import webui from './webui'
 import openDataFolder from './open-data-folder'
 import takeScreenshot from './take-screenshot'
 
-export default function (opts) {
-  autoLaunch(opts)
-  downloadHash(opts)
-  ipfs(opts)
-  launchWebUI(opts)
-  openDataFolder(opts)
-  takeScreenshot(opts)
+export default async function (opts) {
+  await autoLaunch(opts)
+  await downloadHash(opts)
+  await ipfs(opts)
+  await webui(opts)
+  await openDataFolder(opts)
+  await takeScreenshot(opts)
 }

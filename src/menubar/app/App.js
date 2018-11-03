@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'redux-bundler-react'
-import Heartbeat from '../common/components/heartbeat/Heartbeat'
+import Heartbeat from './components/heartbeat/Heartbeat'
 import GlyphPower from '../../icons/GlyphPower'
 import StrokeMarketing from '../../icons/StrokeMarketing'
 import StrokeWeb from '../../icons/StrokeWeb'
@@ -36,7 +36,7 @@ class Menubar extends React.Component {
   }
 
   render () {
-    const { ipfsIsRunning, doIpfsToggle, currentConfig } = this.props
+    const { ipfsIsRunning, doQuitApp, currentConfig } = this.props
 
     return (
       <div className='bg-navy sans-serif h-100'>
@@ -48,7 +48,7 @@ class Menubar extends React.Component {
               online={ipfsIsRunning} />
             <div className='montserrat f3 ml2 white' style={{ marginRight: 'auto' }}>IPFS</div>
 
-            <Button onClick={doIpfsToggle} on={ipfsIsRunning} title='Toggle IPFS Daemon'>
+            <Button onClick={doQuitApp} on={ipfsIsRunning} title='Toggle IPFS Daemon'>
               <GlyphPower className='w2 h2' />
             </Button>
           </div>
@@ -67,7 +67,7 @@ class Menubar extends React.Component {
 }
 
 export default connect(
-  'doIpfsToggle',
+  'doQuitApp',
   'doIpfsStartListening',
   'selectIpfsIsRunning',
   'selectCurrentConfig',

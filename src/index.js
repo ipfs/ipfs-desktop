@@ -1,6 +1,6 @@
 import { app, dialog } from 'electron'
 import { store, Connection, ConnectionManager } from './utils'
-import startupWindows from './windows'
+import startupMenubar from './menubar'
 import registerHooks from './hooks'
 
 // Only one instance can run at a time
@@ -45,10 +45,10 @@ async function run () {
   }
 
   // Initialize windows. These can add properties to opts
-  await startupWindows(opts)
+  await startupMenubar(opts)
 
   // Register hooks
-  registerHooks(opts)
+  await registerHooks(opts)
 
   if (!store.get('seenWelcome')) {
     // TODO: open WebUI on Welcome screen

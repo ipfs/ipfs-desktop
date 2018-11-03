@@ -5,7 +5,7 @@ import { app, ipcMain } from 'electron'
 export default async function (opts) {
   return new Promise(resolve => {
     const menubar = new Menubar({
-      index: `file://${__dirname}/menubar/index.html`,
+      index: `file://${__dirname}/app/index.html`,
       icon: logo('black'),
       tooltip: 'Your IPFS instance',
       preloadWindow: true,
