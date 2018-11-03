@@ -1,20 +1,21 @@
 import { logo, logger } from '../../utils'
 import { join } from 'path'
-import { BrowserWindow, ipcMain } from 'electron'
+import { screen, BrowserWindow, ipcMain } from 'electron'
 import serve from 'electron-serve'
 
 serve({ scheme: 'webui', directory: `${__dirname}/app` })
 
 export default async function ({ connManager }) {
   const apiAddress = await connManager.apiAddress()
+  const dimensions = screen.getPrimaryDisplay()
 
   const window = new BrowserWindow({
     title: 'IPFS Desktop',
     icon: logo('ice'),
     show: false,
     autoHideMenuBar: true,
-    minWidth: 1100,
-    height: 690,
+    width: dimensions.width < 1440 ? dimensions.width : 1440,
+    height: dimensions.height < 900 ? dimensions.height : 900,
     webPreferences: {
       preload: join(__dirname, 'preload.js')
     }
