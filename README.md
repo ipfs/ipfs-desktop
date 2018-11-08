@@ -67,6 +67,9 @@ npm start
 
 The IPFS Desktop app will launch and should appear in your OS menu bar.
 
+If you've recently updated to High Sierra you may experience an issue with openssl that causes an error during the build.  
+You may find that [this](https://medium.com/@timmykko/using-openssl-library-with-macos-sierra-7807cfd47892) provides the solution you need. 
+
 ## Usage
 
 Click on the IPFS icon in the menubar to open the app.
