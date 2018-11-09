@@ -94,11 +94,13 @@ export default function (opts) {
   connManager.on('started', () => {
     ipfsState(opts)()
     menubarWindow.it.tray.setImage(logo('ice'))
+    menubarWindow.it.tray.setToolTip('IFPS running')
   })
 
   connManager.on('stopped', () => {
     ipfsState(opts)()
     menubarWindow.it.tray.setImage(logo('black'))
+    menubarWindow.it.tray.setToolTip('IFPS stopped')
   })
 
   setInterval(getPeers(opts), 5000)

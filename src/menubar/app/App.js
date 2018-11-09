@@ -10,8 +10,9 @@ import StrokeIpld from '../../icons/StrokeIpld'
 
 const NavLink = connect(
   'doOpenWebUI',
-  ({ doOpenWebUI, to, info, icon: Svg, children }) => (
-    <a onClick={() => doOpenWebUI(to)} className='pointer pv2 ph3 flex white items-center f5 hover-bg-white-10'>
+  ({ doOpenWebUI, to, info, icon: Svg, children, disabled }) => (
+    <a onClick={disabled ? null : () => doOpenWebUI(to)}
+      className={`${disabled ? 'o-50' : 'hover-bg-white-10 pointer'} pv2 ph3 flex white items-center f5`}>
       <Svg width='45' height='45' className='fill-current-color o-50' />
       <span className='flex justify-between pl3 flex-grow-1'>
         <span>{children}</span>
@@ -30,41 +31,31 @@ const Button = ({ children, on, ...props }) => (
   </button>
 )
 
-class Menubar extends React.Component {
-  componentDidMount () {
-    this.props.doIpfsStartListening()
-  }
+const Menubar = ({ ipfsIsRunning, doQuitApp, currentConfig }) => (
+  <div className='bg-navy sans-serif h-100'>
+    <div className='pa3 bw3 bb b--aqua'>
+      <div className='flex items-center'>
+        <Heartbeat
+          size={40}
+          type={ipfsIsRunning && currentConfig.id.agentVersion.includes('js') ? 'js' : 'go'}
+          online={ipfsIsRunning} />
+        <div className='montserrat f3 ml2 white' style={{ marginRight: 'auto' }}>IPFS</div>
 
-  render () {
-    const { ipfsIsRunning, doQuitApp, currentConfig } = this.props
-
-    return (
-      <div className='bg-navy sans-serif h-100'>
-        <div className='pa3 bw3 bb b--aqua'>
-          <div className='flex items-center'>
-            <Heartbeat
-              size={40}
-              type={ipfsIsRunning && currentConfig.id.agentVersion.includes('js') ? 'js' : 'go'}
-              online={ipfsIsRunning} />
-            <div className='montserrat f3 ml2 white' style={{ marginRight: 'auto' }}>IPFS</div>
-
-            <Button onClick={doQuitApp} on={ipfsIsRunning} title='Toggle IPFS Daemon'>
-              <GlyphPower className='w2 h2' />
-            </Button>
-          </div>
-        </div>
-
-        <div>
-          <NavLink to='/' exact icon={StrokeMarketing}>Status</NavLink>
-          <NavLink to='/files/' icon={StrokeWeb} info={currentConfig && '2.0GB'}>Files</NavLink>
-          <NavLink to='/explore' icon={StrokeIpld}>Explore</NavLink>
-          <NavLink to='/peers' icon={StrokeCube} info={currentConfig && currentConfig.peers}>Peers</NavLink>
-          <NavLink to='/settings' icon={StrokeSettings}>Settings</NavLink>
-        </div>
+        <Button onClick={doQuitApp} on={ipfsIsRunning} title='Toggle IPFS Daemon'>
+          <GlyphPower className='w2 h2' />
+        </Button>
       </div>
-    )
-  }
-}
+    </div>
+
+    <div>
+      <NavLink disabled={!ipfsIsRunning} to='/' exact icon={StrokeMarketing}>Status</NavLink>
+      <NavLink disabled={!ipfsIsRunning} to='/files/' icon={StrokeWeb} info={currentConfig && '2.0GB'}>Files</NavLink>
+      <NavLink disabled={!ipfsIsRunning} to='/explore' icon={StrokeIpld}>Explore</NavLink>
+      <NavLink disabled={!ipfsIsRunning} to='/peers' icon={StrokeCube} info={currentConfig && currentConfig.peers}>Peers</NavLink>
+      <NavLink disabled={!ipfsIsRunning} to='/settings' icon={StrokeSettings}>Settings</NavLink>
+    </div>
+  </div>
+)
 
 export default connect(
   'doQuitApp',

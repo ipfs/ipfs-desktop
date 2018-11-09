@@ -72,6 +72,10 @@ const bundle = {
     } else {
       ipcRenderer.send('ipfs.start')
     }
+  },
+
+  init: store => {
+    store.doIpfsStartListening()
   }
 }
 
