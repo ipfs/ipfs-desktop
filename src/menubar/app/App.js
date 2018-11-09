@@ -41,7 +41,7 @@ const Menubar = ({ ipfsIsRunning, doQuitApp, currentConfig }) => (
           online={ipfsIsRunning} />
         <div className='montserrat f3 ml2 white' style={{ marginRight: 'auto' }}>IPFS</div>
 
-        <Button onClick={doQuitApp} on={ipfsIsRunning} title='Toggle IPFS Daemon'>
+        <Button onClick={doQuitApp} on={ipfsIsRunning} title='Turn off IPFS Desktop'>
           <GlyphPower className='w2 h2' />
         </Button>
       </div>
