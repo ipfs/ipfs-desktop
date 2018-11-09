@@ -1,12 +1,11 @@
-import { logo, logger } from '../../utils'
+import { logo, logger, store } from '../../utils'
 import { join } from 'path'
 import { screen, BrowserWindow, ipcMain } from 'electron'
 import serve from 'electron-serve'
 
 serve({ scheme: 'webui', directory: `${__dirname}/app` })
 
-export default async function ({ connManager }) {
-  const apiAddress = await connManager.apiAddress()
+const createWindow = () => {
   const dimensions = screen.getPrimaryDisplay()
 
   const window = new BrowserWindow({
@@ -27,6 +26,14 @@ export default async function ({ connManager }) {
     logger.info('WebUI screen was hidden')
   })
 
+  return window
+}
+
+export default async function (opts) {
+  const apiAddress = await opts.connManager.apiAddress()
+  const window = createWindow()
+  opts.webUiWindow = window
+
   ipcMain.on('launchWebUI', (_, url) => {
     if (!window.webContents) return
     window.webContents.send('updatedPage', url)
@@ -40,12 +47,16 @@ export default async function ({ connManager }) {
     window.destroy()
   })
 
+  ipcMain.on('config.get', () => {
+    window.send('config.changed', store.store)
+  })
+
   return new Promise(resolve => {
     window.on('ready-to-show', () => {
       logger.info('WebUI window ready')
       resolve()
     })
 
-    window.loadURL(`webui://-?api=${apiAddress}#/`)
+    window.loadURL(`http://localhost:3000/?api=${apiAddress}#/`)
   })
 }
