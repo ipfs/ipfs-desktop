@@ -13,11 +13,17 @@ const createWindow = () => {
     icon: logo('ice'),
     show: false,
     autoHideMenuBar: true,
-    width: dimensions.width < 1440 ? dimensions.width : 1440,
-    height: dimensions.height < 900 ? dimensions.height : 900,
+    width: store.get('window.width', dimensions.width < 1440 ? dimensions.width : 1440),
+    height: store.get('window.height', dimensions.height < 900 ? dimensions.height : 900),
     webPreferences: {
       preload: join(__dirname, 'preload.js')
     }
+  })
+
+  window.on('resize', () => {
+    const dim = window.getSize()
+    store.set('window.width', dim[0])
+    store.set('window.height', dim[1])
   })
 
   window.once('close', (event) => {
