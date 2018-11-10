@@ -1,5 +1,6 @@
 import { app, dialog } from 'electron'
-import { store, Connection, ConnectionManager } from './utils'
+import { join } from 'path'
+import { store, Connection } from './utils'
 import startupMenubar from './menubar'
 import registerHooks from './hooks'
 
@@ -14,26 +15,37 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
 
-async function setupConnectionManager () {
-  const configs = store.get('configs')
-  const defaultConfig = store.get('defaultConfig')
-  const connManager = new ConnectionManager()
+/*
+$ ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["webui://-", "https://webui.ipfs.io"]'
+$ ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "GET", "POST"]'
+$ ipfs config --json API.HTTPHeaders.Access-Control-Allow-Credentials '[""]'
+*/
 
-  for (const id of Object.keys(configs)) {
-    const conn = new Connection(configs[id], id)
+async function setupConnection () {
+  let config = store.get('config')
 
-    if (!conn.justApi) {
-      await conn.init()
+  if (config === null) {
+    config = {
+      type: 'go',
+      path: join(app.getPath('home'), '.ipfs')
     }
 
-    connManager.addConnection(conn)
+    store.set('config', config)
   }
 
-  if (defaultConfig) {
-    connManager.connect(defaultConfig)
-  }
+  const conn = new Connection(config)
+  await conn.init()
+  await conn.start()
 
-  return connManager
+  let origins = await conn.api.config.get('API.HTTPHeaders.Access-Control-Allow-Origin') || []
+  if (!origins.includes('webui://-')) origins.push('webui://-')
+  if (!origins.includes('https://webui.ipfs.io')) origins.push('https://webui.ipfs.io')
+
+  await conn.api.config.set('API.HTTPHeaders.Access-Control-Allow-Origin', origins)
+  await conn.api.config.set('API.HTTPHeaders.Access-Control-Allow-Method', ['PUT', 'GET', 'POST'])
+  await conn.api.config.set('API.HTTPHeaders.Access-Control-Allow-Credentials', ['true'])
+
+  return conn
 }
 
 async function run () {
@@ -41,7 +53,7 @@ async function run () {
 
   // Initial options object
   let opts = {
-    connManager: await setupConnectionManager()
+    conn: await setupConnection()
   }
 
   // Initialize windows. These can add properties to opts

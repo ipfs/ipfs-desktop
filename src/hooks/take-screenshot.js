@@ -14,10 +14,10 @@ async function makeScreenshotDir (ipfs) {
 }
 
 function handleScreenshot (opts) {
-  let { connManager } = opts
+  let { conn } = opts
 
   return async (_, image) => {
-    const ipfs = connManager.api
+    const ipfs = conn.api
 
     if (!ipfs) {
       logger.info('Daemon not running. Aborting screenshot upload.')

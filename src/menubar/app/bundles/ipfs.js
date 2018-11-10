@@ -45,13 +45,11 @@ const bundle = {
 
   selectCurrentConfig: state => state.ipfs.current,
 
-  selectPreviousConfig: state => state.ipfs.prev,
-
   doIpfsStartListening: () => async ({ dispatch }) => {
-    ipcRenderer.on('ipfs.started', (_, configId, id, addresses) => {
+    ipcRenderer.on('ipfs.started', (_, id, addresses) => {
       dispatch({
         type: 'IPFS_STARTED',
-        payload: { configId, id, addresses, peers: 0 }
+        payload: { id, addresses, peers: 0 }
       })
     })
 

@@ -38,8 +38,7 @@ export default async function (opts) {
     }
 
     ipcMain.on('app.quit', async () => {
-      logger.info('Disconnecting all IPFS instances')
-      await opts.connManager.disconnectAll()
+      await opts.conn.stop()
       logger.info('Done. Quitting app')
       app.quit()
     })

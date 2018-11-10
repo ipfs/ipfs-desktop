@@ -2,13 +2,11 @@ import Store from 'electron-store'
 
 const store = new Store()
 
-if (store.get('version') !== 3) {
-  // migrate data to v3 - the brand new version where we start from fresh!
+if (store.get('version') !== 4) {
   store.clear()
   store.set('seenWelcome', false)
-  store.set('configs', {})
-  store.set('defaultConfig', null)
-  store.set('version', 3)
+  store.set('config', null)
+  store.set('version', 4)
 }
 
 export default store

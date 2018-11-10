@@ -36,7 +36,7 @@ const createWindow = () => {
 }
 
 export default async function (opts) {
-  const apiAddress = await opts.connManager.apiAddress()
+  const apiAddress = await opts.conn.apiAddress()
   const window = createWindow()
   opts.webUiWindow = window
 
