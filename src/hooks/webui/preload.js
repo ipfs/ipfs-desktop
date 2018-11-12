@@ -5,7 +5,7 @@ ipcRenderer.on('updatedPage', (_, url) => {
 })
 
 window.ipfsDesktop = {
-  name: 'ipfsDesktop',
+  name: 'ipfs-desktop',
 
   reducer: (state = {}, action) => {
     if (!action.type.startsWith('DESKTOP_')) {
