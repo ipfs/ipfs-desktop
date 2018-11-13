@@ -9,7 +9,7 @@
     "start": "cross-env NODE_ENV=development electron -r @babel/register src/index.js",
     "lint": "standard",
     "postinstall": "electron-builder install-app-deps",
-    "clean:webui": "rm -rf src/windows/webui/app/",
+    "clean:webui": "shx rm -rf src/windows/webui/app/",
     "build": "run-s build:*",
     "build:webui": "cross-env CID=QmZqJ4k1cTbvKuySbR9gReGJjZbJpnmPvEWJs1Kgy4Ma7s npm run build:webui:with-cid",
     "build:webui:with-cid": "cross-env-shell \"shx test -d src/windows/webui/app/ || (npm run build:webui:dir && (npm run build:webui:fetch-ipfs || npm run build:webui:fetch-http) && npm run build:webui:minimize)\"",
