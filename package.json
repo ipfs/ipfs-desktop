@@ -18,7 +18,7 @@
     "build:webui:fetch-http": "cross-env-shell \"node scripts/fetch-webui-from-gateway.js $CID src/windows/webui/app/\"",
     "build:webui:minimize": "shx rm -rf src/windows/webui/app/static/js/*.map && shx rm -rf src/windows/webui/app/static/css/*.map",
     "build:icons": "svgr -d src/icons node_modules/ipfs-css/icons && standard --fix src/icons/*.js",
-    "build:babel": "babel src --out-dir out --copy-files",
+    "build:babel": "babel src --ignore src/hooks/webui/app --out-dir out --copy-files",
     "build:binaries": "electron-builder -p never"
   },
   "pre-commit": [

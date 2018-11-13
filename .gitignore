@@ -4,4 +4,3 @@ dist
 .cache
 config.gypi
 src/hooks/webui/app
-src/windows/webui/app
