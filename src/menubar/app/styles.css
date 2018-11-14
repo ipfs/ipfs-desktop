@@ -1,5 +1,3 @@
 @import "../../../node_modules/tachyons/css/tachyons.css";
 @import "../../../node_modules/ipfs-css/ipfs.css";
-@import "./components/button/Button.css";
-@import "./components/checkbox/Checkbox.css";
 @import "./components/heartbeat/heartbeat.css";

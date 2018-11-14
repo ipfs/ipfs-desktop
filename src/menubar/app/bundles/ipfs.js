@@ -56,10 +56,10 @@ const bundle = {
   selectCurrentConfig: state => state.ipfs.current,
 
   doIpfsStartListening: () => async ({ dispatch }) => {
-    ipcRenderer.on('ipfs.started', (_, id, addresses) => {
+    ipcRenderer.on('ipfs.started', (_, id) => {
       dispatch({
         type: 'IPFS_STARTED',
-        payload: { id, addresses, peers: 0 }
+        payload: { id, peers: 0, repoSize: 'N/A' }
       })
     })
 

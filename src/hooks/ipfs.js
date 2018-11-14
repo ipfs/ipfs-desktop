@@ -1,12 +1,13 @@
 import { ipcMain } from 'electron'
 import filesize from 'filesize'
 
-const ipfsState = ({ ipfsd, menubarWindow: { send } }) => async () => {
+const ipfsState = (ctx) => async () => {
+  const { ipfsd, menubarWindow: { send } } = ctx
+
   if (ipfsd.started) {
-    send('ipfs.started', (await ipfsd.api.id()), {
-      api: ipfsd.apiAddr,
-      gateway: ipfsd.gatewayAddr
-    })
+    send('ipfs.started', (await ipfsd.api.id()))
+    getPeers(ctx)()
+    getRepoSize(ctx)()
   } else {
     send('ipfs.stopped')
   }
@@ -35,6 +36,6 @@ export default function (ctx) {
   ipcMain.on('ipfs.running', ipfsState(ctx))
   ipfsState(ctx)()
 
-  setInterval(getPeers(ctx), 5000)
-  setInterval(getRepoSize(ctx), 5000)
+  setInterval(getPeers(ctx), 30 * 1000)
+  setInterval(getRepoSize(ctx), 60 * 60 * 1000)
 }
