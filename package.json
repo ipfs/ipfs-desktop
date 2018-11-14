@@ -8,7 +8,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development electron -r @babel/register src/index.js",
     "lint": "standard",
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall": "run-s install-app-deps build:webui build:icons",
+    "install-app-deps": "electron-builder install-app-deps",
     "clean:webui": "shx rm -rf src/hooks/webui/app/",
     "build": "run-s build:*",
     "build:webui": "cross-env CID=QmZqJ4k1cTbvKuySbR9gReGJjZbJpnmPvEWJs1Kgy4Ma7s npm run build:webui:with-cid",
