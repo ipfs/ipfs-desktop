@@ -5,39 +5,16 @@ ipcRenderer.on('updatedPage', (_, url) => {
 })
 
 window.ipfsDesktop = {
-  name: 'ipfsDesktop',
-
-  reducer: (state = {}, action) => {
-    if (!action.type.startsWith('DESKTOP_')) {
-      return state
-    }
-
-    if (action.type === 'DESKTOP_SETTINGS_CHANGED') {
-      return action.payload
-    }
-
-    return state
-  },
-
-  selectDesktopSettings: state => state.ipfsDesktop,
-
-  doDesktopStartListening: () => async ({ dispatch }) => {
+  onConfigChanged: (listener) => {
     ipcRenderer.on('config.changed', (_, config) => {
-      dispatch({
-        type: 'DESKTOP_SETTINGS_CHANGED',
-        payload: config
-      })
+      listener(config)
     })
 
     ipcRenderer.send('config.get')
   },
 
-  doDesktopSettingsToggle: (setting) => async () => {
+  toggleSetting: (setting) => {
     ipcRenderer.send('config.toggle', setting)
-  },
-
-  init: store => {
-    store.doDesktopStartListening()
   }
 }
 
