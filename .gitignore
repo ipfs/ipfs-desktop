@@ -4,3 +4,4 @@ dist
 .cache
 config.gypi
 src/hooks/webui/app
+src/icons/*.js
