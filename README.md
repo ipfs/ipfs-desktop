@@ -4,44 +4,29 @@
 >
 > You don't need the command line to run an IPFS node. Just install IPFS Desktop and have all the power of IPFS in your hands. Powered by [Web UI](https://github.com/ipfs-shipyard/ipfs-webui).
 
+![IPFS Desktop](https://user-images.githubusercontent.com/5447088/48506134-a8106d80-e840-11e8-94bf-2108f2354dd1.png)
+
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
 [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 [![](https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/ipfs-desktop)
 
-IPFS Desktop allows you to run your IPFS node on your machine without having to bother with command line tools. You can manage your node, add your files, easily change the settings... [everything](#features) from just one interface.
+IPFS Desktop allows you to run your IFPS Node on your machine without having to bother with command line tools. With it, you the power of [Web UI](https://github.com/ipfs-shipyard/ipfs-webui) on tip of your hands plus a handful of shortcuts you can find on settings.
 
 ## Table of Contents
 
 - [Install](#install)
 - [Usage](#usage)
-- [Features](#features)
-- [Developer Guide](#developer-guide)
 - [Contribute](#contribute)
 
-## Install a Release
+## Install
 
-### Go to the [*latest release*](https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest) page and download IPFS Desktop for your OS.
-
-
-Note for **Debian** and **Ubuntu** users: starting with apt 1.1 (Ubuntu 16.04, Debian Stretch) `apt install` allows local files:
-  ```
-  sudo apt install ./ipfs-desktop*.deb
-  ```
+Go to the [*latest release*](https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest) page and download IPFS Desktop for your OS.
 
 ### Install from Source
 
-If you're interested in developing IPFS Desktop, you can also install it from source...
-
-You will need [Node.js](https://nodejs.org/en/) `>=6.0.0` and
-need [npm](npmjs.org) `>=3.0` installed.
-
-On macOS you may also need Xcode command line tools, if you haven't already, do so by:
-
-```bash
-xcode-select --install
-sudo xcode-select --switch /Library/Developer/CommandLineTools
-```
+To install it from source you need [Node.js](https://nodejs.org/en/) `>=10.4.0` and
+need [npm](npmjs.org) `>=6.1.0` installed. This uses [`node-gyp`](https://github.com/nodejs/node-gyp) so **you must take a look** at their [platform specific dependencies](https://github.com/nodejs/node-gyp#installation).
 
 Then the follow the steps below to clone the source code, install the dependancies and run it the app:
 
@@ -53,114 +38,6 @@ npm start
 ```
 
 The IPFS Desktop app will launch and should appear in your OS menu bar.
-
-## Usage
-
-Click on the IPFS icon in the menubar to open the app.
-
-| See IPFS Node Info | Share Files |
-|:---:|:---:|
-| ![](https://ipfs.io/ipfs/QmPBMMG4HUB1U1kLfwWvr6zQhGMcuvWYtGEFeTqBjG2jxW) | ![](https://ipfs.io/ipfs/QmSL8L5kMevXWDZguBwiwDVsQX6qkRFt1yTCDdnA1LmyR9) |
-
-| | See connected Peers |
-|:---:|:---:|
-| | ![](https://ipfs.io/ipfs/QmW1SWU1aALf8sqSvEFGUtzK8oqX9BGNA6r4bzS8MPg94B) |
-
-## Features
-
-| Stats and Information | Files                   | Other                           |
-|-----------------------|-------------------------|---------------------------------|
-| Peer ID               | Add by drag'n'drop      | Easy access to the WebUI        |
-| Location              | Add entire directories  | Easy access to Node Settings    |
-| Addresses             | Delete files            | Optional launch on startup      |
-| Public Key            | Copy and share links    | Auto add screenshots            |
-| Repository Size       |                         | Download copied hash            |
-| Bandwidth Usage       |                         | 
-| Down/Up Speeds        |                         |
-| Peers                 |                         |
-
-## Developer Guide
-
-### File Structure
-
-All of the important files of this application are into `src` folder, which can be seen as the following tree:
-
-```
-├───controls
-├───fonts             Static font files.
-├───img               Static image assets.
-├───js
-│   ├───components
-│   │   ├───logic     Reusable and stateful components. They have 'state' to track.
-│   │   └───view      Reusable and stateless components. They are written as stateless functional components.
-│   |───panes         A pane is a larger component to be used within screens.
-|   └───screens       A screen is the everything visible at a given point in time inside a single window.
-├───styles            Stylesheets in LESS format.
-├───utils             Utilitarian classes and functions.
-|───views             HTML view files.
-└───index.js          Main entry point of the application.
-```
-
-### How to add an new pane
-
-Start by creating a new file inside `./src/js/panes` with the following bootstrap content. For more information about each piece, take a look at the [`Header`](./src/js/components/view/header.js) and [`Footer`](./src/js/components/view/footer.js) components.
-
-```js
-import React from 'react'
-
-import Pane from '../components/view/pane'
-import Header from '../components/view/header'
-import Footer from '../components/view/footer'
-
-export default function MyPane {
-    return (
-      <Pane>
-        <Header title='The title of your pane' />
-
-        <div className='main'>
-          <p>The body of your pane</p>
-        </div>
-
-        <Footer>
-          <p>The footer of your pane</p>
-        </Footer>
-      </Pane>
-    )
-  }
-}
-```
-
-Then, you'll have to import the file and create an entry on `panes` array on [`./src/js/screens/menu.js`](./src/js/components/view/icon.js) with a content similar to this one:
-
-```
-{
-  id: 'my-pane-id',       // A simple slug to identify your pane.
-  title: 'Title',         // To be shown in the menu.
-  icon: 'ipfs'            // A themify icon ID (themify.me/themify-icons)
-}
-```
-
-Now, you already have your pane created and its menu entry. Although, it you click on it, you'll probably get an error message since you aren't really routing that path to it. On the same file, go to `_getRouteScreen` function, and add a `case` for your pane on the `switch`. The value must be the same as the `id` you put on the menu entry.
-
-### Components
-
-The components are classes exported with CamelCase names. The corresponding files have the associated class name with hyphen-separated-words. So, e.g., `simple-stat.js` exports a class named `SimpleStat`.
-
-#### [Stateless Components](./src/js/components/view)
-
-+ [**Button**](./src/js/components/view/button.js) is a simple button with text.
-+ [**CheckboxBlock**](./src/js/components/view/checkbox-block.js) is like an `InfoBlock`, but with a checkbox attached to it.
-+ [**FileBlock**](./src/js/components/view/file-block.js) is used within a file list to describe a file with a button to copy its link.
-+ [**Footer**](./src/js/components/view/footer.js) is the footer of a pane.
-+ [**Header**](./src/js/components/view/header.js) is the header of a pane.
-+ [**Heartbeat**](./src/js/components/view/heartbeat.js) displays an heartbeat-like animation with the IPFS logo.
-+ [**IconButton**](./src/js/components/view/icon-button.js) is a button with an icon inside.
-+ [**IconDropdownList**](./src/js/components/view/icon-dropdown-list.js) is a dropdown list with an icon.
-+ [**Icon**](./src/js/components/view/icon.js) shows an icon.
-+ [**InfoBlock**](./src/js/components/view/info-block.js) shows a block of information (used on node info pane).
-+ [**KeyCombo**](./src/js/components/view/key-combo.js) is a key combination.
-+ [**Key**](./src/js/components/view/key.js) is a key.
-+ [**MenuOption**](./src/js/components/view/menu-option.js) is a menu option to show within a menu bar.
 
 ## Contribute
 
