@@ -38,6 +38,16 @@ const bundle = {
       }
     }
 
+    if (action.type === 'IPFS_REPO_SIZE' && state.current !== null) {
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          repoSize: action.payload
+        }
+      }
+    }
+
     return state
   },
 
@@ -59,6 +69,10 @@ const bundle = {
 
     ipcRenderer.on('peersCount', (_, count) => {
       dispatch({ type: 'IPFS_PEERS', payload: count })
+    })
+
+    ipcRenderer.on('repoSize', (_, size) => {
+      dispatch({ type: 'IPFS_REPO_SIZE', payload: size })
     })
 
     ipcRenderer.send('ipfs.running')

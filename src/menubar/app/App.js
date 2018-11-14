@@ -49,7 +49,7 @@ const Menubar = ({ ipfsIsRunning, doQuitApp, currentConfig }) => (
 
     <div>
       <NavLink disabled={!ipfsIsRunning} to='/' exact icon={StrokeMarketing}>Status</NavLink>
-      <NavLink disabled={!ipfsIsRunning} to='/files/' icon={StrokeWeb} info={currentConfig && '2.0GB'}>Files</NavLink>
+      <NavLink disabled={!ipfsIsRunning} to='/files/' icon={StrokeWeb} info={currentConfig && currentConfig.repoSize}>Files</NavLink>
       <NavLink disabled={!ipfsIsRunning} to='/explore' icon={StrokeIpld}>Explore</NavLink>
       <NavLink disabled={!ipfsIsRunning} to='/peers' icon={StrokeCube} info={currentConfig && currentConfig.peers}>Peers</NavLink>
       <NavLink disabled={!ipfsIsRunning} to='/settings' icon={StrokeSettings}>Settings</NavLink>

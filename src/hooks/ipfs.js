@@ -1,4 +1,5 @@
 import { ipcMain } from 'electron'
+import filesize from 'filesize'
 import { logger, logo } from '../utils'
 
 const stopIpfs = ({ conn, menubarWindow: { send } }) => async () => {
@@ -39,6 +40,16 @@ const getPeers = ({ menubarWindow: { send }, conn }) => async () => {
   }
 }
 
+const getRepoSize = ({ menubarWindow: { send }, conn }) => async () => {
+  if (conn.running) {
+    const stats = await conn.api.repo.stat()
+    const size = stats.repoSize.toFixed(0)
+    send('repoSize', filesize(size, { round: 0 }))
+  } else {
+    send('repoSize', null)
+  }
+}
+
 export default function (opts) {
   const { conn, menubarWindow } = opts
 
@@ -63,4 +74,5 @@ export default function (opts) {
   conn.on('stopped', onStopped)
 
   setInterval(getPeers(opts), 5000)
+  setInterval(getRepoSize(opts), 5000)
 }
