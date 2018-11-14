@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>IPFS Desktop</title>
+    <meta charset='utf-8'/>
+    <link rel="stylesheet" href="./styles.css" type="text/css" >
+  </head>
+  <body>
+    <div id='root'></div>
+    <script>
+      try {
+        require('@babel/register')
+      } catch (_) {
+        console.log('Running in packaged application.')
+      }
+
+      require('./index')
+    </script>
+  </body>
+</html>

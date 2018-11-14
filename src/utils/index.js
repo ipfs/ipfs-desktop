@@ -1,17 +1,11 @@
-import path from 'path'
-import os from 'os'
+import createDaemon from './daemon'
+import logo from './logo'
 import store from './store'
 import logger from './logger'
-import getIpfs from './ipfs'
 
-export function logo (color) {
-  const p = path.resolve(path.join(__dirname, '../img'))
-
-  if (os.platform() === 'darwin') {
-    return path.join(p, `icons/${color}.png`)
-  }
-
-  return path.join(p, `ipfs-logo-${color}.png`)
+export {
+  createDaemon,
+  logo,
+  store,
+  logger
 }
-
-export {store, logger, getIpfs}

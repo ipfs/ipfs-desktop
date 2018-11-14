@@ -1,12 +1,9 @@
-{ 
-  "env": {
-    "test": {
-      "plugins": [ "istanbul" ]
-    }
-  },
+{
   "presets": [
-    "env",
-    "stage-2",
-    "react"
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime"
   ]
 }

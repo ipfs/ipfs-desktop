@@ -1,13 +1,7 @@
 node_modules
-build
-release
 out
-*.log
-*.lock
-package-lock.json
 dist
-*.zip
-coverage
-.nyc_output
-coverage.lcov
 .cache
+config.gypi
+src/hooks/webui/app
+src/icons/*.js
