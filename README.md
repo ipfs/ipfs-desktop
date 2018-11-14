@@ -185,4 +185,4 @@ This repository falls under the IPFS [Code of Conduct](https://github.com/ipfs/c
 
 ## License
 
-[MIT 2016 Protocol Labs, Inc.](./LICENSE)
+[MIT Protocol Labs, Inc.](./LICENSE)
