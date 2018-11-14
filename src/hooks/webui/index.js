@@ -26,7 +26,7 @@ const createWindow = () => {
     store.set('window.height', dim[1])
   })
 
-  window.once('close', (event) => {
+  window.on('close', (event) => {
     event.preventDefault()
     window.hide()
     logger.info('WebUI screen was hidden')
@@ -41,7 +41,6 @@ export default async function (ctx) {
   ctx.webUiWindow = window
 
   ipcMain.on('launchWebUI', (_, url) => {
-    if (!window.webContents) return
     window.webContents.send('updatedPage', url)
     window.show()
     window.focus()
@@ -54,7 +53,7 @@ export default async function (ctx) {
   })
 
   ipcMain.on('config.get', () => {
-    window.send('config.changed', store.store)
+    window.webContents.send('config.changed', store.store)
   })
 
   return new Promise(resolve => {
