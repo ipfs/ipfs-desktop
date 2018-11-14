@@ -13,11 +13,11 @@ async function makeScreenshotDir (ipfs) {
   }
 }
 
-function handleScreenshot (opts) {
-  let { conn } = opts
+function handleScreenshot (ctx) {
+  let { ipfsd } = ctx
 
   return async (_, image) => {
-    const ipfs = conn.api
+    const ipfs = ipfsd.api
 
     if (!ipfs) {
       logger.info('Daemon not running. Aborting screenshot upload.')
@@ -46,8 +46,8 @@ function handleScreenshot (opts) {
   }
 }
 
-export default function (opts) {
-  let { menubarWindow } = opts
+export default function (ctx) {
+  let { menubarWindow } = ctx
 
   let activate = (value, oldValue) => {
     if (value === oldValue) return
@@ -66,6 +66,6 @@ export default function (opts) {
   }
 
   activate(store.get(settingsOption, false))
-  createToggler(opts, settingsOption, activate)
-  ipcMain.on('screenshot', handleScreenshot(opts))
+  createToggler(ctx, settingsOption, activate)
+  ipcMain.on('screenshot', handleScreenshot(ctx))
 }

@@ -78,14 +78,6 @@ const bundle = {
     ipcRenderer.send('ipfs.running')
   },
 
-  doIpfsToggle: () => async ({ store }) => {
-    if (store.selectIpfsIsRunning()) {
-      ipcRenderer.send('ipfs.stop')
-    } else {
-      ipcRenderer.send('ipfs.start')
-    }
-  },
-
   init: store => {
     store.doIpfsStartListening()
   }

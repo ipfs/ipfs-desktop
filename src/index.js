@@ -1,6 +1,6 @@
 import { app, dialog } from 'electron'
 import { join } from 'path'
-import { store, Connection } from './utils'
+import { store, createDaemon } from './utils'
 import startupMenubar from './menubar'
 import registerHooks from './hooks'
 
@@ -15,12 +15,6 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
 
-/*
-$ ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["webui://-", "https://webui.ipfs.io"]'
-$ ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "GET", "POST"]'
-$ ipfs config --json API.HTTPHeaders.Access-Control-Allow-Credentials '[""]'
-*/
-
 async function setupConnection () {
   let config = store.get('config')
 
@@ -33,34 +27,22 @@ async function setupConnection () {
     store.set('config', config)
   }
 
-  const conn = new Connection(config)
-  await conn.init()
-  await conn.start()
-
-  let origins = await conn.api.config.get('API.HTTPHeaders.Access-Control-Allow-Origin') || []
-  if (!origins.includes('webui://-')) origins.push('webui://-')
-  if (!origins.includes('https://webui.ipfs.io')) origins.push('https://webui.ipfs.io')
-
-  await conn.api.config.set('API.HTTPHeaders.Access-Control-Allow-Origin', origins)
-  await conn.api.config.set('API.HTTPHeaders.Access-Control-Allow-Method', ['PUT', 'GET', 'POST'])
-  await conn.api.config.set('API.HTTPHeaders.Access-Control-Allow-Credentials', ['true'])
-
-  return conn
+  return createDaemon(config)
 }
 
 async function run () {
   await app.whenReady()
 
-  // Initial options object
-  let opts = {
-    conn: await setupConnection()
+  // Initial context object
+  let ctx = {
+    ipfsd: await setupConnection()
   }
 
-  // Initialize windows. These can add properties to opts
-  await startupMenubar(opts)
+  // Initialize windows. These can add properties to context
+  await startupMenubar(ctx)
 
   // Register hooks
-  await registerHooks(opts)
+  await registerHooks(ctx)
 
   if (!store.get('seenWelcome')) {
     // TODO: open WebUI on Welcome screen

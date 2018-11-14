@@ -50,12 +50,12 @@ async function saveFile (dir, file) {
   }
 }
 
-function handler (opts) {
-  const { conn } = opts
+function handler (ctx) {
+  const { ipfsd } = ctx
 
   return async () => {
     const text = clipboard.readText().trim()
-    const ipfs = conn.api
+    const ipfs = ipfsd.api
 
     if (!ipfs || !text) {
       return
@@ -73,7 +73,7 @@ function handler (opts) {
       const files = await ipfs.get(text)
       logger.info(`Hash ${text} downloaded.`)
 
-      const dir = await selectDirectory(opts)
+      const dir = await selectDirectory(ctx)
 
       if (!dir) {
         logger.info(`Dropping hash ${text}: user didn't choose a path.`)
@@ -95,12 +95,12 @@ function handler (opts) {
   }
 }
 
-export default function (opts) {
+export default function (ctx) {
   let activate = (value, oldValue) => {
     if (value === oldValue) return
 
     if (value === true) {
-      globalShortcut.register(shortcut, handler(opts))
+      globalShortcut.register(shortcut, handler(ctx))
       logger.info('Hash download shortcut enabled')
     } else {
       globalShortcut.unregister(shortcut)
@@ -109,5 +109,5 @@ export default function (opts) {
   }
 
   activate(store.get(settingsOption, false))
-  createToggler(opts, settingsOption, activate)
+  createToggler(ctx, settingsOption, activate)
 }

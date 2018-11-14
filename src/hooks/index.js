@@ -5,11 +5,11 @@ import webui from './webui'
 import openDataFolder from './open-data-folder'
 import takeScreenshot from './take-screenshot'
 
-export default async function (opts) {
-  await webui(opts)
-  await autoLaunch(opts)
-  await downloadHash(opts)
-  await ipfs(opts)
-  await openDataFolder(opts)
-  await takeScreenshot(opts)
+export default async function (ctx) {
+  await webui(ctx)
+  await autoLaunch(ctx)
+  await downloadHash(ctx)
+  await ipfs(ctx)
+  await openDataFolder(ctx)
+  await takeScreenshot(ctx)
 }

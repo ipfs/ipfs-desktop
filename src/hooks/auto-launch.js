@@ -7,7 +7,7 @@ const autoLauncher = new AutoLaunch({
   name: 'IPFS Desktop'
 })
 
-export default function (opts) {
+export default function (ctx) {
   let activate = async (value, oldValue) => {
     if (value === oldValue) return
 
@@ -25,5 +25,5 @@ export default function (opts) {
   }
 
   activate(store.get(settingsOption, false))
-  createToggler(opts, settingsOption, activate)
+  createToggler(ctx, settingsOption, activate)
 }

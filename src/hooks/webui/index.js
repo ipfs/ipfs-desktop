@@ -35,10 +35,10 @@ const createWindow = () => {
   return window
 }
 
-export default async function (opts) {
-  const apiAddress = await opts.conn.apiAddress()
+export default async function (ctx) {
+  const apiAddress = ctx.ipfsd.apiAddr
   const window = createWindow()
-  opts.webUiWindow = window
+  ctx.webUiWindow = window
 
   ipcMain.on('launchWebUI', (_, url) => {
     if (!window.webContents) return

@@ -2,12 +2,12 @@ import { Menubar } from 'electron-menubar'
 import { logo, logger } from '../utils'
 import { app, ipcMain } from 'electron'
 
-export default async function (opts) {
+export default async function (ctx) {
   return new Promise(resolve => {
     const menubar = new Menubar({
       index: `file://${__dirname}/app/index.html`,
-      icon: logo('black'),
-      tooltip: 'Your IPFS instance',
+      icon: logo('ice'),
+      tooltip: 'IPFS Node',
       preloadWindow: true,
       window: {
         resizable: false,
@@ -22,7 +22,7 @@ export default async function (opts) {
       }
     })
 
-    opts.menubarWindow = {
+    ctx.menubarWindow = {
       it: menubar,
       send: (type, ...args) => {
         if (menubar && menubar.window && menubar.window.webContents) {
@@ -38,7 +38,15 @@ export default async function (opts) {
     }
 
     ipcMain.on('app.quit', async () => {
-      await opts.conn.stop()
+      logger.info('Stopping daemon')
+
+      await new Promise((resolve, reject) => {
+        ctx.ipfsd.stop(err => {
+          if (err) reject(err)
+          else resolve()
+        })
+      })
+
       logger.info('Done. Quitting app')
       app.quit()
     })
