@@ -1,26 +1,13 @@
-<h1 align="center">
-  IPFS Desktop
-</h1>
+# IPFS Desktop
 
-![ipfs-desktop-screenshot](https://user-images.githubusercontent.com/58871/34874493-0d306e5a-f791-11e7-94cb-5ac5a0d225b9.png)
+> A desktop client for [IPFS](https://ipfs.io).
+>
+> You don't need the command line to run an IPFS node. Just install IPFS Desktop and have all the power of IPFS in your hands. Powered by [Web UI](https://github.com/ipfs-shipyard/ipfs-webui).
 
-<p align="center">
-  <a href="http://protocol.ai"><img src="https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square" /></a>
-  <a href="http://ipfs.io/"><img src="https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square" /></a>
-  <a href="http://webchat.freenode.net/?channels=%23ipfs"><img src="https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square" /></a>
-</p>
-
-<p align="center">
-  <a href="https://travis-ci.org/ipfs-shipyard/ipfs-desktop"><img src="https://img.shields.io/travis/ipfs-shipyard/ipfs-desktop.svg?style=flat-square" /></a>
-  <a href="https://david-dm.org/ipfs-shipyard/ipfs-desktop"><img src="https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square" /></a>
-  <a href="https://codecov.io/gh/ipfs-shipyard/ipfs-desktop"><img src="https://img.shields.io/codecov/c/github/ipfs-shipyard/ipfs-desktop.svg?style=flat-square"></a>
-  <a href="https://github.com/feross/standard"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square"></a>
-  <a href="https://github.com/RichardLitt/standard-readme"><img src="https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square" /></a>
-</p>
-
-<h3 align="center">
-A menubar <a href="https://ipfs.io">IPFS</a> application to get you on the Distributed Web!
-</h3>
+[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
+[![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
+[![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
+[![](https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/ipfs-desktop)
 
 IPFS Desktop allows you to run your IPFS node on your machine without having to bother with command line tools. You can manage your node, add your files, easily change the settings... [everything](#features) from just one interface.
 
