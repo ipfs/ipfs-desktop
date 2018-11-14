@@ -63,6 +63,6 @@ export default async function (opts) {
       resolve()
     })
 
-    window.loadURL(`http://localhost:3000?api=${apiAddress}#/`)
+    window.loadURL(`webui://-?api=${apiAddress}#/`)
   })
 }
