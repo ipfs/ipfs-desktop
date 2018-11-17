@@ -62,7 +62,6 @@ export default async function createDaemon (opts) {
 
   await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Origin', origins)
   await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Method', ['PUT', 'GET', 'POST'])
-  await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Credentials', ['true'])
 
   return ipfsd
 }
