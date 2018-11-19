@@ -15,6 +15,20 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(1)
 }
 
+const issueTemplate = (e) => `Please describe what you were doing when this error happened.
+
+**Specifications**
+
+- **OS**: ${process.platform}
+- **IPFS Desktop Version**: ${app.getVersion()}
+
+**Error**
+
+\`\`\`
+${e.stack}
+\`\`\`
+`
+
 function handleError (e) {
   dialog.showMessageBox({
     type: 'error',
@@ -30,8 +44,7 @@ function handleError (e) {
       const path = app.getPath('userData')
       shell.openItem(path)
     } else if (option === 2) {
-      let text = 'Please describe what you were doing when this error happened.\n\n```\n' + e.stack + '\n```'
-      shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=' + encodeURI(text))
+      shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`)
     }
 
     process.exit(1)
