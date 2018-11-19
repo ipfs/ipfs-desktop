@@ -32,7 +32,7 @@ ${e.stack}
 function handleError (e) {
   dialog.showMessageBox({
     type: 'error',
-    title: 'Something wrong happened',
+    title: 'Something unexpected happened :-(',
     message: e.stack + '\nPlease choose one of the options bellow. All of them will copy the error message to the clipboard.',
     buttons: [
       'Close',
