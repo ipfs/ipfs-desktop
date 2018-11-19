@@ -1,4 +1,4 @@
-import { app, dialog } from 'electron'
+import { app, dialog, shell } from 'electron'
 import { join } from 'path'
 import { store, createDaemon } from './utils'
 import startupMenubar from './menubar'
@@ -12,7 +12,30 @@ if (!app.requestSingleInstanceLock()) {
   )
 
   // No windows were opened at this time so we don't need to do app.quit()
-  process.exit(0)
+  process.exit(1)
+}
+
+function handleError (e) {
+  dialog.showMessageBox({
+    type: 'error',
+    title: 'Something wrong happened',
+    message: e.stack + '\nPlease choose one of the options bellow. All of them will copy the error message to the clipboard.',
+    buttons: [
+      'Close',
+      'Open logs',
+      'Create a new issue'
+    ]
+  }, option => {
+    if (option === 1) {
+      const path = app.getPath('userData')
+      shell.openItem(path)
+    } else if (option === 2) {
+      let text = 'Please describe what you were doing when this error happened.\n\n```\n' + e.stack + '\n```'
+      shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=' + encodeURI(text))
+    }
+
+    process.exit(1)
+  })
 }
 
 async function setupConnection () {
@@ -31,21 +54,30 @@ async function setupConnection () {
 }
 
 async function run () {
-  await app.whenReady()
-
-  // Initial context object
-  let ctx = {
-    ipfsd: await setupConnection()
+  try {
+    await app.whenReady()
+  } catch (e) {
+    dialog.showErrorBox('Electron could not start', e.stack)
+    process.exit(1)
   }
 
-  // Initialize windows. These can add properties to context
-  await startupMenubar(ctx)
+  try {
+    // Initial context object
+    let ctx = {
+      ipfsd: await setupConnection()
+    }
 
-  // Register hooks
-  await registerHooks(ctx)
+    // Initialize windows. These can add properties to context
+    await startupMenubar(ctx)
 
-  if (!store.get('seenWelcome')) {
-    // TODO: open WebUI on Welcome screen
+    // Register hooks
+    await registerHooks(ctx)
+
+    if (!store.get('seenWelcome')) {
+      // TODO: open WebUI on Welcome screen
+    }
+  } catch (e) {
+    handleError(e)
   }
 }
 
