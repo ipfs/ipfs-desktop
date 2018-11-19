@@ -18,7 +18,6 @@ IPFS Desktop allows you to run your IPFS Node on your machine without having to 
 ## Table of Contents
 
 - [Install](#install)
-- [Usage](#usage)
 - [Contribute](#contribute)
 
 ## Install
