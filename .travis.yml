@@ -3,6 +3,12 @@ language: node_js
 node_js:
   - 10.4.1
 
+os:
+  - linux
+  - osx
+  - windows
+
 script:
   - npm run lint
   - npm run build
+  - ls ./dist/
