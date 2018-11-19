@@ -6,7 +6,7 @@ import logger from './logger'
 export default async function createDaemon (opts) {
   opts.type = opts.type || 'go'
   opts.path = opts.path || ''
-  opts.flags = opts.flags || []
+  opts.flags = opts.flags || ['--migrate=true', '--routing=dhtclient']
   opts.keysize = opts.keysize || 4096
 
   if (opts.type !== 'go') {
