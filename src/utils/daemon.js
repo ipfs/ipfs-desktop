@@ -9,6 +9,10 @@ export default async function createDaemon (opts) {
   opts.flags = opts.flags || []
   opts.keysize = opts.keysize || 4096
 
+  if (!opts.flags.includes('--migrate=true')) {
+    opts.flags = [...opts.flags, '--migrate=true']
+  }
+
   if (opts.type !== 'go') {
     throw new Error(`${opts.type} connection is not supported yet`)
   }
