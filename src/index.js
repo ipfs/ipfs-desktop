@@ -21,6 +21,8 @@ const issueTemplate = (e) => `Please describe what you were doing when this erro
 
 - **OS**: ${process.platform}
 - **IPFS Desktop Version**: ${app.getVersion()}
+- **Electron Version**: ${process.versions.electron}
+- **Chrome Version**: ${process.versions.chrome}
 
 **Error**
 
@@ -30,25 +32,25 @@ ${e.stack}
 `
 
 function handleError (e) {
-  dialog.showMessageBox({
+  const option = dialog.showMessageBox({
     type: 'error',
-    title: 'Something unexpected happened :-(',
-    message: e.stack + '\nPlease choose one of the options bellow. All of them will copy the error message to the clipboard.',
+    title: 'IPFS Desktop has shutdown',
+    message: 'IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account.',
     buttons: [
       'Close',
-      'Open logs',
-      'Create a new issue'
-    ]
-  }, option => {
-    if (option === 1) {
-      const path = app.getPath('userData')
-      shell.openItem(path)
-    } else if (option === 2) {
-      shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`)
-    }
-
-    process.exit(1)
+      'Report the error to the developers',
+      'Restart the app'
+    ],
+    cancelId: 0
   })
+
+  if (option === 1) {
+    shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`)
+  } else if (option === 2) {
+    app.relaunch()
+  }
+
+  app.exit(1)
 }
 
 async function setupConnection () {
@@ -71,7 +73,7 @@ async function run () {
     await app.whenReady()
   } catch (e) {
     dialog.showErrorBox('Electron could not start', e.stack)
-    process.exit(1)
+    app.exit(1)
   }
 
   try {
