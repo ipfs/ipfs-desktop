@@ -1,4 +1,5 @@
 import React from 'react'
+import { translate } from 'react-i18next'
 import { connect } from 'redux-bundler-react'
 import Heartbeat from './components/heartbeat/Heartbeat'
 import GlyphPower from '../../icons/GlyphPower'
@@ -31,7 +32,7 @@ const Button = ({ children, on, ...props }) => (
   </button>
 )
 
-const Menubar = ({ ipfsIsRunning, doQuitApp, currentConfig }) => (
+const Menubar = ({ t, ipfsIsRunning, doQuitApp, currentConfig }) => (
   <div className='bg-navy sans-serif h-100'>
     <div className='pa3 bw3 bb b--aqua'>
       <div className='flex items-center'>
@@ -41,18 +42,18 @@ const Menubar = ({ ipfsIsRunning, doQuitApp, currentConfig }) => (
           online={ipfsIsRunning} />
         <div className='montserrat f3 ml2 white' style={{ marginRight: 'auto' }}>IPFS</div>
 
-        <Button onClick={doQuitApp} on={ipfsIsRunning} title='Turn off IPFS Desktop'>
+        <Button onClick={doQuitApp} on={ipfsIsRunning} title={t('turnOff')}>
           <GlyphPower className='w2 h2' />
         </Button>
       </div>
     </div>
 
     <div>
-      <NavLink disabled={!ipfsIsRunning} to='/' exact icon={StrokeMarketing}>Status</NavLink>
-      <NavLink disabled={!ipfsIsRunning} to='/files/' icon={StrokeWeb} info={currentConfig && currentConfig.repoSize}>Files</NavLink>
-      <NavLink disabled={!ipfsIsRunning} to='/explore' icon={StrokeIpld}>Explore</NavLink>
-      <NavLink disabled={!ipfsIsRunning} to='/peers' icon={StrokeCube} info={currentConfig && currentConfig.peers}>Peers</NavLink>
-      <NavLink disabled={!ipfsIsRunning} to='/settings' icon={StrokeSettings}>Settings</NavLink>
+      <NavLink disabled={!ipfsIsRunning} to='/' exact icon={StrokeMarketing}>{t('status')}</NavLink>
+      <NavLink disabled={!ipfsIsRunning} to='/files/' icon={StrokeWeb} info={currentConfig && currentConfig.repoSize}>{t('files')}</NavLink>
+      <NavLink disabled={!ipfsIsRunning} to='/explore' icon={StrokeIpld}>{t('explore')}</NavLink>
+      <NavLink disabled={!ipfsIsRunning} to='/peers' icon={StrokeCube} info={currentConfig && currentConfig.peers}>{t('peers')}</NavLink>
+      <NavLink disabled={!ipfsIsRunning} to='/settings' icon={StrokeSettings}>{t('settings')}</NavLink>
     </div>
   </div>
 )
@@ -62,5 +63,5 @@ export default connect(
   'doIpfsStartListening',
   'selectIpfsIsRunning',
   'selectCurrentConfig',
-  Menubar
+  translate()(Menubar)
 )

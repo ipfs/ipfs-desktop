@@ -1,5 +1,5 @@
 import { Menubar } from 'electron-menubar'
-import { logo, logger } from '../utils'
+import { logo, logger, i18n } from '../utils'
 import { app, ipcMain } from 'electron'
 
 export default async function (ctx) {
@@ -7,7 +7,7 @@ export default async function (ctx) {
     const menubar = new Menubar({
       index: `file://${__dirname}/app/index.html`,
       icon: logo('ice'),
-      tooltip: 'IPFS Node',
+      tooltip: i18n.t('ipfsNode'),
       preloadWindow: true,
       window: {
         resizable: false,
