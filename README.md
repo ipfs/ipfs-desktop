@@ -19,6 +19,7 @@ IPFS Desktop allows you to run your IPFS Node on your machine without having to 
 
 - [Install](#install)
 - [Contribute](#contribute)
+    - [Translations](#translations)
 
 ## Install
 
@@ -40,11 +41,18 @@ npm start
 
 The IPFS Desktop app will launch and should appear in your OS menu bar.
 
+## Translations
+
+The translations are stored on [./src/locales](./src/locales) and the English version is the source of truth.
+Other languages are periodically pulled from [Transifex](https://www.transifex.com/ipfs/ipfs-desktop/), a web interface to help us translate IPFS Desktop and its components to another languages.
+
 ## Contribute
 
-[![](https://cdn.rawgit.com/jbenet/contribute-ipfs-gif/master/img/contribute.gif)](https://github.com/ipfs/community/blob/master/contributing.md)
+[![](https://cdn.rawgit.com/jbenet/contribute-ipfs-gif/master/img/contribute.gif)](https://github.com/ipfs/community/#contributing-guidelines)
 
 Feel free to join in. All welcome. Open an [issue](https://github.com/ipfs-shipyard/ipfs-desktop/issues)!
+
+If you're interested in contributing translations, go to [project page on Transifex](https://www.transifex.com/ipfs/ipfs-desktop/translate/), create an account, pick a language and start translating.
 
 This repository falls under the IPFS [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md).
 
