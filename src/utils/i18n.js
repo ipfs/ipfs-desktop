@@ -18,13 +18,7 @@ i18n
     },
     debug: process.env.NODE_ENV !== 'production',
     backend: {
-      loadPath: join(__dirname, '../../../locales/{{lng}}.json')
-    },
-    react: {
-      wait: true,
-      bindI18n: 'languageChanged loaded',
-      bindStore: 'added removed',
-      nsMode: 'default'
+      loadPath: join(__dirname, '../locales/{{lng}}.json')
     }
   })
 
