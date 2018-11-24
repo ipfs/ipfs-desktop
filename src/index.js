@@ -1,5 +1,4 @@
 import { app, dialog, shell } from 'electron'
-import { join } from 'path'
 import { store, createDaemon } from './utils'
 import startupMenubar from './menubar'
 import registerHooks from './hooks'
