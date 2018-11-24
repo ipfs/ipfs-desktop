@@ -61,7 +61,7 @@ export default async function createDaemon (opts) {
   if (!origins.includes('https://webui.ipfs.io')) origins.push('https://webui.ipfs.io')
 
   await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Origin', origins)
-  await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Method', ['PUT', 'GET', 'POST'])
+  await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Methods', ['PUT', 'GET', 'POST'])
 
   return ipfsd
 }
