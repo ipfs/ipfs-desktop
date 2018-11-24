@@ -1,4 +1,4 @@
-import { app, dialog } from 'electron'
+import { app, dialog, shell } from 'electron'
 import { join } from 'path'
 import { store, createDaemon } from './utils'
 import startupMenubar from './menubar'
@@ -12,7 +12,45 @@ if (!app.requestSingleInstanceLock()) {
   )
 
   // No windows were opened at this time so we don't need to do app.quit()
-  process.exit(0)
+  process.exit(1)
+}
+
+const issueTemplate = (e) => `Please describe what you were doing when this error happened.
+
+**Specifications**
+
+- **OS**: ${process.platform}
+- **IPFS Desktop Version**: ${app.getVersion()}
+- **Electron Version**: ${process.versions.electron}
+- **Chrome Version**: ${process.versions.chrome}
+
+**Error**
+
+\`\`\`
+${e.stack}
+\`\`\`
+`
+
+function handleError (e) {
+  const option = dialog.showMessageBox({
+    type: 'error',
+    title: 'IPFS Desktop has shutdown',
+    message: 'IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account.',
+    buttons: [
+      'Close',
+      'Report the error to the developers',
+      'Restart the app'
+    ],
+    cancelId: 0
+  })
+
+  if (option === 1) {
+    shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`)
+  } else if (option === 2) {
+    app.relaunch()
+  }
+
+  app.exit(1)
 }
 
 async function setupConnection () {
@@ -31,21 +69,30 @@ async function setupConnection () {
 }
 
 async function run () {
-  await app.whenReady()
-
-  // Initial context object
-  let ctx = {
-    ipfsd: await setupConnection()
+  try {
+    await app.whenReady()
+  } catch (e) {
+    dialog.showErrorBox('Electron could not start', e.stack)
+    app.exit(1)
   }
 
-  // Initialize windows. These can add properties to context
-  await startupMenubar(ctx)
+  try {
+    // Initial context object
+    let ctx = {
+      ipfsd: await setupConnection()
+    }
 
-  // Register hooks
-  await registerHooks(ctx)
+    // Initialize windows. These can add properties to context
+    await startupMenubar(ctx)
 
-  if (!store.get('seenWelcome')) {
-    // TODO: open WebUI on Welcome screen
+    // Register hooks
+    await registerHooks(ctx)
+
+    if (!store.get('seenWelcome')) {
+      // TODO: open WebUI on Welcome screen
+    }
+  } catch (e) {
+    handleError(e)
   }
 }
 
