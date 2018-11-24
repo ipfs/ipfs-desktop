@@ -55,17 +55,23 @@ function handleError (e) {
 
 async function setupConnection () {
   let config = store.get('config')
+  let updateCfg = false
 
   if (config === null) {
-    config = {
-      type: 'go',
-      path: join(app.getPath('home'), '.ipfs')
-    }
+    config = { type: 'go' }
+    updateCfg = true
+  }
 
+  const ipfsd = await createDaemon(config)
+
+  // createDaemon has changed the config object,
+  // but didn't add the repo variable.
+  if (updateCfg) {
+    config.path = ipfsd.repoPath
     store.set('config', config)
   }
 
-  return createDaemon(config)
+  return ipfsd
 }
 
 async function run () {
