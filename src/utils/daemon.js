@@ -1,7 +1,5 @@
 import IPFSFactory from 'ipfsd-ctl'
-import { join } from 'path'
 import fs from 'fs-extra'
-import logger from './logger'
 
 export default async function createDaemon (opts) {
   opts.type = opts.type || 'go'
@@ -14,17 +12,10 @@ export default async function createDaemon (opts) {
   }
 
   const init = !(await fs.pathExists(opts.path)) || fs.readdirSync(opts.path).length === 0
-
-  if (!init) {
-    await cleanLocks(opts.path)
-  }
-
   const factory = IPFSFactory.create({ type: opts.type })
 
   const ipfsd = await new Promise((resolve, reject) => {
     factory.spawn({
-      init: false,
-      start: false,
       disposable: false,
       defaultAddrs: true,
       repoPath: opts.path
@@ -64,29 +55,4 @@ export default async function createDaemon (opts) {
   await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Method', ['PUT', 'GET', 'POST'])
 
   return ipfsd
-}
-
-function cleanLocks (path) {
-  // This fixes a bug on Windows, where the daemon seems
-  // not to be exiting correctly, hence the file is not
-  // removed.
-  logger.info('Cleaning repo.lock and api files')
-  const lockPath = join(path, 'repo.lock')
-  const apiPath = join(path, 'api')
-
-  if (fs.existsSync(lockPath)) {
-    try {
-      fs.unlinkSync(lockPath)
-    } catch (_) {
-      logger.warn('Could not remove repo.lock. Daemon might be running')
-    }
-  }
-
-  if (fs.existsSync(apiPath)) {
-    try {
-      fs.unlinkSync(apiPath)
-    } catch (_) {
-      logger.warn('Could not remove api. Daemon might be running')
-    }
-  }
 }
