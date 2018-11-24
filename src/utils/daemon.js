@@ -1,5 +1,4 @@
 import IPFSFactory from 'ipfsd-ctl'
-import fs from 'fs-extra'
 
 export default async function createDaemon (opts) {
   opts.type = opts.type || 'go'
@@ -11,7 +10,6 @@ export default async function createDaemon (opts) {
     throw new Error(`${opts.type} connection is not supported yet`)
   }
 
-  const init = !(await fs.pathExists(opts.path)) || fs.readdirSync(opts.path).length === 0
   const factory = IPFSFactory.create({ type: opts.type })
 
   const ipfsd = await new Promise((resolve, reject) => {
@@ -21,7 +19,7 @@ export default async function createDaemon (opts) {
       repoPath: opts.path
     }, (e, ipfsd) => {
       if (e) return reject(e)
-      if (ipfsd.initialized || !init) {
+      if (ipfsd.initialized) {
         return resolve(ipfsd)
       }
 
