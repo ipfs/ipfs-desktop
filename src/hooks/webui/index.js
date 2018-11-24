@@ -1,6 +1,6 @@
 import { logo, logger, store } from '../../utils'
 import { join } from 'path'
-import { screen, BrowserWindow, ipcMain } from 'electron'
+import { screen, BrowserWindow, ipcMain, app } from 'electron'
 import serve from 'electron-serve'
 
 serve({ scheme: 'webui', directory: `${__dirname}/app` })
@@ -62,6 +62,6 @@ export default async function (ctx) {
       resolve()
     })
 
-    window.loadURL(`webui://-?api=${apiAddress}#/`)
+    window.loadURL(`webui://-?api=${apiAddress}&lng=${app.getLocale()}#/`)
   })
 }
