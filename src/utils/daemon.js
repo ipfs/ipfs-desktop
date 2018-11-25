@@ -45,7 +45,13 @@ export default async function createDaemon (opts) {
     })
   }
 
-  let origins = await ipfsd.api.config.get('API.HTTPHeaders.Access-Control-Allow-Origin') || []
+  let origins = []
+  try {
+    origins = await ipfsd.api.config.get('API.HTTPHeaders.Access-Control-Allow-Origin')
+  } catch (e) {
+    logger.warn(e)
+  }
+
   if (!origins.includes('webui://-')) origins.push('webui://-')
   if (!origins.includes('https://webui.ipfs.io')) origins.push('https://webui.ipfs.io')
 
