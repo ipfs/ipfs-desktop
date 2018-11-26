@@ -1,4 +1,5 @@
 import IPFSFactory from 'ipfsd-ctl'
+import logger from './logger'
 
 export default async function createDaemon (opts) {
   opts.type = opts.type || 'go'
