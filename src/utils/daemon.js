@@ -2,6 +2,7 @@ import IPFSFactory from 'ipfsd-ctl'
 import logger from './logger'
 import fs from 'fs-extra'
 import { join } from 'path'
+import { dialog, app } from 'electron'
 
 async function cleanup (path) {
   logger.info('Cleaning up repository %s', path)
@@ -21,8 +22,31 @@ async function cleanup (path) {
   const cfg = await fs.readJSON(cfgFile)
   const cfgAddr = cfg.Addresses ? cfg.Addresses.API : ''
   const addr = (await fs.readFile(apiFile)).toString()
+  let clean = cfgAddr === addr
 
-  if (cfgAddr === addr) {
+  if (!clean && addr) {
+    const option = dialog.showMessageBox({
+      type: 'warning',
+      title: 'IPFS Desktop',
+      message: `We noticed your configured API address doesn't match the API address on your api file (${apiFile}). Do you wish to continue?`,
+      buttons: [
+        'No',
+        'Yes',
+        'Yes, but remove the api file'
+      ],
+      cancelId: 0
+    })
+
+    if (option === 0) {
+      app.exit(1)
+    } else if (option === 1) {
+      clean = false
+    } else {
+      clean = true
+    }
+  }
+
+  if (clean) {
     logger.info('Removing api file: %s', apiFile)
     return fs.remove(apiFile)
   }
