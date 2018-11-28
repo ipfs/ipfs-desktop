@@ -17,7 +17,7 @@ const NavLink = connect(
       <Svg width='45' height='45' className='fill-current-color o-50' />
       <span className='flex justify-between pl3 flex-grow-1'>
         <span>{children}</span>
-        <span className='w-25 tc f6 b'>{ info }</span>
+        <span className='w-30 tc f6 b'>{ info }</span>
       </span>
     </a>
   )
