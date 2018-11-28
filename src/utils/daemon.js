@@ -1,5 +1,32 @@
 import IPFSFactory from 'ipfsd-ctl'
 import logger from './logger'
+import fs from 'fs-extra'
+import { join } from 'path'
+
+async function cleanup (path) {
+  logger.info('Cleaning up repository %s', path)
+
+  const lockFile = join(path, 'repo.lock')
+  const apiFile = join(path, 'api')
+  const cfgFile = join(path, 'config')
+
+  if (await fs.pathExists(lockFile)) {
+    return
+  }
+
+  if (!await fs.pathExists(apiFile)) {
+    return
+  }
+
+  const cfg = await fs.readJSON(cfgFile)
+  const cfgAddr = cfg.Addresses ? cfg.Addresses.API : ''
+  const addr = (await fs.readFile(apiFile)).toString()
+
+  if (cfgAddr === addr) {
+    logger.info('Removing api file: %s', apiFile)
+    return fs.remove(apiFile)
+  }
+}
 
 export default async function createDaemon (opts) {
   opts.type = opts.type || 'go'
@@ -33,6 +60,8 @@ export default async function createDaemon (opts) {
       })
     })
   })
+
+  await cleanup(ipfsd.repoPath)
 
   if (!ipfsd.started) {
     await new Promise((resolve, reject) => {
