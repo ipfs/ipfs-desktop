@@ -1,4 +1,11 @@
-const { ipcRenderer } = require('electron')
+const { ipcRenderer, shell } = require('electron')
+
+document.addEventListener('click', function (event) {
+  if (event.target.tagName === 'A' && event.target.href.startsWith('http')) {
+    event.preventDefault()
+    shell.openExternal(event.target.href)
+  }
+})
 
 ipcRenderer.on('updatedPage', (_, url) => {
   window.location.hash = url
