@@ -9,17 +9,16 @@ export default async function createDaemon (opts) {
   opts.flags = opts.flags || ['--migrate=true', '--routing=dhtclient']
   opts.keysize = opts.keysize || 4096
 
-  if (opts.type !== 'go') {
-    throw new Error(`${opts.type} connection is not supported yet`)
-  }
-
   const init = !(await fs.pathExists(opts.path)) || fs.readdirSync(opts.path).length === 0
+
+  logger.info('init > > '+ init)
 
   if (!init) {
     await cleanLocks(opts.path)
   }
 
   const factory = IPFSFactory.create({ type: opts.type })
+  logger.info('type > > '+ opts.type)
 
   const ipfsd = await new Promise((resolve, reject) => {
     factory.spawn({
@@ -44,10 +43,13 @@ export default async function createDaemon (opts) {
     })
   })
 
+  logger.info('> > > before . . . ' + ipfsd.started)
+
   if (!ipfsd.started) {
     await new Promise((resolve, reject) => {
       ipfsd.start(opts.flags, err => {
         if (err) {
+          logger.info('err: ', err)
           return reject(err)
         }
 
@@ -56,7 +58,9 @@ export default async function createDaemon (opts) {
     })
   }
 
-  let origins = await ipfsd.api.config.get('API.HTTPHeaders.Access-Control-Allow-Origin') || []
+  logger.info('> > > after . . . ' + ipfsd.started)
+
+  let origins = await ipfsd.api.config.get('API.HTTPHeaders.Access-Control-Allow-Origin').catch(err => logger.info('err '+ err)) || []
   if (!origins.includes('webui://-')) origins.push('webui://-')
   if (!origins.includes('https://webui.ipfs.io')) origins.push('https://webui.ipfs.io')
 

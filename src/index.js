@@ -23,9 +23,23 @@ async function setupConnection () {
       type: 'go',
       path: join(app.getPath('home'), '.ipfs')
     }
+  }
+
+  if (config.type === 'go') {
+    config = {
+      type: 'go',
+      path: join(app.getPath('home'), '.ipfs')
+    }
+  }
+
+  if (config.type === 'js') {
+    config={
+      type: 'js',
+      path: join(app.getAppPath('home'), '.jsipfs')
+    }
+  }
 
     store.set('config', config)
-  }
 
   return createDaemon(config)
 }
