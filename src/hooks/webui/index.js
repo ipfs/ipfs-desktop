@@ -36,7 +36,7 @@ const createWindow = () => {
 }
 
 export default async function (ctx) {
-  const apiAddress = ctx.ipfsd.apiAddr
+  // const apiAddress = ctx.ipfsd.apiAddr
   const window = createWindow()
   ctx.webUiWindow = window
 

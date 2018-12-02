@@ -11,14 +11,11 @@ export default async function createDaemon (opts) {
 
   const init = !(await fs.pathExists(opts.path)) || fs.readdirSync(opts.path).length === 0
 
-  logger.info('init > > '+ init)
-
   if (!init) {
     await cleanLocks(opts.path)
   }
 
   const factory = IPFSFactory.create({ type: opts.type })
-  logger.info('type > > '+ opts.type)
 
   const ipfsd = await new Promise((resolve, reject) => {
     factory.spawn({
@@ -43,8 +40,6 @@ export default async function createDaemon (opts) {
     })
   })
 
-  logger.info('> > > before . . . ' + ipfsd.started)
-
   if (!ipfsd.started) {
     await new Promise((resolve, reject) => {
       ipfsd.start(opts.flags, err => {
@@ -58,9 +53,7 @@ export default async function createDaemon (opts) {
     })
   }
 
-  logger.info('> > > after . . . ' + ipfsd.started)
-
-  let origins = await ipfsd.api.config.get('API.HTTPHeaders.Access-Control-Allow-Origin').catch(err => logger.info('err '+ err)) || []
+  let origins = await ipfsd.api.config.get('API.HTTPHeaders.Access-Control-Allow-Origin') || []
   if (!origins.includes('webui://-')) origins.push('webui://-')
   if (!origins.includes('https://webui.ipfs.io')) origins.push('https://webui.ipfs.io')
 

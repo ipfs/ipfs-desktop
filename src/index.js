@@ -33,13 +33,13 @@ async function setupConnection () {
   }
 
   if (config.type === 'js') {
-    config={
+    config = {
       type: 'js',
-      path: join(app.getAppPath('home'), '.jsipfs')
+      path: join(app.getPath('home'), '.jsipfs')
     }
   }
 
-    store.set('config', config)
+  store.set('config', config)
 
   return createDaemon(config)
 }
