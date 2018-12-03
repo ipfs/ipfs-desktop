@@ -92,12 +92,13 @@ async function run () {
 
     // Register hooks
     await registerHooks(ctx)
-
-    if (!store.get('seenWelcome')) {
-      // TODO: open WebUI on Welcome screen
-    }
   } catch (e) {
-    handleError(e)
+    if (e.message === 'restart') {
+      app.relaunch()
+      app.exit(1)
+    } else {
+      handleError(e)
+    }
   }
 }
 

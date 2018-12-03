@@ -1,58 +1,12 @@
 import IPFSFactory from 'ipfsd-ctl'
 import logger from './logger'
-import fs from 'fs-extra'
 import { join } from 'path'
-import { dialog, app } from 'electron'
+import { spawnSync } from 'child_process'
+import { dialog } from 'electron'
 
-async function cleanup (path) {
-  logger.info('Cleaning up repository %s', path)
+import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 
-  const lockFile = join(path, 'repo.lock')
-  const apiFile = join(path, 'api')
-  const cfgFile = join(path, 'config')
-
-  if (await fs.pathExists(lockFile)) {
-    return
-  }
-
-  if (!await fs.pathExists(apiFile)) {
-    return
-  }
-
-  const cfg = await fs.readJSON(cfgFile)
-  const cfgAddr = cfg.Addresses ? cfg.Addresses.API : ''
-  const addr = (await fs.readFile(apiFile)).toString()
-  let clean = cfgAddr === addr
-
-  if (!clean && addr) {
-    const option = dialog.showMessageBox({
-      type: 'warning',
-      title: 'IPFS Desktop',
-      message: `We noticed your configured API address doesn't match the API address on your api file (${apiFile}). Do you wish to continue?`,
-      buttons: [
-        'No',
-        'Yes',
-        'Yes, but remove the api file'
-      ],
-      cancelId: 0
-    })
-
-    if (option === 0) {
-      app.exit(1)
-    } else if (option === 1) {
-      clean = false
-    } else {
-      clean = true
-    }
-  }
-
-  if (clean) {
-    logger.info('Removing api file: %s', apiFile)
-    return fs.remove(apiFile)
-  }
-}
-
-export default async function createDaemon (opts) {
+async function createDaemon (opts) {
   opts.type = opts.type || 'go'
   opts.path = opts.path || ''
   opts.flags = opts.flags || ['--migrate=true', '--routing=dhtclient']
@@ -85,8 +39,6 @@ export default async function createDaemon (opts) {
     })
   })
 
-  await cleanup(ipfsd.repoPath)
-
   if (!ipfsd.started) {
     await new Promise((resolve, reject) => {
       ipfsd.start(opts.flags, err => {
@@ -113,4 +65,49 @@ export default async function createDaemon (opts) {
   await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Methods', ['PUT', 'GET', 'POST'])
 
   return ipfsd
+}
+
+async function cleanup (opts) {
+  const option = dialog.showMessageBox({
+    type: 'warning',
+    title: 'IPFS Desktop',
+    message: `We coudln't start because IPFS didn't shutdown correctly last time. We can try to
+solve the issue by running 'ipfs repo fsck'. Would you like to?`,
+    buttons: [
+      'No',
+      'Yes, run "ipfs repo fsck"'
+    ],
+    cancelId: 0
+  })
+
+  if (option === 0) {
+    return false
+  }
+
+  const exec = findExecutable('go', join(__dirname, '..'))
+  spawnSync(exec, ['repo', 'fsck'], {
+    env: {
+      ...process.env,
+      IPFS_PATH: opts.path
+    }
+  })
+
+  return true
+}
+
+export default async function (opts) {
+  try {
+    const ipfsd = await createDaemon(opts)
+    return ipfsd
+  } catch (e) {
+    if (!e.message.includes('ECONNREFUSED')) {
+      throw e
+    }
+
+    if (await cleanup(opts)) {
+      throw new Error('restart')
+    } else {
+      throw e
+    }
+  }
 }
