@@ -8,6 +8,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development electron -r @babel/register src/index.js",
     "lint": "standard",
+    "test": "mocha",
     "postinstall": "run-s install-app-deps build:webui build:icons",
     "install-app-deps": "electron-builder install-app-deps",
     "clean:webui": "shx rm -rf src/hooks/webui/app/",
@@ -69,11 +70,13 @@
     "cross-env": "^5.2.0",
     "electron": "^3.0.10",
     "electron-builder": "^20.36.2",
+    "mocha": "^5.2.0",
     "npm-run-all": "^4.1.5",
     "pre-commit": "^1.2.2",
     "request": "^2.88.0",
     "request-progress": "^3.0.0",
     "shx": "^0.3.2",
+    "spectron": "^5.0.0",
     "standard": "^12.0.1",
     "tar": "^4.4.8"
   },
