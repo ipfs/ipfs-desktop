@@ -63,5 +63,6 @@ export default async function (ctx) {
     })
 
     window.loadURL(`http://localhost:3000/`)
+    // window.loadURL(`webui://-?api=${apiAddress}#/`)
   })
 }

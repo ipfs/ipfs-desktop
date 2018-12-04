@@ -1,6 +1,6 @@
 import { app, dialog } from 'electron'
 import { join } from 'path'
-import { store, createDaemon } from './utils'
+import { store, createDaemon, logger  } from './utils'
 import startupMenubar from './menubar'
 import registerHooks from './hooks'
 
@@ -22,20 +22,6 @@ async function setupConnection () {
     config = {
       type: 'go',
       path: join(app.getPath('home'), '.ipfs')
-    }
-  }
-
-  if (config.type === 'go') {
-    config = {
-      type: 'go',
-      path: join(app.getPath('home'), '.ipfs')
-    }
-  }
-
-  if (config.type === 'js') {
-    config = {
-      type: 'js',
-      path: join(app.getPath('home'), '.jsipfs')
     }
   }
 
