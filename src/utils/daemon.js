@@ -1,12 +1,64 @@
 import IPFSFactory from 'ipfsd-ctl'
 import logger from './logger'
+import { fsckError } from './errors'
 import { join } from 'path'
+import fs from 'fs-extra'
 import { spawnSync } from 'child_process'
-import { dialog } from 'electron'
-
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 
-async function createDaemon (opts) {
+function repoFsck (path) {
+  const exec = findExecutable('go', join(__dirname, '..'))
+  spawnSync(exec, ['repo', 'fsck'], {
+    env: {
+      ...process.env,
+      IPFS_PATH: path
+    }
+  })
+}
+
+async function cleanup (path) {
+  const apiFile = join(path, 'api')
+
+  if (!await fs.pathExists(apiFile)) {
+    return true
+  }
+
+  const cfgFile = join(path, 'config')
+  const cfg = await fs.readJSON(cfgFile)
+  const cfgAddr = cfg.Addresses ? cfg.Addresses.API : ''
+  const addr = (await fs.readFile(apiFile)).toString()
+  const lockFile = await fs.pathExists(join(path, 'repo.lock'))
+  const datastoreLock = await fs.pathExists(join(path, 'datastore/LOCK'))
+
+  if (addr === cfgAddr && (lockFile || datastoreLock)) {
+    repoFsck(path)
+    return true
+  }
+
+  if (fsckError(path, addr)) {
+    repoFsck(path)
+    return true
+  }
+
+  return false
+}
+
+async function configure (ipfsd) {
+  let origins = []
+  try {
+    origins = await ipfsd.api.config.get('API.HTTPHeaders.Access-Control-Allow-Origin')
+  } catch (e) {
+    logger.warn(e)
+  }
+
+  if (!origins.includes('webui://-')) origins.push('webui://-')
+  if (!origins.includes('https://webui.ipfs.io')) origins.push('https://webui.ipfs.io')
+
+  await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Origin', origins)
+  await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Methods', ['PUT', 'GET', 'POST'])
+}
+
+export default async function createDaemon (opts) {
   opts.type = opts.type || 'go'
   opts.path = opts.path || ''
   opts.flags = opts.flags || ['--migrate=true', '--routing=dhtclient']
@@ -39,6 +91,10 @@ async function createDaemon (opts) {
     })
   })
 
+  if (!await cleanup(ipfsd.repoPath)) {
+    throw new Error('exit')
+  }
+
   if (!ipfsd.started) {
     await new Promise((resolve, reject) => {
       ipfsd.start(opts.flags, err => {
@@ -51,63 +107,6 @@ async function createDaemon (opts) {
     })
   }
 
-  let origins = []
-  try {
-    origins = await ipfsd.api.config.get('API.HTTPHeaders.Access-Control-Allow-Origin')
-  } catch (e) {
-    logger.warn(e)
-  }
-
-  if (!origins.includes('webui://-')) origins.push('webui://-')
-  if (!origins.includes('https://webui.ipfs.io')) origins.push('https://webui.ipfs.io')
-
-  await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Origin', origins)
-  await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Methods', ['PUT', 'GET', 'POST'])
-
+  await configure(ipfsd)
   return ipfsd
-}
-
-async function cleanup (opts) {
-  const option = dialog.showMessageBox({
-    type: 'warning',
-    title: 'IPFS Desktop',
-    message: `We coudln't start because IPFS didn't shutdown correctly last time. We can try to
-solve the issue by running 'ipfs repo fsck'. Would you like to?`,
-    buttons: [
-      'No',
-      'Yes, run "ipfs repo fsck"'
-    ],
-    cancelId: 0
-  })
-
-  if (option === 0) {
-    return false
-  }
-
-  const exec = findExecutable('go', join(__dirname, '..'))
-  spawnSync(exec, ['repo', 'fsck'], {
-    env: {
-      ...process.env,
-      IPFS_PATH: opts.path
-    }
-  })
-
-  return true
-}
-
-export default async function (opts) {
-  try {
-    const ipfsd = await createDaemon(opts)
-    return ipfsd
-  } catch (e) {
-    if (!e.message.includes('ECONNREFUSED')) {
-      throw e
-    }
-
-    if (await cleanup(opts)) {
-      throw new Error('restart')
-    } else {
-      throw e
-    }
-  }
 }
