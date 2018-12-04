@@ -6,7 +6,7 @@ if (store.get('version') !== 4) {
   store.clear()
 
   // default config
-  store.set('config', {
+  store.set('ipfsConfig', {
     type: 'go',
     path: '',
     flags: ['--migrate=true', '--routing=dhtclient'],

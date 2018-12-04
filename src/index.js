@@ -22,7 +22,7 @@ async function run () {
     app.exit(1)
   }
 
-  let config = store.get('config')
+  let config = store.get('ipfsConfig')
 
   try {
     // Initial context object
@@ -35,7 +35,7 @@ async function run () {
     // not set.
     if (config.path === '') {
       config.path = ctx.ipfsd.repoPath
-      store.set('config', config)
+      store.set('ipfsConfig', config)
     }
 
     // Initialize windows. These can add properties to context
