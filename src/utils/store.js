@@ -10,7 +10,7 @@ if (store.get('version') !== 4) {
     type: 'go',
     path: '',
     flags: ['--migrate=true', '--routing=dhtclient'],
-    keysize: 4096
+    keysize: 2048
   })
 
   store.set('version', 4)
