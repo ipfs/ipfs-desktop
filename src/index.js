@@ -1,5 +1,5 @@
 import { app, dialog } from 'electron'
-import { store, createDaemon, genericError } from './utils'
+import { store, createDaemon, showErrorMessage } from './utils'
 import startupMenubar from './menubar'
 import registerHooks from './hooks'
 
@@ -52,7 +52,7 @@ async function run () {
     if (e.message === 'exit') {
       app.exit(1)
     } else {
-      genericError(e)
+      showErrorMessage(e)
     }
   }
 }

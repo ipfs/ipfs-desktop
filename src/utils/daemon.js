@@ -1,6 +1,6 @@
 import IPFSFactory from 'ipfsd-ctl'
 import logger from './logger'
-import { fsckError } from './errors'
+import { showRepoApiFileErrorMessage } from './errors'
 import { join } from 'path'
 import fs from 'fs-extra'
 import { spawnSync } from 'child_process'
@@ -35,7 +35,7 @@ async function cleanup (path) {
     return true
   }
 
-  if (fsckError(path, addr)) {
+  if (showRepoApiFileErrorMessage(path, addr)) {
     repoFsck(path)
     return true
   }

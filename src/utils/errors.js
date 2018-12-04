@@ -16,7 +16,7 @@ ${e.stack}
 \`\`\`
 `
 
-export function genericError (e) {
+export function showErrorMessage (e) {
   const option = dialog.showMessageBox({
     type: 'error',
     title: 'IPFS Desktop has shutdown',
@@ -38,7 +38,7 @@ export function genericError (e) {
   app.exit(1)
 }
 
-export function fsckError (path, addr) {
+export function showRepoApiFileErrorMessage (path, addr) {
   const option = dialog.showMessageBox({
     type: 'warning',
     title: 'IPFS Desktop',
