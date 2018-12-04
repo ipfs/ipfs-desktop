@@ -26,7 +26,7 @@ async function cleanup (path) {
   const cfgFile = join(path, 'config')
   const cfg = await fs.readJSON(cfgFile)
   const cfgAddr = cfg.Addresses ? cfg.Addresses.API : ''
-  const addr = (await fs.readFile(apiFile)).toString()
+  const addr = (await fs.readFile(apiFile)).toString().trim()
   const lockFile = await fs.pathExists(join(path, 'repo.lock'))
   const datastoreLock = await fs.pathExists(join(path, 'datastore/LOCK'))
 
