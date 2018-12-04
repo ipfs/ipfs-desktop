@@ -44,18 +44,27 @@ async function cleanup (path) {
 }
 
 async function configure (ipfsd) {
+  const cfgFile = join(ipfsd.repoPath, 'config')
+  const cfg = await fs.readJSON(cfgFile)
+
   let origins = []
   try {
-    origins = await ipfsd.api.config.get('API.HTTPHeaders.Access-Control-Allow-Origin')
+    origins = cfg.API.HTTPHeaders['Access-Control-Allow-Origin']
   } catch (e) {
     logger.warn(e)
+  }
+
+  if (!Array.isArray(origins)) {
+    origins = []
   }
 
   if (!origins.includes('webui://-')) origins.push('webui://-')
   if (!origins.includes('https://webui.ipfs.io')) origins.push('https://webui.ipfs.io')
 
-  await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Origin', origins)
-  await ipfsd.api.config.set('API.HTTPHeaders.Access-Control-Allow-Methods', ['PUT', 'GET', 'POST'])
+  cfg.API.HTTPHeaders['Access-Control-Allow-Origin'] = origins
+  cfg.API.HTTPHeaders['Access-Control-Allow-Methods'] = ['PUT', 'GET', 'POST']
+
+  await fs.writeJSON(cfgFile, cfg)
 }
 
 export default async function createDaemon (opts) {
@@ -91,6 +100,8 @@ export default async function createDaemon (opts) {
     })
   })
 
+  await configure(ipfsd)
+
   if (!await cleanup(ipfsd.repoPath)) {
     throw new Error('exit')
   }
@@ -107,6 +118,5 @@ export default async function createDaemon (opts) {
     })
   }
 
-  await configure(ipfsd)
   return ipfsd
 }
