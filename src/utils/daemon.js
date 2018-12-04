@@ -67,23 +67,18 @@ async function configure (ipfsd) {
   await fs.writeJSON(cfgFile, cfg)
 }
 
-export default async function createDaemon (opts) {
-  opts.type = opts.type || 'go'
-  opts.path = opts.path || ''
-  opts.flags = opts.flags || ['--migrate=true', '--routing=dhtclient']
-  opts.keysize = opts.keysize || 4096
-
-  if (opts.type !== 'go') {
-    throw new Error(`${opts.type} connection is not supported yet`)
+export default async function createDaemon ({ type, path, flags, keysize = 0 }) {
+  if (type !== 'go') {
+    throw new Error(`${type} connection is not supported yet`)
   }
 
-  const factory = IPFSFactory.create({ type: opts.type })
+  const factory = IPFSFactory.create({ type: type })
 
   const ipfsd = await new Promise((resolve, reject) => {
     factory.spawn({
       disposable: false,
       defaultAddrs: true,
-      repoPath: opts.path
+      repoPath: path
     }, (e, ipfsd) => {
       if (e) return reject(e)
       if (ipfsd.initialized) {
@@ -91,8 +86,8 @@ export default async function createDaemon (opts) {
       }
 
       ipfsd.init({
-        directory: opts.path,
-        keysize: opts.keysize
+        directory: path,
+        keysize: keysize
       }, e => {
         if (e) return reject(e)
         resolve(ipfsd)
@@ -108,7 +103,7 @@ export default async function createDaemon (opts) {
 
   if (!ipfsd.started) {
     await new Promise((resolve, reject) => {
-      ipfsd.start(opts.flags, err => {
+      ipfsd.start(flags, err => {
         if (err) {
           return reject(err)
         }

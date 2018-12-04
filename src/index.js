@@ -23,12 +23,6 @@ async function run () {
   }
 
   let config = store.get('config')
-  let updateCfg = false
-
-  if (config === null) {
-    config = { type: 'go' }
-    updateCfg = true
-  }
 
   try {
     // Initial context object
@@ -36,9 +30,10 @@ async function run () {
       ipfsd: await createDaemon(config)
     }
 
-    // createDaemon has changed the config object,
-    // but didn't add the repo variable.
-    if (updateCfg) {
+    /// Update the path if it was blank previously.
+    // This way we use the default path when it is
+    // not set.
+    if (config.path === '') {
       config.path = ctx.ipfsd.repoPath
       store.set('config', config)
     }
