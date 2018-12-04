@@ -1,8 +1,8 @@
 import IPFSFactory from 'ipfsd-ctl'
-import logger from './logger'
 import { showRepoApiFileErrorMessage } from './errors'
 import { join } from 'path'
 import fs from 'fs-extra'
+import { session } from 'electron'
 import { spawnSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 
@@ -47,24 +47,15 @@ async function configure (ipfsd) {
   const cfgFile = join(ipfsd.repoPath, 'config')
   const cfg = await fs.readJSON(cfgFile)
 
-  let origins = []
-  try {
-    origins = cfg.API.HTTPHeaders['Access-Control-Allow-Origin']
-  } catch (e) {
-    logger.warn(e)
-  }
-
-  if (!Array.isArray(origins)) {
-    origins = []
-  }
-
-  if (!origins.includes('webui://-')) origins.push('webui://-')
-  if (!origins.includes('https://webui.ipfs.io')) origins.push('https://webui.ipfs.io')
-
-  cfg.API.HTTPHeaders['Access-Control-Allow-Origin'] = origins
   cfg.API.HTTPHeaders['Access-Control-Allow-Methods'] = ['PUT', 'GET', 'POST']
-
   await fs.writeJSON(cfgFile, cfg)
+}
+
+function setupNoCors () {
+  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+    delete details.requestHeaders['Origin']
+    callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
+  })
 }
 
 export default async function createDaemon ({ type, path, flags, keysize = 0 }) {
@@ -113,5 +104,6 @@ export default async function createDaemon ({ type, path, flags, keysize = 0 }) 
     })
   }
 
+  setupNoCors(ipfsd.apiUrl)
   return ipfsd
 }
