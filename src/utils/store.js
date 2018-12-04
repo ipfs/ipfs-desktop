@@ -2,7 +2,7 @@ import Store from 'electron-store'
 
 const store = new Store()
 
-if (store.get('version') !== 4) {
+if (store.get('version') !== 5) {
   store.clear()
 
   // default config
@@ -13,7 +13,7 @@ if (store.get('version') !== 4) {
     keysize: 2048
   })
 
-  store.set('version', 4)
+  store.set('version', 5)
 }
 
 export default store
