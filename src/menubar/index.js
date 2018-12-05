@@ -15,7 +15,7 @@ export default async function (ctx) {
         skipTaskbar: true,
         width: 280,
         height: 385,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#0b3a53',
         webPreferences: {
           nodeIntegration: true
         }
