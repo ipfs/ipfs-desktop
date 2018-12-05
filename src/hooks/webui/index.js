@@ -46,7 +46,7 @@ export default async function (ctx) {
     window.focus()
   })
 
-  ipcMain.on('app.quit', () => {
+  app.on('before-quit', () => {
     // Makes sure the app quits even though we prevent
     // the closing of this window.
     window.destroy()
