@@ -22,7 +22,7 @@ describe('Application launch', function () {
     }
   })
 
-  it('starts menubar and webui winddow', function () {
+  it('starts menubar and webui window', function () {
     assert.ok(this.app.isRunning(), 'App is running')
     return this.app.client.getWindowCount().then(function (count) {
       assert.strictEqual(count, 2, 'menubar and webui window exist')
