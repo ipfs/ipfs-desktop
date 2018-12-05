@@ -1,5 +1,5 @@
 import { app, dialog, shell } from 'electron'
-import { store, createDaemon } from './utils'
+import { store, createDaemon, logger } from './utils'
 import startupMenubar from './menubar'
 import registerHooks from './hooks'
 
@@ -82,10 +82,17 @@ async function run () {
   }
 
   try {
+    const ipfsd = await setupConnection()
+
+    app.on('quit', () => {
+      ipfsd.stop(err => {
+        if (err) return logger.error('Failed to stop IPFS daemon', err)
+        logger.log('IPFS daemon stopped')
+      })
+    })
+
     // Initial context object
-    let ctx = {
-      ipfsd: await setupConnection()
-    }
+    let ctx = { ipfsd }
 
     // Initialize windows. These can add properties to context
     await startupMenubar(ctx)

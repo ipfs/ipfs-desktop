@@ -38,16 +38,6 @@ export default async function (ctx) {
     }
 
     ipcMain.on('app.quit', async () => {
-      logger.info('Stopping daemon')
-
-      await new Promise((resolve, reject) => {
-        ctx.ipfsd.stop(err => {
-          if (err) reject(err)
-          else resolve()
-        })
-      })
-
-      logger.info('Done. Quitting app')
       app.quit()
     })
 
