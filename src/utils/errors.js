@@ -42,7 +42,7 @@ export function showRepoApiFileErrorMessage (path, addr) {
   const option = dialog.showMessageBox({
     type: 'warning',
     title: 'IPFS Desktop',
-    message: `IPFS Desktop found an 'api' file in ${path}, but was unable to connect to the address ${addr}. Would you like to try running 'ipfs repo fsck' to remove the file and try again?`,
+    message: `IPFS Desktop found an 'api' file in ${path}, but was unable to connect to the address ${addr}. This may have happened after an unexpected shutdown. Would you like to try running 'ipfs repo fsck' to remove the file and try again?`,
     buttons: [
       'No, just quit',
       'Yes, run "ipfs repo fsck"'

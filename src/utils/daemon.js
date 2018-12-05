@@ -16,33 +16,6 @@ function repoFsck (path) {
   })
 }
 
-async function cleanup (path) {
-  const apiFile = join(path, 'api')
-
-  if (!await fs.pathExists(apiFile)) {
-    return true
-  }
-
-  const cfgFile = join(path, 'config')
-  const cfg = await fs.readJSON(cfgFile)
-  const cfgAddr = cfg.Addresses ? cfg.Addresses.API : ''
-  const addr = (await fs.readFile(apiFile)).toString().trim()
-  const lockFile = await fs.pathExists(join(path, 'repo.lock'))
-  const datastoreLock = await fs.pathExists(join(path, 'datastore/LOCK'))
-
-  if (addr === cfgAddr && (lockFile || datastoreLock)) {
-    repoFsck(path)
-    return true
-  }
-
-  if (showRepoApiFileErrorMessage(path, addr)) {
-    repoFsck(path)
-    return true
-  }
-
-  return false
-}
-
 async function configure (ipfsd) {
   const cfgFile = join(ipfsd.repoPath, 'config')
   const cfg = await fs.readJSON(cfgFile)
@@ -67,14 +40,10 @@ async function configure (ipfsd) {
   await fs.writeJSON(cfgFile, cfg)
 }
 
-export default async function createDaemon ({ type, path, flags, keysize = 0 }) {
-  if (type !== 'go') {
-    throw new Error(`${type} connection is not supported yet`)
-  }
-
+async function spawn ({ type, path, keysize = 0 }) {
   const factory = IPFSFactory.create({ type: type })
 
-  const ipfsd = await new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     factory.spawn({
       disposable: false,
       defaultAddrs: true,
@@ -94,23 +63,41 @@ export default async function createDaemon ({ type, path, flags, keysize = 0 }) 
       })
     })
   })
+}
 
+async function start (ipfsd, { flags }) {
+  await new Promise((resolve, reject) => {
+    ipfsd.start(flags, err => {
+      if (err) {
+        return reject(err)
+      }
+
+      resolve()
+    })
+  })
+}
+
+export default async function (opts) {
+  const ipfsd = await spawn(opts)
   await configure(ipfsd)
 
-  if (!await cleanup(ipfsd.repoPath)) {
-    throw new Error('exit')
+  if (!ipfsd.started) {
+    await start(ipfsd, opts)
   }
 
-  if (!ipfsd.started) {
-    await new Promise((resolve, reject) => {
-      ipfsd.start(flags, err => {
-        if (err) {
-          return reject(err)
-        }
+  try {
+    await ipfsd.api.id()
+  } catch (e) {
+    if (!e.message.includes('ECONNREFUSED')) {
+      throw e
+    }
 
-        resolve()
-      })
-    })
+    if (!showRepoApiFileErrorMessage(ipfsd.repoPath, ipfsd.apiAddr)) {
+      throw new Error('exit')
+    }
+
+    repoFsck(ipfsd.repoPath)
+    await start(ipfsd, opts)
   }
 
   return ipfsd
