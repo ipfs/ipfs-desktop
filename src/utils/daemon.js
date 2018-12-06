@@ -6,7 +6,7 @@ import logger from './logger'
 export default async function createDaemon (opts) {
   opts.type = opts.type || 'go'
   opts.path = opts.path || ''
-  opts.flags = opts.flags || []//['--migrate=true', '--routing=dhtclient']
+  opts.flags = opts.flags || []// ['--migrate=true', '--routing=dhtclient']
   opts.keysize = opts.keysize || 4096
 
   const init = !(await fs.pathExists(opts.path)) || fs.readdirSync(opts.path).length === 0
@@ -47,7 +47,7 @@ export default async function createDaemon (opts) {
           logger.info('err: ', err)
           return reject(err)
         }
-        
+
         resolve()
       })
     })
