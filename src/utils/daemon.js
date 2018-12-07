@@ -1,6 +1,6 @@
 import IPFSFactory from 'ipfsd-ctl'
 import logger from './logger'
-import { showRepoApiFileErrorMessage } from './errors'
+import { showConnFailureErrorMessage } from './errors'
 import { join } from 'path'
 import fs from 'fs-extra'
 import { spawnSync } from 'child_process'
@@ -40,7 +40,7 @@ async function configure (ipfsd) {
   await fs.writeJSON(cfgFile, cfg)
 }
 
-async function spawn ({ type, path, keysize = 0 }) {
+async function spawn ({ type, path, keysize }) {
   const factory = IPFSFactory.create({ type: type })
 
   return new Promise((resolve, reject) => {
@@ -92,7 +92,7 @@ export default async function (opts) {
       throw e
     }
 
-    if (!showRepoApiFileErrorMessage(ipfsd.repoPath, ipfsd.apiAddr)) {
+    if (!showConnFailureErrorMessage(ipfsd.repoPath, ipfsd.apiAddr)) {
       throw new Error('exit')
     }
 
