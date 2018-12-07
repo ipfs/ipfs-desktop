@@ -1,4 +1,16 @@
 const { ipcRenderer, shell } = require('electron')
+const { createProxyClient } = require('ipfs-postmsg-proxy')
+
+ipcRenderer.setMaxListeners(100)
+
+window.ipfs = createProxyClient({
+  postMessage: (msg) => {
+    ipcRenderer.send('ipfs.message', msg)
+  },
+  addListener: (_, listener) => ipcRenderer.on('ipfs.message', listener),
+  removeListener: (_, listener) => ipcRenderer.removeListener('ipfs.message', listener),
+  getMessageData: (_, msg) => msg
+})
 
 document.addEventListener('click', function (event) {
   if (event.target.tagName === 'A' && event.target.href.startsWith('http')) {
@@ -24,11 +36,3 @@ window.ipfsDesktop = {
     ipcRenderer.send('config.toggle', setting)
   }
 }
-
-// This preload script creates the window.ipfs object with
-// the apiAddress in the URL.
-const urlParams = new URLSearchParams(window.location.search)
-const apiAddress = urlParams.get('api')
-
-// Inject api address
-window.localStorage.setItem('ipfsApi', apiAddress)

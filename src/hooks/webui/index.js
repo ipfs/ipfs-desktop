@@ -1,4 +1,4 @@
-import { logo, logger, store } from '../../utils'
+import { logo, logger, store, createProxy } from '../../utils'
 import { join } from 'path'
 import { screen, BrowserWindow, ipcMain, app } from 'electron'
 import serve from 'electron-serve'
@@ -55,6 +55,8 @@ export default async function (ctx) {
   ipcMain.on('config.get', () => {
     window.webContents.send('config.changed', store.store)
   })
+
+  createProxy(() => ctx.ipfsd.api, () => window)
 
   return new Promise(resolve => {
     window.on('ready-to-show', () => {
