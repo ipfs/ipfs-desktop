@@ -42,7 +42,7 @@ export function showConnFailureErrorMessage (path, addr) {
   const option = dialog.showMessageBox({
     type: 'warning',
     title: 'IPFS Desktop',
-    message: `IPFS Desktop failed to connect to an existing ipfs api at ${addr}. This can happen if you run ipfs daemon manually and it has not shutdown cleanly. Would you like to try running 'ipfs repo fsck' to remove the lock and api files from ${path} and try again?`,
+    message: `IPFS Desktop failed to connect to an existing ipfs api at ${addr}. This can happen if you run 'ipfs daemon' manually and it has not shutdown cleanly. Would you like to try running 'ipfs repo fsck' to remove the lock and api files from ${path} and try again?`,
     buttons: [
       'No, just quit',
       'Yes, run "ipfs repo fsck"'
