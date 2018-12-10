@@ -1,8 +1,6 @@
 import IPFSFactory from 'ipfsd-ctl'
-import logger from './logger'
 import { showConnFailureErrorMessage } from './errors'
 import { join } from 'path'
-import fs from 'fs-extra'
 import { spawnSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 
@@ -14,30 +12,6 @@ function repoFsck (path) {
       IPFS_PATH: path
     }
   })
-}
-
-async function configure (ipfsd) {
-  const cfgFile = join(ipfsd.repoPath, 'config')
-  const cfg = await fs.readJSON(cfgFile)
-
-  let origins = []
-  try {
-    origins = cfg.API.HTTPHeaders['Access-Control-Allow-Origin']
-  } catch (e) {
-    logger.warn(e)
-  }
-
-  if (!Array.isArray(origins)) {
-    origins = []
-  }
-
-  if (!origins.includes('webui://-')) origins.push('webui://-')
-  if (!origins.includes('https://webui.ipfs.io')) origins.push('https://webui.ipfs.io')
-
-  cfg.API.HTTPHeaders['Access-Control-Allow-Origin'] = origins
-  cfg.API.HTTPHeaders['Access-Control-Allow-Methods'] = ['PUT', 'GET', 'POST']
-
-  await fs.writeJSON(cfgFile, cfg)
 }
 
 async function spawn ({ type, path, keysize }) {
@@ -79,7 +53,6 @@ async function start (ipfsd, { flags }) {
 
 export default async function (opts) {
   const ipfsd = await spawn(opts)
-  await configure(ipfsd)
 
   if (!ipfsd.started) {
     await start(ipfsd, opts)
