@@ -1,4 +1,5 @@
 import { app, dialog } from 'electron'
+import { autoUpdater } from 'electron-updater'
 import { store, createDaemon, showErrorMessage } from './utils'
 import startupMenubar from './menubar'
 import registerHooks from './hooks'
@@ -15,6 +16,8 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 async function run () {
+  autoUpdater.checkForUpdatesAndNotify()
+
   try {
     await app.whenReady()
   } catch (e) {
