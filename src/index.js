@@ -3,6 +3,9 @@ import { store, createDaemon, showErrorMessage } from './utils'
 import startupMenubar from './menubar'
 import registerHooks from './hooks'
 
+// Sets User Model Id so notifications work on Windows 10
+app.setAppUserModelId('io.ipfs.desktop')
+
 // Only one instance can run at a time
 if (!app.requestSingleInstanceLock()) {
   dialog.showErrorBox(
