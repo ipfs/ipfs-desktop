@@ -1,4 +1,5 @@
 import { app, dialog } from 'electron'
+import { autoUpdater } from 'electron-updater'
 import { store, createDaemon, showErrorMessage } from './utils'
 import startupMenubar from './menubar'
 import registerHooks from './hooks'
@@ -25,6 +26,7 @@ async function run () {
     app.exit(1)
   }
 
+  autoUpdater.checkForUpdatesAndNotify()
   let config = store.get('ipfsConfig')
 
   try {

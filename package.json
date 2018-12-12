@@ -84,6 +84,7 @@
     "electron-menubar": "^1.0.1",
     "electron-serve": "^0.2.0",
     "electron-store": "^2.0.0",
+    "electron-updater": "^4.0.6",
     "filesize": "^3.6.1",
     "fs-extra": "^7.0.1",
     "go-ipfs-dep": "^0.4.18",
