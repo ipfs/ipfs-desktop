@@ -17,7 +17,8 @@ const createWindow = () => {
     height: store.get('window.height', dimensions.height < 900 ? dimensions.height : 900),
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
-      webSecurity: false
+      webSecurity: false,
+      allowRunningInsecureContent: false
     }
   })
 
