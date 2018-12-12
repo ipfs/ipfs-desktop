@@ -16,8 +16,6 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 async function run () {
-  autoUpdater.checkForUpdatesAndNotify()
-
   try {
     await app.whenReady()
   } catch (e) {
@@ -25,6 +23,7 @@ async function run () {
     app.exit(1)
   }
 
+  autoUpdater.checkForUpdatesAndNotify()
   let config = store.get('ipfsConfig')
 
   try {
