@@ -55,6 +55,7 @@
       "category": "public.app-category.utilities"
     },
     "nsis": {
+      "include": "build/nsis.nsh",
       "oneClick": false
     }
   },
