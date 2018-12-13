@@ -10,7 +10,3 @@ os:
 script:
   - npm run lint
   - npm run build
-
-branches:
-  except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
