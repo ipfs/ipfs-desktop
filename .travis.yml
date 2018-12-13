@@ -29,7 +29,7 @@ script:
         electronuserland/builder:wine \
         /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
     else
-      yarn release
+      npm run release
     fi
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
