@@ -12,10 +12,6 @@ matrix:
       services: docker
       language: generic
 
-branches:
-  only:
-    - master
-
 cache:
   directories:
     - node_modules
