@@ -2,11 +2,18 @@ import Store from 'electron-store'
 
 const store = new Store()
 
-if (store.get('version') !== 4) {
+if (store.get('version') !== 5) {
   store.clear()
-  store.set('seenWelcome', false)
-  store.set('config', null)
-  store.set('version', 4)
+
+  // default config
+  store.set('ipfsConfig', {
+    type: 'go',
+    path: '',
+    flags: ['--migrate=true', '--routing=dhtclient'],
+    keysize: 2048
+  })
+
+  store.set('version', 5)
 }
 
 export default store
