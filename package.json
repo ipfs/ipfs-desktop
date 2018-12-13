@@ -57,7 +57,8 @@
     },
     "nsis": {
       "oneClick": false
-    }
+    },
+    "publish": ["github"]
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
