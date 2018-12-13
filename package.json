@@ -20,7 +20,8 @@
     "build:webui:minimize": "shx rm -rf src/hooks/webui/app/static/js/*.map && shx rm -rf src/hooks/webui/app/static/css/*.map",
     "build:icons": "svgr -d src/icons node_modules/ipfs-css/icons && standard --fix src/icons/*.js",
     "build:babel": "babel src --ignore src/hooks/webui/app --out-dir out --copy-files",
-    "build:binaries": "electron-builder -p never"
+    "build:binaries": "electron-builder -p never",
+    "release": "run-s build"
   },
   "pre-commit": [
     "lint"
