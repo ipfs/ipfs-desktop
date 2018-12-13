@@ -8,20 +8,19 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development electron -r @babel/register src/index.js",
     "lint": "standard",
-    "postinstall": "run-s install-app-deps fetch:webui fetch:icons",
+    "postinstall": "run-s install-app-deps build:webui build:icons",
     "install-app-deps": "electron-builder install-app-deps",
     "clean:webui": "shx rm -rf src/hooks/webui/app/",
-    "fetch:webui": "cross-env CID=QmR6FjMewzJRuVq6e9RCbB7akjURSuoGqYxrUurTKS3QQ5 npm run fetch:webui:with-cid",
-    "fetch:webui:with-cid": "cross-env-shell \"shx test -d src/hooks/webui/app/ || (npm run fetch:webui:dir && (npm run fetch:webui:fetch-ipfs || npm run fetch:webui:fetch-http) && npm run fetch:webui:minimize)\"",
-    "fetch:webui:dir": "shx mkdir -p src/hooks/webui/app",
-    "fetch:webui:fetch-ipfs": "cross-env-shell \"ipfs get $CID -o src/hooks/webui/app/\"",
-    "fetch:webui:fetch-http": "cross-env-shell \"node scripts/fetch-webui-from-gateway.js $CID src/hooks/webui/app/\"",
-    "fetch:webui:minimize": "shx rm -rf src/hooks/webui/app/static/js/*.map && shx rm -rf src/hooks/webui/app/static/css/*.map",
-    "fetch:icons": "svgr -d src/icons node_modules/ipfs-css/icons && standard --fix src/icons/*.js",
-    "babel": "babel src --ignore src/hooks/webui/app --out-dir out --copy-files",
-    "build": "run-s babel build:binaries",
-    "build:binaries": "electron-builder",
-    "release": "npm run babel && electron-builder"
+    "build": "run-s build:*",
+    "build:webui": "cross-env CID=QmR6FjMewzJRuVq6e9RCbB7akjURSuoGqYxrUurTKS3QQ5 npm run build:webui:with-cid",
+    "build:webui:with-cid": "cross-env-shell \"shx test -d src/hooks/webui/app/ || (npm run build:webui:dir && (npm run build:webui:fetch-ipfs || npm run build:webui:fetch-http) && npm run build:webui:minimize)\"",
+    "build:webui:dir": "shx mkdir -p src/hooks/webui/app",
+    "build:webui:fetch-ipfs": "cross-env-shell \"ipfs get $CID -o src/hooks/webui/app/\"",
+    "build:webui:fetch-http": "cross-env-shell \"node scripts/fetch-webui-from-gateway.js $CID src/hooks/webui/app/\"",
+    "build:webui:minimize": "shx rm -rf src/hooks/webui/app/static/js/*.map && shx rm -rf src/hooks/webui/app/static/css/*.map",
+    "build:icons": "svgr -d src/icons node_modules/ipfs-css/icons && standard --fix src/icons/*.js",
+    "build:babel": "babel src --ignore src/hooks/webui/app --out-dir out --copy-files",
+    "build:binaries": "electron-builder"
   },
   "pre-commit": [
     "lint"
