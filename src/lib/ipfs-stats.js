@@ -2,33 +2,33 @@ import { ipcMain } from 'electron'
 import filesize from 'filesize'
 
 const ipfsState = (ctx) => async () => {
-  const { ipfsd, menubarWindow: { send } } = ctx
+  const { ipfsd, sendToMenubar } = ctx
 
   if (ipfsd.started) {
-    send('ipfs.started', (await ipfsd.api.id()))
+    sendToMenubar('ipfs.started', (await ipfsd.api.id()))
     getPeers(ctx)()
     getRepoSize(ctx)()
   } else {
-    send('ipfs.stopped')
+    sendToMenubar('ipfs.stopped')
   }
 }
 
-const getPeers = ({ menubarWindow: { send }, ipfsd }) => async () => {
+const getPeers = ({ sendToMenubar, ipfsd }) => async () => {
   if (ipfsd.started) {
     const peers = await ipfsd.api.swarm.peers()
-    send('peersCount', peers.length)
+    sendToMenubar('peersCount', peers.length)
   } else {
-    send('peersCount', 0)
+    sendToMenubar('peersCount', 0)
   }
 }
 
-const getRepoSize = ({ menubarWindow: { send }, ipfsd }) => async () => {
+const getRepoSize = ({ sendToMenubar, ipfsd }) => async () => {
   if (ipfsd.started) {
     const stats = await ipfsd.api.repo.stat()
     const size = stats.repoSize.toFixed(0)
-    send('repoSize', filesize(size, { round: 0 }))
+    sendToMenubar('repoSize', filesize(size, { round: 0 }))
   } else {
-    send('repoSize', null)
+    sendToMenubar('repoSize', null)
   }
 }
 

@@ -69,7 +69,7 @@ export default async function (opts) {
 
     logger.warn('Connection refused due to API or Lock files')
     if (!showConnFailureErrorMessage(ipfsd.repoPath, ipfsd.apiAddr)) {
-      throw new Error('exit')
+      throw new Error('IPFS_DESKTOP_EXIT')
     }
 
     repoFsck(ipfsd.repoPath)

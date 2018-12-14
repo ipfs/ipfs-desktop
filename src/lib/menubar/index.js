@@ -1,5 +1,5 @@
 import { Menubar } from 'electron-menubar'
-import { logo, logger, i18n } from '../utils'
+import { logo, logger, i18n } from '../../utils'
 import { app, ipcMain } from 'electron'
 
 export default async function (ctx) {
@@ -22,12 +22,9 @@ export default async function (ctx) {
       }
     })
 
-    ctx.menubarWindow = {
-      it: menubar,
-      send: (type, ...args) => {
-        if (menubar && menubar.window && menubar.window.webContents) {
-          menubar.window.webContents.send(type, ...args)
-        }
+    ctx.sendToMenubar = (type, ...args) => {
+      if (menubar && menubar.window && menubar.window.webContents) {
+        menubar.window.webContents.send(type, ...args)
       }
     }
 
@@ -37,17 +34,7 @@ export default async function (ctx) {
       resolve()
     }
 
-    ipcMain.on('app.quit', async () => {
-      logger.info('Stopping daemon')
-
-      await new Promise((resolve, reject) => {
-        ctx.ipfsd.stop(err => {
-          if (err) reject(err)
-          else resolve()
-        })
-      })
-
-      logger.info('Done. Quitting app')
+    ipcMain.on('app.quit', () => {
       app.quit()
     })
 
