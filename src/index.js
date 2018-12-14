@@ -20,7 +20,7 @@ if (!app.requestSingleInstanceLock()) {
 function handleError (e) {
   // This is a special error used internally to close the app with status 1.
   if (e.message === 'IPFS_DESKTOP_EXIT') {
-    app.exit(1)
+    return app.exit(1)
   }
 
   logger.error(e)
