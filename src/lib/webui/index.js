@@ -40,7 +40,7 @@ const createWindow = () => {
 export default async function (ctx) {
   const apiAddress = ctx.ipfsd.apiAddr
   const window = createWindow()
-  ctx.sendToWebUI = window
+  ctx.sendToWebUI = window.webContents.send
 
   ipcMain.on('launchWebUI', (_, url) => {
     window.webContents.send('updatedPage', url)
