@@ -47,7 +47,7 @@ function handleScreenshot (ctx) {
 }
 
 export default function (ctx) {
-  let { menubarWindow } = ctx
+  let { sendToMenubar } = ctx
 
   let activate = (value, oldValue) => {
     if (value === oldValue) return
@@ -55,7 +55,7 @@ export default function (ctx) {
     if (value === true) {
       globalShortcut.register(shortcut, () => {
         logger.info('Taking Screenshot')
-        menubarWindow.send('screenshot')
+        sendToMenubar('screenshot')
       })
 
       logger.info('Screenshot shortcut enabled')

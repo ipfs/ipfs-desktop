@@ -2,12 +2,12 @@ import React from 'react'
 import { translate } from 'react-i18next'
 import { connect } from 'redux-bundler-react'
 import Heartbeat from './components/heartbeat/Heartbeat'
-import GlyphPower from '../../icons/GlyphPower'
-import StrokeMarketing from '../../icons/StrokeMarketing'
-import StrokeWeb from '../../icons/StrokeWeb'
-import StrokeCube from '../../icons/StrokeCube'
-import StrokeSettings from '../../icons/StrokeSettings'
-import StrokeIpld from '../../icons/StrokeIpld'
+import GlyphPower from '../../../icons/GlyphPower'
+import StrokeMarketing from '../../../icons/StrokeMarketing'
+import StrokeWeb from '../../../icons/StrokeWeb'
+import StrokeCube from '../../../icons/StrokeCube'
+import StrokeSettings from '../../../icons/StrokeSettings'
+import StrokeIpld from '../../../icons/StrokeIpld'
 
 const NavLink = connect(
   'doOpenWebUI',

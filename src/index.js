@@ -1,8 +1,7 @@
 import { app, dialog } from 'electron'
 import { autoUpdater } from 'electron-updater'
-import { store, createDaemon, showErrorMessage, logger } from './utils'
-import startupMenubar from './menubar'
-import registerHooks from './hooks'
+import { showErrorMessage, logger } from './utils'
+import startup from './lib'
 
 // Sets User Model Id so notifications work on Windows 10
 app.setAppUserModelId('io.ipfs.desktop')
@@ -18,6 +17,19 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(1)
 }
 
+function handleError (e) {
+  // This is a special error used internally to close the app with status 1.
+  if (e.message === 'IPFS_DESKTOP_EXIT') {
+    app.exit(1)
+  }
+
+  logger.error(e)
+  showErrorMessage(e)
+}
+
+process.on('uncaughtException', handleError)
+process.on('unhandledRejection', handleError)
+
 async function run () {
   try {
     await app.whenReady()
@@ -27,36 +39,7 @@ async function run () {
   }
 
   autoUpdater.checkForUpdatesAndNotify()
-  let config = store.get('ipfsConfig')
-
-  try {
-    // Initial context object
-    let ctx = {
-      ipfsd: await createDaemon(config)
-    }
-
-    /// Update the path if it was blank previously.
-    // This way we use the default path when it is
-    // not set.
-    if (config.path === '') {
-      config.path = ctx.ipfsd.repoPath
-      store.set('ipfsConfig', config)
-    }
-
-    // Initialize windows. These can add properties to context
-    await startupMenubar(ctx)
-
-    // Register hooks
-    await registerHooks(ctx)
-  } catch (e) {
-    logger.error(e)
-
-    if (e.message === 'exit') {
-      app.exit(1)
-    } else {
-      showErrorMessage(e)
-    }
-  }
+  await startup()
 }
 
 run()
