@@ -1,6 +1,6 @@
 import { app, dialog } from 'electron'
 import { autoUpdater } from 'electron-updater'
-import { store, createDaemon, showErrorMessage } from './utils'
+import { store, createDaemon, showErrorMessage, logger } from './utils'
 import startupMenubar from './menubar'
 import registerHooks from './hooks'
 
@@ -49,6 +49,8 @@ async function run () {
     // Register hooks
     await registerHooks(ctx)
   } catch (e) {
+    logger.error(e)
+
     if (e.message === 'exit') {
       app.exit(1)
     } else {
