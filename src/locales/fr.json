@@ -1,0 +1,9 @@
+{
+  "turnOff": "Eteindre le bureau IPFS",
+  "ipfsNode": "Nœud IPFS",
+  "status": "Statut",
+  "files": "Fichiers",
+  "explore": "Explorez",
+  "peers": "Pairs",
+  "settings": "Réglages"
+}

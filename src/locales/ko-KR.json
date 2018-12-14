@@ -1,0 +1,9 @@
+{
+  "turnOff": "IPFS Desktop 종료",
+  "ipfsNode": "IPFS 노드",
+  "status": "상태",
+  "files": "파일",
+  "explore": "탐색",
+  "peers": "피어",
+  "settings": "설정"
+}
