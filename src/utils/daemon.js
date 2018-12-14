@@ -1,12 +1,14 @@
 import IPFSFactory from 'ipfsd-ctl'
 import { showConnFailureErrorMessage } from './errors'
-import { join } from 'path'
-import { spawnSync } from 'child_process'
+import logger from './logger'
+import { app } from 'electron'
+import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 
 function repoFsck (path) {
-  const exec = findExecutable('go', join(__dirname, '..'))
-  spawnSync(exec, ['repo', 'fsck'], {
+  logger.info(`Running 'ipfs repo fsck' on %s`, path)
+  let exec = findExecutable('go', app.getAppPath())
+  execFileSync(exec, ['repo', 'fsck'], {
     env: {
       ...process.env,
       IPFS_PATH: path
@@ -65,6 +67,7 @@ export default async function (opts) {
       throw e
     }
 
+    logger.warn('Connection refused due to API or Lock files')
     if (!showConnFailureErrorMessage(ipfsd.repoPath, ipfsd.apiAddr)) {
       throw new Error('exit')
     }
