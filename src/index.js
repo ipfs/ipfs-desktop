@@ -38,7 +38,10 @@ async function run () {
     app.exit(1)
   }
 
-  autoUpdater.checkForUpdatesAndNotify()
+  autoUpdater.allowPrerelease = true
+  // TODO: enable before releasing 0.6.0
+  // autoUpdater.checkForUpdatesAndNotify()
+
   await startup()
 }
 
