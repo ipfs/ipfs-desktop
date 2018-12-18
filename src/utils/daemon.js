@@ -16,6 +16,29 @@ function repoFsck (path) {
   })
 }
 
+function startStop (path) {
+  logger.info('Starting daemon to clean up the locks')
+  const opts = {
+    env: {
+      ...process.env,
+      IPFS_PATH: path
+    },
+    timeout: 10000,
+    killSignal: 'SIGINT',
+    stdio: 'inherit'
+  }
+  let out = ''
+  try {
+    const exec = findExecutable('go', app.getAppPath())
+    out = execFileSync(exec, ['daemon'], opts)
+    console.log(out)
+    
+  } catch (e) {
+    console.log(out)
+    if (!e.message.includes('ETIMEDOUT')) throw e
+  }
+}
+
 async function spawn ({ type, path, keysize }) {
   const factory = IPFSFactory.create({ type: type })
 
@@ -57,6 +80,7 @@ export default async function (opts) {
   const ipfsd = await spawn(opts)
 
   if (!ipfsd.started) {
+    await startStop(ipfsd.repoPath)
     await start(ipfsd, opts)
   }
 
