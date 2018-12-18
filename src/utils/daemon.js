@@ -1,11 +1,20 @@
 import IPFSFactory from 'ipfsd-ctl'
-import { showConnFailureErrorMessage } from './errors'
 import logger from './logger'
+import fs from 'fs-extra'
+import { join } from 'path'
 import { app } from 'electron'
+import { cannotConnectToAPI } from './errors'
 import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 
-function repoFsck (path) {
+async function cleanup (addr, path) {
+  logger.info(`Entering cleanup stage`)
+
+  if (!await fs.pathExists(join(path, 'config'))) {
+    cannotConnectToAPI(addr)
+    return
+  }
+
   logger.info(`Running 'ipfs repo fsck' on %s`, path)
   let exec = findExecutable('go', app.getAppPath())
   execFileSync(exec, ['repo', 'fsck'], {
@@ -67,12 +76,7 @@ export default async function (opts) {
       throw e
     }
 
-    logger.warn('Connection refused due to API or Lock files')
-    if (!showConnFailureErrorMessage(ipfsd.repoPath, ipfsd.apiAddr)) {
-      throw new Error('IPFS_DESKTOP_EXIT')
-    }
-
-    repoFsck(ipfsd.repoPath)
+    await cleanup(ipfsd.apiAddr, ipfsd.repoPath)
     await start(ipfsd, opts)
   }
 

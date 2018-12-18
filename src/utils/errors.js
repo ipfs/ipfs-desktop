@@ -16,7 +16,12 @@ ${e.stack}
 \`\`\`
 `
 
+let hasErrored = false
+
 export function showErrorMessage (e) {
+  if (hasErrored) return
+  hasErrored = true
+
   const option = dialog.showMessageBox({
     type: 'error',
     title: 'IPFS Desktop has shutdown',
@@ -38,17 +43,24 @@ export function showErrorMessage (e) {
   app.exit(1)
 }
 
-export function showConnFailureErrorMessage (path, addr) {
+export function cannotConnectToAPI (addr) {
+  if (hasErrored) return
+  hasErrored = true
+
   const option = dialog.showMessageBox({
-    type: 'warning',
-    title: 'IPFS Desktop',
-    message: `IPFS Desktop failed to connect to an existing ipfs api at ${addr}. This can happen if you run 'ipfs daemon' manually and it has not shutdown cleanly. Would you like to try running 'ipfs repo fsck' to remove the lock and api files from ${path} and try again?`,
+    type: 'error',
+    title: 'Cannot connect to API',
+    message: `IPFS Desktop cannot connect to the API address provided: ${addr}.`,
     buttons: [
-      'No, just quit',
-      'Yes, run "ipfs repo fsck"'
+      'Close',
+      'Restart the app'
     ],
     cancelId: 0
   })
 
-  return option === 1
+  if (option === 1) {
+    app.relaunch()
+  }
+
+  app.exit(1)
 }

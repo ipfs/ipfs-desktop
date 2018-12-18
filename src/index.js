@@ -18,11 +18,6 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 function handleError (e) {
-  // This is a special error used internally to close the app with status 1.
-  if (e.message === 'IPFS_DESKTOP_EXIT') {
-    return app.exit(1)
-  }
-
   logger.error(e)
   showErrorMessage(e)
 }
@@ -38,11 +33,15 @@ async function run () {
     app.exit(1)
   }
 
-  autoUpdater.allowPrerelease = true
-  // TODO: enable before releasing 0.6.0
-  // autoUpdater.checkForUpdatesAndNotify()
+  try {
+    autoUpdater.allowPrerelease = true
+    // TODO: enable before releasing 0.6.0
+    // autoUpdater.checkForUpdatesAndNotify()
 
-  await startup()
+    await startup()
+  } catch (e) {
+    handleError(e)
+  }
 }
 
 run()
