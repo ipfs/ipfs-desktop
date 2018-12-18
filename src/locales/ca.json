@@ -1,0 +1,9 @@
+{
+  "turnOff": "Tancar IPFS Escriptori",
+  "ipfsNode": "Node IPFS",
+  "status": "Estat",
+  "files": "Arxius",
+  "explore": "Explorar",
+  "peers": "Peers",
+  "settings": "Configuració"
+}

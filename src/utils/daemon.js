@@ -1,12 +1,23 @@
 import IPFSFactory from 'ipfsd-ctl'
-import { showConnFailureErrorMessage } from './errors'
+import logger from './logger'
+import fs from 'fs-extra'
 import { join } from 'path'
-import { spawnSync } from 'child_process'
+import { app } from 'electron'
+import { cannotConnectToAPI } from './errors'
+import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 
-function repoFsck (path) {
-  const exec = findExecutable('go', join(__dirname, '..'))
-  spawnSync(exec, ['repo', 'fsck'], {
+async function cleanup (addr, path) {
+  logger.info(`Entering cleanup stage`)
+
+  if (!await fs.pathExists(join(path, 'config'))) {
+    cannotConnectToAPI(addr)
+    return
+  }
+
+  logger.info(`Running 'ipfs repo fsck' on %s`, path)
+  let exec = findExecutable('go', app.getAppPath())
+  execFileSync(exec, ['repo', 'fsck'], {
     env: {
       ...process.env,
       IPFS_PATH: path
@@ -65,11 +76,7 @@ export default async function (opts) {
       throw e
     }
 
-    if (!showConnFailureErrorMessage(ipfsd.repoPath, ipfsd.apiAddr)) {
-      throw new Error('exit')
-    }
-
-    repoFsck(ipfsd.repoPath)
+    await cleanup(ipfsd.apiAddr, ipfsd.repoPath)
     await start(ipfsd, opts)
   }
 

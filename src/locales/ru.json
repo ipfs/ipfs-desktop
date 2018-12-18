@@ -1,0 +1,9 @@
+{
+  "turnOff": "Выключить IPFS Desktop",
+  "ipfsNode": "IPFS нода",
+  "status": "Статус",
+  "files": "Файлы",
+  "explore": "Обзор",
+  "peers": "Пиры",
+  "settings": "Настройки"
+}

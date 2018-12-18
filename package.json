@@ -1,7 +1,7 @@
 {
   "name": "ipfs-desktop",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.6.0",
   "productName": "IPFS Desktop",
   "description": "IPFS Native Application",
   "main": "out/index.js",
@@ -11,17 +11,17 @@
     "test": "mocha",
     "postinstall": "run-s install-app-deps build:webui build:icons",
     "install-app-deps": "electron-builder install-app-deps",
-    "clean:webui": "shx rm -rf src/hooks/webui/app/",
+    "clean:webui": "shx rm -rf src/lib/webui/app/",
     "build": "run-s build:*",
-    "build:webui": "cross-env CID=QmR6FjMewzJRuVq6e9RCbB7akjURSuoGqYxrUurTKS3QQ5 npm run build:webui:with-cid",
-    "build:webui:with-cid": "cross-env-shell \"shx test -d src/hooks/webui/app/ || (npm run build:webui:dir && (npm run build:webui:fetch-ipfs || npm run build:webui:fetch-http) && npm run build:webui:minimize)\"",
-    "build:webui:dir": "shx mkdir -p src/hooks/webui/app",
-    "build:webui:fetch-ipfs": "cross-env-shell \"ipfs get $CID -o src/hooks/webui/app/\"",
-    "build:webui:fetch-http": "cross-env-shell \"node scripts/fetch-webui-from-gateway.js $CID src/hooks/webui/app/\"",
-    "build:webui:minimize": "shx rm -rf src/hooks/webui/app/static/js/*.map && shx rm -rf src/hooks/webui/app/static/css/*.map",
+    "build:webui": "cross-env CID=QmUnXcWZC5Ve21gUseouJsH5mLAyz5JPp8aHsg8qVUUK8e npm run build:webui:with-cid",
+    "build:webui:with-cid": "cross-env-shell \"shx test -d src/lib/webui/app/ || (npm run build:webui:dir && (npm run build:webui:fetch-ipfs || npm run build:webui:fetch-http) && npm run build:webui:minimize)\"",
+    "build:webui:dir": "shx mkdir -p src/lib/webui/app",
+    "build:webui:fetch-ipfs": "cross-env-shell \"ipfs get $CID -o src/lib/webui/app/\"",
+    "build:webui:fetch-http": "cross-env-shell \"node scripts/fetch-webui-from-gateway.js $CID src/lib/webui/app/\"",
+    "build:webui:minimize": "shx rm -rf src/lib/webui/app/static/js/*.map && shx rm -rf src/lib/webui/app/static/css/*.map",
     "build:icons": "svgr -d src/icons node_modules/ipfs-css/icons && standard --fix src/icons/*.js",
-    "build:babel": "babel src --ignore src/hooks/webui/app --out-dir out --copy-files",
-    "build:binaries": "electron-builder -p never"
+    "build:babel": "babel src --ignore src/lib/webui/app --out-dir out --copy-files",
+    "build:binaries": "electron-builder"
   },
   "pre-commit": [
     "lint"
@@ -56,21 +56,25 @@
       "category": "public.app-category.utilities"
     },
     "nsis": {
+      "include": "build/nsis.nsh",
       "oneClick": false
-    }
+    },
+    "publish": [
+      "github"
+    ]
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",
-    "@babel/core": "^7.2.0",
+    "@babel/core": "^7.2.2",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "@svgr/cli": "^4.1.0",
     "cross-env": "^5.2.0",
-    "electron": "^3.0.10",
     "mocha": "^5.2.0",
-    "electron-builder": "^20.38.2",
+    "electron": "^3.0.12",
+    "electron-builder": "^20.38.3",
     "npm-run-all": "^4.1.5",
     "pre-commit": "^1.2.2",
     "request": "^2.88.0",
@@ -86,20 +90,21 @@
     "electron-menubar": "^1.0.1",
     "electron-serve": "^0.2.0",
     "electron-store": "^2.0.0",
+    "electron-updater": "^4.0.6",
     "filesize": "^3.6.1",
     "fs-extra": "^7.0.1",
     "go-ipfs-dep": "^0.4.18",
-    "i18next": "^12.1.0",
+    "i18next": "^13.0.0",
     "i18next-electron-language-detector": "0.0.10",
-    "i18next-icu": "^0.6.0",
-    "i18next-node-fs-backend": "^2.1.0",
+    "i18next-icu": "^1.0.1",
+    "i18next-node-fs-backend": "^2.1.1",
     "ipfs-css": "^0.12.0",
-    "ipfsd-ctl": "^0.40.1",
+    "ipfsd-ctl": "^0.40.2",
     "is-ipfs": "^0.4.8",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-i18next": "^8.3.8",
-    "redux-bundler": "^22.2.0",
+    "react-i18next": "^8.4.0",
+    "redux-bundler": "^23.0.1",
     "redux-bundler-react": "^1.1.0",
     "tachyons": "^4.11.1",
     "winston": "^3.1.0"

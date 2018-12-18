@@ -3,5 +3,5 @@ out
 dist
 .cache
 config.gypi
-src/hooks/webui/app
+src/lib/webui/app
 src/icons/*.js

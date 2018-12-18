@@ -17,7 +17,8 @@ const createWindow = () => {
     height: store.get('window.height', dimensions.height < 900 ? dimensions.height : 900),
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
-      webSecurity: false
+      webSecurity: false,
+      allowRunningInsecureContent: false
     }
   })
 
@@ -39,7 +40,7 @@ const createWindow = () => {
 export default async function (ctx) {
   const apiAddress = ctx.ipfsd.apiAddr
   const window = createWindow()
-  ctx.webUiWindow = window
+  ctx.sendToWebUI = (...args) => window.webContents.send(...args)
 
   ipcMain.on('launchWebUI', (_, url) => {
     window.webContents.send('updatedPage', url)
