@@ -3,14 +3,15 @@ import logger from './logger'
 import fs from 'fs-extra'
 import { join } from 'path'
 import { app } from 'electron'
+import { cannotConnectToAPI } from './errors'
 import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 
-async function cleanup (path) {
+async function cleanup (addr, path) {
   logger.info(`Entering cleanup stage`)
 
   if (!await fs.pathExists(join(path, 'config'))) {
-    logger.info(`'config' file does not exist. Aborting cleanup`)
+    cannotConnectToAPI(addr)
     return
   }
 
@@ -65,10 +66,19 @@ export default async function (opts) {
   const ipfsd = await spawn(opts)
 
   if (!ipfsd.started) {
-    await cleanup(ipfsd.repoPath)
     await start(ipfsd, opts)
   }
 
-  await ipfsd.api.id()
+  try {
+    await ipfsd.api.id()
+  } catch (e) {
+    if (!e.message.includes('ECONNREFUSED')) {
+      throw e
+    }
+
+    await cleanup(ipfsd.apiAddr, ipfsd.repoPath)
+    await start(ipfsd, opts)
+  }
+
   return ipfsd
 }
