@@ -8,7 +8,7 @@ os:
   - osx
 
 before_script:
-  - ./scripts/travis-build.sh
+  - ./scripts/travis-xvfb.sh
 
 script:
   - npm run test
