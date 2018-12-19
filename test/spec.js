@@ -11,7 +11,7 @@ describe('Application launch', function () {
   before(function () {
     this.app = new Application({
       path: electronPath,
-      args: [path.join(__dirname, '../out/index.js')]
+      args: ['-r', '@babel/register', path.join(__dirname, '../src/index.js')]
     })
     return this.app.start()
   })
