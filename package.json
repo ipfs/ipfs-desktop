@@ -72,9 +72,9 @@
     "@babel/register": "^7.0.0",
     "@svgr/cli": "^4.1.0",
     "cross-env": "^5.2.0",
-    "mocha": "^5.2.0",
     "electron": "^3.0.12",
     "electron-builder": "^20.38.3",
+    "mocha": "^5.2.0",
     "npm-run-all": "^4.1.5",
     "pre-commit": "^1.2.2",
     "request": "^2.88.0",
@@ -82,7 +82,8 @@
     "shx": "^0.3.2",
     "spectron": "^5.0.0",
     "standard": "^12.0.1",
-    "tar": "^4.4.8"
+    "tar": "^4.4.8",
+    "tmp": "0.0.33"
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",
