@@ -19,7 +19,7 @@ async function startApp (opts) {
 }
 
 describe('Application launch', function () {
-  this.timeout(20000)
+  this.timeout(60000)
 
   /* it('starts with no initial repository', async () => {
     // TODO: how to simulate no initial repo on user Home?
