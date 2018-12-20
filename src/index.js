@@ -38,7 +38,7 @@ async function run () {
     // TODO: enable before releasing 0.6.0
     // autoUpdater.checkForUpdatesAndNotify()
 
-    await startup()
+    await startup(app)
   } catch (e) {
     handleError(e)
   }

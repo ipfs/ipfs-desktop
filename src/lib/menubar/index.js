@@ -30,7 +30,6 @@ export default async function (ctx) {
 
     const ready = () => {
       logger.info('Menubar is ready')
-      menubar.tray.setHighlightMode('always')
       resolve()
     }
 
