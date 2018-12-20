@@ -16,7 +16,7 @@ async function makeScreenshotDir (ipfs) {
 function handleScreenshot (ctx) {
   let { ipfsd } = ctx
 
-  return async (_, image) => {
+  return async (_, output) => {
     const ipfs = ipfsd.api
 
     if (!ipfs) {
@@ -24,24 +24,32 @@ function handleScreenshot (ctx) {
       return
     }
 
-    let base64Data = image.replace(/^data:image\/png;base64,/, '')
-
-    logger.info('Screenshot taken')
-
-    const path = `/screenshots/${new Date().toISOString()}.png`
-    const content = Buffer.from(base64Data, 'base64')
-
     try {
       await makeScreenshotDir(ipfs)
-      await ipfs.files.write(path, content, { create: true })
-
-      const stats = await ipfs.files.stat(path)
-      const url = `https://ipfs.io/ipfs/${stats.hash}`
-
-      clipboard.writeText(url)
-      logger.info('Screenshot uploaded', { path: path })
     } catch (e) {
       logger.error(e.stack)
+      return
+    }
+
+    for (let { name, image } of output) {
+      logger.info('Screenshot taken to %s', name)
+      let base64Data = image.replace(/^data:image\/png;base64,/, '')
+      name = name === 'Entire screen' ? '' : `-${name}`
+
+      const path = `/screenshots/${new Date().toISOString()}${name}.png`
+      const content = Buffer.from(base64Data, 'base64')
+
+      try {
+        await ipfs.files.write(path, content, { create: true })
+
+        const stats = await ipfs.files.stat(path)
+        const url = `https://ipfs.io/ipfs/${stats.hash}`
+
+        clipboard.writeText(url)
+        logger.info('Screenshot uploaded', { path: path })
+      } catch (e) {
+        logger.error(e.stack)
+      }
     }
   }
 }
