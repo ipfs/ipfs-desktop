@@ -5,7 +5,7 @@ import serve from 'electron-serve'
 
 serve({ scheme: 'webui', directory: `${__dirname}/app` })
 
-const createWindow = () => {
+const createWindow = (ctx) => {
   const dimensions = screen.getPrimaryDisplay()
 
   const window = new BrowserWindow({
@@ -13,12 +13,15 @@ const createWindow = () => {
     icon: logo('ice'),
     show: false,
     autoHideMenuBar: true,
+    titleBarStyle: 'hiddenInset',
+    fullscreenWindowTitle: 'true',
     width: store.get('window.width', dimensions.width < 1440 ? dimensions.width : 1440),
     height: store.get('window.height', dimensions.height < 900 ? dimensions.height : 900),
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       webSecurity: false,
-      allowRunningInsecureContent: false
+      allowRunningInsecureContent: false,
+      nodeIntegration: false
     }
   })
 
@@ -30,6 +33,7 @@ const createWindow = () => {
 
   window.on('close', (event) => {
     event.preventDefault()
+    ctx.app.dock.hide()
     window.hide()
     logger.info('WebUI screen was hidden')
   })
@@ -39,13 +43,14 @@ const createWindow = () => {
 
 export default async function (ctx) {
   const apiAddress = ctx.ipfsd.apiAddr
-  const window = createWindow()
+  const window = createWindow(ctx)
   ctx.sendToWebUI = (...args) => window.webContents.send(...args)
 
   ipcMain.on('launchWebUI', (_, url) => {
     window.webContents.send('updatedPage', url)
     window.show()
     window.focus()
+    ctx.app.dock.show()
   })
 
   app.on('before-quit', () => {

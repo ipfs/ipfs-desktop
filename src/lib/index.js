@@ -7,8 +7,8 @@ import downloadHash from './download-hash'
 import ipfsStats from './ipfs-stats'
 import takeScreenshot from './take-screenshot'
 
-export default async function () {
-  let ctx = {}
+export default async function (app) {
+  let ctx = { app }
 
   await registerDaemon(ctx) // ctx.ipfsd
   await registerMenubar(ctx) // ctx.sendToMenubar
