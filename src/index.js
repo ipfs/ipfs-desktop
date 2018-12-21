@@ -25,6 +25,15 @@ function handleError (e) {
 process.on('uncaughtException', handleError)
 process.on('unhandledRejection', handleError)
 
+async function checkUpdates () {
+  try {
+    autoUpdater.allowPrerelease = true
+    autoUpdater.checkForUpdatesAndNotify().catch(logger.warn)
+  } catch (e) {
+    logger.warn(e)
+  }
+}
+
 async function run () {
   try {
     await app.whenReady()
@@ -33,10 +42,9 @@ async function run () {
     app.exit(1)
   }
 
-  try {
-    autoUpdater.allowPrerelease = true
-    autoUpdater.checkForUpdatesAndNotify()
+  checkUpdates()
 
+  try {
     await startup()
   } catch (e) {
     handleError(e)
