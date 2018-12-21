@@ -35,8 +35,7 @@ async function run () {
 
   try {
     autoUpdater.allowPrerelease = true
-    // TODO: enable before releasing 0.6.0
-    // autoUpdater.checkForUpdatesAndNotify()
+    autoUpdater.checkForUpdatesAndNotify()
 
     await startup()
   } catch (e) {
