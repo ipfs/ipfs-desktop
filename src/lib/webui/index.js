@@ -33,7 +33,7 @@ const createWindow = (ctx) => {
 
   window.on('close', (event) => {
     event.preventDefault()
-    ctx.app.dock.hide()
+    if (app.dock) app.dock.hide()
     window.hide()
     logger.info('WebUI screen was hidden')
   })
@@ -50,7 +50,7 @@ export default async function (ctx) {
     window.webContents.send('updatedPage', url)
     window.show()
     window.focus()
-    ctx.app.dock.show()
+    if (app.dock) app.dock.show()
   })
 
   app.on('before-quit', () => {
