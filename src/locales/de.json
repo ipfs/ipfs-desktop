@@ -1,0 +1,9 @@
+{
+  "turnOff": "IPFS Desktop beenden",
+  "ipfsNode": "IPFS-Node",
+  "status": "Status",
+  "files": "Dateien",
+  "explore": "Erkunden",
+  "peers": "Peers",
+  "settings": "Einstellungen"
+}
