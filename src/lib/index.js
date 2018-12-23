@@ -6,9 +6,11 @@ import autoLaunch from './auto-launch'
 import downloadHash from './download-hash'
 import ipfsStats from './ipfs-stats'
 import takeScreenshot from './take-screenshot'
+import appMenu from './app-menu'
 
 export default async function () {
   let ctx = {}
+  await appMenu()
   await openExternal(ctx)
   await registerDaemon(ctx) // ctx.ipfsd
   await registerMenubar(ctx) // ctx.sendToMenubar
