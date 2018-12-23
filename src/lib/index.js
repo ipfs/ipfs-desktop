@@ -9,12 +9,10 @@ import takeScreenshot from './take-screenshot'
 
 export default async function () {
   let ctx = {}
-
+  await openExternal(ctx)
   await registerDaemon(ctx) // ctx.ipfsd
   await registerMenubar(ctx) // ctx.sendToMenubar
   await registerWebUI(ctx) // ctx.sendToWebUI
-
-  await openExternal(ctx)
   await autoLaunch(ctx)
   await downloadHash(ctx)
   await takeScreenshot(ctx)
