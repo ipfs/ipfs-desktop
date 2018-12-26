@@ -12,7 +12,7 @@ export default async function () {
   await openExternal(ctx)
   await registerDaemon(ctx) // ctx.ipfsd
   await registerMenubar(ctx) // ctx.sendToMenubar
-  await registerWebUI(ctx) // ctx.sendToWebUI
+  await registerWebUI(ctx) // ctx.sendToWebUI, ctx.launchWebUI
   await autoLaunch(ctx)
   await downloadHash(ctx)
   await takeScreenshot(ctx)
