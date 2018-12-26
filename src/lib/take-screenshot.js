@@ -1,4 +1,4 @@
-import { clipboard, ipcMain, globalShortcut } from 'electron'
+import { clipboard, ipcMain, globalShortcut, Notification } from 'electron'
 import { store, logger } from '../utils'
 import { createToggler } from './utils'
 
@@ -13,8 +13,36 @@ async function makeScreenshotDir (ipfs) {
   }
 }
 
+async function onSucess (ipfs, launchWebUI, path) {
+  const stats = await ipfs.files.stat(path)
+  const url = `https://share.ipfs.io/#/${stats.hash}`
+  clipboard.writeText(url)
+
+  const not = new Notification({
+    title: 'Screenshot Taken',
+    body: 'Share link copied to clipboard. Click here to view the screenshot.'
+  })
+
+  not.on('click', () => {
+    launchWebUI(`/files/${path}`)
+  })
+
+  not.show()
+}
+
+function onError (e) {
+  logger.error(e)
+
+  const not = new Notification({
+    title: 'Could not take screenshot',
+    body: 'There was an error while taking the screenshot. Please check out the logs for more information.'
+  })
+
+  not.show()
+}
+
 function handleScreenshot (ctx) {
-  let { ipfsd } = ctx
+  let { ipfsd, launchWebUI } = ctx
 
   return async (_, output) => {
     const ipfs = ipfsd.api
@@ -26,30 +54,29 @@ function handleScreenshot (ctx) {
 
     try {
       await makeScreenshotDir(ipfs)
-    } catch (e) {
-      logger.error(e.stack)
-      return
-    }
+      const isDir = output.length > 1
+      let baseName = `/screenshots/${new Date().toISOString()}`
 
-    for (let { name, image } of output) {
-      logger.info('Screenshot taken to %s', name)
-      let base64Data = image.replace(/^data:image\/png;base64,/, '')
-      name = name === 'Entire screen' ? '' : `-${name}`
-
-      const path = `/screenshots/${new Date().toISOString()}${name}.png`
-      const content = Buffer.from(base64Data, 'base64')
-
-      try {
-        await ipfs.files.write(path, content, { create: true })
-
-        const stats = await ipfs.files.stat(path)
-        const url = `https://ipfs.io/ipfs/${stats.hash}`
-
-        clipboard.writeText(url)
-        logger.info('Screenshot uploaded', { path: path })
-      } catch (e) {
-        logger.error(e.stack)
+      if (isDir) {
+        baseName += '/'
+        await ipfs.files.mkdir(baseName)
+      } else {
+        baseName += '.png'
       }
+
+      logger.info('Saving screenshots to %s', baseName)
+
+      for (let { name, image } of output) {
+        const raw = image.replace(/^data:image\/png;base64,/, '')
+        const content = Buffer.from(raw, 'base64')
+        const path = isDir ? `${baseName}${name}.png` : baseName
+        await ipfs.files.write(path, content, { create: true })
+      }
+
+      logger.info('Screenshots saved to %s', baseName)
+      onSucess(ipfs, launchWebUI, baseName)
+    } catch (e) {
+      onError(e)
     }
   }
 }
