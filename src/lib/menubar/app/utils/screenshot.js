@@ -1,39 +1,15 @@
 import { ipcRenderer, desktopCapturer } from 'electron'
 
 async function streamHandler (format, stream) {
-  return new Promise((resolve, reject) => {
-    // Create hidden video tag
-    const video = document.createElement('video')
-    video.style.cssText = 'position:absolute;top:-10000px;left:-10000px;'
-
-    // Event connected to stream
-    video.onloadedmetadata = function () {
-      // Set video ORIGINAL height (screenshot)
-      video.style.height = this.videoHeight + 'px'
-      video.style.width = this.videoWidth + 'px'
-
-      // Create canvas
-      const canvas = document.createElement('canvas')
-      canvas.width = this.videoWidth
-      canvas.height = this.videoHeight
-      const ctx = canvas.getContext('2d')
-      // Draw video on canvas
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-
-      // Remove hidden video tag
-      video.remove()
-      try {
-        // Destroy connect to stream
-        stream.getTracks()[0].stop()
-        resolve(canvas.toDataURL(format))
-      } catch (e) {
-        reject(e)
-      }
-    }
-
-    video.src = window.URL.createObjectURL(stream)
-    document.body.appendChild(video)
-  })
+  const track = stream.getVideoTracks()[0]
+  const imageCapture = new window.ImageCapture(track)
+  const bitmap = await imageCapture.grabFrame()
+  const canvas = document.createElement('canvas')
+  canvas.width = bitmap.width
+  canvas.height = bitmap.height
+  const ctx = canvas.getContext('2d')
+  ctx.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height)
+  return canvas.toDataURL(format)
 }
 
 async function screenshot (format) {
