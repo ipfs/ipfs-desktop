@@ -12,7 +12,7 @@
     "install-app-deps": "electron-builder install-app-deps",
     "clean:webui": "shx rm -rf src/lib/webui/app/",
     "build": "run-s build:*",
-    "build:webui": "cross-env CID=QmUnXcWZC5Ve21gUseouJsH5mLAyz5JPp8aHsg8qVUUK8e npm run build:webui:with-cid",
+    "build:webui": "cross-env CID=QmZLzKRqjuhERwjL7X72HMpwdw7r1o5MnSWcVSZxYfXcDH npm run build:webui:with-cid",
     "build:webui:with-cid": "cross-env-shell \"shx test -d src/lib/webui/app/ || (npm run build:webui:dir && (npm run build:webui:fetch-ipfs || npm run build:webui:fetch-http) && npm run build:webui:minimize)\"",
     "build:webui:dir": "shx mkdir -p src/lib/webui/app",
     "build:webui:fetch-ipfs": "cross-env-shell \"ipfs get $CID -o src/lib/webui/app/\"",
