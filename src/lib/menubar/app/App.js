@@ -32,7 +32,7 @@ const Button = ({ children, on, ...props }) => (
   </button>
 )
 
-const Menubar = ({ t, ipfsIsRunning, doQuitApp, currentConfig }) => (
+const Menubar = ({ t, ipfsIsRunning, doToggleIpfs, currentConfig }) => (
   <div className='bg-navy sans-serif h-100'>
     <div className='pa3 bw3 bb b--aqua'>
       <div className='flex items-center'>
@@ -42,7 +42,7 @@ const Menubar = ({ t, ipfsIsRunning, doQuitApp, currentConfig }) => (
           online={ipfsIsRunning} />
         <div className='montserrat f3 ml2 white' style={{ marginRight: 'auto' }}>IPFS</div>
 
-        <Button onClick={doQuitApp} on={ipfsIsRunning} title={t('turnOff')}>
+        <Button onClick={doToggleIpfs} on={ipfsIsRunning} title={t('turnOff')}>
           <GlyphPower className='w2 h2' />
         </Button>
       </div>
@@ -59,7 +59,7 @@ const Menubar = ({ t, ipfsIsRunning, doQuitApp, currentConfig }) => (
 )
 
 export default connect(
-  'doQuitApp',
+  'doToggleIpfs',
   'doIpfsStartListening',
   'selectIpfsIsRunning',
   'selectCurrentConfig',

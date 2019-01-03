@@ -1,6 +1,24 @@
 import { Menubar } from 'electron-menubar'
 import { logo, logger, i18n } from '../../utils'
-import { app, ipcMain } from 'electron'
+import { Menu, shell, app, ipcMain } from 'electron'
+
+function getContextMenu ({ launchWebUI }) {
+  return Menu.buildFromTemplate([
+    {
+      label: 'Quit',
+      click: () => { app.quit() }
+    },
+    { type: 'separator' },
+    {
+      label: 'Settings',
+      click: () => { launchWebUI('/settings') }
+    },
+    {
+      label: 'Logs Directory',
+      click: () => { shell.openItem(app.getPath('userData')) }
+    }
+  ])
+}
 
 export default async function (ctx) {
   return new Promise(resolve => {
@@ -22,6 +40,8 @@ export default async function (ctx) {
       }
     })
 
+    menubar.tray.setContextMenu(getContextMenu(ctx))
+
     ctx.sendToMenubar = (type, ...args) => {
       if (menubar && menubar.window && menubar.window.webContents) {
         menubar.window.webContents.send(type, ...args)
@@ -32,10 +52,6 @@ export default async function (ctx) {
       logger.info('Menubar is ready')
       resolve()
     }
-
-    ipcMain.on('app.quit', () => {
-      app.quit()
-    })
 
     if (menubar.isReady()) ready()
     else menubar.on('ready', ready)

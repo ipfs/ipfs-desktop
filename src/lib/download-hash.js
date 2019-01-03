@@ -51,11 +51,11 @@ async function saveFile (dir, file) {
 }
 
 function handler (ctx) {
-  const { ipfsd } = ctx
+  const { getIpfsd } = ctx
 
   return async () => {
     const text = clipboard.readText().trim()
-    const ipfs = ipfsd.api
+    const ipfs = getIpfsd().api
 
     if (!ipfs || !text) {
       return

@@ -42,9 +42,15 @@ function onError (e) {
 }
 
 function handleScreenshot (ctx) {
-  let { ipfsd, launchWebUI } = ctx
+  let { getIpfsd, launchWebUI } = ctx
 
   return async (_, output) => {
+    const ipfsd = getIpfsd()
+
+    if (!ipfsd) {
+      return
+    }
+
     const ipfs = ipfsd.api
 
     if (!ipfs) {

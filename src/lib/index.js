@@ -12,9 +12,9 @@ export default async function () {
   let ctx = {}
   await appMenu()
   await openExternal(ctx)
-  await registerDaemon(ctx) // ctx.ipfsd
-  await registerMenubar(ctx) // ctx.sendToMenubar
+  await registerDaemon(ctx) // ctx.getIpfsd, ctx.stopIpfs, ctx.startIpfs
   await registerWebUI(ctx) // ctx.sendToWebUI, ctx.launchWebUI
+  await registerMenubar(ctx) // ctx.sendToMenubar
   await autoLaunch(ctx)
   await downloadHash(ctx)
   await takeScreenshot(ctx)
