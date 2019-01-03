@@ -1,6 +1,6 @@
 import { Menubar } from 'electron-menubar'
 import { logo, logger, i18n } from '../../utils'
-import { Menu, shell, app, ipcMain } from 'electron'
+import { Menu, shell, app } from 'electron'
 
 function getContextMenu ({ launchWebUI }) {
   return Menu.buildFromTemplate([
