@@ -40,12 +40,21 @@ export default async function (ctx) {
       }
     })
 
-    // menubar.tray.setContextMenu(getContextMenu(ctx))
-
-    menubar.tray.on('right-click', event => {
-      event.preventDefault()
-      menubar.tray.popUpContextMenu(getContextMenu(ctx))
-    })
+    // Cross-Platform Context Menu Extravaganza:
+    // - Windows and Mac need to use explicit 'right-click' event
+    //   otherwise context menu will show for left click as well
+    // - Linux and the rest seems to be fine with just setting context menu
+    // More: https://electronjs.org/docs/api/tray
+    const os = process.platform
+    const menu = getContextMenu(ctx)
+    if (os === 'win32' || os === 'darwin') {
+      menubar.tray.on('right-click', event => {
+        event.preventDefault()
+        menubar.tray.popUpContextMenu(menu)
+      })
+    } else {
+      menubar.tray.setContextMenu(menu)
+    }
 
     ctx.sendToMenubar = (type, ...args) => {
       if (type === 'ipfs.started') {
