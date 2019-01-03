@@ -42,7 +42,7 @@ const Menubar = ({ t, ipfsIsRunning, doToggleIpfs, currentConfig }) => (
           online={ipfsIsRunning} />
         <div className='montserrat f3 ml2 white' style={{ marginRight: 'auto' }}>IPFS</div>
 
-        <Button onClick={doToggleIpfs} on={ipfsIsRunning} title={t('turnOff')}>
+        <Button onClick={doToggleIpfs} on={ipfsIsRunning} title={t('toggleIpfs')}>
           <GlyphPower className='w2 h2' />
         </Button>
       </div>

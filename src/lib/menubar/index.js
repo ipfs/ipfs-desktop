@@ -5,16 +5,16 @@ import { Menu, shell, app } from 'electron'
 function getContextMenu ({ launchWebUI }) {
   return Menu.buildFromTemplate([
     {
-      label: 'Quit',
+      label: i18n.t('quit'),
       click: () => { app.quit() }
     },
     { type: 'separator' },
     {
-      label: 'Settings',
+      label: i18n.t('settings'),
       click: () => { launchWebUI('/settings') }
     },
     {
-      label: 'Logs Directory',
+      label: i18n.t('logsDirectory'),
       click: () => { shell.openItem(app.getPath('userData')) }
     }
   ])
