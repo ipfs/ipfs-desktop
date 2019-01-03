@@ -24,7 +24,7 @@ export default async function (ctx) {
   return new Promise(resolve => {
     const menubar = new Menubar({
       index: `file://${__dirname}/app/index.html`,
-      icon: logo('ice'),
+      icon: logo('black'),
       tooltip: i18n.t('ipfsNode'),
       preloadWindow: true,
       window: {
@@ -43,6 +43,12 @@ export default async function (ctx) {
     menubar.tray.setContextMenu(getContextMenu(ctx))
 
     ctx.sendToMenubar = (type, ...args) => {
+      if (type === 'ipfs.started') {
+        menubar.tray.setImage(logo('ice'))
+      } else if (type === 'ipfs.stopped') {
+        menubar.tray.setImage(logo('black'))
+      }
+
       if (menubar && menubar.window && menubar.window.webContents) {
         menubar.window.webContents.send(type, ...args)
       }
