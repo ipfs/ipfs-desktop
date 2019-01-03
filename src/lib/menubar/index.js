@@ -40,7 +40,12 @@ export default async function (ctx) {
       }
     })
 
-    menubar.tray.setContextMenu(getContextMenu(ctx))
+    // menubar.tray.setContextMenu(getContextMenu(ctx))
+
+    menubar.tray.on('right-click', event => {
+      event.preventDefault()
+      menubar.tray.popUpContextMenu(getContextMenu(ctx))
+    })
 
     ctx.sendToMenubar = (type, ...args) => {
       if (type === 'ipfs.started') {
