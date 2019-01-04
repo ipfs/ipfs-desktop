@@ -1,5 +1,7 @@
 import { store, createDaemon, logger } from '../utils'
 import { app } from 'electron'
+import fs from 'fs-extra'
+import { join } from 'path'
 
 export default async function (ctx) {
   let config = store.get('ipfsConfig')
@@ -20,6 +22,12 @@ export default async function (ctx) {
   }
 
   ctx.stopIpfs = async () => {
+    if (!fs.pathExists(join(ipfsd.repoPath, 'config'))) {
+      // Is remote api... ignore
+      ipfsd = null
+      return
+    }
+
     return new Promise((resolve, reject) => {
       ipfsd.stop(err => {
         if (err) {
