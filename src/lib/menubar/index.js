@@ -1,12 +1,30 @@
 import { Menubar } from 'electron-menubar'
 import { logo, logger, i18n } from '../../utils'
-import { app, ipcMain } from 'electron'
+import { Menu, shell, app } from 'electron'
+
+function getContextMenu ({ launchWebUI }) {
+  return Menu.buildFromTemplate([
+    {
+      label: i18n.t('quit'),
+      click: () => { app.quit() }
+    },
+    { type: 'separator' },
+    {
+      label: i18n.t('settings'),
+      click: () => { launchWebUI('/settings') }
+    },
+    {
+      label: i18n.t('logsDirectory'),
+      click: () => { shell.openItem(app.getPath('userData')) }
+    }
+  ])
+}
 
 export default async function (ctx) {
   return new Promise(resolve => {
     const menubar = new Menubar({
       index: `file://${__dirname}/app/index.html`,
-      icon: logo('ice'),
+      icon: logo('black'),
       tooltip: i18n.t('ipfsNode'),
       preloadWindow: true,
       window: {
@@ -22,7 +40,30 @@ export default async function (ctx) {
       }
     })
 
+    // Cross-Platform Context Menu Extravaganza:
+    // - macOS needs to use explicit 'right-click' event
+    //   otherwise context menu will show for left click as well
+    // - Linux, Windows and the rest seems to be fine with just
+    //   setting context menu
+    // More: https://electronjs.org/docs/api/tray
+    const os = process.platform
+    const menu = getContextMenu(ctx)
+    if (os === 'darwin') {
+      menubar.tray.on('right-click', event => {
+        event.preventDefault()
+        menubar.tray.popUpContextMenu(menu)
+      })
+    } else {
+      menubar.tray.setContextMenu(menu)
+    }
+
     ctx.sendToMenubar = (type, ...args) => {
+      if (type === 'ipfs.started') {
+        menubar.tray.setImage(logo('ice'))
+      } else if (type === 'ipfs.stopped') {
+        menubar.tray.setImage(logo('black'))
+      }
+
       if (menubar && menubar.window && menubar.window.webContents) {
         menubar.window.webContents.send(type, ...args)
       }
@@ -32,10 +73,6 @@ export default async function (ctx) {
       logger.info('Menubar is ready')
       resolve()
     }
-
-    ipcMain.on('app.quit', () => {
-      app.quit()
-    })
 
     if (menubar.isReady()) ready()
     else menubar.on('ready', ready)

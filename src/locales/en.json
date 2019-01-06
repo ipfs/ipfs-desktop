@@ -1,9 +1,11 @@
 {
-  "turnOff": "Turn off IPFS Desktop",
+  "toggleIpfs": "Toggle IPFS",
   "ipfsNode": "IPFS Node",
   "status": "Status",
   "files": "Files",
   "explore": "Explore",
   "peers": "Peers",
-  "settings": "Settings"
+  "settings": "Settings",
+  "quit": "Quit",
+  "logsDirectory": "Logs Directory"
 }
