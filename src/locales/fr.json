@@ -1,9 +1,11 @@
 {
-  "turnOff": "Eteindre le bureau IPFS",
+  "toggleIpfs": "Interrupteur IPFS",
   "ipfsNode": "Nœud IPFS",
   "status": "Statut",
   "files": "Fichiers",
   "explore": "Explorez",
   "peers": "Pairs",
-  "settings": "Réglages"
+  "settings": "Réglages",
+  "quit": "Quitter",
+  "logsDirectory": "Répertoire des logs"
 }

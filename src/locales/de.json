@@ -1,9 +1,11 @@
 {
-  "turnOff": "IPFS Desktop beenden",
+  "toggleIpfs": "Toggle IPFS",
   "ipfsNode": "IPFS-Node",
   "status": "Status",
   "files": "Dateien",
   "explore": "Erkunden",
   "peers": "Peers",
-  "settings": "Einstellungen"
+  "settings": "Einstellungen",
+  "quit": "Beenden",
+  "logsDirectory": "Protokollverzeichnis"
 }

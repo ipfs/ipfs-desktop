@@ -1,0 +1,11 @@
+{
+  "toggleIpfs": "切换IPFS",
+  "ipfsNode": "IPFS 节点",
+  "status": "状态",
+  "files": "文件",
+  "explore": "浏览",
+  "peers": "节点",
+  "settings": "设置",
+  "quit": "退出",
+  "logsDirectory": "日志文件夹"
+}
