@@ -19,9 +19,21 @@ export default function ({ getIpfsd, launchWebUI }) {
       return launchWebUI('/')
     }
 
-    const ifpsd = await getIpfsd()
+    const ipfsd = await getIpfsd()
 
-    ifpsd.api.addFromFs(file, { recursive: true }, (err, result) => {
+    if (!ipfsd) {
+      logger.info('Daemon is not running')
+
+      const not = new Notification({
+        title: 'IPFS is not running',
+        body: 'IPFS Desktop is started but the daemon is offline.'
+      })
+
+      not.show()
+      return
+    }
+
+    ipfsd.api.addFromFs(file, { recursive: true }, (err, result) => {
       if (err) {
         logger.error(err)
         return showErrorNotification("Your files couldn't be added")
@@ -31,7 +43,8 @@ export default function ({ getIpfsd, launchWebUI }) {
 
       const { path, hash } = result[result.length - 1]
 
-      ifpsd.api.files.cp(`/ipfs/${hash}`, `/${path}`, err => {
+      // TODO: if it fails, append number
+      ipfsd.api.files.cp(`/ipfs/${hash}`, `/${path}`, err => {
         if (err) {
           logger.error(err)
           return showErrorNotification("Your files couldn't be added")
