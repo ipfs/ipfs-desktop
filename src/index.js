@@ -8,13 +8,7 @@ app.setAppUserModelId('io.ipfs.desktop')
 
 // Only one instance can run at a time
 if (!app.requestSingleInstanceLock()) {
-  dialog.showErrorBox(
-    'Multiple instances',
-    'Sorry, but there can be only one instance of IPFS Desktop running at the same time.'
-  )
-
-  // No windows were opened at this time so we don't need to do app.quit()
-  process.exit(1)
+  process.exit(0)
 }
 
 function handleError (e) {
