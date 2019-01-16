@@ -16,8 +16,7 @@ export default function ({ getIpfsd, launchWebUI }) {
   app.on('second-instance', async (_, argv) => {
     const file = getFile(argv)
     if (file === '') {
-      // TODO: just focus our window
-      return
+      return launchWebUI('/')
     }
 
     const ifpsd = await getIpfsd()
@@ -28,7 +27,9 @@ export default function ({ getIpfsd, launchWebUI }) {
         return showErrorNotification("Your files couldn't be added")
       }
 
-      const { path, hash } = result[0]
+      console.log(result)
+
+      const { path, hash } = result[result.length - 1]
 
       ifpsd.api.files.cp(`/ipfs/${hash}`, `/${path}`, err => {
         if (err) {
@@ -37,8 +38,8 @@ export default function ({ getIpfsd, launchWebUI }) {
         }
 
         const not = new Notification({
-          title: '🧙‍ Added',
-          body: 'Your magic file was added ' + result[0].hash
+          title: result.length === 1 ? 'File added' : 'Folder added',
+          body: (result.length === 1 ? `File ${path} added to IPFS.` : `Folder ${path} added to IPFS.`) + ' Click to open.'
         })
 
         not.on('click', () => {

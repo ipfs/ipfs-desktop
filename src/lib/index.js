@@ -8,6 +8,7 @@ import ipfsStats from './ipfs-stats'
 import takeScreenshot from './take-screenshot'
 import appMenu from './app-menu'
 import secondInstance from './second-instance'
+import contextMenu from './context-menu'
 
 export default async function () {
   let ctx = {}
@@ -17,6 +18,7 @@ export default async function () {
   await registerWebUI(ctx) // ctx.sendToWebUI, ctx.launchWebUI
   await registerMenubar(ctx) // ctx.sendToMenubar
   await secondInstance(ctx)
+  await contextMenu(ctx)
   await autoLaunch(ctx)
   await downloadHash(ctx)
   await takeScreenshot(ctx)
