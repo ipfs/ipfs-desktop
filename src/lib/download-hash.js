@@ -55,9 +55,9 @@ function handler (ctx) {
 
   return async () => {
     const text = clipboard.readText().trim()
-    const ipfs = getIpfsd().api
+    const ipfsd = getIpfsd()
 
-    if (!ipfs || !text) {
+    if (!ipfsd || !text) {
       return
     }
 
@@ -70,7 +70,7 @@ function handler (ctx) {
     }
 
     try {
-      const files = await ipfs.get(text)
+      const files = await ipfsd.api.get(text)
       logger.info(`Hash ${text} downloaded.`)
 
       const dir = await selectDirectory(ctx)
