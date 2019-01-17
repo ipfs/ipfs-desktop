@@ -7,5 +7,9 @@
   "peers": "Peers",
   "settings": "Settings",
   "quit": "Quit",
-  "logsDirectory": "Logs Directory"
+  "logsDirectory": "Logs Directory",
+  "screenshotTakenTitle": "Screenshot taken",
+  "screenshotTakenBody": "Shareable link copied to the clipboard. Click here to view the screenshot.",
+  "screenshotErrorTitle": "Could not take screenshot",
+  "screenshotErrorBody": "There was an error while taking the screenshot. Please check out the logs for more information."
 }
