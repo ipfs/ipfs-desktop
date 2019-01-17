@@ -22,6 +22,10 @@ export default async function (ctx) {
   }
 
   ctx.stopIpfs = async () => {
+    if (!ipfsd) {
+      return
+    }
+
     if (!fs.pathExists(join(ipfsd.repoPath, 'config'))) {
       // Is remote api... ignore
       ipfsd = null
