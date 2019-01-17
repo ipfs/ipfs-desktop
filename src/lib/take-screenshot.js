@@ -1,5 +1,5 @@
 import { clipboard, ipcMain, globalShortcut, Notification } from 'electron'
-import { store, logger } from '../utils'
+import { store, logger, i18n } from '../utils'
 import { createToggler } from './utils'
 
 const settingsOption = 'screenshotShortcut'
@@ -19,12 +19,12 @@ async function onSucess (ipfs, launchWebUI, path) {
   clipboard.writeText(url)
 
   const not = new Notification({
-    title: 'Screenshot Taken',
-    body: 'Share link copied to clipboard. Click here to view the screenshot.'
+    title: i18n.t('screenshotTakenTitle'),
+    body: i18n.t('screenshotTakenBody')
   })
 
   not.on('click', () => {
-    launchWebUI(`/files/${path}`)
+    launchWebUI(`/files${path}`)
   })
 
   not.show()
@@ -34,8 +34,8 @@ function onError (e) {
   logger.error(e)
 
   const not = new Notification({
-    title: 'Could not take screenshot',
-    body: 'There was an error while taking the screenshot. Please check out the logs for more information.'
+    title: i18n.t('screenshotErrorTitle'),
+    body: i18n.t('screenshotErrorBody')
   })
 
   not.show()
