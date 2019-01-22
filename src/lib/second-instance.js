@@ -12,55 +12,60 @@ function getFile (argv) {
   return ''
 }
 
-export default function ({ getIpfsd, launchWebUI }) {
-  app.on('second-instance', async (_, argv) => {
-    const file = getFile(argv)
-    if (file === '') {
-      return launchWebUI('/')
+const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
+  const file = getFile(argv)
+  if (file === '') {
+    return launchWebUI('/')
+  }
+
+  const ipfsd = await getIpfsd()
+
+  if (!ipfsd) {
+    logger.info('Daemon is not running')
+
+    const not = new Notification({
+      title: 'IPFS is not running',
+      body: 'IPFS Desktop is started but the daemon is offline.'
+    })
+
+    not.show()
+    return
+  }
+
+  ipfsd.api.addFromFs(file, { recursive: true }, (err, result) => {
+    if (err) {
+      logger.error(err)
+      return showErrorNotification("Your files couldn't be added")
     }
 
-    const ipfsd = await getIpfsd()
+    console.log(result)
 
-    if (!ipfsd) {
-      logger.info('Daemon is not running')
+    const { path, hash } = result[result.length - 1]
 
-      const not = new Notification({
-        title: 'IPFS is not running',
-        body: 'IPFS Desktop is started but the daemon is offline.'
-      })
-
-      not.show()
-      return
-    }
-
-    ipfsd.api.addFromFs(file, { recursive: true }, (err, result) => {
+    // TODO: if it fails, append number
+    ipfsd.api.files.cp(`/ipfs/${hash}`, `/${path}`, err => {
       if (err) {
         logger.error(err)
         return showErrorNotification("Your files couldn't be added")
       }
 
-      console.log(result)
-
-      const { path, hash } = result[result.length - 1]
-
-      // TODO: if it fails, append number
-      ipfsd.api.files.cp(`/ipfs/${hash}`, `/${path}`, err => {
-        if (err) {
-          logger.error(err)
-          return showErrorNotification("Your files couldn't be added")
-        }
-
-        const not = new Notification({
-          title: result.length === 1 ? 'File added' : 'Folder added',
-          body: (result.length === 1 ? `File ${path} added to IPFS.` : `Folder ${path} added to IPFS.`) + ' Click to open.'
-        })
-
-        not.on('click', () => {
-          launchWebUI(`/files/${path}`)
-        })
-
-        not.show()
+      const not = new Notification({
+        title: result.length === 1 ? 'File added' : 'Folder added',
+        body: (result.length === 1 ? `File ${path} added to IPFS.` : `Folder ${path} added to IPFS.`) + ' Click to open.'
       })
+
+      not.on('click', () => {
+        launchWebUI(`/files/${path}`)
+      })
+
+      not.show()
     })
   })
+}
+
+export default async function (ctx) {
+  const addToIpfsHandler = addToIpfs(ctx)
+
+  app.on('second-instance', addToIpfsHandler)
+  await addToIpfsHandler(null, process.argv)
 }
