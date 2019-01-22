@@ -1,4 +1,5 @@
 import { app, Notification } from 'electron'
+import { extname, basename } from 'path'
 import { logger } from '../utils'
 import { showErrorNotification } from '../utils/errors'
 
@@ -12,10 +13,47 @@ function getFile (argv) {
   return ''
 }
 
+async function copyFile (launch, ipfs, hash, name, folder = false) {
+  let i = 0
+  const ext = extname(name)
+  const base = basename(name, ext)
+
+  while (true) {
+    let newName = (i === 0 ? base : `${base} (${i})`) + ext
+
+    try {
+      await ipfs.files.stat(`/${newName}`)
+    } catch (e) {
+      name = newName
+      break
+    }
+
+    i++
+  }
+
+  ipfs.files.cp(`/ipfs/${hash}`, `/${name}`, err => {
+    if (err) {
+      logger.error(err)
+      return showErrorNotification("Your files couldn't be added")
+    }
+
+    const not = new Notification({
+      title: folder ? 'Folder added' : 'File added',
+      body: (folder ? `Folder ${name} added to IPFS.` : `File ${name} added to IPFS.`) + ' Click to open.'
+    })
+
+    not.on('click', () => {
+      launch(`/files/${name}`)
+    })
+
+    not.show()
+  })
+}
+
 const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
   const file = getFile(argv)
   if (file === '') {
-    return launchWebUI('/')
+    return
   }
 
   const ipfsd = await getIpfsd()
@@ -38,28 +76,8 @@ const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
       return showErrorNotification("Your files couldn't be added")
     }
 
-    console.log(result)
-
     const { path, hash } = result[result.length - 1]
-
-    // TODO: if it fails, append number
-    ipfsd.api.files.cp(`/ipfs/${hash}`, `/${path}`, err => {
-      if (err) {
-        logger.error(err)
-        return showErrorNotification("Your files couldn't be added")
-      }
-
-      const not = new Notification({
-        title: result.length === 1 ? 'File added' : 'Folder added',
-        body: (result.length === 1 ? `File ${path} added to IPFS.` : `Folder ${path} added to IPFS.`) + ' Click to open.'
-      })
-
-      not.on('click', () => {
-        launchWebUI(`/files/${path}`)
-      })
-
-      not.show()
-    })
+    copyFile(launchWebUI, ipfsd.api, hash, path, result.length > 1)
   })
 }
 
