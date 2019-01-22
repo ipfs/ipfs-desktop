@@ -6,7 +6,7 @@ import Registry from 'winreg'
 async function create (classname, command) {
   const key = new Registry({
     hive: Registry.HKCU,
-    key: `\\Software\\Classes\\${classname}\\shell\\ipfs${command ? `\\${command}` : ''}`
+    key: `\\Software\\Classes\\${classname}\\shell\\ipfs-desktop${command ? `\\${command}` : ''}`
   })
 
   const exists = await new Promise((resolve, reject) => {
