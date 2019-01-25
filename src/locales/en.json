@@ -11,5 +11,13 @@
   "screenshotTakenTitle": "Screenshot taken",
   "screenshotTakenBody": "Shareable link copied to the clipboard. Click here to view the screenshot.",
   "screenshotErrorTitle": "Could not take screenshot",
-  "screenshotErrorBody": "There was an error while taking the screenshot. Please check out the logs for more information."
+  "screenshotErrorBody": "There was an error while taking the screenshot. Please check out the logs for more information.",
+  "yourFilesCouldntBeAdded": "Your files couldn't be added.",
+  "folderAdded": "Folder added",
+  "folderAddedToIpfsTapToView": "Folder { name } added to IPFS. Tap to view the folder.",
+  "fileAdded": "File added",
+  "fileAddedToIpfsTapToView": "File { name } added to IPFS. Tap to view the file.",
+  "clickToOpenLogs": "Click here to open the logs.",
+  "ipfsNotRunning": "IPFS is not running",
+  "desktopIsStartedButDaemonOffline": "IPFS Desktop is started but the daemon is turned off."
 }

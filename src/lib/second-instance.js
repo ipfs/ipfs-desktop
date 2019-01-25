@@ -1,6 +1,6 @@
 import { app, Notification } from 'electron'
 import { extname, basename } from 'path'
-import { logger } from '../utils'
+import { logger, i18n } from '../utils'
 import { showErrorNotification } from '../utils/errors'
 
 function getFile (argv) {
@@ -31,23 +31,18 @@ async function copyFile (launch, ipfs, hash, name, folder = false) {
     i++
   }
 
-  ipfs.files.cp(`/ipfs/${hash}`, `/${name}`, err => {
-    if (err) {
-      logger.error(err)
-      return showErrorNotification("Your files couldn't be added")
-    }
+  await ipfs.files.cp(`/ipfs/${hash}`, `/${name}`)
 
-    const not = new Notification({
-      title: folder ? 'Folder added' : 'File added',
-      body: (folder ? `Folder ${name} added to IPFS.` : `File ${name} added to IPFS.`) + ' Click to open.'
-    })
-
-    not.on('click', () => {
-      launch(`/files/${name}`)
-    })
-
-    not.show()
+  const not = new Notification({
+    title: folder ? i18n.t('folderAdded') : i18n.t('fileAdded'),
+    body: i18n.t(`${folder ? 'folder' : 'file'}AddedToIpfsTapToView`, { name })
   })
+
+  not.on('click', () => {
+    launch(`/files/${name}`)
+  })
+
+  not.show()
 }
 
 const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
@@ -62,22 +57,29 @@ const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
     logger.info('Daemon is not running')
 
     const not = new Notification({
-      title: 'IPFS is not running',
-      body: 'IPFS Desktop is started but the daemon is offline.'
+      title: i18n.t('ipfsNotRunning'),
+      body: i18n.t('desktopIsStartedButDaemonOffline')
     })
 
     not.show()
     return
   }
 
-  ipfsd.api.addFromFs(file, { recursive: true }, (err, result) => {
+  logger.info(`Adding ${file}: started`)
+  ipfsd.api.addFromFs(file, { recursive: true }, async (err, result) => {
     if (err) {
       logger.error(err)
-      return showErrorNotification("Your files couldn't be added")
+      return showErrorNotification(i18n.t('yourFilesCouldntBeAdded'))
     }
 
     const { path, hash } = result[result.length - 1]
-    copyFile(launchWebUI, ipfsd.api, hash, path, result.length > 1)
+    try {
+      await copyFile(launchWebUI, ipfsd.api, hash, path, result.length > 1)
+      logger.info(`Adding ${file}: completed`)
+    } catch (err) {
+      logger.error(err)
+      showErrorNotification(i18n.t('yourFilesCouldntBeAdded'))
+    }
   })
 }
 
