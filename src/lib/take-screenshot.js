@@ -1,5 +1,5 @@
-import { clipboard, ipcMain, globalShortcut, Notification } from 'electron'
-import { store, logger, i18n } from '../utils'
+import { clipboard, ipcMain, globalShortcut, nativeImage } from 'electron'
+import { store, notify, logger, i18n } from '../utils'
 import { createToggler } from './utils'
 
 const settingsOption = 'screenshotShortcut'
@@ -13,32 +13,30 @@ async function makeScreenshotDir (ipfs) {
   }
 }
 
-async function onSucess (ipfs, launchWebUI, path) {
+async function onSucess (ipfs, launchWebUI, path, img) {
   const stats = await ipfs.files.stat(path)
   const url = `https://share.ipfs.io/#/${stats.hash}`
   clipboard.writeText(url)
 
-  const not = new Notification({
+  notify({
     title: i18n.t('screenshotTakenTitle'),
-    body: i18n.t('screenshotTakenBody')
-  })
-
-  not.on('click', () => {
+    body: i18n.t('screenshotTakenBody'),
+    icon: img.resize({
+      width: 200,
+      quality: 'good'
+    })
+  }, () => {
     launchWebUI(`/files${path}`)
   })
-
-  not.show()
 }
 
 function onError (e) {
   logger.error(e)
 
-  const not = new Notification({
+  notify({
     title: i18n.t('screenshotErrorTitle'),
     body: i18n.t('screenshotErrorBody')
   })
-
-  not.show()
 }
 
 function handleScreenshot (ctx) {
@@ -71,16 +69,17 @@ function handleScreenshot (ctx) {
       }
 
       logger.info('Saving screenshots to %s', baseName)
+      let lastImage = null
 
       for (let { name, image } of output) {
-        const raw = image.replace(/^data:image\/png;base64,/, '')
-        const content = Buffer.from(raw, 'base64')
+        const img = nativeImage.createFromDataURL(image)
         const path = isDir ? `${baseName}${name}.png` : baseName
-        await ipfs.files.write(path, content, { create: true })
+        await ipfs.files.write(path, img.toPNG(), { create: true })
+        lastImage = img
       }
 
       logger.info('Screenshots saved to %s', baseName)
-      onSucess(ipfs, launchWebUI, baseName)
+      onSucess(ipfs, launchWebUI, baseName, lastImage)
     } catch (e) {
       onError(e)
     }

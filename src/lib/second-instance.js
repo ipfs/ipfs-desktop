@@ -1,7 +1,6 @@
-import { app, Notification } from 'electron'
+import { app } from 'electron'
 import { extname, basename } from 'path'
-import { logger, i18n } from '../utils'
-import { showErrorNotification } from '../utils/errors'
+import { logger, i18n, notify, notifyError } from '../utils'
 
 function getFile (argv) {
   for (const arg of argv) {
@@ -33,16 +32,12 @@ async function copyFile (launch, ipfs, hash, name, folder = false) {
 
   await ipfs.files.cp(`/ipfs/${hash}`, `/${name}`)
 
-  const not = new Notification({
+  notify({
     title: folder ? i18n.t('folderAdded') : i18n.t('fileAdded'),
     body: i18n.t(`${folder ? 'folder' : 'file'}AddedToIpfsTapToView`, { name })
-  })
-
-  not.on('click', () => {
+  }, () => {
     launch(`/files/${name}`)
   })
-
-  not.show()
 }
 
 const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
@@ -56,12 +51,11 @@ const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
   if (!ipfsd) {
     logger.info('Daemon is not running')
 
-    const not = new Notification({
+    notify({
       title: i18n.t('ipfsNotRunning'),
       body: i18n.t('desktopIsStartedButDaemonOffline')
     })
 
-    not.show()
     return
   }
 
@@ -69,7 +63,9 @@ const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
   ipfsd.api.addFromFs(file, { recursive: true }, async (err, result) => {
     if (err) {
       logger.error(err)
-      return showErrorNotification(i18n.t('yourFilesCouldntBeAdded'))
+      return notifyError({
+        title: i18n.t('yourFilesCouldntBeAdded')
+      })
     }
 
     const { path, hash } = result[result.length - 1]
@@ -78,7 +74,9 @@ const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
       logger.info(`Adding ${file}: completed`)
     } catch (err) {
       logger.error(err)
-      showErrorNotification(i18n.t('yourFilesCouldntBeAdded'))
+      notifyError({
+        title: i18n.t('yourFilesCouldntBeAdded')
+      })
     }
   })
 }
