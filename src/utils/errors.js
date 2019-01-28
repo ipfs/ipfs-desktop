@@ -1,5 +1,4 @@
-import { app, dialog, shell, Notification } from 'electron'
-import i18n from './i18n'
+import { app, dialog, shell } from 'electron'
 
 const issueTemplate = (e) => `Please describe what you were doing when this error happened.
 
@@ -64,14 +63,4 @@ export function cannotConnectToAPI (addr) {
   }
 
   app.exit(1)
-}
-
-export function showErrorNotification (title, body = '') {
-  const not = new Notification({ title, body: `${body} ${i18n.t('clickToOpenLogs')}`.trim() })
-
-  not.on('click', () => {
-    shell.openItem(app.getPath('userData'))
-  })
-
-  not.show()
 }
