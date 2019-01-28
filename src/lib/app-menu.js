@@ -1,4 +1,4 @@
-const { app, Menu } = require('electron')
+import { app, Menu } from 'electron'
 
 const template = [
   {
