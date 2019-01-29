@@ -1,16 +1,37 @@
 ManifestDPIAware true
 
-!macro customInstall
-  WriteRegStr SHELL_CONTEXT "Software\Classes\*\shell\ipfs-desktop" "MUIVerb" "Add to IPFS"
-  WriteRegStr SHELL_CONTEXT "Software\Classes\*\shell\ipfs-desktop" "Icon" "$appExe,0"
-  WriteRegStr SHELL_CONTEXT "Software\Classes\*\shell\ipfs-desktop\command" "" "$appExe %1"
+!macro AddToShellSpecific Where
+  DeleteRegKey SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop"
+  WriteRegStr SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop" "MUIVerb" "Add to IPFS"
+  WriteRegStr SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop" "Icon" "$appExe,0"
+  WriteRegStr SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop\command" "" "$appExe %1"
+!macroend
 
-  WriteRegStr SHELL_CONTEXT "Software\Classes\Directory\shell\ipfs-desktop" "MUIVerb" "Add to IPFS"
-  WriteRegStr SHELL_CONTEXT "Software\Classes\Directory\shell\ipfs-desktop" "Icon" "$appExe,0"
-  WriteRegStr SHELL_CONTEXT "Software\Classes\Directory\shell\ipfs-desktop\command" "" "$appExe %1"
+!macro AddToShell
+  DetailPrint "Adding to Context Menu"
+  !insertmacro AddToShellSpecific "*"
+  !insertmacro AddToShellSpecific "Directory"
+!macroend
+
+!macro AddProtocolHandler Protocol Description
+  DeleteRegKey SHELL_CONTEXT "Software\Classes\${Protocol}"
+  WriteRegStr SHELL_CONTEXT "Software\Classes\${Protocol}" "" "${Description}"
+  WriteRegStr SHELL_CONTEXT "Software\Classes\${Protocol}" "URL Protocol" ""
+  WriteRegStr SHELL_CONTEXT "Software\Classes\${Protocol}\DefaultIcon" "" "$appExe,0"
+  WriteRegStr SHELL_CONTEXT "Software\Classes\${Protocol}\shell" "" ""
+  WriteRegStr SHELL_CONTEXT "Software\Classes\${Protocol}\shell\open" "" ""
+  WriteRegStr SHELL_CONTEXT "Software\Classes\${Protocol}\shell\open\command" "" "$appExe %1"
+!macroend
+
+!macro customInstall
+  !insertmacro AddProtocolHandler "ipfs" "IPFS"
+  !insertmacro AddProtocolHandler "ipns" "IPNS"
+  !insertmacro AddProtocolHandler "dweb" "DWEB"
+  !insertmacro AddToShell
 !macroend
 
 !macro customUnInstall
+  DeleteRegKey SHELL_CONTEXT "ipfs"
   DeleteRegKey SHELL_CONTEXT "Software\Classes\*\shell\ipfs-desktop"
   DeleteRegKey SHELL_CONTEXT "Software\Classes\Directory\shell\ipfs-desktop"
 !macroend
