@@ -1,4 +1,5 @@
 import { app } from 'electron'
+import fs from 'fs-extra'
 import { extname, basename } from 'path'
 import { logger, i18n, notify, notifyError } from '../utils'
 
@@ -67,10 +68,10 @@ async function addToIpfs ({ getIpfsd, launchWebUI }, file) {
 }
 
 export default async function (ctx) {
-  const handleArgv = argv => {
-    for (const arg of argv) {
-      if (arg.startsWith('--add')) {
-        return addToIpfs(ctx, arg.slice(6))
+  const handleArgv = async argv => {
+    for (const arg of argv.slice(1)) {
+      if (await fs.pathExists(arg)) {
+        await addToIpfs(ctx, arg)
       }
     }
   }
@@ -87,5 +88,9 @@ export default async function (ctx) {
   })
 
   // Checks current proccess
-  await handleArgv(process.argv)
+  if (process.env.NODE_ENV !== 'development') {
+    await handleArgv(process.argv)
+  } else {
+    await handleArgv(process.argv.slice(3))
+  }
 }
