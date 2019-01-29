@@ -71,6 +71,11 @@
         "name": "IPNS",
         "role": "Viewer",
         "schemes": ["ipns"]
+      },
+      {
+        "name": "DWEB",
+        "role": "Viewer",
+        "schemes": ["dweb"]
       }
     ]
   },

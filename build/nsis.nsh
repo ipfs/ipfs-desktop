@@ -26,6 +26,7 @@ ManifestDPIAware true
 !macro customInstall
   !insertmacro AddProtocolHandler "ipfs" "IPFS"
   !insertmacro AddProtocolHandler "ipns" "IPNS"
+  !insertmacro AddProtocolHandler "dweb" "DWEB"
   !insertmacro AddToShell
 !macroend
 
