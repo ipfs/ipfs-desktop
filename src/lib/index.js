@@ -8,6 +8,7 @@ import ipfsStats from './ipfs-stats'
 import takeScreenshot from './take-screenshot'
 import appMenu from './app-menu'
 import secondInstance from './second-instance'
+import protocolHandlers from './protocol-handlers'
 
 export default async function () {
   let ctx = {}
@@ -16,6 +17,7 @@ export default async function () {
   await registerDaemon(ctx) // ctx.getIpfsd, ctx.stopIpfs, ctx.startIpfs
   await registerWebUI(ctx) // ctx.sendToWebUI, ctx.launchWebUI
   await registerMenubar(ctx) // ctx.sendToMenubar
+  await protocolHandlers(ctx)
   await secondInstance(ctx)
   await autoLaunch(ctx)
   await downloadHash(ctx)
