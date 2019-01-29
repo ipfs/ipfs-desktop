@@ -10,7 +10,7 @@ function parseUrl (url) {
   } else if (url.startsWith('ipns://')) {
     openLink('ipns', url.slice(7))
   } else if (url.startsWith('dweb:/ipfs/')) {
-    openLink('ipns', url.slice(11))
+    openLink('ipfs', url.slice(11))
   } else if (url.startsWith('dweb:/ipns/')) {
     openLink('ipns', url.slice(11))
   }
