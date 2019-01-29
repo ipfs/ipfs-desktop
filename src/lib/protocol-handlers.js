@@ -24,7 +24,10 @@ export default function () {
   }
 
   // Handle URLs in macOS
-  app.on('open-url', (_, url) => { parseUrl(url) })
+  app.on('open-url', (event, url) => {
+    event.preventDefault()
+    parseUrl(url)
+  })
 
   // Handle URLs on Windows (hopefully on Linux too)
   app.on('second-instance', (_, argv) => {
