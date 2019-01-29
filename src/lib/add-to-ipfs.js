@@ -2,16 +2,6 @@ import { app } from 'electron'
 import { extname, basename } from 'path'
 import { logger, i18n, notify, notifyError } from '../utils'
 
-function getFile (argv) {
-  for (const arg of argv) {
-    if (arg.startsWith('--add')) {
-      return arg.slice(6)
-    }
-  }
-
-  return ''
-}
-
 async function copyFile (launch, ipfs, hash, name, folder = false) {
   let i = 0
   const ext = extname(name)
@@ -40,12 +30,7 @@ async function copyFile (launch, ipfs, hash, name, folder = false) {
   })
 }
 
-const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
-  const file = getFile(argv)
-  if (file === '') {
-    return
-  }
-
+async function addToIpfs ({ getIpfsd, launchWebUI }, file) {
   const ipfsd = await getIpfsd()
 
   if (!ipfsd) {
@@ -82,8 +67,25 @@ const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
 }
 
 export default async function (ctx) {
-  const addToIpfsHandler = addToIpfs(ctx)
+  const handleArgv = argv => {
+    for (const arg of argv) {
+      if (arg.startsWith('--add')) {
+        return addToIpfs(ctx, arg.slice(6))
+      }
+    }
+  }
 
-  app.on('second-instance', addToIpfsHandler)
-  await addToIpfsHandler(null, process.argv)
+  // Works for Windows context menu
+  app.on('second-instance', (_, argv) => {
+    handleArgv(argv)
+  })
+
+  // macOS drag'n'drop files on the app icon
+  app.on('open-file', (event, path) => {
+    event.preventDefault()
+    addToIpfs(ctx, path)
+  })
+
+  // Checks current proccess
+  await handleArgv(process.argv)
 }
