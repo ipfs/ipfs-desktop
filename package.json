@@ -60,6 +60,18 @@
     },
     "publish": [
       "github"
+    ],
+    "protocols": [
+      {
+        "name": "IPFS",
+        "role": "Viewer",
+        "schemes": ["ipfs"]
+      },
+      {
+        "name": "IPNS",
+        "role": "Viewer",
+        "schemes": ["ipns"]
+      }
     ]
   },
   "devDependencies": {

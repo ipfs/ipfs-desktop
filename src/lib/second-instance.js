@@ -1,16 +1,6 @@
-import { app } from 'electron'
+import { app, shell } from 'electron'
 import { extname, basename } from 'path'
 import { logger, i18n, notify, notifyError } from '../utils'
-
-function getFile (argv) {
-  for (const arg of argv) {
-    if (arg.startsWith('--add')) {
-      return arg.slice(6)
-    }
-  }
-
-  return ''
-}
 
 async function copyFile (launch, ipfs, hash, name, folder = false) {
   let i = 0
@@ -40,12 +30,7 @@ async function copyFile (launch, ipfs, hash, name, folder = false) {
   })
 }
 
-const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
-  const file = getFile(argv)
-  if (file === '') {
-    return
-  }
-
+async function addToIpfs ({ getIpfsd, launchWebUI }, file) {
   const ipfsd = await getIpfsd()
 
   if (!ipfsd) {
@@ -81,9 +66,27 @@ const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
   })
 }
 
-export default async function (ctx) {
-  const addToIpfsHandler = addToIpfs(ctx)
+function openLink (protocol, part) {
+  shell.openExternal(`https://ipfs.io/${protocol}/${part}`)
+}
 
-  app.on('second-instance', addToIpfsHandler)
-  await addToIpfsHandler(null, process.argv)
+export default async function (ctx) {
+  const handler = (_, argv) => {
+    for (const arg of argv) {
+      if (arg.startsWith('--add')) {
+        return addToIpfs(ctx, arg.slice(6))
+      } else if (arg.startsWith('ipfs://')) {
+        return openLink('ipfs', arg.slice(7))
+      } else if (arg.startsWith('ipns://')) {
+        return openLink('ipns', arg.slice(7))
+      } else if (arg.startsWith('dweb:/ipfs/')) {
+        return openLink('ipns', arg.slice(11))
+      } else if (arg.startsWith('dweb:/ipns/')) {
+        return openLink('ipns', arg.slice(11))
+      }
+    }
+  }
+
+  app.on('second-instance', handler)
+  await handler(null, process.argv)
 }
