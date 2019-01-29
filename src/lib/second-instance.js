@@ -2,6 +2,16 @@ import { app } from 'electron'
 import { extname, basename } from 'path'
 import { logger, i18n, notify, notifyError } from '../utils'
 
+function getFile (argv) {
+  for (const arg of argv) {
+    if (arg.startsWith('--add')) {
+      return arg.slice(6)
+    }
+  }
+
+  return ''
+}
+
 async function copyFile (launch, ipfs, hash, name, folder = false) {
   let i = 0
   const ext = extname(name)
@@ -30,7 +40,12 @@ async function copyFile (launch, ipfs, hash, name, folder = false) {
   })
 }
 
-async function addToIpfs ({ getIpfsd, launchWebUI }, file) {
+const addToIpfs = ({ getIpfsd, launchWebUI }) => async (_, argv) => {
+  const file = getFile(argv)
+  if (file === '') {
+    return
+  }
+
   const ipfsd = await getIpfsd()
 
   if (!ipfsd) {
@@ -67,14 +82,8 @@ async function addToIpfs ({ getIpfsd, launchWebUI }, file) {
 }
 
 export default async function (ctx) {
-  const handler = (_, argv) => {
-    for (const arg of argv) {
-      if (arg.startsWith('--add')) {
-        return addToIpfs(ctx, arg.slice(6))
-      }
-    }
-  }
+  const addToIpfsHandler = addToIpfs(ctx)
 
-  app.on('second-instance', handler)
-  await handler(null, process.argv)
+  app.on('second-instance', addToIpfsHandler)
+  await addToIpfsHandler(null, process.argv)
 }
