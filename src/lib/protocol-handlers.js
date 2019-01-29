@@ -19,7 +19,7 @@ function parseUrl (url) {
 export default function () {
   // Handle if the app started running now, and a link
   // was sent to be handled.
-  for (const arg in process.argv) {
+  for (const arg of process.argv) {
     parseUrl(arg)
   }
 
@@ -28,7 +28,7 @@ export default function () {
 
   // Handle URLs on Windows (hopefully on Linux too)
   app.on('second-instance', (_, argv) => {
-    for (const arg in argv) {
+    for (const arg of argv) {
       parseUrl(arg)
     }
   })
