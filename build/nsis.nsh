@@ -4,7 +4,7 @@ ManifestDPIAware true
   DeleteRegKey SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop"
   WriteRegStr SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop" "MUIVerb" "Add to IPFS"
   WriteRegStr SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop" "Icon" "$appExe,0"
-  WriteRegStr SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop\command" "" "$appExe --add=$\"%1$\""
+  WriteRegStr SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop\command" "" "$appExe %1"
 !macroend
 
 !macro AddToShell
