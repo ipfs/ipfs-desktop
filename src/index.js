@@ -1,5 +1,4 @@
 import { app, dialog } from 'electron'
-import { autoUpdater } from 'electron-updater'
 import { showErrorMessage, logger } from './utils'
 import startup from './lib'
 
@@ -19,15 +18,6 @@ function handleError (e) {
 process.on('uncaughtException', handleError)
 process.on('unhandledRejection', handleError)
 
-async function checkUpdates () {
-  try {
-    autoUpdater.allowPrerelease = true
-    autoUpdater.checkForUpdatesAndNotify().catch(logger.warn)
-  } catch (e) {
-    logger.warn(e)
-  }
-}
-
 async function run () {
   try {
     await app.whenReady()
@@ -35,8 +25,6 @@ async function run () {
     dialog.showErrorBox('Electron could not start', e.stack)
     app.exit(1)
   }
-
-  checkUpdates()
 
   try {
     await startup()

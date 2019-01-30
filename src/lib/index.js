@@ -9,11 +9,13 @@ import takeScreenshot from './take-screenshot'
 import appMenu from './app-menu'
 import addToIpfs from './add-to-ipfs'
 import protocolHandlers from './protocol-handlers'
+import autoUpdater from './auto-updater'
 
 export default async function () {
   let ctx = {}
   await appMenu()
   await openExternal(ctx)
+  await autoUpdater(ctx)
   await registerDaemon(ctx) // ctx.getIpfsd, ctx.stopIpfs, ctx.startIpfs
   await registerWebUI(ctx) // ctx.sendToWebUI, ctx.launchWebUI
   await registerMenubar(ctx) // ctx.sendToMenubar
