@@ -56,7 +56,8 @@
     },
     "nsis": {
       "include": "build/nsis.nsh",
-      "oneClick": false
+      "oneClick": true,
+      "perMachine": false
     },
     "publish": [
       "github"
