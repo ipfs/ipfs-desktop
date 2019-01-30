@@ -81,12 +81,6 @@ export default async function (ctx) {
     handleArgv(argv)
   })
 
-  // macOS drag'n'drop files on the app icon
-  app.on('open-file', (event, path) => {
-    event.preventDefault()
-    addToIpfs(ctx, path)
-  })
-
   // Checks current proccess
   if (process.env.NODE_ENV !== 'development') {
     await handleArgv(process.argv)
