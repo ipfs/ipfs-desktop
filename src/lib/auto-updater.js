@@ -14,10 +14,10 @@ function updateError (error) {
 
 autoUpdater.on('error', updateError)
 
-autoUpdater.on('update-available', async info => {
+autoUpdater.on('update-available', async ({ version }) => {
   notify({
-    title: 'Update Available',
-    body: `Version ${info.version} of IPFS Desktop is available. It will be downloaded in background.`
+    title: i18n.t('updateAvailable'),
+    body: i18n.t('versionAvailableAndDownload', { version })
   })
 
   try {
@@ -29,9 +29,11 @@ autoUpdater.on('update-available', async info => {
 
 autoUpdater.on('update-downloaded', () => {
   notify({
-    title: 'Update Downloaded'
+    title: i18n.t('updateDownloaded'),
+    body: i18n.t('clickToInstall')
+  }, () => {
+    autoUpdater.quitAndInstall(true, true)
   })
-  // autoUpdater.quitAndInstall()
 })
 
 export default async function () {
