@@ -52,7 +52,7 @@ function handleScreenshot (ctx) {
     const ipfs = ipfsd.api
 
     if (!ipfs) {
-      logger.info('Daemon not running. Aborting screenshot upload.')
+      logger.info('[screenshot] daemon not running')
       return
     }
 
@@ -68,7 +68,7 @@ function handleScreenshot (ctx) {
         baseName += '.png'
       }
 
-      logger.info('Saving screenshots to %s', baseName)
+      logger.info('[screenshot] started: writing screenshots to %s', baseName)
       let lastImage = null
 
       for (let { name, image } of output) {
@@ -78,7 +78,7 @@ function handleScreenshot (ctx) {
         lastImage = img
       }
 
-      logger.info('Screenshots saved to %s', baseName)
+      logger.info('[screenshot] completed: writing screenshots to %s', baseName)
       onSucess(ipfs, launchWebUI, baseName, lastImage)
     } catch (e) {
       onError(e)
@@ -94,14 +94,14 @@ export default function (ctx) {
 
     if (value === true) {
       globalShortcut.register(shortcut, () => {
-        logger.info('Taking Screenshot')
+        logger.info('[screenshot] taking screenshot')
         sendToMenubar('screenshot')
       })
 
-      logger.info('Screenshot shortcut enabled')
+      logger.info('[screenshot] shortcut enabled')
     } else {
       globalShortcut.unregister(shortcut)
-      logger.info('Screenshot shortcut disabled')
+      logger.info('[screenshot] shortcut disabled')
     }
   }
 

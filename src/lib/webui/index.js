@@ -35,7 +35,7 @@ const createWindow = (ctx) => {
     event.preventDefault()
     if (app.dock) app.dock.hide()
     window.hide()
-    logger.info('WebUI screen was hidden')
+    logger.info('[web ui] window hidden')
   })
 
   return window
@@ -47,6 +47,7 @@ export default async function (ctx) {
 
   ctx.sendToWebUI = (...args) => window.webContents.send(...args)
   ctx.launchWebUI = (url) => {
+    logger.info('[web ui] navigate to %s', url)
     window.webContents.send('updatedPage', url)
     window.show()
     window.focus()
@@ -74,7 +75,7 @@ export default async function (ctx) {
 
   return new Promise(resolve => {
     window.on('ready-to-show', () => {
-      logger.info('WebUI window ready')
+      logger.info('[web ui] window ready')
       resolve()
     })
 

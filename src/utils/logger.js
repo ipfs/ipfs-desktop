@@ -35,6 +35,6 @@ const logger = createLogger({
   ]
 })
 
-logger.info('Logger set up. Logs can be found on %s', logsPath)
+logger.info('[meta] logs can be found on %s', logsPath)
 
 export default logger

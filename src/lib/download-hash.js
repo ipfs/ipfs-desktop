@@ -112,10 +112,10 @@ export default function (ctx) {
 
     if (value === true) {
       globalShortcut.register(shortcut, handler(ctx))
-      logger.info('Hash download shortcut: enabled')
+      logger.info('[hash download] shortcut enabled')
     } else {
       globalShortcut.unregister(shortcut)
-      logger.info('Hash download shortcut: disabled')
+      logger.info('[hash download] shortcut disabled')
     }
   }
 
