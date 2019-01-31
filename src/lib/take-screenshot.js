@@ -1,5 +1,5 @@
 import { clipboard, ipcMain, globalShortcut, nativeImage } from 'electron'
-import { store, notify, logger, i18n } from '../utils'
+import { store, notify, notifyError, logger, i18n } from '../utils'
 import { createToggler } from './utils'
 
 const settingsOption = 'screenshotShortcut'
@@ -19,8 +19,8 @@ async function onSucess (ipfs, launchWebUI, path, img) {
   clipboard.writeText(url)
 
   notify({
-    title: i18n.t('screenshotTakenTitle'),
-    body: i18n.t('screenshotTakenBody'),
+    title: i18n.t('screenshotTaken'),
+    body: i18n.t('shareableLinkCopied'),
     icon: img.resize({
       width: 200,
       quality: 'good'
@@ -33,9 +33,9 @@ async function onSucess (ipfs, launchWebUI, path, img) {
 function onError (e) {
   logger.error(e)
 
-  notify({
-    title: i18n.t('screenshotErrorTitle'),
-    body: i18n.t('screenshotErrorBody')
+  notifyError({
+    title: i18n.t('couldNotTakeScreenshot'),
+    body: i18n.t('errorwhileTakingScreenshot')
   })
 }
 
