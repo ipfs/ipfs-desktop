@@ -7,8 +7,8 @@ autoUpdater.autoDownload = false
 function updateError (error) {
   logger.error(error)
   notifyError({
-    title: 'Error',
-    body: error.stack
+    title: i18n.t('updateError'),
+    body: i18n.t('errorWhileUpdating')
   })
 }
 
