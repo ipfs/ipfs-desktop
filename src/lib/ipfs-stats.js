@@ -1,6 +1,5 @@
 import { ipcMain } from 'electron'
 import filesize from 'filesize'
-import { logger } from '../utils'
 
 const ipfsState = (ctx) => async () => {
   const { getIpfsd, sendToMenubar } = ctx

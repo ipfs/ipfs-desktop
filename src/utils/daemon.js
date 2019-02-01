@@ -8,14 +8,14 @@ import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 
 async function cleanup (addr, path) {
-  logger.info(`Entering cleanup stage`)
+  logger.info(`[daemon] cleanup: started`)
 
   if (!await fs.pathExists(join(path, 'config'))) {
     cannotConnectToAPI(addr)
     return
   }
 
-  logger.info(`Running 'ipfs repo fsck' on %s`, path)
+  logger.info(`[daemon] cleanup: ipfs repo fsck ${path}`)
   let exec = findExecutable('go', app.getAppPath())
   execFileSync(exec, ['repo', 'fsck'], {
     env: {
@@ -23,6 +23,7 @@ async function cleanup (addr, path) {
       IPFS_PATH: path
     }
   })
+  logger.info(`[daemon] cleanup: completed`)
 }
 
 async function spawn ({ type, path, keysize }) {

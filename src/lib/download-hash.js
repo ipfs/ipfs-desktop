@@ -37,7 +37,7 @@ function selectDirectory () {
 async function saveFile (dir, file) {
   const location = path.join(dir, file.path)
   await fs.outputFile(location, file.content)
-  logger.info(`File '${file.path}' downloaded to ${location}.`)
+  logger.info(`[hash download] '${file.path}' downloaded to ${location}.`)
 }
 
 function handler (ctx) {
@@ -63,16 +63,16 @@ function handler (ctx) {
     const dir = await selectDirectory(ctx)
 
     if (!dir) {
-      logger.info(`Dropping hash ${text}: user didn't choose a path.`)
+      logger.info(`[hash download] dropping hash ${text}: user didn't choose a path.`)
       return
     }
 
     let files
 
     try {
-      logger.info(`Downloading ${text}: started`)
+      logger.info(`[hash download] downloading ${text}: started`)
       files = await ipfsd.api.get(text)
-      logger.info(`Downloading ${text}: completed`)
+      logger.info(`[hash download] downloading ${text}: completed`)
     } catch (e) {
       logger.error(e.stack)
 

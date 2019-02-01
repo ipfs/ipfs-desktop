@@ -70,7 +70,7 @@ export default async function (ctx) {
     }
 
     const ready = () => {
-      logger.info('Menubar is ready')
+      logger.info('[menubar] ready')
       resolve()
     }
 
