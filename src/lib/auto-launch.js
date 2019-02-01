@@ -14,10 +14,10 @@ export default function (ctx) {
     try {
       if (value === true) {
         await autoLauncher.enable()
-        logger.info('Launch on startup enabled')
+        logger.info('[launch on startup] enabled')
       } else {
         await autoLauncher.disable()
-        logger.info('Launch on startup disabled')
+        logger.info('[launch on startup] disabled')
       }
     } catch (e) {
       logger.error(e.stack)

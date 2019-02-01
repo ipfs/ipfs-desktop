@@ -10,14 +10,22 @@ export default async function (ctx) {
   ctx.getIpfsd = () => ipfsd
 
   ctx.startIpfs = async () => {
-    ipfsd = await createDaemon(config)
+    logger.info('[ipfsd] starting daemon')
 
-    // Update the path if it was blank previously.
-    // This way we use the default path when it is
-    // not set.
-    if (config.path === '') {
-      config.path = ipfsd.repoPath
-      store.set('ipfsConfig', config)
+    try {
+      ipfsd = await createDaemon(config)
+
+      // Update the path if it was blank previously.
+      // This way we use the default path when it is
+      // not set.
+      if (config.path === '') {
+        config.path = ipfsd.repoPath
+        store.set('ipfsConfig', config)
+      }
+
+      logger.info('[ipfsd] daemon started')
+    } catch (e) {
+      logger.error('[ipfsd] %v', e)
     }
   }
 
@@ -48,9 +56,9 @@ export default async function (ctx) {
 
   app.once('will-quit', async (event) => {
     event.preventDefault()
-    logger.info('Stopping daemon')
+    logger.info('[ipfsd] stopping daemon')
     await ctx.stopIpfs()
-    logger.info('Done. Quitting app')
+    logger.info('[ipfsd] daemon stopped')
     app.quit()
   })
 }

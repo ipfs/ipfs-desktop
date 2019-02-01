@@ -1,6 +1,5 @@
 import { ipcMain } from 'electron'
 import filesize from 'filesize'
-import { logger } from '../utils'
 
 const ipfsState = (ctx) => async () => {
   const { getIpfsd, sendToMenubar } = ctx
@@ -43,17 +42,13 @@ export default function (ctx) {
   ipfsState(ctx)()
 
   ipcMain.on('ipfs.toggle', async () => {
-    try {
-      if (ctx.getIpfsd()) {
-        await ctx.stopIpfs()
-      } else {
-        await ctx.startIpfs()
-      }
-
-      ipfsState(ctx)()
-    } catch (e) {
-      logger.error(e)
+    if (ctx.getIpfsd()) {
+      await ctx.stopIpfs()
+    } else {
+      await ctx.startIpfs()
     }
+
+    ipfsState(ctx)()
   })
 
   setInterval(getPeers(ctx), 30 * 1000)

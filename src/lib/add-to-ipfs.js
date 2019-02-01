@@ -35,7 +35,7 @@ async function addToIpfs ({ getIpfsd, launchWebUI }, file) {
   const ipfsd = await getIpfsd()
 
   if (!ipfsd) {
-    logger.info('Daemon is not running')
+    logger.info('[add to ipfs] daemon is not running')
 
     notify({
       title: i18n.t('ipfsNotRunning'),
@@ -45,7 +45,7 @@ async function addToIpfs ({ getIpfsd, launchWebUI }, file) {
     return
   }
 
-  logger.info(`Adding ${file}: started`)
+  logger.info(`[add to ipfs] started ${file}`)
   ipfsd.api.addFromFs(file, { recursive: true }, async (err, result) => {
     if (err) {
       logger.error(err)
@@ -57,7 +57,7 @@ async function addToIpfs ({ getIpfsd, launchWebUI }, file) {
     const { path, hash } = result[result.length - 1]
     try {
       await copyFile(launchWebUI, ipfsd.api, hash, path, result.length > 1)
-      logger.info(`Adding ${file}: completed`)
+      logger.info(`[add to ipfs] completed ${file}`)
     } catch (err) {
       logger.error(err)
       notifyError({
