@@ -8,7 +8,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development electron -r @babel/register src/index.js",
     "lint": "standard",
-    "test": "mocha",
+    "test": "cross-env NODE_ENV=test mocha",
     "postinstall": "run-s install-app-deps build:webui build:icons",
     "install-app-deps": "electron-builder install-app-deps",
     "clean:webui": "shx rm -rf src/lib/webui/app/",
