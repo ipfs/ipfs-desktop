@@ -70,9 +70,5 @@ describe('Application launch', function () {
     if (this.ipfsd) {
       await this.ipfsd.stop()
     }
-
-    if (this.dir) {
-      this.dir.removeCallback()
-    }
   })
 })
