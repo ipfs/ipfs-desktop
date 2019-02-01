@@ -15,7 +15,7 @@ export default async function () {
   await appMenu()
   await openExternal(ctx)
   await registerDaemon(ctx) // ctx.getIpfsd, ctx.stopIpfs, ctx.startIpfs
-  await registerWebUI(ctx) // ctx.sendToWebUI, ctx.launchWebUI
+  // await registerWebUI(ctx) // ctx.sendToWebUI, ctx.launchWebUI
   await registerMenubar(ctx) // ctx.sendToMenubar
   await addToIpfs(ctx)
   await protocolHandlers(ctx)
