@@ -3,8 +3,8 @@ import { ipcRenderer } from 'electron'
 export default {
   name: 'electron',
 
-  doQuitApp: () => async () => {
-    ipcRenderer.send('app.quit')
+  doToggleIpfs: () => async () => {
+    ipcRenderer.send('ipfs.toggle')
   },
 
   doOpenWebUI: (url) => async () => {

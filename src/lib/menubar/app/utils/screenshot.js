@@ -1,78 +1,58 @@
 import { ipcRenderer, desktopCapturer } from 'electron'
 
-function screenshot (format) {
+async function streamHandler (format, stream) {
+  const track = stream.getVideoTracks()[0]
+  const imageCapture = new window.ImageCapture(track)
+  const bitmap = await imageCapture.grabFrame()
+  const canvas = document.createElement('canvas')
+  canvas.width = bitmap.width
+  canvas.height = bitmap.height
+  const ctx = canvas.getContext('2d')
+  ctx.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height)
+  return canvas.toDataURL(format)
+}
+
+async function screenshot (format) {
   format = format || 'image/png'
 
-  return new Promise((resolve, reject) => {
-    let handleStream = (stream) => {
-      // Create hidden video tag
-      var video = document.createElement('video')
-      video.style.cssText = 'position:absolute;top:-10000px;left:-10000px;'
+  const sources = await new Promise((resolve, reject) => {
+    desktopCapturer.getSources({ types: ['screen'] }, (error, sources) => {
+      if (error) return reject(error)
+      resolve(sources)
+    })
+  })
 
-      // Event connected to stream
-      video.onloadedmetadata = function () {
-        // Set video ORIGINAL height (screenshot)
-        video.style.height = this.videoHeight + 'px'
-        video.style.width = this.videoWidth + 'px'
+  const output = []
 
-        // Create canvas
-        var canvas = document.createElement('canvas')
-        canvas.width = this.videoWidth
-        canvas.height = this.videoHeight
-        var ctx = canvas.getContext('2d')
-        // Draw video on canvas
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-
-        // Remove hidden video tag
-        video.remove()
-        try {
-          // Destroy connect to stream
-          stream.getTracks()[0].stop()
-          resolve(canvas.toDataURL(format))
-        } catch (e) {
-          reject(e)
-        }
-      }
-
-      video.src = window.URL.createObjectURL(stream)
-      document.body.appendChild(video)
-    }
-
-    // Filter only screen type
-    desktopCapturer.getSources({
-      types: ['screen']
-    }, (error, sources) => {
-      if (error) throw error
-      // console.log(sources);
-      for (let i = 0; i < sources.length; ++i) {
-        // Filter: main screen
-        if (sources[i].name === 'Entire screen') {
-          navigator.webkitGetUserMedia({
-            audio: false,
-            video: {
-              mandatory: {
-                chromeMediaSource: 'desktop',
-                chromeMediaSourceId: sources[i].id,
-                minWidth: 1280,
-                maxWidth: 4000,
-                minHeight: 720,
-                maxHeight: 4000
-              }
-            }
-          }, handleStream, reject)
-
-          return
+  for (const source of sources) {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: {
+        mandatory: {
+          chromeMediaSource: 'desktop',
+          chromeMediaSourceId: source.id,
+          minWidth: 1280,
+          maxWidth: 4000,
+          minHeight: 720,
+          maxHeight: 4000
         }
       }
     })
-  })
+
+    const image = await streamHandler(format, stream)
+
+    output.push({
+      name: source.name,
+      image: image
+    })
+  }
+
+  return output
 }
 
 export default function () {
-  ipcRenderer.on('screenshot', () => {
-    screenshot()
-      .then(image => {
-        ipcRenderer.send('screenshot', image)
-      })
+  ipcRenderer.on('screenshot', async () => {
+    const out = await screenshot()
+    ipcRenderer.send('screenshot', out)
   })
 }

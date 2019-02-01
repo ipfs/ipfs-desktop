@@ -46,6 +46,17 @@ The IPFS Desktop app will launch and should appear in your OS menu bar.
 The translations are stored on [./src/locales](./src/locales) and the English version is the source of truth.
 Other languages are periodically pulled from [Transifex](https://www.transifex.com/ipfs/ipfs-desktop/), a web interface to help us translate IPFS Desktop and its components to another languages.
 
+## Releasing
+
+- Bump the version in the package.json & run `npm install`
+- Commit and push to master
+- CI will build installers for macos, win & linux attach them to a new [Draft Release](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
+- Iterate on changes till you are happy that the release is ready. CI will update the artefacts attached to the draft release as PRs are merged into master.
+- Publish the release. Github will tag master at that point.
+- The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determin when an app update is available. Once a release is published, users should recieve the app update. See: https://www.electron.build/auto-update
+- To start work on the next version, bump the version in the package.json and repeat theses steps.
+
+
 ## Contribute
 
 [![](https://cdn.rawgit.com/jbenet/contribute-ipfs-gif/master/img/contribute.gif)](https://github.com/ipfs/community/#contributing-guidelines)

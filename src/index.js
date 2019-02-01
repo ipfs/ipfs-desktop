@@ -8,13 +8,7 @@ app.setAppUserModelId('io.ipfs.desktop')
 
 // Only one instance can run at a time
 if (!app.requestSingleInstanceLock()) {
-  dialog.showErrorBox(
-    'Multiple instances',
-    'Sorry, but there can be only one instance of IPFS Desktop running at the same time.'
-  )
-
-  // No windows were opened at this time so we don't need to do app.quit()
-  process.exit(1)
+  process.exit(0)
 }
 
 function handleError (e) {
@@ -25,6 +19,15 @@ function handleError (e) {
 process.on('uncaughtException', handleError)
 process.on('unhandledRejection', handleError)
 
+async function checkUpdates () {
+  try {
+    autoUpdater.allowPrerelease = true
+    autoUpdater.checkForUpdatesAndNotify().catch(logger.warn)
+  } catch (e) {
+    logger.warn(e)
+  }
+}
+
 async function run () {
   try {
     await app.whenReady()
@@ -33,11 +36,9 @@ async function run () {
     app.exit(1)
   }
 
-  try {
-    autoUpdater.allowPrerelease = true
-    // TODO: enable before releasing 0.6.0
-    // autoUpdater.checkForUpdatesAndNotify()
+  checkUpdates()
 
+  try {
     await startup()
   } catch (e) {
     handleError(e)

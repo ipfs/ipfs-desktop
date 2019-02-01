@@ -1,5 +1,5 @@
-import { clipboard, ipcMain, globalShortcut } from 'electron'
-import { store, logger } from '../utils'
+import { clipboard, ipcMain, globalShortcut, nativeImage } from 'electron'
+import { store, notify, notifyError, logger, i18n } from '../utils'
 import { createToggler } from './utils'
 
 const settingsOption = 'screenshotShortcut'
@@ -13,10 +13,42 @@ async function makeScreenshotDir (ipfs) {
   }
 }
 
-function handleScreenshot (ctx) {
-  let { ipfsd } = ctx
+async function onSucess (ipfs, launchWebUI, path, img) {
+  const stats = await ipfs.files.stat(path)
+  const url = `https://share.ipfs.io/#/${stats.hash}`
+  clipboard.writeText(url)
 
-  return async (_, image) => {
+  notify({
+    title: i18n.t('screenshotTaken'),
+    body: i18n.t('shareableLinkCopied'),
+    icon: img.resize({
+      width: 200,
+      quality: 'good'
+    })
+  }, () => {
+    launchWebUI(`/files${path}`)
+  })
+}
+
+function onError (e) {
+  logger.error(e)
+
+  notifyError({
+    title: i18n.t('couldNotTakeScreenshot'),
+    body: i18n.t('errorwhileTakingScreenshot')
+  })
+}
+
+function handleScreenshot (ctx) {
+  let { getIpfsd, launchWebUI } = ctx
+
+  return async (_, output) => {
+    const ipfsd = getIpfsd()
+
+    if (!ipfsd) {
+      return
+    }
+
     const ipfs = ipfsd.api
 
     if (!ipfs) {
@@ -24,24 +56,32 @@ function handleScreenshot (ctx) {
       return
     }
 
-    let base64Data = image.replace(/^data:image\/png;base64,/, '')
-
-    logger.info('Screenshot taken')
-
-    const path = `/screenshots/${new Date().toISOString()}.png`
-    const content = Buffer.from(base64Data, 'base64')
-
     try {
       await makeScreenshotDir(ipfs)
-      await ipfs.files.write(path, content, { create: true })
+      const isDir = output.length > 1
+      let baseName = `/screenshots/${new Date().toISOString()}`
 
-      const stats = await ipfs.files.stat(path)
-      const url = `https://ipfs.io/ipfs/${stats.hash}`
+      if (isDir) {
+        baseName += '/'
+        await ipfs.files.mkdir(baseName)
+      } else {
+        baseName += '.png'
+      }
 
-      clipboard.writeText(url)
-      logger.info('Screenshot uploaded', { path: path })
+      logger.info('Saving screenshots to %s', baseName)
+      let lastImage = null
+
+      for (let { name, image } of output) {
+        const img = nativeImage.createFromDataURL(image)
+        const path = isDir ? `${baseName}${name}.png` : baseName
+        await ipfs.files.write(path, img.toPNG(), { create: true })
+        lastImage = img
+      }
+
+      logger.info('Screenshots saved to %s', baseName)
+      onSucess(ipfs, launchWebUI, baseName, lastImage)
     } catch (e) {
-      logger.error(e.stack)
+      onError(e)
     }
   }
 }
