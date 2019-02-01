@@ -3,6 +3,11 @@ language: node_js
 node_js:
   - 10.4.1
 
+matrix:
+  allow_failures:
+    - os: linux
+  fast_finish: true
+
 os:
   - linux
   - osx
