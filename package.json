@@ -67,23 +67,17 @@
       {
         "name": "IPFS",
         "role": "Viewer",
-        "schemes": [
-          "ipfs"
-        ]
+        "schemes": ["ipfs"]
       },
       {
         "name": "IPNS",
         "role": "Viewer",
-        "schemes": [
-          "ipns"
-        ]
+        "schemes": ["ipns"]
       },
       {
         "name": "DWEB",
         "role": "Viewer",
-        "schemes": [
-          "dweb"
-        ]
+        "schemes": ["dweb"]
       }
     ]
   },
