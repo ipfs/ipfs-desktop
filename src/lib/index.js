@@ -1,6 +1,6 @@
 import registerDaemon from './register-daemon'
 import registerMenubar from './menubar'
-import registerWebUI from './webui'
+// import registerWebUI from './webui'
 import openExternal from './open-external'
 import autoLaunch from './auto-launch'
 import downloadHash from './download-hash'
