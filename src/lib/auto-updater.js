@@ -39,10 +39,7 @@ autoUpdater.on('update-downloaded', () => {
 export default async function () {
   try {
     await autoUpdater.checkForUpdates()
-  } catch (error) {
-    notifyError({
-      title: 'Error',
-      body: error.stack
-    })
+  } catch (_) {
+    // Ignore. The errors are already handled on 'error' event.
   }
 }
