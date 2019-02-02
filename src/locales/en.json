@@ -26,10 +26,6 @@
   "errorWhileWritingFiles": "An error occurred while writing the files to your file system.",
   "hashDownloaded": "Hash downloaded",
   "hashDownloadedClickToView": "Hash { hash } content downloaded. Click to view.",
-  "updateAvailable": "Update available",
-  "versionAvailableAndDownload": "Version { version } of IPFS Desktop is available and will be downloaded in background.",
   "updateDownloaded": "Update downloaded",
-  "clickToInstall": "Click here to restart and update IPFS Desktop.",
-  "updateError": "Update error",
-  "errorWhileUpdating": "An error happened while trying to update IPFS Desktop."
+  "clickToInstall": "Click here to restart and update IPFS Desktop."
 }

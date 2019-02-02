@@ -1,33 +1,24 @@
 import { autoUpdater } from 'electron-updater'
-import { logger, i18n, notify, notifyError } from '../utils'
+import { logger, i18n, notify } from '../utils'
 
 autoUpdater.allowPrerelease = true
 autoUpdater.autoDownload = false
 
-function updateError (error) {
-  logger.error(error)
-  notifyError({
-    title: i18n.t('updateError'),
-    body: i18n.t('errorWhileUpdating')
-  })
-}
+autoUpdater.on('error', logger.error)
 
-autoUpdater.on('error', updateError)
-
-autoUpdater.on('update-available', async ({ version }) => {
-  notify({
-    title: i18n.t('updateAvailable'),
-    body: i18n.t('versionAvailableAndDownload', { version })
-  })
+autoUpdater.on('update-available', async () => {
+  logger.info(`[updater] update available. download started`)
 
   try {
     await autoUpdater.downloadUpdate()
   } catch (error) {
-    updateError(error)
+    logger.error(error)
   }
 })
 
 autoUpdater.on('update-downloaded', () => {
+  logger.info(`[updater] update downloaded`)
+
   notify({
     title: i18n.t('updateDownloaded'),
     body: i18n.t('clickToInstall')
