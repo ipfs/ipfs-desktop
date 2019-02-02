@@ -20,7 +20,7 @@ autoUpdater.on('update-downloaded', () => {
   logger.info(`[updater] update downloaded`)
 
   notify({
-    title: i18n.t('updateDownloaded'),
+    title: i18n.t('updateAvailable'),
     body: i18n.t('clickToInstall')
   }, () => {
     autoUpdater.quitAndInstall(true, true)
