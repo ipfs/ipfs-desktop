@@ -18,9 +18,9 @@ IPFS Desktop allows you to run your IPFS Node on your machine without having to 
 ## Table of Contents
 
 - [Install](#install)
-- [How does it work?](#how-does-it-work)
 - [Contribute](#contribute)
     - [Translations](#translations)
+- [FAQ](#faq)
 
 ## Install
 
@@ -57,8 +57,6 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determin when an app update is available. Once a release is published, users should recieve the app update. See: https://www.electron.build/auto-update
 - To start work on the next version, bump the version in the package.json and repeat theses steps.
 
-## How does it work?
-
 ## Contribute
 
 [![](https://cdn.rawgit.com/jbenet/contribute-ipfs-gif/master/img/contribute.gif)](https://github.com/ipfs/community/#contributing-guidelines)
@@ -68,6 +66,24 @@ Feel free to join in. All welcome. Open an [issue](https://github.com/ipfs-shipy
 If you're interested in contributing translations, go to [project page on Transifex](https://www.transifex.com/ipfs/ipfs-desktop/translate/), create an account, pick a language and start translating.
 
 This repository falls under the IPFS [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md).
+
+## FAQ
+
+### Where is the configuration and logs?
+
+The configuration file and logs are located on `~/Library/Application Support/IPFS Desktop` on macOS and `%appdata%/ipfs-desktop` on Windows. For quick access to this folders, just right-click on your tray icon and then 'Logs Directory'.
+
+### How do we select the IFPS repo location?
+
+On the first run, we check `IPFS_PATH` environment variable. If not set, we fallback to `$HOME/.ipfs`. From the moment the repository is set up, we save its location on the configuration file and it is the source of truth from now on.
+
+### Which version of IPFS are we running?
+
+Since we're using [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), we have our own embedded IPFS binary. We try to always have the latest version.
+
+### Which flags do we use to boot IPFS?
+
+By default we use the flags `--migrate=true --routing=dhtclient` when running the IPFS daemon. They can be changed via the configuration file, which can be easily accessed through a right-click.
 
 ## License
 
