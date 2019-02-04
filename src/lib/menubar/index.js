@@ -1,5 +1,5 @@
 import { Menubar } from 'electron-menubar'
-import { logo, logger, i18n } from '../../utils'
+import { logo, store, logger, i18n } from '../../utils'
 import { Menu, shell, app } from 'electron'
 
 function getContextMenu ({ launchWebUI }) {
@@ -11,6 +11,10 @@ function getContextMenu ({ launchWebUI }) {
     {
       label: i18n.t('logsDirectory'),
       click: () => { shell.openItem(app.getPath('userData')) }
+    },
+    {
+      label: i18n.t('configFile'),
+      click: () => { shell.openItem(store.path) }
     },
     { type: 'separator' },
     {

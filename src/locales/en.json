@@ -8,6 +8,7 @@
   "settings": "Settings",
   "quit": "Quit",
   "logsDirectory": "Logs Directory",
+  "configFile": "Configuration File",
   "screenshotTaken": "Screenshot taken",
   "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
   "couldNotTakeScreenshot": "Could not take screenshot",
