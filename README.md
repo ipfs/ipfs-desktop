@@ -18,6 +18,7 @@ IPFS Desktop allows you to run your IPFS Node on your machine without having to 
 ## Table of Contents
 
 - [Install](#install)
+- [How does it work?](#how-does-it-work)
 - [Contribute](#contribute)
     - [Translations](#translations)
 
@@ -56,6 +57,7 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determin when an app update is available. Once a release is published, users should recieve the app update. See: https://www.electron.build/auto-update
 - To start work on the next version, bump the version in the package.json and repeat theses steps.
 
+## How does it work?
 
 ## Contribute
 
