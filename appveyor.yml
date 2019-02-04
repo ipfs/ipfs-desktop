@@ -1,5 +1,7 @@
 image: Visual Studio 2017
 
+os: unstable
+
 platform:
   - x64
 
@@ -15,6 +17,7 @@ install:
   - npm install
 
 build_script:
+  - npm run test
   - npm run lint
   - npm run build
 

@@ -21,7 +21,7 @@ const createWindow = (ctx) => {
       preload: join(__dirname, 'preload.js'),
       webSecurity: false,
       allowRunningInsecureContent: false,
-      nodeIntegration: false
+      nodeIntegration: process.env.NODE_ENV === 'test'
     }
   })
 
