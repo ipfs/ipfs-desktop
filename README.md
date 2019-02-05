@@ -71,7 +71,7 @@ This repository falls under the IPFS [Code of Conduct](https://github.com/ipfs/c
 
 ### Where is the configuration and logs?
 
-The configuration file and logs are located on `~/Library/Application Support/IPFS Desktop` on macOS and `%appdata%/ipfs-desktop` on Windows. For quick access to this folders, just right-click on your tray icon and then 'Logs Directory'.
+The configuration file and logs are located on `~/Library/Application Support/IPFS Desktop` on macOS and `%appdata%/ipfs-desktop` on Windows. For quick access to this folders, just right-click on your tray icon and then 'Logs Directory'. To open the config file directly, just click 'Configuration File' instead.
 
 ### How do we select the IFPS repo location?
 
@@ -83,7 +83,7 @@ Since we're using [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), we have our
 
 ### Which flags do we use to boot IPFS?
 
-By default we use the flags `--migrate=true --routing=dhtclient` when running the IPFS daemon. They can be changed via the configuration file, which can be easily accessed through a right-click.
+By default we use the flags `--migrate=true --routing=dhtclient` when running the IPFS daemon. They can be changed via the configuration file, which can be easily accessed as mentioned above.
 
 ## License
 
