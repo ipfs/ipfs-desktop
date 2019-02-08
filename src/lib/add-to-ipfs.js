@@ -86,6 +86,8 @@ export default async function (ctx) {
     for (const file of files) {
       await addToIpfs(ctx, file)
     }
+
+    ctx.reloadWebUI()
   })
 
   // Checks current proccess
