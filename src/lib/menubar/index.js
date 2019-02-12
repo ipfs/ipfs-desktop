@@ -61,6 +61,8 @@ export default async function (ctx) {
       menubar.tray.setContextMenu(menu)
     }
 
+    ctx.menubar = menubar
+
     ctx.sendToMenubar = (type, ...args) => {
       if (type === 'ipfs.started') {
         menubar.tray.setImage(logo('ice'))

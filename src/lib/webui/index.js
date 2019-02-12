@@ -46,6 +46,9 @@ export default async function (ctx) {
   const window = createWindow(ctx)
 
   ctx.sendToWebUI = (...args) => window.webContents.send(...args)
+  ctx.updateWebUI = (url) => {
+    window.webContents.send('updatedPage', url)
+  }
   ctx.launchWebUI = (url) => {
     logger.info('[web ui] navigate to %s', url)
     window.webContents.send('updatedPage', url)

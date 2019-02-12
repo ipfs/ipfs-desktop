@@ -81,6 +81,15 @@ export default async function (ctx) {
     handleArgv(argv)
   })
 
+  // macOS tray drop files
+  ctx.menubar.tray.on('drop-files', async (_, files) => {
+    for (const file of files) {
+      await addToIpfs(ctx, file)
+    }
+
+    ctx.updateWebUI('/files')
+  })
+
   // Checks current proccess
   if (process.env.NODE_ENV !== 'development') {
     await handleArgv(process.argv)
