@@ -67,17 +67,23 @@
       {
         "name": "IPFS",
         "role": "Viewer",
-        "schemes": ["ipfs"]
+        "schemes": [
+          "ipfs"
+        ]
       },
       {
         "name": "IPNS",
         "role": "Viewer",
-        "schemes": ["ipns"]
+        "schemes": [
+          "ipns"
+        ]
       },
       {
         "name": "DWEB",
         "role": "Viewer",
-        "schemes": ["dweb"]
+        "schemes": [
+          "dweb"
+        ]
       }
     ]
   },
@@ -91,7 +97,7 @@
     "@svgr/cli": "^4.1.0",
     "cross-env": "^5.2.0",
     "mocha": "^5.2.0",
-    "electron": "^4.0.2",
+    "electron": "^4.0.4",
     "electron-builder": "^20.38.5",
     "npm-run-all": "^4.1.5",
     "pre-commit": "^1.2.2",
@@ -113,20 +119,20 @@
     "filesize": "^4.0.0",
     "fs-extra": "^7.0.1",
     "go-ipfs-dep": "^0.4.18",
-    "i18next": "^14.0.1",
+    "i18next": "^15.0.2",
     "i18next-electron-language-detector": "0.0.10",
-    "i18next-icu": "^1.0.1",
+    "i18next-icu": "^1.1.2",
     "i18next-node-fs-backend": "^2.1.1",
     "ipfs-css": "^0.12.0",
-    "ipfsd-ctl": "^0.40.3",
-    "is-ipfs": "^0.4.8",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-i18next": "^9.0.9",
-    "redux-bundler": "^23.0.2",
+    "ipfsd-ctl": "^0.41.0",
+    "is-ipfs": "^0.5.1",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "react-i18next": "^10.0.5",
+    "redux-bundler": "^23.1.0",
     "redux-bundler-react": "^1.1.0",
     "tachyons": "^4.11.1",
-    "winston": "^3.2.0",
-    "yargs": "^12.0.5"
+    "winston": "^3.2.1",
+    "yargs": "^13.1.0"
   }
 }
