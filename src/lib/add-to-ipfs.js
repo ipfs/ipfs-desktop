@@ -87,7 +87,7 @@ export default async function (ctx) {
       await addToIpfs(ctx, file)
     }
 
-    ctx.reloadWebUI()
+    ctx.updateWebUI('/files')
   })
 
   // Checks current proccess

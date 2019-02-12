@@ -46,7 +46,9 @@ export default async function (ctx) {
   const window = createWindow(ctx)
 
   ctx.sendToWebUI = (...args) => window.webContents.send(...args)
-  ctx.reloadWebUI = () => window.reload()
+  ctx.updateWebUI = (url) => {
+    window.webContents.send('updatedPage', url)
+  }
   ctx.launchWebUI = (url) => {
     window.webContents.send('updatedPage', url)
     window.show()
