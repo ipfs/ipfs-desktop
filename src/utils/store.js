@@ -9,7 +9,7 @@ if (store.get('version') !== 5) {
   store.set('ipfsConfig', {
     type: 'go',
     path: '',
-    flags: ['--migrate=true', '--routing=dhtclient'],
+    flags: ['--migrate=true', '--routing=dhtclient', '--enable-gc=true'],
     keysize: 2048
   })
 
