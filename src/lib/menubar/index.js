@@ -75,6 +75,14 @@ export default async function (ctx) {
       }
     }
 
+    menubar.window.webContents.on('crashed', event => {
+      logger.error('[menubar] crashed: %v', event)
+    })
+
+    menubar.window.webContents.on('unresponsive', event => {
+      logger.warn('[menubar] unresponsive: %v', event)
+    })
+
     const ready = () => {
       logger.info('[menubar] ready')
       resolve()
