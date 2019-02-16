@@ -83,7 +83,7 @@ Since we're using [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), we have our
 
 ### Which flags do we use to boot IPFS?
 
-By default we use the flags `--migrate=true --routing=dhtclient` when running the IPFS daemon. They can be changed via the configuration file, which can be easily accessed as mentioned above.
+By default we use the flags `--migrate=true --routing=dhtclient ----enable-gc=true` when running the IPFS daemon. They can be changed via the configuration file, which can be easily accessed as mentioned above.
 
 ## License
 
