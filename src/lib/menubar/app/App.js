@@ -1,5 +1,5 @@
-import React from 'react'
-import { translate } from 'react-i18next'
+import React, { Suspense } from 'react'
+import { withTranslation } from 'react-i18next'
 import { connect } from 'redux-bundler-react'
 import Heartbeat from './components/heartbeat/Heartbeat'
 import GlyphPower from '../../../icons/GlyphPower'
@@ -58,10 +58,29 @@ const Menubar = ({ t, ipfsIsRunning, doToggleIpfs, currentConfig }) => (
   </div>
 )
 
-export default connect(
+const Loader = () => (
+  <div className='bg-navy sans-serif h-100'>
+    <div className='fixed' style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+      <div className='rotate'>
+        <Heartbeat
+          size={80}
+          type='go'
+          online />
+      </div>
+    </div>
+  </div>
+)
+
+const Connected = connect(
   'doToggleIpfs',
   'doIpfsStartListening',
   'selectIpfsIsRunning',
   'selectCurrentConfig',
-  translate()(Menubar)
+  withTranslation()(Menubar)
+)
+
+export default () => (
+  <Suspense fallback={<Loader />}>
+    <Connected />
+  </Suspense>
 )
