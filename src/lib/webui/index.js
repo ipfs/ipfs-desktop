@@ -25,6 +25,14 @@ const createWindow = (ctx) => {
     }
   })
 
+  window.webContents.on('crashed', event => {
+    logger.error('[web ui] crashed: %v', event)
+  })
+
+  window.webContents.on('unresponsive', event => {
+    logger.warn('[web ui] unresponsive: %v', event)
+  })
+
   window.on('resize', () => {
     const dim = window.getSize()
     store.set('window.width', dim[0])
