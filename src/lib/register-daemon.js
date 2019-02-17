@@ -54,7 +54,7 @@ export default async function (ctx) {
 
   await ctx.startIpfs()
 
-  app.once('will-quit', async () => {
+  app.on('before-quit', async () => {
     logger.info('[ipfsd] stopping daemon')
     await ctx.stopIpfs()
     logger.info('[ipfsd] daemon stopped')
