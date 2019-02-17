@@ -34,4 +34,7 @@ ManifestDPIAware true
   DeleteRegKey SHELL_CONTEXT "ipfs"
   DeleteRegKey SHELL_CONTEXT "Software\Classes\*\shell\ipfs-desktop"
   DeleteRegKey SHELL_CONTEXT "Software\Classes\Directory\shell\ipfs-desktop"
+  DeleteRegKey SHELL_CONTEXT "Software\Classes\ipns"
+  DeleteRegKey SHELL_CONTEXT "Software\Classes\ipfs"
+  DeleteRegKey SHELL_CONTEXT "Software\Classes\dweb"
 !macroend
