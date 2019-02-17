@@ -27,7 +27,6 @@ i18n
     fallbackLng: {
       'default': ['en']
     },
-    debug: process.env.NODE_ENV !== 'production',
     backend: {
       loadPath: join(__dirname, '../locales/{{lng}}.json')
     }
