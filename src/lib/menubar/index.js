@@ -2,10 +2,6 @@ import { Menubar } from 'electron-menubar'
 import { logo, store, logger, i18n } from '../../utils'
 import { Menu, shell, app } from 'electron'
 
-function openReleases () {
-  shell.openItem('https://github.com/ipfs-shipyard/ipfs-desktop/releases')
-}
-
 function getContextMenu ({ launchWebUI }) {
   return Menu.buildFromTemplate([
     {
@@ -14,11 +10,11 @@ function getContextMenu ({ launchWebUI }) {
     },
     {
       label: `ipfs-desktop ${require('../../../package.json').version}`,
-      click: openReleases
+      click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/releases') }
     },
     {
       label: `go-ipfs ${require('../../../package.json').dependencies['go-ipfs-dep']}`,
-      click: openReleases
+      click: () => { shell.openExternal('https://github.com/ipfs/go-ipfs/releases') }
     },
     { type: 'separator' },
     {
