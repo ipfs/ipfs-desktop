@@ -5,6 +5,15 @@ import { Menu, shell, app } from 'electron'
 function getContextMenu ({ launchWebUI }) {
   return Menu.buildFromTemplate([
     {
+      label: `Version ${require('../../../package.json').version}`,
+      enabled: false
+    },
+    {
+      label: `IPFS ${require('../../../package.json').dependencies['go-ipfs-dep']}`,
+      enabled: false
+    },
+    { type: 'separator' },
+    {
       label: i18n.t('settings'),
       click: () => { launchWebUI('/settings') }
     },
