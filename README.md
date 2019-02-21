@@ -71,7 +71,7 @@ This repository falls under the IPFS [Code of Conduct](https://github.com/ipfs/c
 
 ### Where is the configuration and logs?
 
-The configuration file and logs are located on `~/Library/Application Support/IPFS Desktop` on macOS and `%appdata%/ipfs-desktop` on Windows. For quick access to this folders, just right-click on your tray icon and then 'Logs Directory' or 'Configuration File', depending on what you want.
+The configuration file and logs are located on `~/Library/Application Support/IPFS Desktop` on macOS and `%appdata%/IPFS Desktop` on Windows. For quick access to this folders, just right-click on your tray icon and then 'Logs Directory' or 'Configuration File', depending on what you want.
 
 ### How do we select the IFPS repo location?
 
