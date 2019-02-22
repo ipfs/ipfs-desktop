@@ -16,6 +16,8 @@ async function makeRepository () {
     }, function (err, ipfsd) {
       if (err) return reject(err)
       ipfsd.init({
+        bits: 1024,
+        profile: 'test',
         directory: dir.name
       }, e => {
         if (e) return reject(e)
