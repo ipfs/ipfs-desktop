@@ -73,7 +73,7 @@ This repository falls under the IPFS [Code of Conduct](https://github.com/ipfs/c
 
 The configuration file and logs are located on `~/Library/Application Support/IPFS Desktop` on macOS and `%appdata%/IPFS Desktop` on Windows. For quick access to this folders, just right-click on your tray icon and then 'Logs Directory' or 'Configuration File', depending on what you want.
 
-### How do we select the IFPS repo location?
+### How do we select the IPFS repo location?
 
 We use [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, in default conditions, will check `IPFS_PATH` environment variable. If not set, we fallback to `$HOME/.ipfs`. As soon as the first run has succeded, we save the information about the repository location in the configuration file, which becomes the source of truth.
 
