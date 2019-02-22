@@ -1,19 +1,14 @@
 language: node_js
 
 node_js:
-  - 10.4.1
-
-matrix:
-  allow_failures:
-    - os: linux
-  fast_finish: true
+  - 10.15.1
 
 os:
   - linux
   - osx
 
 before_script:
-  - ./scripts/travis-xvfb.sh
+  - . scripts/travis-xvfb.sh
 
 script:
   - npm run test
