@@ -2,7 +2,7 @@ import { Menubar } from 'electron-menubar'
 import { logo, store, logger, i18n } from '../../utils'
 import { Menu, shell, app } from 'electron'
 
-function getContextMenu ({ launchWebUI }) {
+function getContextMenu ({ launchWebUI, checkForUpdates }) {
   return Menu.buildFromTemplate([
     {
       label: i18n.t('versions'),
@@ -30,6 +30,10 @@ function getContextMenu ({ launchWebUI }) {
       click: () => { shell.openItem(store.path) }
     },
     { type: 'separator' },
+    {
+      label: i18n.t('checkForUpdates'),
+      click: () => { checkForUpdates() }
+    },
     {
       label: i18n.t('quit'),
       click: () => { app.quit() }

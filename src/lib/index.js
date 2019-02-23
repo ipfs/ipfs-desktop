@@ -15,7 +15,7 @@ export default async function () {
   let ctx = {}
   await appMenu()
   await openExternal(ctx)
-  await autoUpdater(ctx)
+  await autoUpdater(ctx) // ctx.checkForUpdates
   await registerDaemon(ctx) // ctx.getIpfsd, ctx.stopIpfs, ctx.startIpfs
   await registerWebUI(ctx) // ctx.sendToWebUI, ctx.launchWebUI, ctx.updateWebUI
   await registerMenubar(ctx) // ctx.sendToMenubar, ctx.menubar
