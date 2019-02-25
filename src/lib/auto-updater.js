@@ -1,11 +1,24 @@
 import { autoUpdater } from 'electron-updater'
-import { logger, i18n, notify } from '../utils'
+import { logger, i18n, notify, logo } from '../utils'
+
+let userRequested = false
 
 function setup () {
   autoUpdater.allowPrerelease = true
   autoUpdater.autoDownload = false
 
-  autoUpdater.on('error', logger.error)
+  autoUpdater.on('error', (err) => {
+    if (userRequested) {
+      userRequested = false
+      notify({
+        title: i18n.t('couldNotCheckForUpdates'),
+        body: i18n.t('pleaseCheckInternet'),
+        icon: logo('black')
+      })
+    }
+
+    logger.error(err)
+  })
 
   autoUpdater.on('update-available', async () => {
     logger.info(`[updater] update available. download started`)
@@ -14,6 +27,16 @@ function setup () {
       await autoUpdater.downloadUpdate()
     } catch (error) {
       logger.error(error)
+    }
+  })
+
+  autoUpdater.on('update-not-available', async () => {
+    if (userRequested) {
+      userRequested = false
+      notify({
+        title: i18n.t('updateNotAvailable'),
+        body: i18n.t('runningLatestVersion')
+      })
     }
   })
 
@@ -29,16 +52,33 @@ function setup () {
   })
 }
 
-export default async function () {
+async function checkForUpdates () {
+  try {
+    await autoUpdater.checkForUpdates()
+  } catch (_) {
+    // Ignore. The errors are already handled on 'error' event.
+  }
+}
+
+export default async function (ctx) {
   if (process.env.NODE_ENV === 'development') {
+    ctx.checkForUpdates = () => {
+      notify({
+        title: 'DEV Check for Updates',
+        body: 'Yes, you called this function successfully.'
+      })
+    }
+
     return
   }
 
   setup()
 
-  try {
-    await autoUpdater.checkForUpdates()
-  } catch (_) {
-    // Ignore. The errors are already handled on 'error' event.
+  await checkForUpdates()
+  setInterval(checkForUpdates, 43200000) // every 12 hours
+
+  ctx.checkForUpdates = () => {
+    userRequested = true
+    checkForUpdates()
   }
 }
