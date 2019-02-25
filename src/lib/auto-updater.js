@@ -75,7 +75,7 @@ export default async function (ctx) {
   setup()
 
   await checkForUpdates()
-  setInterval(checkForUpdates, 3600000) // every hour
+  setInterval(checkForUpdates, 43200000) // every 12 hours
 
   ctx.checkForUpdates = () => {
     userRequested = true
