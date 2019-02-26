@@ -1,3 +1,4 @@
+import languageSelector from './language-selector'
 import registerDaemon from './register-daemon'
 import registerMenubar from './menubar'
 import registerWebUI from './webui'
@@ -19,6 +20,7 @@ export default async function () {
   await registerDaemon(ctx) // ctx.getIpfsd, ctx.stopIpfs, ctx.startIpfs
   await registerWebUI(ctx) // ctx.sendToWebUI, ctx.launchWebUI, ctx.updateWebUI
   await registerMenubar(ctx) // ctx.sendToMenubar, ctx.menubar
+  await languageSelector(ctx)
   await addToIpfs(ctx)
   await protocolHandlers(ctx)
   await autoLaunch(ctx)

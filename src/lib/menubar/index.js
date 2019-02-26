@@ -67,9 +67,9 @@ export default async function (ctx) {
     // - Linux, Windows and the rest seems to be fine with just
     //   setting context menu
     // More: https://electronjs.org/docs/api/tray
-    const os = process.platform
-    const menu = getContextMenu(ctx)
-    if (os === 'darwin') {
+    let menu = getContextMenu(ctx)
+
+    if (process.platform === 'darwin') {
       menubar.tray.on('right-click', event => {
         event.preventDefault()
         menubar.tray.popUpContextMenu(menu)
@@ -85,6 +85,13 @@ export default async function (ctx) {
         menubar.tray.setImage(logo('ice'))
       } else if (type === 'ipfs.stopped') {
         menubar.tray.setImage(logo('black'))
+      } else if (type === 'languageUpdated') {
+        menubar.tray.setToolTip(i18n.t('ipfsNode'))
+        menu = getContextMenu(ctx)
+
+        if (process.platform !== 'darwin') {
+          menubar.tray.setContextMenu(menu)
+        }
       }
 
       if (menubar && menubar.window && menubar.window.webContents) {

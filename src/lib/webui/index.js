@@ -90,6 +90,6 @@ export default async function (ctx) {
       resolve()
     })
 
-    window.loadURL(`webui://-?api=${apiAddress}&lng=${app.getLocale()}#/`)
+    window.loadURL(`webui://-?api=${apiAddress}&lng=${store.get('language')}#/`)
   })
 }

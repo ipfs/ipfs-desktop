@@ -1,5 +1,14 @@
 const { ipcRenderer } = require('electron')
 
+var originalSetItem = window.localStorage.setItem
+window.localStorage.setItem = function () {
+  if (arguments[0] === 'i18nextLng') {
+    ipcRenderer.send('languageUpdated', arguments[1])
+  }
+
+  originalSetItem.apply(this, arguments)
+}
+
 ipcRenderer.on('updatedPage', (_, url) => {
   window.location.hash = url
 })
