@@ -61,7 +61,7 @@ function handleScreenshot (ctx) {
       const isDir = output.length > 1
       const rawDate = new Date()
       const date = `${rawDate.getFullYear()}-${rawDate.getMonth()}-${rawDate.getDate()}`
-      const time = `${date.getHours()}.${date.getMinutes()}.${date.getMilliseconds()}`
+      const time = `${rawDate.getHours()}.${rawDate.getMinutes()}.${rawDate.getMilliseconds()}`
       let baseName = `/screenshots/${date} ${time}`
 
       if (isDir) {
