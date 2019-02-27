@@ -7,6 +7,7 @@
   "peers": "Peers",
   "settings": "Innstillinger",
   "quit": "Avslutt",
+  "versions": "Versjoner",
   "logsDirectory": "Logg Katalog",
   "configFile": "Konfigurasjonsfil",
   "screenshotTaken": "Skjermbilde tatt",
@@ -15,9 +16,9 @@
   "errorwhileTakingScreenshot": "Det oppstod en feil mens du tok skjermbildet.",
   "yourFilesCouldntBeAdded": "Filene dine kunne ikke legges til.",
   "folderAdded": "Mappe lagt til",
-  "folderAddedToIpfsTapToView": "Mappe { name } lagt til IPFS. Trykk for å vise mappen.",
+  "folderAddedToIpfsClickToView": "Folder { name } added to IPFS. Click to view the folder.",
   "fileAdded": "Fil lagt til",
-  "fileAddedToIpfsTapToView": "Fil { name } lagt til IPFS. Trykk for å vise filen.",
+  "fileAddedToIpfsClickToView": "File { name } added to IPFS. Click to view the file.",
   "clickToOpenLogs": "Klikk her for å åpne loggene.",
   "ipfsNotRunning": "IPFS kjører ikke",
   "desktopIsStartedButDaemonOffline": "IPFS Desktop er startet, men daemonen er slått av.",
@@ -28,5 +29,10 @@
   "hashDownloaded": "Hash lastet ned",
   "hashDownloadedClickToView": "Hash { hash } innhold lastet ned. Klikk for å vise.",
   "updateAvailable": "Oppdatering tilgjengelig",
-  "clickToInstall": "Klikk her for å restarte, og installere den nyere versjonen av IPFS Desktop."
+  "clickToInstall": "Klikk her for å restarte, og installere den nyere versjonen av IPFS Desktop.",
+  "updateNotAvailable": "Oppdatering ikke tilgjengelig",
+  "runningLatestVersion": "Du ser ut til å kjøre den nyeste versjonen.",
+  "couldNotCheckForUpdates": "Kunne ikke se etter oppdateringer",
+  "pleaseCheckInternet": "Vennligst sjekk internett-tilkoblingen din.",
+  "checkForUpdates": "Se etter oppdateringer"
 }

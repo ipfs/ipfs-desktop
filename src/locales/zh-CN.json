@@ -7,6 +7,7 @@
   "peers": "节点",
   "settings": "设置",
   "quit": "退出",
+  "versions": "版本",
   "logsDirectory": "日志文件夹",
   "configFile": "配置文件",
   "screenshotTaken": "截图",
@@ -15,9 +16,9 @@
   "errorwhileTakingScreenshot": "进行屏幕截图时出错。",
   "yourFilesCouldntBeAdded": "文件无法添加",
   "folderAdded": "文件夹已经添加",
-  "folderAddedToIpfsTapToView": "文件夹 { name } 已添加到IPFS. 点击查看这个文件夹.",
+  "folderAddedToIpfsClickToView": "Folder { name } added to IPFS. Click to view the folder.",
   "fileAdded": "文件已经添加",
-  "fileAddedToIpfsTapToView": "文件 { name } 已经添加到IPFS. 点击查看这个文件.",
+  "fileAddedToIpfsClickToView": "File { name } added to IPFS. Click to view the file.",
   "clickToOpenLogs": "点击这里打开日志.",
   "ipfsNotRunning": "IPFS没有运行",
   "desktopIsStartedButDaemonOffline": "IPFS桌面已经启动但是守护进程被关闭.",
@@ -28,5 +29,10 @@
   "hashDownloaded": "哈希码已经下载",
   "hashDownloadedClickToView": "哈希码 { hash } 内容已经下载. 点击查看.",
   "updateAvailable": "有更新可用",
-  "clickToInstall": "单击此处重新启动并安装较新版本的IPFS Desktop"
+  "clickToInstall": "单击此处重新启动并安装较新版本的IPFS Desktop",
+  "updateNotAvailable": "Update not available",
+  "runningLatestVersion": "You seem to be running the latest version.",
+  "couldNotCheckForUpdates": "Could not check for updates",
+  "pleaseCheckInternet": "Please check your Internet connection.",
+  "checkForUpdates": "Check for updates"
 }

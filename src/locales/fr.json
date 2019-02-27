@@ -7,6 +7,7 @@
   "peers": "Pairs",
   "settings": "Réglages",
   "quit": "Quitter",
+  "versions": "Versions",
   "logsDirectory": "Répertoire des logs",
   "configFile": "Fichier de configuration",
   "screenshotTaken": "Capture d'écran réalisée",
@@ -15,9 +16,9 @@
   "errorwhileTakingScreenshot": "Une erreur est survenue pendant la prise de la capture d'écran.",
   "yourFilesCouldntBeAdded": "Vos fichiers n'ont pas pu être ajoutés.",
   "folderAdded": "Dossier ajouté",
-  "folderAddedToIpfsTapToView": "Dossier { name } ajouté à IPFS. Tapotez pour voir le dossier.",
+  "folderAddedToIpfsClickToView": "Folder { name } added to IPFS. Click to view the folder.",
   "fileAdded": "Fichier ajouté",
-  "fileAddedToIpfsTapToView": "Fichier { name } ajouté à IPFS. Tapotez pour voir le fichier.",
+  "fileAddedToIpfsClickToView": "File { name } added to IPFS. Click to view the file.",
   "clickToOpenLogs": "Cliquez ici pour ouvrir les logs.",
   "ipfsNotRunning": "IPFS n'est pas en cours de fonctionnement",
   "desktopIsStartedButDaemonOffline": "IPFS Desktop est démarré mais le démon est éteint.",
@@ -28,5 +29,10 @@
   "hashDownloaded": "Hash téléchargé",
   "hashDownloadedClickToView": "Contenu du hash { hash } téléchargé. Cliquez pour voir.",
   "updateAvailable": "Mise à jour disponible",
-  "clickToInstall": "Cliquez ici pour redémarrer et installer la nouvelle version d'IPFS Desktop."
+  "clickToInstall": "Cliquez ici pour redémarrer et installer la nouvelle version d'IPFS Desktop.",
+  "updateNotAvailable": "Mise à jour indisponible",
+  "runningLatestVersion": "Vous semblez utiliser la dernière version.",
+  "couldNotCheckForUpdates": "Impossible de vérifier les mises à jour",
+  "pleaseCheckInternet": "Merci de vérifier votre connexion Internet.",
+  "checkForUpdates": "Vérifier les mises à jour"
 }
