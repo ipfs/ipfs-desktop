@@ -25,7 +25,7 @@ async function copyFile (launch, ipfs, hash, name, folder = false) {
 
   notify({
     title: folder ? i18n.t('folderAdded') : i18n.t('fileAdded'),
-    body: i18n.t(`${folder ? 'folder' : 'file'}AddedToIpfsTapToView`, { name })
+    body: i18n.t(`${folder ? 'folder' : 'file'}AddedToIpfsClickToView`, { name })
   }, () => {
     launch(`/files/${name}`)
   })
