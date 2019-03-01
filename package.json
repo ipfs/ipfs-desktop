@@ -37,7 +37,7 @@
     "type": "git",
     "url": "https://github.com/ipfs-shipyard/ipfs-desktop"
   },
-  "author": "IPFS",
+  "author": "Protocol Labs, Inc.",
   "contributors": [
     "Kristoffer Ström <kristoffer@rymdkoloni.se>",
     "David Dias <daviddias@ipfs.io>",
@@ -50,43 +50,6 @@
     "url": "https://github.com/ipfs-shipyard/ipfs-desktop/issues"
   },
   "homepage": "https://github.com/ipfs-shipyard/ipfs-desktop",
-  "build": {
-    "appId": "io.ipfs.desktop",
-    "mac": {
-      "category": "public.app-category.utilities"
-    },
-    "nsis": {
-      "include": "build/nsis.nsh",
-      "oneClick": true,
-      "perMachine": false
-    },
-    "publish": [
-      "github"
-    ],
-    "protocols": [
-      {
-        "name": "IPFS",
-        "role": "Viewer",
-        "schemes": [
-          "ipfs"
-        ]
-      },
-      {
-        "name": "IPNS",
-        "role": "Viewer",
-        "schemes": [
-          "ipns"
-        ]
-      },
-      {
-        "name": "DWEB",
-        "role": "Viewer",
-        "schemes": [
-          "dweb"
-        ]
-      }
-    ]
-  },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
