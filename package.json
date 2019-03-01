@@ -37,7 +37,7 @@
     "type": "git",
     "url": "https://github.com/ipfs-shipyard/ipfs-desktop"
   },
-  "author": "IPFS",
+  "author": "Protocol Labs, Inc.",
   "contributors": [
     "Kristoffer Ström <kristoffer@rymdkoloni.se>",
     "David Dias <daviddias@ipfs.io>",

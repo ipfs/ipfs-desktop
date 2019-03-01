@@ -10,6 +10,7 @@ nsis:
 
 linux:
   category: Utility
+  maintainer: henrique@protocol.ai
   target:
     - AppImage
     - deb
