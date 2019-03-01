@@ -1,0 +1,33 @@
+appId: io.ipfs.desktop
+
+mac:
+  category: public.app-category.utilities
+
+nsis:
+  include: build/nsis.nsh
+  oneClick: true
+  perMachine: false
+
+linux:
+  category: Utility
+  target:
+    - AppImage
+    - deb
+    - rpm
+
+publish:
+  - github
+
+protocols:
+  - name: IPFS
+    role: Viewer
+    schemes:
+      - ipfs
+  - name: IPNS
+    role: Viewer
+    schemes:
+      - ipns
+  - name: DWEB
+    role: Viewer
+    schemes:
+      - dweb

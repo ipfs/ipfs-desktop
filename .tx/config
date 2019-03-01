@@ -7,4 +7,3 @@ file_filter = src/locales/<lang>.json
 source_file = src/locales/en.json
 source_lang = en
 type = KEYVALUEJSON
-
