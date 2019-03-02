@@ -14,7 +14,7 @@ script:
       docker run --rm \
         -v ${PWD}:/project \
         electronuserland/builder:wine-chrome \
-        /bin/bash -c "yarn test && yarn lint && yarn build"
+        /bin/bash -c "npm install && npm run test && npm run lint && npm run build"
     else
       npm run test
       npm run lint
