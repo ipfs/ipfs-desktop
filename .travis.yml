@@ -1,22 +1,16 @@
-matrix:
-  include:
-    - os: osx
-      osx_image: xcode9.4
-      language: node_js
-      node_js: 10
-    - os: linux
-      services: docker
-      language: generic
+language: node_js
+
+node_js:
+  - 10.15.1
+
+os:
+  - linux
+  - osx
+
+before_script:
+  - . scripts/travis-linux.sh
 
 script:
-  - |
-    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --rm \
-        -v ${PWD}:/project \
-        electronuserland/builder:wine-chrome \
-        /bin/bash -c "npm install && npm run test && npm run lint && npm run build"
-    else
-      npm run test
-      npm run lint
-      npm run build
-    fi
+  - npm run test
+  - npm run lint
+  - npm run build
