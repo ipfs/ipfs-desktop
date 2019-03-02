@@ -1,0 +1,6 @@
+﻿The binaries are directly downloaded from GitHub releases:
+
+- https://github.com/ipfs-shipyard/ipfs-desktop/releases
+
+Each release contains a latest.yml, which contains the SHA512
+checksum for every file encoded in base 64.

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>ipfs-desktop</id>
+    <version>0.7.0-rc.3</version>
+    <owners>Henrique Dias</owners>
+    <title>IPFS Desktop</title>
+    <authors>Protocol Labs, Inc.</authors>
+    <projectUrl>https://github.com/ipfs-shipyard/ipfs-desktop</projectUrl>
+    <packageSourceUrl>https://github.com/ipfs-shipyard/ipfs-desktop</packageSourceUrl>
+    <licenseUrl>https://github.com/ipfs-shipyard/ipfs-desktop/blob/master/LICENSE</licenseUrl>
+    <iconUrl>http://cdn.rawgit.com/ipfs-shipyard/ipfs-desktop/master/build/icon.ico</iconUrl>
+    <tags>ipfs-desktop ipfs station decentralization utiliy</tags>
+    <summary>IPFS Desktop Application</summary>
+    <description>__REPLACE__MarkDown_Okay </description>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

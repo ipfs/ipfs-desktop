@@ -5,3 +5,4 @@ dist
 config.gypi
 src/lib/webui/app
 src/icons/*.js
+*.nupkg
