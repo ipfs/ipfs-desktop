@@ -15,6 +15,15 @@ linux:
     - AppImage
     - deb
     - rpm
+    - snap
+
+snap:
+  confinement: strict
+  plugs:
+    - default
+    - network
+    - network-bind
+    - removable-media
 
 publish:
   - github
