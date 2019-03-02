@@ -14,6 +14,15 @@ linux:
   target:
     - AppImage
     - deb
+    - snap
+
+snap:
+  confinement: strict
+  plugs:
+    - default
+    - network
+    - network-bind
+    - removable-media
 
 publish:
   - github
