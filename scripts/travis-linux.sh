@@ -4,5 +4,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
   export DISPLAY=:99.0
   sh -e /etc/init.d/xvfb start
   sleep 3
-  sudo apt-get install -y rpm
+
+  sudo apt update
+  sudo apt install -y rpm
 fi
