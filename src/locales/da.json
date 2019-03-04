@@ -16,9 +16,9 @@
   "errorwhileTakingScreenshot": "En fejl opstod i forsøg på at optage skærmbilledet.",
   "yourFilesCouldntBeAdded": "Dine filer kunne ikke tilføjes.",
   "folderAdded": "Fil-biblioteket tilføjet",
-  "folderAddedToIpfsClickToView": "Folder { name } added to IPFS. Click to view the folder.",
+  "folderAddedToIpfsClickToView": "Mappen { name } blev tilføjet til IPFS. Klik her for at vise mappen.",
   "fileAdded": "Fil tilføjet",
-  "fileAddedToIpfsClickToView": "File { name } added to IPFS. Click to view the file.",
+  "fileAddedToIpfsClickToView": "Filen { name } blev tilføjet til IPFS. Klik her for at vise filen.",
   "clickToOpenLogs": "Klik her for at åbne logfilerne.",
   "ipfsNotRunning": "IPFS kører ikke",
   "desktopIsStartedButDaemonOffline": "IPFS Skrivebord er startet, men baggrundsprocessen er slået fra.",
@@ -30,9 +30,9 @@
   "hashDownloadedClickToView": "Hash { hash } indhold er nu downloadet. Klik for at vise.",
   "updateAvailable": "Opdatering tilgængelig",
   "clickToInstall": "Klik her for at genstarte og installere den nyeste version af IPFS Skrivebord.",
-  "updateNotAvailable": "Update not available",
-  "runningLatestVersion": "You seem to be running the latest version.",
-  "couldNotCheckForUpdates": "Could not check for updates",
-  "pleaseCheckInternet": "Please check your Internet connection.",
-  "checkForUpdates": "Check for updates"
+  "updateNotAvailable": "Opdatering ikke tilgængelig",
+  "runningLatestVersion": "Du ser ud til at benytte den nyeste version.",
+  "couldNotCheckForUpdates": "Kunne ikke tjekke for opdateringer",
+  "pleaseCheckInternet": "Tjek venligst din Internet-forbindelse.",
+  "checkForUpdates": "Tjek for opdateringer"
 }
