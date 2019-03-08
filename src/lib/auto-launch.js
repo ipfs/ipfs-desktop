@@ -9,6 +9,11 @@ const autoLauncher = new AutoLaunch({
 
 export default function (ctx) {
   let activate = async (value, oldValue) => {
+    if (process.env.NODE_ENV === 'development') {
+      logger.info('[launch on startup] unavailable during development')
+      return
+    }
+
     if (value === oldValue) return
 
     try {
