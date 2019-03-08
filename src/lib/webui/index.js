@@ -50,9 +50,11 @@ const createWindow = (ctx) => {
 }
 
 export default async function (ctx) {
-  const apiAddress = ctx.getIpfsd().apiAddr
   const window = createWindow(ctx)
 
+  ctx.setApiAddress = (apiAddress) => {
+    window.loadURL(`webui://-?api=${apiAddress}&lng=${store.get('language')}#/`)
+  }
   ctx.sendToWebUI = (...args) => window.webContents.send(...args)
   ctx.updateWebUI = (url) => {
     window.webContents.send('updatedPage', url)
@@ -90,6 +92,6 @@ export default async function (ctx) {
       resolve()
     })
 
-    window.loadURL(`webui://-?api=${apiAddress}&lng=${store.get('language')}#/`)
+    window.loadURL(`webui://-?lng=${store.get('language')}#/`)
   })
 }

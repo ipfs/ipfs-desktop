@@ -9,14 +9,13 @@
     "start": "cross-env NODE_ENV=development electron -r @babel/register src/index.js",
     "lint": "standard",
     "test": "cross-env NODE_ENV=test mocha",
-    "postinstall": "run-s install-app-deps build:webui build:icons",
+    "postinstall": "run-s install-app-deps build:webui",
     "install-app-deps": "electron-builder install-app-deps",
     "clean:webui": "shx rm -rf src/lib/webui/app/",
     "build": "run-s build:*",
     "build:webui": "run-s build:webui:*",
     "build:webui:download": "npx ipfs-or-gateway -c Qmb6o8HKrouK2WXVFS8753BArqnx5xz68tk6779ncPxpd8 -p src/lib/webui/app/",
     "build:webui:minimize": "shx rm -rf src/lib/webui/app/static/js/*.map && shx rm -rf src/lib/webui/app/static/css/*.map",
-    "build:icons": "svgr -d src/icons node_modules/ipfs-css/icons && standard --fix src/icons/*.js",
     "build:babel": "babel src --ignore src/lib/webui/app --out-dir out --copy-files",
     "build:binaries": "electron-builder"
   },
@@ -71,7 +70,6 @@
   "dependencies": {
     "@babel/runtime": "^7.3.4",
     "auto-launch": "^5.0.5",
-    "electron-menubar": "^1.0.2",
     "electron-serve": "^0.2.0",
     "electron-store": "^2.0.0",
     "electron-updater": "^4.0.6",
@@ -82,15 +80,8 @@
     "i18next-electron-language-detector": "0.0.10",
     "i18next-icu": "^1.1.2",
     "i18next-node-fs-backend": "^2.1.1",
-    "ipfs-css": "^0.12.0",
     "ipfsd-ctl": "^0.42.0",
     "is-ipfs": "^0.6.0",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-i18next": "^10.3.1",
-    "redux-bundler": "^23.1.0",
-    "redux-bundler-react": "^1.1.0",
-    "tachyons": "^4.11.1",
     "winston": "^3.2.1"
   }
 }

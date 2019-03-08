@@ -82,7 +82,7 @@ export default async function (ctx) {
   })
 
   // macOS tray drop files
-  ctx.menubar.tray.on('drop-files', async (_, files) => {
+  ctx.tray.on('drop-files', async (_, files) => {
     for (const file of files) {
       await addToIpfs(ctx, file)
     }
