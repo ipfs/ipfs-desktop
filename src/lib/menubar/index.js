@@ -72,6 +72,7 @@ export default async function (ctx) {
     if (process.platform === 'darwin') {
       menubar.tray.on('right-click', event => {
         event.preventDefault()
+        menubar.hide()
         menubar.tray.popUpContextMenu(menu)
       })
     } else {
