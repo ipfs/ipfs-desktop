@@ -1,5 +1,5 @@
 import { store, logger, i18n } from '../utils'
-import { Menu, Tray, dialog, shell, app, ipcMain } from 'electron'
+import { Menu, Tray, shell, app, ipcMain } from 'electron'
 import path from 'path'
 import os from 'os'
 
@@ -77,14 +77,7 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
     { type: 'separator' },
     {
       label: i18n.t('about'),
-      click: () => {
-        dialog.showMessageBox({
-          type: 'info',
-          icon: path.resolve(path.join(__dirname, `../icons/ice-big.png`)),
-          title: 'IPFS Desktop',
-          message: 'IPFS Desktop is built by Protocol Labs, Inc. and their community.'
-        })
-      }
+      click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/blob/master/README.md') }
     },
     {
       label: i18n.t('quit'),
