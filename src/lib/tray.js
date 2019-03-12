@@ -102,6 +102,17 @@ export default function (ctx) {
   let menu = null
   let status = {}
 
+  if (os.platform() === 'win32') {
+    // On Windows, the left click generally opens
+    // a full fledged application such as a web page
+    // or a program. We could think about opening
+    // Web UI here.
+    tray.on('click', event => {
+      event.preventDefault()
+      tray.popUpContextMenu()
+    })
+  }
+
   const setupMenu = () => {
     menu = buildMenu(ctx)
     tray.setContextMenu(menu)
