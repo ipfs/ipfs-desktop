@@ -116,7 +116,7 @@ export default function (ctx) {
   const setupMenu = () => {
     menu = buildMenu(ctx)
     tray.setContextMenu(menu)
-    tray.setToolTip(i18n.t('ipfsDesktop'))
+    tray.setToolTip('IPFS Desktop')
     updateStatus(status)
   }
 

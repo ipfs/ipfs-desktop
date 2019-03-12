@@ -12,7 +12,6 @@
   "logsDirectory": "Logs Directory",
   "configFile": "Configuration File",
   "toggleIpfs": "Toggle IPFS",
-  "ipfsDesktop": "IPFS Desktop",
   "status": "Status",
   "files": "Files",
   "explore": "Explore",
