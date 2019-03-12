@@ -74,7 +74,7 @@ export default async function (ctx) {
   app.on('before-quit', () => {
     // Makes sure the app quits even though we prevent
     // the closing of this window.
-    if (window) window.destroy()
+    window.removeAllListeners('close')
   })
 
   ipcMain.on('config.get', () => {
