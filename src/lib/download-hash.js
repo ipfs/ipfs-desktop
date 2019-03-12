@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs-extra'
 import isIPFS from 'is-ipfs'
 import { clipboard, app, shell, dialog, globalShortcut } from 'electron'
-import { store, logger, logo, i18n, notify, notifyError } from '../utils'
+import { store, logger, i18n, notify, notifyError } from '../utils'
 import { createToggler } from './utils'
 
 const settingsOption = 'downloadHashShortcut'
@@ -54,8 +54,7 @@ function handler (ctx) {
     if (!validateIPFS(text)) {
       notify({
         title: i18n.t('cantDownloadHash'),
-        body: i18n.t('invalidHashProvided'),
-        icon: logo('black')
+        body: i18n.t('invalidHashProvided')
       })
       return
     }

@@ -1,16 +1,15 @@
-import { logo, logger, store } from '../../utils'
+import { logger, store } from '../../utils'
 import { join } from 'path'
 import { screen, BrowserWindow, ipcMain, app, session } from 'electron'
 import serve from 'electron-serve'
 
 serve({ scheme: 'webui', directory: `${__dirname}/app` })
 
-const createWindow = (ctx) => {
+const createWindow = () => {
   const dimensions = screen.getPrimaryDisplay()
 
   const window = new BrowserWindow({
     title: 'IPFS Desktop',
-    icon: logo('ice'),
     show: false,
     autoHideMenuBar: true,
     titleBarStyle: 'hiddenInset',

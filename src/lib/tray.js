@@ -1,6 +1,7 @@
-import { logo, store, logger, i18n } from '../utils'
-import { Menu, Tray, shell, app, ipcMain } from 'electron'
+import { store, logger, i18n } from '../utils'
+import { Menu, Tray, dialog, shell, app, ipcMain } from 'electron'
 import path from 'path'
+import os from 'os'
 
 function buildMenu ({ checkForUpdates, launchWebUI }) {
   return Menu.buildFromTemplate([
@@ -75,7 +76,15 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
     },
     { type: 'separator' },
     {
-      label: i18n.t('about')
+      label: i18n.t('about'),
+      click: () => {
+        dialog.showMessageBox({
+          type: 'info',
+          icon: path.resolve(path.join(__dirname, `../icons/ice-big.png`)),
+          title: 'IPFS Desktop',
+          message: 'IPFS Desktop is built by Protocol Labs, Inc. and their community.'
+        })
+      }
     },
     {
       label: i18n.t('quit'),
@@ -84,9 +93,19 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
   ])
 }
 
+function icon (color) {
+  const p = path.resolve(path.join(__dirname, '../icons/tray'))
+
+  if (os.platform() === 'darwin') {
+    return path.join(p, `${color}.png`)
+  }
+
+  return path.join(p, `${color}-big.png`)
+}
+
 export default function (ctx) {
   logger.info('[tray] starting')
-  const tray = new Tray(logo('black'))
+  const tray = new Tray(icon('black'))
   let menu = null
   let status = {}
 
@@ -109,9 +128,9 @@ export default function (ctx) {
     menu.getMenuItemById('ipfsHasErrored').visible = status.failed
 
     if (status.starting && status.done) {
-      tray.setImage(logo('ice'))
+      tray.setImage(icon('ice'))
     } else {
-      tray.setImage(logo('black'))
+      tray.setImage(icon('black'))
     }
   }
 

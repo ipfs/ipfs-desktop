@@ -1,5 +1,4 @@
 import createDaemon from './daemon'
-import logo from './logo'
 import { showErrorMessage } from './errors'
 import store from './store'
 import logger from './logger'
@@ -8,7 +7,6 @@ import { notify, notifyError } from './notify'
 
 export {
   createDaemon,
-  logo,
   store,
   logger,
   i18n,
