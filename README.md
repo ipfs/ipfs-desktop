@@ -17,10 +17,36 @@ IPFS Desktop allows you to run your IPFS Node on your machine without having to 
 
 ## Table of Contents
 
+- [Features](#features)
 - [Install](#install)
 - [Contribute](#contribute)
     - [Translations](#translations)
 - [FAQ](#faq)
+
+## Features
+
+### IPFS daemon always running
+
+IPFS Desktop's main feature is to allow you to have the IPFS daemon always running in the background. But fear not! If you need to stop it, you can do it under the 'Advanced' options.
+
+### Handle `ipfs://`, `ipns://` and `dweb:` links
+
+If you come across a link to any of the protocols above, IPFS Desktop will be able to open them and redirect them to your default browser.
+
+### Easy add to IPFS
+
+You can easily add files and folders to IPFS:
+
+- On Windows, you can right click on files to add them to IPFS through IPFS Desktop.
+- On macOS, you can drag and drop them to the tray icon.
+
+### Download copied hashes
+
+You can enable, on Settings, a shortcut to download an hash on the keyboard.
+
+### Auto-add screenshots
+
+You can enable, on Settings, a shortcut to take screenshots and add them automatically to IPFS.
 
 ## Install
 
