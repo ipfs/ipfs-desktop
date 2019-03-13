@@ -136,6 +136,12 @@ export default function (ctx) {
     } else {
       tray.setImage(icon('black'))
     }
+
+    if (os.platform() === 'linux') {
+      // On Linux, in order for changes made to individual MenuItems to take effect,
+      // you have to call setContextMenu again - https://electronjs.org/docs/api/tray
+      tray.setContextMenu(menu)
+    }
   }
 
   ipcMain.on('ipfsd', (status) => { updateStatus(status) })
