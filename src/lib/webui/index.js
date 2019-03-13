@@ -90,7 +90,7 @@ export default async function (ctx) {
   })
 
   return new Promise(resolve => {
-    window.on('ready-to-show', () => {
+    window.once('ready-to-show', () => {
       logger.info('[web ui] window ready')
       resolve()
     })

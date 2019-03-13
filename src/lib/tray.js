@@ -19,38 +19,40 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
       icon: path.resolve(path.join(__dirname, `../icons/status/${color}.png`))
     })),
     {
-      label: i18n.t('about'),
-      click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/blob/master/README.md') }
+      id: 'restartIpfs',
+      label: i18n.t('restart'),
+      click: () => { ipcMain.emit('restartIpfs') },
+      visible: false
+    },
+    {
+      id: 'startIpfs',
+      label: i18n.t('start'),
+      click: () => { ipcMain.emit('startIpfs') },
+      visible: false
+    },
+    {
+      id: 'stopIpfs',
+      label: i18n.t('stop'),
+      click: () => { ipcMain.emit('stopIpfs') },
+      visible: false
     },
     { type: 'separator' },
     {
-      label: i18n.t('viewStatus'),
+      label: i18n.t('status'),
       click: () => { launchWebUI('/') }
     },
     {
-      label: i18n.t('viewFiles'),
+      label: i18n.t('files'),
       click: () => { launchWebUI('/files') }
     },
     {
-      label: i18n.t('viewSettings'),
+      label: i18n.t('settings'),
       click: () => { launchWebUI('/settings') }
     },
     { type: 'separator' },
     {
       label: i18n.t('advanced'),
       submenu: [
-        {
-          id: 'startIpfs',
-          label: i18n.t('startIpfs'),
-          click: () => { ipcMain.emit('startIpfs') },
-          visible: false
-        },
-        {
-          id: 'stopIpfs',
-          label: i18n.t('stopIpfs'),
-          click: () => { ipcMain.emit('stopIpfs') },
-          visible: false
-        },
         {
           label: i18n.t('openLogsDir'),
           click: () => { shell.openItem(app.getPath('userData')) }
@@ -62,11 +64,12 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
         {
           label: i18n.t('openConfigFile'),
           click: () => { shell.openItem(store.path) }
-        },
-        {
-          label: i18n.t('checkForUpdates'),
-          click: () => { checkForUpdates() }
-        },
+        }
+      ]
+    },
+    {
+      label: i18n.t('about'),
+      submenu: [
         {
           label: i18n.t('versions'),
           enabled: false
@@ -78,6 +81,15 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
         {
           label: `go-ipfs ${require('../../package.json').dependencies['go-ipfs-dep']}`,
           click: () => { shell.openExternal('https://github.com/ipfs/go-ipfs/releases') }
+        },
+        { type: 'separator' },
+        {
+          label: i18n.t('checkForUpdates'),
+          click: () => { checkForUpdates() }
+        },
+        {
+          label: i18n.t('viewOnGitHub'),
+          click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/blob/master/README.md') }
         }
       ]
     },
@@ -130,6 +142,7 @@ export default function (ctx) {
     menu.getMenuItemById('ipfsIsNotRunning').visible = status.stopping && status.done
     menu.getMenuItemById('startIpfs').visible = (status.stopping && status.done) || status.failed
     menu.getMenuItemById('ipfsHasErrored').visible = status.failed
+    menu.getMenuItemById('restartIpfs').visible = status.done || status.failed
 
     if (status.starting && status.done) {
       tray.setImage(icon('ice'))

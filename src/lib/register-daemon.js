@@ -79,11 +79,16 @@ export default async function (ctx) {
   }
 
   ipcMain.on('startIpfs', () => {
-    if (!ipfsd) startIpfs()
+    startIpfs()
   })
 
   ipcMain.on('stopIpfs', () => {
-    if (ipfsd) stopIpfs()
+    stopIpfs()
+  })
+
+  ipcMain.on('restartIpfs', async () => {
+    await stopIpfs()
+    await startIpfs()
   })
 
   await startIpfs()
