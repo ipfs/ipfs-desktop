@@ -102,11 +102,9 @@ export default function (ctx) {
   let menu = null
   let status = {}
 
-  if (os.platform() === 'win32') {
-    // On Windows, the left click generally opens
-    // a full fledged application such as a web page
-    // or a program. We could think about opening
-    // Web UI here.
+  if (os.platform() !== 'darwin') {
+    // Show the context menu on left click on other
+    // platforms than macOS.
     tray.on('click', event => {
       event.preventDefault()
       tray.popUpContextMenu()
