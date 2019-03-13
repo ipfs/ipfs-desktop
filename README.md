@@ -4,7 +4,7 @@
 >
 > You don't need the command line to run an IPFS node. Just install IPFS Desktop and have all the power of IPFS in your hands. Powered by [Web UI](https://github.com/ipfs-shipyard/ipfs-webui).
 
-![IPFS Desktop](https://user-images.githubusercontent.com/5447088/48506134-a8106d80-e840-11e8-94bf-2108f2354dd1.png)
+![IPFS Desktop](https://user-images.githubusercontent.com/5447088/54273272-7b196080-457d-11e9-9eb0-b43dfced8564.png)
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
 [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
