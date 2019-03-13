@@ -50,24 +50,28 @@ const createWindow = () => {
 
 export default async function (ctx) {
   const window = createWindow(ctx)
+  let apiAddress = null
 
-  ctx.setApiAddress = (apiAddress) => {
-    window.loadURL(`webui://-?api=${apiAddress}&lng=${store.get('language')}#/`)
-  }
-  ctx.sendToWebUI = (...args) => window.webContents.send(...args)
-  ctx.updateWebUI = (url) => {
-    window.webContents.send('updatedPage', url)
-  }
-  ctx.launchWebUI = (url) => {
+  ctx.webui = window
+
+  ctx.launchWebUI = (url, { focus = true } = {}) => {
     logger.info('[web ui] navigate to %s', url)
     window.webContents.send('updatedPage', url)
-    window.show()
-    window.focus()
-    if (app.dock) app.dock.show()
+
+    if (focus) {
+      window.show()
+      window.focus()
+      if (app.dock) app.dock.show()
+    }
   }
 
-  ipcMain.on('launchWebUI', (_, url) => {
-    ctx.launchWebUI(url)
+  ipcMain.on('ipfsd', () => {
+    const ipfsd = ctx.getIpfsd()
+
+    if (ipfsd && ipfsd.apiAddr !== apiAddress) {
+      apiAddress = ipfsd.apiAddr
+      window.loadURL(`webui://-?api=${apiAddress}&lng=${store.get('language')}#/`)
+    }
   })
 
   app.on('before-quit', () => {

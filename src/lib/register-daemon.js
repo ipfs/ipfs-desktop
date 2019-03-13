@@ -39,7 +39,7 @@ export default async function (ctx) {
       }
 
       logger.info('[ipfsd] daemon started')
-      updateStatus({ starting: true, done: true, data: await ipfsd.api.id() })
+      updateStatus({ starting: true, done: true })
     } catch (err) {
       logger.error('[ipfsd] %v', err)
       updateStatus({ starting: true, failed: true, data: err })

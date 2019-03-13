@@ -90,7 +90,7 @@ function handleScreenshot (ctx) {
 }
 
 export default function (ctx) {
-  let { sendToWebUI } = ctx
+  let { webui } = ctx
 
   let activate = (value, oldValue) => {
     if (value === oldValue) return
@@ -98,7 +98,7 @@ export default function (ctx) {
     if (value === true) {
       globalShortcut.register(shortcut, () => {
         logger.info('[screenshot] taking screenshot')
-        sendToWebUI('screenshot')
+        webui.webContents.send('screenshot')
       })
 
       logger.info('[screenshot] shortcut enabled')

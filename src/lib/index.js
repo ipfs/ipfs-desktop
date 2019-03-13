@@ -16,7 +16,7 @@ export default async function () {
   await appMenu()
   await openExternal(ctx)
   await autoUpdater(ctx) // ctx.checkForUpdates
-  await registerWebUI(ctx) // ctx.sendToWebUI, ctx.launchWebUI, ctx.updateWebUI, ctx.setApiAddress
+  await registerWebUI(ctx) // ctx.webui, ctx.launchWebUI
   await tray(ctx) // ctx.tray
   await registerDaemon(ctx) // ctx.getIpfsd
   await languageSelector(ctx)
