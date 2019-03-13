@@ -14,7 +14,7 @@
     "clean:webui": "shx rm -rf src/lib/webui/app/",
     "build": "run-s build:*",
     "build:webui": "run-s build:webui:*",
-    "build:webui:download": "npx ipfs-or-gateway -c Qmb6o8HKrouK2WXVFS8753BArqnx5xz68tk6779ncPxpd8 -p src/lib/webui/app/",
+    "build:webui:download": "npx ipfs-or-gateway -c QmZepbAvvUvCqKmNjgf3dStoSToXCW9uQopx4vd2HFMELR -p src/lib/webui/app/",
     "build:webui:minimize": "shx rm -rf src/lib/webui/app/static/js/*.map && shx rm -rf src/lib/webui/app/static/css/*.map",
     "build:icons": "svgr -d src/icons node_modules/ipfs-css/icons && standard --fix src/icons/*.js",
     "build:babel": "babel src --ignore src/lib/webui/app --out-dir out --copy-files",
