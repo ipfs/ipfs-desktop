@@ -8,15 +8,13 @@
   "stopIpfs": "Stop IPFS",
   "about": "About IPFS Desktop",
   "advanced": "Advanced",
-  "repositoryDirectory": "Repository Directory",
-  "logsDirectory": "Logs Directory",
-  "configFile": "Configuration File",
+  "openRepoDir": "Open Repository Directory",
+  "openLogsDir": "Open Logs Directory",
+  "openConfigFile": "Open Configuration File",
   "toggleIpfs": "Toggle IPFS",
-  "status": "Status",
-  "files": "Files",
-  "explore": "Explore",
-  "peers": "Peers",
-  "settings": "Settings",
+  "viewStatus": "View Status",
+  "viewFiles": "View Files",
+  "viewSettings": "View Settings",
   "quit": "Quit",
   "versions": "Versions",
   "screenshotTaken": "Screenshot taken",
@@ -43,5 +41,5 @@
   "runningLatestVersion": "You seem to be running the latest version.",
   "couldNotCheckForUpdates": "Could not check for updates",
   "pleaseCheckInternet": "Please check your Internet connection.",
-  "checkForUpdates": "Check for updates"
+  "checkForUpdates": "Check for Updates..."
 }

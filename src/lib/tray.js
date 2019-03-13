@@ -19,65 +19,67 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
       icon: path.resolve(path.join(__dirname, `../icons/status/${color}.png`))
     })),
     {
-      id: 'startIpfs',
-      label: i18n.t('startIpfs'),
-      click: () => { ipcMain.emit('startIpfs') },
-      visible: false
+      label: i18n.t('about'),
+      click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/blob/master/README.md') }
     },
-    {
-      id: 'stopIpfs',
-      label: i18n.t('stopIpfs'),
-      click: () => { ipcMain.emit('stopIpfs') },
-      visible: false
-    },
-
     { type: 'separator' },
     {
-      label: i18n.t('status'),
-      click: () => { launchWebUI('/status') }
+      label: i18n.t('viewStatus'),
+      click: () => { launchWebUI('/') }
     },
     {
-      label: i18n.t('files'),
+      label: i18n.t('viewFiles'),
       click: () => { launchWebUI('/files') }
     },
     {
-      label: i18n.t('explore'),
-      click: () => { launchWebUI('/explore') }
-    },
-    {
-      label: i18n.t('peers'),
-      click: () => { launchWebUI('/peers') }
+      label: i18n.t('viewSettings'),
+      click: () => { launchWebUI('/settings') }
     },
     { type: 'separator' },
-    {
-      label: i18n.t('checkForUpdates'),
-      click: () => { checkForUpdates() }
-    },
     {
       label: i18n.t('advanced'),
       submenu: [
         {
-          label: i18n.t('settings'),
-          click: () => { launchWebUI('/settings') }
+          id: 'startIpfs',
+          label: i18n.t('startIpfs'),
+          click: () => { ipcMain.emit('startIpfs') },
+          visible: false
         },
         {
-          label: i18n.t('logsDirectory'),
+          id: 'stopIpfs',
+          label: i18n.t('stopIpfs'),
+          click: () => { ipcMain.emit('stopIpfs') },
+          visible: false
+        },
+        {
+          label: i18n.t('openLogsDir'),
           click: () => { shell.openItem(app.getPath('userData')) }
         },
         {
-          label: i18n.t('repositoryDirectory'),
+          label: i18n.t('openRepoDir'),
           click: () => { shell.openItem(store.get('ipfsConfig.path')) }
         },
         {
-          label: i18n.t('configFile'),
+          label: i18n.t('openConfigFile'),
           click: () => { shell.openItem(store.path) }
+        },
+        {
+          label: i18n.t('checkForUpdates'),
+          click: () => { checkForUpdates() }
+        },
+        {
+          label: i18n.t('versions'),
+          enabled: false
+        },
+        {
+          label: `ipfs-desktop ${require('../../package.json').version}`,
+          click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/releases') }
+        },
+        {
+          label: `go-ipfs ${require('../../package.json').dependencies['go-ipfs-dep']}`,
+          click: () => { shell.openExternal('https://github.com/ipfs/go-ipfs/releases') }
         }
       ]
-    },
-    { type: 'separator' },
-    {
-      label: i18n.t('about'),
-      click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/blob/master/README.md') }
     },
     {
       label: i18n.t('quit'),
