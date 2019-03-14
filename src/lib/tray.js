@@ -1,5 +1,6 @@
 import { store, logger, i18n } from '../utils'
 import { Menu, Tray, shell, app, ipcMain } from 'electron'
+import { STATUS } from './register-daemon'
 import path from 'path'
 import os from 'os'
 
@@ -135,14 +136,17 @@ export default function (ctx) {
   const updateStatus = data => {
     status = data
 
-    menu.getMenuItemById('ipfsIsStarting').visible = status.starting && !status.done
-    menu.getMenuItemById('ipfsIsRunning').visible = status.starting && status.done
-    menu.getMenuItemById('stopIpfs').visible = status.starting && status.done
-    menu.getMenuItemById('ipfsIsStopping').visible = status.stopping && !status.done
-    menu.getMenuItemById('ipfsIsNotRunning').visible = status.stopping && status.done
-    menu.getMenuItemById('startIpfs').visible = (status.stopping && status.done) || status.failed
-    menu.getMenuItemById('ipfsHasErrored').visible = status.failed
-    menu.getMenuItemById('restartIpfs').visible = status.done || status.failed
+    menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED
+    menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('ipfsIsStopping').visible = status === STATUS.STOPPING_STARTED
+    menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED
+    menu.getMenuItemById('ipfsHasErrored').visible = status === STATUS.STARTING_FAILED ||
+      status === STATUS.STOPPING_FAILED
+    menu.getMenuItemById('restartIpfs').visible = status === STATUS.STOPPING_FINISHED ||
+      status === STATUS.STARTING_FINISHED ||
+      menu.getMenuItemById('ipfsHasErrored').visible
+    menu.getMenuItemById('startIpfs').visible = menu.getMenuItemById('ipfsIsNotRunning').visible
+    menu.getMenuItemById('stopIpfs').visible = menu.getMenuItemById('ipfsIsRunning').visible
 
     if (status.starting && status.done) {
       tray.setImage(icon('ice'))

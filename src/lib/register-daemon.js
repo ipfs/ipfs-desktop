@@ -3,6 +3,15 @@ import { app, ipcMain } from 'electron'
 import fs from 'fs-extra'
 import { join } from 'path'
 
+export const STATUS = {
+  STARTING_STARTED: 1,
+  STARTING_FINISHED: 2,
+  STARTING_FAILED: 3,
+  STOPPING_STARTED: 4,
+  STOPPING_FINISHED: 5,
+  STOPPING_FAILED: 6
+}
+
 export default async function (ctx) {
   let config = store.get('ipfsConfig')
   let ipfsd = null
@@ -25,7 +34,7 @@ export default async function (ctx) {
     }
 
     logger.info('[ipfsd] starting daemon')
-    updateStatus({ starting: true })
+    updateStatus(STATUS.STARTING_STARTED)
 
     try {
       ipfsd = await createDaemon(config)
@@ -39,10 +48,10 @@ export default async function (ctx) {
       }
 
       logger.info('[ipfsd] daemon started')
-      updateStatus({ starting: true, done: true })
+      updateStatus(STATUS.STARTING_FINISHED)
     } catch (err) {
       logger.error('[ipfsd] %v', err)
-      updateStatus({ starting: true, failed: true, data: err })
+      updateStatus(STATUS.STARTING_FAILED)
     }
   }
 
@@ -52,12 +61,12 @@ export default async function (ctx) {
     }
 
     logger.info('[ipfsd] stopping daemon')
-    updateStatus({ stopping: true })
+    updateStatus(STATUS.STOPPING_STARTED)
 
     if (!fs.pathExists(join(ipfsd.repoPath, 'config'))) {
       // Is remote api... ignore
       ipfsd = null
-      updateStatus({ stopping: true, done: true })
+      updateStatus(STATUS.STOPPING_FINISHED)
       return
     }
 
@@ -67,12 +76,12 @@ export default async function (ctx) {
       ipfsdObj.stop(err => {
         if (err) {
           logger.error('[ipfsd] %v', err)
-          updateStatus({ stopping: true, failed: true, data: err })
+          updateStatus(STATUS.STOPPING_FAILED)
           return resolve(err)
         }
 
         logger.info('[ipfsd] daemon stopped')
-        updateStatus({ stopping: true, done: true })
+        updateStatus(STATUS.STOPPING_FINISHED)
         resolve()
       })
     })
