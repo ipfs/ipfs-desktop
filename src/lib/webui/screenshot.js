@@ -1,4 +1,4 @@
-import { ipcRenderer, desktopCapturer } from 'electron'
+const { ipcRenderer, desktopCapturer } = require('electron')
 
 async function streamHandler (format, stream) {
   const track = stream.getVideoTracks()[0]
@@ -50,7 +50,7 @@ async function screenshot (format) {
   return output
 }
 
-export default function () {
+module.exports = function () {
   ipcRenderer.on('screenshot', async () => {
     const out = await screenshot()
     ipcRenderer.send('screenshot', out)

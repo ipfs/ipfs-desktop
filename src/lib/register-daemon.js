@@ -1,16 +1,31 @@
 import { store, createDaemon, logger } from '../utils'
-import { app } from 'electron'
+import { app, ipcMain } from 'electron'
 import fs from 'fs-extra'
 import { join } from 'path'
 
 export default async function (ctx) {
   let config = store.get('ipfsConfig')
   let ipfsd = null
+  let status = null
+
+  const updateStatus = (stat) => {
+    status = stat
+    ipcMain.emit('ipfsd', status)
+  }
+
+  ipcMain.on('requireIpfsdStatus', () => {
+    ipcMain.emit('ipfsd', status)
+  })
 
   ctx.getIpfsd = () => ipfsd
 
-  ctx.startIpfs = async () => {
+  const startIpfs = async () => {
+    if (ipfsd) {
+      return
+    }
+
     logger.info('[ipfsd] starting daemon')
+    updateStatus({ starting: true })
 
     try {
       ipfsd = await createDaemon(config)
@@ -24,39 +39,61 @@ export default async function (ctx) {
       }
 
       logger.info('[ipfsd] daemon started')
-    } catch (e) {
-      logger.error('[ipfsd] %v', e)
+      updateStatus({ starting: true, done: true })
+    } catch (err) {
+      logger.error('[ipfsd] %v', err)
+      updateStatus({ starting: true, failed: true, data: err })
     }
   }
 
-  ctx.stopIpfs = async () => {
+  const stopIpfs = async () => {
     if (!ipfsd) {
       return
     }
 
+    logger.info('[ipfsd] stopping daemon')
+    updateStatus({ stopping: true })
+
     if (!fs.pathExists(join(ipfsd.repoPath, 'config'))) {
       // Is remote api... ignore
       ipfsd = null
+      updateStatus({ stopping: true, done: true })
       return
     }
 
-    return new Promise((resolve, reject) => {
-      ipfsd.stop(err => {
+    return new Promise(resolve => {
+      const ipfsdObj = ipfsd
+      ipfsd = null
+      ipfsdObj.stop(err => {
         if (err) {
-          return reject(err)
+          logger.error('[ipfsd] %v', err)
+          updateStatus({ stopping: true, failed: true, data: err })
+          return resolve(err)
         }
 
-        ipfsd = null
+        logger.info('[ipfsd] daemon stopped')
+        updateStatus({ stopping: true, done: true })
         resolve()
       })
     })
   }
 
-  await ctx.startIpfs()
+  ipcMain.on('startIpfs', () => {
+    startIpfs()
+  })
+
+  ipcMain.on('stopIpfs', () => {
+    stopIpfs()
+  })
+
+  ipcMain.on('restartIpfs', async () => {
+    await stopIpfs()
+    await startIpfs()
+  })
+
+  await startIpfs()
 
   app.on('before-quit', async () => {
-    logger.info('[ipfsd] stopping daemon')
-    await ctx.stopIpfs()
-    logger.info('[ipfsd] daemon stopped')
+    await stopIpfs()
   })
 }

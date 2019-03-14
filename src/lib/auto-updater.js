@@ -1,5 +1,5 @@
 import { autoUpdater } from 'electron-updater'
-import { logger, i18n, notify, logo } from '../utils'
+import { logger, i18n, notify } from '../utils'
 
 let userRequested = false
 
@@ -12,8 +12,7 @@ function setup () {
       userRequested = false
       notify({
         title: i18n.t('couldNotCheckForUpdates'),
-        body: i18n.t('pleaseCheckInternet'),
-        icon: logo('black')
+        body: i18n.t('pleaseCheckInternet')
       })
     }
 

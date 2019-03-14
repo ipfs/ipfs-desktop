@@ -1,9 +1,12 @@
 const { ipcRenderer } = require('electron')
+const screenshotHook = require('./screenshot')
+
+screenshotHook()
 
 var originalSetItem = window.localStorage.setItem
 window.localStorage.setItem = function () {
   if (arguments[0] === 'i18nextLng') {
-    ipcRenderer.send('languageUpdated', arguments[1])
+    ipcRenderer.send('updateLanguage', arguments[1])
   }
 
   originalSetItem.apply(this, arguments)

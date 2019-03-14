@@ -1,16 +1,15 @@
-import { logo, logger, store } from '../../utils'
+import { logger, store } from '../../utils'
 import { join } from 'path'
 import { screen, BrowserWindow, ipcMain, app, session } from 'electron'
 import serve from 'electron-serve'
 
 serve({ scheme: 'webui', directory: `${__dirname}/app` })
 
-const createWindow = (ctx) => {
+const createWindow = () => {
   const dimensions = screen.getPrimaryDisplay()
 
   const window = new BrowserWindow({
     title: 'IPFS Desktop',
-    icon: logo('ice'),
     show: false,
     autoHideMenuBar: true,
     titleBarStyle: 'hiddenInset',
@@ -50,29 +49,35 @@ const createWindow = (ctx) => {
 }
 
 export default async function (ctx) {
-  const apiAddress = ctx.getIpfsd().apiAddr
   const window = createWindow(ctx)
+  let apiAddress = null
 
-  ctx.sendToWebUI = (...args) => window.webContents.send(...args)
-  ctx.updateWebUI = (url) => {
-    window.webContents.send('updatedPage', url)
-  }
-  ctx.launchWebUI = (url) => {
+  ctx.webui = window
+
+  ctx.launchWebUI = (url, { focus = true } = {}) => {
     logger.info('[web ui] navigate to %s', url)
     window.webContents.send('updatedPage', url)
-    window.show()
-    window.focus()
-    if (app.dock) app.dock.show()
+
+    if (focus) {
+      window.show()
+      window.focus()
+      if (app.dock) app.dock.show()
+    }
   }
 
-  ipcMain.on('launchWebUI', (_, url) => {
-    ctx.launchWebUI(url)
+  ipcMain.on('ipfsd', () => {
+    const ipfsd = ctx.getIpfsd()
+
+    if (ipfsd && ipfsd.apiAddr !== apiAddress) {
+      apiAddress = ipfsd.apiAddr
+      window.loadURL(`webui://-?api=${apiAddress}&lng=${store.get('language')}#/`)
+    }
   })
 
   app.on('before-quit', () => {
     // Makes sure the app quits even though we prevent
     // the closing of this window.
-    if (window) window.destroy()
+    window.removeAllListeners('close')
   })
 
   ipcMain.on('config.get', () => {
@@ -85,11 +90,11 @@ export default async function (ctx) {
   })
 
   return new Promise(resolve => {
-    window.on('ready-to-show', () => {
+    window.once('ready-to-show', () => {
       logger.info('[web ui] window ready')
       resolve()
     })
 
-    window.loadURL(`webui://-?api=${apiAddress}&lng=${store.get('language')}#/`)
+    window.loadURL(`webui://-?lng=${store.get('language')}#/`)
   })
 }
