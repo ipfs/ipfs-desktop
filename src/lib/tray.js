@@ -148,7 +148,7 @@ export default function (ctx) {
     menu.getMenuItemById('startIpfs').visible = menu.getMenuItemById('ipfsIsNotRunning').visible
     menu.getMenuItemById('stopIpfs').visible = menu.getMenuItemById('ipfsIsRunning').visible
 
-    if (status.starting && status.done) {
+    if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon('ice'))
     } else {
       tray.setImage(icon('black'))
