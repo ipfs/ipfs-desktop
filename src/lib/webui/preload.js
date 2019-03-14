@@ -1,6 +1,9 @@
 const { ipcRenderer } = require('electron')
 const screenshotHook = require('./screenshot')
 
+const COUNTLY_KEY = '47fbb3db3426d2ae32b3b65fe40c564063d8b55d'
+const COUNTLY_KEY_TEST = '6b00e04fa5370b1ce361d2f24a09c74254eee382'
+
 screenshotHook()
 
 var originalSetItem = window.localStorage.setItem
@@ -17,6 +20,7 @@ ipcRenderer.on('updatedPage', (_, url) => {
 })
 
 window.ipfsDesktop = {
+  countlyAppKey: process.env.NODE_ENV === 'development' ? COUNTLY_KEY_TEST : COUNTLY_KEY,
   onConfigChanged: (listener) => {
     ipcRenderer.on('config.changed', (_, config) => {
       listener(config)
