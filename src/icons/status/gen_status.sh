@@ -23,4 +23,4 @@ circle () {
 circle "rgb(50,215,75)" green
 circle "rgb(255,69,58)" red
 circle "rgb(255,214,10)" yellow
-circle "rgb(152,152,157)" gray
+circle "rgb(130,130,130)" gray
