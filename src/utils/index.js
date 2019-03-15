@@ -4,6 +4,7 @@ import store from './store'
 import logger from './logger'
 import i18n from './i18n'
 import { notify, notifyError } from './notify'
+import quitAndInstall from './quit-and-install'
 
 export {
   createDaemon,
@@ -12,5 +13,6 @@ export {
   i18n,
   notify,
   notifyError,
-  showErrorMessage
+  showErrorMessage,
+  quitAndInstall
 }
