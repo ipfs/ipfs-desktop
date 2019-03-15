@@ -1,5 +1,5 @@
 import { autoUpdater } from 'electron-updater'
-import { logger, i18n, notify } from '../utils'
+import { logger, i18n, notify, quitAndInstall } from '../utils'
 
 let userRequested = false
 
@@ -46,7 +46,9 @@ function setup () {
       title: i18n.t('updateAvailable'),
       body: i18n.t('clickToInstall')
     }, () => {
-      autoUpdater.quitAndInstall(true, true)
+      setImmediate(() => {
+        quitAndInstall()
+      })
     })
   })
 }

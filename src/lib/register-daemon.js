@@ -73,7 +73,9 @@ export default async function (ctx) {
     return new Promise(resolve => {
       const ipfsdObj = ipfsd
       ipfsd = null
-      ipfsdObj.stop(err => {
+      // give ipfs 3s to stop. An unclean shutdown is preferable to making the
+      // user wait, and taking longer prevents the update mechanism from working.
+      ipfsdObj.stop(180, err => {
         if (err) {
           logger.error('[ipfsd] %v', err)
           updateStatus(STATUS.STOPPING_FAILED)
