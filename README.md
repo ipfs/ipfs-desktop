@@ -75,12 +75,13 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 
 ## Releasing
 
-- Bump the version in the package.json & run `npm install`
-- Commit and push to master
-- CI will build installers for macos, win & linux attach them to a new [Draft Release](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
-- Iterate on changes till you are happy that the release is ready. CI will update the artefacts attached to the draft release as PRs are merged into master.
-- Publish the release. Github will tag master at that point.
-- The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determin when an app update is available. Once a release is published, users should recieve the app update. See: https://www.electron.build/auto-update
+- (Optional) Create a new [Draft Release](https://github.com/ipfs-shipyard/ipfs-desktop/releases).
+- Bump the version in `package.json`.
+- Create a tag with the same version.
+- `git push && git push --tags`
+- Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
+- The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determin when an app update is available. Once a release is published, users should recieve the app update. See: https://www.electron.build/auto-update.
+- Update [Homebrew Cask](https://github.com/Homebrew/homebrew-cask/blob/master/Casks/ipfs.rb).
 - To start work on the next version, bump the version in the package.json and repeat theses steps.
 
 ## Contribute
