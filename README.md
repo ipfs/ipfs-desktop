@@ -4,6 +4,14 @@
 >
 > You don't need the command line to run an IPFS node. Just install IPFS Desktop and have all the power of IPFS in your hands. Powered by [Web UI](https://github.com/ipfs-shipyard/ipfs-webui).
 
+**Download the latest release**
+
+- Mac - [ipfs-desktop-0.7.1.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop-0.7.1.dmg)
+- Windows - [ipfs-desktop-setup-0.7.1.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop-setup-0.7.1.exe) 
+- Linux - [ipfs-desktop-0.7.1-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop-0.7.1-x86_64.AppImage)
+
+or see the [install](#install) section for more options.
+
 ![IPFS Desktop](https://user-images.githubusercontent.com/5447088/54346525-23dac500-463d-11e9-9e9a-1d9cdab7a712.png)
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
@@ -52,7 +60,11 @@ You can enable, on Settings, a shortcut to take screenshots and add them automat
 
 Go to the [*latest release*](https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest) page and download IPFS Desktop for your OS.
 
-> Using package managers? Please head to [our package managers page](https://github.com/ipfs-shipyard/ipfs-desktop/issues/691) and figure out if we support yours!
+Or you can use your favorite package manager:
+- Homebrew - `brew cask install ipfs`
+- Choclatey - `choco install ipfs-desktop`
+
+> Using package managers? Please head to [our package managers page](https://github.com/ipfs-shipyard/ipfs-desktop/issues/691) and help us add support for yours!
 
 ### Install from Source
 
