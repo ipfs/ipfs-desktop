@@ -1,5 +1,6 @@
-import { app, BrowserWindow } from 'electron'
+import { ipcMain, app, BrowserWindow } from 'electron'
 import { autoUpdater } from 'electron-updater'
+import { STATUS } from '../lib/register-daemon'
 
 // adapted from https://github.com/electron-userland/electron-builder/issues/1604#issuecomment-372091881
 export default function quitAndInstall () {
@@ -8,5 +9,12 @@ export default function quitAndInstall () {
   browserWindows.forEach(function (browserWindow) {
     browserWindow.removeAllListeners('close')
   })
-  autoUpdater.quitAndInstall(true, true)
+
+  ipcMain.on('ipfsd', status => {
+    if (status === STATUS.STOPPING_FAILED || status === STATUS.STOPPING_FINISHED) {
+      autoUpdater.quitAndInstall(true, true)
+    }
+  })
+
+  ipcMain.emit('stopIpfs')
 }
