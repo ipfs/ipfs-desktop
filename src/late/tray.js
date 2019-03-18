@@ -17,7 +17,7 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
       label: i18n.t(status),
       visible: false,
       enabled: false,
-      icon: path.resolve(path.join(__dirname, `../icons/status/${color}.png`))
+      icon: path.resolve(path.join(__dirname, `../../assets/icons/status/${color}.png`))
     })),
     {
       id: 'restartIpfs',
@@ -102,7 +102,7 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
 }
 
 function icon (color) {
-  const p = path.resolve(path.join(__dirname, '../icons/tray'))
+  const p = path.resolve(path.join(__dirname, '../../assets/icons/tray'))
 
   if (os.platform() === 'darwin') {
     return path.join(p, `${color}.png`)

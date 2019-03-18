@@ -4,4 +4,3 @@ dist
 .cache
 config.gypi
 src/late/webui/app
-src/icons/*.js

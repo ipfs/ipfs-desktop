@@ -1,5 +1,8 @@
 appId: io.ipfs.desktop
 
+directories:
+  buildResources: assets/build
+
 mac:
   category: public.app-category.utilities
 
