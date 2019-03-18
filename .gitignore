@@ -3,4 +3,4 @@ out
 dist
 .cache
 config.gypi
-src/late/webui/app
+assets/webui

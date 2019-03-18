@@ -3,7 +3,7 @@ import { join } from 'path'
 import { screen, BrowserWindow, ipcMain, app, session } from 'electron'
 import serve from 'electron-serve'
 
-serve({ scheme: 'webui', directory: `${__dirname}/app` })
+serve({ scheme: 'webui', directory: join(app.getAppPath(), '/assets/webui') })
 
 const createWindow = () => {
   const dimensions = screen.getPrimaryDisplay()
