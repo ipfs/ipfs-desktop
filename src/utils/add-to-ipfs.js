@@ -1,7 +1,7 @@
-import { app } from 'electron'
-import fs from 'fs-extra'
 import { extname, basename } from 'path'
-import { logger, i18n, notify, notifyError } from '../utils'
+import logger from './logger'
+import i18n from './i18n'
+import { notify, notifyError } from './notify'
 
 async function copyFile (launch, ipfs, hash, name, folder = false) {
   let i = 0
@@ -31,7 +31,7 @@ async function copyFile (launch, ipfs, hash, name, folder = false) {
   })
 }
 
-async function addToIpfs ({ getIpfsd, launchWebUI }, file) {
+export default async function ({ getIpfsd, launchWebUI }, file) {
   const ipfsd = await getIpfsd()
 
   if (!ipfsd) {
@@ -65,35 +65,4 @@ async function addToIpfs ({ getIpfsd, launchWebUI }, file) {
       })
     }
   })
-}
-
-export default async function (ctx) {
-  const handleArgv = async argv => {
-    for (const arg of argv.slice(1)) {
-      if (await fs.pathExists(arg)) {
-        await addToIpfs(ctx, arg)
-      }
-    }
-  }
-
-  // Works for Windows context menu
-  app.on('second-instance', (_, argv) => {
-    handleArgv(argv)
-  })
-
-  // macOS tray drop files
-  ctx.tray.on('drop-files', async (_, files) => {
-    for (const file of files) {
-      await addToIpfs(ctx, file)
-    }
-
-    ctx.launchWebUI('/files', { focus: false })
-  })
-
-  // Checks current proccess
-  if (process.env.NODE_ENV !== 'development') {
-    await handleArgv(process.argv)
-  } else {
-    await handleArgv(process.argv.slice(3))
-  }
 }

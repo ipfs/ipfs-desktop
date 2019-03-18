@@ -1,5 +1,8 @@
 appId: io.ipfs.desktop
 
+directories:
+  buildResources: assets/build
+
 mac:
   category: public.app-category.utilities
 
@@ -19,7 +22,7 @@ dmg:
       path: /Applications
 
 nsis:
-  include: build/nsis.nsh
+  include: assets/build/nsis.nsh
   oneClick: true
   perMachine: false
 

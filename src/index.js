@@ -1,6 +1,7 @@
 import { app, dialog } from 'electron'
 import { showErrorMessage, logger } from './utils'
-import startup from './lib'
+import earlySetup from './early'
+import lateSetup from './late'
 
 // Sets User Model Id so notifications work on Windows 10
 app.setAppUserModelId('io.ipfs.desktop')
@@ -9,6 +10,12 @@ app.setAppUserModelId('io.ipfs.desktop')
 if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
+
+let ctx = {}
+
+app.on('will-finish-launching', () => {
+  earlySetup(ctx)
+})
 
 function handleError (e) {
   logger.error(e)
@@ -27,7 +34,7 @@ async function run () {
   }
 
   try {
-    await startup()
+    await lateSetup(ctx)
   } catch (e) {
     handleError(e)
   }

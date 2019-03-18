@@ -28,7 +28,7 @@ i18n
       'default': ['en']
     },
     backend: {
-      loadPath: join(__dirname, '../locales/{{lng}}.json')
+      loadPath: join(__dirname, '../../assets/locales/{{lng}}.json')
     }
   })
 
