@@ -52,6 +52,8 @@ You can enable, on Settings, a shortcut to take screenshots and add them automat
 
 Go to the [*latest release*](https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest) page and download IPFS Desktop for your OS.
 
+> Using package managers? Please head to [our package managers page](https://github.com/ipfs-shipyard/ipfs-desktop/issues/691) and figure out if we support yours!
+
 ### Install from Source
 
 To install it from source you need [Node.js](https://nodejs.org/en/) `>=10.4.0` and
