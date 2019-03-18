@@ -3,6 +3,9 @@ import { showErrorMessage, logger } from './utils'
 import earlySetup from './early'
 import lateSetup from './late'
 
+// Hide Dock
+if (app.dock) app.dock.hide()
+
 // Sets User Model Id so notifications work on Windows 10
 app.setAppUserModelId('io.ipfs.desktop')
 
