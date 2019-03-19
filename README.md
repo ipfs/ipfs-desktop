@@ -18,6 +18,8 @@ or see the [install](#install) section for more options.
 [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 [![](https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/ipfs-desktop)
+[![total download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
+[![latest release download count](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.1/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.7.1)
 
 IPFS Desktop allows you to run your IPFS Node on your machine without having to bother with command line tools. With it, you the power of [Web UI](https://github.com/ipfs-shipyard/ipfs-webui) on tip of your hands plus a handful of shortcuts you can find on settings.
 
@@ -58,13 +60,30 @@ You can enable, on Settings, a shortcut to take screenshots and add them automat
 
 ## Install
 
-Go to the [*latest release*](https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest) page and download IPFS Desktop for your OS.
+Download the latest release of IPFS Desktop for your OS, below.
+
+| Platform | Download link | Download count
+|---------:|---------------|---------------
+| **Windows**  | [ipfs-desktop-setup-0.7.1.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop-setup-0.7.1.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.1/ipfs-desktop-setup-0.7.1.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop-setup-0.7.1.exe)
+| **Mac**    | [ipfs-desktop-0.7.1.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop-0.7.1.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.1/ipfs-desktop-0.7.1.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop-0.7.1.dmg)
+
+We build out multiple installers for **Linux**
+
+| Package | Download link | Download count
+|---------:|---------------|---------------
+| AppImage | [ipfs-desktop-0.7.1-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop-0.7.1-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.1/ipfs-desktop-0.7.1-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop-0.7.1-x86_64.AppImage)
+| deb | [ipfs-desktop_0.7.1_amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop_0.7.1_amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.1/ipfs-desktop_0.7.1_amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop_0.7.1_amd64.deb)
+| rpm | [ipfs-desktop-0.7.1.x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop-0.7.1.x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.1/ipfs-desktop-0.7.1.x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop-0.7.1.x86_64.rpm)
+| snap  | [ipfs-desktop_0.7.1_amd64.snap](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop_0.7.1_amd64.snap) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.1/ipfs-desktop_0.7.1_amd64.snap.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.1/ipfs-desktop_0.7.1_amd64.snap)
 
 Or you can use your favorite package manager:
-- Homebrew - `brew cask install ipfs`
-- Choclatey - `choco install ipfs-desktop`
+
+- **Homebrew** - `brew cask install ipfs`
+- **Chocolatey** - `choco install ipfs-desktop`
 
 > Using package managers? Please head to [our package managers page](https://github.com/ipfs-shipyard/ipfs-desktop/issues/691) and help us add support for yours!
+
+You can find releases notes and older versions on the [releases](https://github.com/ipfs-shipyard/ipfs-desktop/releases) page.
 
 ### Install from Source
 
