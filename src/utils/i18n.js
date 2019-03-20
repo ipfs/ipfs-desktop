@@ -2,7 +2,7 @@ import { join } from 'path'
 import i18n from 'i18next'
 import ICU from 'i18next-icu'
 import Backend from 'i18next-node-fs-backend'
-import LanguageDetector from 'i18next-electron-language-detector'
+import store from './store'
 
 import cs from 'i18next-icu/locale-data/cs'
 import da from 'i18next-icu/locale-data/da'
@@ -22,14 +22,13 @@ const localeData = [cs, da, ca, en, fr, ko, nl, no, pl, pt, ru, zh]
 i18n
   .use(new ICU({ localeData: localeData }))
   .use(Backend)
-  .use(LanguageDetector)
   .init({
+    lng: store.get('language'),
     fallbackLng: {
       'default': ['en']
     },
-    debug: process.env.NODE_ENV !== 'production',
     backend: {
-      loadPath: join(__dirname, '../locales/{{lng}}.json')
+      loadPath: join(__dirname, '../../assets/locales/{{lng}}.json')
     }
   })
 

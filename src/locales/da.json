@@ -1,9 +1,0 @@
-{
-  "turnOff": "Sluk for IPFS Skrivebord",
-  "ipfsNode": "IPFS-klient",
-  "status": "Status",
-  "files": "Filer",
-  "explore": "Udforsk",
-  "peers": "Klient-forbindelser",
-  "settings": "Indstillinger"
-}

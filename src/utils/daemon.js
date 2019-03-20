@@ -45,6 +45,27 @@ async function spawn ({ type, path, keysize }) {
         keysize: keysize
       }, e => {
         if (e) return reject(e)
+
+        try {
+          // Set default mininum and maximum of connections to mantain
+          // by default. This only applies to repositories created by
+          // IPFS Desktop. Existing ones shall remain intact.
+          const configFile = join(ipfsd.repoPath, 'config')
+          let config = fs.readJsonSync(configFile)
+          config.Swarm = config.Swarm || {}
+          config.Swarm.DisableNatPortMap = false
+          config.Swarm.ConnMgr = config.Swarm.ConnMgr || {}
+          config.Swarm.ConnMgr.GracePeriod = '300s'
+          config.Swarm.ConnMgr.LowWater = 50
+          config.Swarm.ConnMgr.HighWater = 300
+          config.Discovery = config.Discovery || {}
+          config.Discovery.MDNS = config.Discovery.MDNS || {}
+          config.Discovery.MDNS.enabled = true
+          fs.writeJsonSync(configFile, config)
+        } catch (e) {
+          return reject(e)
+        }
+
         resolve(ipfsd)
       })
     })

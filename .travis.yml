@@ -1,19 +1,22 @@
 language: node_js
 
 node_js:
-  - 10.4.1
-
-matrix:
-  allow_failures:
-    - os: linux
-  fast_finish: true
+  - 10.15.1
 
 os:
   - linux
   - osx
 
 before_script:
-  - ./scripts/travis-xvfb.sh
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      export DISPLAY=:99.0
+      sh -e /etc/init.d/xvfb start
+      sleep 3
+
+      sudo apt update
+      sudo apt install -y rpm
+    fi
 
 script:
   - npm run test

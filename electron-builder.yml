@@ -1,0 +1,61 @@
+appId: io.ipfs.desktop
+
+directories:
+  buildResources: assets/build
+
+mac:
+  category: public.app-category.utilities
+
+dmg:
+  iconSize: 160
+  iconTextSize: 12
+  window:
+    width: 660
+    height: 400
+  contents:
+    - x: 180
+      y: 170
+      type: file
+    - x: 480
+      y: 170
+      type: link
+      path: /Applications
+
+nsis:
+  include: assets/build/nsis.nsh
+  oneClick: true
+  perMachine: false
+
+linux:
+  category: Utility
+  maintainer: henrique@protocol.ai
+  target:
+    - AppImage
+    - deb
+    - rpm
+    - snap
+
+snap:
+  confinement: strict
+  plugs:
+    - default
+    - network
+    - network-bind
+    - removable-media
+
+publish:
+  - github
+
+protocols:
+  - name: IPFS
+    role: Viewer
+    schemes:
+      - ipfs
+  - name: IPNS
+    role: Viewer
+    schemes:
+      - ipns
+  - name: DWEB
+    role: Viewer
+    schemes:
+      - dweb
