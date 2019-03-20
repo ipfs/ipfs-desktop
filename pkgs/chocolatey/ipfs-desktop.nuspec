@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>ipfs-desktop</id>
-    <version>0.7.0</version>
+    <version>0.7.2</version>
     <title>IPFS Desktop</title>
     <authors>ipfs-shipyard</authors>
     <projectUrl>https://github.com/ipfs-shipyard/ipfs-desktop/</projectUrl>
