@@ -142,8 +142,7 @@ export default function (ctx) {
     menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED
     menu.getMenuItemById('ipfsHasErrored').visible = status === STATUS.STARTING_FAILED ||
       status === STATUS.STOPPING_FAILED
-    menu.getMenuItemById('restartIpfs').visible = status === STATUS.STOPPING_FINISHED ||
-      status === STATUS.STARTING_FINISHED ||
+    menu.getMenuItemById('restartIpfs').visible = status === STATUS.STARTING_FINISHED ||
       menu.getMenuItemById('ipfsHasErrored').visible
     menu.getMenuItemById('startIpfs').visible = menu.getMenuItemById('ipfsIsNotRunning').visible
     menu.getMenuItemById('stopIpfs').visible = menu.getMenuItemById('ipfsIsRunning').visible
