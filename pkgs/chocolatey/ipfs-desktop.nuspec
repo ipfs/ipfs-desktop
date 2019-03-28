@@ -5,8 +5,9 @@
     <version>0.7.2</version>
     <title>IPFS Desktop</title>
     <authors>ipfs-shipyard</authors>
+    <owners>hacdias</owners>
     <projectUrl>https://github.com/ipfs-shipyard/ipfs-desktop/</projectUrl>
-    <iconUrl>https://dashboard.snapcraft.io/site_media/appmedia/2017/11/ipfs.ico.png</iconUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/ipfs-shipyard/ipfs-desktop/assets/icons/tray/ice-big.png</iconUrl>
     <licenseUrl>https://raw.githubusercontent.com/ipfs-shipyard/ipfs-desktop/master/LICENSE</licenseUrl>
     <projectSourceUrl>https://github.com/ipfs-shipyard/ipfs-desktop/</projectSourceUrl>
     <bugTrackerUrl>https://github.com/ipfs-shipyard/ipfs-desktop/issues</bugTrackerUrl>
