@@ -12,7 +12,7 @@
 
 or see the [install](#install) section for more options.
 
-![IPFS Desktop](https://user-images.githubusercontent.com/5447088/54346525-23dac500-463d-11e9-9e9a-1d9cdab7a712.png)
+![IPFS Desktop](https://user-images.githubusercontent.com/157609/55424318-426b1680-5580-11e9-93ec-ec261879367f.jpg)
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
 [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
