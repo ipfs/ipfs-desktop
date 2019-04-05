@@ -1,7 +1,7 @@
 #/usr/bin/sh
 
-if [[ $(which ipfs | wc -l) -ge 2 ]]; then
-  echo "more than two"
-else
-  $(pwd)/../../node_modules/go-ipfs-dep/go-ipfs/ipfs "$@" 2<&2
-fi
+script=$(readlink "$0")
+path=$(dirname $script)
+ipfs="$path/../../node_modules/go-ipfs-dep/go-ipfs/ipfs"
+
+$ipfs "$@" 0<&0 1>&1 2>&2
