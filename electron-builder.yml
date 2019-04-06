@@ -29,15 +29,17 @@ nsis:
 linux:
   category: Utility
   maintainer: henrique@protocol.ai
-  fpm:
-    - "--after-install=assets/build/after-install.sh"
-    - "--after-remove=assets/build/after-remove.sh"
   target:
     - AppImage
     - deb
     - rpm
     - snap
 
+rpm:
+  fpm:
+    - "--after-install=assets/build/after-install.sh"
+    - "--after-remove=assets/build/after-remove.sh"
+    
 deb:
   afterInstall: assets/build/after-install.sh
   afterRemove: assets/build/after-remove.sh
