@@ -3,6 +3,12 @@ appId: io.ipfs.desktop
 directories:
   buildResources: assets/build
 
+extraFiles:
+  - from: "assets/bin"
+    to: "resources/bin"
+    filter:
+      - "**/*"
+
 mac:
   category: public.app-category.utilities
 
@@ -39,7 +45,7 @@ rpm:
   fpm:
     - "--after-install=assets/build/after-install.sh"
     - "--after-remove=assets/build/after-remove.sh"
-    
+
 deb:
   afterInstall: assets/build/after-install.sh
   afterRemove: assets/build/after-remove.sh

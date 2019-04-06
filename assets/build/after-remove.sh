@@ -1,11 +1,8 @@
 #!/bin/bash
 
-set -e
+# Remove broken link to ipfs-desktop binary
+test -e '/usr/local/bin/${executable}' || rm -f '/usr/local/bin/${executable}'
 
-bin="/usr/local/bin/ipfs"
-location=$(cd $(dirname $(test -L "$0" && readlink "$0" || echo "$0"))/../.. && pwd -P)
-ipfs="$location/assets/bin/ipfs.sh"
+# Remove broken link to ipfs binary
+test -e '/usr/local/bin/ipfs' || rm -f '/usr/local/bin/ipfs'
 
-if [ -f $bin -a $bin -ef $ipfs ]; then
-  rm $bin
-fi

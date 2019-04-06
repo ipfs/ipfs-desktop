@@ -2,10 +2,8 @@
 
 set -e
 
-bin="/usr/local/bin/ipfs"
-location=$(cd $(dirname $(test -L "$0" && readlink "$0" || echo "$0"))/../.. && pwd -P)
-ipfs="$location/assets/bin/ipfs.sh"
+ln -sf '/opt/${productFilename}/${executable}' '/usr/local/bin/${executable}'
 
-if [ ! -f $bin ]; then
-  ln -sf $ipfs $bin
+if [ ! -f /usr/local/bin/ipfs ]; then
+  ln -sf '/opt/${productFilename}/resources/bin/ipfs.sh' '/usr/local/bin/ipfs'
 fi
