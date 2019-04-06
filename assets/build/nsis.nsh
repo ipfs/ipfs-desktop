@@ -31,7 +31,7 @@ ManifestDPIAware true
   !insertmacro AddProtocolHandler "dweb" "DWEB"
   !insertmacro AddToShell
 
-  Push "${PROJECT_DIR}\assets\bin\win"
+  Push "${PROJECT_DIR}\assets\bin-win"
   Call AddToPath
 !macroend
 
@@ -43,6 +43,6 @@ ManifestDPIAware true
   DeleteRegKey SHELL_CONTEXT "Software\Classes\ipfs"
   DeleteRegKey SHELL_CONTEXT "Software\Classes\dweb"
 
-  Push "${PROJECT_DIR}\assets\bin\win"
+  Push "${PROJECT_DIR}\assets\bin-win"
   Call un.RemoveFromPath
 !macroend
