@@ -29,6 +29,9 @@ nsis:
 linux:
   category: Utility
   maintainer: henrique@protocol.ai
+  fpm:
+    - "--after-install=assets/build/after-install.sh"
+    - "--after-remove=assets/build/after-remove.sh"
   target:
     - AppImage
     - deb
@@ -36,8 +39,8 @@ linux:
     - snap
 
 deb:
-  afterInstall: assets/scripts/after-install.sh
-  afterRemove: assets/scripts/after-remove.sh
+  afterInstall: assets/build/after-install.sh
+  afterRemove: assets/build/after-remove.sh
 
 snap:
   confinement: strict
