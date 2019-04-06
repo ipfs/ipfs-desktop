@@ -29,13 +29,15 @@ nsis:
 linux:
   category: Utility
   maintainer: henrique@protocol.ai
-  afterInstall: assets/scripts/after-install.sh
-  afterRemove: assets/scripts/after-remove.sh
   target:
     - AppImage
     - deb
     - rpm
     - snap
+
+deb:
+  afterInstall: assets/scripts/after-install.sh
+  afterRemove: assets/scripts/after-remove.sh
 
 snap:
   confinement: strict
