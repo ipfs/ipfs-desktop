@@ -1,4 +1,3 @@
-
 ;--------------------------------------------------------------------
 ; Path functions
 ;
@@ -139,8 +138,7 @@ done:
   Pop $1
   Pop $0
 FunctionEnd
-
-
+ 
 
 ; StrStr - find substring in a string
 ;

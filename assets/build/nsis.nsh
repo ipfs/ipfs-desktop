@@ -1,6 +1,6 @@
 ManifestDPIAware true
 
-!include "EnvVarUpdate.nsh"
+!include "path.nsh"
 
 !macro AddToShellSpecific Where
   DeleteRegKey SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop"
