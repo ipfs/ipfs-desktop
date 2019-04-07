@@ -9,6 +9,12 @@ export default function () {
     return
   }
 
+  // Ignore during development because the paths are not the same.
+  if (process.env.NODE_ENV === 'development') {
+    logger.info('[ipfs on path] unavailable during development')
+    return
+  }
+
   // Don't make any changes if IPFS already exists...
   if (fs.existsSync('/usr/local/bin/ipfs')) {
     logger.info('[ipfs on path] was not added, already exists')
