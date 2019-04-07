@@ -3,9 +3,9 @@ appId: io.ipfs.desktop
 directories:
   buildResources: assets/build
 
-extraFiles:
+extraResources:
   - from: "assets/bin"
-    to: "resources/bin"
+    to: "bin"
     filter:
       - "**/*"
 
