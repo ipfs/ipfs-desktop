@@ -16,7 +16,7 @@ export default function () {
   }
 
   try {
-    fs.symlinkSync(join(__dirname, '../../assets/bin/ipfs.sh'), '/usr/local/bin/ipfs')
+    fs.symlinkSync(join(__dirname, '../../../bin/ipfs.sh'), '/usr/local/bin/ipfs')
     logger.info('[ipfs on path] added to /usr/local/bin/ipfs')
   } catch (e) {
     logger.error(e)
