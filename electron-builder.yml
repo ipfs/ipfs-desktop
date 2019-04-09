@@ -3,6 +3,12 @@ appId: io.ipfs.desktop
 directories:
   buildResources: assets/build
 
+extraResources:
+  - from: "assets/bin"
+    to: "bin"
+    filter:
+      - "**/*"
+
 mac:
   category: public.app-category.utilities
 
@@ -35,6 +41,15 @@ linux:
     - deb
     - rpm
     - snap
+
+rpm:
+  fpm:
+    - "--after-install=assets/build/after-install.sh"
+    - "--after-remove=assets/build/after-remove.sh"
+
+deb:
+  afterInstall: assets/build/after-install.sh
+  afterRemove: assets/build/after-remove.sh
 
 snap:
   confinement: strict
