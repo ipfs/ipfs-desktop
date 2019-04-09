@@ -1,7 +1,9 @@
 import fs from 'fs-extra'
 import { join } from 'path'
 import os from 'os'
+import { execFileSync } from 'child_process'
 import { logger } from '../utils'
+import { dialog } from 'electron'
 
 export default function () {
   // Note: during runtime, we only do this for darwin.
@@ -15,10 +17,30 @@ export default function () {
     return
   }
 
-  // Don't make any changes if IPFS already exists...
-  if (fs.existsSync('/usr/local/bin/ipfs')) {
-    logger.info('[ipfs on path] was not added, already exists')
-    return
+  try {
+    execFileSync('ipfs')
+    // 'ipfs' already exists in PATH
+
+    // NOTE: CHECK IF NOT ASYMLINKED TO CURRENT
+
+    const option = dialog.showMessageBox({
+      type: 'info',
+      message: 'IPFS on PATH',
+      detail: 'You appear to have a version of the IPFS command line tools already installed. Would you like to let IPFS Desktop replace it with the latest version?',
+      buttons: [
+        'No',
+        'Yes'
+      ],
+      cancelId: 0
+    })
+
+    if (option !== 1) {
+      logger.info('[ipfs on path] was not added, user action')
+      return
+    }
+  } catch (e) {
+    
+    // 'ipfs' gave a non-zero code or timed out => doesn't exist
   }
 
   try {
