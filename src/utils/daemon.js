@@ -17,13 +17,18 @@ async function cleanup (addr, path) {
 
   logger.info(`[daemon] cleanup: ipfs repo fsck ${path}`)
   let exec = findExecutable('go', app.getAppPath())
-  execFileSync(exec, ['repo', 'fsck'], {
-    env: {
-      ...process.env,
-      IPFS_PATH: path
-    }
-  })
-  logger.info(`[daemon] cleanup: completed`)
+
+  try {
+    execFileSync(exec, ['repo', 'fsck'], {
+      env: {
+        ...process.env,
+        IPFS_PATH: path
+      }
+    })
+    logger.info('[daemon] cleanup: completed')
+  } catch (e) {
+    logger.error('[daemon] %v', e)
+  }
 }
 
 async function spawn ({ type, path, keysize }) {
