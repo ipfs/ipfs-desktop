@@ -25,7 +25,11 @@ export default function (ctx) {
         logger.info('[launch on startup] disabled')
       }
     } catch (e) {
-      logger.error(e.stack)
+      if (e.stack.includes('Can’t get login item "IPFS Desktop".') && !value) {
+        logger.info('[launch on startup] disabled')
+      } else {
+        logger.error(e.stack)
+      }
     }
   }
 
