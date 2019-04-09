@@ -1,5 +1,7 @@
 ManifestDPIAware true
 
+!include "path.nsh"
+
 !macro AddToShellSpecific Where
   DeleteRegKey SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop"
   WriteRegStr SHELL_CONTEXT "Software\Classes\${Where}\shell\ipfs-desktop" "MUIVerb" "Add to IPFS"
@@ -28,6 +30,9 @@ ManifestDPIAware true
   !insertmacro AddProtocolHandler "ipns" "IPNS"
   !insertmacro AddProtocolHandler "dweb" "DWEB"
   !insertmacro AddToShell
+
+  Push "${PROJECT_DIR}\assets\bin-win"
+  Call AddToPath
 !macroend
 
 !macro customUnInstall
@@ -37,4 +42,7 @@ ManifestDPIAware true
   DeleteRegKey SHELL_CONTEXT "Software\Classes\ipns"
   DeleteRegKey SHELL_CONTEXT "Software\Classes\ipfs"
   DeleteRegKey SHELL_CONTEXT "Software\Classes\dweb"
+
+  Push "${PROJECT_DIR}\assets\bin-win"
+  Call un.RemoveFromPath
 !macroend
