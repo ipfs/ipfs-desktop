@@ -18,18 +18,14 @@ export default function (ctx) {
 
     try {
       if (value === true) {
-        await autoLauncher.enable()
+        if (!await autoLauncher.isEnabled()) await autoLauncher.enable()
         logger.info('[launch on startup] enabled')
       } else {
-        await autoLauncher.disable()
+        if (await autoLauncher.isEnabled()) await autoLauncher.disable()
         logger.info('[launch on startup] disabled')
       }
     } catch (e) {
-      if (e.stack.includes('Can’t get login item "IPFS Desktop".') && !value) {
-        logger.info('[launch on startup] disabled')
-      } else {
-        logger.error(e.stack)
-      }
+      logger.error(e.stack)
     }
   }
 
