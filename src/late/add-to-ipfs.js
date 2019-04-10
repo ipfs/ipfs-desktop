@@ -5,8 +5,14 @@ import { addToIpfs } from '../utils'
 export default async function (ctx) {
   const handleArgv = async argv => {
     for (const arg of argv.slice(1)) {
-      if (await fs.pathExists(arg)) {
-        await addToIpfs(ctx, arg)
+      if (!arg.startsWith('--add')) {
+        continue
+      }
+
+      const filename = arg.slice(6)
+
+      if (await fs.pathExists(filename)) {
+        await addToIpfs(ctx, filename)
       }
     }
   }
@@ -26,9 +32,5 @@ export default async function (ctx) {
   })
 
   // Checks current proccess
-  if (process.env.NODE_ENV !== 'development') {
-    await handleArgv(process.argv)
-  } else {
-    await handleArgv(process.argv.slice(3))
-  }
+  await handleArgv(process.argv)
 }
