@@ -2,7 +2,7 @@ import { join } from 'path'
 import i18n from 'i18next'
 import ICU from 'i18next-icu'
 import Backend from 'i18next-node-fs-backend'
-import store from './store'
+import store from '../utils/store'
 
 import cs from 'i18next-icu/locale-data/cs'
 import da from 'i18next-icu/locale-data/da'
@@ -19,17 +19,17 @@ import ru from 'i18next-icu/locale-data/ru'
 
 const localeData = [cs, da, ca, en, fr, ko, nl, no, pl, pt, ru, zh]
 
-i18n
-  .use(new ICU({ localeData: localeData }))
-  .use(Backend)
-  .init({
-    lng: store.get('language'),
-    fallbackLng: {
-      'default': ['en']
-    },
-    backend: {
-      loadPath: join(__dirname, '../../assets/locales/{{lng}}.json')
-    }
-  })
-
-export default i18n
+export default async function () {
+  await i18n
+    .use(new ICU({ localeData: localeData }))
+    .use(Backend)
+    .init({
+      lng: store.get('language'),
+      fallbackLng: {
+        'default': ['en']
+      },
+      backend: {
+        loadPath: join(__dirname, '../../assets/locales/{{lng}}.json')
+      }
+    })
+}

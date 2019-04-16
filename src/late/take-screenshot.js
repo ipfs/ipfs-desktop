@@ -1,5 +1,6 @@
 import { clipboard, ipcMain, globalShortcut, nativeImage } from 'electron'
-import { store, notify, notifyError, logger, i18n } from '../utils'
+import i18n from 'i18next'
+import { store, notify, notifyError, logger } from '../utils'
 import { createToggler } from './utils'
 
 const settingsOption = 'screenshotShortcut'

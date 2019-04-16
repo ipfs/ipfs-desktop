@@ -1,5 +1,6 @@
-import { store, logger, i18n } from '../utils'
+import { store, logger } from '../utils'
 import { Menu, Tray, shell, app, ipcMain } from 'electron'
+import i18n from 'i18next'
 import { STATUS } from './register-daemon'
 import path from 'path'
 import os from 'os'

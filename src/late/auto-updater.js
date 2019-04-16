@@ -1,5 +1,6 @@
 import { autoUpdater } from 'electron-updater'
-import { logger, i18n, notify, quitAndInstall } from '../utils'
+import i18n from 'i18next'
+import { logger, notify, quitAndInstall } from '../utils'
 
 let userRequested = false
 
