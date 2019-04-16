@@ -2,51 +2,67 @@ import fs from 'fs-extra'
 import { join } from 'path'
 import os from 'os'
 import { execFileSync } from 'child_process'
-import { logger } from '../utils'
+import { logger, i18n } from '../utils'
 import { app, dialog } from 'electron'
 
-export default function () {
-  ask()
-}
+const SOURCE_SCRIPT = join(__dirname, '../../../bin/ipfs.sh')
+const DEST_SCRIPT = '/usr/local/bin/ipfs'
 
-async function ask () {
-// Note: during runtime, we only do this for darwin.
+export default async function () {
+  // During runtime, we only do this for darwin.
   if (os.platform() !== 'darwin') {
     return
   }
 
+  let exists = false
+  try {
+    await fs.lstat(DEST_SCRIPT)
+    exists = true
+  } catch (_) {
+    // doesn't exist
+  }
+
+  if (exists) {
+    try {
+      const link = await fs.readlink(DEST_SCRIPT)
+
+      if (link === SOURCE_SCRIPT) {
+        logger.info('[ipfs on path] already symlinked')
+        return
+      }
+    } catch (_) {
+      // DEST_SCRIPT is not a symlink, ignore.
+    }
+  }
+
   try {
     execFileSync('ipfs')
-    // 'ipfs' already exists in PATH
+    exists = true
+  } catch (e) {
+    logger.error(e)
+    // 'ipfs' gave a non-zero code or timed out => doesn't exist
+  }
 
+  if (exists) {
     if (app.dock) app.dock.show()
 
-    // NOTE: CHECK IF NOT ASYMLINKED TO CURRENT
-
-    dialog.showMessageBox({
+    const option = dialog.showMessageBox({
       type: 'info',
-      message: 'IPFS on PATH',
-      detail: 'You appear to have a version of the IPFS command line tools already installed. Would you like to let IPFS Desktop replace it with the latest version?',
+      message: i18n.t('ipfsOnPath'),
+      detail: i18n.t('addIpfsToPath'),
       buttons: [
-        'No',
-        'Yes'
+        i18n.t('no'),
+        i18n.t('yes')
       ],
       cancelId: 0
-    }, option => {
-      console.log(option)
     })
 
-    return
-
-    console.log(option)
+    if (app.dock) app.dock.hide()
 
     if (option !== 1) {
       logger.info('[ipfs on path] was not added, user action')
       return
     }
-  } catch (e) {
-    console.log(e)
-  // 'ipfs' gave a non-zero code or timed out => doesn't exist
   }
 
   // Ignore during development because the paths are not the same.
@@ -56,8 +72,9 @@ async function ask () {
   }
 
   try {
-    fs.symlinkSync(join(__dirname, '../../../bin/ipfs.sh'), '/usr/local/bin/ipfs')
-    logger.info('[ipfs on path] added to /usr/local/bin/ipfs')
+    if (exists) await fs.unlink(DEST_SCRIPT)
+    await fs.ensureSymlink(SOURCE_SCRIPT, DEST_SCRIPT)
+    logger.info('[ipfs on path] added to %s', DEST_SCRIPT)
   } catch (e) {
     logger.error(e)
   }
