@@ -1,8 +1,9 @@
 import path from 'path'
 import fs from 'fs-extra'
 import isIPFS from 'is-ipfs'
+import i18n from 'i18next'
 import { clipboard, app, shell, dialog, globalShortcut } from 'electron'
-import { store, logger, i18n, notify, notifyError } from '../utils'
+import { store, logger, notify, notifyError } from '../utils'
 import { createToggler } from './utils'
 
 const settingsOption = 'downloadHashShortcut'

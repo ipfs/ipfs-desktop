@@ -1,5 +1,6 @@
+import i18n from 'i18next'
 import { ipcMain } from 'electron'
-import { i18n, store } from '../utils'
+import { store } from '../utils'
 
 export default function () {
   ipcMain.on('updateLanguage', async (_, lang) => {

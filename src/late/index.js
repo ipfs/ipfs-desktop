@@ -1,3 +1,4 @@
+import i18n from './i18n'
 import languageSelector from './language-selector'
 import registerDaemon from './register-daemon'
 import registerWebUI from './webui'
@@ -12,6 +13,7 @@ import tray from './tray'
 import ipfsScript from './ipfs-script'
 
 export default async function (ctx) {
+  await i18n(ctx)
   await appMenu(ctx)
   await ipfsScript(ctx)
   await openExternal(ctx)
