@@ -1,5 +1,5 @@
 import { app, shell, Notification } from 'electron'
-import i18n from './i18n'
+import i18n from 'i18next'
 
 export function notify (options, onClick) {
   const not = new Notification(options)

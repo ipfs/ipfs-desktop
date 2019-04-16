@@ -1,6 +1,6 @@
 import { extname, basename } from 'path'
 import logger from './logger'
-import i18n from './i18n'
+import i18n from 'i18next'
 import { notify, notifyError } from './notify'
 
 async function copyFile (launch, ipfs, hash, name, folder = false) {

@@ -1,3 +1,4 @@
+import i18n from './i18n'
 import languageSelector from './language-selector'
 import registerDaemon from './register-daemon'
 import registerWebUI from './webui'
@@ -11,6 +12,7 @@ import autoUpdater from './auto-updater'
 import tray from './tray'
 
 export default async function (ctx) {
+  await i18n(ctx)
   await appMenu(ctx)
   await openExternal(ctx)
   await autoUpdater(ctx) // ctx.checkForUpdates
