@@ -6,7 +6,7 @@ import path from 'path'
 import os from 'os'
 import { addToPath } from './ipfs-script'
 
-function buildMenu ({ checkForUpdates, launchWebUI }) {
+function buildMenu ({ checkForUpdates, launchWebUI }, updateMenu) {
   return Menu.buildFromTemplate([
     ...[
       ['ipfsIsStarting', 'yellow'],
@@ -71,7 +71,10 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
         {
           label: i18n.t('addIpfsToPath'),
           visible: store.get('ipfsOnPath') === false && os.platform() === 'darwin',
-          click: () => { addToPath() }
+          click: async () => {
+            await addToPath()
+            await updateMenu()
+          }
         }
       ]
     },
@@ -134,7 +137,7 @@ export default function (ctx) {
   }
 
   const setupMenu = () => {
-    menu = buildMenu(ctx)
+    menu = buildMenu(ctx, setupMenu)
     tray.setContextMenu(menu)
     tray.setToolTip('IPFS Desktop')
     updateStatus(status)

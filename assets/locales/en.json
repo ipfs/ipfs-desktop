@@ -46,6 +46,7 @@
   "addIpfsToPath": "Add IPFS to PATH",
   "ipfsOnPath": "IPFS on PATH",
   "addIpfsToPathMessage": "You appear to have a version of the IPFS command line tools already installed. Would you like to let IPFS Desktop replace it with the latest version?",
+  "addedSuccessfully": "IPFS command line tools were successfully added to the PATH.",
   "yes": "Yes",
   "no": "No"
 }

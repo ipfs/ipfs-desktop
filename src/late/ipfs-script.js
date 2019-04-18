@@ -3,7 +3,7 @@ import { join } from 'path'
 import os from 'os'
 import i18n from 'i18next'
 import { execFileSync } from 'child_process'
-import { logger, store } from '../utils'
+import { logger, store, notify } from '../utils'
 import { app, dialog } from 'electron'
 
 const SOURCE_SCRIPT = join(__dirname, '../../../bin/ipfs.sh')
@@ -22,6 +22,8 @@ export default async function () {
   }
 
   await addToPath(() => {
+    if (app.dock) app.dock.show()
+
     const option = dialog.showMessageBox({
       type: 'info',
       message: i18n.t('ipfsOnPath'),
@@ -74,8 +76,6 @@ export async function addToPath (confirmationCb) {
   }
 
   if (exists) {
-    if (app.dock) app.dock.show()
-
     if (typeof confirmationCb === 'function') {
       if (!await confirmationCb()) {
         store.set('ipfsOnPath', false)
@@ -88,6 +88,13 @@ export async function addToPath (confirmationCb) {
   // Ignore during development because the paths are not the same.
   if (process.env.NODE_ENV === 'development') {
     logger.info('[ipfs on path] unavailable during development')
+    store.set('ipfsOnPath', true)
+
+    notify({
+      title: i18n.t('ipfsOnPath'),
+      body: `Unavailable during development.`
+    })
+
     return
   }
 
@@ -96,6 +103,11 @@ export async function addToPath (confirmationCb) {
     await fs.ensureSymlink(SOURCE_SCRIPT, DEST_SCRIPT)
     logger.info('[ipfs on path] added to %s', DEST_SCRIPT)
     store.set('ipfsOnPath', true)
+
+    notify({
+      title: i18n.t('ipfsOnPath'),
+      body: i18n.t('addedSuccessfully')
+    })
   } catch (e) {
     logger.error(e)
   }
