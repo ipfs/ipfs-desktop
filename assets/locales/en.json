@@ -43,8 +43,9 @@
   "couldNotCheckForUpdates": "Could not check for updates",
   "pleaseCheckInternet": "Please check your Internet connection.",
   "checkForUpdates": "Check for Updates...",
+  "addIpfsToPath": "Add IPFS to PATH",
   "ipfsOnPath": "IPFS on PATH",
-  "addIpfsToPath": "You appear to have a version of the IPFS command line tools already installed. Would you like to let IPFS Desktop replace it with the latest version?",
+  "addIpfsToPathMessage": "You appear to have a version of the IPFS command line tools already installed. Would you like to let IPFS Desktop replace it with the latest version?",
   "yes": "Yes",
   "no": "No"
 }

@@ -4,6 +4,7 @@ import i18n from 'i18next'
 import { STATUS } from './register-daemon'
 import path from 'path'
 import os from 'os'
+import { addToPath } from './ipfs-script'
 
 function buildMenu ({ checkForUpdates, launchWebUI }) {
   return Menu.buildFromTemplate([
@@ -66,6 +67,11 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
         {
           label: i18n.t('openConfigFile'),
           click: () => { shell.openItem(store.path) }
+        },
+        {
+          label: i18n.t('addIpfsToPath'),
+          visible: store.get('ipfsOnPath') === false && os.platform() === 'darwin',
+          click: () => { addToPath() }
         }
       ]
     },
