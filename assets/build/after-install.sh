@@ -2,8 +2,14 @@
 
 set -e
 
-ln -sf '/opt/${productFilename}/${executable}' '/usr/local/bin/${executable}'
+location='/opt/${productFilename}'
+
+if [ ! -z $SNAP ]; then
+  location=$SNAP
+fi
+
+ln -sf '${location}/${executable}' '/usr/local/bin/${executable}'
 
 if [ ! -f /usr/local/bin/ipfs ]; then
-  ln -sf '/opt/${productFilename}/resources/bin/ipfs.sh' '/usr/local/bin/ipfs'
+  ln -sf '${location}/resources/bin/ipfs.sh' '/usr/local/bin/ipfs'
 fi
