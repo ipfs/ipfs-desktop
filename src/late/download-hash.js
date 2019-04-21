@@ -117,6 +117,8 @@ export default function (ctx) {
       globalShortcut.unregister(shortcut)
       logger.info('[hash download] shortcut disabled')
     }
+
+    return true
   }
 
   activate(store.get(settingsOption, false))

@@ -107,6 +107,8 @@ export default function (ctx) {
       globalShortcut.unregister(shortcut)
       logger.info('[screenshot] shortcut disabled')
     }
+
+    return true
   }
 
   activate(store.get(settingsOption, false))
