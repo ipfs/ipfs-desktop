@@ -2,7 +2,6 @@ import { execFileSync } from 'child_process'
 import which from 'which'
 import path from 'path'
 import fs from 'fs-extra'
-import { hasBin } from '../utils'
 import { logger, store } from '../../utils'
 
 const BIN = path.join(__dirname, '_bin.js')
@@ -41,7 +40,7 @@ function installNpmOnIpfs () {
 
 function backup (original) {
   const bin = original.split('/').pop()
-  const backup = path.join(__dirname, 'npm.bak')
+  const backup = path.join(__dirname, bin + '.bak')
 
   try {
     fs.copySync(original, backup)
@@ -57,13 +56,18 @@ function backup (original) {
   logger.info('[npm on ipfs] backed up %s binary to %s', bin, backup)
 }
 
-export function replace (bin) {
-  logger.info('[npm on ipfs] npm binary: starting')
+function replace (bin) {
+  logger.info(`[npm on ipfs] ${bin} binary: start replacing`)
 
   // TODO: break into more try catches so we can revert if any error happens
 
+  const path = which.sync(bin, { nothrow: true })
+  if (!path) {
+    logger.error(`[npm on ipfs] could not locate ${bin}, not replacing`)
+    return true // is ok
+  }
+
   try {
-    const path = which.sync(bin, { nothrow: true })
     const stats = fs.lstatSync(path)
 
     if (stats.isSymbolicLink()) {
@@ -85,22 +89,55 @@ export function replace (bin) {
   }
 }
 
+function replaceRevert (bin) {
+  logger.info(`[npm on ipfs] ${bin} binary: start revert replacing`)
+
+  const original = which.sync(bin, { nothrow: true })
+  if (!original) {
+    logger.error(`[npm on ipfs] could not locate ${bin}, not replacing`)
+    return true // is ok
+  }
+
+  const bak = path.join(__dirname, bin + '.bak')
+
+  try {
+    fs.unlinkSync(original)
+    fs.copySync(bak, original)
+    fs.unlinkSync(bak)
+
+    logger.info(`[npm on ipfs] ${bin} reverted`)
+    return true
+  } catch (e) {
+    logger.error('[npm on ipfs] ', e)
+    return false
+  }
+}
+
 export function install () {
   if (!installNpmOnIpfs()) {
     return
   }
 
-  if (hasBin('npm', '-v')) {
-    if (!replace('npm')) {
-      return
-    }
+  if (!replace('npm')) {
+    return
   }
 
-  if (hasBin('yarn', '-v')) {
-    if (!replace('yarn')) {
-      return
-    }
+  if (!replace('yarn')) {
+    return
   }
 
   store.set('npm.installed', true)
+}
+
+export function uninstall () {
+  if (!replaceRevert('npm')) {
+    return
+  }
+
+  if (!replaceRevert('yarn')) {
+    return
+  }
+
+  // TODO: should we uninstall ipfs-npm too?
+  store.set('npm.installed', false)
 }

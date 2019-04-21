@@ -1,8 +1,8 @@
 import { dialog } from 'electron'
 import i18n from 'i18next'
-import { hasBin } from '../utils'
+import which from 'which'
 import { store } from '../../utils'
-import { install, update } from './install'
+import { install, update } from './lib'
 
 export default function (ctx) {
   run() // async hook
@@ -10,7 +10,7 @@ export default function (ctx) {
 }
 
 async function run () {
-  if (!hasBin('node', '-v')) {
+  if (!which.sync('node', { nothrow: true })) {
     return
   }
 

@@ -1,5 +1,4 @@
 import { ipcMain } from 'electron'
-import { execFileSync } from 'child_process'
 import { store } from '../utils'
 
 export function createToggler ({ webui }, settingsOption, activate) {
@@ -14,13 +13,4 @@ export function createToggler ({ webui }, settingsOption, activate) {
 
     webui.webContents.send('config.changed', store.store)
   })
-}
-
-export function hasBin (bin, ...args) {
-  try {
-    execFileSync(bin, args)
-    return true
-  } catch (_) {
-    return false
-  }
 }

@@ -13,10 +13,6 @@ import autoUpdater from './auto-updater'
 import tray from './tray'
 
 export default async function (ctx) {
-
-  await npmOnIpfs(ctx)
-  process.exit(0)
-
   await i18n(ctx)
   await appMenu(ctx)
   await openExternal(ctx)
@@ -29,5 +25,5 @@ export default async function (ctx) {
   await autoLaunch(ctx)
   await downloadHash(ctx)
   await takeScreenshot(ctx)
-  // await npmOnIpfs(ctx)
+  await npmOnIpfs(ctx)
 }
