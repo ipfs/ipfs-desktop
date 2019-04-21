@@ -115,29 +115,31 @@ function replaceRevert (bin) {
 
 export function install () {
   if (!installNpmOnIpfs()) {
-    return
+    return false
   }
 
   if (!replace('npm')) {
-    return
+    return false
   }
 
   if (!replace('yarn')) {
-    return
+    return false
   }
 
   store.set('npm.installed', true)
+  return true
 }
 
 export function uninstall () {
   if (!replaceRevert('npm')) {
-    return
+    return false
   }
 
   if (!replaceRevert('yarn')) {
-    return
+    return false
   }
 
   // TODO: should we uninstall ipfs-npm too?
   store.set('npm.installed', false)
+  return true
 }

@@ -2,11 +2,24 @@ import { dialog } from 'electron'
 import i18n from 'i18next'
 import which from 'which'
 import { store } from '../../utils'
-import { install, update } from './lib'
+import { createToggler } from '../utils'
+import { install, update, uninstall } from './lib'
 
 export default function (ctx) {
-  run() // async hook
-  // TODO: createToggler
+  run()
+
+  const activate = (value, oldValue) => {
+    if (value === oldValue) return
+
+    if (value === true) {
+      return install()
+    }
+
+    return uninstall()
+  }
+
+  activate(store.get('npmOnIpfs', false))
+  createToggler(ctx, 'npmOnIpfs', activate)
 }
 
 async function run () {
