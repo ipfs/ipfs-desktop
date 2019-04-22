@@ -11,7 +11,7 @@ export default async function (ctx) {
   }
 
   createToggler(ctx, 'ipfsOnPath', async (value, oldValue) => {
-    if (value === oldValue) return
+    if (value === oldValue || oldValue === null) return
 
     if (value === true) return install()
     else return uninstall()
