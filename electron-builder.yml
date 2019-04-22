@@ -53,6 +53,7 @@ deb:
 
 snap:
   confinement: strict
+  hooks: assets/build/snap-hooks
   plugs:
     - default
     - network

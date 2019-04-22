@@ -17,6 +17,10 @@
     "build:webui:download": "npx ipfs-or-gateway -c QmfQkD8pBSBCBxWEwFSu4XaDVSWK6bjnNuaWZjMyQbyDub -p assets/webui/",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
     "build:babel": "babel src --out-dir out --copy-files",
+    "build:snap": "run-s build:snap:*",
+    "build:snap:mkdir": "shx mkdir -p assets/build/snap-hooks",
+    "build:snap:cpinstall": "shx cp assets/build/after-install.sh assets/build/snap-hooks/install",
+    "build:snap:cpremove": "shx cp assets/build/after-remove.sh assets/build/snap-hooks/remove",
     "build:binaries": "electron-builder --publish onTag"
   },
   "pre-commit": [

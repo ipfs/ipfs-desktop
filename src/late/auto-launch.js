@@ -24,8 +24,11 @@ export default function (ctx) {
         if (await autoLauncher.isEnabled()) await autoLauncher.disable()
         logger.info('[launch on startup] disabled')
       }
+
+      return true
     } catch (e) {
       logger.error(e.stack)
+      return false
     }
   }
 
