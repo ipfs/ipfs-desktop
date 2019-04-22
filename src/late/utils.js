@@ -7,8 +7,11 @@ export function createToggler ({ webui }, settingsOption, activate) {
       return
     }
 
-    if (await activate(store.get(settingsOption))) {
-      store.set(settingsOption, !store.get(settingsOption))
+    const oldValue = store.get(settingsOption, null)
+    const newValue = !oldValue
+
+    if (await activate(newValue, oldValue)) {
+      store.set(settingsOption, newValue)
     }
 
     webui.webContents.send('config.changed', store.store)
