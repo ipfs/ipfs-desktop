@@ -5,3 +5,4 @@ dist
 config.gypi
 assets/webui
 *.nupkg
+assets/build/snap-hooks
