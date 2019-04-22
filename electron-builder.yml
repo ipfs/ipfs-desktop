@@ -34,9 +34,13 @@ nsis:
   perMachine: false
 
 linux:
+  artifactName: ${name}-${version}-${os}-${arch}.${ext}
+  executableName: ipfs-desktop
   category: Utility
+  synopsis: A desktop client for IPFS
   maintainer: henrique@protocol.ai
   target:
+    - tar.xz
     - AppImage
     - deb
     - rpm
