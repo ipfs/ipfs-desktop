@@ -10,15 +10,10 @@ export default function (ctx) {
 
   const activate = (value, oldValue) => {
     if (value === oldValue) return
-
-    if (value === true) {
-      return install()
-    }
-
+    if (value === true) return install()
     return uninstall()
   }
 
-  activate(store.get('npmOnIpfs', false))
   createToggler(ctx, 'npmOnIpfs', activate)
 }
 

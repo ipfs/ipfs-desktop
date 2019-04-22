@@ -7,7 +7,7 @@ const { join } = require('path')
 
 readFile(join(homedir, '.ipfs/api'), (err, data) => {
   if (err) {
-    // TODO: daemon not running?
+    // TODO: daemon not running? start IPFS Desktop? How?
     return
   }
 
