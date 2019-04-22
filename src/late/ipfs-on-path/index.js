@@ -1,6 +1,41 @@
-import fs from 'fs-extra'
-import { join } from 'path'
 import os from 'os'
+import { createToggler } from '../utils'
+
+export default async function (ctx) {
+  if (os.platform() === 'win32') {
+    // TODO(future): on Windows it is still done
+    // during installation. We need to find a way
+    // to modify Windows PATH during runtime
+    // through a command line script.
+    return
+  }
+
+  createToggler(ctx, 'ipfsOnPath', async (value, oldValue) => {
+    if (value === oldValue) return
+
+    if (value === true) return install()
+    else return uninstall()
+  })
+}
+
+function firstTime () {
+  // Check if we've done this before.
+  if (store.get('ipfsOnPath', null) !== null) {
+    logger.info('[ipfs on path] no action taken')
+    return
+  }
+}
+
+function install () {
+
+}
+
+function uninstall () {
+
+}
+
+/* import fs from 'fs-extra'
+import { join } from 'path'
 import i18n from 'i18next'
 import { execFileSync } from 'child_process'
 import { logger, store, notify } from '../utils'
@@ -10,16 +45,8 @@ const SOURCE_SCRIPT = join(__dirname, '../../../bin/ipfs.sh')
 const DEST_SCRIPT = '/usr/local/bin/ipfs'
 
 export default async function () {
-  // During runtime, we only do this for darwin.
-  if (os.platform() !== 'darwin') {
-    return
-  }
 
-  // Check if we've done this before.
-  if (store.get('ipfsOnPath', null) !== null) {
-    logger.info('[ipfs on path] no action taken')
-    return
-  }
+  
 
   await addToPath(() => {
     if (app.dock) app.dock.show()
@@ -111,4 +138,4 @@ export async function addToPath (confirmationCb) {
   } catch (e) {
     logger.error(e)
   }
-}
+} */

@@ -67,14 +67,6 @@ function buildMenu ({ checkForUpdates, launchWebUI }, updateMenu) {
         {
           label: i18n.t('openConfigFile'),
           click: () => { shell.openItem(store.path) }
-        },
-        {
-          label: i18n.t('addIpfsToPath'),
-          visible: store.get('ipfsOnPath') === false && os.platform() === 'darwin',
-          click: async () => {
-            await addToPath()
-            await updateMenu()
-          }
         }
       ]
     },

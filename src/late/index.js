@@ -10,12 +10,12 @@ import appMenu from './app-menu'
 import addToIpfs from './add-to-ipfs'
 import autoUpdater from './auto-updater'
 import tray from './tray'
-import ipfsScript from './ipfs-script'
+import ipfsOnPath from './ipfs-script'
 
 export default async function (ctx) {
   await i18n(ctx)
   await appMenu(ctx)
-  await ipfsScript(ctx)
+  await ipfsOnPath(ctx)
   await openExternal(ctx)
   await autoUpdater(ctx) // ctx.checkForUpdates
   await registerWebUI(ctx) // ctx.webui, ctx.launchWebUI
