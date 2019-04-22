@@ -43,10 +43,10 @@
   "couldNotCheckForUpdates": "Could not check for updates",
   "pleaseCheckInternet": "Please check your Internet connection.",
   "checkForUpdates": "Check for Updates...",
-  "addIpfsToPath": "Add IPFS to PATH",
-  "ipfsOnPath": "IPFS on PATH",
-  "addIpfsToPathMessage": "You appear to have a version of the IPFS command line tools already installed. Would you like to let IPFS Desktop replace it with the latest version?",
-  "addedSuccessfully": "IPFS command line tools were successfully added to the PATH.",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "anErrorHasOccurred": "An error has occurred",
+  "anUnexpectedErrorHasOccurred": "An unexpected error has occurred and it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers.",
+  "ipfsCommandLineTools": "IPFS command line tools",
+  "ipfsCommandLineToolsDescription": "IPFS Desktop can install the IPFS command line tools and keep them up to date. This action can always be reverted on Settings."
 }

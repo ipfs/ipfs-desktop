@@ -1,9 +1,10 @@
 import os from 'os'
 import { join } from 'path'
 import i18n from 'i18next'
+import which from 'which'
 import { execFile } from 'child_process'
 import { createToggler } from '../utils'
-import { logger, store } from '../../utils'
+import { logger, store, showRecoverableError } from '../../utils'
 import { ipcMain, app, dialog } from 'electron'
 
 const SETTINGS_OPTION = 'ipfsOnPath'
@@ -33,12 +34,20 @@ function firstTime () {
     return
   }
 
+  const ipfsExists = which.sync('ipfs', { nothrow: true }) !== null
+
+  if (os.platform() === 'darwin' && !ipfsExists) {
+    logger.info('[ipfs on path] macOS + ipfs not present, installing')
+    ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
+    return
+  }
+
   if (app.dock) app.dock.show()
 
   const option = dialog.showMessageBox({
     type: 'info',
-    message: i18n.t('ipfsOnPath'),
-    detail: i18n.t('addIpfsToPathMessage'),
+    message: i18n.t('ipfsCommandLineTools'),
+    detail: i18n.t('ipfsCommandLineToolsDescription'),
     buttons: [
       i18n.t('no'),
       i18n.t('yes')
@@ -57,7 +66,6 @@ function firstTime () {
 }
 
 // TODO: use sudo-prompt
-// TODO: asarUnpack install.js ipfs.sh and uninstall.js
 
 function run (script) {
   return new Promise(resolve => {
@@ -75,7 +83,7 @@ function run (script) {
 
     execFile(process.execPath, args, options, (err, stdout) => {
       if (err) {
-        // TODO: tell the user
+        showRecoverableError(err)
         logger.error(`[ipfs on path] ${err.toString()}`)
         return resolve(false)
       }
