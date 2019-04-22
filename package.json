@@ -17,7 +17,6 @@
     "build:webui:download": "npx ipfs-or-gateway -c QmfQkD8pBSBCBxWEwFSu4XaDVSWK6bjnNuaWZjMyQbyDub -p assets/webui/",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
     "build:babel": "babel src --out-dir out --copy-files",
-    "build:snap": "run-s build:snap:*",
     "build:binaries": "electron-builder --publish onTag"
   },
   "pre-commit": [
