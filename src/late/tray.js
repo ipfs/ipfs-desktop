@@ -4,7 +4,6 @@ import i18n from 'i18next'
 import { STATUS } from './register-daemon'
 import path from 'path'
 import os from 'os'
-import { addToPath } from './ipfs-script'
 
 function buildMenu ({ checkForUpdates, launchWebUI }, updateMenu) {
   return Menu.buildFromTemplate([

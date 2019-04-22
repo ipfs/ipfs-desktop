@@ -1,5 +1,12 @@
 import os from 'os'
+import { join } from 'path'
+import i18n from 'i18next'
+import { execFile } from 'child_process'
 import { createToggler } from '../utils'
+import { logger, store } from '../../utils'
+import { ipcMain, app, dialog } from 'electron'
+
+const SETTINGS_OPTION = 'ipfsOnPath'
 
 export default async function (ctx) {
   if (os.platform() === 'win32') {
@@ -10,132 +17,70 @@ export default async function (ctx) {
     return
   }
 
-  createToggler(ctx, 'ipfsOnPath', async (value, oldValue) => {
-    if (value === oldValue || oldValue === null) return
-
-    if (value === true) return install()
-    else return uninstall()
+  createToggler(ctx, SETTINGS_OPTION, async (value, oldValue) => {
+    if (value === oldValue || (oldValue === null && !value)) return
+    if (value === true) return run('install')
+    return run('uninstall')
   })
+
+  firstTime()
 }
 
 function firstTime () {
   // Check if we've done this before.
-  if (store.get('ipfsOnPath', null) !== null) {
+  if (store.get(SETTINGS_OPTION, null) !== null) {
     logger.info('[ipfs on path] no action taken')
     return
   }
-}
 
-function install () {
+  if (app.dock) app.dock.show()
 
-}
-
-function uninstall () {
-
-}
-
-/* import fs from 'fs-extra'
-import { join } from 'path'
-import i18n from 'i18next'
-import { execFileSync } from 'child_process'
-import { logger, store, notify } from '../utils'
-import { app, dialog } from 'electron'
-
-const SOURCE_SCRIPT = join(__dirname, '../../../bin/ipfs.sh')
-const DEST_SCRIPT = '/usr/local/bin/ipfs'
-
-export default async function () {
-
-  
-
-  await addToPath(() => {
-    if (app.dock) app.dock.show()
-
-    const option = dialog.showMessageBox({
-      type: 'info',
-      message: i18n.t('ipfsOnPath'),
-      detail: i18n.t('addIpfsToPathMessage'),
-      buttons: [
-        i18n.t('no'),
-        i18n.t('yes')
-      ],
-      cancelId: 0
-    })
-
-    if (app.dock) app.dock.hide()
-    return option === 1
+  const option = dialog.showMessageBox({
+    type: 'info',
+    message: i18n.t('ipfsOnPath'),
+    detail: i18n.t('addIpfsToPathMessage'),
+    buttons: [
+      i18n.t('no'),
+      i18n.t('yes')
+    ],
+    cancelId: 0
   })
+
+  if (app.dock) app.dock.hide()
+
+  if (option === 1) {
+    // Trigger the toggler.
+    ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
+  } else {
+    // store.set(SETTINGS_OPTION, false)
+  }
 }
 
-export async function addToPath (confirmationCb) {
-  if (os.platform() !== 'darwin') {
-    logger.info('[ipfs on path] no action taken: not macOS')
-    return
-  }
+// TODO: use sudo-prompt
+// TODO: asarUnpack install.js ipfs.sh and uninstall.js
 
-  let exists = false
-  try {
-    await fs.lstat(DEST_SCRIPT)
-    exists = true
-  } catch (_) {
-    // doesn't exist
-  }
+function run (script) {
+  const args = [
+    join(__dirname, `./scripts/${script}.js`),
+    '--',
+    `--user-data=${app.getPath('userData')}`
+  ]
 
-  if (exists) {
-    try {
-      const link = await fs.readlink(DEST_SCRIPT)
-
-      if (link === SOURCE_SCRIPT) {
-        logger.info('[ipfs on path] already symlinked')
-        return
-      }
-    } catch (_) {
-      // DEST_SCRIPT is not a symlink, ignore.
+  const options = {
+    env: {
+      ELECTRON_RUN_AS_NODE: 1
     }
   }
 
-  try {
-    execFileSync('ipfs')
-    exists = true
-  } catch (e) {
-    logger.error(e)
-    // 'ipfs' gave a non-zero code or timed out => doesn't exist
-  }
-
-  if (exists) {
-    if (typeof confirmationCb === 'function') {
-      if (!await confirmationCb()) {
-        store.set('ipfsOnPath', false)
-        logger.info('[ipfs on path] was not added, user action')
-        return
-      }
+  execFile(process.execPath, args, options, (err, stdout) => {
+    if (err) {
+      // TODO: tell the user
+      logger.error(`[ipfs on path] ${err.toString()}`)
+      return
     }
-  }
 
-  // Ignore during development because the paths are not the same.
-  if (process.env.NODE_ENV === 'development') {
-    logger.info('[ipfs on path] unavailable during development')
-    store.set('ipfsOnPath', true)
+    logger.info(`[ipfs on path] ${stdout.toString().trim()}`)
+  })
 
-    notify({
-      title: i18n.t('ipfsOnPath'),
-      body: `Unavailable during development.`
-    })
-
-    return
-  }
-
-  try {
-    if (exists) await fs.unlink(DEST_SCRIPT)
-    await fs.ensureSymlink(SOURCE_SCRIPT, DEST_SCRIPT)
-    logger.info('[ipfs on path] added to %s', DEST_SCRIPT)
-    store.set('ipfsOnPath', true)
-
-    notify({
-      title: i18n.t('ipfsOnPath'),
-      body: i18n.t('addedSuccessfully')
-    })
-  } catch (e) {
-    logger.error(e)
-  }
-} */
+  return false
+}

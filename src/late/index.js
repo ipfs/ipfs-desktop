@@ -10,12 +10,11 @@ import appMenu from './app-menu'
 import addToIpfs from './add-to-ipfs'
 import autoUpdater from './auto-updater'
 import tray from './tray'
-import ipfsOnPath from './ipfs-script'
+import ipfsOnPath from './ipfs-on-path'
 
 export default async function (ctx) {
   await i18n(ctx)
   await appMenu(ctx)
-  await ipfsOnPath(ctx)
   await openExternal(ctx)
   await autoUpdater(ctx) // ctx.checkForUpdates
   await registerWebUI(ctx) // ctx.webui, ctx.launchWebUI
@@ -26,4 +25,5 @@ export default async function (ctx) {
   await autoLaunch(ctx)
   await downloadHash(ctx)
   await takeScreenshot(ctx)
+  await ipfsOnPath(ctx)
 }
