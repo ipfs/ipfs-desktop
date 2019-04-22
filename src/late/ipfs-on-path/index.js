@@ -1,6 +1,7 @@
 import os from 'os'
 import { join } from 'path'
 import i18n from 'i18next'
+import sudo from 'exec-root'
 import which from 'which'
 import { execFile } from 'child_process'
 import { createToggler } from '../utils'
@@ -65,31 +66,40 @@ function firstTime () {
   }
 }
 
-// TODO: use sudo-prompt
+async function run (script) {
+  const args = [
+    join(__dirname, `./scripts/${script}.js`),
+    '--',
+    `--user-data=${app.getPath('userData')}`
+  ]
 
-function run (script) {
-  return new Promise(resolve => {
-    const args = [
-      join(__dirname, `./scripts/${script}.js`),
-      '--',
-      `--user-data=${app.getPath('userData')}`
-    ]
+  let options = {
+    env: {
+      ELECTRON_RUN_AS_NODE: 1
+    }
+  }
 
-    const options = {
-      env: {
-        ELECTRON_RUN_AS_NODE: 1
-      }
+  const getResult = (err, stdout) => {
+    if (err) {
+      showRecoverableError(err)
+      logger.error(`[ipfs on path] ${err.toString()}`)
+      return false
     }
 
-    execFile(process.execPath, args, options, (err, stdout) => {
-      if (err) {
-        showRecoverableError(err)
-        logger.error(`[ipfs on path] ${err.toString()}`)
-        return resolve(false)
-      }
+    logger.info(`[ipfs on path] ${stdout.toString().trim()}`)
+    return true
+  }
 
-      logger.info(`[ipfs on path] ${stdout.toString().trim()}`)
-      return resolve(true)
+  if (os.platform() === 'darwin') {
+    return new Promise(resolve => {
+      execFile(process.execPath, args, options, (err, stdout) => {
+        resolve(getResult(err, stdout))
+      })
     })
-  })
+  }
+
+  options.name = 'IPFS Desktop'
+
+  const { err, stdout } = await sudo.exec(`${process.execPath} ${args.join(' ')}`, options)
+  return getResult(err, stdout)
 }
