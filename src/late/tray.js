@@ -5,7 +5,7 @@ import { STATUS } from './register-daemon'
 import path from 'path'
 import os from 'os'
 
-function buildMenu ({ checkForUpdates, launchWebUI }, updateMenu) {
+function buildMenu ({ checkForUpdates, launchWebUI }) {
   return Menu.buildFromTemplate([
     ...[
       ['ipfsIsStarting', 'yellow'],
@@ -128,7 +128,7 @@ export default function (ctx) {
   }
 
   const setupMenu = () => {
-    menu = buildMenu(ctx, setupMenu)
+    menu = buildMenu(ctx)
     tray.setContextMenu(menu)
     tray.setToolTip('IPFS Desktop')
     updateStatus(status)
