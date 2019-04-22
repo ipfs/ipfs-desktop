@@ -3,11 +3,7 @@ appId: io.ipfs.desktop
 directories:
   buildResources: assets/build
 
-extraResources:
-  - from: "assets/bin"
-    to: "bin"
-    filter:
-      - "**/*"
+asarUnpack: 'out/**/scripts/*'
 
 mac:
   category: public.app-category.utilities

@@ -52,7 +52,7 @@ function firstTime () {
     // Trigger the toggler.
     ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
   } else {
-    // store.set(SETTINGS_OPTION, false)
+    store.set(SETTINGS_OPTION, false)
   }
 }
 
@@ -60,27 +60,28 @@ function firstTime () {
 // TODO: asarUnpack install.js ipfs.sh and uninstall.js
 
 function run (script) {
-  const args = [
-    join(__dirname, `./scripts/${script}.js`),
-    '--',
-    `--user-data=${app.getPath('userData')}`
-  ]
+  return new Promise(resolve => {
+    const args = [
+      join(__dirname, `./scripts/${script}.js`),
+      '--',
+      `--user-data=${app.getPath('userData')}`
+    ]
 
-  const options = {
-    env: {
-      ELECTRON_RUN_AS_NODE: 1
-    }
-  }
-
-  execFile(process.execPath, args, options, (err, stdout) => {
-    if (err) {
-      // TODO: tell the user
-      logger.error(`[ipfs on path] ${err.toString()}`)
-      return
+    const options = {
+      env: {
+        ELECTRON_RUN_AS_NODE: 1
+      }
     }
 
-    logger.info(`[ipfs on path] ${stdout.toString().trim()}`)
+    execFile(process.execPath, args, options, (err, stdout) => {
+      if (err) {
+        // TODO: tell the user
+        logger.error(`[ipfs on path] ${err.toString()}`)
+        return resolve(false)
+      }
+
+      logger.info(`[ipfs on path] ${stdout.toString().trim()}`)
+      return resolve(true)
+    })
   })
-
-  return false
 }
