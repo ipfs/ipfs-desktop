@@ -11,14 +11,6 @@ import { ipcMain, app, dialog } from 'electron'
 const SETTINGS_OPTION = 'ipfsOnPath'
 
 export default async function (ctx) {
-  if (os.platform() === 'win32') {
-    // TODO(future): on Windows it is still done
-    // during installation. We need to find a way
-    // to modify Windows PATH during runtime
-    // through a command line script.
-    return
-  }
-
   createToggler(ctx, SETTINGS_OPTION, async (value, oldValue) => {
     if (value === oldValue || (oldValue === null && !value)) return
     if (value === true) return run('install')
@@ -66,7 +58,24 @@ function firstTime () {
   }
 }
 
+async function runWindows (script) {
+  const { err } = await sudo.exec(`powershell.exe -nop -exec bypass -win hidden ${join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked')}`, {
+    name: 'IPFS Desktop'
+  })
+
+  if (err) {
+    showRecoverableError(err)
+    return false
+  }
+
+  return true
+}
+
 async function run (script) {
+  if (os.platform() === 'win32') {
+    return runWindows(script)
+  }
+
   const args = [
     join(__dirname, `./scripts/${script}.js`),
     '--',
