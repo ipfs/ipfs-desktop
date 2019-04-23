@@ -49,7 +49,7 @@ function revert (userData, bin, dst) {
   try {
     fs.unlinkSync(backup)
   } catch (_) {
-    // not a first world problem if we can't remove the backup
+    // Failed to remove the backup. Suprising, but not worth bothering the user about.
   }
 }
 
