@@ -50,5 +50,7 @@
   "ipfsCommandLineTools": "IPFS command line tools",
   "ipfsCommandLineToolsWindows": "We detected you already have the IPFS command line tools on your PATH. IPFS Desktop can pre-prepend its tools to the PATH and keep them up to date. Do you agree?",
   "ipfsCommandLineToolsAlreadyExists": "IPFS Desktop detected you already have IPFS CLI installed. We can replace the existing ipfs command installed at /usr/local/bin/ipfs, and update it when new versions are available. Do you agree?",
-  "ipfsCommandLineToolsNotExists": "IPFS Desktop can keep the IPFS command-line interface (CLI) up to date. It will be installed at /usr/local/bin/ipfs. Do you agree?"
+  "ipfsCommandLineToolsNotExists": "IPFS Desktop can keep the IPFS command-line interface (CLI) up to date. It will be installed at /usr/local/bin/ipfs. Do you agree?",
+  "polkitNotFound": "IPFS can't be added to /usr/local/bin/ without polkit agent.",
+  "noPermission": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
 }

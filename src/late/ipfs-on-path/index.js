@@ -71,8 +71,17 @@ async function runWindows (script) {
       join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked')
     ], {}, err => {
       if (err) {
-        logger.error(`[ipfs on path] ${err.toString()}`)
-        showRecoverableError(err)
+        const str = err.toString()
+        logger.error(`[ipfs on path] ${str}`)
+
+        if (str.includes('No polkit authentication agent found')) {
+          dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('polkitNotFound'))
+        } else if (str.includes('User did not grant permission')) {
+          dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('noPermission'))
+        } else {
+          showRecoverableError(err)
+        }
+
         return resolve(false)
       }
 
