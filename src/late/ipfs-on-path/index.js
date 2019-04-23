@@ -59,13 +59,14 @@ function firstTime () {
 }
 
 async function runWindows (script) {
-  if (script === 'install') {
+  const { err } = await sudo.exec(`powershell.exe -nop -exec bypass -win hidden ${join(__dirname, `scripts/${script}.ps1`)}`, {})
 
-    console.log('Install')
-  } else {
-    // SetEnv -d PATH %"join(__dirname, bin-win)
-    console.log('Uninstall')
+  if (err) {
+    showRecoverableError(err)
+    return false
   }
+
+  return true
 }
 
 async function run (script) {
