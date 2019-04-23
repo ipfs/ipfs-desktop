@@ -59,7 +59,7 @@ function firstTime () {
 }
 
 async function runWindows (script) {
-  const { err } = await sudo.exec(`powershell.exe -nop -exec bypass -win hidden ${join(__dirname, `scripts/${script}.ps1`)}`, {
+  const { err } = await sudo.exec(`powershell.exe -nop -exec bypass -win hidden ${join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked')}`, {
     name: 'IPFS Desktop'
   })
 
