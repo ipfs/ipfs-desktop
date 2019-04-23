@@ -46,7 +46,7 @@
   "yes": "Yes",
   "no": "No",
   "anErrorHasOccurred": "An error has occurred",
-  "anUnexpectedErrorHasOccurred": "An unexpected error has occurred and it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers.",
+  "anUnexpectedErrorHasOccurred": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers.",
   "ipfsCommandLineTools": "IPFS command line tools",
   "ipfsCommandLineToolsDescription": "IPFS Desktop can install the IPFS command line tools and keep them up to date. This action can always be reverted on Settings."
 }
