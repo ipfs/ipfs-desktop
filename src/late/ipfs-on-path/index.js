@@ -59,19 +59,19 @@ function firstTime () {
 }
 
 async function runWindows (script) {
-  logger.info(join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked'))
   return new Promise(resolve => {
     execFile('powershell.exe', [
       '-nop', '-exec', 'bypass',
       '-win', 'hidden',
       join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked')
-    ], {}, (err, stdout) => {
+    ], {}, err => {
       if (err) {
         logger.error(`[ipfs on path] ${err.toString()}`)
         showRecoverableError(err)
         return resolve(false)
       }
 
+      logger.info(`[ipfs on path] ${script}ed`)
       resolve(true)
     })
   })
