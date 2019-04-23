@@ -27,9 +27,12 @@ function firstTime () {
     return
   }
 
+  const isDarwin = os.platform() === 'darwin'
+  const isWindows = os.platform() === 'win32'
+
   const ipfsExists = which.sync('ipfs', { nothrow: true }) !== null
 
-  if ((os.platform() === 'darwin' || os.platform() === 'win32') && !ipfsExists) {
+  if ((isDarwin || isWindows) && !ipfsExists) {
     logger.info('[ipfs on path] macOS/windows + ipfs not present, installing')
     ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
     return
@@ -37,10 +40,12 @@ function firstTime () {
 
   if (app.dock) app.dock.show()
 
+  const suffix = isWindows ? 'Windows' : ipfsExists ? 'AlreadyExists' : 'NotExists'
+
   const option = dialog.showMessageBox({
     type: 'info',
     message: i18n.t('ipfsCommandLineTools'),
-    detail: i18n.t('ipfsCommandLineToolsDescription'),
+    detail: i18n.t('ipfsCommandLineTools' + suffix),
     buttons: [
       i18n.t('no'),
       i18n.t('yes')

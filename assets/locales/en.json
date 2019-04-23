@@ -48,5 +48,7 @@
   "anErrorHasOccurred": "An error has occurred",
   "anUnexpectedErrorHasOccurred": "An unexpected error has occurred and it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers.",
   "ipfsCommandLineTools": "IPFS command line tools",
-  "ipfsCommandLineToolsDescription": "IPFS Desktop can install the IPFS command line tools and keep them up to date. This action can always be reverted on Settings."
+  "ipfsCommandLineToolsWindows": "We detected you already have the IPFS command line tools on your PATH. IPFS Desktop can pre-prepend its tools to the PATH and keep them up to date. Do you agree?",
+  "ipfsCommandLineToolsAlreadyExists": "IPFS Desktop detected you already have IPFS CLI installed. We can replace the existing ipfs command installed at /usr/local/bin/ipfs, and update it when new versions are available. Do you agree?",
+  "ipfsCommandLineToolsNotExists": "IPFS Desktop can keep the IPFS command-line interface (CLI) up to date. It will be installed at /usr/local/bin/ipfs. Do you agree?"
 }
