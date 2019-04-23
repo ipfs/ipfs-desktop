@@ -29,8 +29,8 @@ function firstTime () {
 
   const ipfsExists = which.sync('ipfs', { nothrow: true }) !== null
 
-  if (os.platform() === 'darwin' && !ipfsExists) {
-    logger.info('[ipfs on path] macOS + ipfs not present, installing')
+  if ((os.platform() === 'darwin' || os.platform() === 'win32') && !ipfsExists) {
+    logger.info('[ipfs on path] macOS/windows + ipfs not present, installing')
     ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
     return
   }
@@ -59,16 +59,22 @@ function firstTime () {
 }
 
 async function runWindows (script) {
-  const { err } = await sudo.exec(`powershell.exe -nop -exec bypass -win hidden ${join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked')}`, {
-    name: 'IPFS Desktop'
+  logger.info(join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked'))
+  return new Promise(resolve => {
+    execFile('powershell.exe', [
+      '-nop', '-exec', 'bypass',
+      '-win', 'hidden',
+      join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked')
+    ], {}, (err, stdout) => {
+      if (err) {
+        logger.error(`[ipfs on path] ${err.toString()}`)
+        showRecoverableError(err)
+        return resolve(false)
+      }
+
+      resolve(true)
+    })
   })
-
-  if (err) {
-    showRecoverableError(err)
-    return false
-  }
-
-  return true
 }
 
 async function run (script) {
