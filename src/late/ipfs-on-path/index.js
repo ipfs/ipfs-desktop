@@ -71,17 +71,8 @@ async function runWindows (script) {
       join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked')
     ], {}, err => {
       if (err) {
-        const str = err.toString()
-        logger.error(`[ipfs on path] ${str}`)
-
-        if (str.includes('No polkit authentication agent found')) {
-          dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('polkitNotFound'))
-        } else if (str.includes('User did not grant permission')) {
-          dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('noPermission'))
-        } else {
-          showRecoverableError(err)
-        }
-
+        logger.error(`[ipfs on path] ${err.toString()}`)
+        showRecoverableError(err)
         return resolve(false)
       }
 
@@ -110,8 +101,17 @@ async function run (script) {
 
   const getResult = (err, stdout) => {
     if (err) {
-      showRecoverableError(err)
-      logger.error(`[ipfs on path] ${err.toString()}`)
+      const str = err.toString()
+      logger.error(`[ipfs on path] ${str}`)
+
+      if (str.includes('No polkit authentication agent found')) {
+        dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('polkitNotFound'))
+      } else if (str.includes('User did not grant permission')) {
+        dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('noPermission'))
+      } else {
+        showRecoverableError(err)
+      }
+
       return false
     }
 
@@ -129,6 +129,10 @@ async function run (script) {
 
   options.name = 'IPFS Desktop'
 
-  const { err, stdout } = await sudo.exec(`${process.execPath} ${args.join(' ')}`, options)
-  return getResult(err, stdout)
+  try {
+    const { err, stdout } = await sudo.exec(`${process.execPath} ${args.join(' ')}`, options)
+    return getResult(err, stdout)
+  } catch (err) {
+    return getResult(err, null)
+  }
 }
