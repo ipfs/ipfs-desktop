@@ -4,8 +4,6 @@ const { backup } = require('../../../utils/scripts/backup')
 const getArg = require('../../../utils/scripts/args')
 const { SOURCE_SCRIPT, DEST_SCRIPT } = require('./consts')
 
-// TODO: be careful of file permissions when fs.something()
-
 let exists = false
 
 try {

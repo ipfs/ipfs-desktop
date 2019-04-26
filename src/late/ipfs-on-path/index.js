@@ -93,12 +93,6 @@ async function run (script) {
     `--user-data=${app.getPath('userData')}`
   ]
 
-  let options = {
-    env: {
-      ELECTRON_RUN_AS_NODE: 1
-    }
-  }
-
   const getResult = (err, stdout) => {
     if (err) {
       const str = err.toString()
@@ -119,20 +113,16 @@ async function run (script) {
     return true
   }
 
-  if (os.platform() === 'darwin') {
-    return new Promise(resolve => {
-      execFile(process.execPath, args, options, (err, stdout) => {
+  return new Promise(resolve => {
+    if (os.platform() === 'darwin') {
+      return execFile(process.execPath, args, (err, stdout) => {
         resolve(getResult(err, stdout))
       })
+    }
+
+    const command = `env ELECTRON_RUN_AS_NODE=1 ${process.execPath} ${args.join(' ')}`
+    sudo.exec(command, { name: 'IPFS Desktop' }, (err, stdout) => {
+      resolve(getResult(err, stdout))
     })
-  }
-
-  options.name = 'IPFS Desktop'
-
-  try {
-    const { err, stdout } = await sudo.exec(`${process.execPath} ${args.join(' ')}`, options)
-    return getResult(err, stdout)
-  } catch (err) {
-    return getResult(err, null)
-  }
+  })
 }
