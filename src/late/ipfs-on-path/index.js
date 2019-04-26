@@ -87,10 +87,8 @@ async function run (script) {
     return runWindows(script)
   }
 
-  const args = [
-    join(__dirname, `./scripts/${script}.js`),
-    `--data="${app.getPath('userData')}"`
-  ]
+  const scriptPath = join(__dirname, `./scripts/${script}.js`)
+  const dataArg = `--data="${app.getPath('userData')}"`
 
   const getResult = (err, stdout, stderr) => {
     if (stdout) {
@@ -121,7 +119,7 @@ async function run (script) {
 
   return new Promise(resolve => {
     if (os.platform() === 'darwin') {
-      return execFile(process.execPath, args, {
+      return execFile(process.execPath, [scriptPath, dataArg], {
         env: {
           ELECTRON_RUN_AS_NODE: 1
         }
@@ -130,7 +128,7 @@ async function run (script) {
       })
     }
 
-    const command = `env ELECTRON_RUN_AS_NODE=1 ${process.execPath} ${args.join(' ')}`
+    const command = `env ELECTRON_RUN_AS_NODE=1 "${process.execPath}" "${scriptPath}" ${dataArg}`
     sudo.exec(command, { name: 'IPFS Desktop' }, (err, stdout, stderr) => {
       resolve(getResult(err, stdout, stderr))
     })
