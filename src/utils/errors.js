@@ -26,9 +26,9 @@ export function showRecoverableError (e) {
   let options = {
     type: 'error',
     buttons: [
-      'Close',
-      'Report the error',
-      'Open logs'
+      i18n.t('close'),
+      i18n.t('reportTheError'),
+      i18n.t('openLogs')
     ],
     cancelId: 0
   }
