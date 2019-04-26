@@ -1,4 +1,6 @@
 import { app, dialog, shell } from 'electron'
+import i18n from 'i18next'
+import os from 'os'
 
 const issueTemplate = (e) => `Please describe what you were doing when this error happened.
 
@@ -17,6 +19,38 @@ ${e.stack}
 `
 
 let hasErrored = false
+
+export function showRecoverableError (e) {
+  if (app.dock) app.dock.show()
+
+  let options = {
+    type: 'error',
+    buttons: [
+      i18n.t('close'),
+      i18n.t('reportTheError'),
+      i18n.t('openLogs')
+    ],
+    cancelId: 0
+  }
+
+  if (os.platform() === 'darwin') {
+    options.message = i18n.t('anErrorHasOccurred')
+    options.detail = i18n.t('anUnexpectedErrorHasOccurred')
+  } else {
+    options.title = i18n.t('anErrorHasOccurred')
+    options.message = i18n.t('anUnexpectedErrorHasOccurred')
+  }
+
+  const option = dialog.showMessageBox(options)
+
+  if (option === 1) {
+    shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`)
+  } else if (option === 2) {
+    shell.openItem(app.getPath('userData'))
+  }
+
+  if (app.dock) app.dock.hide()
+}
 
 export function showErrorMessage (e) {
   if (hasErrored) return

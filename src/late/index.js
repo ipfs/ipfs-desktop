@@ -10,6 +10,7 @@ import appMenu from './app-menu'
 import addToIpfs from './add-to-ipfs'
 import autoUpdater from './auto-updater'
 import tray from './tray'
+import ipfsOnPath from './ipfs-on-path'
 
 export default async function (ctx) {
   await i18n(ctx)
@@ -24,4 +25,5 @@ export default async function (ctx) {
   await autoLaunch(ctx)
   await downloadHash(ctx)
   await takeScreenshot(ctx)
+  await ipfsOnPath(ctx)
 }
