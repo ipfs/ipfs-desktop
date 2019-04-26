@@ -1,7 +1,7 @@
 import os from 'os'
 import { join } from 'path'
 import i18n from 'i18next'
-import sudo from 'exec-root'
+import sudo from 'sudo-prompt'
 import which from 'which'
 import { execFile } from 'child_process'
 import { createToggler } from '../utils'
