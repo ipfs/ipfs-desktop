@@ -35,7 +35,15 @@ if (which.sync('ipfs', { nothrow: true }) !== null) {
 }
 
 if (exists) {
-  backup(getArg('user-data'), DEST_SCRIPT)
+  try {
+    backup(getArg('user-data'), DEST_SCRIPT)
+  } catch (e) {
+    if (!e.toString().includes('ENOENT')) {
+      // Some other error
+      throw e
+    }
+  }
+
   fs.unlinkSync(DEST_SCRIPT)
   console.log(`${DEST_SCRIPT} removed`)
 }
