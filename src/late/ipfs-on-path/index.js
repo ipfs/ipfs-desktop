@@ -93,36 +93,43 @@ async function run (script) {
     `--user-data=${app.getPath('userData')}`
   ]
 
-  const getResult = (err, stdout) => {
-    if (err) {
-      const str = err.toString()
-      logger.error(`[ipfs on path] ${str}`)
-
-      if (str.includes('No polkit authentication agent found')) {
-        dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('polkitNotFound'))
-      } else if (str.includes('User did not grant permission')) {
-        dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('noPermission'))
-      } else {
-        showRecoverableError(err)
-      }
-
-      return false
+  const getResult = (err, stdout, stderr) => {
+    if (stdout) {
+      logger.info(`[ipfs on path] stdout: ${stdout.toString().trim()}`)
     }
 
-    logger.info(`[ipfs on path] ${stdout.toString().trim()}`)
-    return true
+    if (stderr) {
+      logger.info(`[ipfs on path] stderr: ${stderr.toString().trim()}`)
+    }
+
+    if (!err) {
+      return true
+    }
+
+    const str = err.toString()
+    logger.error(`[ipfs on path] error: ${str}`)
+
+    if (str.includes('No polkit authentication agent found')) {
+      dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('polkitNotFound'))
+    } else if (str.includes('User did not grant permission')) {
+      dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('noPermission'))
+    } else {
+      showRecoverableError(err)
+    }
+
+    return false
   }
 
   return new Promise(resolve => {
     if (os.platform() === 'darwin') {
-      return execFile(process.execPath, args, (err, stdout) => {
-        resolve(getResult(err, stdout))
+      return execFile(process.execPath, args, (err, stdout, stderr) => {
+        resolve(getResult(err, stdout, stderr))
       })
     }
 
     const command = `env ELECTRON_RUN_AS_NODE=1 ${process.execPath} ${args.join(' ')}`
-    sudo.exec(command, { name: 'IPFS Desktop' }, (err, stdout) => {
-      resolve(getResult(err, stdout))
+    sudo.exec(command, { name: 'IPFS Desktop' }, (err, stdout, stderr) => {
+      resolve(getResult(err, stdout, stderr))
     })
   })
 }
