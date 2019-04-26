@@ -32,7 +32,7 @@ if (exists) {
   }
 }
 
-if (which.sync('node', { nothrow: true }) !== null) {
+if (which.sync('ipfs', { nothrow: true }) !== null) {
   exists = true
 }
 
