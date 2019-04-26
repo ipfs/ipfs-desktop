@@ -89,8 +89,7 @@ async function run (script) {
 
   const args = [
     join(__dirname, `./scripts/${script}.js`),
-    '--',
-    `--user-data=${app.getPath('userData')}`
+    `--data="${app.getPath('userData')}"`
   ]
 
   const getResult = (err, stdout, stderr) => {
@@ -122,7 +121,11 @@ async function run (script) {
 
   return new Promise(resolve => {
     if (os.platform() === 'darwin') {
-      return execFile(process.execPath, args, (err, stdout, stderr) => {
+      return execFile(process.execPath, args, {
+        env: {
+          ELECTRON_RUN_AS_NODE: 1
+        }
+      }, (err, stdout, stderr) => {
         resolve(getResult(err, stdout, stderr))
       })
     }

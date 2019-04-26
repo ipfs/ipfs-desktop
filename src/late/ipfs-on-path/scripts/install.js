@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const which = require('which')
 const { backup } = require('../../../utils/scripts/backup')
-const getArg = require('../../../utils/scripts/args')
+const argv = require('yargs').argv
 const { SOURCE_SCRIPT, DEST_SCRIPT } = require('./consts')
 
 let exists = false
@@ -36,7 +36,7 @@ if (which.sync('ipfs', { nothrow: true }) !== null) {
 
 if (exists) {
   try {
-    backup(getArg('user-data'), DEST_SCRIPT)
+    backup(argv.data, DEST_SCRIPT)
   } catch (e) {
     if (!e.toString().includes('ENOENT')) {
       // Some other error

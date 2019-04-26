@@ -1,5 +1,5 @@
 const { DEST_SCRIPT } = require('./consts')
 const { revert } = require('../../../utils/scripts/backup')
-const getArg = require('../../../utils/scripts/args')
+const argv = require('yargs').argv
 
-revert(getArg('user-data'), 'ipfs', DEST_SCRIPT)
+revert(argv.data, 'ipfs', DEST_SCRIPT)
