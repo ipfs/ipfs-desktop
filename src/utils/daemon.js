@@ -24,7 +24,7 @@ async function cleanup (addr, path) {
 
   if (!await fs.pathExists(join(path, 'config'))) {
     cannotConnectDialog(addr)
-    return
+    throw new Error('cannot tonnect to api')
   }
 
   logger.info(`[daemon] cleanup: ipfs repo fsck ${path}`)
@@ -39,7 +39,7 @@ async function cleanup (addr, path) {
     })
     logger.info('[daemon] cleanup: completed')
   } catch (e) {
-    logger.error('[daemon] %v', e)
+    logger.error('[daemon] ', e)
   }
 }
 

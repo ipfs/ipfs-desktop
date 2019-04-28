@@ -25,11 +25,11 @@ const createWindow = () => {
   })
 
   window.webContents.on('crashed', event => {
-    logger.error('[web ui] crashed: %v', event)
+    logger.error('[web ui] crashed: ', event)
   })
 
   window.webContents.on('unresponsive', event => {
-    logger.warn('[web ui] unresponsive: %v', event)
+    logger.warn('[web ui] unresponsive: ', event)
   })
 
   window.on('resize', () => {

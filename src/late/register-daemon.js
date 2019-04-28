@@ -61,7 +61,7 @@ export default async function (ctx) {
       logger.info('[ipfsd] daemon started')
       updateStatus(STATUS.STARTING_FINISHED)
     } catch (err) {
-      logger.error('[ipfsd] %v', err)
+      logger.error('[ipfsd]', err)
       updateStatus(STATUS.STARTING_FAILED)
     }
   }
@@ -88,7 +88,7 @@ export default async function (ctx) {
       // user wait, and taking longer prevents the update mechanism from working.
       ipfsdObj.stop(180, err => {
         if (err) {
-          logger.error('[ipfsd] %v', err)
+          logger.error('[ipfsd] ', err)
           updateStatus(STATUS.STOPPING_FAILED)
           return resolve(err)
         }
