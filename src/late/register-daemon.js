@@ -14,7 +14,6 @@ export const STATUS = {
 }
 
 export default async function (ctx) {
-  let config = store.get('ipfsConfig')
   let ipfsd = null
   let status = null
 
@@ -44,6 +43,7 @@ export default async function (ctx) {
       return
     }
 
+    let config = store.get('ipfsConfig')
     logger.info('[ipfsd] starting daemon')
     updateStatus(STATUS.STARTING_STARTED)
 
