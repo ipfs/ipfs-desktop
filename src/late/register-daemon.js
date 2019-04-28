@@ -2,6 +2,7 @@ import { store, createDaemon, logger } from '../utils'
 import { app, ipcMain } from 'electron'
 import fs from 'fs-extra'
 import { join } from 'path'
+import { ipfsNotRunningDialog } from '../dialogs'
 
 export const STATUS = {
   STARTING_STARTED: 1,
@@ -26,7 +27,17 @@ export default async function (ctx) {
     ipcMain.emit('ipfsd', status)
   })
 
-  ctx.getIpfsd = () => ipfsd
+  ctx.getIpfsd = async (optional = false) => {
+    if (optional) {
+      return ipfsd
+    }
+
+    if (!ipfsd) {
+      await ipfsNotRunningDialog()
+    }
+
+    return ipfsd
+  }
 
   const startIpfs = async () => {
     if (ipfsd) {
@@ -50,7 +61,7 @@ export default async function (ctx) {
       logger.info('[ipfsd] daemon started')
       updateStatus(STATUS.STARTING_FINISHED)
     } catch (err) {
-      logger.error('[ipfsd] %v', err)
+      logger.error('[ipfsd]', err)
       updateStatus(STATUS.STARTING_FAILED)
     }
   }
@@ -77,7 +88,7 @@ export default async function (ctx) {
       // user wait, and taking longer prevents the update mechanism from working.
       ipfsdObj.stop(180, err => {
         if (err) {
-          logger.error('[ipfsd] %v', err)
+          logger.error('[ipfsd] ', err)
           updateStatus(STATUS.STOPPING_FAILED)
           return resolve(err)
         }

@@ -35,13 +35,6 @@ export default async function ({ getIpfsd, launchWebUI }, file) {
   const ipfsd = await getIpfsd()
 
   if (!ipfsd) {
-    logger.info('[add to ipfs] daemon is not running')
-
-    notify({
-      title: i18n.t('ipfsNotRunning'),
-      body: i18n.t('desktopIsStartedButDaemonOffline')
-    })
-
     return
   }
 
