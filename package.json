@@ -73,7 +73,6 @@
     "electron-serve": "^0.2.0",
     "electron-store": "^3.2.0",
     "electron-updater": "^4.0.6",
-    "filesize": "^4.1.2",
     "fs-extra": "^7.0.1",
     "go-ipfs-dep": "0.4.20",
     "i18next": "^15.1.0",
