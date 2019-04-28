@@ -7,8 +7,7 @@ import { execFile } from 'child_process'
 import { createToggler } from '../utils'
 import { logger, store } from '../../utils'
 import { ipcMain, app, dialog } from 'electron'
-import showDialog from '../../dialogs/dialog'
-import { recoverableErrorDialog } from '../../dialogs/errors'
+import { showDialog, recoverableErrorDialog } from '../../dialogs'
 
 const SETTINGS_OPTION = 'ipfsOnPath'
 

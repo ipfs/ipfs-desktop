@@ -4,12 +4,12 @@ import i18n from 'i18next'
 import fs from 'fs-extra'
 import { join } from 'path'
 import { app } from 'electron'
-import dialog from '../dialogs/dialog'
+import { showDialog } from '../dialogs'
 import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 
 function cannotConnectDialog (addr) {
-  dialog({
+  showDialog({
     title: i18n.t('cannotConnectToApiDialog.title'),
     message: i18n.t('cannotConnectToApiDialog.message', { addr }),
     type: 'error',

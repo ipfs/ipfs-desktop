@@ -2,7 +2,7 @@ import { app, dialog } from 'electron'
 import { logger } from './utils'
 import earlySetup from './early'
 import lateSetup from './late'
-import { criticalErrorDialog } from './dialogs/dialog'
+import { criticalErrorDialog } from './dialogs'
 
 // Hide Dock
 if (app.dock) app.dock.hide()

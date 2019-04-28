@@ -29,16 +29,16 @@ export function criticalErrorDialog (e) {
     message: i18n.t('ipfsDesktopHasShutdownDialog.message'),
     type: 'error',
     buttons: [
+      i18n.t('restartIpfsDesktop'),
       i18n.t('close'),
-      i18n.t('reportTheError'),
-      i18n.t('restartIpfsDesktop')
+      i18n.t('reportTheError')
     ]
   })
 
-  if (option === 1) {
-    shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`)
-  } else if (option === 2) {
+  if (option === 0) {
     app.relaunch()
+  } else if (option === 2) {
+    shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`)
   }
 
   app.exit(1)

@@ -2,7 +2,7 @@ import { store, createDaemon, logger } from '../utils'
 import { app, ipcMain } from 'electron'
 import fs from 'fs-extra'
 import { join } from 'path'
-import ipfsNotRunning from '../dialogs/ipfs-not-running'
+import { ipfsNotRunningDialog } from '../dialogs'
 
 export const STATUS = {
   STARTING_STARTED: 1,
@@ -33,7 +33,7 @@ export default async function (ctx) {
     }
 
     if (!ipfsd) {
-      await ipfsNotRunning()
+      await ipfsNotRunningDialog()
     }
 
     return ipfsd
