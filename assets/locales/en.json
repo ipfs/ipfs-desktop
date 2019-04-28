@@ -46,6 +46,8 @@
   "yes": "Yes",
   "no": "No",
   "close": "Close",
+  "ok": "OK",
+  "cancel": "Cancel",
   "reportTheError": "Report the error",
   "openLogs": "Open logs",
   "anErrorHasOccurred": "An error has occurred",
@@ -55,5 +57,10 @@
   "ipfsCommandLineToolsAlreadyExists": "IPFS Desktop detected you already have IPFS CLI installed. We can replace the existing ipfs command installed at /usr/local/bin/ipfs, and update it when new versions are available. Do you agree?",
   "ipfsCommandLineToolsNotExists": "IPFS Desktop can keep the IPFS command-line interface (CLI) up to date. It will be installed at /usr/local/bin/ipfs. Do you agree?",
   "polkitNotFound": "IPFS can't be added to /usr/local/bin/ without polkit agent.",
-  "noPermission": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+  "noPermission": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission.",
+
+  "ipfsNotRunningDialog": {
+    "title": "IPFS is not running",
+    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+  }
 }

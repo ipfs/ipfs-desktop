@@ -13,7 +13,7 @@ const createWindow = () => {
     show: false,
     autoHideMenuBar: true,
     titleBarStyle: 'hiddenInset',
-    fullscreenWindowTitle: 'true',
+    fullscreenWindowTitle: true,
     width: store.get('window.width', dimensions.width < 1440 ? dimensions.width : 1440),
     height: store.get('window.height', dimensions.height < 900 ? dimensions.height : 900),
     webPreferences: {
@@ -65,8 +65,8 @@ export default async function (ctx) {
     }
   }
 
-  ipcMain.on('ipfsd', () => {
-    const ipfsd = ctx.getIpfsd()
+  ipcMain.on('ipfsd', async () => {
+    const ipfsd = await ctx.getIpfsd(true)
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       apiAddress = ipfsd.apiAddr
