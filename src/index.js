@@ -1,7 +1,8 @@
 import { app, dialog } from 'electron'
-import { showErrorMessage, logger } from './utils'
+import { logger } from './utils'
 import earlySetup from './early'
 import lateSetup from './late'
+import { criticalErrorDialog } from './dialogs/dialog'
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -22,7 +23,7 @@ app.on('will-finish-launching', () => {
 
 function handleError (e) {
   logger.error(e)
-  showErrorMessage(e)
+  criticalErrorDialog(e)
 }
 
 process.on('uncaughtException', handleError)

@@ -5,8 +5,10 @@ import sudo from 'sudo-prompt'
 import which from 'which'
 import { execFile } from 'child_process'
 import { createToggler } from '../utils'
-import { logger, store, showRecoverableError } from '../../utils'
+import { logger, store } from '../../utils'
 import { ipcMain, app, dialog } from 'electron'
+import showDialog from '../../dialogs/dialog'
+import { recoverableErrorDialog } from '../../dialogs/errors'
 
 const SETTINGS_OPTION = 'ipfsOnPath'
 
@@ -42,20 +44,19 @@ function firstTime () {
 
   const suffix = isWindows ? 'Windows' : ipfsExists ? 'AlreadyExists' : 'NotExists'
 
-  const option = dialog.showMessageBox({
+  const option = showDialog({
     type: 'info',
-    message: i18n.t('ipfsCommandLineTools'),
-    detail: i18n.t('ipfsCommandLineTools' + suffix),
+    title: i18n.t('cmdToolsDialog.title'),
+    message: i18n.t('cmdToolsDialog.message' + suffix),
     buttons: [
-      i18n.t('no'),
-      i18n.t('yes')
-    ],
-    cancelId: 0
+      i18n.t('yes'),
+      i18n.t('no')
+    ]
   })
 
   if (app.dock) app.dock.hide()
 
-  if (option === 1) {
+  if (option === 0) {
     // Trigger the toggler.
     ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
   } else {
@@ -72,7 +73,7 @@ async function runWindows (script) {
     ], {}, err => {
       if (err) {
         logger.error(`[ipfs on path] ${err.toString()}`)
-        showRecoverableError(err)
+        recoverableErrorDialog(err)
         return resolve(false)
       }
 
@@ -107,11 +108,11 @@ async function run (script) {
     logger.error(`[ipfs on path] error: ${str}`)
 
     if (str.includes('No polkit authentication agent found')) {
-      dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('polkitNotFound'))
+      dialog.showErrorBox(i18n.t('polkitDialog.title'), i18n.t('polkitDialog.message'))
     } else if (str.includes('User did not grant permission')) {
-      dialog.showErrorBox(i18n.t('anErrorHasOccurred'), i18n.t('noPermission'))
+      dialog.showErrorBox(i18n.t('noPermissionDialog.title'), i18n.t('noPermissionDialog.message'))
     } else {
-      showRecoverableError(err)
+      recoverableErrorDialog(err)
     }
 
     return false
