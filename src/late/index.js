@@ -1,5 +1,4 @@
 import i18n from './i18n'
-import languageSelector from './language-selector'
 import registerDaemon from './register-daemon'
 import registerWebUI from './webui'
 import openExternal from './open-external'
@@ -20,7 +19,6 @@ export default async function (ctx) {
   await registerWebUI(ctx) // ctx.webui, ctx.launchWebUI
   await tray(ctx) // ctx.tray
   await registerDaemon(ctx) // ctx.getIpfsd
-  await languageSelector(ctx)
   await addToIpfs(ctx)
   await autoLaunch(ctx)
   await downloadHash(ctx)

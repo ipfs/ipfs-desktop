@@ -1,4 +1,5 @@
 import { join } from 'path'
+import { ipcMain } from 'electron'
 import i18n from 'i18next'
 import ICU from 'i18next-icu'
 import Backend from 'i18next-node-fs-backend'
@@ -32,4 +33,15 @@ export default async function () {
         loadPath: join(__dirname, '../../assets/locales/{{lng}}.json')
       }
     })
+
+  ipcMain.on('updateLanguage', async (_, lang) => {
+    if (lang === store.get('language')) {
+      return
+    }
+
+    store.set('language', lang)
+
+    await i18n.changeLanguage(lang)
+    ipcMain.emit('languageUpdated', lang)
+  })
 }
