@@ -1,18 +1,30 @@
 import IPFSFactory from 'ipfsd-ctl'
 import logger from './logger'
+import i18n from 'i18next'
 import fs from 'fs-extra'
 import { join } from 'path'
 import { app } from 'electron'
-import { cannotConnectToAPI } from './errors'
+import { showDialog } from '../dialogs'
 import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
+
+function cannotConnectDialog (addr) {
+  showDialog({
+    title: i18n.t('cannotConnectToApiDialog.title'),
+    message: i18n.t('cannotConnectToApiDialog.message', { addr }),
+    type: 'error',
+    buttons: [
+      i18n.t('close')
+    ]
+  })
+}
 
 async function cleanup (addr, path) {
   logger.info(`[daemon] cleanup: started`)
 
   if (!await fs.pathExists(join(path, 'config'))) {
-    cannotConnectToAPI(addr)
-    return
+    cannotConnectDialog(addr)
+    throw new Error('cannot tonnect to api')
   }
 
   logger.info(`[daemon] cleanup: ipfs repo fsck ${path}`)
@@ -27,7 +39,7 @@ async function cleanup (addr, path) {
     })
     logger.info('[daemon] cleanup: completed')
   } catch (e) {
-    logger.error('[daemon] %v', e)
+    logger.error('[daemon] ', e)
   }
 }
 

@@ -3,14 +3,11 @@ appId: io.ipfs.desktop
 directories:
   buildResources: assets/build
 
-extraResources:
-  - from: "assets/bin"
-    to: "bin"
-    filter:
-      - "**/*"
+asarUnpack: 'out/**/scripts/**/*'
 
 mac:
   category: public.app-category.utilities
+  darkModeSupport: true
 
 dmg:
   iconSize: 160
@@ -34,26 +31,20 @@ nsis:
   perMachine: false
 
 linux:
+  artifactName: ${name}-${version}-${os}-${arch}.${ext}
+  executableName: ipfs-desktop
   category: Utility
+  synopsis: A desktop client for IPFS
   maintainer: henrique@protocol.ai
   target:
+    - tar.xz
     - AppImage
     - deb
     - rpm
     - snap
 
-rpm:
-  fpm:
-    - "--after-install=assets/build/after-install.sh"
-    - "--after-remove=assets/build/after-remove.sh"
-
-deb:
-  afterInstall: assets/build/after-install.sh
-  afterRemove: assets/build/after-remove.sh
-
 snap:
   confinement: strict
-  hooks: assets/build/snap-hooks
   plugs:
     - default
     - network

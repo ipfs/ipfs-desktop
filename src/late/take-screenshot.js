@@ -44,7 +44,7 @@ function handleScreenshot (ctx) {
   let { getIpfsd, launchWebUI } = ctx
 
   return async (_, output) => {
-    const ipfsd = getIpfsd()
+    const ipfsd = await getIpfsd()
 
     if (!ipfsd) {
       return

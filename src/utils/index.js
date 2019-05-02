@@ -1,5 +1,4 @@
 import createDaemon from './daemon'
-import { showErrorMessage } from './errors'
 import store from './store'
 import logger from './logger'
 import { notify, notifyError } from './notify'
@@ -12,7 +11,6 @@ export {
   logger,
   notify,
   notifyError,
-  showErrorMessage,
   quitAndInstall,
   addToIpfs
 }

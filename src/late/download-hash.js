@@ -46,7 +46,7 @@ function handler (ctx) {
 
   return async () => {
     const text = clipboard.readText().trim()
-    const ipfsd = getIpfsd()
+    const ipfsd = await getIpfsd()
 
     if (!ipfsd || !text) {
       return
