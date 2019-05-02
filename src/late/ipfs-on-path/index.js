@@ -39,8 +39,6 @@ function firstTime () {
     return
   }
 
-  if (app.dock) app.dock.show()
-
   const suffix = isWindows ? 'Windows' : ipfsExists ? 'AlreadyExists' : 'NotExists'
 
   const option = showDialog({
@@ -52,8 +50,6 @@ function firstTime () {
       i18n.t('no')
     ]
   })
-
-  if (app.dock) app.dock.hide()
 
   if (option === 0) {
     // Trigger the toggler.

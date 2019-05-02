@@ -4,6 +4,7 @@ import logger from './logger'
 import { notify, notifyError } from './notify'
 import quitAndInstall from './quit-and-install'
 import addToIpfs from './add-to-ipfs'
+import execOrSudo from './exec-or-sudo'
 
 export {
   createDaemon,
@@ -12,5 +13,6 @@ export {
   notify,
   notifyError,
   quitAndInstall,
+  execOrSudo,
   addToIpfs
 }
