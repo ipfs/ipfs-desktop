@@ -3,8 +3,8 @@ import i18n from 'i18next'
 import sudo from 'sudo-prompt'
 import { dialog, app } from 'electron'
 import { execFile } from 'child_process'
-import { logger } from '../../utils'
-import { recoverableErrorDialog } from '../../dialogs'
+import logger from './logger'
+import { recoverableErrorDialog } from '../dialogs'
 
 export default async function (script, scope) {
   const dataArg = `--data="${app.getPath('userData')}"`
