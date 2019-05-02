@@ -1,6 +1,6 @@
 import i18n from 'i18next'
 import which from 'which'
-import { join } from  'path'
+import { join } from 'path'
 import { ipcMain } from 'electron'
 import { store, logger, execOrSudo } from '../../utils'
 import { createToggler } from '../utils'
