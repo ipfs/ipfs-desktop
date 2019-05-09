@@ -1,5 +1,4 @@
 import i18n from './i18n'
-import npmOnIpfs from './npm-on-ipfs'
 import registerDaemon from './register-daemon'
 import registerWebUI from './webui'
 import openExternal from './open-external'
@@ -24,6 +23,5 @@ export default async function (ctx) {
   await autoLaunch(ctx)
   await downloadHash(ctx)
   await takeScreenshot(ctx)
-  await npmOnIpfs(ctx)
   await ipfsOnPath(ctx)
 }
