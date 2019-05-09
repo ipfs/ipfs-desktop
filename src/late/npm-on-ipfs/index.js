@@ -1,8 +1,7 @@
 import i18n from 'i18next'
 import which from 'which'
-import { join } from 'path'
 import { ipcMain } from 'electron'
-import { store, logger, execOrSudo } from '../../utils'
+import { store, logger } from '../../utils'
 import { createToggler } from '../utils'
 import { showDialog } from '../../dialogs'
 import pkg from './package'
@@ -12,8 +11,8 @@ const SETTINGS_OPTION = 'npmOnIpfs'
 export default function (ctx) {
   createToggler(ctx, 'npmOnIpfs', (value, oldValue) => {
     if (value === oldValue) return
-    if (value === true) return run('install')
-    return run('uninstall')
+    if (value === true) return pkg.install()
+    return true // TODO: uninstall package
   })
 
   runner()
@@ -55,13 +54,4 @@ function runner () {
   } else {
     store.set(SETTINGS_OPTION, false)
   }
-}
-
-async function run (script) {
-  if (script === 'install' && !pkg.install()) {
-    return false
-  }
-
-  const path = join(__dirname, `./scripts/${script}.js`)
-  return execOrSudo(path, 'npm on ipfs')
 }
