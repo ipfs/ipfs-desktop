@@ -46,14 +46,40 @@
   "yes": "Yes",
   "no": "No",
   "close": "Schließen",
+  "ok": "OK",
+  "cancel": "Abbrechen",
   "reportTheError": "Report the error",
+  "restartIpfsDesktop": "Restart IPFS Desktop",
   "openLogs": "Open logs",
   "anErrorHasOccurred": "An error has occurred",
-  "anUnexpectedErrorHasOccurred": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers.",
-  "ipfsCommandLineTools": "IPFS command line tools",
-  "ipfsCommandLineToolsWindows": "We detected you already have the IPFS command line tools on your PATH. IPFS Desktop can pre-prepend its tools to the PATH and keep them up to date. Do you agree?",
-  "ipfsCommandLineToolsAlreadyExists": "IPFS Desktop detected you already have IPFS CLI installed. We can replace the existing ipfs command installed at /usr/local/bin/ipfs, and update it when new versions are available. Do you agree?",
-  "ipfsCommandLineToolsNotExists": "IPFS Desktop can keep the IPFS command-line interface (CLI) up to date. It will be installed at /usr/local/bin/ipfs. Do you agree?",
-  "polkitNotFound": "IPFS can't be added to /usr/local/bin/ without polkit agent.",
-  "noPermission": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+  "polkitDialog": {
+    "title": "Polkit not found",
+    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+  },
+  "noPermissionDialog": {
+    "title": "No permission",
+    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+  },
+  "ipfsNotRunningDialog": {
+    "title": "IPFS is not running",
+    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+  },
+  "recoverableErrorDialog": {
+    "title": "An error has occurred",
+    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+  },
+  "cannotConnectToApiDialog": {
+    "title": "Cannot connect to API",
+    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+  },
+  "ipfsDesktopHasShutdownDialog": {
+    "title": "IPFS Desktop has shutdown",
+    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+  },
+  "cmdToolsDialog": {
+    "title": "IPFS command line tools",
+    "messageWindows": "You already have the IPFS command line tools on your PATH. IPFS Desktop can pre-prepend its tools to the PATH and keep them up to date. Do you agree?",
+    "messageAlreadyExists": "IPFS Desktop detected you already have IPFS CLI installed. We can replace the existing ipfs command installed at /usr/local/bin/ipfs, and update it when new versions are available. Do you agree?",
+    "messageNotExists": "IPFS Desktop can keep the IPFS command-line interface (CLI) up to date. It will be installed at /usr/local/bin/ipfs. Do you agree?"
+  }
 }
