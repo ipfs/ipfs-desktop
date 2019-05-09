@@ -1,12 +1,11 @@
 import os from 'os'
 import { join } from 'path'
 import i18n from 'i18next'
-import sudo from 'sudo-prompt'
 import which from 'which'
 import { execFile } from 'child_process'
 import { createToggler } from '../utils'
-import { logger, store } from '../../utils'
-import { ipcMain, app, dialog } from 'electron'
+import { logger, store, execOrSudo } from '../../utils'
+import { ipcMain } from 'electron'
 import { showDialog, recoverableErrorDialog } from '../../dialogs'
 
 const SETTINGS_OPTION = 'ipfsOnPath'
@@ -39,8 +38,6 @@ function firstTime () {
     return
   }
 
-  if (app.dock) app.dock.show()
-
   const suffix = isWindows ? 'Windows' : ipfsExists ? 'AlreadyExists' : 'NotExists'
 
   const option = showDialog({
@@ -52,8 +49,6 @@ function firstTime () {
       i18n.t('no')
     ]
   })
-
-  if (app.dock) app.dock.hide()
 
   if (option === 0) {
     // Trigger the toggler.
@@ -87,50 +82,6 @@ async function run (script) {
     return runWindows(script)
   }
 
-  const scriptPath = join(__dirname, `./scripts/${script}.js`)
-  const dataArg = `--data="${app.getPath('userData')}"`
-
-  const getResult = (err, stdout, stderr) => {
-    if (stdout) {
-      logger.info(`[ipfs on path] stdout: ${stdout.toString().trim()}`)
-    }
-
-    if (stderr) {
-      logger.info(`[ipfs on path] stderr: ${stderr.toString().trim()}`)
-    }
-
-    if (!err) {
-      return true
-    }
-
-    const str = err.toString()
-    logger.error(`[ipfs on path] error: ${str}`)
-
-    if (str.includes('No polkit authentication agent found')) {
-      dialog.showErrorBox(i18n.t('polkitDialog.title'), i18n.t('polkitDialog.message'))
-    } else if (str.includes('User did not grant permission')) {
-      dialog.showErrorBox(i18n.t('noPermissionDialog.title'), i18n.t('noPermissionDialog.message'))
-    } else {
-      recoverableErrorDialog(err)
-    }
-
-    return false
-  }
-
-  return new Promise(resolve => {
-    if (os.platform() === 'darwin') {
-      return execFile(process.execPath, [scriptPath, dataArg], {
-        env: {
-          ELECTRON_RUN_AS_NODE: 1
-        }
-      }, (err, stdout, stderr) => {
-        resolve(getResult(err, stdout, stderr))
-      })
-    }
-
-    const command = `env ELECTRON_RUN_AS_NODE=1 "${process.execPath}" "${scriptPath}" ${dataArg}`
-    sudo.exec(command, { name: 'IPFS Desktop' }, (err, stdout, stderr) => {
-      resolve(getResult(err, stdout, stderr))
-    })
-  })
+  const path = join(__dirname, `./scripts/${script}.js`)
+  return execOrSudo(path, 'ipfs on path')
 }
