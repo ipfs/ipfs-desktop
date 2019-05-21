@@ -58,7 +58,7 @@ export default async function (ctx) {
         store.set('ipfsConfig', config)
       }
 
-      logger.info(`[ipfsd] daemon started - repoPath: ${ipfsd.repoPath}`, ipfsd)
+      logger.info('[ipfsd] daemon started')
       updateStatus(STATUS.STARTING_FINISHED)
     } catch (err) {
       logger.error('[ipfsd]', err)

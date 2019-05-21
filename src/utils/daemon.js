@@ -47,7 +47,7 @@ async function cleanup (addr, path) {
 function spawn ({ type, path, keysize }) {
   return new Promise((resolve, reject) => {
     const factory = IPFSFactory.create({ type: type })
-    logger.info(`[daemon] spawn repoPath: ${path}, IPFS_PATH: ${process.env.IPFS_PATH}`)
+
     factory.spawn({
       disposable: false,
       defaultAddrs: true,
@@ -55,7 +55,6 @@ function spawn ({ type, path, keysize }) {
     }, (e, ipfsd) => {
       if (e) return reject(e)
       if (ipfsd.initialized) {
-        logger.info(`[daemon] ipfs repo ready ${ipfsd.repoPath}`)
         checkCorsConfig(ipfsd)
         return resolve(ipfsd)
       }
@@ -65,7 +64,7 @@ function spawn ({ type, path, keysize }) {
         keysize: keysize
       }, e => {
         if (e) return reject(e)
-        logger.info(`[daemon] ipfs repo initialised at ${ipfsd}`)
+
         try {
           // Set default mininum and maximum of connections to mantain
           // by default. This only applies to repositories created by
@@ -116,8 +115,6 @@ function checkCorsConfig (ipfsd) {
         config.API.HTTPHeaders['Access-Control-Allow-Methods'] = [] // go-ipfs default
         writeConfigFile(ipfsd, config)
         store.set('updatedCorsConfig', true)
-      } else {
-        console.warn('Your IPFS config has CORS disabled. Any website you visit will be able to access your API')
       }
     }
   }
