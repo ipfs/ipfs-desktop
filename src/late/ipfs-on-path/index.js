@@ -40,7 +40,8 @@ function firstTime () {
 
   const suffix = isWindows ? 'Windows' : ipfsExists ? 'AlreadyExists' : 'NotExists'
 
-  const option = showDialog({
+  // TODO: how to test modals?
+  const option = process.env.NODE_ENV === 'test' ? 0 : showDialog({
     type: 'info',
     title: i18n.t('cmdToolsDialog.title'),
     message: i18n.t('cmdToolsDialog.message' + suffix),

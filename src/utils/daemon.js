@@ -7,6 +7,7 @@ import { app } from 'electron'
 import { showDialog } from '../dialogs'
 import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
+import store from './store'
 
 function cannotConnectDialog (addr) {
   showDialog({
@@ -43,10 +44,10 @@ async function cleanup (addr, path) {
   }
 }
 
-async function spawn ({ type, path, keysize }) {
-  const factory = IPFSFactory.create({ type: type })
-
+function spawn ({ type, path, keysize }) {
   return new Promise((resolve, reject) => {
+    const factory = IPFSFactory.create({ type: type })
+    logger.info(`[daemon] spawn repoPath: ${path}, IPFS_PATH: ${process.env.IPFS_PATH}`)
     factory.spawn({
       disposable: false,
       defaultAddrs: true,
@@ -54,6 +55,8 @@ async function spawn ({ type, path, keysize }) {
     }, (e, ipfsd) => {
       if (e) return reject(e)
       if (ipfsd.initialized) {
+        logger.info(`[daemon] ipfs repo ready ${ipfsd.repoPath}`)
+        checkCorsConfig(ipfsd)
         return resolve(ipfsd)
       }
 
@@ -62,13 +65,14 @@ async function spawn ({ type, path, keysize }) {
         keysize: keysize
       }, e => {
         if (e) return reject(e)
-
+        logger.info(`[daemon] ipfs repo initialised at ${ipfsd}`)
         try {
           // Set default mininum and maximum of connections to mantain
           // by default. This only applies to repositories created by
           // IPFS Desktop. Existing ones shall remain intact.
-          const configFile = join(ipfsd.repoPath, 'config')
-          let config = fs.readJsonSync(configFile)
+          let config = readConfigFile(ipfsd)
+          // Ensure strict CORS checking. See: https://github.com/ipfs/js-ipfsd-ctl/issues/333
+          config.API = { HTTPHeaders: {} }
           config.Swarm = config.Swarm || {}
           config.Swarm.DisableNatPortMap = false
           config.Swarm.ConnMgr = config.Swarm.ConnMgr || {}
@@ -78,7 +82,7 @@ async function spawn ({ type, path, keysize }) {
           config.Discovery = config.Discovery || {}
           config.Discovery.MDNS = config.Discovery.MDNS || {}
           config.Discovery.MDNS.enabled = true
-          fs.writeJsonSync(configFile, config)
+          writeConfigFile(ipfsd, config)
         } catch (e) {
           return reject(e)
         }
@@ -87,6 +91,36 @@ async function spawn ({ type, path, keysize }) {
       })
     })
   })
+}
+
+function configPath (ipfsd) {
+  return join(ipfsd.repoPath, 'config')
+}
+
+function readConfigFile (ipfsd) {
+  return fs.readJsonSync(configPath(ipfsd))
+}
+
+function writeConfigFile (ipfsd, config) {
+  fs.writeJsonSync(configPath(ipfsd), config, { spaces: 2 })
+}
+
+// Check for a "API.HTTPHeaders.Access-Control-Allow-Origin": ["*"]
+function checkCorsConfig (ipfsd) {
+  const updatedCorsConfig = store.get('updatedCorsConfig')
+  let config = readConfigFile(ipfsd)
+  if (config.API && config.API.HTTPHeaders && config.API.HTTPHeaders['Access-Control-Allow-Methods']) {
+    let apiHeaders = config.API.HTTPHeaders['Access-Control-Allow-Methods']
+    if (Array.isArray(apiHeaders) && apiHeaders.includes('*')) {
+      if (!updatedCorsConfig && apiHeaders.length === 1) {
+        config.API.HTTPHeaders['Access-Control-Allow-Methods'] = [] // go-ipfs default
+        writeConfigFile(ipfsd, config)
+        store.set('updatedCorsConfig', true)
+      } else {
+        console.warn('Your IPFS config has CORS disabled. Any website you visit will be able to access your API')
+      }
+    }
+  }
 }
 
 async function start (ipfsd, { flags }) {

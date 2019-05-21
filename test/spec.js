@@ -5,70 +5,91 @@ const electronPath = require('electron') // Require Electron from the binaries i
 const path = require('path')
 const fs = require('fs-extra')
 const tmp = require('tmp')
+const delay = require('delay')
+const chai = require('chai')
+const dirtyChai = require('dirty-chai')
+const expect = chai.expect
+chai.use(dirtyChai)
 
 const { makeRepository } = require('./utils/ipfsd')
 
-async function startApp (opts) {
-  opts = opts || {}
-  opts.env = opts.env || {}
+// To print the app logs, add the following to your test:
+//
+// const logs = await app.client.getMainProcessLogs()
+// logs.forEach(line => console.log(line))
+//
 
-  this.home = tmp.dirSync({ unsafeCleanup: true })
-  this.app = new Application({
+async function startApp ({
+  home = createTmpDir(),
+  ipfsPath = path.join(home, '.ipfs')
+}) {
+  const app = new Application({
     path: electronPath,
     args: ['-r', path.join(__dirname, 'utils/include.js'), path.join(__dirname, '../src/index.js')],
-    ...opts,
     env: {
-      HOME: this.home.name
+      NODE_ENV: 'test',
+      HOME: home,
+      IPFS_PATH: ipfsPath
     }
   })
+  await app.start()
+  return { app, ipfsPath, home }
+}
 
-  await this.app.start()
+function createTmpDir () {
+  return tmp.dirSync({ unsafeCleanup: true }).name
 }
 
 describe('Application launch', function () {
   this.timeout(60000)
 
-  it('starts with no initial repository', async function () {
-    await startApp.bind(this)()
+  let stoppables = []
+
+  afterEach(async function () {
+    try {
+      await Promise.all(
+        stoppables
+          .filter(item => !!item.stop)
+          .map(item => item.stop())
+      )
+    } catch (err) {
+      console.error(err)
+    }
+    stoppables = []
+  })
+
+  it('creates a repository on startup', async function () {
+    const { app, home } = await startApp({})
+    stoppables.push(app)
+
+    const configPath = path.join(home, '.ipfs', 'config')
+    expect(app.isRunning()).to.be.true()
+
+    // TODO: need a signal from the app to know when ipfs is ready.
+    // SEE: can't listent for IPC events in spectron https://github.com/electron/spectron/issues/91
+    await delay(10000)
+    console.log(`checking ipfs config ${configPath}`)
+    const config = fs.readJsonSync(configPath)
+    expect(config).to.exist()
+    // ensure strict CORS checking is enabled
+    expect(config.API.HTTPHeaders).to.deep.equal({})
+    expect(config.Discovery.MDNS.Enabled).to.be.true()
   })
 
   it('starts with initial repository', async function () {
-    const { dir, ipfsd } = await makeRepository()
-
-    await startApp.bind(this)({
-      env: {
-        IPFS_PATH: ipfsd.repoPath
-      }
-    })
-
-    this.dir = dir
-    this.ipfsd = ipfsd
+    const { ipfsd } = await makeRepository()
+    const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
+    stoppables.concat([app, ipfsd])
   })
 
   it(`starts with repository with 'api' file`, async function () {
-    const { dir, ipfsd } = await makeRepository()
+    const { ipfsd } = await makeRepository()
+    stoppables.push(ipfsd)
     const configPath = path.join(ipfsd.repoPath, 'config')
     const apiPath = path.join(ipfsd.repoPath, 'api')
     const config = fs.readJsonSync(configPath)
     fs.writeFile(apiPath, config.Addresses.API)
-
-    await startApp.bind(this)({
-      env: {
-        IPFS_PATH: ipfsd.repoPath
-      }
-    })
-
-    this.dir = dir
-    this.ipfsd = ipfsd
-  })
-
-  afterEach(async function () {
-    if (this.app && this.app.isRunning()) {
-      await this.app.stop()
-    }
-
-    if (this.ipfsd) {
-      await this.ipfsd.stop()
-    }
+    const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
+    stoppables.push(app)
   })
 })
