@@ -51,7 +51,9 @@ function spawn ({ type, path, keysize }) {
     factory.spawn({
       disposable: false,
       defaultAddrs: true,
-      repoPath: path
+      repoPath: path,
+      init: false,
+      start: false
     }, (e, ipfsd) => {
       if (e) return reject(e)
       if (ipfsd.initialized) {
@@ -108,11 +110,11 @@ function writeConfigFile (ipfsd, config) {
 function checkCorsConfig (ipfsd) {
   const updatedCorsConfig = store.get('updatedCorsConfig')
   let config = readConfigFile(ipfsd)
-  if (config.API && config.API.HTTPHeaders && config.API.HTTPHeaders['Access-Control-Allow-Methods']) {
-    let apiHeaders = config.API.HTTPHeaders['Access-Control-Allow-Methods']
+  if (config.API && config.API.HTTPHeaders && config.API.HTTPHeaders['Access-Control-Allow-Origin']) {
+    let apiHeaders = config.API.HTTPHeaders['Access-Control-Allow-Origin']
     if (Array.isArray(apiHeaders) && apiHeaders.includes('*')) {
       if (!updatedCorsConfig && apiHeaders.length === 1) {
-        config.API.HTTPHeaders['Access-Control-Allow-Methods'] = [] // go-ipfs default
+        config.API.HTTPHeaders = {} // go-ipfs default
         writeConfigFile(ipfsd, config)
         store.set('updatedCorsConfig', true)
       }

@@ -82,6 +82,21 @@ describe('Application launch', function () {
     stoppables.concat([app, ipfsd])
   })
 
+  it('fixes config for cors checking', async function () {
+    const { ipfsd } = await makeRepository()
+    const { repoPath } = ipfsd
+    await ipfsd.stop()
+    const configPath = path.join(repoPath, 'config')
+    const initConfig = fs.readJsonSync(configPath)
+    expect(initConfig.API.HTTPHeaders['Access-Control-Allow-Origin']).to.include('*')
+
+    const { app } = await startApp({ ipfsPath: repoPath })
+    delay(5000)
+    const config = fs.readJsonSync(configPath)
+    expect(config.API.HTTPHeaders).to.deep.equal({})
+    stoppables.push(app)
+  })
+
   it(`starts with repository with 'api' file`, async function () {
     const { ipfsd } = await makeRepository()
     stoppables.push(ipfsd)
