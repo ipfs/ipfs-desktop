@@ -42,25 +42,28 @@ function createTmpDir () {
 
 describe('Application launch', function () {
   this.timeout(60000)
-
-  let stoppables = []
-
   afterEach(async function () {
-    try {
-      await Promise.all(
-        stoppables
-          .filter(item => !!item.stop)
-          .map(item => item.stop())
-      )
-    } catch (err) {
-      console.error(err)
+    if (this.app && this.app.isRunning()) {
+      try {
+        await this.app.stop()
+      } catch (err) {
+        console.log(err)
+      }
+      this.app = null
     }
-    stoppables = []
+    if (this.ipfsd && this.ipfsd) {
+      try {
+        await this.ipfsd.stop()
+      } catch (err) {
+        console.log(err)
+      }
+      this.ipfsd = null
+    }
   })
 
   it('creates a repository on startup', async function () {
     const { app, home } = await startApp({})
-    stoppables.push(app)
+    this.app = app
 
     const configPath = path.join(home, '.ipfs', 'config')
     expect(app.isRunning()).to.be.true()
@@ -79,7 +82,8 @@ describe('Application launch', function () {
   it('starts with initial repository', async function () {
     const { ipfsd } = await makeRepository()
     const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
-    stoppables.concat([app, ipfsd])
+    this.app = app
+    this.ipfsd = ipfsd
   })
 
   it('fixes config for cors checking', async function () {
@@ -91,20 +95,21 @@ describe('Application launch', function () {
     expect(initConfig.API.HTTPHeaders['Access-Control-Allow-Origin']).to.include('*')
 
     const { app } = await startApp({ ipfsPath: repoPath })
+    this.app = app
     delay(5000)
     const config = fs.readJsonSync(configPath)
     expect(config.API.HTTPHeaders).to.deep.equal({})
-    stoppables.push(app)
   })
 
   it(`starts with repository with 'api' file`, async function () {
     const { ipfsd } = await makeRepository()
-    stoppables.push(ipfsd)
-    const configPath = path.join(ipfsd.repoPath, 'config')
-    const apiPath = path.join(ipfsd.repoPath, 'api')
+    const { repoPath } = ipfsd
+    await ipfsd.stop()
+    const configPath = path.join(repoPath, 'config')
+    const apiPath = path.join(repoPath, 'api')
     const config = fs.readJsonSync(configPath)
     fs.writeFile(apiPath, config.Addresses.API)
     const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
-    stoppables.push(app)
+    this.app = app
   })
 })
