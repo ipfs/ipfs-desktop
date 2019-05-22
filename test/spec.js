@@ -21,19 +21,16 @@ const { makeRepository } = require('./utils/ipfsd')
 
 async function startApp ({
   home = createTmpDir(),
-  ipfsPath
+  ipfsPath = path.join(home, '.ipfs')
 }) {
-  const env = {
-    NODE_ENV: 'test',
-    HOME: home
-  }
-  if (ipfsPath) {
-    env.IPFS_PATH = ipfsPath
-  }
   const app = new Application({
     path: electronPath,
     args: ['-r', path.join(__dirname, 'utils/include.js'), path.join(__dirname, '../src/index.js')],
-    env
+    env: {
+      NODE_ENV: 'test',
+      HOME: home,
+      IPFS_PATH: ipfsPath
+    }
   })
   await app.start()
   return { app, ipfsPath, home }
@@ -54,8 +51,7 @@ describe('Application launch', function () {
 
     // TODO: need a signal from the app to know when ipfs is ready.
     // SEE: can't listent for IPC events in spectron https://github.com/electron/spectron/issues/91
-    await delay(10000)
-    console.log(`checking ipfs config ${configPath}`)
+    await delay(5000)
     const config = fs.readJsonSync(configPath)
     expect(config).to.exist()
     // ensure strict CORS checking is enabled
@@ -104,6 +100,7 @@ describe('Application launch', function () {
     expect(app.isRunning()).to.be.true()
     await app.stop()
   })
+
   afterEach(async function () {
     await delay(3000)
   })
