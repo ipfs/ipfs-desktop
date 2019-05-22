@@ -42,24 +42,6 @@ function createTmpDir () {
 
 describe('Application launch', function () {
   this.timeout(60000)
-  afterEach(async function () {
-    if (this.app && this.app.isRunning()) {
-      try {
-        await this.app.stop()
-      } catch (err) {
-        console.log(err)
-      }
-      this.app = null
-    }
-    if (this.ipfsd && this.ipfsd) {
-      try {
-        await this.ipfsd.stop()
-      } catch (err) {
-        console.log(err)
-      }
-      this.ipfsd = null
-    }
-  })
 
   it('creates a repository on startup', async function () {
     const { app, home } = await startApp({})
@@ -111,5 +93,15 @@ describe('Application launch', function () {
     fs.writeFile(apiPath, config.Addresses.API)
     const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
     this.app = app
+  })
+
+  afterEach(async function () {
+    if (this.app && this.app.isRunning()) {
+      await this.app.stop()
+    }
+
+    if (this.ipfsd) {
+      await this.ipfsd.stop()
+    }
   })
 })
