@@ -21,16 +21,19 @@ const { makeRepository } = require('./utils/ipfsd')
 
 async function startApp ({
   home = createTmpDir(),
-  ipfsPath = path.join(home, '.ipfs')
+  ipfsPath
 }) {
+  const env = {
+    NODE_ENV: 'test',
+    HOME: home
+  }
+  if (ipfsPath) {
+    env.IPFS_PATH = ipfsPath
+  }
   const app = new Application({
     path: electronPath,
     args: ['-r', path.join(__dirname, 'utils/include.js'), path.join(__dirname, '../src/index.js')],
-    env: {
-      NODE_ENV: 'test',
-      HOME: home,
-      IPFS_PATH: ipfsPath
-    }
+    env
   })
   await app.start()
   return { app, ipfsPath, home }
