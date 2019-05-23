@@ -118,7 +118,15 @@ function checkCorsConfig (ipfsd) {
     // We've already checked so skip it.
     return
   }
-  let config = readConfigFile(ipfsd)
+  let config = null
+  try {
+    config = readConfigFile(ipfsd)
+  } catch (err) {
+    // This is a best effort check, dont blow up here, that should happen else where.
+    // TODO: gracefully handle config errors elsewhere!
+    logger.error(`[daemon] checkCorsConfig: error reading config file: ${err.message || err}`)
+    return
+  }
   if (config.API && config.API.HTTPHeaders && config.API.HTTPHeaders['Access-Control-Allow-Origin']) {
     const allowedOrigins = config.API.HTTPHeaders['Access-Control-Allow-Origin']
     const originsToRemove = ['*', 'webui://-']
