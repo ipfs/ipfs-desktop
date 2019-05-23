@@ -106,20 +106,32 @@ function writeConfigFile (ipfsd, config) {
   fs.writeJsonSync(configPath(ipfsd), config, { spaces: 2 })
 }
 
-// Check for a "API.HTTPHeaders.Access-Control-Allow-Origin": ["*"]
+// Check for * and webui://- in allowed origins on API headers.
+// THe wildcard was a ipfsd-ctl default, that we dont want, and webui://- was an
+// earlier experiement that should be cleared out.
+//
+// We remove them the first time we find them. If we find it again on subsequent
+// runs then we leave them in, under the assumption that you really want it.
+// TODO: show warning in UI when wildcard is in the allowed origins.
 function checkCorsConfig (ipfsd) {
-  const updatedCorsConfig = store.get('updatedCorsConfig')
+  if (store.get('checkedCorsConfig')) {
+    // We've already checked so skip it.
+    return
+  }
   let config = readConfigFile(ipfsd)
   if (config.API && config.API.HTTPHeaders && config.API.HTTPHeaders['Access-Control-Allow-Origin']) {
-    let apiHeaders = config.API.HTTPHeaders['Access-Control-Allow-Origin']
-    if (Array.isArray(apiHeaders) && apiHeaders.includes('*')) {
-      if (!updatedCorsConfig && apiHeaders.length === 1) {
-        config.API.HTTPHeaders = {} // go-ipfs default
+    const allowedOrigins = config.API.HTTPHeaders['Access-Control-Allow-Origin']
+    const originsToRemove = ['*', 'webui://-']
+    if (Array.isArray(allowedOrigins)) {
+      if (allowedOrigins.some(origin => originsToRemove.includes(origin))) {
+        const specificOrigins = allowedOrigins.filter(origin => !originsToRemove.includes(origin))
+        config.API.HTTPHeaders['Access-Control-Allow-Origin'] = specificOrigins
         writeConfigFile(ipfsd, config)
-        store.set('updatedCorsConfig', true)
+        store.set('updatedCorsConfig', Date.now())
       }
     }
   }
+  store.set('checkedCorsConfig', true)
 }
 
 async function start (ipfsd, { flags }) {

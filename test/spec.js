@@ -76,15 +76,48 @@ describe('Application launch', function () {
 
     // check config has cors disabled
     const configPath = path.join(repoPath, 'config')
+    let config = fs.readJsonSync(configPath)
+    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.include('*')
+
+    const { app } = await startApp({ ipfsPath: repoPath })
+    expect(app.isRunning()).to.be.true()
+    delay(5000)
+    config = fs.readJsonSync(configPath)
+    // ensure app has enabled cors checking
+    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.deep.equal([])
+    await app.stop()
+
+    // check it doesn't alter the config on second run.
+    // config.API.HTTPHeaders['Access-Control-Allow-Origin'] = ['*']
+    // fs.writeJsonSync(configPath, config, { spaces: 2 })
+    // await app.start()
+    // delay(5000)
+    // config = fs.readJsonSync(configPath)
+    // expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.include('*')
+    // await app.stop()
+  })
+
+  it('fixes config for cors checking where multiple allowed origins', async function () {
+    // create config
+    const { ipfsd } = await makeRepository()
+    const { repoPath } = ipfsd
+    await ipfsd.stop()
+
+    // check config has cors disabled
+    const configPath = path.join(repoPath, 'config')
     const initConfig = fs.readJsonSync(configPath)
-    expect(initConfig.API.HTTPHeaders['Access-Control-Allow-Origin']).to.include('*')
+    // update origins to include multiple entries, including wildcard.
+    const newOrigins = ['https://webui.ipfs.io', '*']
+    initConfig.API.HTTPHeaders['Access-Control-Allow-Origin'] = newOrigins
+    fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
 
     const { app } = await startApp({ ipfsPath: repoPath })
     expect(app.isRunning()).to.be.true()
     delay(5000)
     const config = fs.readJsonSync(configPath)
     // ensure app has enabled cors checking
-    expect(config.API.HTTPHeaders).to.deep.equal({})
+    const specificOrigins = newOrigins.filter(origin => origin !== '*')
+    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.deep.equal(specificOrigins)
     await app.stop()
   })
 
