@@ -25,12 +25,14 @@ export default async function (script, scope) {
     const str = err.toString()
     logger.error(`[${scope}] error: ${str}`)
 
-    if (str.includes('No polkit authentication agent found')) {
-      dialog.showErrorBox(i18n.t('polkitDialog.title'), i18n.t('polkitDialog.message'))
-    } else if (str.includes('User did not grant permission')) {
-      dialog.showErrorBox(i18n.t('noPermissionDialog.title'), i18n.t('noPermissionDialog.message'))
-    } else {
-      recoverableErrorDialog(err)
+    if (process.env.NODE_ENV !== 'test') {
+      if (str.includes('No polkit authentication agent found')) {
+        dialog.showErrorBox(i18n.t('polkitDialog.title'), i18n.t('polkitDialog.message'))
+      } else if (str.includes('User did not grant permission')) {
+        dialog.showErrorBox(i18n.t('noPermissionDialog.title'), i18n.t('noPermissionDialog.message'))
+      } else {
+        recoverableErrorDialog(err)
+      }
     }
 
     return false

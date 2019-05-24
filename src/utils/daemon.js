@@ -7,6 +7,7 @@ import { app } from 'electron'
 import { showDialog } from '../dialogs'
 import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
+import store from './store'
 
 function cannotConnectDialog (addr) {
   showDialog({
@@ -43,17 +44,20 @@ async function cleanup (addr, path) {
   }
 }
 
-async function spawn ({ type, path, keysize }) {
-  const factory = IPFSFactory.create({ type: type })
-
+function spawn ({ type, path, keysize }) {
   return new Promise((resolve, reject) => {
+    const factory = IPFSFactory.create({ type: type })
+
     factory.spawn({
       disposable: false,
       defaultAddrs: true,
-      repoPath: path
+      repoPath: path,
+      init: false,
+      start: false
     }, (e, ipfsd) => {
       if (e) return reject(e)
       if (ipfsd.initialized) {
+        checkCorsConfig(ipfsd)
         return resolve(ipfsd)
       }
 
@@ -67,8 +71,9 @@ async function spawn ({ type, path, keysize }) {
           // Set default mininum and maximum of connections to mantain
           // by default. This only applies to repositories created by
           // IPFS Desktop. Existing ones shall remain intact.
-          const configFile = join(ipfsd.repoPath, 'config')
-          let config = fs.readJsonSync(configFile)
+          let config = readConfigFile(ipfsd)
+          // Ensure strict CORS checking. See: https://github.com/ipfs/js-ipfsd-ctl/issues/333
+          config.API = { HTTPHeaders: {} }
           config.Swarm = config.Swarm || {}
           config.Swarm.DisableNatPortMap = false
           config.Swarm.ConnMgr = config.Swarm.ConnMgr || {}
@@ -78,7 +83,7 @@ async function spawn ({ type, path, keysize }) {
           config.Discovery = config.Discovery || {}
           config.Discovery.MDNS = config.Discovery.MDNS || {}
           config.Discovery.MDNS.enabled = true
-          fs.writeJsonSync(configFile, config)
+          writeConfigFile(ipfsd, config)
         } catch (e) {
           return reject(e)
         }
@@ -87,6 +92,54 @@ async function spawn ({ type, path, keysize }) {
       })
     })
   })
+}
+
+function configPath (ipfsd) {
+  return join(ipfsd.repoPath, 'config')
+}
+
+function readConfigFile (ipfsd) {
+  return fs.readJsonSync(configPath(ipfsd))
+}
+
+function writeConfigFile (ipfsd, config) {
+  fs.writeJsonSync(configPath(ipfsd), config, { spaces: 2 })
+}
+
+// Check for * and webui://- in allowed origins on API headers.
+// THe wildcard was a ipfsd-ctl default, that we dont want, and webui://- was an
+// earlier experiement that should be cleared out.
+//
+// We remove them the first time we find them. If we find it again on subsequent
+// runs then we leave them in, under the assumption that you really want it.
+// TODO: show warning in UI when wildcard is in the allowed origins.
+function checkCorsConfig (ipfsd) {
+  if (store.get('checkedCorsConfig')) {
+    // We've already checked so skip it.
+    return
+  }
+  let config = null
+  try {
+    config = readConfigFile(ipfsd)
+  } catch (err) {
+    // This is a best effort check, dont blow up here, that should happen else where.
+    // TODO: gracefully handle config errors elsewhere!
+    logger.error(`[daemon] checkCorsConfig: error reading config file: ${err.message || err}`)
+    return
+  }
+  if (config.API && config.API.HTTPHeaders && config.API.HTTPHeaders['Access-Control-Allow-Origin']) {
+    const allowedOrigins = config.API.HTTPHeaders['Access-Control-Allow-Origin']
+    const originsToRemove = ['*', 'webui://-']
+    if (Array.isArray(allowedOrigins)) {
+      if (allowedOrigins.some(origin => originsToRemove.includes(origin))) {
+        const specificOrigins = allowedOrigins.filter(origin => !originsToRemove.includes(origin))
+        config.API.HTTPHeaders['Access-Control-Allow-Origin'] = specificOrigins
+        writeConfigFile(ipfsd, config)
+        store.set('updatedCorsConfig', Date.now())
+      }
+    }
+  }
+  store.set('checkedCorsConfig', true)
 }
 
 async function start (ipfsd, { flags }) {
