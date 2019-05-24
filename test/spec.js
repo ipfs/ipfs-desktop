@@ -85,7 +85,7 @@ describe('Application launch', function () {
 
     const { app } = await startApp({ ipfsPath: repoPath })
     expect(app.isRunning()).to.be.true()
-    delay(5000)
+    await delay(5000)
     config = fs.readJsonSync(configPath)
     // ensure app has enabled cors checking
     expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.deep.equal([])
@@ -118,7 +118,7 @@ describe('Application launch', function () {
 
     const { app } = await startApp({ ipfsPath: repoPath })
     expect(app.isRunning()).to.be.true()
-    delay(5000)
+    await delay(5000)
     const config = fs.readJsonSync(configPath)
     // ensure app has enabled cors checking
     const specificOrigins = newOrigins.filter(origin => origin !== '*')
