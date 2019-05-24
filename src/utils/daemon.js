@@ -117,8 +117,14 @@ function checkCorsConfig (ipfsd) {
       if (allowedOrigins.some(origin => originsToRemove.includes(origin))) {
         const specificOrigins = allowedOrigins.filter(origin => !originsToRemove.includes(origin))
         config.API.HTTPHeaders['Access-Control-Allow-Origin'] = specificOrigins
-        writeConfigFile(ipfsd, config)
-        store.set('updatedCorsConfig', Date.now())
+        try {
+          writeConfigFile(ipfsd, config)
+          store.set('updatedCorsConfig', Date.now())
+        } catch (err) {
+          logger.error(`[daemon] checkCorsConfig: error writing config file: ${err.message || err}`)
+          // dont skip setting checkedCorsConfig so we try again next time time.
+          return
+        }
       }
     }
   }
