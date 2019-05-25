@@ -6,9 +6,9 @@
 
 **Download the latest release**
 
-- Mac - [ipfs-desktop-0.7.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2.dmg)
-- Windows - [ipfs-desktop-setup-0.7.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-setup-0.7.2.exe) 
-- Linux - [ipfs-desktop-0.7.2-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2-x86_64.AppImage)
+- Mac - [ipfs-desktop-0.7.3.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop-0.7.3.dmg)
+- Windows - [ipfs-desktop-setup-0.7.3.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop-setup-0.7.3.exe) 
+- Linux - [ipfs-desktop-0.7.3-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop-0.7.3-x86_64.AppImage)
 
 or see the [install](#install) section for more options.
 
@@ -19,7 +19,7 @@ or see the [install](#install) section for more options.
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 [![](https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/ipfs-desktop)
 [![total download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
-[![latest release download count](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.7.2)
+[![latest release download count](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.3/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.7.3)
 
 IPFS Desktop allows you to run your IPFS Node on your machine without having to bother with command line tools. With it, you the power of [Web UI](https://github.com/ipfs-shipyard/ipfs-webui) on tip of your hands plus a handful of shortcuts you can find on settings.
 
@@ -64,17 +64,17 @@ Download the latest release of IPFS Desktop for your OS, below.
 
 | Platform | Download link | Download count
 |---------:|---------------|---------------
-| **Windows**  | [ipfs-desktop-setup-0.7.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-setup-0.7.2.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop-setup-0.7.2.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-setup-0.7.2.exe)
-| **Mac**    | [ipfs-desktop-0.7.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop-0.7.2.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2.dmg)
+| **Windows**  | [ipfs-desktop-setup-0.7.3.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop-setup-0.7.3.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.3/ipfs-desktop-setup-0.7.3.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop-setup-0.7.3.exe)
+| **Mac**    | [ipfs-desktop-0.7.3.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop-0.7.3.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.3/ipfs-desktop-0.7.3.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop-0.7.3.dmg)
 
 We build out multiple installers for **Linux**
 
 | Package | Download link | Download count
 |---------:|---------------|---------------
-| AppImage | [ipfs-desktop-0.7.2-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop-0.7.2-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2-x86_64.AppImage)
-| deb | [ipfs-desktop_0.7.2_amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop_0.7.2_amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop_0.7.2_amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop_0.7.2_amd64.deb)
-| rpm | [ipfs-desktop-0.7.2.x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2.x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop-0.7.2.x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2.x86_64.rpm)
-| snap  | [ipfs-desktop_0.7.2_amd64.snap](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop_0.7.2_amd64.snap) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop_0.7.2_amd64.snap.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop_0.7.2_amd64.snap)
+| AppImage | [ipfs-desktop-0.7.3-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop-0.7.3-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.3/ipfs-desktop-0.7.3-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop-0.7.3-x86_64.AppImage)
+| deb | [ipfs-desktop_0.7.3_amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop_0.7.3_amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.3/ipfs-desktop_0.7.3_amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop_0.7.3_amd64.deb)
+| rpm | [ipfs-desktop-0.7.3.x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop-0.7.3.x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.3/ipfs-desktop-0.7.3.x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop-0.7.3.x86_64.rpm)
+| snap  | [ipfs-desktop_0.7.3_amd64.snap](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop_0.7.3_amd64.snap) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.3/ipfs-desktop_0.7.3_amd64.snap.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.3/ipfs-desktop_0.7.3_amd64.snap)
 
 Or you can use your favorite package manager:
 
