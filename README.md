@@ -115,6 +115,7 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 - Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
 - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determin when an app update is available. Once a release is published, users should recieve the app update. See: https://www.electron.build/auto-update.
 - Update [Homebrew Cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
+- Update Chocolatey package.
 - To start work on the next version, bump the version in the package.json and repeat theses steps.
 
 ## Contribute
