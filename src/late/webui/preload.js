@@ -50,22 +50,17 @@ window.ipfsDesktop = {
           return resolve()
         }
 
-        let files = {
-          streams: [],
-          totalSize: 0
-        }
+        let files = []
 
         const prefix = path.dirname(res[0])
 
         for (const path of await readdir(res[0])) {
           const size = (await fs.stat(path)).size
-          files.streams.push({
+          files.push({
             path: path.substring(prefix.length, path.length),
             content: toPull.source(fs.createReadStream(path)),
             size: size
           })
-
-          files.totalSize += size
         }
 
         resolve(files)
