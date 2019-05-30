@@ -1,10 +1,12 @@
 const { ipcRenderer } = require('electron')
 const screenshotHook = require('./screenshot')
+const connectionHook = require('./connection-status')
 
 const COUNTLY_KEY = '47fbb3db3426d2ae32b3b65fe40c564063d8b55d'
 const COUNTLY_KEY_TEST = '6b00e04fa5370b1ce361d2f24a09c74254eee382'
 
 screenshotHook()
+connectionHook()
 
 var originalSetItem = window.localStorage.setItem
 window.localStorage.setItem = function () {
