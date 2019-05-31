@@ -16,6 +16,7 @@ export const STATUS = {
 export default async function (ctx) {
   let ipfsd = null
   let status = null
+  let wasOnline = null
 
   const updateStatus = (stat) => {
     status = stat
@@ -100,22 +101,23 @@ export default async function (ctx) {
     })
   }
 
-  ipcMain.on('startIpfs', () => {
-    startIpfs()
-  })
-
-  ipcMain.on('stopIpfs', () => {
-    stopIpfs()
-  })
-
-  ipcMain.on('restartIpfs', async () => {
+  const restartIpfs = async () => {
     await stopIpfs()
     await startIpfs()
-  })
+  }
+
+  ipcMain.on('startIpfs', startIpfs)
+  ipcMain.on('stopIpfs', stopIpfs)
+  ipcMain.on('restartIpfs', restartIpfs)
+  app.on('before-quit', stopIpfs)
 
   await startIpfs()
 
-  app.on('before-quit', async () => {
-    await stopIpfs()
+  ipcMain.on('online-status-changed', (_, isOnline) => {
+    if (wasOnline === false && isOnline) {
+      restartIpfs()
+    }
+
+    wasOnline = isOnline
   })
 }
