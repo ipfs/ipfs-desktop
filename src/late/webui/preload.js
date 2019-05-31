@@ -31,6 +31,10 @@ window.ipfsDesktop = {
 
   toggleSetting: (setting) => {
     ipcRenderer.send('config.toggle', setting)
+  },
+
+  restartDaemon: () => {
+    ipcRenderer.send('restartIpfs')
   }
 }
 
