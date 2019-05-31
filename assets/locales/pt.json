@@ -49,37 +49,31 @@
   "ok": "OK",
   "cancel": "Cancelar",
   "reportTheError": "Reportar o erro",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
+  "restartIpfsDesktop": "Reiniciar o IPFS Desktop",
   "openLogs": "Abrir os registos",
   "anErrorHasOccurred": "Ocorreu um erro",
   "polkitDialog": {
-    "title": "Polkit not found",
+    "title": "Polkit não encontrado",
     "message": "O IPFS não pode ser adicionado a /usr/local/bin/ sem o agente polkit."
   },
   "noPermissionDialog": {
-    "title": "No permission",
+    "title": "Sem permissão",
     "message": "Não foi possível adicionar o IPFS a /usr/local/bin/, por ter introduzido a palavra-passe errada ou porque negou a permissão."
   },
   "ipfsNotRunningDialog": {
     "title": "O IPFS não está a ser executado",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "message": "O IPFS tem de estar a ser executado para fazer esta ação. Quer iniciar o daemon?"
   },
   "recoverableErrorDialog": {
     "title": "Ocorreu um erro",
     "message": "Ocorreu um erro mas este não impede a execução do IPFS Desktop. Pode inspecionar os registos ou reportar o erro aos programadores."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "Não foi possível conectar à API",
+    "message": "O IPFS Desktop não consegue conectar ao endereço da API fornecido: { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
-  },
-  "cmdToolsDialog": {
-    "title": "Ferramentas de linha de comandos IPFS",
-    "messageWindows": "You already have the IPFS command line tools on your PATH. IPFS Desktop can pre-prepend its tools to the PATH and keep them up to date. Do you agree?",
-    "messageAlreadyExists": "O IPFS Desktop detetou que já tem o IPFS CLI (interface de linha de comandos) instalada. Pode-se substituir o comando ipfs instalado em /usr/local/bin/ipfs e atualizá-lo quando estiverem disponíveis novas versões. Concorda?",
-    "messageNotExists": "O IPFS Desktop pode manter a interface de linha de comandos (CLI) do IPFS atualizada. Ser´instalada em /usr/local/bin/ipfs. Concorda?"
+    "title": "O IPFS Desktop desligou-se",
+    "message": "O IPFS Desktop desligou-se devido a um erro. Pode reiniciar a aplicação ou reportar o erro aos programadores, o que requer uma conta no GitHub."
   }
 }

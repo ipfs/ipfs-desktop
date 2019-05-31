@@ -16,7 +16,7 @@
   "status": "상태",
   "files": "파일",
   "settings": "설정",
-  "quit": "Quit",
+  "quit": "종료",
   "versions": "Versions",
   "screenshotTaken": "Screenshot taken",
   "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
@@ -75,11 +75,5 @@
   "ipfsDesktopHasShutdownDialog": {
     "title": "IPFS Desktop has shutdown",
     "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
-  },
-  "cmdToolsDialog": {
-    "title": "IPFS command line tools",
-    "messageWindows": "You already have the IPFS command line tools on your PATH. IPFS Desktop can pre-prepend its tools to the PATH and keep them up to date. Do you agree?",
-    "messageAlreadyExists": "IPFS Desktop detected you already have IPFS CLI installed. We can replace the existing ipfs command installed at /usr/local/bin/ipfs, and update it when new versions are available. Do you agree?",
-    "messageNotExists": "IPFS Desktop can keep the IPFS command-line interface (CLI) up to date. It will be installed at /usr/local/bin/ipfs. Do you agree?"
   }
 }

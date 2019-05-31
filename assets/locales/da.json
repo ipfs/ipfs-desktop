@@ -75,11 +75,5 @@
   "ipfsDesktopHasShutdownDialog": {
     "title": "IPFS Desktop has shutdown",
     "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
-  },
-  "cmdToolsDialog": {
-    "title": "IPFS kommandolinje værktøjer",
-    "messageWindows": "You already have the IPFS command line tools on your PATH. IPFS Desktop can pre-prepend its tools to the PATH and keep them up to date. Do you agree?",
-    "messageAlreadyExists": "IPFS Skrivebord har opdaget at du allerede har IPFS CLI installeret. Vi kan erstatte den eksisterende ipfs kommando installeret under /usr/local/bin/ipfs, og opdatere den når nye versioner er tilgængelige. Siger du ja?",
-    "messageNotExists": "IPFS Skrivebord kan holde IPFS kommandolinje interfacet (CLI) opdateret. Det vil blive installeret under /usr/local/bin/ipfs. Siger du ja?"
   }
 }
