@@ -5,6 +5,7 @@ const toPull = require('stream-to-pull-stream')
 const readdir = require('recursive-readdir')
 const fs = require('fs-extra')
 const path = require('path')
+const pkg = require('../../../package.json')
 
 const COUNTLY_KEY = '47fbb3db3426d2ae32b3b65fe40c564063d8b55d'
 const COUNTLY_KEY_TEST = '6b00e04fa5370b1ce361d2f24a09c74254eee382'
@@ -27,6 +28,7 @@ ipcRenderer.on('updatedPage', (_, url) => {
 
 window.ipfsDesktop = {
   countlyAppKey: process.env.NODE_ENV === 'development' ? COUNTLY_KEY_TEST : COUNTLY_KEY,
+  version: pkg.version,
   onConfigChanged: (listener) => {
     ipcRenderer.on('config.changed', (_, config) => {
       listener(config)
