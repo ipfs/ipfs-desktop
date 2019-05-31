@@ -109,6 +109,7 @@ export default async function (ctx) {
   ipcMain.on('startIpfs', startIpfs)
   ipcMain.on('stopIpfs', stopIpfs)
   ipcMain.on('restartIpfs', restartIpfs)
+  ipcMain.on('ipfsConfigChanged', restartIpfs)
   app.on('before-quit', stopIpfs)
 
   await startIpfs()

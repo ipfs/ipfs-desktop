@@ -39,8 +39,8 @@ window.ipfsDesktop = {
     ipcRenderer.send('config.toggle', setting)
   },
 
-  restartDaemon: () => {
-    ipcRenderer.send('restartIpfs')
+  configHasChanged: () => {
+    ipcRenderer.send('ipfsConfigChanged')
   },
 
   selectDirectory: () => {
