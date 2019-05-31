@@ -39,6 +39,10 @@ window.ipfsDesktop = {
     ipcRenderer.send('config.toggle', setting)
   },
 
+  configHasChanged: () => {
+    ipcRenderer.send('ipfsConfigChanged')
+  },
+
   selectDirectory: () => {
     return new Promise(resolve => {
       remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
