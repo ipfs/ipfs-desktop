@@ -75,11 +75,5 @@
   "ipfsDesktopHasShutdownDialog": {
     "title": "IPFS Desktop est éteint",
     "message": "IPFS Desktop est éteint à cause d'une erreur. Vous pouvez redémarrer ou reporter l'erreur aux développeurs, cela requiert un compte Github."
-  },
-  "cmdToolsDialog": {
-    "title": "IPFS outils en ligne de commandes",
-    "messageWindows": "Vous avez déjà dans votre PATH l'outils de command IPFS. IPFS desktop peut utilisé celui-ci et le maintenir. Êtes-vous d'accord ? ",
-    "messageAlreadyExists": "IPFS Desktop à détecté que vous avez déjà IPFS CLI d'installer. Vous pouvez remplacer l'existant à /usr/local/bin/ipfs, et mettre à vous celui-ci quand une nouvelle version est disponible. Êtes-vous  d'accord?",
-    "messageNotExists": "IPFS Desktop peut garder le IPFS ligne de commande interface (CLI) à jour. Il peut être installé dans /sur/local/bin/ipfs. Êtes-vous d'accord?"
   }
 }
