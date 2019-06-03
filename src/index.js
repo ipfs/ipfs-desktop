@@ -3,12 +3,16 @@ import { logger } from './utils'
 import earlySetup from './early'
 import lateSetup from './late'
 import { criticalErrorDialog } from './dialogs'
+import fixPath from 'fix-path'
 
 // Hide Dock
 if (app.dock) app.dock.hide()
 
 // Sets User Model Id so notifications work on Windows 10
 app.setAppUserModelId('io.ipfs.desktop')
+
+// Fixes $PATH on macOS
+fixPath()
 
 // Only one instance can run at a time
 if (!app.requestSingleInstanceLock()) {
