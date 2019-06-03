@@ -5,7 +5,6 @@ import { logger, notify, quitAndInstall } from '../utils'
 let userRequested = false
 
 function setup () {
-  autoUpdater.allowPrerelease = true
   autoUpdater.autoDownload = false
 
   autoUpdater.on('error', (err) => {
