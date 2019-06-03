@@ -76,6 +76,7 @@
     "electron-serve": "^0.3.0",
     "electron-store": "^3.2.0",
     "electron-updater": "^4.0.6",
+    "fix-path": "^2.1.0",
     "fs-extra": "^8.0.1",
     "go-ipfs-dep": "0.4.21",
     "i18next": "^15.1.3",
