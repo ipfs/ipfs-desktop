@@ -37,11 +37,15 @@ IPFS Desktop allows you to run your IPFS Node on your machine without having to 
 
 ### IPFS daemon always running
 
-IPFS Desktop's main feature is to allow you to have the IPFS daemon always running in the background. But fear not! If you need to stop it, you can do it under the 'Advanced' options.
+IPFS Desktop's main feature is to allow you to have the IPFS daemon always running in the background. But fear not! If you need to stop it, you can do it just by clicking on 'Stop'.
 
 ### Handle `ipfs://`, `ipns://` and `dweb:` links
 
 If you come across a link to any of the protocols above, IPFS Desktop will be able to open them and redirect them to your default browser.
+
+### Adds `ipfs` to your system
+
+If you're using macOS or Windows and don't have `ipfs` installed on your system, IPFS Desktop will automatically install it so it is available through the command line. If you're using Linux, or already have `ipfs` installed, you can tell IPFS Desktop to take care of it (and keep it up to date!) by toggling the option on Settings.
 
 ### Easy add to IPFS
 
