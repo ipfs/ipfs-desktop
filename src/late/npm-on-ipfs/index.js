@@ -4,12 +4,12 @@ import { store, logger } from '../../utils'
 import { createToggler } from '../utils'
 import pkg from './package'
 
-const SETTINGS_OPTION = 'npmOnIpfs'
+const SETTINGS_OPTION = 'experiments.npmOnIpfs'
 
 export default function (ctx) {
   let interval = null
 
-  createToggler(ctx, 'npmOnIpfs', async (value, oldValue) => {
+  createToggler(ctx, SETTINGS_OPTION, async (value, oldValue) => {
     if (value === oldValue) return
 
     if (value === true) {
