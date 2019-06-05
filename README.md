@@ -7,8 +7,8 @@
 **Download the latest release**
 
 - Mac - [ipfs-desktop-0.8.0.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0.dmg)
-- Windows - [ipfs-desktop-setup-0.8.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-setup-0.8.0.exe) 
-- Linux - [ipfs-desktop-0.8.0-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-x86_64.AppImage)
+- Windows - [ipfs-desktop-setup-0.8.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-setup-0.8.0.exe)
+- Linux - [ipfs-desktop-0.8.0-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-linux-x86_64.AppImage)
 
 or see the [install](#install) section for more options.
 
@@ -75,10 +75,11 @@ We build out multiple installers for **Linux**
 
 | Package | Download link | Download count
 |---------:|---------------|---------------
-| AppImage | [ipfs-desktop-0.8.0-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop-0.8.0-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-x86_64.AppImage)
-| deb | [ipfs-desktop_0.8.0_amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop_0.8.0_amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop_0.8.0_amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop_0.8.0_amd64.deb)
-| rpm | [ipfs-desktop-0.8.0.x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0.x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop-0.8.0.x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0.x86_64.rpm)
-| snap  | [ipfs-desktop_0.8.0_amd64.snap](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop_0.8.0_amd64.snap) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop_0.8.0_amd64.snap.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop_0.8.0_amd64.snap)
+| AppImage | [ipfs-desktop-0.8.0-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-linux-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop-0.8.0-linux-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-linux-x86_64.AppImage)
+| tar | [ipfs-desktop-0.8.0-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-linux-x64.tar.xz) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop-0.8.0-linux-x64.tar.xz.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-linux-x64.tar.xz)
+| deb | [ipfs-desktop-0.8.0-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-linux-amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop-0.8.0-linux-amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-linux-amd64.deb)
+| rpm | [ipfs-desktop-0.8.0-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-linux-x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop-0.8.0-linux-x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-linux-x86_64.rpm)
+| snap  | [ipfs-desktop-0.8.0-linux-amd64.snap](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-linux-amd64.snap) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop-0.8.0-linux-amd64.snap.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-linux-amd64.snap)
 
 Or you can use your favorite package manager:
 
