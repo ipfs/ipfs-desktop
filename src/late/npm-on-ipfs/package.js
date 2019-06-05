@@ -31,3 +31,14 @@ export function install () {
     return false
   }
 }
+
+export function uninstall () {
+  try {
+    execFileSync('npm', ['uninstall', '-g', 'ipfs-npm'])
+    logger.info('[npm on ipfs] ipfs-npm: uninstalled globally')
+    return true
+  } catch (e) {
+    logger.error('[npm on ipfs] ', e)
+    return false
+  }
+}
