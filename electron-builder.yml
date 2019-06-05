@@ -1,4 +1,5 @@
 appId: io.ipfs.desktop
+generateUpdatesFilesForAllChannels: true
 
 directories:
   buildResources: assets/build

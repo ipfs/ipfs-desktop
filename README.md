@@ -6,9 +6,9 @@
 
 **Download the latest release**
 
-- Mac - [ipfs-desktop-0.7.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2.dmg)
-- Windows - [ipfs-desktop-setup-0.7.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-setup-0.7.2.exe) 
-- Linux - [ipfs-desktop-0.7.2-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2-x86_64.AppImage)
+- Mac - [ipfs-desktop-0.8.0.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0.dmg)
+- Windows - [ipfs-desktop-setup-0.8.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-setup-0.8.0.exe) 
+- Linux - [ipfs-desktop-0.8.0-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-x86_64.AppImage)
 
 or see the [install](#install) section for more options.
 
@@ -19,7 +19,7 @@ or see the [install](#install) section for more options.
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 [![](https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/ipfs-desktop)
 [![total download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
-[![latest release download count](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.7.2)
+[![latest release download count](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.8.0)
 
 IPFS Desktop allows you to run your IPFS Node on your machine without having to bother with command line tools. With it, you the power of [Web UI](https://github.com/ipfs-shipyard/ipfs-webui) on tip of your hands plus a handful of shortcuts you can find on settings.
 
@@ -37,11 +37,15 @@ IPFS Desktop allows you to run your IPFS Node on your machine without having to 
 
 ### IPFS daemon always running
 
-IPFS Desktop's main feature is to allow you to have the IPFS daemon always running in the background. But fear not! If you need to stop it, you can do it under the 'Advanced' options.
+IPFS Desktop's main feature is to allow you to have the IPFS daemon always running in the background. But fear not! If you need to stop it, you can do it just by clicking on 'Stop'.
 
 ### Handle `ipfs://`, `ipns://` and `dweb:` links
 
 If you come across a link to any of the protocols above, IPFS Desktop will be able to open them and redirect them to your default browser.
+
+### Adds `ipfs` to your system
+
+If you're using macOS or Windows and don't have `ipfs` installed on your system, IPFS Desktop will automatically install it so it is available through the command line. If you're using Linux, or already have `ipfs` installed, you can tell IPFS Desktop to take care of it (and keep it up to date!) by toggling the option on Settings.
 
 ### Easy add to IPFS
 
@@ -64,17 +68,17 @@ Download the latest release of IPFS Desktop for your OS, below.
 
 | Platform | Download link | Download count
 |---------:|---------------|---------------
-| **Windows**  | [ipfs-desktop-setup-0.7.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-setup-0.7.2.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop-setup-0.7.2.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-setup-0.7.2.exe)
-| **Mac**    | [ipfs-desktop-0.7.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop-0.7.2.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2.dmg)
+| **Windows**  | [ipfs-desktop-setup-0.8.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-setup-0.8.0.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop-setup-0.8.0.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-setup-0.8.0.exe)
+| **Mac**    | [ipfs-desktop-0.8.0.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop-0.8.0.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0.dmg)
 
 We build out multiple installers for **Linux**
 
 | Package | Download link | Download count
 |---------:|---------------|---------------
-| AppImage | [ipfs-desktop-0.7.2-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop-0.7.2-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2-x86_64.AppImage)
-| deb | [ipfs-desktop_0.7.2_amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop_0.7.2_amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop_0.7.2_amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop_0.7.2_amd64.deb)
-| rpm | [ipfs-desktop-0.7.2.x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2.x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop-0.7.2.x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop-0.7.2.x86_64.rpm)
-| snap  | [ipfs-desktop_0.7.2_amd64.snap](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop_0.7.2_amd64.snap) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.7.2/ipfs-desktop_0.7.2_amd64.snap.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.7.2/ipfs-desktop_0.7.2_amd64.snap)
+| AppImage | [ipfs-desktop-0.8.0-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop-0.8.0-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0-x86_64.AppImage)
+| deb | [ipfs-desktop_0.8.0_amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop_0.8.0_amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop_0.8.0_amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop_0.8.0_amd64.deb)
+| rpm | [ipfs-desktop-0.8.0.x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0.x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop-0.8.0.x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop-0.8.0.x86_64.rpm)
+| snap  | [ipfs-desktop_0.8.0_amd64.snap](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop_0.8.0_amd64.snap) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.8.0/ipfs-desktop_0.8.0_amd64.snap.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.8.0/ipfs-desktop_0.8.0_amd64.snap)
 
 Or you can use your favorite package manager:
 
@@ -115,6 +119,7 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 - Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
 - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determin when an app update is available. Once a release is published, users should recieve the app update. See: https://www.electron.build/auto-update.
 - Update [Homebrew Cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
+- Update Chocolatey package.
 - To start work on the next version, bump the version in the package.json and repeat theses steps.
 
 ## Contribute

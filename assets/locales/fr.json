@@ -43,17 +43,37 @@
   "couldNotCheckForUpdates": "Impossible de vérifier les mises à jour",
   "pleaseCheckInternet": "Merci de vérifier votre connexion Internet.",
   "checkForUpdates": "Vérifier les mises à jour...",
-  "yes": "Yes",
-  "no": "No",
+  "yes": "Oui",
+  "no": "Non",
   "close": "Fermer",
-  "reportTheError": "Report the error",
-  "openLogs": "Open logs",
-  "anErrorHasOccurred": "An error has occurred",
-  "anUnexpectedErrorHasOccurred": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers.",
-  "ipfsCommandLineTools": "IPFS command line tools",
-  "ipfsCommandLineToolsWindows": "We detected you already have the IPFS command line tools on your PATH. IPFS Desktop can pre-prepend its tools to the PATH and keep them up to date. Do you agree?",
-  "ipfsCommandLineToolsAlreadyExists": "IPFS Desktop detected you already have IPFS CLI installed. We can replace the existing ipfs command installed at /usr/local/bin/ipfs, and update it when new versions are available. Do you agree?",
-  "ipfsCommandLineToolsNotExists": "IPFS Desktop can keep the IPFS command-line interface (CLI) up to date. It will be installed at /usr/local/bin/ipfs. Do you agree?",
-  "polkitNotFound": "IPFS can't be added to /usr/local/bin/ without polkit agent.",
-  "noPermission": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+  "ok": "OK",
+  "cancel": "Annuler",
+  "reportTheError": "Reporter l'erreur",
+  "restartIpfsDesktop": "Redémarrer IPFS Desktop",
+  "openLogs": "Ouvrir les logs",
+  "anErrorHasOccurred": "Une errerur est apparu",
+  "polkitDialog": {
+    "title": "Polkit manquant",
+    "message": "IPFS ne peut ajouté dans /usr/local/bin sans un polkit agent."
+  },
+  "noPermissionDialog": {
+    "title": "Non authorisé",
+    "message": "IPFS ne peut ajouté dans /usr/local/bin/, soit parce que votre mot de passe n'est pas bon, ou vous n'êtes pas autoriser."
+  },
+  "ipfsNotRunningDialog": {
+    "title": "IPFS n'est pas en cours de fonctionnement",
+    "message": "IPFS a besoin d'être lancer pour faire cela. Voulez-vous démarrer le démon ? "
+  },
+  "recoverableErrorDialog": {
+    "title": "Une errerur est apparu",
+    "message": "Un erreur est apparu mais cela ne semble pas venir de l'exécution de IPFS Desktop. Vous pouvez inspecter les logs pour soumettre vous même cela aux développeurs. "
+  },
+  "cannotConnectToApiDialog": {
+    "title": "Connexion à l'API impossible",
+    "message": "IPFS Desktop ne peut ce connecter à l'address d'API fournit : { addr }."
+  },
+  "ipfsDesktopHasShutdownDialog": {
+    "title": "IPFS Desktop est éteint",
+    "message": "IPFS Desktop est éteint à cause d'une erreur. Vous pouvez redémarrer ou reporter l'erreur aux développeurs, cela requiert un compte Github."
+  }
 }

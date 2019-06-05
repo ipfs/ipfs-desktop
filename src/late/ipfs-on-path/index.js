@@ -1,12 +1,11 @@
 import os from 'os'
 import { join } from 'path'
-import i18n from 'i18next'
 import which from 'which'
 import { execFile } from 'child_process'
 import { createToggler } from '../utils'
 import { logger, store, execOrSudo } from '../../utils'
 import { ipcMain } from 'electron'
-import { showDialog, recoverableErrorDialog } from '../../dialogs'
+import { recoverableErrorDialog } from '../../dialogs'
 
 const SETTINGS_OPTION = 'ipfsOnPath'
 
@@ -33,27 +32,12 @@ function firstTime () {
   const ipfsExists = which.sync('ipfs', { nothrow: true }) !== null
 
   if ((isDarwin || isWindows) && !ipfsExists) {
+    // If it's macOS or Windows and IPFS is not on user's PATH, let's add it.
     logger.info('[ipfs on path] macOS/windows + ipfs not present, installing')
     ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
-    return
-  }
-
-  const suffix = isWindows ? 'Windows' : ipfsExists ? 'AlreadyExists' : 'NotExists'
-
-  const option = showDialog({
-    type: 'info',
-    title: i18n.t('cmdToolsDialog.title'),
-    message: i18n.t('cmdToolsDialog.message' + suffix),
-    buttons: [
-      i18n.t('yes'),
-      i18n.t('no')
-    ]
-  })
-
-  if (option === 0) {
-    // Trigger the toggler.
-    ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
   } else {
+    // If not, don't make this verification next time. The user can manually
+    // toggle it in the Settings page.
     store.set(SETTINGS_OPTION, false)
   }
 }
