@@ -31,10 +31,6 @@ window.ipfsDesktop = {
 
   version: pkg.version,
 
-  experiments: [
-    'npmOnIpfs'
-  ],
-
   onConfigChanged: (listener) => {
     ipcRenderer.on('config.changed', (_, config) => {
       listener(config)
