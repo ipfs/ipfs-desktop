@@ -34,7 +34,7 @@ export default function (ctx) {
   }
 
   // First time running this function.
-  if (!which.sync('node', { nothrow: true })) {
+  if (!which.sync('npm', { nothrow: true })) {
     store.set(SETTINGS_OPTION, false)
   } else {
     ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
