@@ -115,7 +115,7 @@ export default async function (ctx) {
   await startIpfs()
 
   ipcMain.on('online-status-changed', (_, isOnline) => {
-    if (wasOnline === false && isOnline) {
+    if (wasOnline === false && isOnline && ipfsd) {
       restartIpfs()
     }
 
