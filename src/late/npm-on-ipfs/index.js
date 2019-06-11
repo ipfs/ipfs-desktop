@@ -14,7 +14,7 @@ export default function (ctx) {
 
     if (value === true) {
       if (!await pkg.install()) return false
-      interval = setInterval(pkg.update, 43200000) // every 12 hours
+      interval = setInterval(existsAndUpdate, 43200000) // every 12 hours
       return true
     }
 
@@ -22,10 +22,18 @@ export default function (ctx) {
     return pkg.uninstall()
   })
 
-  const opt = store.get(SETTINGS_OPTION, null)
+  let opt = store.get(SETTINGS_OPTION, null)
+  const exists = !!which.sync('ipfs-npm', { nothrow: true })
+
+  // Confirms if the package is still (un)installed because the user
+  // might change it manually.
+  if (opt !== null || exists !== false) {
+    store.set(SETTINGS_OPTION, exists)
+    opt = exists
+  }
 
   if (opt === true) {
-    interval = setInterval(pkg.update, 43200000)
+    interval = setInterval(existsAndUpdate, 43200000)
   }
 
   if (opt !== null) {
@@ -38,5 +46,13 @@ export default function (ctx) {
     store.set(SETTINGS_OPTION, false)
   } else {
     ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
+  }
+}
+
+function existsAndUpdate () {
+  if (which.sync('ipfs-npm', { nothrow: true })) {
+    pkg.update()
+  } else {
+    store.set(SETTINGS_OPTION, false)
   }
 }
