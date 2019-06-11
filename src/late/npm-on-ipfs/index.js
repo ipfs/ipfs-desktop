@@ -12,6 +12,11 @@ export default function (ctx) {
   createToggler(ctx, SETTINGS_OPTION, async (value, oldValue) => {
     if (value === oldValue) return
 
+    // It might have been manually changed.
+    if (!!which.sync('ipfs-npm', { nothrow: true }) === value) {
+      return true
+    }
+
     if (value === true) {
       if (!await pkg.install()) return false
       interval = setInterval(existsAndUpdate, 43200000) // every 12 hours
