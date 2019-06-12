@@ -14,7 +14,7 @@ export default function (ctx) {
 
     // If the user is telling to (un)install even though they have (un)installed
     // ipfs-npm package manually.
-    const manual = !!which.sync('ipfs-npm', { nothrow: true }) === value
+    const manual = isPkgInstalled() === value
 
     if (value === true) {
       if (!manual && !await pkg.install()) return false
@@ -27,7 +27,7 @@ export default function (ctx) {
   })
 
   let opt = store.get(SETTINGS_OPTION, null)
-  const exists = !!which.sync('ipfs-npm', { nothrow: true })
+  const exists = isPkgInstalled()
 
   // Confirms if the package is still (un)installed because the user
   // might change it manually.
@@ -53,8 +53,12 @@ export default function (ctx) {
   }
 }
 
+function isPkgInstalled () {
+  return !!which.sync('ipfs-npm', { nothrow: true })
+}
+
 function existsAndUpdate () {
-  if (which.sync('ipfs-npm', { nothrow: true })) {
+  if (isPkgInstalled()) {
     pkg.update()
   } else {
     store.set(SETTINGS_OPTION, false)
