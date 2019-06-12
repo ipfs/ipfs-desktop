@@ -12,19 +12,18 @@ export default function (ctx) {
   createToggler(ctx, SETTINGS_OPTION, async (value, oldValue) => {
     if (value === oldValue) return
 
-    // It might have been manually changed.
-    if (!!which.sync('ipfs-npm', { nothrow: true }) === value) {
-      return true
-    }
+    // If the user is telling to (un)install even though they have (un)installed
+    // ipfs-npm package manually.
+    const manual = !!which.sync('ipfs-npm', { nothrow: true }) === value
 
     if (value === true) {
-      if (!await pkg.install()) return false
+      if (!manual && !await pkg.install()) return false
       interval = setInterval(existsAndUpdate, 43200000) // every 12 hours
       return true
     }
 
     clearInterval(interval)
-    return pkg.uninstall()
+    return manual || pkg.uninstall()
   })
 
   let opt = store.get(SETTINGS_OPTION, null)
