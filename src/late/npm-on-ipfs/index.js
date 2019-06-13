@@ -37,7 +37,7 @@ export default function (ctx) {
   }
 
   if (opt === true) {
-    interval = setInterval(existsAndUpdate, 43200000)
+    interval = setInterval(existsAndUpdate, 43200000) // every 12 hours
   }
 
   if (opt !== null) {
