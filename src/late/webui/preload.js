@@ -28,7 +28,9 @@ ipcRenderer.on('updatedPage', (_, url) => {
 
 window.ipfsDesktop = {
   countlyAppKey: process.env.NODE_ENV === 'development' ? COUNTLY_KEY_TEST : COUNTLY_KEY,
+
   version: pkg.version,
+
   onConfigChanged: (listener) => {
     ipcRenderer.on('config.changed', (_, config) => {
       listener(config)

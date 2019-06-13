@@ -1,0 +1,46 @@
+import { logger } from '../../utils'
+import util from 'util'
+
+const execFile = util.promisify(require('child_process').execFile)
+
+export async function update () {
+  try {
+    logger.info('[npm on ipfs] ipfs-npm: checking if outdated')
+
+    // NOTE: might fail on older NPM (< 6.9.1) versions
+    // https://github.com/npm/cli/pull/173
+    const { stdout } = await execFile('npm', ['outdated', '-g'])
+
+    if (stdout.indexOf('ipfs-npm') === -1) {
+      logger.info('[npm on ipfs] ipfs-npm: is up to date')
+      return
+    }
+  } catch (e) {
+    logger.error('[npm on ipfs] ipfs-npm: could not check if up to date %v', e)
+  }
+
+  logger.info('[npm on ipfs] ipfs-npm: is out to date, will update')
+  install()
+}
+
+export async function install () {
+  try {
+    await execFile('npm', ['install', '-g', 'ipfs-npm'])
+    logger.info('[npm on ipfs] ipfs-npm: installed globally')
+    return true
+  } catch (e) {
+    logger.error('[npm on ipfs] ', e)
+    return false
+  }
+}
+
+export async function uninstall () {
+  try {
+    await execFile('npm', ['uninstall', '-g', 'ipfs-npm'])
+    logger.info('[npm on ipfs] ipfs-npm: uninstalled globally')
+    return true
+  } catch (e) {
+    logger.error('[npm on ipfs] ', e)
+    return false
+  }
+}

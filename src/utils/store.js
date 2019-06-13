@@ -21,4 +21,8 @@ if (!store.get('language')) {
   store.set('language', (electron.app || electron.remote.app).getLocale())
 }
 
+if (!store.get('experiments')) {
+  store.set('experiments', {})
+}
+
 export default store
