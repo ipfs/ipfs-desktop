@@ -46,8 +46,8 @@ async function runWindows (script) {
   return new Promise(resolve => {
     execFile('powershell.exe', [
       '-nop', '-exec', 'bypass',
-      '-win', 'hidden',
-      `"${join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked')}"`
+      '-win', 'hidden', '-File',
+      join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked')
     ], {}, err => {
       if (err) {
         logger.error(`[ipfs on path] ${err.toString()}`)
