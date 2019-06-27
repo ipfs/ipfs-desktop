@@ -46,7 +46,7 @@ async function runWindows (script) {
   return new Promise(resolve => {
     execFile('powershell.exe', [
       '-nop', '-exec', 'bypass',
-      '-win', 'hidden',
+      '-win', 'hidden', '-File',
       join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked')
     ], {}, err => {
       if (err) {
