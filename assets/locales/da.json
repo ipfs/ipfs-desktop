@@ -49,31 +49,31 @@
   "ok": "OK",
   "cancel": "Fortryd",
   "reportTheError": "Indrapporter fejlen",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
+  "restartIpfsDesktop": "Genstart IPFS Skrivebord",
   "openLogs": "Åben logfiler",
   "anErrorHasOccurred": "En fejl er opstået",
   "polkitDialog": {
-    "title": "Polkit not found",
+    "title": "Polkit ikke fundet",
     "message": "IPFS kan ikke tilføjes til /usr/local/bin/ uden polkit agenten."
   },
   "noPermissionDialog": {
-    "title": "No permission",
+    "title": "Ingen tilladelse",
     "message": "IPFS kunne ikke tilføjes til /usr/local/bin/, enten fordi du har indtastet forkert kodeord, eller fordi du har afvist adgangen."
   },
   "ipfsNotRunningDialog": {
     "title": "IPFS kører ikke",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "message": "IPFS skal køre for at kunne udføre denne handling. Vil du starte baggrunds-processen?"
   },
   "recoverableErrorDialog": {
     "title": "En fejl er opstået",
     "message": "En fejl er opstået men dette forhindrer ikke afviklingen af IPFS Skrivebord. Du kan enten inspicere log filerne selv eller indrapportere fejlen til udviklerne."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "Kan ikke forbinde til API",
+    "message": "IPFS Skrivebord kan ikke forbinde til API adressen som angivet: { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "IPFS Skrivebord er lukket ned",
+    "message": "IPFS Skrivebord er lukket ned som følge af en fejl. Du kan genstarte app'en eller indrapportere fejlen til udviklerne, hvilket dog forudsætter en GitHub konto."
   }
 }

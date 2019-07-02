@@ -13,6 +13,7 @@ import eo from 'i18next-icu/locale-data/eo'
 import es from 'i18next-icu/locale-data/es'
 import en from 'i18next-icu/locale-data/en'
 import fr from 'i18next-icu/locale-data/fr'
+import fi from 'i18next-icu/locale-data/fi'
 import he from 'i18next-icu/locale-data/he'
 import hr from 'i18next-icu/locale-data/hr'
 import hu from 'i18next-icu/locale-data/hu'
@@ -31,7 +32,7 @@ import sv from 'i18next-icu/locale-data/sv'
 import uk from 'i18next-icu/locale-data/uk'
 import zh from 'i18next-icu/locale-data/zh'
 
-const localeData = [ca, cs, da, de, eo, es, en, fr, he, hr, hu, it, ja, ko, nl, no, pl, pt, ru, sk, sl, sr, sv, uk, zh]
+const localeData = [ca, cs, da, de, eo, es, en, fi, fr, he, hr, hu, it, ja, ko, nl, no, pl, pt, ru, sk, sl, sr, sv, uk, zh]
 
 export default async function () {
   await i18n
