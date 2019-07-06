@@ -4,7 +4,6 @@ import which from 'which'
 import { execFile } from 'child_process'
 import { createToggler } from '../utils'
 import { logger, store, execOrSudo } from '../../utils'
-import { ipcMain } from 'electron'
 import { recoverableErrorDialog } from '../../dialogs'
 
 const SETTINGS_OPTION = 'ipfsOnPath'
@@ -19,27 +18,29 @@ export default async function (ctx) {
   firstTime()
 }
 
-function firstTime () {
+async function firstTime () {
   // Check if we've done this before.
   if (store.get(SETTINGS_OPTION, null) !== null) {
     logger.info('[ipfs on path] no action taken')
     return
   }
 
-  const isDarwin = os.platform() === 'darwin'
-  const isWindows = os.platform() === 'win32'
-
-  const ipfsExists = which.sync('ipfs', { nothrow: true }) !== null
-
-  if ((isDarwin || isWindows) && !ipfsExists) {
-    // If it's macOS or Windows and IPFS is not on user's PATH, let's add it.
-    logger.info('[ipfs on path] macOS/windows + ipfs not present, installing')
-    ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
-  } else {
-    // If not, don't make this verification next time. The user can manually
-    // toggle it in the Settings page.
+  if (which.sync('ipfs', { nothrow: true }) !== null) {
+    // ipfs already exists on user's system so we won't take any action
+    // by default. Doesn't try again next time.
     store.set(SETTINGS_OPTION, false)
+    return
   }
+
+  // Tries to install ipfs-on-path on the system. It doesn't try to elevate
+  // to sudo so the user doesn't get annoying prompts when running IPFS Desktop
+  // for the first time.
+  const res = await run('install', false)
+
+  // Sets the setting option according to the success of the installation.
+  // It will prevent this function from running again on start and the correct
+  // value will be placed.
+  store.set(SETTINGS_OPTION, res)
 }
 
 async function runWindows (script) {
@@ -61,11 +62,14 @@ async function runWindows (script) {
   })
 }
 
-async function run (script) {
+async function run (script, trySudo = true) {
   if (os.platform() === 'win32') {
     return runWindows(script)
   }
 
-  const path = join(__dirname, `./scripts/${script}.js`)
-  return execOrSudo(path, 'ipfs on path')
+  return execOrSudo({
+    script: join(__dirname, `./scripts/${script}.js`),
+    scope: 'ipfs on path',
+    trySudo
+  })
 }
