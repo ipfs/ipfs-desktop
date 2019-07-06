@@ -16,11 +16,11 @@ const env = {
 
 const getResult = (err, stdout, stderr, scope) => {
   if (stdout) {
-    logger.info(`[${scope}] stdout: ${stdout.toString().trim()}`)
+    logger.info(`[${scope}] sudo: stdout: ${stdout.toString().trim()}`)
   }
 
   if (stderr) {
-    logger.info(`[${scope}] stderr: ${stderr.toString().trim()}`)
+    logger.info(`[${scope}] sudo: stderr: ${stderr.toString().trim()}`)
   }
 
   if (!err) {
@@ -46,18 +46,20 @@ const getResult = (err, stdout, stderr, scope) => {
 export default async function ({ script, scope, trySudo = true }) {
   const dataArg = `--data="${app.getPath('userData')}"`
 
-  // First try without any advanced permissions.
+  // First try executing with regular permissions.
   try {
     const { stdout } = await execFile(process.execPath, [script, dataArg], { env: env.noSudo })
     logger.info(`[${scope}] stdout: ${stdout.toString().trim()}`)
     return true
   } catch ({ stderr }) {
-    if (!trySudo) {
-      logger.info(`[${scope}] stderr: ${stderr.toString().trim()}`)
-      return false
-    }
+    logger.info(`[${scope}] no-sudo: stderr: ${stderr.toString().trim()}`)
   }
 
+  if (!trySudo) {
+    return false
+  }
+
+  // Otherwise, try to elevate the user.
   const command = `${env.sudo} "${process.execPath}" "${script}" ${dataArg}`
   return new Promise(resolve => {
     sudo.exec(command, { name: 'IPFS Desktop' }, (err, stdout, stderr) => {

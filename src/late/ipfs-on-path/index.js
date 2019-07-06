@@ -34,12 +34,9 @@ async function firstTime () {
 
   // Tries to install ipfs-on-path on the system. It doesn't try to elevate
   // to sudo so the user doesn't get annoying prompts when running IPFS Desktop
-  // for the first time.
+  // for the first time. Sets the option according to the success or failure of the
+  // procedure.
   const res = await run('install', false)
-
-  // Sets the setting option according to the success of the installation.
-  // It will prevent this function from running again on start and the correct
-  // value will be placed.
   store.set(SETTINGS_OPTION, res)
 }
 
