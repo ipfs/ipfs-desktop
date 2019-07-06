@@ -44,54 +44,45 @@ async function cleanup (addr, path) {
   }
 }
 
-function spawn ({ type, path, keysize }) {
-  return new Promise((resolve, reject) => {
-    const factory = IPFSFactory.create({ type: type })
+async function spawn ({ type, path, keysize }) {
+  const factory = IPFSFactory.create({ type: type })
 
-    factory.spawn({
-      disposable: false,
-      defaultAddrs: true,
-      repoPath: path,
-      init: false,
-      start: false
-    }, (e, ipfsd) => {
-      if (e) return reject(e)
-      if (ipfsd.initialized) {
-        checkCorsConfig(ipfsd)
-        return resolve(ipfsd)
-      }
-
-      ipfsd.init({
-        directory: path,
-        keysize: keysize
-      }, e => {
-        if (e) return reject(e)
-
-        try {
-          // Set default mininum and maximum of connections to mantain
-          // by default. This only applies to repositories created by
-          // IPFS Desktop. Existing ones shall remain intact.
-          let config = readConfigFile(ipfsd)
-          // Ensure strict CORS checking. See: https://github.com/ipfs/js-ipfsd-ctl/issues/333
-          config.API = { HTTPHeaders: {} }
-          config.Swarm = config.Swarm || {}
-          config.Swarm.DisableNatPortMap = false
-          config.Swarm.ConnMgr = config.Swarm.ConnMgr || {}
-          config.Swarm.ConnMgr.GracePeriod = '300s'
-          config.Swarm.ConnMgr.LowWater = 50
-          config.Swarm.ConnMgr.HighWater = 300
-          config.Discovery = config.Discovery || {}
-          config.Discovery.MDNS = config.Discovery.MDNS || {}
-          config.Discovery.MDNS.enabled = true
-          writeConfigFile(ipfsd, config)
-        } catch (e) {
-          return reject(e)
-        }
-
-        resolve(ipfsd)
-      })
-    })
+  const ipfsd = await factory.spawn({
+    disposable: false,
+    defaultAddrs: true,
+    repoPath: path,
+    init: false,
+    start: false
   })
+
+  if (ipfsd.initialized) {
+    checkCorsConfig(ipfsd)
+    return ipfsd
+  }
+
+  await ipfsd.init({
+    directory: path,
+    keysize: keysize
+  })
+
+  // Set default mininum and maximum of connections to mantain
+  // by default. This only applies to repositories created by
+  // IPFS Desktop. Existing ones shall remain intact.
+  let config = readConfigFile(ipfsd)
+  // Ensure strict CORS checking. See: https://github.com/ipfs/js-ipfsd-ctl/issues/333
+  config.API = { HTTPHeaders: {} }
+  config.Swarm = config.Swarm || {}
+  config.Swarm.DisableNatPortMap = false
+  config.Swarm.ConnMgr = config.Swarm.ConnMgr || {}
+  config.Swarm.ConnMgr.GracePeriod = '300s'
+  config.Swarm.ConnMgr.LowWater = 50
+  config.Swarm.ConnMgr.HighWater = 300
+  config.Discovery = config.Discovery || {}
+  config.Discovery.MDNS = config.Discovery.MDNS || {}
+  config.Discovery.MDNS.enabled = true
+  writeConfigFile(ipfsd, config)
+
+  return ipfsd
 }
 
 function configPath (ipfsd) {
@@ -148,23 +139,11 @@ function checkCorsConfig (ipfsd) {
   store.set('checkedCorsConfig', true)
 }
 
-async function start (ipfsd, { flags }) {
-  await new Promise((resolve, reject) => {
-    ipfsd.start(flags, err => {
-      if (err) {
-        return reject(err)
-      }
-
-      resolve()
-    })
-  })
-}
-
 export default async function (opts) {
   const ipfsd = await spawn(opts)
 
   if (!ipfsd.started) {
-    await start(ipfsd, opts)
+    await ipfsd.start(opts.flags)
   }
 
   try {
@@ -175,7 +154,7 @@ export default async function (opts) {
     }
 
     await cleanup(ipfsd.apiAddr, ipfsd.repoPath)
-    await start(ipfsd, opts)
+    await ipfsd.start(opts.flags)
   }
 
   return ipfsd
