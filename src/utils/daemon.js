@@ -29,7 +29,7 @@ async function cleanup (addr, path) {
   }
 
   logger.info(`[daemon] cleanup: ipfs repo fsck ${path}`)
-  let exec = findExecutable('go', app.getAppPath())
+  const exec = findExecutable('go', app.getAppPath())
 
   try {
     execFileSync(exec, ['repo', 'fsck'], {
@@ -68,7 +68,7 @@ async function spawn ({ type, path, keysize }) {
   // Set default mininum and maximum of connections to mantain
   // by default. This only applies to repositories created by
   // IPFS Desktop. Existing ones shall remain intact.
-  let config = readConfigFile(ipfsd)
+  const config = readConfigFile(ipfsd)
   // Ensure strict CORS checking. See: https://github.com/ipfs/js-ipfsd-ctl/issues/333
   config.API = { HTTPHeaders: {} }
   config.Swarm = config.Swarm || {}

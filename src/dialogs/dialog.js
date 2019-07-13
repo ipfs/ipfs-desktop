@@ -9,7 +9,7 @@ export default function ({ title, message, type = 'info', buttons = [
   i18n.t('ok'),
   i18n.t('cancel')
 ], ...opts }) {
-  let options = {
+  const options = {
     type: type,
     buttons: buttons,
     noLink: true,
