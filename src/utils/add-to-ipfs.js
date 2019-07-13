@@ -9,7 +9,7 @@ async function copyFile (launch, ipfs, hash, name, folder = false) {
   const base = basename(name, ext)
 
   while (true) {
-    let newName = (i === 0 ? base : `${base} (${i})`) + ext
+    const newName = (i === 0 ? base : `${base} (${i})`) + ext
 
     try {
       await ipfs.files.stat(`/${newName}`)
