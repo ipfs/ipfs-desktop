@@ -41,7 +41,7 @@ function onError (e) {
 }
 
 function handleScreenshot (ctx) {
-  let { getIpfsd, launchWebUI } = ctx
+  const { getIpfsd, launchWebUI } = ctx
 
   return async (_, output) => {
     const ipfsd = await getIpfsd()
@@ -75,7 +75,7 @@ function handleScreenshot (ctx) {
       logger.info('[screenshot] started: writing screenshots to %s', baseName)
       let lastImage = null
 
-      for (let { name, image } of output) {
+      for (const { name, image } of output) {
         const img = nativeImage.createFromDataURL(image)
         const path = isDir ? `${baseName}${name}.png` : baseName
         await ipfs.files.write(path, img.toPNG(), { create: true })
@@ -91,9 +91,9 @@ function handleScreenshot (ctx) {
 }
 
 export default function (ctx) {
-  let { webui } = ctx
+  const { webui } = ctx
 
-  let activate = (value, oldValue) => {
+  const activate = (value, oldValue) => {
     if (value === oldValue) return
 
     if (value === true) {

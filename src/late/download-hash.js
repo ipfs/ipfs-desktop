@@ -107,7 +107,7 @@ function handler (ctx) {
 }
 
 export default function (ctx) {
-  let activate = (value, oldValue) => {
+  const activate = (value, oldValue) => {
     if (value === oldValue) return
 
     if (value === true) {

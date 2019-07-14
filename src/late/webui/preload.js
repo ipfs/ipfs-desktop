@@ -60,7 +60,7 @@ window.ipfsDesktop = {
           return resolve()
         }
 
-        let files = []
+        const files = []
 
         const prefix = path.dirname(res[0])
 

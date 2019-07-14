@@ -19,7 +19,7 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
 
-let ctx = {}
+const ctx = {}
 
 app.on('will-finish-launching', () => {
   earlySetup(ctx)
