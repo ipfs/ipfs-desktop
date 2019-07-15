@@ -1,10 +1,14 @@
-import { clipboard, ipcMain, globalShortcut, nativeImage } from 'electron'
+import os from 'os'
 import i18n from 'i18next'
+import { clipboard, ipcMain, globalShortcut, nativeImage } from 'electron'
 import { store, notify, notifyError, logger } from '../utils'
 import { createToggler } from './utils'
 
 const settingsOption = 'screenshotShortcut'
-const shortcut = 'CommandOrControl+Alt+S'
+
+export const SHORTCUT = os.platform() === 'darwin'
+  ? 'Command+Control+S'
+  : 'CommandOrControl+Alt+S'
 
 async function makeScreenshotDir (ipfs) {
   try {
@@ -101,13 +105,13 @@ export default function (ctx) {
     if (value === oldValue) return
 
     if (value === true) {
-      globalShortcut.register(shortcut, () => {
+      globalShortcut.register(SHORTCUT, () => {
         takeScreenshot(ctx)
       })
 
       logger.info('[screenshot] shortcut enabled')
     } else {
-      globalShortcut.unregister(shortcut)
+      globalShortcut.unregister(SHORTCUT)
       logger.info('[screenshot] shortcut disabled')
     }
 

@@ -2,8 +2,8 @@ import { store, logger } from '../utils'
 import { Menu, Tray, shell, app, ipcMain } from 'electron'
 import i18n from 'i18next'
 import { STATUS } from './register-daemon'
-import { takeScreenshot } from './take-screenshot'
-import { downloadHash } from './download-hash'
+import { SHORTCUT as SCREENSHOT_SHORTCUT, takeScreenshot } from './take-screenshot'
+import { SHORTCUT as HASH_SHORTCUT, downloadHash } from './download-hash'
 import path from 'path'
 import os from 'os'
 
@@ -61,11 +61,13 @@ function buildMenu (ctx) {
     { type: 'separator' },
     {
       label: i18n.t('takeScreenshot'),
-      click: () => { takeScreenshot(ctx) }
+      click: () => { takeScreenshot(ctx) },
+      accelerator: SCREENSHOT_SHORTCUT
     },
     {
       label: i18n.t('downloadHash'),
-      click: () => { downloadHash(ctx) }
+      click: () => { downloadHash(ctx) },
+      accelerator: HASH_SHORTCUT
     },
     { type: 'separator' },
     {

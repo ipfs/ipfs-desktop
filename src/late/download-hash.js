@@ -1,4 +1,5 @@
 import path from 'path'
+import os from 'os'
 import fs from 'fs-extra'
 import i18n from 'i18next'
 import { clipboard, app, shell, dialog, globalShortcut } from 'electron'
@@ -6,7 +7,10 @@ import { store, logger, notify, notifyError } from '../utils'
 import { createToggler } from './utils'
 
 const settingsOption = 'downloadHashShortcut'
-const shortcut = 'CommandOrControl+Alt+D'
+
+export const SHORTCUT = os.platform() === 'darwin'
+  ? 'Command+Control+H'
+  : 'CommandOrControl+Alt+D'
 
 function selectDirectory () {
   return new Promise(resolve => {
@@ -102,13 +106,13 @@ export default function (ctx) {
     if (value === oldValue) return
 
     if (value === true) {
-      globalShortcut.register(shortcut, () => {
+      globalShortcut.register(SHORTCUT, () => {
         downloadHash(ctx)
       })
 
       logger.info('[hash download] shortcut enabled')
     } else {
-      globalShortcut.unregister(shortcut)
+      globalShortcut.unregister(SHORTCUT)
       logger.info('[hash download] shortcut disabled')
     }
 
