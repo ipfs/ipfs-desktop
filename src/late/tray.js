@@ -2,13 +2,17 @@ import { store, logger } from '../utils'
 import { Menu, Tray, shell, app, ipcMain } from 'electron'
 import i18n from 'i18next'
 import { STATUS } from './register-daemon'
+import { takeScreenshot } from './take-screenshot'
+import { downloadHash } from './download-hash'
 import path from 'path'
 import os from 'os'
 
 const isMac = os.platform() === 'darwin'
 const isLinux = os.platform() === 'linux'
 
-function buildMenu ({ checkForUpdates, launchWebUI }) {
+function buildMenu (ctx) {
+  const { checkForUpdates, launchWebUI } = ctx
+
   return Menu.buildFromTemplate([
     ...[
       ['ipfsIsStarting', 'yellow'],
@@ -53,6 +57,15 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
     {
       label: i18n.t('settings'),
       click: () => { launchWebUI('/settings') }
+    },
+    { type: 'separator' },
+    {
+      label: i18n.t('takeScreenshot'),
+      click: () => { takeScreenshot(ctx) }
+    },
+    {
+      label: i18n.t('downloadHash'),
+      click: () => { downloadHash(ctx) }
     },
     { type: 'separator' },
     {
