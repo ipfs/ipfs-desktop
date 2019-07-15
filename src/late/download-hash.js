@@ -1,6 +1,5 @@
 import path from 'path'
 import fs from 'fs-extra'
-import isIPFS from 'is-ipfs'
 import i18n from 'i18next'
 import { clipboard, app, shell, dialog, globalShortcut } from 'electron'
 import { store, logger, notify, notifyError } from '../utils'
@@ -8,13 +7,6 @@ import { createToggler } from './utils'
 
 const settingsOption = 'downloadHashShortcut'
 const shortcut = 'CommandOrControl+Alt+D'
-
-function validateIPFS (text) {
-  return isIPFS.multihash(text) ||
-    isIPFS.cid(text) ||
-    isIPFS.ipfsPath(text) ||
-    isIPFS.ipfsPath(`/ipfs/${text}`)
-}
 
 function selectDirectory () {
   return new Promise(resolve => {
@@ -38,23 +30,25 @@ function selectDirectory () {
 async function saveFile (dir, file) {
   const location = path.join(dir, file.path)
   await fs.outputFile(location, file.content)
-  logger.info(`[hash download] '${file.path}' downloaded to ${location}.`)
 }
 
 export async function downloadHash (ctx) {
   const { getIpfsd } = ctx
-  const text = clipboard.readText().trim()
+  let text = clipboard.readText().trim()
   const ipfsd = await getIpfsd()
 
   if (!ipfsd || !text) {
     return
   }
 
-  if (!validateIPFS(text)) {
+  try {
+    text = await ipfsd.api.resolve(text)
+  } catch (_) {
     notify({
       title: i18n.t('cantDownloadHash'),
       body: i18n.t('invalidHashClipboard')
     })
+
     return
   }
 
@@ -81,17 +75,17 @@ export async function downloadHash (ctx) {
   }
 
   try {
-    if (files.length > 1) {
-      files.splice(0, 1)
-    }
-
-    await Promise.all(files.map(file => saveFile(dir, file)))
+    await Promise.all(
+      files
+        .filter(file => !!file.content)
+        .map(file => saveFile(dir, file))
+    )
 
     notify({
       title: i18n.t('hashDownloaded'),
       body: i18n.t('hashDownloadedClickToView', { hash: text })
     }, () => {
-      shell.showItemInFolder(path.join(dir, text))
+      shell.showItemInFolder(path.join(dir, files[0].path))
     })
   } catch (e) {
     logger.error(e.stack)
