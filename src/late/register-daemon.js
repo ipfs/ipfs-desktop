@@ -82,23 +82,19 @@ export default async function (ctx) {
       return
     }
 
-    return new Promise(resolve => {
-      const ipfsdObj = ipfsd
-      ipfsd = null
+    try {
       // give ipfs 3s to stop. An unclean shutdown is preferable to making the
       // user wait, and taking longer prevents the update mechanism from working.
-      ipfsdObj.stop(180, err => {
-        if (err) {
-          logger.error('[ipfsd] ', err)
-          updateStatus(STATUS.STOPPING_FAILED)
-          return resolve(err)
-        }
-
-        logger.info('[ipfsd] daemon stopped')
-        updateStatus(STATUS.STOPPING_FINISHED)
-        resolve()
-      })
-    })
+      await ipfsd.stop(180)
+      logger.info('[ipfsd] daemon stopped')
+      updateStatus(STATUS.STOPPING_FINISHED)
+    } catch (err) {
+      logger.error('[ipfsd] ', err)
+      updateStatus(STATUS.STOPPING_FAILED)
+      return err
+    } finally {
+      ipfsd = null
+    }
   }
 
   const restartIpfs = async () => {
