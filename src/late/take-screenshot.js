@@ -90,16 +90,19 @@ function handleScreenshot (ctx) {
   }
 }
 
-export default function (ctx) {
+export function takeScreenshot (ctx) {
   const { webui } = ctx
+  logger.info('[screenshot] taking screenshot')
+  webui.webContents.send('screenshot')
+}
 
+export default function (ctx) {
   const activate = (value, oldValue) => {
     if (value === oldValue) return
 
     if (value === true) {
       globalShortcut.register(shortcut, () => {
-        logger.info('[screenshot] taking screenshot')
-        webui.webContents.send('screenshot')
+        takeScreenshot(ctx)
       })
 
       logger.info('[screenshot] shortcut enabled')

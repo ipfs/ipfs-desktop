@@ -41,68 +41,65 @@ async function saveFile (dir, file) {
   logger.info(`[hash download] '${file.path}' downloaded to ${location}.`)
 }
 
-function handler (ctx) {
+export async function downloadHash (ctx) {
   const { getIpfsd } = ctx
+  const text = clipboard.readText().trim()
+  const ipfsd = await getIpfsd()
 
-  return async () => {
-    const text = clipboard.readText().trim()
-    const ipfsd = await getIpfsd()
+  if (!ipfsd || !text) {
+    return
+  }
 
-    if (!ipfsd || !text) {
-      return
+  if (!validateIPFS(text)) {
+    notify({
+      title: i18n.t('cantDownloadHash'),
+      body: i18n.t('invalidHashProvided')
+    })
+    return
+  }
+
+  const dir = await selectDirectory(ctx)
+
+  if (!dir) {
+    logger.info(`[hash download] dropping hash ${text}: user didn't choose a path.`)
+    return
+  }
+
+  let files
+
+  try {
+    logger.info(`[hash download] downloading ${text}: started`)
+    files = await ipfsd.api.get(text)
+    logger.info(`[hash download] downloading ${text}: completed`)
+  } catch (e) {
+    logger.error(e.stack)
+
+    notifyError({
+      title: i18n.t('cantDownloadHash'),
+      body: i18n.t('errorWhileDownloadingHash')
+    })
+  }
+
+  try {
+    if (files.length > 1) {
+      files.splice(0, 1)
     }
 
-    if (!validateIPFS(text)) {
-      notify({
-        title: i18n.t('cantDownloadHash'),
-        body: i18n.t('invalidHashProvided')
-      })
-      return
-    }
+    await Promise.all(files.map(file => saveFile(dir, file)))
 
-    const dir = await selectDirectory(ctx)
+    notify({
+      title: i18n.t('hashDownloaded'),
+      body: i18n.t('hashDownloadedClickToView', { hash: text })
+    }, () => {
+      shell.showItemInFolder(path.join(dir, text))
+    })
+  } catch (e) {
+    logger.error(e.stack)
 
-    if (!dir) {
-      logger.info(`[hash download] dropping hash ${text}: user didn't choose a path.`)
-      return
-    }
-
-    let files
-
-    try {
-      logger.info(`[hash download] downloading ${text}: started`)
-      files = await ipfsd.api.get(text)
-      logger.info(`[hash download] downloading ${text}: completed`)
-    } catch (e) {
-      logger.error(e.stack)
-
-      notifyError({
-        title: i18n.t('cantDownloadHash'),
-        body: i18n.t('errorWhileDownloadingHash')
-      })
-    }
-
-    try {
-      if (files.length > 1) {
-        files.splice(0, 1)
-      }
-
-      await Promise.all(files.map(file => saveFile(dir, file)))
-
-      notify({
-        title: i18n.t('hashDownloaded'),
-        body: i18n.t('hashDownloadedClickToView', { hash: text })
-      }, () => {
-        shell.showItemInFolder(path.join(dir, text))
-      })
-    } catch (e) {
-      logger.error(e.stack)
-
-      notifyError({
-        title: i18n.t('cantDownloadHash'),
-        body: i18n.t('errorWhileWritingFiles')
-      })
-    }
+    notifyError({
+      title: i18n.t('cantDownloadHash'),
+      body: i18n.t('errorWhileWritingFiles')
+    })
   }
 }
 
@@ -111,7 +108,10 @@ export default function (ctx) {
     if (value === oldValue) return
 
     if (value === true) {
-      globalShortcut.register(shortcut, handler(ctx))
+      globalShortcut.register(shortcut, () => {
+        downloadHash(ctx)
+      })
+
       logger.info('[hash download] shortcut enabled')
     } else {
       globalShortcut.unregister(shortcut)
