@@ -5,6 +5,8 @@ import { notify, notifyError } from './notify'
 import quitAndInstall from './quit-and-install'
 import addToIpfs from './add-to-ipfs'
 import execOrSudo from './exec-or-sudo'
+import createToggler from './create-toggler'
+import setupGlobalShortcut from './setup-global-shortcut'
 
 export {
   createDaemon,
@@ -14,5 +16,7 @@ export {
   notifyError,
   quitAndInstall,
   execOrSudo,
-  addToIpfs
+  addToIpfs,
+  createToggler,
+  setupGlobalShortcut
 }

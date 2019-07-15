@@ -2,9 +2,8 @@ import path from 'path'
 import os from 'os'
 import fs from 'fs-extra'
 import i18n from 'i18next'
-import { clipboard, app, shell, dialog, globalShortcut } from 'electron'
-import { store, logger, notify, notifyError } from '../utils'
-import { createToggler } from './utils'
+import { clipboard, app, shell, dialog } from 'electron'
+import { logger, notify, notifyError, setupGlobalShortcut } from '../utils'
 
 const settingsOption = 'downloadHashShortcut'
 
@@ -102,23 +101,11 @@ export async function downloadHash (ctx) {
 }
 
 export default function (ctx) {
-  const activate = (value, oldValue) => {
-    if (value === oldValue) return
-
-    if (value === true) {
-      globalShortcut.register(SHORTCUT, () => {
-        downloadHash(ctx)
-      })
-
-      logger.info('[hash download] shortcut enabled')
-    } else {
-      globalShortcut.unregister(SHORTCUT)
-      logger.info('[hash download] shortcut disabled')
+  setupGlobalShortcut(ctx, {
+    settingsOption,
+    accelerator: SHORTCUT,
+    action: () => {
+      downloadHash(ctx)
     }
-
-    return true
-  }
-
-  activate(store.get(settingsOption, false))
-  createToggler(ctx, settingsOption, activate)
+  })
 }

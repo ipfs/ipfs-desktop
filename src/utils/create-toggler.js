@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron'
-import { store } from '../utils'
+import store from './store'
 
-export function createToggler ({ webui }, settingsOption, activate) {
+export default function ({ webui }, settingsOption, activate) {
   ipcMain.on('config.toggle', async (_, opt) => {
     if (opt !== settingsOption) {
       return

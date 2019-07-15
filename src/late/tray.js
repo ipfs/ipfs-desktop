@@ -150,6 +150,10 @@ export default function (ctx) {
     menu = buildMenu(ctx)
     tray.setContextMenu(menu)
     tray.setToolTip('IPFS Desktop')
+
+    menu.on('menu-will-show', () => { ipcMain.emit('menubar-will-open') })
+    menu.on('menu-will-close', () => { ipcMain.emit('menubar-will-close') })
+
     updateStatus(status)
   }
 

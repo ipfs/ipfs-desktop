@@ -1,7 +1,6 @@
 import which from 'which'
 import { ipcMain } from 'electron'
-import { store, logger } from '../../utils'
-import { createToggler } from '../utils'
+import { store, logger, createToggler } from '../../utils'
 import * as pkg from './package'
 
 const SETTINGS_OPTION = 'experiments.npmOnIpfs'

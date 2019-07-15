@@ -1,6 +1,5 @@
 import AutoLaunch from 'auto-launch'
-import { store, logger } from '../utils'
-import { createToggler } from './utils'
+import { store, logger, createToggler } from '../utils'
 
 const settingsOption = 'autoLaunch'
 const autoLauncher = new AutoLaunch({
