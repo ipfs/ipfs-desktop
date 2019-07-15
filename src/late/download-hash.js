@@ -53,7 +53,7 @@ export async function downloadHash (ctx) {
   if (!validateIPFS(text)) {
     notify({
       title: i18n.t('cantDownloadHash'),
-      body: i18n.t('invalidHashProvided')
+      body: i18n.t('invalidHashClipboard')
     })
     return
   }
