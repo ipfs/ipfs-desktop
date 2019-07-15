@@ -2,8 +2,8 @@ import { store, logger } from '../utils'
 import { Menu, Tray, shell, app, ipcMain } from 'electron'
 import i18n from 'i18next'
 import { STATUS } from './register-daemon'
-import { takeScreenshot } from './take-screenshot'
-import { downloadHash } from './download-hash'
+import { SHORTCUT as SCREENSHOT_SHORTCUT, takeScreenshot } from './take-screenshot'
+import { SHORTCUT as HASH_SHORTCUT, downloadHash } from './download-hash'
 import path from 'path'
 import os from 'os'
 
@@ -60,12 +60,18 @@ function buildMenu (ctx) {
     },
     { type: 'separator' },
     {
+      id: 'takeScreenshot',
       label: i18n.t('takeScreenshot'),
-      click: () => { takeScreenshot(ctx) }
+      click: () => { takeScreenshot(ctx) },
+      accelerator: SCREENSHOT_SHORTCUT,
+      enabled: false
     },
     {
+      id: 'downloadHash',
       label: i18n.t('downloadHash'),
-      click: () => { downloadHash(ctx) }
+      click: () => { downloadHash(ctx) },
+      accelerator: HASH_SHORTCUT,
+      enabled: false
     },
     { type: 'separator' },
     {
@@ -148,6 +154,10 @@ export default function (ctx) {
     menu = buildMenu(ctx)
     tray.setContextMenu(menu)
     tray.setToolTip('IPFS Desktop')
+
+    menu.on('menu-will-show', () => { ipcMain.emit('menubar-will-open') })
+    menu.on('menu-will-close', () => { ipcMain.emit('menubar-will-close') })
+
     updateStatus(status)
   }
 
@@ -164,6 +174,9 @@ export default function (ctx) {
       menu.getMenuItemById('ipfsHasErrored').visible
     menu.getMenuItemById('startIpfs').visible = menu.getMenuItemById('ipfsIsNotRunning').visible
     menu.getMenuItemById('stopIpfs').visible = menu.getMenuItemById('ipfsIsRunning').visible
+
+    menu.getMenuItemById('takeScreenshot').enabled = menu.getMenuItemById('ipfsIsRunning').visible
+    menu.getMenuItemById('downloadHash').enabled = menu.getMenuItemById('ipfsIsRunning').visible
 
     if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon('ice'))
