@@ -5,6 +5,9 @@ import { STATUS } from './register-daemon'
 import path from 'path'
 import os from 'os'
 
+const isMac = os.platform() === 'darwin'
+const isLinux = os.platform() === 'linux'
+
 function buildMenu ({ checkForUpdates, launchWebUI }) {
   return Menu.buildFromTemplate([
     ...[
@@ -97,7 +100,8 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
     },
     {
       label: i18n.t('quit'),
-      click: () => { app.quit() }
+      click: () => { app.quit() },
+      accelerator: isMac ? 'Command+Q' : null
     }
   ])
 }
@@ -105,7 +109,7 @@ function buildMenu ({ checkForUpdates, launchWebUI }) {
 function icon (color) {
   const p = path.resolve(path.join(__dirname, '../../assets/icons/tray'))
 
-  if (os.platform() === 'darwin') {
+  if (isMac) {
     return path.join(p, `${color}.png`)
   }
 
@@ -118,7 +122,7 @@ export default function (ctx) {
   let menu = null
   let status = {}
 
-  if (os.platform() !== 'darwin') {
+  if (!isMac) {
     // Show the context menu on left click on other
     // platforms than macOS.
     tray.on('click', event => {
@@ -154,7 +158,7 @@ export default function (ctx) {
       tray.setImage(icon('black'))
     }
 
-    if (os.platform() === 'linux') {
+    if (isLinux) {
       // On Linux, in order for changes made to individual MenuItems to take effect,
       // you have to call setContextMenu again - https://electronjs.org/docs/api/tray
       tray.setContextMenu(menu)
