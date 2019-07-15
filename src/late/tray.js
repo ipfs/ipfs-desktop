@@ -60,14 +60,18 @@ function buildMenu (ctx) {
     },
     { type: 'separator' },
     {
+      id: 'takeScreenshot',
       label: i18n.t('takeScreenshot'),
       click: () => { takeScreenshot(ctx) },
-      accelerator: SCREENSHOT_SHORTCUT
+      accelerator: SCREENSHOT_SHORTCUT,
+      enabled: false
     },
     {
+      id: 'downloadHash',
       label: i18n.t('downloadHash'),
       click: () => { downloadHash(ctx) },
-      accelerator: HASH_SHORTCUT
+      accelerator: HASH_SHORTCUT,
+      enabled: false
     },
     { type: 'separator' },
     {
@@ -170,6 +174,9 @@ export default function (ctx) {
       menu.getMenuItemById('ipfsHasErrored').visible
     menu.getMenuItemById('startIpfs').visible = menu.getMenuItemById('ipfsIsNotRunning').visible
     menu.getMenuItemById('stopIpfs').visible = menu.getMenuItemById('ipfsIsRunning').visible
+
+    menu.getMenuItemById('takeScreenshot').enabled = menu.getMenuItemById('ipfsIsRunning').visible
+    menu.getMenuItemById('downloadHash').enabled = menu.getMenuItemById('ipfsIsRunning').visible
 
     if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon('ice'))
