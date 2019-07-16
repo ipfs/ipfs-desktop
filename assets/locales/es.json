@@ -31,7 +31,7 @@
   "ipfsNotRunning": "IPFS no se está ejecutando",
   "desktopIsStartedButDaemonOffline": "IPFS está en marcha pero la demonización esta apagada.",
   "cantDownloadHash": "No se pudo descargar el hash",
-  "invalidHashProvided": "El hash proporcionado no es válido.",
+  "invalidHashClipboard": "The hash on the clipboard is not valid.",
   "errorWhileDownloadingHash": "Se produjo un error al obtener el hash.",
   "errorWhileWritingFiles": "Se produjo un error al escribir los archivos en su sistema de archivos.",
   "hashDownloaded": "Hash descargado",
@@ -52,6 +52,8 @@
   "restartIpfsDesktop": "Restart IPFS Desktop",
   "openLogs": "Open logs",
   "anErrorHasOccurred": "An error has occurred",
+  "takeScreenshot": "Take Screenshot",
+  "downloadHash": "Download Hash",
   "polkitDialog": {
     "title": "Polkit not found",
     "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."

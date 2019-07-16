@@ -31,7 +31,7 @@
   "ipfsNotRunning": "IPFS没有运行",
   "desktopIsStartedButDaemonOffline": "IPFS桌面已经启动但是守护进程被关闭.",
   "cantDownloadHash": "无法下载哈希码",
-  "invalidHashProvided": "提供的哈希码无效.",
+  "invalidHashClipboard": "The hash on the clipboard is not valid.",
   "errorWhileDownloadingHash": "获取哈希码时出错。",
   "errorWhileWritingFiles": "保存文件到你的文件系统时发生了错误.",
   "hashDownloaded": "哈希码已经下载",
@@ -52,6 +52,8 @@
   "restartIpfsDesktop": "Restart IPFS Desktop",
   "openLogs": "Open logs",
   "anErrorHasOccurred": "An error has occurred",
+  "takeScreenshot": "Take Screenshot",
+  "downloadHash": "Download Hash",
   "polkitDialog": {
     "title": "Polkit not found",
     "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."

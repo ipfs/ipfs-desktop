@@ -31,7 +31,7 @@
   "ipfsNotRunning": "IPFS停止中",
   "desktopIsStartedButDaemonOffline": "IPFSデスクトップが起動されましたがデーモンが起動されていません。",
   "cantDownloadHash": "ハッシュをダウンロードできませんでした",
-  "invalidHashProvided": "無効なハッシュです。",
+  "invalidHashClipboard": "The hash on the clipboard is not valid.",
   "errorWhileDownloadingHash": "ハッシュの取得中にエラーが発生しました。",
   "errorWhileWritingFiles": "あなたのファイルシステムへのファイル書き込み中にエラーが発生しました。",
   "hashDownloaded": "ハッシュのダウンロードが完了しました",
@@ -52,6 +52,8 @@
   "restartIpfsDesktop": "Restart IPFS Desktop",
   "openLogs": "Open logs",
   "anErrorHasOccurred": "An error has occurred",
+  "takeScreenshot": "Take Screenshot",
+  "downloadHash": "Download Hash",
   "polkitDialog": {
     "title": "Polkit not found",
     "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."

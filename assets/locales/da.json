@@ -31,7 +31,7 @@
   "ipfsNotRunning": "IPFS kører ikke",
   "desktopIsStartedButDaemonOffline": "IPFS Skrivebord er startet, men baggrundsprocessen er slået fra.",
   "cantDownloadHash": "Kunne ikke downloade hashen.",
-  "invalidHashProvided": "Den angivne hash er ugyldig.",
+  "invalidHashClipboard": "The hash on the clipboard is not valid.",
   "errorWhileDownloadingHash": "En fejl opstod mens at hashen blev forsøgt hentet.",
   "errorWhileWritingFiles": "En fejl opstod i forbindelse med skrivning af filer til dit filsystem.",
   "hashDownloaded": "Hashen er downloadet",
@@ -52,6 +52,8 @@
   "restartIpfsDesktop": "Genstart IPFS Skrivebord",
   "openLogs": "Åben logfiler",
   "anErrorHasOccurred": "En fejl er opstået",
+  "takeScreenshot": "Take Screenshot",
+  "downloadHash": "Download Hash",
   "polkitDialog": {
     "title": "Polkit ikke fundet",
     "message": "IPFS kan ikke tilføjes til /usr/local/bin/ uden polkit agenten."
