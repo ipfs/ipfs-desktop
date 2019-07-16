@@ -132,19 +132,31 @@ function buildMenu (ctx) {
   ])
 }
 
-function icon (color) {
-  const p = path.resolve(path.join(__dirname, '../assets/icons/tray'))
+const on = 'on'
+const off = 'off'
 
-  if (IS_MAC) {
-    return path.join(p, `${color}.png`)
+function icon (color) {
+  const useColoredIcon = false // TODO: setting for macOS users
+  const dir = path.resolve(path.join(__dirname, '../assets/icons/tray'))
+
+  if (IS_WIN) {
+    return path.join(dir, `${color}.ico`)
   }
 
-  return path.join(p, `${color}-big.png`)
+  if (!IS_MAC) {
+    return path.join(dir, `${color}-64.png`)
+  }
+
+  if (useColoredIcon) {
+    return path.join(dir, `${color}-22.png`)
+  }
+
+  return path.join(dir, `${color}-22Template.png`)
 }
 
 export default function (ctx) {
   logger.info('[tray] starting')
-  const tray = new Tray(icon('black'))
+  const tray = new Tray(icon(on))
   let menu = null
   let status = {}
 
@@ -192,9 +204,9 @@ export default function (ctx) {
     menu.getMenuItemById('downloadHash').enabled = menu.getMenuItemById('ipfsIsRunning').visible
 
     if (status === STATUS.STARTING_FINISHED) {
-      tray.setImage(icon('ice'))
+      tray.setImage(icon(on))
     } else {
-      tray.setImage(icon('black'))
+      tray.setImage(icon(off))
     }
 
     if (!IS_MAC && !IS_WIN) {
