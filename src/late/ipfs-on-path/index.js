@@ -1,4 +1,3 @@
-import os from 'os'
 import { join } from 'path'
 import which from 'which'
 import { execFile } from 'child_process'
