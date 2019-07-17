@@ -10,6 +10,10 @@ import os from 'os'
 const isMac = os.platform() === 'darwin'
 const isLinux = os.platform() === 'linux'
 
+// Notes on this: we are only supporting accelerators on macOS for now because
+// they natively work as soon as the menu opens. They don't work like that on Windows
+// or other OSes and must be registered globally. They still collide with global
+// accelerator. Please see ../utils/setup-global-shortcut.js for more info.
 function buildMenu (ctx) {
   const { checkForUpdates, launchWebUI } = ctx
 
@@ -63,14 +67,14 @@ function buildMenu (ctx) {
       id: 'takeScreenshot',
       label: i18n.t('takeScreenshot'),
       click: () => { takeScreenshot(ctx) },
-      accelerator: SCREENSHOT_SHORTCUT,
+      accelerator: isMac ? SCREENSHOT_SHORTCUT : null,
       enabled: false
     },
     {
       id: 'downloadHash',
       label: i18n.t('downloadHash'),
       click: () => { downloadHash(ctx) },
-      accelerator: HASH_SHORTCUT,
+      accelerator: isMac ? HASH_SHORTCUT : null,
       enabled: false
     },
     { type: 'separator' },
