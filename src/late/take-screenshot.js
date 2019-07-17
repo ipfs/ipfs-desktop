@@ -100,7 +100,7 @@ export function takeScreenshot (ctx) {
 
 export default function (ctx) {
   setupGlobalShortcut(ctx, {
-    CONFIG_KEY,
+    settingsOption: CONFIG_KEY,
     accelerator: SHORTCUT,
     action: () => {
       takeScreenshot(ctx)
