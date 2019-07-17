@@ -1,3 +1,4 @@
+import { IS_MAC, IS_WIN } from './consts'
 import createDaemon from './daemon'
 import store from './store'
 import logger from './logger'
@@ -18,5 +19,7 @@ export {
   execOrSudo,
   addToIpfs,
   createToggler,
-  setupGlobalShortcut
+  setupGlobalShortcut,
+  IS_MAC,
+  IS_WIN
 }

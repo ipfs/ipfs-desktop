@@ -1,5 +1,5 @@
 import { globalShortcut, ipcMain } from 'electron'
-import os from 'os'
+import { IS_MAC } from './consts'
 import store from './store'
 import logger from './logger'
 import createToggler from './create-toggler'
@@ -24,7 +24,7 @@ export default function (ctx, { settingsOption, accelerator, action }) {
   activate(store.get(settingsOption, false))
   createToggler(ctx, settingsOption, activate)
 
-  if (os.platform() !== 'darwin') {
+  if (!IS_MAC) {
     return
   }
 

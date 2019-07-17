@@ -1,11 +1,10 @@
-import os from 'os'
 import i18n from 'i18next'
 import { clipboard, nativeImage, ipcMain } from 'electron'
-import { notify, notifyError, logger, setupGlobalShortcut } from '../utils'
+import { notify, notifyError, logger, setupGlobalShortcut, IS_MAC } from '../utils'
 
 const settingsOption = 'screenshotShortcut'
 
-export const SHORTCUT = os.platform() === 'darwin'
+export const SHORTCUT = IS_MAC
   ? 'Command+Control+S'
   : 'CommandOrControl+Alt+S'
 

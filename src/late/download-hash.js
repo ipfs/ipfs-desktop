@@ -1,13 +1,12 @@
 import path from 'path'
-import os from 'os'
 import fs from 'fs-extra'
 import i18n from 'i18next'
 import { clipboard, app, shell, dialog } from 'electron'
-import { logger, notify, notifyError, setupGlobalShortcut } from '../utils'
+import { logger, notify, notifyError, setupGlobalShortcut, IS_MAC } from '../utils'
 
 const settingsOption = 'downloadHashShortcut'
 
-export const SHORTCUT = os.platform() === 'darwin'
+export const SHORTCUT = IS_MAC
   ? 'Command+Control+H'
   : 'CommandOrControl+Alt+D'
 
