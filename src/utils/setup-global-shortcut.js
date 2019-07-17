@@ -1,4 +1,5 @@
 import { globalShortcut, ipcMain } from 'electron'
+import os from 'os'
 import store from './store'
 import logger from './logger'
 import createToggler from './create-toggler'
@@ -20,24 +21,25 @@ export default function (ctx, { settingsOption, accelerator, action }) {
     return true
   }
 
-  // This two listeners allow the same shortcut to be used globally and
-  // within the menubar app. For some weird reason, we need to unregister
-  // the option before opening the menubar. Otherwise, pressing the shortcut
-  // with the menubar open won't take any effect until the user closes the menubar.
+  activate(store.get(settingsOption, false))
+  createToggler(ctx, settingsOption, activate)
+
+  if (os.platform() !== 'darwin') {
+    return
+  }
+
+  // On macOS, when registering accelerators in the menubar, we need to
+  // unregister them globally before the menubar is open. Otherwise they
+  // won't work unless the user closes the menubar.
   ipcMain.on('menubar-will-open', () => {
     if (store.get(settingsOption, false)) {
       globalShortcut.unregister(accelerator)
     }
   })
 
-  // This extravaganza allows us to have options with shortcuts on the menubar
-  // that are equivalent to global shortcuts.
   ipcMain.on('menubar-will-close', () => {
     if (store.get(settingsOption, false)) {
       globalShortcut.register(accelerator, action)
     }
   })
-
-  activate(store.get(settingsOption, false))
-  createToggler(ctx, settingsOption, activate)
 }
