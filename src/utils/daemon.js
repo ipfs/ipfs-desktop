@@ -8,6 +8,9 @@ import { showDialog } from '../dialogs'
 import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 import store from './store'
+import multiaddr from 'multiaddr'
+import http from 'http'
+import getPort from 'get-port'
 
 function cannotConnectDialog (addr) {
   showDialog({
@@ -139,10 +142,82 @@ function checkCorsConfig (ipfsd) {
   store.set('checkedCorsConfig', true)
 }
 
+async function checkIfAddrIsDaemon (addr) {
+  const options = {
+    method: 'GET',
+    host: addr.address,
+    port: addr.port,
+    path: '/api/v0/refs?arg=/ipfs/QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn'
+  }
+
+  return new Promise(resolve => {
+    var req = http.request(options, function (r) {
+      resolve(r.statusCode === 200)
+    })
+
+    req.on('error', () => {
+      resolve(false)
+    })
+
+    req.end()
+  })
+}
+
+const parseCfgMultiaddr = (addr) => (addr.includes('/http')
+  ? multiaddr(addr)
+  : multiaddr(addr).encapsulate('/http')
+)
+
+/*
+const getCurrentApiAddr = async (ipfsd) => {
+  const path = join(ipfsd.repoPath, 'api')
+
+  if (!await fs.pathExists(path)) {
+    return null
+  }
+
+  return fs.readFileSync(path).toString()
+}
+*/
+
+async function checkPorts (ipfsd) {
+  const config = readConfigFile(ipfsd)
+
+  const configApiMa = parseCfgMultiaddr(config.Addresses.API)
+  const configGatewayMa = parseCfgMultiaddr(config.Addresses.Gateway)
+
+  const isApiMaDaemon = await checkIfAddrIsDaemon(configApiMa.nodeAddress())
+  const isGatewayMaDaemon = await checkIfAddrIsDaemon(configGatewayMa.nodeAddress())
+
+  if (isApiMaDaemon && isGatewayMaDaemon) {
+    // TODO: BEING USED BY A DAEMON
+    return
+  }
+
+  const apiPort = parseInt(configApiMa.nodeAddress().port)
+  const gatewayPort = parseInt(configGatewayMa.nodeAddress().port)
+
+  const freeGatewayPort = await getPort({ port: getPort.makeRange(gatewayPort, gatewayPort + 100) })
+  const freeApiPort = await getPort({ port: getPort.makeRange(apiPort, apiPort + 100) })
+
+  if (apiPort !== freeApiPort) {
+    config.Addresses.API = config.Addresses.API.replace(apiPort.toString(), freeApiPort.toString())
+  }
+
+  if (gatewayPort !== freeGatewayPort) {
+    config.Addresses.Gateway = config.Addresses.Gateway.replace(gatewayPort.toString(), freeGatewayPort.toString())
+  }
+
+  // TODO: alert user? revert when shutting down? How?
+
+  writeConfigFile(ipfsd, config)
+}
+
 export default async function (opts) {
   const ipfsd = await spawn(opts)
 
   if (!ipfsd.started) {
+    await checkPorts(ipfsd)
     await ipfsd.start(opts.flags)
   }
 
