@@ -2,7 +2,7 @@ import i18n from 'i18next'
 import { clipboard, nativeImage, ipcMain } from 'electron'
 import { notify, notifyError, logger, setupGlobalShortcut, IS_MAC } from '../utils'
 
-const settingsOption = 'screenshotShortcut'
+const CONFIG_KEY = 'screenshotShortcut'
 
 export const SHORTCUT = IS_MAC
   ? 'Command+Control+S'
@@ -100,7 +100,7 @@ export function takeScreenshot (ctx) {
 
 export default function (ctx) {
   setupGlobalShortcut(ctx, {
-    settingsOption,
+    CONFIG_KEY,
     accelerator: SHORTCUT,
     action: () => {
       takeScreenshot(ctx)

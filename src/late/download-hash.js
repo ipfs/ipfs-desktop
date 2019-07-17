@@ -4,7 +4,7 @@ import i18n from 'i18next'
 import { clipboard, app, shell, dialog } from 'electron'
 import { logger, notify, notifyError, setupGlobalShortcut, IS_MAC } from '../utils'
 
-const settingsOption = 'downloadHashShortcut'
+const CONFIG_KEY = 'downloadHashShortcut'
 
 export const SHORTCUT = IS_MAC
   ? 'Command+Control+H'
@@ -101,7 +101,7 @@ export async function downloadHash (ctx) {
 
 export default function (ctx) {
   setupGlobalShortcut(ctx, {
-    settingsOption,
+    CONFIG_KEY,
     accelerator: SHORTCUT,
     action: () => {
       downloadHash(ctx)

@@ -3,12 +3,12 @@ import { ipcMain } from 'electron'
 import { store, logger, createToggler } from '../../utils'
 import * as pkg from './package'
 
-const SETTINGS_OPTION = 'experiments.npmOnIpfs'
+const CONFIG_KEY = 'experiments.npmOnIpfs'
 
 export default function (ctx) {
   let interval = null
 
-  createToggler(ctx, SETTINGS_OPTION, async (value, oldValue) => {
+  createToggler(ctx, CONFIG_KEY, async (value, oldValue) => {
     if (value === oldValue) return
 
     // If the user is telling to (un)install even though they have (un)installed
@@ -25,13 +25,13 @@ export default function (ctx) {
     return manual || pkg.uninstall()
   })
 
-  let opt = store.get(SETTINGS_OPTION, null)
+  let opt = store.get(CONFIG_KEY, null)
   const exists = isPkgInstalled()
 
   // Confirms if the package is still (un)installed because the user
   // might change it manually.
   if (opt !== null || exists !== false) {
-    store.set(SETTINGS_OPTION, exists)
+    store.set(CONFIG_KEY, exists)
     opt = exists
   }
 
@@ -46,9 +46,9 @@ export default function (ctx) {
 
   // First time running this function.
   if (!which.sync('npm', { nothrow: true })) {
-    store.set(SETTINGS_OPTION, false)
+    store.set(CONFIG_KEY, false)
   } else {
-    ipcMain.emit('config.toggle', null, SETTINGS_OPTION)
+    ipcMain.emit('config.toggle', null, CONFIG_KEY)
   }
 }
 
@@ -60,6 +60,6 @@ function existsAndUpdate () {
   if (isPkgInstalled()) {
     pkg.update()
   } else {
-    store.set(SETTINGS_OPTION, false)
+    store.set(CONFIG_KEY, false)
   }
 }
