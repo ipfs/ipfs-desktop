@@ -1,7 +1,8 @@
 import AutoLaunch from 'auto-launch'
 import { store, logger, createToggler } from '../utils'
 
-const settingsOption = 'autoLaunch'
+const CONFIG_KEY = 'autoLaunch'
+
 const autoLauncher = new AutoLaunch({
   name: 'IPFS Desktop'
 })
@@ -31,6 +32,6 @@ export default function (ctx) {
     }
   }
 
-  activate(store.get(settingsOption, false))
-  createToggler(ctx, settingsOption, activate)
+  activate(store.get(CONFIG_KEY, false))
+  createToggler(ctx, CONFIG_KEY, activate)
 }
