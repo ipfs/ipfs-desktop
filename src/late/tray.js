@@ -1,14 +1,10 @@
-import { store, logger } from '../utils'
+import { store, logger, IS_MAC, IS_WIN } from '../utils'
 import { Menu, Tray, shell, app, ipcMain } from 'electron'
 import i18n from 'i18next'
 import { STATUS } from './register-daemon'
 import { SHORTCUT as SCREENSHOT_SHORTCUT, takeScreenshot } from './take-screenshot'
 import { SHORTCUT as HASH_SHORTCUT, downloadHash } from './download-hash'
 import path from 'path'
-import os from 'os'
-
-const isMac = os.platform() === 'darwin'
-const isLinux = os.platform() === 'linux'
 
 // Notes on this: we are only supporting accelerators on macOS for now because
 // they natively work as soon as the menu opens. They don't work like that on Windows
@@ -67,14 +63,14 @@ function buildMenu (ctx) {
       id: 'takeScreenshot',
       label: i18n.t('takeScreenshot'),
       click: () => { takeScreenshot(ctx) },
-      accelerator: isMac ? SCREENSHOT_SHORTCUT : null,
+      accelerator: IS_MAC ? SCREENSHOT_SHORTCUT : null,
       enabled: false
     },
     {
       id: 'downloadHash',
       label: i18n.t('downloadHash'),
       click: () => { downloadHash(ctx) },
-      accelerator: isMac ? HASH_SHORTCUT : null,
+      accelerator: IS_MAC ? HASH_SHORTCUT : null,
       enabled: false
     },
     { type: 'separator' },
@@ -124,7 +120,7 @@ function buildMenu (ctx) {
     {
       label: i18n.t('quit'),
       click: () => { app.quit() },
-      accelerator: isMac ? 'Command+Q' : null
+      accelerator: IS_MAC ? 'Command+Q' : null
     }
   ])
 }
@@ -132,7 +128,7 @@ function buildMenu (ctx) {
 function icon (color) {
   const p = path.resolve(path.join(__dirname, '../../assets/icons/tray'))
 
-  if (isMac) {
+  if (IS_MAC) {
     return path.join(p, `${color}.png`)
   }
 
@@ -145,7 +141,7 @@ export default function (ctx) {
   let menu = null
   let status = {}
 
-  if (!isMac) {
+  if (!IS_MAC) {
     // Show the context menu on left click on other
     // platforms than macOS.
     tray.on('click', event => {
@@ -188,7 +184,7 @@ export default function (ctx) {
       tray.setImage(icon('black'))
     }
 
-    if (isLinux) {
+    if (!IS_MAC && !IS_WIN) {
       // On Linux, in order for changes made to individual MenuItems to take effect,
       // you have to call setContextMenu again - https://electronjs.org/docs/api/tray
       tray.setContextMenu(menu)

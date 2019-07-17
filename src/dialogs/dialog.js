@@ -1,6 +1,6 @@
 import { app, dialog } from 'electron'
+import { IS_MAC } from '../utils'
 import i18n from 'i18next'
-import os from 'os'
 
 // NOTE: always send the buttons in the order [OK, Cancel, ...Actions].
 // See this post for more interesting information about the topic:
@@ -16,7 +16,7 @@ export default function ({ title, message, type = 'info', buttons = [
     ...opts
   }
 
-  if (os.platform() === 'darwin') {
+  if (IS_MAC) {
     options.message = title
     options.detail = message
   } else {
@@ -24,8 +24,7 @@ export default function ({ title, message, type = 'info', buttons = [
     options.message = message
   }
 
-  const isInverse = os.platform() === 'windows' ||
-    os.platform() === 'linux'
+  const isInverse = !IS_MAC
 
   if (isInverse) {
     options.buttons.reverse()

@@ -2,7 +2,7 @@ import os from 'os'
 import { join } from 'path'
 import which from 'which'
 import { execFile } from 'child_process'
-import { logger, store, execOrSudo, createToggler } from '../../utils'
+import { logger, store, execOrSudo, createToggler, IS_WIN } from '../../utils'
 import { recoverableErrorDialog } from '../../dialogs'
 
 const SETTINGS_OPTION = 'ipfsOnPath'
@@ -59,7 +59,7 @@ async function runWindows (script) {
 }
 
 async function run (script, trySudo = true) {
-  if (os.platform() === 'win32') {
+  if (IS_WIN) {
     return runWindows(script)
   }
 
