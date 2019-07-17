@@ -1,33 +1,14 @@
 import path from 'path'
 import fs from 'fs-extra'
 import i18n from 'i18next'
-import { clipboard, app, shell, dialog } from 'electron'
-import { logger, notify, notifyError, setupGlobalShortcut, IS_MAC } from '../utils'
+import { clipboard, app, shell } from 'electron'
+import { logger, selectDirectory, notify, notifyError, setupGlobalShortcut, IS_MAC } from '../utils'
 
 const CONFIG_KEY = 'downloadHashShortcut'
 
 export const SHORTCUT = IS_MAC
   ? 'Command+Control+H'
   : 'CommandOrControl+Alt+D'
-
-function selectDirectory () {
-  return new Promise(resolve => {
-    dialog.showOpenDialog({
-      title: 'Select a directory',
-      defaultPath: app.getPath('downloads'),
-      properties: [
-        'openDirectory',
-        'createDirectory'
-      ]
-    }, (res) => {
-      if (!res || res.length === 0) {
-        resolve()
-      } else {
-        resolve(res[0])
-      }
-    })
-  })
-}
 
 async function saveFile (dir, file) {
   const location = path.join(dir, file.path)
@@ -54,7 +35,9 @@ export async function downloadHash (ctx) {
     return
   }
 
-  const dir = await selectDirectory(ctx)
+  const dir = await selectDirectory({
+    defaultPath: app.getPath('downloads')
+  })
 
   if (!dir) {
     logger.info(`[hash download] dropping hash ${text}: user didn't choose a path.`)

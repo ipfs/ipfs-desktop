@@ -1,4 +1,4 @@
-import { store, logger, IS_MAC, IS_WIN } from '../utils'
+import { store, logger, moveRepositoryLocation, IS_MAC, IS_WIN } from '../utils'
 import { Menu, Tray, shell, app, ipcMain } from 'electron'
 import i18n from 'i18next'
 import { STATUS } from './register-daemon'
@@ -86,6 +86,10 @@ function buildMenu (ctx) {
         {
           label: i18n.t('openConfigFile'),
           click: () => { shell.openItem(store.path) }
+        },
+        {
+          label: i18n.t('moveRepositoryLocation'),
+          click: () => { moveRepositoryLocation(ctx) }
         }
       ]
     },

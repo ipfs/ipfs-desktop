@@ -8,6 +8,8 @@ import addToIpfs from './add-to-ipfs'
 import execOrSudo from './exec-or-sudo'
 import createToggler from './create-toggler'
 import setupGlobalShortcut from './setup-global-shortcut'
+import selectDirectory from './select-directory'
+import moveRepositoryLocation from './move-repository-location'
 
 export {
   createDaemon,
@@ -20,6 +22,8 @@ export {
   addToIpfs,
   createToggler,
   setupGlobalShortcut,
+  selectDirectory,
+  moveRepositoryLocation,
   IS_MAC,
   IS_WIN
 }
