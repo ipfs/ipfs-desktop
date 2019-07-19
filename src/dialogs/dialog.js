@@ -1,4 +1,4 @@
-import { app, dialog } from 'electron'
+import { dialog } from 'electron'
 import { IS_MAC } from '../utils'
 import i18n from 'i18next'
 
@@ -35,9 +35,7 @@ export default function ({ title, message, type = 'info', buttons = [
     options.cancelId = isInverse ? buttons.length - 2 : 1
   }
 
-  if (app.dock) app.dock.show()
   const selected = dialog.showMessageBox(options)
-  if (app.dock) app.dock.hide()
 
   if (!isInverse) {
     return selected

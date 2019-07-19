@@ -10,6 +10,7 @@ import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 import store from './store'
 
 function cannotConnectDialog (addr) {
+  if (app.dock) app.dock.show()
   showDialog({
     title: i18n.t('cannotConnectToApiDialog.title'),
     message: i18n.t('cannotConnectToApiDialog.message', { addr }),
@@ -18,6 +19,7 @@ function cannotConnectDialog (addr) {
       i18n.t('close')
     ]
   })
+  if (app.dock) app.dock.hide()
 }
 
 async function cleanup (addr, path) {

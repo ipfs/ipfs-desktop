@@ -1,41 +1,70 @@
-import { showDialog } from '../dialogs'
+import { showDialog, recoverableErrorDialog } from '../dialogs'
 import i18n from 'i18next'
-import { app } from 'electron'
-
 import store from './store'
 import path from 'path'
 import fs from 'fs-extra'
 import selectDirectory from './select-directory'
+import logger from './logger'
+import runWithDock from './run-with-dock'
 
-export default async function ({ stopIpfs, startIpfs }) {
-  /* const opt = showDialog({
-    title: i18n.t('moveRepositoryLocation'),
-    message: i18n.t('moveRepositoryLocation')
+export default function ({ stopIpfs, startIpfs }) {
+  runWithDock(async () => {
+    logger.info('[move repository] user prompted about effects')
+
+    const opt = showDialog({
+      title: i18n.t('moveRepositoryWarnDialog.title'),
+      message: i18n.t('moveRepositoryWarnDialog.message'),
+      type: 'warning'
+    })
+
+    if (opt !== 0) {
+      logger.info('[move repository] user canceled')
+      return
+    }
+
+    logger.info('[move repository] user will pick directory')
+    const dir = await selectDirectory()
+
+    if (!dir) {
+      logger.info('[move repository] user canceled')
+      return
+    }
+
+    const config = store.get('ipfsConfig')
+
+    const currDir = config.path
+    const currName = path.basename(currDir)
+    const newDir = path.join(dir, currName)
+
+    if (currDir === newDir) {
+      logger.info('[move repository] new dir is the same as old dir')
+
+      return showDialog({
+        title: i18n.t('moveRepositorySameDirDialog.title'),
+        message: i18n.t('moveRepositorySameDirDialog.message', { location: newDir }),
+        type: 'warning'
+      })
+    }
+
+    await stopIpfs()
+
+    try {
+      await fs.move(currDir, newDir)
+      logger.info(`[move repository] moved from ${currDir} to ${newDir}`)
+    } catch (err) {
+      logger.error(`[move repository] ${err.toString()}`)
+      return recoverableErrorDialog(err)
+    }
+
+    config.path = newDir
+    store.set('ipfsConfig', config)
+    logger.info('[move repository] configuration updated')
+
+    showDialog({
+      title: i18n.t('moveRepositorySuccessDialog.title'),
+      message: i18n.t('moveRepositorySuccessDialog.message', { location: newDir })
+    })
+
+    await startIpfs()
   })
-
-  if (opt !== 0) {
-    return
-  } */
-
-  const dir = await selectDirectory()
-
-  if (!dir) {
-    return
-  }
-
-  await stopIpfs()
-
-  const config = store.get('ipfsConfig')
-
-  const currDir = config.path
-  const currName = path.basename(currDir)
-  const newDir = path.join(dir, currName)
-
-  await fs.move(currDir, newDir)
-
-  config.path = newDir
-  store.set('ipfsConfig', config)
-
-  await startIpfs()
-  console.log(dir)
 }

@@ -10,6 +10,7 @@ import createToggler from './create-toggler'
 import setupGlobalShortcut from './setup-global-shortcut'
 import selectDirectory from './select-directory'
 import moveRepositoryLocation from './move-repository-location'
+import runWithDock from './run-with-dock'
 
 export {
   createDaemon,
@@ -24,6 +25,7 @@ export {
   setupGlobalShortcut,
   selectDirectory,
   moveRepositoryLocation,
+  runWithDock,
   IS_MAC,
   IS_WIN
 }
