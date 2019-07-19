@@ -19,7 +19,7 @@ export default async function (ctx) {
   await autoUpdater(ctx) // ctx.checkForUpdates
   await registerWebUI(ctx) // ctx.webui, ctx.launchWebUI
   await tray(ctx) // ctx.tray
-  await registerDaemon(ctx) // ctx.getIpfsd
+  await registerDaemon(ctx) // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
   await addToIpfs(ctx)
   await autoLaunch(ctx)
   await downloadHash(ctx)

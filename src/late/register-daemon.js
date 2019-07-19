@@ -23,20 +23,21 @@ export default async function (ctx) {
     ipcMain.emit('ipfsd', status)
   }
 
-  ipcMain.on('requireIpfsdStatus', () => {
-    ipcMain.emit('ipfsd', status)
-  })
-
-  ctx.getIpfsd = async (optional = false) => {
+  const getIpfsd = async (optional = false) => {
     if (optional) {
       return ipfsd
     }
 
     if (!ipfsd) {
-      await ipfsNotRunningDialog()
+      await ipfsNotRunningDialog(ctx)
     }
 
     return ipfsd
+  }
+
+  const runAndStatus = (fn) => async () => {
+    await fn()
+    return status
   }
 
   const startIpfs = async () => {
@@ -91,7 +92,6 @@ export default async function (ctx) {
     } catch (err) {
       logger.error('[ipfsd] ', err)
       updateStatus(STATUS.STOPPING_FAILED)
-      return err
     } finally {
       ipfsd = null
     }
@@ -102,9 +102,11 @@ export default async function (ctx) {
     await startIpfs()
   }
 
-  ipcMain.on('startIpfs', startIpfs)
-  ipcMain.on('stopIpfs', stopIpfs)
-  ipcMain.on('restartIpfs', restartIpfs)
+  ctx.startIpfs = runAndStatus(startIpfs)
+  ctx.stopIpfs = runAndStatus(stopIpfs)
+  ctx.restartIpfs = runAndStatus(restartIpfs)
+  ctx.getIpfsd = getIpfsd
+
   ipcMain.on('ipfsConfigChanged', restartIpfs)
   app.on('before-quit', stopIpfs)
 

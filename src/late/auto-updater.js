@@ -4,7 +4,7 @@ import { logger, notify, quitAndInstall } from '../utils'
 
 let userRequested = false
 
-function setup () {
+function setup (ctx) {
   autoUpdater.autoDownload = false
 
   autoUpdater.on('error', (err) => {
@@ -47,7 +47,7 @@ function setup () {
       body: i18n.t('clickToInstall')
     }, () => {
       setImmediate(() => {
-        quitAndInstall()
+        quitAndInstall(ctx)
       })
     })
   })
@@ -73,7 +73,7 @@ export default async function (ctx) {
     return
   }
 
-  setup()
+  setup(ctx)
 
   await checkForUpdates()
   setInterval(checkForUpdates, 43200000) // every 12 hours

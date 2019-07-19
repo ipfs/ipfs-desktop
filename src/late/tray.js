@@ -30,19 +30,19 @@ function buildMenu (ctx) {
     {
       id: 'restartIpfs',
       label: i18n.t('restart'),
-      click: () => { ipcMain.emit('restartIpfs') },
+      click: () => { ctx.restartIpfs() },
       visible: false
     },
     {
       id: 'startIpfs',
       label: i18n.t('start'),
-      click: () => { ipcMain.emit('startIpfs') },
+      click: () => { ctx.startIpfs() },
       visible: false
     },
     {
       id: 'stopIpfs',
       label: i18n.t('stop'),
-      click: () => { ipcMain.emit('stopIpfs') },
+      click: () => { ctx.stopIpfs() },
       visible: false
     },
     { type: 'separator' },
