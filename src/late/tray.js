@@ -11,8 +11,6 @@ import path from 'path'
 // or other OSes and must be registered globally. They still collide with global
 // accelerator. Please see ../utils/setup-global-shortcut.js for more info.
 function buildMenu (ctx) {
-  const { checkForUpdates, launchWebUI } = ctx
-
   return Menu.buildFromTemplate([
     ...[
       ['ipfsIsStarting', 'yellow'],
@@ -48,15 +46,15 @@ function buildMenu (ctx) {
     { type: 'separator' },
     {
       label: i18n.t('status'),
-      click: () => { launchWebUI('/') }
+      click: () => { ctx.launchWebUI('/') }
     },
     {
       label: i18n.t('files'),
-      click: () => { launchWebUI('/files') }
+      click: () => { ctx.launchWebUI('/files') }
     },
     {
       label: i18n.t('settings'),
-      click: () => { launchWebUI('/settings') }
+      click: () => { ctx.launchWebUI('/settings') }
     },
     { type: 'separator' },
     {
@@ -109,7 +107,7 @@ function buildMenu (ctx) {
         { type: 'separator' },
         {
           label: i18n.t('checkForUpdates'),
-          click: () => { checkForUpdates() }
+          click: () => { ctx.checkForUpdates() }
         },
         {
           label: i18n.t('viewOnGitHub'),
