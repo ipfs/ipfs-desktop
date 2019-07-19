@@ -1,10 +1,9 @@
 import dialog from './dialog'
 import i18n from 'i18next'
-import { ipcMain } from 'electron'
 import { STATUS } from '../late/register-daemon'
 import { logger } from '../utils'
 
-export default async function () {
+export default async function ({ startIpfs }) {
   logger.info('[ipfs-not-running] an action needs ipfs to be running')
 
   const option = dialog({
@@ -16,16 +15,9 @@ export default async function () {
     ]
   })
 
-  if (option === 0) {
-    return new Promise(resolve => {
-      ipcMain.on('ipfsd', (status) => {
-        if (status === STATUS.STARTING_STARTED) return
-        resolve(status === STATUS.STARTING_FINISHED)
-      })
-
-      ipcMain.emit('startIpfs')
-    })
+  if (option !== 0) {
+    return false
   }
 
-  return false
+  return (await startIpfs()) === STATUS.STARTING_FINISHED
 }

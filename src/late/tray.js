@@ -11,8 +11,6 @@ import path from 'path'
 // or other OSes and must be registered globally. They still collide with global
 // accelerator. Please see ../utils/setup-global-shortcut.js for more info.
 function buildMenu (ctx) {
-  const { checkForUpdates, launchWebUI } = ctx
-
   return Menu.buildFromTemplate([
     ...[
       ['ipfsIsStarting', 'yellow'],
@@ -30,33 +28,33 @@ function buildMenu (ctx) {
     {
       id: 'restartIpfs',
       label: i18n.t('restart'),
-      click: () => { ipcMain.emit('restartIpfs') },
+      click: () => { ctx.restartIpfs() },
       visible: false
     },
     {
       id: 'startIpfs',
       label: i18n.t('start'),
-      click: () => { ipcMain.emit('startIpfs') },
+      click: () => { ctx.startIpfs() },
       visible: false
     },
     {
       id: 'stopIpfs',
       label: i18n.t('stop'),
-      click: () => { ipcMain.emit('stopIpfs') },
+      click: () => { ctx.stopIpfs() },
       visible: false
     },
     { type: 'separator' },
     {
       label: i18n.t('status'),
-      click: () => { launchWebUI('/') }
+      click: () => { ctx.launchWebUI('/') }
     },
     {
       label: i18n.t('files'),
-      click: () => { launchWebUI('/files') }
+      click: () => { ctx.launchWebUI('/files') }
     },
     {
       label: i18n.t('settings'),
-      click: () => { launchWebUI('/settings') }
+      click: () => { ctx.launchWebUI('/settings') }
     },
     { type: 'separator' },
     {
@@ -109,7 +107,7 @@ function buildMenu (ctx) {
         { type: 'separator' },
         {
           label: i18n.t('checkForUpdates'),
-          click: () => { checkForUpdates() }
+          click: () => { ctx.checkForUpdates() }
         },
         {
           label: i18n.t('viewOnGitHub'),
