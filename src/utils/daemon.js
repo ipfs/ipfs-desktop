@@ -195,7 +195,7 @@ async function checkPorts (ipfsd) {
   }
 
   const apiPort = parseInt(configApiMa.nodeAddress().port, 10)
-  const gatewayPort = parseInt(configGatewayMa.nodeAddress().port)
+  const gatewayPort = parseInt(configGatewayMa.nodeAddress().port, 10)
 
   const freeGatewayPort = await getPort({ port: getPort.makeRange(gatewayPort, gatewayPort + 100) })
   const freeApiPort = await getPort({ port: getPort.makeRange(apiPort, apiPort + 100) })
