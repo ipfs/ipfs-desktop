@@ -200,6 +200,19 @@ async function checkPorts (ipfsd) {
   const freeGatewayPort = await getPort({ port: getPort.makeRange(gatewayPort, gatewayPort + 100) })
   const freeApiPort = await getPort({ port: getPort.makeRange(apiPort, apiPort + 100) })
 
+  const busyApiPort = apiPort !== freeApiPort
+  const busyGatewayPort = gatewayPort !== freeGatewayPort
+
+  if (busyApiPort && busyGatewayPort) {
+ 
+  } else if (busyApiPort) {
+
+  } else if (busyGatewayPort) {
+
+  } else {
+    return
+  }
+
   if (apiPort !== freeApiPort) {
     config.Addresses.API = config.Addresses.API.replace(apiPort.toString(), freeApiPort.toString())
   }
@@ -207,8 +220,6 @@ async function checkPorts (ipfsd) {
   if (gatewayPort !== freeGatewayPort) {
     config.Addresses.Gateway = config.Addresses.Gateway.replace(gatewayPort.toString(), freeGatewayPort.toString())
   }
-
-  // TODO: alert user? revert when shutting down? How?
 
   writeConfigFile(ipfsd, config)
 }
