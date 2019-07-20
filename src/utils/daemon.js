@@ -168,18 +168,6 @@ const parseCfgMultiaddr = (addr) => (addr.includes('/http')
   : multiaddr(addr).encapsulate('/http')
 )
 
-/*
-const getCurrentApiAddr = async (ipfsd) => {
-  const path = join(ipfsd.repoPath, 'api')
-
-  if (!await fs.pathExists(path)) {
-    return null
-  }
-
-  return fs.readFileSync(path).toString()
-}
-*/
-
 async function checkPorts (ipfsd) {
   const config = readConfigFile(ipfsd)
 
@@ -190,8 +178,8 @@ async function checkPorts (ipfsd) {
   const isGatewayMaDaemon = await checkIfAddrIsDaemon(configGatewayMa.nodeAddress())
 
   if (isApiMaDaemon && isGatewayMaDaemon) {
-    // TODO: BEING USED BY A DAEMON
-    return
+    logger.info('[daemon] ports busy by a daemon')
+    return true
   }
 
   const apiPort = parseInt(configApiMa.nodeAddress().port, 10)
@@ -203,25 +191,62 @@ async function checkPorts (ipfsd) {
   const busyApiPort = apiPort !== freeApiPort
   const busyGatewayPort = gatewayPort !== freeGatewayPort
 
-  if (busyApiPort && busyGatewayPort) {
- 
-  } else if (busyApiPort) {
-
-  } else if (busyGatewayPort) {
-
-  } else {
+  if (!busyApiPort && !busyGatewayPort) {
     return
   }
 
-  if (apiPort !== freeApiPort) {
+  let message = null
+  let options = null
+
+  if (busyApiPort && busyGatewayPort) {
+    logger.info('[daemon] api and gateway ports busy')
+    message = 'busyPortsDialog'
+    options = {
+      port1: apiPort,
+      alt1: freeApiPort,
+      port2: gatewayPort,
+      alt2: freeGatewayPort
+    }
+  } else if (busyApiPort) {
+    logger.info('[daemon] api port busy')
+    message = 'busyPortDialog'
+    options = {
+      port: apiPort,
+      alt: freeApiPort
+    }
+  } else {
+    logger.info('[daemon] gateway port busy')
+    message = 'busyPortDialog'
+    options = {
+      port: gatewayPort,
+      alt: freeGatewayPort
+    }
+  }
+
+  const opt = showDialog({
+    title: i18n.t(`${message}.title`),
+    message: i18n.t(`${message}.message`, options),
+    type: 'error',
+    buttons: [
+      i18n.t(`${message}.action`, options),
+      i18n.t('close')
+    ]
+  })
+
+  if (opt !== 0) {
+    throw new Error('ports already being used')
+  }
+
+  if (busyApiPort) {
     config.Addresses.API = config.Addresses.API.replace(apiPort.toString(), freeApiPort.toString())
   }
 
-  if (gatewayPort !== freeGatewayPort) {
+  if (busyGatewayPort) {
     config.Addresses.Gateway = config.Addresses.Gateway.replace(gatewayPort.toString(), freeGatewayPort.toString())
   }
 
   writeConfigFile(ipfsd, config)
+  logger.info('[daemon] ports updated')
 }
 
 export default async function (opts) {
