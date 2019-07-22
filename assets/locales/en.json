@@ -90,5 +90,15 @@
   "moveRepositorySameDirDialog": {
     "title": "Same directory selected",
     "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+  },
+  "busyPortsDialog": {
+    "title": "Ports are busy",
+    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
+    "action": "Use ports { alt1 } and { alt2 } instead"
+  },
+  "busyPortDialog": {
+    "title": "Port is busy",
+    "message": "The port { port } is not available. Do you want to use { alt } instead?",
+    "action": "Use port { alt } instead"
   }
 }
