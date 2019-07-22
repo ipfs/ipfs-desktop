@@ -80,7 +80,7 @@
   },
   "busyPortsDialog": {
     "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use ports { alt1 } and { alt2 } instead?",
+    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
     "action": "Use ports { alt1 } and { alt2 } instead"
   },
   "busyPortDialog": {
