@@ -14,7 +14,11 @@ export default function ({ stopIpfs, startIpfs }) {
     const opt = showDialog({
       title: i18n.t('moveRepositoryWarnDialog.title'),
       message: i18n.t('moveRepositoryWarnDialog.message'),
-      type: 'warning'
+      type: 'warning',
+      buttons: [
+        i18n.t('moveRepositoryWarnDialog.action'),
+        i18n.t('cancel')
+      ]
     })
 
     if (opt !== 0) {

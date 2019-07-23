@@ -81,7 +81,8 @@
   },
   "moveRepositoryWarnDialog": {
     "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly."
+    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
+    "action": "Move and restart node"
   },
   "moveRepositorySuccessDialog": {
     "title": "Repository moved successfully",
