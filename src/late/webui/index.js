@@ -45,6 +45,12 @@ const createWindow = () => {
     logger.info('[web ui] window hidden')
   })
 
+  app.on('before-quit', () => {
+    // Makes sure the app quits even though we prevent
+    // the closing of this window.
+    window.removeAllListeners('close')
+  })
+
   return window
 }
 
@@ -72,12 +78,6 @@ export default async function (ctx) {
       apiAddress = ipfsd.apiAddr
       window.loadURL(`webui://-?api=${apiAddress}&lng=${store.get('language')}#/`)
     }
-  })
-
-  app.on('before-quit', () => {
-    // Makes sure the app quits even though we prevent
-    // the closing of this window.
-    window.removeAllListeners('close')
   })
 
   ipcMain.on('config.get', () => {
