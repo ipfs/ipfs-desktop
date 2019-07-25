@@ -10,6 +10,8 @@ os:
   - linux
   - osx
 
+osx_image: xcode11
+
 before_script:
   - |
     if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
