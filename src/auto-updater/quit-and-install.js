@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 import { autoUpdater } from 'electron-updater'
-import { STATUS } from '../late/register-daemon'
+import { STATUS } from '../daemon'
 
 // adapted from https://github.com/electron-userland/electron-builder/issues/1604#issuecomment-372091881
 export default async function quitAndInstall ({ stopIpfs }) {

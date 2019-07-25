@@ -2,7 +2,10 @@ import path from 'path'
 import fs from 'fs-extra'
 import i18n from 'i18next'
 import { clipboard, app, shell, dialog } from 'electron'
-import { logger, notify, notifyError, setupGlobalShortcut, IS_MAC } from '../utils'
+import logger from './common/logger'
+import { IS_MAC } from './common/consts'
+import { notify, notifyError } from './common/notify'
+import setupGlobalShortcut from './setup-global-shortcut'
 
 const CONFIG_KEY = 'downloadHashShortcut'
 

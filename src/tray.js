@@ -1,10 +1,13 @@
-import { store, logger, IS_MAC, IS_WIN } from '../utils'
 import { Menu, Tray, shell, app, ipcMain } from 'electron'
 import i18n from 'i18next'
-import { STATUS } from './register-daemon'
+import path from 'path'
 import { SHORTCUT as SCREENSHOT_SHORTCUT, takeScreenshot } from './take-screenshot'
 import { SHORTCUT as HASH_SHORTCUT, downloadHash } from './download-hash'
-import path from 'path'
+import addToIpfs from './add-to-ipfs'
+import { STATUS } from './daemon'
+import logger from './common/logger'
+import store from './common/store'
+import { IS_MAC, IS_WIN } from './common/consts'
 
 // Notes on this: we are only supporting accelerators on macOS for now because
 // they natively work as soon as the menu opens. They don't work like that on Windows
@@ -23,7 +26,7 @@ function buildMenu (ctx) {
       label: i18n.t(status),
       visible: false,
       enabled: false,
-      icon: path.resolve(path.join(__dirname, `../../assets/icons/status/${color}.png`))
+      icon: path.resolve(path.join(__dirname, `../assets/icons/status/${color}.png`))
     })),
     {
       id: 'restartIpfs',
@@ -97,11 +100,11 @@ function buildMenu (ctx) {
           enabled: false
         },
         {
-          label: `ipfs-desktop ${require('../../package.json').version}`,
+          label: `ipfs-desktop ${require('../package.json').version}`,
           click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/releases') }
         },
         {
-          label: `go-ipfs ${require('../../package.json').dependencies['go-ipfs-dep']}`,
+          label: `go-ipfs ${require('../package.json').dependencies['go-ipfs-dep']}`,
           click: () => { shell.openExternal('https://github.com/ipfs/go-ipfs/releases') }
         },
         { type: 'separator' },
@@ -124,7 +127,7 @@ function buildMenu (ctx) {
 }
 
 function icon (color) {
-  const p = path.resolve(path.join(__dirname, '../../assets/icons/tray'))
+  const p = path.resolve(path.join(__dirname, '../assets/icons/tray'))
 
   if (IS_MAC) {
     return path.join(p, `${color}.png`)
@@ -138,6 +141,15 @@ export default function (ctx) {
   const tray = new Tray(icon('black'))
   let menu = null
   let status = {}
+
+  // macOS tray drop files
+  tray.on('drop-files', async (_, files) => {
+    for (const file of files) {
+      await addToIpfs(ctx, file)
+    }
+
+    ctx.launchWebUI('/files', { focus: false })
+  })
 
   if (!IS_MAC) {
     // Show the context menu on left click on other

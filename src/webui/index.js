@@ -1,9 +1,11 @@
-import { logger, store } from '../../utils'
-import { join } from 'path'
 import { screen, BrowserWindow, ipcMain, app, session } from 'electron'
+import { join } from 'path'
 import serve from 'electron-serve'
+import openExternal from './open-external'
+import logger from '../common/logger'
+import store from '../common/store'
 
-serve({ scheme: 'webui', directory: join(__dirname, '../../../assets/webui') })
+serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
 const createWindow = () => {
   const dimensions = screen.getPrimaryDisplay()
@@ -88,6 +90,8 @@ export default async function (ctx) {
     delete details.requestHeaders['Origin']
     callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
   })
+
+  openExternal()
 
   return new Promise(resolve => {
     window.once('ready-to-show', () => {

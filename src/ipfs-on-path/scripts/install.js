@@ -1,6 +1,6 @@
 const fs = require('fs-extra')
 const which = require('which')
-const { backup } = require('../../../utils/scripts/backup')
+const { backup } = require('./backup')
 const argv = require('yargs').argv
 const { SOURCE_SCRIPT, DEST_SCRIPT } = require('./consts')
 
