@@ -1,7 +1,7 @@
 import { extname, basename } from 'path'
-import logger from './logger'
 import i18n from 'i18next'
-import { notify, notifyError } from './notify'
+import logger from './common/logger'
+import { notify, notifyError } from './common/notify'
 
 async function copyFile (launch, ipfs, hash, name, folder = false) {
   let i = 0

@@ -1,6 +1,6 @@
 import { app, dialog } from 'electron'
-import { IS_MAC } from '../utils'
 import i18n from 'i18next'
+import { IS_MAC } from '../common/consts'
 
 // NOTE: always send the buttons in the order [OK, Cancel, ...Actions].
 // See this post for more interesting information about the topic:

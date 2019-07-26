@@ -1,7 +1,7 @@
-import dialog from './dialog'
 import i18n from 'i18next'
-import { STATUS } from '../late/register-daemon'
-import { logger } from '../utils'
+import dialog from './dialog'
+import { STATUS } from '../daemon'
+import logger from '../common/logger'
 
 export default async function ({ startIpfs }) {
   logger.info('[ipfs-not-running] an action needs ipfs to be running')

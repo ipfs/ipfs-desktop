@@ -1,8 +1,10 @@
-import { store, createDaemon, logger } from '../utils'
 import { app, ipcMain } from 'electron'
 import fs from 'fs-extra'
 import { join } from 'path'
+import createDaemon from './daemon'
 import { ipfsNotRunningDialog } from '../dialogs'
+import store from '../common/store'
+import logger from '../common/logger'
 
 export const STATUS = {
   STARTING_STARTED: 1,

@@ -1,8 +1,12 @@
 import { join } from 'path'
 import which from 'which'
 import { execFile } from 'child_process'
-import { logger, store, execOrSudo, createToggler, IS_WIN } from '../../utils'
-import { recoverableErrorDialog } from '../../dialogs'
+import createToggler from '../create-toggler'
+import execOrSudo from '../exec-or-sudo'
+import logger from '../common/logger'
+import store from '../common/store'
+import { IS_WIN } from '../common/consts'
+import { recoverableErrorDialog } from '../dialogs'
 
 const CONFIG_KEY = 'ipfsOnPath'
 
