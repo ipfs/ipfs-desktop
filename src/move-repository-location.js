@@ -1,11 +1,16 @@
-import { showDialog, recoverableErrorDialog } from '../dialogs'
+import { app } from 'electron'
 import i18n from 'i18next'
-import store from './store'
 import path from 'path'
 import fs from 'fs-extra'
-import selectDirectory from './select-directory'
+import store from './store'
 import logger from './logger'
-import runWithDock from './run-with-dock'
+import { showDialog, recoverableErrorDialog, selectDirectory } from './dialogs'
+
+async function runWithDock (fn) {
+  if (app.dock) app.dock.show()
+  await fn()
+  if (app.dock) app.dock.hide()
+}
 
 export default function ({ stopIpfs, startIpfs }) {
   runWithDock(async () => {

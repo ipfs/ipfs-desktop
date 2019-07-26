@@ -1,5 +1,7 @@
 import AutoLaunch from 'auto-launch'
-import { store, logger, createToggler } from '../utils'
+import createToggler from './create-toggler'
+import logger from './common/logger'
+import store from './common/store'
 
 const CONFIG_KEY = 'autoLaunch'
 

@@ -1,8 +1,8 @@
 import { globalShortcut, ipcMain } from 'electron'
-import { IS_MAC } from './consts'
-import store from './store'
-import logger from './logger'
 import createToggler from './create-toggler'
+import logger from './common/logger'
+import store from './common/store'
+import { IS_MAC } from './common/consts'
 
 // This function registers a global shortcut/accelerator with a certain action
 // and (de)activates it according to its 'settingsOption' value on settings.

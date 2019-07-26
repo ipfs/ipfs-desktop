@@ -3,7 +3,7 @@ import { ipcMain } from 'electron'
 import i18n from 'i18next'
 import ICU from 'i18next-icu'
 import Backend from 'i18next-node-fs-backend'
-import store from '../utils/store'
+import store from './common/store'
 
 import ca from 'i18next-icu/locale-data/ca'
 import cs from 'i18next-icu/locale-data/cs'
@@ -44,7 +44,7 @@ export default async function () {
         default: ['en']
       },
       backend: {
-        loadPath: join(__dirname, '../../assets/locales/{{lng}}.json')
+        loadPath: join(__dirname, '../assets/locales/{{lng}}.json')
       }
     })
 

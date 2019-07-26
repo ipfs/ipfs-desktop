@@ -1,7 +1,9 @@
 import which from 'which'
 import { ipcMain } from 'electron'
-import { store, logger, createToggler } from '../../utils'
 import * as pkg from './package'
+import logger from '../common/logger'
+import store from '../common/store'
+import createToggler from '../create-toggler'
 
 const CONFIG_KEY = 'experiments.npmOnIpfs'
 

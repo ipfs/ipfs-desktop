@@ -1,9 +1,20 @@
 import { app, dialog } from 'electron'
-import { logger } from './utils'
-import earlySetup from './early'
-import lateSetup from './late'
-import { criticalErrorDialog } from './dialogs'
 import fixPath from 'fix-path'
+import { criticalErrorDialog } from './dialogs'
+import logger from './common/logger'
+import setupProtocolHandlers from './protocol-handlers'
+import setupI18n from './i18n'
+import setupNpmOnIpfs from './npm-on-ipfs'
+import setupDaemon from './daemon'
+import setupWebUI from './webui'
+import setupAutoLaunch from './auto-launch'
+import setupDownloadHash from './download-hash'
+import setupTakeScreenshot from './take-screenshot'
+import setupAppMenu from './app-menu'
+import setupArgvFilesHandler from './argv-files-handler'
+import setupAutoUpdater from './auto-updater'
+import setupTray from './tray'
+import setupIpfsOnPath from './ipfs-on-path'
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -22,7 +33,7 @@ if (!app.requestSingleInstanceLock()) {
 const ctx = {}
 
 app.on('will-finish-launching', () => {
-  earlySetup(ctx)
+  setupProtocolHandlers(ctx)
 })
 
 function handleError (e) {
@@ -42,7 +53,24 @@ async function run () {
   }
 
   try {
-    await lateSetup(ctx)
+    await setupI18n(ctx)
+    await setupAppMenu(ctx)
+
+    await setupAutoUpdater(ctx) // ctx.checkForUpdates
+    await setupWebUI(ctx) // ctx.webui, launchWebUI
+    await setupTray(ctx) // ctx.tray
+    await setupDaemon(ctx) // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
+
+    await Promise.all([
+      setupArgvFilesHandler(ctx),
+      setupAutoLaunch(ctx),
+      // Setup global shortcuts
+      setupDownloadHash(ctx),
+      setupTakeScreenshot(ctx),
+      // Setup PATH-related features
+      setupNpmOnIpfs(ctx),
+      setupIpfsOnPath(ctx)
+    ])
   } catch (e) {
     handleError(e)
   }

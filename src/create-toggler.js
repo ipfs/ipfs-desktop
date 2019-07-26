@@ -1,5 +1,5 @@
 import { ipcMain } from 'electron'
-import store from './store'
+import store from './common/store'
 
 export default function ({ webui }, settingsOption, activate) {
   ipcMain.on('config.toggle', async (_, opt) => {

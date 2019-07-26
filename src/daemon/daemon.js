@@ -1,16 +1,16 @@
 import IPFSFactory from 'ipfsd-ctl'
-import logger from './logger'
 import i18n from 'i18next'
 import fs from 'fs-extra'
 import { join } from 'path'
 import { app } from 'electron'
-import { showDialog } from '../dialogs'
 import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
-import store from './store'
 import multiaddr from 'multiaddr'
 import http from 'http'
 import getPort from 'get-port'
+import { showDialog } from '../dialogs'
+import store from '../common/store'
+import logger from '../common/logger'
 
 function cannotConnectDialog (addr) {
   if (app.dock) app.dock.show()
