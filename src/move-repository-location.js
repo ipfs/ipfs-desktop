@@ -2,8 +2,8 @@ import { app } from 'electron'
 import i18n from 'i18next'
 import path from 'path'
 import fs from 'fs-extra'
-import store from './store'
-import logger from './logger'
+import store from './common/store'
+import logger from './common/logger'
 import { showDialog, recoverableErrorDialog, selectDirectory } from './dialogs'
 
 async function runWithDock (fn) {
