@@ -4,6 +4,7 @@ import serve from 'electron-serve'
 import openExternal from './open-external'
 import logger from '../common/logger'
 import store from '../common/store'
+import dock from '../dock'
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
@@ -42,8 +43,8 @@ const createWindow = () => {
 
   window.on('close', (event) => {
     event.preventDefault()
-    if (app.dock) app.dock.hide()
     window.hide()
+    dock.hide()
     logger.info('[web ui] window hidden')
   })
 
@@ -51,6 +52,10 @@ const createWindow = () => {
     // Makes sure the app quits even though we prevent
     // the closing of this window.
     window.removeAllListeners('close')
+  })
+
+  app.on('activate', () => {
+    window.show()
   })
 
   return window
@@ -69,7 +74,7 @@ export default async function (ctx) {
     if (focus) {
       window.show()
       window.focus()
-      if (app.dock) app.dock.show()
+      dock.show()
     }
   }
 
