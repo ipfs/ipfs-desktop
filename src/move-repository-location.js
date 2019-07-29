@@ -1,19 +1,13 @@
-import { app } from 'electron'
 import i18n from 'i18next'
 import path from 'path'
 import fs from 'fs-extra'
 import store from './common/store'
 import logger from './common/logger'
 import { showDialog, recoverableErrorDialog, selectDirectory } from './dialogs'
-
-async function runWithDock (fn) {
-  if (app.dock) app.dock.show()
-  await fn()
-  if (app.dock) app.dock.hide()
-}
+import dock from './dock'
 
 export default function ({ stopIpfs, startIpfs }) {
-  runWithDock(async () => {
+  dock.run(async () => {
     logger.info('[move repository] user prompted about effects')
 
     const opt = showDialog({
@@ -23,7 +17,8 @@ export default function ({ stopIpfs, startIpfs }) {
       buttons: [
         i18n.t('moveRepositoryWarnDialog.action'),
         i18n.t('cancel')
-      ]
+      ],
+      showDock: false
     })
 
     if (opt !== 0) {
@@ -51,7 +46,8 @@ export default function ({ stopIpfs, startIpfs }) {
       return showDialog({
         title: i18n.t('moveRepositorySameDirDialog.title'),
         message: i18n.t('moveRepositorySameDirDialog.message', { location: newDir }),
-        type: 'warning'
+        type: 'warning',
+        showDock: false
       })
     }
 
@@ -71,7 +67,8 @@ export default function ({ stopIpfs, startIpfs }) {
 
     showDialog({
       title: i18n.t('moveRepositorySuccessDialog.title'),
-      message: i18n.t('moveRepositorySuccessDialog.message', { location: newDir })
+      message: i18n.t('moveRepositorySuccessDialog.message', { location: newDir }),
+      showDock: false
     })
 
     await startIpfs()

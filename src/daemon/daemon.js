@@ -13,7 +13,6 @@ import store from '../common/store'
 import logger from '../common/logger'
 
 function cannotConnectDialog (addr) {
-  if (app.dock) app.dock.show()
   showDialog({
     title: i18n.t('cannotConnectToApiDialog.title'),
     message: i18n.t('cannotConnectToApiDialog.message', { addr }),
@@ -22,7 +21,6 @@ function cannotConnectDialog (addr) {
       i18n.t('close')
     ]
   })
-  if (app.dock) app.dock.hide()
 }
 
 async function cleanup (addr, path) {
