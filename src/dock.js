@@ -21,12 +21,14 @@ export default {
   hide,
   run: async (fn) => {
     show()
-    await fn()
+    const res = await fn()
     hide()
+    return res
   },
   runSync: (fn) => {
     show()
-    fn()
+    const res = fn()
     hide()
+    return res
   }
 }

@@ -7,6 +7,7 @@ import { IS_MAC } from './common/consts'
 import { notify, notifyError } from './common/notify'
 import setupGlobalShortcut from './setup-global-shortcut'
 import { selectDirectory } from './dialogs'
+import dock from './dock'
 
 const CONFIG_KEY = 'downloadHashShortcut'
 
@@ -39,9 +40,9 @@ export async function downloadHash (ctx) {
     return
   }
 
-  const dir = await selectDirectory({
+  const dir = await dock.run(() => selectDirectory({
     defaultPath: app.getPath('downloads')
-  })
+  }))
 
   if (!dir) {
     logger.info(`[hash download] dropping hash ${text}: user didn't choose a path.`)
