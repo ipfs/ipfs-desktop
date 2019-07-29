@@ -1,11 +1,12 @@
-import { app, dialog } from 'electron'
+import { dialog } from 'electron'
 import i18n from 'i18next'
 import { IS_MAC } from '../common/consts'
+import dock from '../dock'
 
 // NOTE: always send the buttons in the order [OK, Cancel, ...Actions].
 // See this post for more interesting information about the topic:
 // https://medium.muz.li/ok-key-and-cancel-key-which-one-should-be-set-up-on-the-left-4780e86c16eb
-export default function ({ title, message, type = 'info', buttons = [
+export default function ({ title, message, type = 'info', showDock = true, buttons = [
   i18n.t('ok'),
   i18n.t('cancel')
 ], ...opts }) {
@@ -35,9 +36,9 @@ export default function ({ title, message, type = 'info', buttons = [
     options.cancelId = isInverse ? buttons.length - 2 : 1
   }
 
-  if (app.dock) app.dock.show()
+  if (showDock) dock.show()
   const selected = dialog.showMessageBox(options)
-  if (app.dock) app.dock.hide()
+  if (showDock) dock.hide()
 
   if (!isInverse) {
     return selected
