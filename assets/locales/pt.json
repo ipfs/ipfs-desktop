@@ -77,5 +77,15 @@
   "ipfsDesktopHasShutdownDialog": {
     "title": "O IPFS Desktop desligou-se",
     "message": "O IPFS Desktop desligou-se devido a um erro. Pode reiniciar a aplicação ou reportar o erro aos programadores, o que requer uma conta no GitHub."
+  },
+  "busyPortsDialog": {
+    "title": "Ports are busy",
+    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
+    "action": "Use ports { alt1 } and { alt2 } instead"
+  },
+  "busyPortDialog": {
+    "title": "Port is busy",
+    "message": "The port { port } is not available. Do you want to use { alt } instead?",
+    "action": "Use port { alt } instead"
   }
 }

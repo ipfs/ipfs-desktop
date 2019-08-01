@@ -31,7 +31,7 @@
   "ipfsNotRunning": "IPFS n'est pas en cours de fonctionnement",
   "desktopIsStartedButDaemonOffline": "IPFS Desktop est démarré mais le démon est éteint.",
   "cantDownloadHash": "Échec du téléchargement du hash",
-  "invalidHashClipboard": "The hash on the clipboard is not valid.",
+  "invalidHashClipboard": "Le hash dans le press-papier n'est pas valide.",
   "errorWhileDownloadingHash": "Une erreur est survenue pendant la récupération du hash.",
   "errorWhileWritingFiles": "Une erreur est survenue pendant l'écriture des fichiers sur votre système de fichier.",
   "hashDownloaded": "Hash téléchargé",
@@ -52,8 +52,8 @@
   "restartIpfsDesktop": "Redémarrer IPFS Desktop",
   "openLogs": "Ouvrir les logs",
   "anErrorHasOccurred": "Une errerur est apparu",
-  "takeScreenshot": "Take Screenshot",
-  "downloadHash": "Download Hash",
+  "takeScreenshot": "Prendre une Capture d'écran",
+  "downloadHash": "Télécharger ce Hash",
   "polkitDialog": {
     "title": "Polkit manquant",
     "message": "IPFS ne peut ajouté dans /usr/local/bin sans un polkit agent."
@@ -77,5 +77,15 @@
   "ipfsDesktopHasShutdownDialog": {
     "title": "IPFS Desktop est éteint",
     "message": "IPFS Desktop est éteint à cause d'une erreur. Vous pouvez redémarrer ou reporter l'erreur aux développeurs, cela requiert un compte Github."
+  },
+  "busyPortsDialog": {
+    "title": "Les ports sont occupés",
+    "message": "Les ports { port1 } et { port2 }ne sont pas disponibles. Voulez-vous utiliser { alt1 } et { alt2 } à la place?",
+    "action": "Utiliser les ports { alt1 } et { alt2 } à la place"
+  },
+  "busyPortDialog": {
+    "title": "Le port est occupé",
+    "message": "Le port { port } n'est pas disponible. Voulez-vous utiliser { alt } à la place?",
+    "action": "Utiliser le port { alt } à la place"
   }
 }

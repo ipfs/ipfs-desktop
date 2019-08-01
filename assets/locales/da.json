@@ -77,5 +77,15 @@
   "ipfsDesktopHasShutdownDialog": {
     "title": "IPFS Skrivebord er lukket ned",
     "message": "IPFS Skrivebord er lukket ned som følge af en fejl. Du kan genstarte app'en eller indrapportere fejlen til udviklerne, hvilket dog forudsætter en GitHub konto."
+  },
+  "busyPortsDialog": {
+    "title": "Ports are busy",
+    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
+    "action": "Use ports { alt1 } and { alt2 } instead"
+  },
+  "busyPortDialog": {
+    "title": "Port is busy",
+    "message": "The port { port } is not available. Do you want to use { alt } instead?",
+    "action": "Use port { alt } instead"
   }
 }
