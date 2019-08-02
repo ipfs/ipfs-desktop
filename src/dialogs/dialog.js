@@ -37,7 +37,7 @@ export default function ({ title, message, type = 'info', showDock = true, butto
   }
 
   if (showDock) dock.show()
-  const selected = dialog.showMessageBoxSync(options)
+  const selected = dialog.showMessageBox(options)
   if (showDock) dock.hide()
 
   if (!isInverse) {
