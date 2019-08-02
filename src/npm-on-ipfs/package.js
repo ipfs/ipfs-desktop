@@ -1,6 +1,6 @@
 import util from 'util'
 import logger from '../common/logger'
-import { IS_WIN } from '../common/store'
+import { IS_WIN } from '../common/consts'
 
 const execFile = util.promisify(require('child_process').execFile)
 const npmBin = IS_WIN ? 'npm.cmd' : 'npm'
