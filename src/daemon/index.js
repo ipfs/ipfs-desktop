@@ -65,7 +65,7 @@ export default async function (ctx) {
       logger.info('[ipfsd] daemon started')
       updateStatus(STATUS.STARTING_FINISHED)
     } catch (err) {
-      logger.error('[ipfsd]', err)
+      logger.error('[ipfsd] ', err)
       updateStatus(STATUS.STARTING_FAILED)
     }
   }
