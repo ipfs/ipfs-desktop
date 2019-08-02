@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export IPFS_PATH="/Users/henriquedias/Desktop/.ipfs"
+export IPFS_PATH=""
 
 # Get the full path of the app directory (resolving the symlink if needed)
 app=$(dirname "$(dirname "$(dirname "$(dirname "$(test -L "$0" && readlink "$0" || echo "$0")")")")")
