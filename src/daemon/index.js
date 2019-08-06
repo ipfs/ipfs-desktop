@@ -76,15 +76,6 @@ export default async function (ctx) {
       logger.error('[ipfsd] ', err)
       updateStatus(STATUS.STARTING_FAILED)
     }
-
-    // Updates the IPFS_PATH file. We do this every time we start up
-    // to make sure we always have that file present, even though
-    // there are installations and updates that might remove the file.
-    fs.writeFileSync(
-      join(__dirname, '../ipfs-on-path/scripts/IPFS_PATH')
-        .replace('app.asar', 'app.asar.unpacked'),
-      config.path
-    )
   }
 
   const stopIpfs = async () => {
