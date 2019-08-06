@@ -13,23 +13,21 @@ export const SHORTCUT = IS_MAC
   ? 'Command+Control+H'
   : 'CommandOrControl+Alt+D'
 
-function selectDirectory () {
-  return new Promise(resolve => {
-    dialog.showOpenDialog({
-      title: 'Select a directory',
-      defaultPath: app.getPath('downloads'),
-      properties: [
-        'openDirectory',
-        'createDirectory'
-      ]
-    }, (res) => {
-      if (!res || res.length === 0) {
-        resolve()
-      } else {
-        resolve(res[0])
-      }
-    })
+async function selectDirectory () {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    title: 'Select a directory',
+    defaultPath: app.getPath('downloads'),
+    properties: [
+      'openDirectory',
+      'createDirectory'
+    ]
   })
+
+  if (canceled || filePaths.length === 0) {
+    return
+  }
+
+  return filePaths[0]
 }
 
 async function saveFile (dir, file) {
