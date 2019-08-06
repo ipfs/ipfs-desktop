@@ -51,6 +51,17 @@ export default function ({ stopIpfs, startIpfs }) {
       })
     }
 
+    if (fs.existsSync(newDir)) {
+      logger.info('[move repository] new dir already exists')
+
+      return showDialog({
+        title: i18n.t('moveRepositoryDirExists.title'),
+        message: i18n.t('moveRepositoryDirExists.message', { location: newDir }),
+        type: 'warning',
+        showDock: false
+      })
+    }
+
     await stopIpfs()
 
     try {
