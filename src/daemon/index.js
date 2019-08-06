@@ -65,6 +65,7 @@ export default async function (ctx) {
       // This way we use the default path when it is
       // not set.
       if (config.path === '') {
+        config.path = ipfsd.repoPath
         store.set('ipfsConfig', config)
         writeIpfsPath(config.path)
       }
