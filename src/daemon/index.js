@@ -51,6 +51,13 @@ export default async function (ctx) {
     logger.info('[ipfsd] starting daemon')
     updateStatus(STATUS.STARTING_STARTED)
 
+    if (config.path) {
+      // Updates the IPFS_PATH file. We do this every time we start up
+      // to make sure we always have that file present, even though
+      // there are installations and updates that might remove the file.
+      writeIpfsPath(config.path)
+    }
+
     try {
       ipfsd = await createDaemon(config)
 
@@ -60,6 +67,7 @@ export default async function (ctx) {
       if (config.path === '') {
         config.path = ipfsd.repoPath
         store.set('ipfsConfig', config)
+        writeIpfsPath(config.path)
       }
 
       logger.info('[ipfsd] daemon started')
@@ -121,4 +129,12 @@ export default async function (ctx) {
 
     wasOnline = isOnline
   })
+}
+
+function writeIpfsPath (path) {
+  fs.writeFileSync(
+    join(__dirname, '../ipfs-on-path/scripts/IPFS_PATH')
+      .replace('app.asar', 'app.asar.unpacked'),
+    path
+  )
 }
