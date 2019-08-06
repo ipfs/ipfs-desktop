@@ -64,7 +64,6 @@ export default function ({ stopIpfs, startIpfs }) {
     config.path = newDir
     store.set('ipfsConfig', config)
     logger.info('[move repository] configuration updated')
-    updateIpfsPath(newDir)
 
     showDialog({
       title: i18n.t('moveRepositorySuccessDialog.title'),
@@ -74,11 +73,4 @@ export default function ({ stopIpfs, startIpfs }) {
 
     await startIpfs()
   })
-}
-
-function updateIpfsPath (repoPath) {
-  const varPath = path.join(__dirname, './ipfs-on-path/scripts/IPFS_PATH')
-    .replace('app.asar', 'app.asar.unpacked')
-
-  fs.writeFileSync(varPath, repoPath)
 }
