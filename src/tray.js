@@ -8,6 +8,7 @@ import { STATUS } from './daemon'
 import logger from './common/logger'
 import store from './common/store'
 import { IS_MAC, IS_WIN } from './common/consts'
+import moveRepositoryLocation from './move-repository-location'
 
 // Notes on this: we are only supporting accelerators on macOS for now because
 // they natively work as soon as the menu opens. They don't work like that on Windows
@@ -89,6 +90,10 @@ function buildMenu (ctx) {
         {
           label: i18n.t('openConfigFile'),
           click: () => { shell.openItem(store.path) }
+        },
+        {
+          label: i18n.t('moveRepositoryLocation'),
+          click: () => { moveRepositoryLocation(ctx) }
         }
       ]
     },
