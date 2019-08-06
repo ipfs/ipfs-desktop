@@ -7,3 +7,4 @@ assets/webui
 *.nupkg
 *.bak
 assets/build/snap-hooks
+IPFS_PATH

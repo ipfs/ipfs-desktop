@@ -5,7 +5,6 @@ import store from './common/store'
 import logger from './common/logger'
 import { showDialog, recoverableErrorDialog, selectDirectory } from './dialogs'
 import dock from './dock'
-import { IS_WIN } from './common/consts'
 
 export default function ({ stopIpfs, startIpfs }) {
   dock.run(async () => {
@@ -78,22 +77,8 @@ export default function ({ stopIpfs, startIpfs }) {
 }
 
 function updateIpfsPath (repoPath) {
-  let scriptPath = null
+  const varPath = path.join(__dirname, './ipfs-on-path/scripts/IPFS_PATH')
+    .replace('app.asar', 'app.asar.unpacked')
 
-  if (IS_WIN) {
-    scriptPath = path.join(__dirname, './ipfs-on-path/scripts/bin-win/ipfs.cmd')
-  } else {
-    scriptPath = path.join(__dirname, './ipfs-on-path/scripts/ipfs.sh')
-  }
-
-  const script = fs.readFileSync(scriptPath).toString()
-  let newScript
-
-  if (IS_WIN) {
-    newScript = script.replace(/set IPFS_PATH=(.)*/, `set IPFS_PATH=${repoPath}`)
-  } else {
-    newScript = script.replace(/export IPFS_PATH=(.)*/, `export IPFS_PATH="${repoPath}"`)
-  }
-
-  fs.writeFileSync(scriptPath, newScript)
+  fs.writeFileSync(varPath, repoPath)
 }
