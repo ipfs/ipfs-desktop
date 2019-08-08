@@ -9,6 +9,7 @@ import logger from './common/logger'
 import store from './common/store'
 import { IS_MAC, IS_WIN } from './common/consts'
 import moveRepositoryLocation from './move-repository-location'
+import { WEBSITES_FILE, cohostWebsites } from './cohost'
 
 // Notes on this: we are only supporting accelerators on macOS for now because
 // they natively work as soon as the menu opens. They don't work like that on Windows
@@ -94,6 +95,15 @@ function buildMenu (ctx) {
         {
           label: i18n.t('moveRepositoryLocation'),
           click: () => { moveRepositoryLocation(ctx) }
+        },
+        { type: 'separator' },
+        {
+          label: i18n.t('openCohostFile'),
+          click: () => { shell.openItem(WEBSITES_FILE) }
+        },
+        {
+          label: i18n.t('updateCohostedWebsites'),
+          click: () => { cohostWebsites(ctx) }
         }
       ]
     },
