@@ -54,10 +54,6 @@ const createWindow = () => {
     window.removeAllListeners('close')
   })
 
-  app.on('activate', () => {
-    window.show()
-  })
-
   return window
 }
 
