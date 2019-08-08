@@ -1,5 +1,5 @@
 import path from 'path'
-import cron from 'node-cron'
+// import cron from 'node-cron'
 import fs from 'fs-extra'
 import { recoverableErrorDialog } from './dialogs'
 import store from './common/store'
@@ -41,9 +41,9 @@ export const cohostWebsites = async (ctx) => {
 }
 
 export default async function (ctx) {
-  cron.schedule('0 0 */12 * * *', () => {
-    cohostWebsites(ctx)
-  })
+  // cron.schedule('0 0 */12 * * *', () => {
+  //   cohostWebsites(ctx)
+  // })
 
   cohostWebsites(ctx)
 }
