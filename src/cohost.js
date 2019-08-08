@@ -7,7 +7,7 @@ import logger from './common/logger'
 
 export const WEBSITES_FILE = path.join(path.dirname(store.path), 'cohost.txt')
 
-export const cohostWebsites = async (ctx) => {
+export const cohostWebsites = async (ctx, fromScheduler = false) => {
   await fs.ensureFile(WEBSITES_FILE)
   const file = fs.readFileSync(WEBSITES_FILE).toString()
   const domains = file.split('\n')
@@ -19,7 +19,7 @@ export const cohostWebsites = async (ctx) => {
     return
   }
 
-  const ipfsd = await ctx.getIpfsd()
+  const ipfsd = await ctx.getIpfsd(fromScheduler)
   if (!ipfsd) {
     return
   }
@@ -42,7 +42,7 @@ export const cohostWebsites = async (ctx) => {
 
 export default async function (ctx) {
   cron.schedule('0 0 */12 * * *', () => {
-    cohostWebsites(ctx)
+    cohostWebsites(ctx, true)
   })
 
   cohostWebsites(ctx)
