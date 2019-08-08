@@ -118,7 +118,14 @@ export default async function (ctx) {
   ctx.getIpfsd = getIpfsd
 
   ipcMain.on('ipfsConfigChanged', restartIpfs)
-  app.on('before-quit', stopIpfs)
+
+  app.on('before-quit', async e => {
+    if (ipfsd) {
+      e.preventDefault()
+      await stopIpfs()
+      app.quit()
+    }
+  })
 
   await startIpfs()
 
