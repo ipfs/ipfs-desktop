@@ -34,7 +34,8 @@ function buildMenu (ctx) {
       id: 'restartIpfs',
       label: i18n.t('restart'),
       click: () => { ctx.restartIpfs() },
-      visible: false
+      visible: false,
+      accelerator: IS_MAC ? 'Command+R' : null
     },
     {
       id: 'startIpfs',
