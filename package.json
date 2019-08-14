@@ -97,6 +97,6 @@
     "yargs": "^13.3.0"
   },
   "go-ipfs": {
-    "version": "0.4.22"
+    "version": "v0.4.22"
   }
 }
