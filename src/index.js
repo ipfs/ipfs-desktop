@@ -15,7 +15,6 @@ import setupArgvFilesHandler from './argv-files-handler'
 import setupAutoUpdater from './auto-updater'
 import setupTray from './tray'
 import setupIpfsOnPath from './ipfs-on-path'
-import setupCohost from './cohost'
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -65,7 +64,6 @@ async function run () {
     await Promise.all([
       setupArgvFilesHandler(ctx),
       setupAutoLaunch(ctx),
-      setupCohost(ctx),
       // Setup global shortcuts
       setupDownloadHash(ctx),
       setupTakeScreenshot(ctx),
