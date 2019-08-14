@@ -31,7 +31,7 @@
   "ipfsNotRunning": "IPFS kører ikke",
   "desktopIsStartedButDaemonOffline": "IPFS Skrivebord er startet, men baggrundsprocessen er slået fra.",
   "cantDownloadHash": "Kunne ikke downloade hashen.",
-  "invalidHashClipboard": "The hash on the clipboard is not valid.",
+  "invalidHashClipboard": "Hashen i udklipsholderen er ugyldig.",
   "errorWhileDownloadingHash": "En fejl opstod mens at hashen blev forsøgt hentet.",
   "errorWhileWritingFiles": "En fejl opstod i forbindelse med skrivning af filer til dit filsystem.",
   "hashDownloaded": "Hashen er downloadet",
@@ -52,8 +52,11 @@
   "restartIpfsDesktop": "Genstart IPFS Skrivebord",
   "openLogs": "Åben logfiler",
   "anErrorHasOccurred": "En fejl er opstået",
-  "takeScreenshot": "Take Screenshot",
-  "downloadHash": "Download Hash",
+  "takeScreenshot": "Optag skærmbillede",
+  "downloadHash": "Hent hash",
+  "moveRepositoryLocation": "Move Repository Location",
+  "openCohostFile": "Open co-hosted files list",
+  "updateCohostedWebsites": "Update co-hosted websites",
   "polkitDialog": {
     "title": "Polkit ikke fundet",
     "message": "IPFS kan ikke tilføjes til /usr/local/bin/ uden polkit agenten."
@@ -78,14 +81,31 @@
     "title": "IPFS Skrivebord er lukket ned",
     "message": "IPFS Skrivebord er lukket ned som følge af en fejl. Du kan genstarte app'en eller indrapportere fejlen til udviklerne, hvilket dog forudsætter en GitHub konto."
   },
+  "moveRepositoryWarnDialog": {
+    "title": "Move repository",
+    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
+    "action": "Move and restart node"
+  },
+  "moveRepositorySuccessDialog": {
+    "title": "Repository moved successfully",
+    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+  },
+  "moveRepositorySameDirDialog": {
+    "title": "Same directory selected",
+    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+  },
+  "moveRepositoryDirExists": {
+    "title": " Directory already exists",
+    "message": "The directory { location } already exists. Please try using a different one."
+  },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "Portene er optaget",
+    "message": "Portene { port1 } og { port2 } er ikke tilgængelige. Ønsker du at benytte { alt1 } og { alt2 } i stedet?",
+    "action": "Benyt portene { alt1 } og { alt2 } i stedet"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "Port er optaget",
+    "message": "Porten { port } er ikke tilgængelig. Vil du benytte { alt } i stedet?",
+    "action": "Benyt port { alt } i stedet"
   }
 }

@@ -54,6 +54,9 @@
   "anErrorHasOccurred": "Une errerur est apparu",
   "takeScreenshot": "Prendre une Capture d'écran",
   "downloadHash": "Télécharger ce Hash",
+  "moveRepositoryLocation": "Bouger la localisation du dépôt",
+  "openCohostFile": "Open co-hosted files list",
+  "updateCohostedWebsites": "Update co-hosted websites",
   "polkitDialog": {
     "title": "Polkit manquant",
     "message": "IPFS ne peut ajouté dans /usr/local/bin sans un polkit agent."
@@ -77,6 +80,23 @@
   "ipfsDesktopHasShutdownDialog": {
     "title": "IPFS Desktop est éteint",
     "message": "IPFS Desktop est éteint à cause d'une erreur. Vous pouvez redémarrer ou reporter l'erreur aux développeurs, cela requiert un compte Github."
+  },
+  "moveRepositoryWarnDialog": {
+    "title": "Bouger le dépôt",
+    "message": "si votre dépôt prends trop de place sur votre disque principal, vous pouvez bouger à une autre position. Garder à l'esprit que IPFS desktop doit avoir accès à cela pour son bon fonctionnement.",
+    "action": "Bouger et redémarrer le noeud"
+  },
+  "moveRepositorySuccessDialog": {
+    "title": "Dépôt à était déplacé avec succés",
+    "message": "Votre dépôt à était deplacé à { location } and votre configuration à était mis à jour en conséquence. Le démon va redémarrer maintenant."
+  },
+  "moveRepositorySameDirDialog": {
+    "title": "Même dossier séléctionné. ",
+    "message": "Le dossier choisi et le même que le courant : { location }.  Par conséquence, aucun changement ne sera fait."
+  },
+  "moveRepositoryDirExists": {
+    "title": "Dossier existe déjà. ",
+    "message": "Le dossier { location } existe déjà. S'il vous plait essayer un différent. "
   },
   "busyPortsDialog": {
     "title": "Les ports sont occupés",

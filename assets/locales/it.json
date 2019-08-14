@@ -54,6 +54,9 @@
   "anErrorHasOccurred": "È stato riscontrato un errore",
   "takeScreenshot": "Screenshot eseguito",
   "downloadHash": "Scarica Hash",
+  "moveRepositoryLocation": "Move Repository Location",
+  "openCohostFile": "Open co-hosted files list",
+  "updateCohostedWebsites": "Update co-hosted websites",
   "polkitDialog": {
     "title": "Polkit non trovato",
     "message": "IPFS non può essere aggiunto in /usr/local/bin/ senza polkit agent."
@@ -77,6 +80,23 @@
   "ipfsDesktopHasShutdownDialog": {
     "title": "IPFS Desktop si è arrestato",
     "message": "A causa di un errore IPFS Desktop si è arrestato. Puoi riavviare l'applicazione o segnalare l'errore agli sviluppatori. Per la segnalazione è necessario un account GitHub."
+  },
+  "moveRepositoryWarnDialog": {
+    "title": "Move repository",
+    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
+    "action": "Move and restart node"
+  },
+  "moveRepositorySuccessDialog": {
+    "title": "Repository moved successfully",
+    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+  },
+  "moveRepositorySameDirDialog": {
+    "title": "Same directory selected",
+    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+  },
+  "moveRepositoryDirExists": {
+    "title": " Directory already exists",
+    "message": "The directory { location } already exists. Please try using a different one."
   },
   "busyPortsDialog": {
     "title": "Le porte sono occupate",
