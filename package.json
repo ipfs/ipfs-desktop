@@ -1,7 +1,7 @@
 {
   "name": "ipfs-desktop",
   "private": true,
-  "version": "0.9.0-dev",
+  "version": "0.9.0-beta.1",
   "productName": "IPFS Desktop",
   "description": "IPFS Native Application",
   "main": "out/index.js",
