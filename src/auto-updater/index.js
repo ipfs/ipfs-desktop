@@ -2,7 +2,7 @@ import { autoUpdater } from 'electron-updater'
 import i18n from 'i18next'
 import quitAndInstall from './quit-and-install'
 import logger from '../common/logger'
-import notify from '../common/notify'
+import { notify } from '../common/notify'
 
 let userRequested = false
 
