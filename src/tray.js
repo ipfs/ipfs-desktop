@@ -7,7 +7,7 @@ import addToIpfs from './add-to-ipfs'
 import { STATUS } from './daemon'
 import logger from './common/logger'
 import store from './common/store'
-import { IS_MAC, IS_WIN } from './common/consts'
+import { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } from './common/consts'
 import moveRepositoryLocation from './move-repository-location'
 
 // Notes on this: we are only supporting accelerators on macOS for now because
@@ -106,11 +106,11 @@ function buildMenu (ctx) {
           enabled: false
         },
         {
-          label: `ipfs-desktop ${require('../package.json').version}`,
+          label: `ipfs-desktop ${VERSION}`,
           click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/releases') }
         },
         {
-          label: `go-ipfs ${require('../package.json').dependencies['go-ipfs-dep']}`,
+          label: `go-ipfs ${GO_IPFS_VERSION}`,
           click: () => { shell.openExternal('https://github.com/ipfs/go-ipfs/releases') }
         },
         { type: 'separator' },
