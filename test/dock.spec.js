@@ -71,7 +71,7 @@ describe('Dock', () => {
     const electron = mockElectron({ withDock: true })
     electron.BrowserWindow.getAllWindows.returns([])
     const { run } = proxyquire('../src/dock', { electron }).default
-    const fn = sinon.stub().returns(5)
+    const fn = sinon.stub().resolves(5)
     const res = await run(fn)
     expect(res).to.equal(5)
     expect(electron.app.dock.show.callCount).to.equal(1)
@@ -83,7 +83,7 @@ describe('Dock', () => {
     const electron = mockElectron()
     electron.BrowserWindow.getAllWindows.returns([])
     const { run } = proxyquire('../src/dock', { electron }).default
-    const fn = sinon.stub().returns(5)
+    const fn = sinon.stub().resolves(5)
     const res = await run(fn)
     expect(res).to.equal(5)
   })
