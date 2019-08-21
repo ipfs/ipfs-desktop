@@ -87,7 +87,7 @@
     "ipfsd-ctl": "^0.44.1",
     "is-ipfs": "^0.6.1",
     "multiaddr": "^6.1.0",
-    "multiaddr-to-uri": "^4.0.1",
+    "multiaddr-to-uri": "^5.0.0",
     "recursive-readdir": "^2.2.2",
     "stream-to-pull-stream": "^1.7.3",
     "sudo-prompt": "^9.0.0",
