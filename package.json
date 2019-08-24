@@ -66,7 +66,7 @@
     "request-progress": "^3.0.0",
     "shx": "^0.3.2",
     "spectron": "^8.0.0",
-    "standard": "^13.1.0",
+    "standard": "^14.0.2",
     "tar": "^4.4.10",
     "tmp": "0.1.0"
   },
