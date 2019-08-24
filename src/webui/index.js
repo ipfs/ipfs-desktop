@@ -88,7 +88,7 @@ export default async function (ctx) {
   })
 
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-    delete details.requestHeaders['Origin']
+    delete details.requestHeaders.Origin
     callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
   })
 
