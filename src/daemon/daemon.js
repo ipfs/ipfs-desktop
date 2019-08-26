@@ -24,7 +24,7 @@ function cannotConnectDialog (addr) {
 }
 
 async function cleanup (addr, path) {
-  logger.info(`[daemon] cleanup: started`)
+  logger.info('[daemon] cleanup: started')
 
   if (!await fs.pathExists(join(path, 'config'))) {
     cannotConnectDialog(addr)

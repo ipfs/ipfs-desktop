@@ -125,7 +125,7 @@ describe('Application launch', function () {
     expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.deep.equal(specificOrigins)
   })
 
-  it(`starts with repository with 'api' file and no daemon running`, async function () {
+  it('starts with repository with \'api\' file and no daemon running', async function () {
     const { ipfsd } = await makeRepository()
     const { repoPath } = ipfsd
     await ipfsd.stop()

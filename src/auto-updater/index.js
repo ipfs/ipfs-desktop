@@ -22,7 +22,7 @@ function setup (ctx) {
   })
 
   autoUpdater.on('update-available', async () => {
-    logger.info(`[updater] update available. download started`)
+    logger.info('[updater] update available. download started')
 
     try {
       await autoUpdater.downloadUpdate()
@@ -42,7 +42,7 @@ function setup (ctx) {
   })
 
   autoUpdater.on('update-downloaded', () => {
-    logger.info(`[updater] update downloaded`)
+    logger.info('[updater] update downloaded')
 
     notify({
       title: i18n.t('updateAvailable'),
