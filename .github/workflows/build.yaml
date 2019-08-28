@@ -1,0 +1,37 @@
+name: CI
+
+on: [push]
+
+jobs:
+  lint-unit:
+    name: lint, unit testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          version: 12.x
+      - run: npm install
+      - run: npm run lint
+      - run: npm run test
+  e2e-build:
+    name: e2e tests, build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+    needs:
+      - lint-unit
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          version: 12.x
+      - run: npm install
+      - run: npm run test:e2e
+        env:
+          CI: true
+      - run: npm run build
+        env:
+          CI: true
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
