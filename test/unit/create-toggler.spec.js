@@ -18,7 +18,7 @@ describe('Create toggler', () => {
     electron = mockElectron()
     store = mockStore()
     webui = mockWebUI()
-    createToggler = proxyquire('../src/create-toggler', {
+    createToggler = proxyquire('../../src/create-toggler', {
       electron: electron,
       './common/store': store
     }).default

@@ -39,7 +39,7 @@ describe('Application launch', function () {
   }) {
     app = new Application({
       path: electronPath,
-      args: ['-r', path.join(__dirname, 'utils/include.js'), path.join(__dirname, '../src/index.js')],
+      args: ['-r', path.join(__dirname, 'utils/include.js'), path.join(__dirname, '../../src/index.js')],
       env: {
         NODE_ENV: 'test',
         HOME: home,
