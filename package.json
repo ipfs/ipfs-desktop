@@ -82,7 +82,7 @@
     "fs-extra": "^8.1.0",
     "get-port": "^5.0.0",
     "go-ipfs-dep": "0.4.22",
-    "i18next": "^17.0.12",
+    "i18next": "^17.0.13",
     "i18next-electron-language-detector": "0.0.10",
     "i18next-icu": "^1.1.2",
     "i18next-node-fs-backend": "^2.1.3",
