@@ -18,7 +18,7 @@ function setup (ctx) {
       })
     }
 
-    logger.error(err)
+    logger.error(`[updater] ${err.toString()}`)
   })
 
   autoUpdater.on('update-available', async () => {
@@ -26,8 +26,8 @@ function setup (ctx) {
 
     try {
       await autoUpdater.downloadUpdate()
-    } catch (error) {
-      logger.error(error)
+    } catch (err) {
+      logger.error(`[updater] ${err.toString()}`)
     }
   })
 

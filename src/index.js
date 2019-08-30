@@ -15,6 +15,7 @@ import setupArgvFilesHandler from './argv-files-handler'
 import setupAutoUpdater from './auto-updater'
 import setupTray from './tray'
 import setupIpfsOnPath from './ipfs-on-path'
+import setupAnalytics from './analytics'
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -53,6 +54,7 @@ async function run () {
   }
 
   try {
+    await setupAnalytics(ctx) // ctx.countlyDeviceId
     await setupI18n(ctx)
     await setupAppMenu(ctx)
 

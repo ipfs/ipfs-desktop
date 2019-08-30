@@ -1,3 +1,4 @@
+const { COUNTLY_KEY, VERSION } = require('../common/consts')
 const toPull = require('stream-to-pull-stream')
 const { ipcRenderer, remote } = require('electron')
 const readdir = require('recursive-readdir')
@@ -5,10 +6,6 @@ const fs = require('fs-extra')
 const path = require('path')
 const screenshotHook = require('./screenshot')
 const connectionHook = require('./connection-status')
-const pkg = require('../../package.json')
-
-const COUNTLY_KEY = '47fbb3db3426d2ae32b3b65fe40c564063d8b55d'
-const COUNTLY_KEY_TEST = '6b00e04fa5370b1ce361d2f24a09c74254eee382'
 
 screenshotHook()
 connectionHook()
@@ -26,10 +23,14 @@ ipcRenderer.on('updatedPage', (_, url) => {
   window.location.hash = url
 })
 
-window.ipfsDesktop = {
-  countlyAppKey: process.env.NODE_ENV === 'development' ? COUNTLY_KEY_TEST : COUNTLY_KEY,
+const urlParams = new URLSearchParams(window.location.search)
 
-  version: pkg.version,
+window.ipfsDesktop = {
+  countlyAppKey: COUNTLY_KEY,
+
+  countlyDeviceId: urlParams.get('deviceId'),
+
+  version: VERSION,
 
   onConfigChanged: (listener) => {
     ipcRenderer.on('config.changed', (_, config) => {
@@ -76,16 +77,19 @@ window.ipfsDesktop = {
         resolve(files)
       })
     })
+  },
+
+  removeConsent: (consent) => {
+    ipcRenderer.send('countly.removeConsent', consent)
+  },
+
+  addConsent: (consent) => {
+    ipcRenderer.send('countly.addConsent', consent)
   }
 }
 
-// This preload script creates the window.ipfs object with
-// the apiAddress in the URL.
-const urlParams = new URLSearchParams(window.location.search)
-const apiAddress = urlParams.get('api')
-
 // Inject api address
-window.localStorage.setItem('ipfsApi', apiAddress)
+window.localStorage.setItem('ipfsApi', urlParams.get('api'))
 
 // Allow webui window to be dragged on mac
 document.addEventListener('DOMContentLoaded', function (event) {

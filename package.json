@@ -6,7 +6,8 @@
   "description": "IPFS Native Application",
   "main": "out/index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development electron -r @babel/register src/index.js",
+    "start": "cross-env NODE_ENV=development run-s build:babel start:electron",
+    "start:electron": "electron out/index.js",
     "lint": "standard",
     "test": "cross-env NODE_ENV=test mocha -r @babel/register",
     "postinstall": "run-s install-app-deps build:webui",
@@ -75,6 +76,8 @@
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "auto-launch": "^5.0.5",
+    "change-case": "^3.1.0",
+    "countly-sdk-nodejs": "^19.8.0",
     "electron-serve": "^0.3.0",
     "electron-store": "^4.0.0",
     "electron-updater": "^4.1.2",

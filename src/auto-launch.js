@@ -21,15 +21,15 @@ export default function (ctx) {
     try {
       if (value === true) {
         if (!await autoLauncher.isEnabled()) await autoLauncher.enable()
-        logger.info('[launch on startup] enabled')
+        logger.info('[launch on startup] enabled', { withAnalytics: 'LAUNCH_STARTUP_ENABLED' })
       } else {
         if (await autoLauncher.isEnabled()) await autoLauncher.disable()
-        logger.info('[launch on startup] disabled')
+        logger.info('[launch on startup] disabled', { withAnalytics: 'LAUNCH_STARTUP_DISABLED' })
       }
 
       return true
     } catch (e) {
-      logger.error(e.stack)
+      logger.error(`[launch on startup] ${e.toString()}`)
       return false
     }
   }

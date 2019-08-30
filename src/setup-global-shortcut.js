@@ -1,6 +1,5 @@
 import { globalShortcut, ipcMain } from 'electron'
 import createToggler from './create-toggler'
-import logger from './common/logger'
 import store from './common/store'
 import { IS_MAC } from './common/consts'
 
@@ -12,10 +11,8 @@ export default function (ctx, { settingsOption, accelerator, action }) {
 
     if (value === true) {
       globalShortcut.register(accelerator, action)
-      logger.info(`[${settingsOption}] shortcut enabled`)
     } else {
       globalShortcut.unregister(accelerator)
-      logger.info(`[${settingsOption}] shortcut disabled`)
     }
 
     return true

@@ -43,7 +43,7 @@ async function cleanup (addr, path) {
     })
     logger.info('[daemon] cleanup: completed')
   } catch (e) {
-    logger.error('[daemon] ', e)
+    logger.error(`[daemon] ${e.toString()}`)
   }
 }
 

@@ -52,11 +52,11 @@ export async function downloadHash (ctx) {
   let files
 
   try {
-    logger.info(`[hash download] downloading ${text}: started`)
+    logger.info(`[hash download] downloading ${text}: started`, { withAnalytics: 'DOWNLOAD_HASH' })
     files = await ipfsd.api.get(text)
     logger.info(`[hash download] downloading ${text}: completed`)
   } catch (e) {
-    logger.error(e.stack)
+    logger.error(`[hash download] ${e.toString()}`)
 
     notifyError({
       title: i18n.t('cantDownloadHash'),
@@ -78,7 +78,7 @@ export async function downloadHash (ctx) {
       shell.showItemInFolder(path.join(dir, files[0].path))
     })
   } catch (e) {
-    logger.error(e.stack)
+    logger.error(`[hash download] ${e.toString()}`)
 
     notifyError({
       title: i18n.t('cantDownloadHash'),
