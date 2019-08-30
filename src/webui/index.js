@@ -75,7 +75,7 @@ export default async function (ctx) {
     }
   }
 
-  const url = new URL('/', 'http://localhost:3000/')
+  const url = new URL('/', 'webui://-')
   url.hash = '/'
   url.searchParams.set('lng', store.get('language'))
   url.searchParams.set('deviceId', ctx.countlyDeviceId)
