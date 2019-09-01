@@ -7,7 +7,7 @@ export default async function (ctx) {
     url: 'https://countly.ipfs.io',
     app_key: COUNTLY_KEY,
     debug: process.env.NODE_ENV === 'development',
-    requireConsent: true
+    require_consent: true
   })
 
   Countly.begin_session()
