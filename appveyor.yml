@@ -17,8 +17,9 @@ install:
   - npm install
 
 build_script:
-  - npm run test
   - npm run lint
+  - npm run test
+  - npm run test:e2e
   - npm run build
 
 test: off

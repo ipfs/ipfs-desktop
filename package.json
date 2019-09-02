@@ -9,7 +9,8 @@
     "start": "cross-env NODE_ENV=development run-s build:babel start:electron",
     "start:electron": "electron out/index.js",
     "lint": "standard",
-    "test": "cross-env NODE_ENV=test mocha -r @babel/register",
+    "test": "cross-env NODE_ENV=test mocha test/unit/**/*.spec.js -r @babel/register",
+    "test:e2e": "xvfb-maybe cross-env NODE_ENV=test mocha test/e2e/**/*.e2e.js -r @babel/register",
     "postinstall": "run-s install-app-deps build:webui",
     "install-app-deps": "electron-builder install-app-deps",
     "clean:webui": "shx rm -rf assets/webui/",
@@ -58,7 +59,7 @@
     "cross-env": "^5.2.0",
     "delay": "^4.3.0",
     "dirty-chai": "^2.0.1",
-    "electron": "^6.0.5",
+    "electron": "^6.0.6",
     "electron-builder": "^21.2.0",
     "mocha": "^6.2.0",
     "npm-run-all": "^4.1.5",
@@ -71,7 +72,8 @@
     "spectron": "^8.0.0",
     "standard": "^14.1.0",
     "tar": "^4.4.10",
-    "tmp": "0.1.0"
+    "tmp": "0.1.0",
+    "xvfb-maybe": "^0.2.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
