@@ -44,8 +44,7 @@ describe('Application launch', function () {
         NODE_ENV: 'test',
         HOME: home,
         IPFS_PATH: ipfsPath
-      },
-      chromeDriverArgs: ['--no-sandbox']
+      }
     })
     await app.start()
     return { app, ipfsPath, home }
