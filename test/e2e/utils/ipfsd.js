@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 
-const tmp = require('tmp')
-const IPFSFactory = require('ipfsd-ctl')
+import tmp from 'tmp'
+import IPFSFactory from 'ipfsd-ctl'
 
 async function makeRepository () {
   const dir = tmp.dirSync({ unsafeCleanup: true })

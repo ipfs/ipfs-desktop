@@ -1,17 +1,17 @@
 /* eslint-env mocha */
 
-const Application = require('spectron').Application
-const electronPath = require('electron') // Require Electron from the binaries included in node_modules.
-const path = require('path')
-const fs = require('fs-extra')
-const tmp = require('tmp')
-const delay = require('delay')
-const chai = require('chai')
-const dirtyChai = require('dirty-chai')
+import { Application } from 'spectron'
+import electronPath from 'electron' // Require Electron from the binaries included in node_modules.
+import path from 'path'
+import fs from 'fs-extra'
+import tmp from 'tmp'
+import delay from 'delay'
+import chai from 'chai'
+import dirtyChai from 'dirty-chai'
+import { makeRepository } from './utils/ipfsd'
+
 const expect = chai.expect
 chai.use(dirtyChai)
-
-const { makeRepository } = require('./utils/ipfsd')
 
 // To print the app logs, add the following to your test:
 //
