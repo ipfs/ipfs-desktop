@@ -21,10 +21,10 @@ export default function (ctx) {
     try {
       if (value === true) {
         if (!await autoLauncher.isEnabled()) await autoLauncher.enable()
-        logger.info('[launch on startup] enabled', { withAnalytics: 'LAUNCH_STARTUP_ENABLED' })
+        logger.info('[launch on startup] enabled')
       } else {
         if (await autoLauncher.isEnabled()) await autoLauncher.disable()
-        logger.info('[launch on startup] disabled', { withAnalytics: 'LAUNCH_STARTUP_DISABLED' })
+        logger.info('[launch on startup] disabled')
       }
 
       return true

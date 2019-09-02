@@ -1,5 +1,4 @@
 import { ipcMain } from 'electron'
-import changeCase from 'change-case'
 import store from './common/store'
 import logger from './common/logger'
 
@@ -18,10 +17,7 @@ export default function ({ webui }, settingsOption, activate) {
       success = true
 
       const action = newValue ? 'enabled' : 'disabled'
-
-      logger.info(`[${settingsOption}] ${action}`, {
-        withAnalytics: `${changeCase.constantCase(settingsOption)}_${changeCase.upperCase(action)}`
-      })
+      logger.info(`[${settingsOption}] ${action}`)
     }
 
     webui.webContents.send('config.changed', {

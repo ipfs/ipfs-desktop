@@ -30,6 +30,15 @@ window.ipfsDesktop = {
 
   countlyDeviceId: urlParams.get('deviceId'),
 
+  countlyActions: [
+    'ADD_VIA_DESKTOP',
+    'DAEMON_START',
+    'DAEMON_STOP',
+    'DOWNLOAD_HASH',
+    'MOVE_REPOSITORY',
+    'SCREENSHOT_TAKEN'
+  ],
+
   version: VERSION,
 
   onConfigChanged: (listener) => {

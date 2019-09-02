@@ -1,5 +1,5 @@
 import Countly from 'countly-sdk-nodejs'
-import { app, ipcMain } from 'electron'
+import { ipcMain } from 'electron'
 import { COUNTLY_KEY } from './common/consts'
 
 export default async function (ctx) {
@@ -10,8 +10,6 @@ export default async function (ctx) {
     require_consent: true
   })
 
-  Countly.begin_session()
-
   ctx.countlyDeviceId = Countly.device_id
 
   ipcMain.on('countly.addConsent', (_, consent) => {
@@ -20,9 +18,5 @@ export default async function (ctx) {
 
   ipcMain.on('countly.removeConsent', (_, consent) => {
     Countly.remove_consent(consent)
-  })
-
-  app.on('before-quit', async e => {
-    Countly.end_session()
   })
 }

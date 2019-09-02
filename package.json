@@ -76,7 +76,6 @@
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "auto-launch": "^5.0.5",
-    "change-case": "^3.1.0",
     "countly-sdk-nodejs": "^19.8.0",
     "electron-serve": "^0.3.0",
     "electron-store": "^4.0.0",
