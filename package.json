@@ -67,7 +67,7 @@
     "request": "^2.88.0",
     "request-progress": "^3.0.0",
     "shx": "^0.3.2",
-    "sinon": "^7.4.1",
+    "sinon": "^7.4.2",
     "spectron": "^8.0.0",
     "standard": "^14.1.0",
     "tar": "^4.4.10",
