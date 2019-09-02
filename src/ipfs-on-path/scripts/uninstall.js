@@ -1,5 +1,5 @@
-const { DEST_SCRIPT } = require('./consts')
-const { revert } = require('./backup')
-const argv = require('yargs').argv
+import { DEST_SCRIPT } from './consts'
+import { revert } from './backup'
+import { argv } from 'yargs'
 
 revert(argv.data, 'ipfs', DEST_SCRIPT)
