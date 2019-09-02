@@ -21,8 +21,9 @@ before_script:
     fi
 
 script:
-  - npm run test
   - npm run lint
+  - npm run test
+  - npm run test:e2e
   - npm run build
 
 notifications:
