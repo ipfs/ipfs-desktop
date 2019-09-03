@@ -1,3 +1,5 @@
+// This file is included before anything else on the tested app.
+// It is not compiled beforehand so it needs to use requires.
 require('@babel/register')
 
 const tmp = require('tmp')

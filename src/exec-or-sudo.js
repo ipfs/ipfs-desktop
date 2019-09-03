@@ -2,10 +2,11 @@ import i18n from 'i18next'
 import util from 'util'
 import sudo from 'sudo-prompt'
 import { dialog, app } from 'electron'
+import childProcess from 'child_process'
 import { recoverableErrorDialog } from './dialogs'
 import logger from './common/logger'
 
-const execFile = util.promisify(require('child_process').execFile)
+const execFile = util.promisify(childProcess.execFile)
 
 const env = {
   noSudo: {

@@ -1,8 +1,8 @@
-const fs = require('fs-extra')
-const which = require('which')
-const { backup } = require('./backup')
-const argv = require('yargs').argv
-const { SOURCE_SCRIPT, DEST_SCRIPT } = require('./consts')
+import fs from 'fs-extra'
+import which from 'which'
+import { backup } from './backup'
+import { argv } from 'yargs'
+import { SOURCE_SCRIPT, DEST_SCRIPT } from './consts'
 
 let exists = false
 

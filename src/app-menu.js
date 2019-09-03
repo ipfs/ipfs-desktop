@@ -1,4 +1,4 @@
-import { app, Menu } from 'electron'
+import { app, Menu, shell } from 'electron'
 
 const template = [
   {
@@ -41,7 +41,9 @@ const template = [
     submenu: [
       {
         label: 'Learn More',
-        click () { require('electron').shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop') }
+        click () {
+          shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop')
+        }
       }
     ]
   }
