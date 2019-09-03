@@ -6,7 +6,8 @@
   "description": "IPFS Native Application",
   "main": "out/index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development electron -r @babel/register src/index.js",
+    "start": "cross-env NODE_ENV=development run-s build:babel start:electron",
+    "start:electron": "electron out/index.js",
     "lint": "standard",
     "test": "cross-env NODE_ENV=test mocha test/unit/**/*.spec.js -r @babel/register",
     "test:e2e": "xvfb-maybe cross-env NODE_ENV=test mocha test/e2e/**/*.e2e.js -r @babel/register",
@@ -17,7 +18,7 @@
     "build:webui": "run-s build:webui:*",
     "build:webui:download": "npx ipfs-or-gateway -c QmNyMYhwJUS1cVvaWoVBhrW8KPj1qmie7rZcWo8f1Bvkhz -p assets/webui/ -t 360000 --verbose",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
-    "build:babel": "babel src --out-dir out --copy-files",
+    "build:babel": "babel src --out-dir out --copy-files --source-maps",
     "build:binaries": "electron-builder --publish onTag"
   },
   "pre-commit": [
@@ -51,7 +52,6 @@
     "@babel/core": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.5.5",
     "@svgr/cli": "^4.3.2",
     "chai": "^4.2.0",

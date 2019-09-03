@@ -1,8 +1,9 @@
 import util from 'util'
 import logger from '../common/logger'
 import { IS_WIN } from '../common/consts'
+import childProcess from 'child_process'
 
-const execFile = util.promisify(require('child_process').execFile)
+const execFile = util.promisify(childProcess.execFile)
 const npmBin = IS_WIN ? 'npm.cmd' : 'npm'
 
 export async function update () {
