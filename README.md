@@ -137,7 +137,14 @@ This repository falls under the IPFS [Code of Conduct](https://github.com/ipfs/c
 
 ### Where is the configuration and logs?
 
-The configuration file and logs are located on `~/Library/Application Support/IPFS Desktop` on macOS and `%appdata%/IPFS Desktop` on Windows. For quick access to this folders, just right-click on your tray icon and then 'Logs Directory' or 'Configuration File', depending on what you want.
+The configuration file and logs are located on:
+- Mac: `~/Library/Application Support/IPFS Desktop/`
+- Windows: `%appdata%/IPFS Desktop/`
+- Linux: `~/.config/IPFS Desktop/`
+
+For quick access to this folders, just right-click on your tray icon and then 'Logs Directory' or 'Configuration File', depending on what you want.
+
+**Note for developers:** When running dev version via `npm start` configuration will be placed in `/Electron/` instead of `/IPFS Desktop/` (`~/.config/Electron/config.json` on Linux). This is a known limitation of dev mode, does not impact packaged versions.
 
 ### How do we select the IPFS repo location?
 
