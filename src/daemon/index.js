@@ -139,8 +139,8 @@ export default async function (ctx) {
 }
 
 function writeIpfsPath (path) {
-  fs.writeFileSync(
-    join(__dirname, '../ipfs-on-path/scripts/IPFS_PATH')
+  fs.outputFileSync(
+    join(app.getPath('home'), './.ipfs-desktop/IPFS_PATH')
       .replace('app.asar', 'app.asar.unpacked'),
     path
   )
