@@ -168,8 +168,52 @@ const parseCfgMultiaddr = (addr) => (addr.includes('/http')
   : multiaddr(addr).encapsulate('/http')
 )
 
+async function checkPortsArray (addrs) {
+  for (const addr of addrs) {
+    const ma = parseCfgMultiaddr(addr)
+    const port = parseInt(ma.nodeAddress().port, 10)
+    const isDaemon = await checkIfAddrIsDaemon(ma.nodeAddress())
+
+    if (isDaemon) {
+      continue
+    }
+
+    const freePort = await getPort({ port: getPort.makeRange(port, port + 100) })
+
+    if (port !== freePort) {
+      showDialog({
+        title: i18n.t('multipleBusyPortsDialog.title'),
+        message: i18n.t('multipleBusyPortsDialog.message'),
+        type: 'error',
+        buttons: [
+          i18n.t('multipleBusyPortsDialog.action')
+        ]
+      })
+
+      throw new Error('ports already being used')
+    }
+  }
+}
+
 async function checkPorts (ipfsd) {
   const config = readConfigFile(ipfsd)
+
+  const apiIsArr = Array.isArray(config.Addresses.API)
+  const gatewayIsArr = Array.isArray(config.Addresses.Gateway)
+
+  if (apiIsArr || gatewayIsArr) {
+    logger.info('[daemon] custom configuration with array of API or Gateway addrs')
+
+    let addrs = apiIsArr
+      ? config.Addresses.API
+      : [config.Addresses.API]
+
+    addrs = gatewayIsArr
+      ? addrs.concat(config.Addresses.Gateway)
+      : addrs.concat([config.Addresses.Gateway])
+
+    return checkPortsArray(addrs)
+  }
 
   const configApiMa = parseCfgMultiaddr(config.Addresses.API)
   const configGatewayMa = parseCfgMultiaddr(config.Addresses.Gateway)
@@ -179,7 +223,7 @@ async function checkPorts (ipfsd) {
 
   if (isApiMaDaemon && isGatewayMaDaemon) {
     logger.info('[daemon] ports busy by a daemon')
-    return true
+    return
   }
 
   const apiPort = parseInt(configApiMa.nodeAddress().port, 10)
