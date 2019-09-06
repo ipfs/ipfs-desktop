@@ -212,7 +212,7 @@ async function checkPorts (ipfsd) {
       ? addrs.concat(config.Addresses.Gateway)
       : addrs.concat([config.Addresses.Gateway])
 
-    return checkPortsArray(addrs)
+    return checkPortsArray([].concat(config.Addresses.API, config.Addresses.Gateway))
   }
 
   const configApiMa = parseCfgMultiaddr(config.Addresses.API)
