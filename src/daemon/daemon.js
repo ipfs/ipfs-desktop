@@ -169,9 +169,16 @@ const parseCfgMultiaddr = (addr) => (addr.includes('/http')
 )
 
 async function checkPortsArray (addrs) {
+  addrs = addrs.filter(Boolean)
+
   for (const addr of addrs) {
     const ma = parseCfgMultiaddr(addr)
     const port = parseInt(ma.nodeAddress().port, 10)
+
+    if (port === 0) {
+      continue
+    }
+
     const isDaemon = await checkIfAddrIsDaemon(ma.nodeAddress())
 
     if (isDaemon) {
@@ -203,15 +210,6 @@ async function checkPorts (ipfsd) {
 
   if (apiIsArr || gatewayIsArr) {
     logger.info('[daemon] custom configuration with array of API or Gateway addrs')
-
-    let addrs = apiIsArr
-      ? config.Addresses.API
-      : [config.Addresses.API]
-
-    addrs = gatewayIsArr
-      ? addrs.concat(config.Addresses.Gateway)
-      : addrs.concat([config.Addresses.Gateway])
-
     return checkPortsArray([].concat(config.Addresses.API, config.Addresses.Gateway))
   }
 
