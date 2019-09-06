@@ -51,7 +51,11 @@ async function runWindows (script, failSilently) {
     ], {}, err => {
       if (err) {
         logger.error(`[ipfs on path] ${err.toString()}`)
-        if (!failSilently) recoverableErrorDialog(err)
+
+        if (!failSilently) {
+          recoverableErrorDialog(err)
+        }
+
         return resolve(false)
       }
 
@@ -69,6 +73,7 @@ async function run (script, trySudo = true, failSilently = false) {
   return execOrSudo({
     script: join(__dirname, `./scripts/${script}.js`),
     scope: 'ipfs on path',
-    trySudo
+    trySudo,
+    failSilently
   })
 }
