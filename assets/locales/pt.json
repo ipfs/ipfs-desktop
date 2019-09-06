@@ -55,8 +55,6 @@
   "takeScreenshot": "Tirar uma captura de ecrã",
   "downloadHash": "Descarregar hash",
   "moveRepositoryLocation": "Move Repository Location",
-  "openCohostFile": "Open co-hosted files list",
-  "updateCohostedWebsites": "Update co-hosted websites",
   "polkitDialog": {
     "title": "Polkit não encontrado",
     "message": "O IPFS não pode ser adicionado a /usr/local/bin/ sem o agente polkit."
