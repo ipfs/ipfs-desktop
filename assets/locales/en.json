@@ -109,6 +109,6 @@
   "multipleBusyPortsDialog": {
     "title": "Ports are busy",
     "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "I will fix the configuration"
+    "action": "Open configuration file"
   }
 }
