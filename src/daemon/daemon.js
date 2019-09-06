@@ -2,7 +2,7 @@ import IPFSFactory from 'ipfsd-ctl'
 import i18n from 'i18next'
 import fs from 'fs-extra'
 import { join } from 'path'
-import { app } from 'electron'
+import { app, shell } from 'electron'
 import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 import multiaddr from 'multiaddr'
@@ -168,8 +168,55 @@ const parseCfgMultiaddr = (addr) => (addr.includes('/http')
   : multiaddr(addr).encapsulate('/http')
 )
 
+async function checkPortsArray (ipfsd, addrs) {
+  addrs = addrs.filter(Boolean)
+
+  for (const addr of addrs) {
+    const ma = parseCfgMultiaddr(addr)
+    const port = parseInt(ma.nodeAddress().port, 10)
+
+    if (port === 0) {
+      continue
+    }
+
+    const isDaemon = await checkIfAddrIsDaemon(ma.nodeAddress())
+
+    if (isDaemon) {
+      continue
+    }
+
+    const freePort = await getPort({ port: getPort.makeRange(port, port + 100) })
+
+    if (port !== freePort) {
+      const opt = showDialog({
+        title: i18n.t('multipleBusyPortsDialog.title'),
+        message: i18n.t('multipleBusyPortsDialog.message'),
+        type: 'error',
+        buttons: [
+          i18n.t('multipleBusyPortsDialog.action'),
+          i18n.t('close')
+        ]
+      })
+
+      if (opt === 0) {
+        shell.openItem(join(ipfsd.repoPath, 'config'))
+      }
+
+      throw new Error('ports already being used')
+    }
+  }
+}
+
 async function checkPorts (ipfsd) {
   const config = readConfigFile(ipfsd)
+
+  const apiIsArr = Array.isArray(config.Addresses.API)
+  const gatewayIsArr = Array.isArray(config.Addresses.Gateway)
+
+  if (apiIsArr || gatewayIsArr) {
+    logger.info('[daemon] custom configuration with array of API or Gateway addrs')
+    return checkPortsArray(ipfsd, [].concat(config.Addresses.API, config.Addresses.Gateway))
+  }
 
   const configApiMa = parseCfgMultiaddr(config.Addresses.API)
   const configGatewayMa = parseCfgMultiaddr(config.Addresses.Gateway)
@@ -179,7 +226,7 @@ async function checkPorts (ipfsd) {
 
   if (isApiMaDaemon && isGatewayMaDaemon) {
     logger.info('[daemon] ports busy by a daemon')
-    return true
+    return
   }
 
   const apiPort = parseInt(configApiMa.nodeAddress().port, 10)

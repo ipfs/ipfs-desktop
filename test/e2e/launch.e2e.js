@@ -136,4 +136,32 @@ describe('Application launch', function () {
     const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
     expect(app.isRunning()).to.be.true()
   })
+
+  it('starts with multiple api addresses', async function () {
+    const { ipfsd } = await makeRepository()
+    const { repoPath } = ipfsd
+    await ipfsd.stop()
+    const configPath = path.join(repoPath, 'config')
+    const config = fs.readJsonSync(configPath)
+
+    config.Addresses.API = ['/ip4/127.0.0.1/tcp/5001', '/ip4/127.0.0.1/tcp/5002']
+
+    fs.writeFile(configPath, config)
+    const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
+    expect(app.isRunning()).to.be.true()
+  })
+
+  it('starts with multiple gateway addresses', async function () {
+    const { ipfsd } = await makeRepository()
+    const { repoPath } = ipfsd
+    await ipfsd.stop()
+    const configPath = path.join(repoPath, 'config')
+    const config = fs.readJsonSync(configPath)
+
+    config.Addresses.Gateway = ['/ip4/127.0.0.1/tcp/8080', '/ip4/127.0.0.1/tcp/8081']
+
+    fs.writeFile(configPath, config)
+    const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
+    expect(app.isRunning()).to.be.true()
+  })
 })
