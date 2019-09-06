@@ -10,7 +10,7 @@
     "start:electron": "electron out/index.js",
     "lint": "standard",
     "test": "cross-env NODE_ENV=test mocha test/unit/**/*.spec.js -r @babel/register",
-    "test:e2e": "xvfb-maybe cross-env NODE_ENV=test mocha test/e2e/**/*.e2e.js -r @babel/register",
+    "test:e2e": "xvfb-maybe cross-env NODE_ENV=test mocha test/e2e/**/*.e2e.js -r @babel/register --exit",
     "postinstall": "run-s install-app-deps build:webui",
     "install-app-deps": "electron-builder install-app-deps",
     "clean:webui": "shx rm -rf assets/webui/",
