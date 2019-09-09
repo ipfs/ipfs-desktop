@@ -38,11 +38,11 @@ async function firstTime () {
   // to sudo so the user doesn't get annoying prompts when running IPFS Desktop
   // for the first time. Sets the option according to the success or failure of the
   // procedure.
-  const res = await run('install', false)
+  const res = await run('install', { trySudo: false, failSilently: true })
   store.set(CONFIG_KEY, res)
 }
 
-async function runWindows (script) {
+async function runWindows (script, { failSilently }) {
   return new Promise(resolve => {
     execFile('powershell.exe', [
       '-nop', '-exec', 'bypass',
@@ -51,7 +51,11 @@ async function runWindows (script) {
     ], {}, err => {
       if (err) {
         logger.error(`[ipfs on path] ${err.toString()}`)
-        recoverableErrorDialog(err)
+
+        if (!failSilently) {
+          recoverableErrorDialog(err)
+        }
+
         return resolve(false)
       }
 
@@ -61,14 +65,15 @@ async function runWindows (script) {
   })
 }
 
-async function run (script, trySudo = true) {
+async function run (script, { trySudo = true, failSilently = false }) {
   if (IS_WIN) {
-    return runWindows(script)
+    return runWindows(script, { failSilently })
   }
 
   return execOrSudo({
     script: join(__dirname, `./scripts/${script}.js`),
     scope: 'ipfs on path',
-    trySudo
+    trySudo,
+    failSilently
   })
 }
