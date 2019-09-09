@@ -13,7 +13,7 @@ async function copyFile (launch, ipfs, hash, name, folder = false) {
 
     try {
       await ipfs.files.stat(`/${newName}`)
-    } catch (e) {
+    } catch (err) {
       name = newName
       break
     }
