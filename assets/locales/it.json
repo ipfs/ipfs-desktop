@@ -105,5 +105,10 @@
     "title": "La porta è occupata",
     "message": "Impossibile usare la porta { port }. Vuoi usare la porta { alt } in alternativa?",
     "action": "Usare la porta { alt } in alternativa"
+  },
+  "multipleBusyPortsDialog": {
+    "title": "Le porte sono occupate",
+    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
+    "action": "Open configuration file"
   }
 }

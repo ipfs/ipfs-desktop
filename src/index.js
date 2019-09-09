@@ -37,9 +37,9 @@ app.on('will-finish-launching', () => {
   setupProtocolHandlers(ctx)
 })
 
-function handleError (e) {
-  logger.error(e)
-  criticalErrorDialog(e)
+function handleError (err) {
+  logger.error(err)
+  criticalErrorDialog(err)
 }
 
 process.on('uncaughtException', handleError)

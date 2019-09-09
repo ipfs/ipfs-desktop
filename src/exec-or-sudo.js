@@ -15,7 +15,7 @@ const env = {
   sudo: 'env ELECTRON_RUN_AS_NODE=1'
 }
 
-const getResult = (err, stdout, stderr, scope) => {
+const getResult = (err, stdout, stderr, scope, failSilently) => {
   if (stdout) {
     logger.info(`[${scope}] sudo: stdout: ${stdout.toString().trim()}`)
   }
@@ -31,7 +31,7 @@ const getResult = (err, stdout, stderr, scope) => {
   const str = err.toString()
   logger.error(`[${scope}] error: ${str}`)
 
-  if (process.env.NODE_ENV !== 'test') {
+  if (process.env.NODE_ENV !== 'test' && !failSilently) {
     if (str.includes('No polkit authentication agent found')) {
       dialog.showErrorBox(i18n.t('polkitDialog.title'), i18n.t('polkitDialog.message'))
     } else if (str.includes('User did not grant permission')) {
@@ -44,8 +44,9 @@ const getResult = (err, stdout, stderr, scope) => {
   return false
 }
 
-export default async function ({ script, scope, trySudo = true }) {
+export default async function ({ script, scope, failSilently, trySudo = true }) {
   const dataArg = `--data="${app.getPath('userData')}"`
+  let err = null
 
   // First try executing with regular permissions.
   try {
@@ -53,10 +54,16 @@ export default async function ({ script, scope, trySudo = true }) {
     logger.info(`[${scope}] stdout: ${stdout.toString().trim()}`)
     return true
   } catch ({ stderr }) {
-    logger.info(`[${scope}] no-sudo: stderr: ${stderr.toString().trim()}`)
+    const msg = stderr.toString().trim()
+    err = new Error(msg)
+    logger.info(`[${scope}] no-sudo: stderr: ${msg}`)
   }
 
   if (!trySudo) {
+    if (!failSilently) {
+      recoverableErrorDialog(err)
+    }
+
     return false
   }
 
@@ -64,7 +71,7 @@ export default async function ({ script, scope, trySudo = true }) {
   const command = `${env.sudo} "${process.execPath}" "${script}" ${dataArg}`
   return new Promise(resolve => {
     sudo.exec(command, { name: 'IPFS Desktop' }, (err, stdout, stderr) => {
-      resolve(getResult(err, stdout, stderr, scope))
+      resolve(getResult(err, stdout, stderr, scope, failSilently))
     })
   })
 }

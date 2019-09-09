@@ -77,8 +77,11 @@ export default async function (ctx) {
 
   const url = new URL('/', 'webui://-')
   url.hash = '/'
-  url.searchParams.set('lng', store.get('language'))
   url.searchParams.set('deviceId', ctx.countlyDeviceId)
+
+  function updateLanguage () {
+    url.searchParams.set('lng', store.get('language'))
+  }
 
   ipcMain.on('ipfsd', async () => {
     const ipfsd = await ctx.getIpfsd(true)
@@ -86,6 +89,7 @@ export default async function (ctx) {
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       apiAddress = ipfsd.apiAddr
       url.searchParams.set('api', apiAddress)
+      updateLanguage()
       window.loadURL(url.toString())
     }
   })
@@ -107,6 +111,7 @@ export default async function (ctx) {
       resolve()
     })
 
+    updateLanguage()
     window.loadURL(url.toString())
   })
 }

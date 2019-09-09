@@ -10,6 +10,8 @@ import { COUNTLY_KEY, VERSION } from '../common/consts'
 screenshotHook()
 connectionHook()
 
+const urlParams = new URLSearchParams(window.location.search)
+
 var originalSetItem = window.localStorage.setItem
 window.localStorage.setItem = function () {
   if (arguments[0] === 'i18nextLng') {
@@ -22,8 +24,6 @@ window.localStorage.setItem = function () {
 ipcRenderer.on('updatedPage', (_, url) => {
   window.location.hash = url
 })
-
-const urlParams = new URLSearchParams(window.location.search)
 
 window.ipfsDesktop = {
   countlyAppKey: COUNTLY_KEY,
@@ -97,4 +97,5 @@ window.ipfsDesktop = {
   }
 }
 
+// Inject api address
 window.localStorage.setItem('ipfsApi', urlParams.get('api'))

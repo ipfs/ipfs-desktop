@@ -105,5 +105,10 @@
     "title": "Port is busy",
     "message": "The port { port } is not available. Do you want to use { alt } instead?",
     "action": "Use port { alt } instead"
+  },
+  "multipleBusyPortsDialog": {
+    "title": "Ports are busy",
+    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
+    "action": "Open configuration file"
   }
 }

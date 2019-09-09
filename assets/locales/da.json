@@ -105,5 +105,10 @@
     "title": "Port er optaget",
     "message": "Porten { port } er ikke tilgængelig. Vil du benytte { alt } i stedet?",
     "action": "Benyt port { alt } i stedet"
+  },
+  "multipleBusyPortsDialog": {
+    "title": "Portene er optaget",
+    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
+    "action": "Open configuration file"
   }
 }

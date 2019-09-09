@@ -73,7 +73,7 @@ export default async function (ctx) {
       log.end()
       updateStatus(STATUS.STARTING_FINISHED)
     } catch (err) {
-      log.fail(err)
+      logger.error(`[ipfsd] ${err.toString}`)
       updateStatus(STATUS.STARTING_FAILED)
     }
   }
@@ -100,7 +100,7 @@ export default async function (ctx) {
       log.end()
       updateStatus(STATUS.STOPPING_FINISHED)
     } catch (err) {
-      log.fail(err)
+      logger.error(`[ipfsd] ${err.toString}`)
       updateStatus(STATUS.STOPPING_FAILED)
     } finally {
       ipfsd = null
