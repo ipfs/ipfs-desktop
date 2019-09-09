@@ -19,7 +19,7 @@ export async function update () {
       return
     }
   } catch (e) {
-    logger.error('[npm on ipfs] ipfs-npm: could not check if up to date %v', e)
+    logger.error(`[npm on ipfs] ipfs-npm: could not check if up to date ${e.toString()}`)
   }
 
   logger.info('[npm on ipfs] ipfs-npm: is out to date, will update')
@@ -32,7 +32,7 @@ export async function install () {
     logger.info('[npm on ipfs] ipfs-npm: installed globally')
     return true
   } catch (e) {
-    logger.error('[npm on ipfs] ', e)
+    logger.error(`[npm on ipfs] ${e.toString()}`)
     return false
   }
 }
@@ -43,7 +43,7 @@ export async function uninstall () {
     logger.info('[npm on ipfs] ipfs-npm: uninstalled globally')
     return true
   } catch (e) {
-    logger.error('[npm on ipfs] ', e)
+    logger.error(`[npm on ipfs] ${e.toString()}`)
     return false
   }
 }

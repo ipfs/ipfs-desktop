@@ -28,11 +28,11 @@ const createWindow = () => {
   })
 
   window.webContents.on('crashed', event => {
-    logger.error('[web ui] crashed: ', event)
+    logger.error(`[web ui] crashed: ${event.toString()}`)
   })
 
   window.webContents.on('unresponsive', event => {
-    logger.warn('[web ui] unresponsive: ', event)
+    logger.error(`[web ui] unresponsive: ${event.toString()}`)
   })
 
   window.on('resize', () => {
@@ -64,7 +64,7 @@ export default async function (ctx) {
   ctx.webui = window
 
   ctx.launchWebUI = (url, { focus = true } = {}) => {
-    logger.info('[web ui] navigate to %s', url)
+    logger.info(`[web ui] navigate to ${url}`)
     window.webContents.send('updatedPage', url)
 
     if (focus) {
@@ -74,12 +74,21 @@ export default async function (ctx) {
     }
   }
 
+  const url = new URL('/', 'webui://-')
+  url.hash = '/'
+
+  function updateLanguage () {
+    url.searchParams.set('lng', store.get('language'))
+  }
+
   ipcMain.on('ipfsd', async () => {
     const ipfsd = await ctx.getIpfsd(true)
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       apiAddress = ipfsd.apiAddr
-      window.loadURL(`webui://-?api=${apiAddress}&lng=${store.get('language')}#/`)
+      url.searchParams.set('api', apiAddress)
+      updateLanguage()
+      window.loadURL(url.toString())
     }
   })
 
@@ -100,6 +109,7 @@ export default async function (ctx) {
       resolve()
     })
 
-    window.loadURL(`webui://-?lng=${store.get('language')}#/`)
+    updateLanguage()
+    window.loadURL(url.toString())
   })
 }
