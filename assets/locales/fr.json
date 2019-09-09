@@ -31,7 +31,7 @@
   "ipfsNotRunning": "IPFS n'est pas en cours de fonctionnement",
   "desktopIsStartedButDaemonOffline": "IPFS Desktop est démarré mais le démon est éteint.",
   "cantDownloadHash": "Échec du téléchargement du hash",
-  "invalidHashClipboard": "Le hash dans le press-papier n'est pas valide.",
+  "invalidHashClipboard": "Le hash dans le presse-papiers n'est pas valide.",
   "errorWhileDownloadingHash": "Une erreur est survenue pendant la récupération du hash.",
   "errorWhileWritingFiles": "Une erreur est survenue pendant l'écriture des fichiers sur votre système de fichier.",
   "hashDownloaded": "Hash téléchargé",
@@ -57,19 +57,19 @@
   "moveRepositoryLocation": "Bouger la localisation du dépôt",
   "polkitDialog": {
     "title": "Polkit manquant",
-    "message": "IPFS ne peut ajouté dans /usr/local/bin sans un polkit agent."
+    "message": "IPFS ne peut ajouté dans /usr/local/bin sans un agent polkit."
   },
   "noPermissionDialog": {
     "title": "Non authorisé",
-    "message": "IPFS ne peut ajouté dans /usr/local/bin/, soit parce que votre mot de passe n'est pas bon, ou vous n'êtes pas autoriser."
+    "message": "IPFS ne peut être ajouté dans /usr/local/bin/, soit parce que votre mot de passe n'est pas le bon, soit, vous n'êtes pas autorisé."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS n'est pas en cours de fonctionnement",
-    "message": "IPFS a besoin d'être lancer pour faire cela. Voulez-vous démarrer le démon ? "
+    "title": "IPFS est à l'arrêt",
+    "message": "IPFS a besoin d'être lancé pour faire cela. Voulez-vous démarrer le démon ? "
   },
   "recoverableErrorDialog": {
-    "title": "Une errerur est apparu",
-    "message": "Un erreur est apparu mais cela ne semble pas venir de l'exécution de IPFS Desktop. Vous pouvez inspecter les logs pour soumettre vous même cela aux développeurs. "
+    "title": "Une erreur est apparue",
+    "message": "Une erreur est apparue, mais cela ne semble pas venir de l'exécution d’IPFS Desktop. Vous pouvez inspecter les logs pour soumettre vous-même ou reporter cela aux développeurs. "
   },
   "cannotConnectToApiDialog": {
     "title": "Connexion à l'API impossible",
@@ -77,24 +77,24 @@
   },
   "ipfsDesktopHasShutdownDialog": {
     "title": "IPFS Desktop est éteint",
-    "message": "IPFS Desktop est éteint à cause d'une erreur. Vous pouvez redémarrer ou reporter l'erreur aux développeurs, cela requiert un compte Github."
+    "message": "IPFS Desktop est éteint à cause d'une erreur. Vous pouvez tenter de le redémarrer ou reporter l'erreur aux développeurs, vous auriez besoin d’un compte Github pour cela."
   },
   "moveRepositoryWarnDialog": {
     "title": "Bouger le dépôt",
-    "message": "si votre dépôt prends trop de place sur votre disque principal, vous pouvez bouger à une autre position. Garder à l'esprit que IPFS desktop doit avoir accès à cela pour son bon fonctionnement.",
-    "action": "Bouger et redémarrer le noeud"
+    "message": "Si votre dépôt prend trop de place sur votre disque principal, vous pouvez le bouger à une autre place. Garder à l'esprit qu’IPFS Desktop doit avoir accès à cet emplacement pour son bon fonctionnement.",
+    "action": "Bouger et redémarrer le nœud"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Dépôt à était déplacé avec succés",
-    "message": "Votre dépôt à était deplacé à { location } and votre configuration à était mis à jour en conséquence. Le démon va redémarrer maintenant."
+    "title": "Le dépôt a été déplacé avec succès",
+    "message": "Votre dépôt a été déplacé vers { location } et votre configuration a été mise à jour en conséquence. Le démon va redémarrer maintenant."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Même dossier séléctionné. ",
-    "message": "Le dossier choisi et le même que le courant : { location }.  Par conséquence, aucun changement ne sera fait."
+    "title": "Même dossier sélectionné. ",
+    "message": "Le dossier choisi est le même que le dossier actuel : { location }.  Par conséquence, aucun changement ne sera fait."
   },
   "moveRepositoryDirExists": {
-    "title": "Dossier existe déjà. ",
-    "message": "Le dossier { location } existe déjà. S'il vous plait essayer un différent. "
+    "title": "Le dossier existe déjà. ",
+    "message": "Le dossier { location } existe déjà. S'il vous plaît, essayez un différent. "
   },
   "busyPortsDialog": {
     "title": "Les ports sont occupés",
@@ -105,5 +105,10 @@
     "title": "Le port est occupé",
     "message": "Le port { port } n'est pas disponible. Voulez-vous utiliser { alt } à la place?",
     "action": "Utiliser le port { alt } à la place"
+  },
+  "multipleBusyPortsDialog": {
+    "title": "Les ports sont occupés",
+    "message": "Impossible de lier un ou plusieurs adresses API ou de passerelle, car les ports sont utilisés",
+    "action": "Ouvrir le fichier de configuration"
   }
 }
