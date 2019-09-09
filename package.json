@@ -75,7 +75,7 @@
     "xvfb-maybe": "^0.2.1"
   },
   "dependencies": {
-    "@babel/runtime": "^7.5.5",
+    "@babel/runtime": "^7.6.0",
     "auto-launch": "^5.0.5",
     "electron-serve": "^0.3.0",
     "electron-store": "^5.0.0",
