@@ -42,8 +42,8 @@ async function cleanup (addr, path) {
       }
     })
     logger.info('[daemon] cleanup: completed')
-  } catch (e) {
-    logger.error('[daemon] ', e)
+  } catch (err) {
+    logger.error(`[daemon] ${err.toString()}`)
   }
 }
 
@@ -306,9 +306,9 @@ export default async function (opts) {
 
   try {
     await ipfsd.api.id()
-  } catch (e) {
-    if (!e.message.includes('ECONNREFUSED')) {
-      throw e
+  } catch (err) {
+    if (!err.message.includes('ECONNREFUSED')) {
+      throw err
     }
 
     await cleanup(ipfsd.apiAddr, ipfsd.repoPath)

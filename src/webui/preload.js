@@ -5,13 +5,12 @@ import fs from 'fs-extra'
 import path from 'path'
 import screenshotHook from './screenshot'
 import connectionHook from './connection-status'
-import pkg from '../../package.json'
-
-const COUNTLY_KEY = '47fbb3db3426d2ae32b3b65fe40c564063d8b55d'
-const COUNTLY_KEY_TEST = '6b00e04fa5370b1ce361d2f24a09c74254eee382'
+import { COUNTLY_KEY, VERSION } from '../common/consts'
 
 screenshotHook()
 connectionHook()
+
+const urlParams = new URLSearchParams(window.location.search)
 
 var originalSetItem = window.localStorage.setItem
 window.localStorage.setItem = function () {
@@ -27,9 +26,9 @@ ipcRenderer.on('updatedPage', (_, url) => {
 })
 
 window.ipfsDesktop = {
-  countlyAppKey: process.env.NODE_ENV === 'development' ? COUNTLY_KEY_TEST : COUNTLY_KEY,
+  countlyAppKey: COUNTLY_KEY,
 
-  version: pkg.version,
+  version: VERSION,
 
   onConfigChanged: (listener) => {
     ipcRenderer.on('config.changed', (_, config) => {
@@ -79,10 +78,5 @@ window.ipfsDesktop = {
   }
 }
 
-// This preload script creates the window.ipfs object with
-// the apiAddress in the URL.
-const urlParams = new URLSearchParams(window.location.search)
-const apiAddress = urlParams.get('api')
-
 // Inject api address
-window.localStorage.setItem('ipfsApi', apiAddress)
+window.localStorage.setItem('ipfsApi', urlParams.get('api'))

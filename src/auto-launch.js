@@ -28,8 +28,8 @@ export default function (ctx) {
       }
 
       return true
-    } catch (e) {
-      logger.error(e.stack)
+    } catch (err) {
+      logger.error(`[launch on startup] ${err.toString()}`)
       return false
     }
   }

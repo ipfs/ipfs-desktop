@@ -37,7 +37,7 @@ async function onSucess (ipfs, launchWebUI, path, img) {
 }
 
 function onError (e) {
-  logger.error(e)
+  logger.error(`[screenshot] ${e.toString()}`)
 
   notifyError({
     title: i18n.t('couldNotTakeScreenshot'),
@@ -77,7 +77,7 @@ function handleScreenshot (ctx) {
         baseName += '.png'
       }
 
-      logger.info('[screenshot] started: writing screenshots to %s', baseName)
+      logger.info(`[screenshot] started: writing screenshots to ${baseName}`)
       let lastImage = null
 
       for (const { name, image } of output) {
@@ -87,7 +87,7 @@ function handleScreenshot (ctx) {
         lastImage = img
       }
 
-      logger.info('[screenshot] completed: writing screenshots to %s', baseName)
+      logger.info(`[screenshot] completed: writing screenshots to ${baseName}`)
       onSucess(ipfs, launchWebUI, baseName, lastImage)
     } catch (e) {
       onError(e)

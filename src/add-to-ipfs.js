@@ -13,7 +13,7 @@ async function copyFile (launch, ipfs, hash, name, folder = false) {
 
     try {
       await ipfs.files.stat(`/${newName}`)
-    } catch (e) {
+    } catch (err) {
       name = newName
       break
     }
@@ -41,7 +41,7 @@ export default async function ({ getIpfsd, launchWebUI }, file) {
   logger.info(`[add to ipfs] started ${file}`)
   ipfsd.api.addFromFs(file, { recursive: true }, async (err, result) => {
     if (err) {
-      logger.error(err)
+      logger.error(`[add to ipfs] ${err.toString()}`)
       return notifyError({
         title: i18n.t('yourFilesCouldntBeAdded')
       })
@@ -52,7 +52,7 @@ export default async function ({ getIpfsd, launchWebUI }, file) {
       await copyFile(launchWebUI, ipfsd.api, hash, path, result.length > 1)
       logger.info(`[add to ipfs] completed ${file}`)
     } catch (err) {
-      logger.error(err)
+      logger.error(`[add to ipfs] ${err.toString()}`)
       notifyError({
         title: i18n.t('yourFilesCouldntBeAdded')
       })

@@ -73,7 +73,7 @@ export default async function (ctx) {
       logger.info('[ipfsd] daemon started')
       updateStatus(STATUS.STARTING_FINISHED)
     } catch (err) {
-      logger.error('[ipfsd] ', err)
+      logger.error(`[ipfsd] ${err.toString}`)
       updateStatus(STATUS.STARTING_FAILED)
     }
   }
@@ -100,7 +100,7 @@ export default async function (ctx) {
       logger.info('[ipfsd] daemon stopped')
       updateStatus(STATUS.STOPPING_FINISHED)
     } catch (err) {
-      logger.error('[ipfsd] ', err)
+      logger.error(`[ipfsd] ${err.toString}`)
       updateStatus(STATUS.STOPPING_FAILED)
     } finally {
       ipfsd = null
