@@ -1,5 +1,6 @@
 import { screen, BrowserWindow, ipcMain, app, session } from 'electron'
 import { join } from 'path'
+import { URL } from 'url'
 import serve from 'electron-serve'
 import openExternal from './open-external'
 import logger from '../common/logger'
