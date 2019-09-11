@@ -65,7 +65,7 @@ async function runWindows (script, { failSilently }) {
   })
 }
 
-async function run (script, { trySudo = true, failSilently = false }) {
+async function run (script, { trySudo = true, failSilently = false } = {}) {
   if (IS_WIN) {
     return runWindows(script, { failSilently })
   }
