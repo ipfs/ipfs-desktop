@@ -28,6 +28,17 @@ ipcRenderer.on('updatedPage', (_, url) => {
 window.ipfsDesktop = {
   countlyAppKey: COUNTLY_KEY,
 
+  countlyDeviceId: urlParams.get('deviceId'),
+
+  countlyActions: [
+    'ADD_VIA_DESKTOP',
+    'DAEMON_START',
+    'DAEMON_STOP',
+    'DOWNLOAD_HASH',
+    'MOVE_REPOSITORY',
+    'SCREENSHOT_TAKEN'
+  ],
+
   version: VERSION,
 
   onConfigChanged: (listener) => {
@@ -75,6 +86,14 @@ window.ipfsDesktop = {
         resolve(files)
       })
     })
+  },
+
+  removeConsent: (consent) => {
+    ipcRenderer.send('countly.removeConsent', consent)
+  },
+
+  addConsent: (consent) => {
+    ipcRenderer.send('countly.addConsent', consent)
   }
 }
 

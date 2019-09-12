@@ -38,7 +38,7 @@ export default async function ({ getIpfsd, launchWebUI }, file) {
     return
   }
 
-  logger.info(`[add to ipfs] started ${file}`)
+  logger.info(`[add to ipfs] started ${file}`, { withAnalytics: 'ADD_VIA_DESKTOP' })
   ipfsd.api.addFromFs(file, { recursive: true }, async (err, result) => {
     if (err) {
       logger.error(`[add to ipfs] ${err.toString()}`)

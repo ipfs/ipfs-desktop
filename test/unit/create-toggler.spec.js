@@ -6,20 +6,23 @@ import dirtyChai from 'dirty-chai'
 import mockElectron from './mocks/electron'
 import mockStore from './mocks/store'
 import mockWebUI from './mocks/webui'
+import mockLogger from './mocks/logger'
 
 const proxyquire = require('proxyquire').noCallThru()
 chai.use(dirtyChai)
 
 describe('Create toggler', () => {
   const option = 'OPT'
-  let electron, store, webui, createToggler
+  let electron, store, webui, createToggler, logger
 
   beforeEach(() => {
     electron = mockElectron()
     store = mockStore()
     webui = mockWebUI()
+    logger = mockLogger()
     createToggler = proxyquire('../../src/create-toggler', {
       electron: electron,
+      './common/logger': logger,
       './common/store': store
     }).default
   })

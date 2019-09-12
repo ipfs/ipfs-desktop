@@ -77,7 +77,7 @@ function handleScreenshot (ctx) {
         baseName += '.png'
       }
 
-      logger.info(`[screenshot] started: writing screenshots to ${baseName}`)
+      logger.info(`[screenshot] started: writing screenshots to ${baseName}`, { withAnalytics: 'SCREENSHOT_TAKEN' })
       let lastImage = null
 
       for (const { name, image } of output) {

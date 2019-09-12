@@ -16,7 +16,7 @@
     "clean:webui": "shx rm -rf assets/webui/",
     "build": "run-s build:*",
     "build:webui": "run-s build:webui:*",
-    "build:webui:download": "npx ipfs-or-gateway -c QmYcP4sp1nraBiCYi6i9kqdaKobrK32yyMpTrM5JDA8a2C -p assets/webui/ -t 360000 --verbose",
+    "build:webui:download": "npx ipfs-or-gateway -c QmXiJ7c7MmYB1zzTDy2QsnTpkgokT8V6f1zrLzLktDkyHt -p assets/webui/ -t 360000 --verbose",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
     "build:babel": "babel src --out-dir out --copy-files --source-maps",
     "build:binaries": "electron-builder --publish onTag"
@@ -77,6 +77,7 @@
   "dependencies": {
     "@babel/runtime": "^7.6.0",
     "auto-launch": "^5.0.5",
+    "countly-sdk-nodejs": "^19.8.0",
     "electron-serve": "^0.3.0",
     "electron-store": "^5.0.0",
     "electron-updater": "^4.1.2",

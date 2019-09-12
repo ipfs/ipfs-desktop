@@ -52,7 +52,7 @@ export async function downloadHash (ctx) {
   let files
 
   try {
-    logger.info(`[hash download] downloading ${text}: started`)
+    logger.info(`[hash download] downloading ${text}: started`, { withAnalytics: 'DOWNLOAD_HASH' })
     files = await ipfsd.api.get(text)
     logger.info(`[hash download] downloading ${text}: completed`)
   } catch (err) {

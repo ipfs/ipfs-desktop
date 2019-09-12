@@ -47,8 +47,8 @@ export default async function (ctx) {
       return
     }
 
+    const log = logger.start('[ipfsd] start daemon', { withAnalytics: 'DAEMON_START' })
     const config = store.get('ipfsConfig')
-    logger.info('[ipfsd] starting daemon')
     updateStatus(STATUS.STARTING_STARTED)
 
     if (config.path) {
@@ -70,7 +70,7 @@ export default async function (ctx) {
         writeIpfsPath(config.path)
       }
 
-      logger.info('[ipfsd] daemon started')
+      log.end()
       updateStatus(STATUS.STARTING_FINISHED)
     } catch (err) {
       logger.error(`[ipfsd] ${err.toString}`)
@@ -83,7 +83,7 @@ export default async function (ctx) {
       return
     }
 
-    logger.info('[ipfsd] stopping daemon')
+    const log = logger.start('[ipfsd] stop daemon', { withAnalytics: 'DAEMON_STOP' })
     updateStatus(STATUS.STOPPING_STARTED)
 
     if (!fs.pathExists(join(ipfsd.repoPath, 'config'))) {
@@ -97,7 +97,7 @@ export default async function (ctx) {
       // give ipfs 3s to stop. An unclean shutdown is preferable to making the
       // user wait, and taking longer prevents the update mechanism from working.
       await ipfsd.stop(180)
-      logger.info('[ipfsd] daemon stopped')
+      log.end()
       updateStatus(STATUS.STOPPING_FINISHED)
     } catch (err) {
       logger.error(`[ipfsd] ${err.toString}`)

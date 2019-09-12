@@ -74,7 +74,7 @@ export default function ({ stopIpfs, startIpfs }) {
 
     config.path = newDir
     store.set('ipfsConfig', config)
-    logger.info('[move repository] configuration updated')
+    logger.info('[move repository] configuration updated', { withAnalytics: 'MOVE_REPOSITORY' })
 
     showDialog({
       title: i18n.t('moveRepositorySuccessDialog.title'),
