@@ -43,6 +43,7 @@ linux:
     - deb
     - rpm
     - snap
+    - freebsd
 
 snap:
   confinement: strict
