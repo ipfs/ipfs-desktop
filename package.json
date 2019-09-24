@@ -51,7 +51,7 @@
     "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
     "@babel/plugin-transform-runtime": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-env": "^7.6.2",
     "@babel/register": "^7.6.0",
     "@svgr/cli": "^4.3.2",
     "chai": "^4.2.0",
