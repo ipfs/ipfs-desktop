@@ -53,7 +53,7 @@ snap:
     - network-bind
     - removable-media
   publish:
-    - github
+    - snapstore
 
 publish:
   - github
