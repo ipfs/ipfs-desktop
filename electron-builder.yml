@@ -52,8 +52,6 @@ snap:
     - network
     - network-bind
     - removable-media
-  publish:
-    - snap
 
 publish:
   - github
