@@ -17,7 +17,8 @@ before_script:
     if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo apt update
       sudo apt install -y rpm
-      sudo snap install snapcraft --classic  
+      sudo snap install snapcraft --classic
+      echo $SNAP_TOKEN | snapcraft login --with -
     fi
 
 script:
