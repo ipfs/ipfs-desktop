@@ -44,7 +44,10 @@ async function cleanup (ipfsd) {
 }
 
 async function spawn ({ type, path, keysize }) {
-  const factory = IPFSFactory.create({ type: type })
+  const factory = IPFSFactory.create({
+    remote: false,
+    type: type
+  })
 
   const ipfsd = await factory.spawn({
     disposable: false,

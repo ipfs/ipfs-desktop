@@ -5,7 +5,10 @@ import IPFSFactory from 'ipfsd-ctl'
 
 async function makeRepository () {
   const dir = tmp.dirSync({ unsafeCleanup: true })
-  const factory = IPFSFactory.create({ type: 'go' })
+  const factory = IPFSFactory.create({
+    remote: false,
+    type: 'go'
+  })
 
   const ipfsd = await factory.spawn({
     disposable: false,
