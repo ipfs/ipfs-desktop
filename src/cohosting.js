@@ -1,3 +1,5 @@
+import logger from './common/logger'
+
 // Cohosting is an experiment based on MFS. IPFS Desktop
 // only needs to update the snapshots from time to time.
 //
@@ -42,8 +44,8 @@ async function update (ctx) {
 
       await ipfs.files.cp([cid, `/cohosting/${domain}/${getTimestamp()}`])
     }
-  } catch (_) {
-    // Probably there's no /cohosting, ignoring
+  } catch (err) {
+    logger.error(`[cohosting] ${err.toString()}`)
   }
 }
 
