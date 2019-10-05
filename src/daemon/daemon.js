@@ -1,13 +1,12 @@
 import IPFSFactory from 'ipfsd-ctl'
 import i18n from 'i18next'
 import fs from 'fs-extra'
-import { join } from 'path'
 import { app } from 'electron'
 import { execFileSync } from 'child_process'
 import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
 import { showDialog } from '../dialogs'
 import logger from '../common/logger'
-import { applyDefaults, checkCorsConfig, checkPorts } from './config'
+import { applyDefaults, checkCorsConfig, checkPorts, configPath } from './config'
 
 function cannotConnectDialog (addr) {
   showDialog({
@@ -20,27 +19,27 @@ function cannotConnectDialog (addr) {
   })
 }
 
-async function cleanup (addr, path) {
-  logger.info('[daemon] cleanup: started')
+async function cleanup (ipfsd) {
+  const log = logger.start('[daemon] cleanup')
 
-  if (!await fs.pathExists(join(path, 'config'))) {
-    cannotConnectDialog(addr)
+  if (!await fs.pathExists(configPath(ipfsd))) {
+    cannotConnectDialog(ipfsd.apiAddr)
     throw new Error('cannot tonnect to api')
   }
 
-  logger.info(`[daemon] cleanup: ipfs repo fsck ${path}`)
+  log.info('run: ipfs repo fsck')
   const exec = findExecutable('go', app.getAppPath())
 
   try {
     execFileSync(exec, ['repo', 'fsck'], {
       env: {
         ...process.env,
-        IPFS_PATH: path
+        IPFS_PATH: ipfsd.repoPath
       }
     })
-    logger.info('[daemon] cleanup: completed')
+    log.end()
   } catch (err) {
-    logger.error(`[daemon] ${err.toString()}`)
+    log.fail(err)
   }
 }
 
@@ -81,7 +80,7 @@ export default async function (opts) {
       throw err
     }
 
-    await cleanup(ipfsd.apiAddr, ipfsd.repoPath)
+    await cleanup(ipfsd)
     await ipfsd.start(opts.flags)
   }
 
