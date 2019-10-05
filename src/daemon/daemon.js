@@ -57,6 +57,9 @@ async function spawn ({ type, path, keysize }) {
     start: false
   })
 
+  console.log(ipfsd)
+  // ???: ipfsd.initialized is false here! It must not be.
+
   if (ipfsd.initialized) {
     checkCorsConfig(ipfsd)
     return ipfsd
