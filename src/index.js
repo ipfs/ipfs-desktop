@@ -18,6 +18,7 @@ import setupTray from './tray'
 import setupIpfsOnPath from './ipfs-on-path'
 import setupAnalytics from './analytics'
 import setupSecondInstance from './second-instance'
+import setupCohosting from './cohosting'
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -69,6 +70,7 @@ async function run () {
       setupArgvFilesHandler(ctx),
       setupAutoLaunch(ctx),
       setupSecondInstance(ctx),
+      setupCohosting(ctx),
       // Setup global shortcuts
       setupDownloadHash(ctx),
       setupTakeScreenshot(ctx),
