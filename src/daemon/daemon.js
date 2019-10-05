@@ -71,11 +71,8 @@ async function spawn ({ type, path, keysize }) {
 
 export default async function (opts) {
   const ipfsd = await spawn(opts)
-
-  if (!ipfsd.started) {
-    await checkPorts(ipfsd)
-    await ipfsd.start(opts.flags)
-  }
+  await checkPorts(ipfsd)
+  await ipfsd.start(opts.flags)
 
   try {
     await ipfsd.api.id()
