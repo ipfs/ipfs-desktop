@@ -58,6 +58,9 @@ export default {
 
         logger.info(`${msg} FINISHED ${seconds}s`)
       },
+      info: (str) => {
+        logger.info(`${msg} ${str}`)
+      },
       fail: (err) => {
         Countly.log_error(err)
         logger.error(`${msg} ${err.toString()}`)
