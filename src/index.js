@@ -1,3 +1,4 @@
+import 'v8-compile-cache'
 import { app, dialog } from 'electron'
 import fixPath from 'fix-path'
 import { criticalErrorDialog } from './dialogs'
