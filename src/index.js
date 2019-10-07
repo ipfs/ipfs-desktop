@@ -16,6 +16,7 @@ import setupAutoUpdater from './auto-updater'
 import setupTray from './tray'
 import setupIpfsOnPath from './ipfs-on-path'
 import setupAnalytics from './analytics'
+import setupSecondInstance from './second-instance'
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -66,6 +67,7 @@ async function run () {
     await Promise.all([
       setupArgvFilesHandler(ctx),
       setupAutoLaunch(ctx),
+      setupSecondInstance(ctx),
       // Setup global shortcuts
       setupDownloadHash(ctx),
       setupTakeScreenshot(ctx),

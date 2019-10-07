@@ -3,6 +3,7 @@ import toUri from 'multiaddr-to-uri'
 
 function openLink (protocol, part, base) {
   shell.openExternal(`${base}/${protocol}/${part}`)
+  return true
 }
 
 function parseAddr (addr) {
@@ -18,33 +19,38 @@ async function parseUrl (url, ctx) {
   }
 
   if (url.startsWith('ipfs://')) {
-    openLink('ipfs', url.slice(7), base)
+    return openLink('ipfs', url.slice(7), base)
   } else if (url.startsWith('ipns://')) {
-    openLink('ipns', url.slice(7), base)
+    return openLink('ipns', url.slice(7), base)
   } else if (url.startsWith('dweb:/ipfs/')) {
-    openLink('ipfs', url.slice(11), base)
+    return openLink('ipfs', url.slice(11), base)
   } else if (url.startsWith('dweb:/ipns/')) {
-    openLink('ipns', url.slice(11), base)
+    return openLink('ipns', url.slice(11), base)
   }
+
+  return false
+}
+
+export async function argvHandler (argv, ctx) {
+  let handled = false
+
+  for (const arg of argv) {
+    if (await parseUrl(arg, ctx)) {
+      handled = true
+    }
+  }
+
+  return handled
 }
 
 export default function (ctx) {
   // Handle if the app started running now, and a link
   // was sent to be handled.
-  for (const arg of process.argv) {
-    parseUrl(arg, ctx)
-  }
+  argvHandler(process.argv, ctx)
 
   // Handle URLs in macOS
   app.on('open-url', (event, url) => {
     event.preventDefault()
     parseUrl(url, ctx)
-  })
-
-  // Handle URLs on Windows (hopefully on Linux too)
-  app.on('second-instance', (_, argv) => {
-    for (const arg of argv) {
-      parseUrl(arg, ctx)
-    }
   })
 }
