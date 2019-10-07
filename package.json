@@ -98,7 +98,7 @@
     "sudo-prompt": "^9.0.0",
     "which": "^2.0.1",
     "winston": "^3.2.1",
-    "yargs": "^14.0.0"
+    "yargs": "^14.2.0"
   },
   "go-ipfs": {
     "version": "v0.4.22"
