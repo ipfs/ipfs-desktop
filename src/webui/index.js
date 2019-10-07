@@ -67,8 +67,12 @@ export default async function (ctx) {
   ctx.webui = window
 
   ctx.launchWebUI = (url, { focus = true } = {}) => {
-    logger.info(`[web ui] navigate to ${url}`)
-    window.webContents.send('updatedPage', url)
+    if (!url) {
+      logger.info('[web ui] launching web ui')
+    } else {
+      logger.info(`[web ui] navigate to ${url}`)
+      window.webContents.send('updatedPage', url)
+    }
 
     if (focus) {
       window.show()
