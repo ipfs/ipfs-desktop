@@ -1,5 +1,4 @@
 import which from 'which'
-import { ipcMain } from 'electron'
 import * as pkg from './package'
 import logger from '../common/logger'
 import store from '../common/store'
@@ -11,7 +10,7 @@ export default function (ctx) {
   let interval = null
 
   createToggler(ctx, CONFIG_KEY, async (value, oldValue) => {
-    if (value === oldValue) return
+    if (value === oldValue || oldValue === null) return true
 
     // If the user is telling to (un)install even though they have (un)installed
     // ipfs-npm package manually.
@@ -30,27 +29,17 @@ export default function (ctx) {
   let opt = store.get(CONFIG_KEY, null)
   const exists = isPkgInstalled()
 
-  // Confirms if the package is still (un)installed because the user
-  // might change it manually.
-  if (opt !== null || exists !== false) {
+  if (opt === null) {
+    logger.info(`[npm on ipfs] 1st time running and package is ${exists ? 'installed' : 'not installed'}`)
     store.set(CONFIG_KEY, exists)
     opt = exists
   }
 
   if (opt === true) {
+    logger.info('[npm on ipfs] set to update every 12 hours')
     interval = setInterval(existsAndUpdate, 43200000) // every 12 hours
-  }
-
-  if (opt !== null) {
-    logger.info('[npm on ipfs] no action taken')
-    return
-  }
-
-  // First time running this function.
-  if (!which.sync('npm', { nothrow: true })) {
-    store.set(CONFIG_KEY, false)
   } else {
-    ipcMain.emit('config.toggle', null, CONFIG_KEY)
+    logger.info('[npm on ipfs] no action taken')
   }
 }
 
