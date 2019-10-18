@@ -21,8 +21,20 @@ window.localStorage.setItem = function () {
   originalSetItem.apply(this, arguments)
 }
 
+let previousHash = null
+
 ipcRenderer.on('updatedPage', (_, url) => {
+  previousHash = url
   window.location.hash = url
+})
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    previousHash = window.location.hash
+    window.location.hash = '/blank'
+  } else {
+    window.location.hash = previousHash
+  }
 })
 
 window.ipfsDesktop = {

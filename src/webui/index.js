@@ -82,7 +82,7 @@ export default async function (ctx) {
   }
 
   const url = new URL('/', 'webui://-')
-  url.hash = '/'
+  url.hash = '/blank'
   url.searchParams.set('deviceId', ctx.countlyDeviceId)
 
   function updateLanguage () {
