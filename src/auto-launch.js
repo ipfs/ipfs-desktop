@@ -15,13 +15,24 @@ function isSupported () {
   return plat === 'linux' || plat === 'win32' || plat === 'darwin'
 }
 
+// Disable the old auto launch mechanism.
+// TODO: remove on 0.10.0.
+async function disableOldLogin () {
+  const autoLauncher = new AutoLaunch({ name: 'IPFS Desktop' })
+
+  try {
+    if (await autoLauncher.isEnabled()) {
+      await autoLauncher.disable()
+      logger.error('[launch on startup] old mechanism disabled')
+    }
+  } catch (_) {
+    // ignore...
+  }
+}
+
 function getDesktopFile () {
   return path.join(untildify('~/.config/autostart/'), 'ipfs-desktop.desktop')
 }
-
-const autoLauncher = new AutoLaunch({
-  name: 'IPFS Desktop'
-})
 
 async function enable () {
   if (app.setLoginItemSettings) {
@@ -49,9 +60,7 @@ async function disable () {
 }
 
 export default async function (ctx) {
-  // Disable the old auto launch mechanism.
-  // TODO: remove on 0.10.0.
-  if (await autoLauncher.isEnabled()) await autoLauncher.disable()
+  await disableOldLogin()
 
   const activate = async (value, oldValue) => {
     if (process.env.NODE_ENV === 'development') {
