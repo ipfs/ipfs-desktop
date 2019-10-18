@@ -42,8 +42,8 @@ async function enable () {
   const desktop = `[Desktop Entry]
 Type=Application
 Version=1.0
-Name="IPFS Desktop"
-Comment="IPFS Desktop Startup Script"
+Name=IPFS Desktop
+Comment=IPFS Desktop Startup Script
 Exec="${process.execPath}"
 StartupNotify=false
 Terminal=false`
