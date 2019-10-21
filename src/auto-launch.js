@@ -18,9 +18,9 @@ function isSupported () {
 // Disable the old auto launch mechanism.
 // TODO: remove on 0.10.0.
 async function disableOldLogin () {
-  const autoLauncher = new AutoLaunch({ name: 'IPFS Desktop' })
-
   try {
+    const autoLauncher = new AutoLaunch({ name: 'IPFS Desktop' })
+
     if (await autoLauncher.isEnabled()) {
       await autoLauncher.disable()
       logger.error('[launch on startup] old mechanism disabled')
