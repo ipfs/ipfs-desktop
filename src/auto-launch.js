@@ -37,6 +37,7 @@ function getDesktopFile () {
 async function enable () {
   if (app.setLoginItemSettings) {
     app.setLoginItemSettings({ openAtLogin: true })
+    return
   }
 
   const desktop = `[Desktop Entry]
@@ -54,6 +55,7 @@ Terminal=false`
 async function disable () {
   if (app.setLoginItemSettings) {
     app.setLoginItemSettings({ openAtLogin: false })
+    return
   }
 
   await fs.remove(getDesktopFile())
