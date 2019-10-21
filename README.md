@@ -85,6 +85,7 @@ Or you can use your favorite package manager:
 - **Homebrew** - `brew cask install ipfs`
 - **Chocolatey** - `choco install ipfs-desktop`
 - **Snap** - `snap install ipfs-desktop`
+- **AUR** - [`ipfs-desktop` package](https://aur.archlinux.org/packages/ipfs-desktop/) maintained by @alexhenrie
 
 > Using package managers? Please head to [our package managers page](https://github.com/ipfs-shipyard/ipfs-desktop/issues/691) and help us add support for yours!
 
