@@ -1,114 +1,114 @@
 {
-  "ipfsIsRunning": "IPFS is running",
-  "ipfsIsStopping": "IPFS is stopping",
-  "ipfsIsStarting": "IPFS is starting",
-  "ipfsIsNotRunning": "IPFS is not running",
-  "ipfsHasErrored": "IPFS has errored",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
-  "about": "About",
+  "ipfsIsRunning": "IPFS je spuštěn",
+  "ipfsIsStopping": "IPFS se zastavuje",
+  "ipfsIsStarting": "IPFS startuje",
+  "ipfsIsNotRunning": "IPFS neběží",
+  "ipfsHasErrored": "IPFS má chybu",
+  "start": "Začít",
+  "stop": "Zastavit",
+  "restart": "Restartovat",
+  "about": "O projektu",
   "advanced": "Pokročilý",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub",
+  "openRepoDir": "Otevřít adresář úložiště",
+  "openLogsDir": "Otevřít adresář Logů",
+  "openConfigFile": "Otevřít konfigurační soubor",
+  "viewOnGitHub": "Zobrazit na GitHubu",
   "status": "Stav",
   "files": "Soubory",
   "settings": "Nastavení",
-  "quit": "Quit",
-  "versions": "Versions",
-  "screenshotTaken": "Screenshot taken",
-  "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
-  "couldNotTakeScreenshot": "Could not take screenshot",
-  "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "yourFilesCouldntBeAdded": "Your files couldn't be added.",
-  "folderAdded": "Folder added",
-  "folderAddedToIpfsClickToView": "Folder { name } added to IPFS. Click to view the folder.",
-  "fileAdded": "File added",
-  "fileAddedToIpfsClickToView": "File { name } added to IPFS. Click to view the file.",
-  "clickToOpenLogs": "Click here to open the logs.",
-  "ipfsNotRunning": "IPFS is not running",
-  "desktopIsStartedButDaemonOffline": "IPFS Desktop is started but the daemon is turned off.",
-  "cantDownloadHash": "Could not download hash",
-  "invalidHashClipboard": "The hash on the clipboard is not valid.",
-  "errorWhileDownloadingHash": "An error occurred while getting the hash.",
-  "errorWhileWritingFiles": "An error occurred while writing the files to your file system.",
-  "hashDownloaded": "Hash downloaded",
-  "hashDownloadedClickToView": "Hash { hash } content downloaded. Click to view.",
-  "updateAvailable": "Update available",
-  "clickToInstall": "Click here to restart and install the newer version of IPFS Desktop.",
-  "updateNotAvailable": "Update not available",
-  "runningLatestVersion": "You seem to be running the latest version.",
-  "couldNotCheckForUpdates": "Could not check for updates",
-  "pleaseCheckInternet": "Please check your Internet connection.",
-  "checkForUpdates": "Check for Updates...",
-  "yes": "Yes",
-  "no": "No",
+  "quit": "Konec",
+  "versions": "Verze",
+  "screenshotTaken": "Snímek byl pořízen",
+  "shareableLinkCopied": "Odkaz ke sdílení byl zkopírován do schránky. Klepnutím sem zobrazíte snímek obrazovky.",
+  "couldNotTakeScreenshot": "Snímek obrazovky nelze pořídit",
+  "errorwhileTakingScreenshot": "Při pořizování snímku obrazovky došlo k chybě.",
+  "yourFilesCouldntBeAdded": "Vaše soubory nelze přidat.",
+  "folderAdded": "Složka byla přidána",
+  "folderAddedToIpfsClickToView": "Adresář { name } přidán na IPFS. Kliknutím zobrazíte složku.",
+  "fileAdded": "Soubor byl přidán",
+  "fileAddedToIpfsClickToView": "Soubor{ name } přidán na IPFS. Klepnutím zobrazíte soubor.",
+  "clickToOpenLogs": "Klepnutím sem otevřete logy.",
+  "ipfsNotRunning": "IPFS neběží",
+  "desktopIsStartedButDaemonOffline": "Desktop IPFS je spuštěn, ale démon je vypnutý.",
+  "cantDownloadHash": "Hash nelze stáhnout",
+  "invalidHashClipboard": "Hodnota hash ve schránce není platná.",
+  "errorWhileDownloadingHash": "Při získávání hashe došlo k chybě.",
+  "errorWhileWritingFiles": "Při zápisu souborů do systému souborů došlo k chybě.",
+  "hashDownloaded": "Hash stažen",
+  "hashDownloadedClickToView": "Hash { hash } obsah stažen. Klikněte pro zobrazení.",
+  "updateAvailable": "Aktualizace je k dispozici",
+  "clickToInstall": "Kliknutím sem restartujte a nainstalujte novější verzi Desktop IPFS.",
+  "updateNotAvailable": "Aktualizace není k dispozici",
+  "runningLatestVersion": "Zdá se, že používáte nejnovější verzi.",
+  "couldNotCheckForUpdates": "Aktualizace se nepodařilo zkontrolovat",
+  "pleaseCheckInternet": "Zkontrolujte připojení k internetu.",
+  "checkForUpdates": "Kontrola aktualizací...",
+  "yes": "Ano",
+  "no": "Ne",
   "close": "Zavřít",
   "ok": "OK",
   "cancel": "Zrušit",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "anErrorHasOccurred": "An error has occurred",
-  "takeScreenshot": "Take Screenshot",
-  "downloadHash": "Download Hash",
-  "moveRepositoryLocation": "Move Repository Location",
+  "reportTheError": "Nahlásit chybu",
+  "restartIpfsDesktop": "Restartovat IPFS Desktop",
+  "openLogs": "Otevřít logy",
+  "anErrorHasOccurred": "Nastala chyba",
+  "takeScreenshot": "Udělat snímek obrazovky",
+  "downloadHash": "Stáhnout hash",
+  "moveRepositoryLocation": "Přesunout umístění repozitáře",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "Polkit nebyl nalezen",
+    "message": "IPFS nelze přidat do /usr/local/bin/ bez agenta polkit."
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "Žádné oprávnění",
+    "message": "IPFS nelze přidat do /usr/local/bin/, buď proto, že jste zadali nesprávné heslo, nebo jste odmítli povolení."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS is not running",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "title": "IPFS neběží",
+    "message": "Pro provedení této akce musí být spuštěn IPFS. Chcete spustit démona?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "Nastala chyba",
+    "message": "Došlo k chybě, ale nezabrání to spuštění Desktop IPFS. Můžete si prohlédnout logy pro sebe nebo nahlásit chybu vývojářům."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "Nelze se připojit k API",
+    "message": "IPFS Desktop se nemůže připojit k uvedené adrese API: { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "Desktop IPFS byl vypnut",
+    "message": "Desktop IPFS se vypnul kvůli chybě. Můžete restartovat aplikaci nebo nahlásit chybu vývojářům, což vyžadují účet na GitHub."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "Přesunout úložiště",
+    "message": "Pokud vaše úložiště zabírá příliš mnoho místa na hlavním disku, můžete jej přesunout na jiné místo. Nezapomeňte, že nové umístění musí být vždy dostupné, aby IPFS Desktop fungoval správně.",
+    "action": "Přesunout a restartovat uzel"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "Úložiště bylo úspěšně přesunuto",
+    "message": "Vaše úložiště bylo úspěšně přesunuto do { location } a vaše konfigurace byla aktualizována. Démon se nyní znovu spustí."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "Byl vybrán stejný adresář",
+    "message": "Zvolený adresář je stejný jako aktuální: { location }. Proto nebudou provedeny žádné změny."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "Adresář již existuje",
+    "message": "Adresář { location } již existuje. Zkuste použít jiný."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "Porty jsou zaneprázdněny",
+    "message": "Porty { port1 } a{ port2 } nejsou k dispozici. Chcete použít namísto nich { alt1 } a{ alt2 }?",
+    "action": "Použít porty raději { alt1 } a{ alt2 } "
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "Port je zaneprázdněn",
+    "message": "Port { port }není k dispozici. Chcete použít místo něj { alt } ?",
+    "action": "Použít raději { alt } "
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "Porty jsou zaneprázdněny",
+    "message": "Nelze navázat na jednu nebo více adres API nebo Gateway, protože jsou porty zaneprázdněny.",
+    "action": "Otevřete konfigurační soubor"
   }
 }
