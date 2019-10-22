@@ -7,6 +7,7 @@ import untildify from 'untildify'
 import createToggler from './create-toggler'
 import logger from './common/logger'
 import store from './common/store'
+import { IS_MAC, IS_WIN } from './common/consts'
 
 const CONFIG_KEY = 'autoLaunch'
 
@@ -35,7 +36,7 @@ function getDesktopFile () {
 }
 
 async function enable () {
-  if (app.setLoginItemSettings) {
+  if (app.setLoginItemSettings && (IS_MAC || IS_WIN)) {
     app.setLoginItemSettings({ openAtLogin: true })
     return
   }
@@ -53,7 +54,7 @@ Terminal=false`
 }
 
 async function disable () {
-  if (app.setLoginItemSettings) {
+  if (app.setLoginItemSettings && (IS_MAC || IS_WIN)) {
     app.setLoginItemSettings({ openAtLogin: false })
     return
   }
