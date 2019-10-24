@@ -47,6 +47,7 @@ Version=1.0
 Name=IPFS Desktop
 Comment=IPFS Desktop Startup Script
 Exec="${process.execPath}"
+Icon=ipfs-desktop
 StartupNotify=false
 Terminal=false`
 
