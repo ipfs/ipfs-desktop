@@ -1,9 +1,10 @@
 import { extname, basename } from 'path'
+import { clipboard } from 'electron'
 import i18n from 'i18next'
 import logger from './common/logger'
 import { notify, notifyError } from './common/notify'
 
-async function copyFile (launch, ipfs, hash, name, folder = false) {
+async function copyFile (ipfs, hash, name) {
   let i = 0
   const ext = extname(name)
   const base = basename(name, ext)
@@ -21,41 +22,88 @@ async function copyFile (launch, ipfs, hash, name, folder = false) {
     i++
   }
 
-  await ipfs.files.cp(`/ipfs/${hash}`, `/${name}`)
+  return ipfs.files.cp(`/ipfs/${hash}`, `/${name}`)
+}
 
-  notify({
-    title: folder ? i18n.t('folderAdded') : i18n.t('fileAdded'),
-    body: i18n.t(`${folder ? 'folder' : 'file'}AddedToIpfsClickToView`, { name })
-  }, () => {
-    launch(`/files/${name}`)
+async function makeObject (ipfs, results) {
+  if (results.length === 1) {
+    return results[0]
+  }
+
+  let baseCID = await ipfs.object.new('unixfs-dir')
+
+  for (const { hash, path, size } of results) {
+    baseCID = (await ipfs.object.patch.addLink(baseCID, {
+      name: path,
+      size,
+      cid: hash
+    })).toString()
+  }
+
+  return { hash: baseCID, path: '' }
+}
+
+function sendNotification (failures, successes, launch, cidAndPath) {
+  let link, title, body, fn
+
+  if (failures.length === 0) {
+    // All worked well!
+    fn = notify
+
+    if (successes.length === 1) {
+      link = `/files/${cidAndPath.path}`
+      title = i18n.t('itemAddedNotification.title')
+      body = i18n.t('itemAddedNotification.message')
+    } else {
+      link = '/files'
+      title = i18n.t('itemsAddedNotification.title')
+      body = i18n.t('itemsAddedNotification.message', { count: successes.length })
+    }
+  } else {
+    // Some/all failed!
+    fn = notifyError
+    title = i18n.t('itemsFailedNotification.title')
+    body = i18n.t('itemsFailedNotification.message')
+  }
+
+  fn({ title, body }, () => {
+    launch(link)
   })
 }
 
-export default async function ({ getIpfsd, launchWebUI }, file) {
+export default async function ({ getIpfsd, launchWebUI }, files) {
   const ipfsd = await getIpfsd()
 
   if (!ipfsd) {
     return
   }
 
-  logger.info(`[add to ipfs] started ${file}`, { withAnalytics: 'ADD_VIA_DESKTOP' })
-  ipfsd.api.addFromFs(file, { recursive: true }, async (err, result) => {
-    if (err) {
-      logger.error(`[add to ipfs] ${err.toString()}`)
-      return notifyError({
-        title: i18n.t('yourFilesCouldntBeAdded')
-      })
-    }
+  const successes = []
+  const failures = []
 
-    const { path, hash } = result[result.length - 1]
+  const log = logger.start('[add to ipfs] started', { withAnalytics: 'ADD_VIA_DESKTOP' })
+
+  await Promise.all(files.map(async file => {
     try {
-      await copyFile(launchWebUI, ipfsd.api, hash, path, result.length > 1)
-      logger.info(`[add to ipfs] completed ${file}`)
-    } catch (err) {
-      logger.error(`[add to ipfs] ${err.toString()}`)
-      notifyError({
-        title: i18n.t('yourFilesCouldntBeAdded')
-      })
+      const results = await ipfsd.api.addFromFs(file, { recursive: true })
+      const { path, hash, size } = results[results.length - 1]
+      await copyFile(ipfsd.api, hash, path)
+      successes.push({ path, hash, size })
+    } catch (e) {
+      failures.push(e)
     }
-  })
+  }))
+
+  if (failures.length > 0) {
+    log.fail(new Error(failures.reduce((prev, curr) => `${prev} ${curr.toString()}`, '')))
+  } else {
+    log.end()
+  }
+
+  const cidAndPath = await makeObject(ipfsd.api, successes)
+  sendNotification(failures, successes, launchWebUI, cidAndPath)
+
+  // TODO: change to share.ipfs.io once that's fixed
+  const url = `https://ipfs.io/ipfs/${cidAndPath.hash}`
+  clipboard.writeText(url)
 }

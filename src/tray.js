@@ -150,10 +150,7 @@ export default function (ctx) {
 
   // macOS tray drop files
   tray.on('drop-files', async (_, files) => {
-    for (const file of files) {
-      await addToIpfs(ctx, file)
-    }
-
+    await addToIpfs(ctx, files)
     ctx.launchWebUI('/files', { focus: false })
   })
 
