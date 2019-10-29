@@ -25,8 +25,9 @@ async function copyFile (ipfs, hash, name) {
   return ipfs.files.cp(`/ipfs/${hash}`, `/${name}`)
 }
 
-async function makeObject (ipfs, results) {
+async function makeShareableObject (ipfs, results) {
   if (results.length === 1) {
+    // If it's just one object, we link it directly.
     return results[0]
   }
 
@@ -43,7 +44,7 @@ async function makeObject (ipfs, results) {
   return { hash: baseCID, path: '' }
 }
 
-function sendNotification (failures, successes, launch, cidAndPath) {
+function sendNotification (failures, successes, launch, path) {
   let link, title, body, fn
 
   if (failures.length === 0) {
@@ -51,7 +52,7 @@ function sendNotification (failures, successes, launch, cidAndPath) {
     fn = notify
 
     if (successes.length === 1) {
-      link = `/files/${cidAndPath.path}`
+      link = `/files/${path}`
       title = i18n.t('itemAddedNotification.title')
       body = i18n.t('itemAddedNotification.message')
     } else {
@@ -100,10 +101,9 @@ export default async function ({ getIpfsd, launchWebUI }, files) {
     log.end()
   }
 
-  const cidAndPath = await makeObject(ipfsd.api, successes)
-  sendNotification(failures, successes, launchWebUI, cidAndPath)
+  const { hash, path } = await makeShareableObject(ipfsd.api, successes)
+  sendNotification(failures, successes, launchWebUI, path)
 
-  // TODO: change to share.ipfs.io once that's fixed
-  const url = `https://ipfs.io/ipfs/${cidAndPath.hash}`
+  const url = `https://ipfs.io/ipfs/${hash}`
   clipboard.writeText(url)
 }
