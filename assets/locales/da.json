@@ -22,14 +22,8 @@
   "shareableLinkCopied": "Delbart link kopieret til udklipsholderen. Klik her for at vise skærmbilledet.",
   "couldNotTakeScreenshot": "Optagelse af skærmbillede mislykkedes",
   "errorwhileTakingScreenshot": "En fejl opstod i forsøg på at optage skærmbilledet.",
-  "yourFilesCouldntBeAdded": "Dine filer kunne ikke tilføjes.",
-  "folderAdded": "Fil-biblioteket tilføjet",
-  "folderAddedToIpfsClickToView": "Mappen { name } blev tilføjet til IPFS. Klik her for at vise mappen.",
-  "fileAdded": "Fil tilføjet",
-  "fileAddedToIpfsClickToView": "Filen { name } blev tilføjet til IPFS. Klik her for at vise filen.",
   "clickToOpenLogs": "Klik her for at åbne logfilerne.",
   "ipfsNotRunning": "IPFS kører ikke",
-  "desktopIsStartedButDaemonOffline": "IPFS Skrivebord er startet, men baggrundsprocessen er slået fra.",
   "cantDownloadHash": "Kunne ikke downloade hashen.",
   "invalidHashClipboard": "Hashen i udklipsholderen er ugyldig.",
   "errorWhileDownloadingHash": "En fejl opstod mens at hashen blev forsøgt hentet.",
@@ -51,7 +45,6 @@
   "reportTheError": "Indrapporter fejlen",
   "restartIpfsDesktop": "Genstart IPFS Skrivebord",
   "openLogs": "Åben logfiler",
-  "anErrorHasOccurred": "En fejl er opstået",
   "takeScreenshot": "Optag skærmbillede",
   "downloadHash": "Hent hash",
   "moveRepositoryLocation": "Flyt depot placering",
@@ -110,5 +103,17 @@
     "title": "Portene er optaget",
     "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
     "action": "Open configuration file"
+  },
+  "itemsAddedNotification": {
+    "title": "Items added",
+    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+  },
+  "itemAddedNotification": {
+    "title": "Item added",
+    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+  },
+  "itemsFailedNotification": {
+    "title": "Failed to add items",
+    "message": "Could not add your items to your node."
   }
 }

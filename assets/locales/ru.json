@@ -22,14 +22,8 @@
   "shareableLinkCopied": "Ссылка для распространения скопирована в буфер обмена. Нажмите здесь, чтобы просмотреть скриншот.",
   "couldNotTakeScreenshot": "Не удалось сделать скриншот",
   "errorwhileTakingScreenshot": "Произошла ошибка при создании скриншота.",
-  "yourFilesCouldntBeAdded": "Ваши файлы не могут быть добавлены.",
-  "folderAdded": "Папка добавлена",
-  "folderAddedToIpfsClickToView": "Folder { name } added to IPFS. Click to view the folder.",
-  "fileAdded": "File added",
-  "fileAddedToIpfsClickToView": "File { name } added to IPFS. Click to view the file.",
   "clickToOpenLogs": "Нажмите здесь, чтобы открыть логи.",
   "ipfsNotRunning": "IPFS не запущен",
-  "desktopIsStartedButDaemonOffline": "IPFS Desktop запущен но daemon выключен.",
   "cantDownloadHash": "Не удалось скачать хэш",
   "invalidHashClipboard": "The hash on the clipboard is not valid.",
   "errorWhileDownloadingHash": "Произошла ошибка при получении хэша.",
@@ -51,7 +45,6 @@
   "reportTheError": "Сообщить об ошибке",
   "restartIpfsDesktop": "Restart IPFS Desktop",
   "openLogs": "Открыть логи",
-  "anErrorHasOccurred": "An error has occurred",
   "takeScreenshot": "Take Screenshot",
   "downloadHash": "Download Hash",
   "moveRepositoryLocation": "Move Repository Location",
@@ -110,5 +103,17 @@
     "title": "Ports are busy",
     "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
     "action": "Open configuration file"
+  },
+  "itemsAddedNotification": {
+    "title": "Items added",
+    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+  },
+  "itemAddedNotification": {
+    "title": "Item added",
+    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+  },
+  "itemsFailedNotification": {
+    "title": "Failed to add items",
+    "message": "Could not add your items to your node."
   }
 }

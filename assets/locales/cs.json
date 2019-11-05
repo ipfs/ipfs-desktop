@@ -22,14 +22,8 @@
   "shareableLinkCopied": "Odkaz ke sdílení byl zkopírován do schránky. Klepnutím sem zobrazíte snímek obrazovky.",
   "couldNotTakeScreenshot": "Snímek obrazovky nelze pořídit",
   "errorwhileTakingScreenshot": "Při pořizování snímku obrazovky došlo k chybě.",
-  "yourFilesCouldntBeAdded": "Vaše soubory nelze přidat.",
-  "folderAdded": "Složka byla přidána",
-  "folderAddedToIpfsClickToView": "Adresář { name } přidán na IPFS. Kliknutím zobrazíte složku.",
-  "fileAdded": "Soubor byl přidán",
-  "fileAddedToIpfsClickToView": "Soubor{ name } přidán na IPFS. Klepnutím zobrazíte soubor.",
   "clickToOpenLogs": "Klepnutím sem otevřete logy.",
   "ipfsNotRunning": "IPFS neběží",
-  "desktopIsStartedButDaemonOffline": "Desktop IPFS je spuštěn, ale démon je vypnutý.",
   "cantDownloadHash": "Hash nelze stáhnout",
   "invalidHashClipboard": "Hodnota hash ve schránce není platná.",
   "errorWhileDownloadingHash": "Při získávání hashe došlo k chybě.",
@@ -51,7 +45,6 @@
   "reportTheError": "Nahlásit chybu",
   "restartIpfsDesktop": "Restartovat IPFS Desktop",
   "openLogs": "Otevřít logy",
-  "anErrorHasOccurred": "Nastala chyba",
   "takeScreenshot": "Udělat snímek obrazovky",
   "downloadHash": "Stáhnout hash",
   "moveRepositoryLocation": "Přesunout umístění repozitáře",
@@ -110,5 +103,17 @@
     "title": "Porty jsou zaneprázdněny",
     "message": "Nelze navázat na jednu nebo více adres API nebo Gateway, protože jsou porty zaneprázdněny.",
     "action": "Otevřete konfigurační soubor"
+  },
+  "itemsAddedNotification": {
+    "title": "Položky přidány",
+    "message": "{ count } položky přidané do vašeho uzlu. Do vaší schránky byl zkopírován odkaz, který lze sdílet. Kliknutím sem zobrazíte své soubory."
+  },
+  "itemAddedNotification": {
+    "title": "Položka přidána",
+    "message": "Položka byla přidána do vašeho uzlu. Do vaší schránky byl zkopírován odkaz, který lze sdílet. Kliknutím sem zobrazíte svůj soubor."
+  },
+  "itemsFailedNotification": {
+    "title": "Nepodařilo se přidat položky",
+    "message": "Položky nelze přidat do uzlu."
   }
 }

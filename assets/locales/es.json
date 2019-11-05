@@ -22,14 +22,8 @@
   "shareableLinkCopied": "Enlace para compartir copiado al porta papeles. Haga clic aquí para ver la captura de pantalla.",
   "couldNotTakeScreenshot": "No se pudo tomar la captura de pantalla",
   "errorwhileTakingScreenshot": "Se produjo un error al tomar la captura de pantalla.",
-  "yourFilesCouldntBeAdded": "Tus archivos no pudieron ser agregados.",
-  "folderAdded": "Carpeta agregada",
-  "folderAddedToIpfsClickToView": "Carpeta { name }añadida a IPFS. Haga clic para ver la carpeta.",
-  "fileAdded": "Archivo agregado",
-  "fileAddedToIpfsClickToView": "Fichero  { name } añadida a IPFS. Haga clic para ver el fichero.",
   "clickToOpenLogs": "Haga clic aquí para abrir los registros.",
   "ipfsNotRunning": "IPFS no se está ejecutando",
-  "desktopIsStartedButDaemonOffline": "IPFS está en marcha pero la demonización esta apagada.",
   "cantDownloadHash": "No se pudo descargar el hash",
   "invalidHashClipboard": "The hash on the clipboard is not valid.",
   "errorWhileDownloadingHash": "Se produjo un error al obtener el hash.",
@@ -51,7 +45,6 @@
   "reportTheError": "Report the error",
   "restartIpfsDesktop": "Restart IPFS Desktop",
   "openLogs": "Open logs",
-  "anErrorHasOccurred": "An error has occurred",
   "takeScreenshot": "Take Screenshot",
   "downloadHash": "Download Hash",
   "moveRepositoryLocation": "Move Repository Location",
@@ -110,5 +103,17 @@
     "title": "Ports are busy",
     "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
     "action": "Open configuration file"
+  },
+  "itemsAddedNotification": {
+    "title": "Items added",
+    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+  },
+  "itemAddedNotification": {
+    "title": "Item added",
+    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+  },
+  "itemsFailedNotification": {
+    "title": "Failed to add items",
+    "message": "Could not add your items to your node."
   }
 }

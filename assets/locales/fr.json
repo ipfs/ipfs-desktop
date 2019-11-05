@@ -22,14 +22,8 @@
   "shareableLinkCopied": "Lien partageable copié dans le presse-papier. Cliquez ici pour voir la capture d'écran.",
   "couldNotTakeScreenshot": "La capture d'écran n'a pas pu être réalisée.",
   "errorwhileTakingScreenshot": "Une erreur est survenue pendant la prise de la capture d'écran.",
-  "yourFilesCouldntBeAdded": "Vos fichiers n'ont pas pu être ajoutés.",
-  "folderAdded": "Dossier ajouté",
-  "folderAddedToIpfsClickToView": "Dossier { name } ajouté à IPFS. Cliquez pour voir le dossier.",
-  "fileAdded": "Fichier ajouté",
-  "fileAddedToIpfsClickToView": "Fichier { name } ajouté à IPFS. Cliquez pour voir le fichier.",
   "clickToOpenLogs": "Cliquez ici pour ouvrir les logs.",
   "ipfsNotRunning": "IPFS n'est pas en cours de fonctionnement",
-  "desktopIsStartedButDaemonOffline": "IPFS Desktop est démarré mais le démon est éteint.",
   "cantDownloadHash": "Échec du téléchargement du hash",
   "invalidHashClipboard": "Le hash dans le presse-papiers n'est pas valide.",
   "errorWhileDownloadingHash": "Une erreur est survenue pendant la récupération du hash.",
@@ -51,7 +45,6 @@
   "reportTheError": "Reporter l'erreur",
   "restartIpfsDesktop": "Redémarrer IPFS Desktop",
   "openLogs": "Ouvrir les logs",
-  "anErrorHasOccurred": "Une errerur est apparu",
   "takeScreenshot": "Prendre une Capture d'écran",
   "downloadHash": "Télécharger ce Hash",
   "moveRepositoryLocation": "Bouger la localisation du dépôt",
@@ -110,5 +103,17 @@
     "title": "Les ports sont occupés",
     "message": "Impossible de lier un ou plusieurs adresses API ou de passerelle, car les ports sont utilisés",
     "action": "Ouvrir le fichier de configuration"
+  },
+  "itemsAddedNotification": {
+    "title": "Eléments ajoutés",
+    "message": "{ count } éléments ajoutés à votre noeud. Un lien partageable a été copié dans votre presse-papier. Cliquez ici pour voir vos fichiers."
+  },
+  "itemAddedNotification": {
+    "title": "Elément ajouté",
+    "message": "Elément ajouté à votre noeud. Un lien partageable a été copié dans votre presse-papier. Cliquez ici pour voir votre fichier."
+  },
+  "itemsFailedNotification": {
+    "title": "Echec de l'ajout des éléments",
+    "message": "Impossible d'ajouter des éléments à votre noeud."
   }
 }

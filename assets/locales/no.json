@@ -22,14 +22,8 @@
   "shareableLinkCopied": "Delingsvennelig lenke kopiert til utklippstavlen. Klikk her for å se skjermbildet.",
   "couldNotTakeScreenshot": "Kunne ikke ta skjermbildet.",
   "errorwhileTakingScreenshot": "Det oppstod en feil mens du tok skjermbildet.",
-  "yourFilesCouldntBeAdded": "Filene dine kunne ikke legges til.",
-  "folderAdded": "Mappe lagt til",
-  "folderAddedToIpfsClickToView": "Mappe { name } lagt til IPFS. Klikke for å vise mappen.",
-  "fileAdded": "Fil lagt til",
-  "fileAddedToIpfsClickToView": "Fil { name } lagt til IPFS. Klikk for å vise filen.",
   "clickToOpenLogs": "Klikk her for å åpne loggene.",
   "ipfsNotRunning": "IPFS kjører ikke",
-  "desktopIsStartedButDaemonOffline": "IPFS Desktop er startet, men daemonen er slått av.",
   "cantDownloadHash": "Kunne ikke laste ned hash",
   "invalidHashClipboard": "The hash on the clipboard is not valid.",
   "errorWhileDownloadingHash": "En feil oppstod en under hentingen av hashen.",
@@ -51,7 +45,6 @@
   "reportTheError": "Report the error",
   "restartIpfsDesktop": "Restart IPFS Desktop",
   "openLogs": "Open logs",
-  "anErrorHasOccurred": "An error has occurred",
   "takeScreenshot": "Take Screenshot",
   "downloadHash": "Download Hash",
   "moveRepositoryLocation": "Move Repository Location",
@@ -110,5 +103,17 @@
     "title": "Ports are busy",
     "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
     "action": "Open configuration file"
+  },
+  "itemsAddedNotification": {
+    "title": "Items added",
+    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+  },
+  "itemAddedNotification": {
+    "title": "Item added",
+    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+  },
+  "itemsFailedNotification": {
+    "title": "Failed to add items",
+    "message": "Could not add your items to your node."
   }
 }

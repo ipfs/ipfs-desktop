@@ -22,14 +22,8 @@
   "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
   "couldNotTakeScreenshot": "Could not take screenshot",
   "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "yourFilesCouldntBeAdded": "Your files couldn't be added.",
-  "folderAdded": "Zložka bola pridaná",
-  "folderAddedToIpfsClickToView": "Folder { name } added to IPFS. Click to view the folder.",
-  "fileAdded": "Súbor bol pridaný",
-  "fileAddedToIpfsClickToView": "File { name } added to IPFS. Click to view the file.",
   "clickToOpenLogs": "Kliknite sem pre otvorenie logov",
   "ipfsNotRunning": "IPFS nebeží",
-  "desktopIsStartedButDaemonOffline": "IPFS Desktop je spustené ale služba nebeží.",
   "cantDownloadHash": "Nie je možné stiahnuť hash",
   "invalidHashClipboard": "The hash on the clipboard is not valid.",
   "errorWhileDownloadingHash": "An error occurred while getting the hash.",
@@ -51,7 +45,6 @@
   "reportTheError": "Report the error",
   "restartIpfsDesktop": "Restart IPFS Desktop",
   "openLogs": "Open logs",
-  "anErrorHasOccurred": "An error has occurred",
   "takeScreenshot": "Take Screenshot",
   "downloadHash": "Download Hash",
   "moveRepositoryLocation": "Move Repository Location",
@@ -110,5 +103,17 @@
     "title": "Ports are busy",
     "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
     "action": "Open configuration file"
+  },
+  "itemsAddedNotification": {
+    "title": "Items added",
+    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+  },
+  "itemAddedNotification": {
+    "title": "Item added",
+    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+  },
+  "itemsFailedNotification": {
+    "title": "Failed to add items",
+    "message": "Could not add your items to your node."
   }
 }
