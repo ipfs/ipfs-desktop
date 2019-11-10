@@ -75,7 +75,7 @@
     "xvfb-maybe": "^0.2.1"
   },
   "dependencies": {
-    "@babel/runtime": "^7.7.1",
+    "@babel/runtime": "^7.7.2",
     "auto-launch": "^5.0.5",
     "countly-sdk-nodejs": "^19.8.0",
     "electron-serve": "^0.4.0",
