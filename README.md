@@ -6,7 +6,7 @@
 
 **Download the latest release**
 
-- Mac - [ipfs-desktop-0.10.0.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.0/ipfs-desktop-0.10.0.dmg)
+- Mac - [ipfs-desktop-0.9.7.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.9.7/ipfs-desktop-0.9.7.dmg)
 - Windows - [ipfs-desktop-setup-0.10.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.0/ipfs-desktop-setup-0.10.0.exe)
 - Linux - [ipfs-desktop-0.10.0-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.0/ipfs-desktop-0.10.0-linux-x86_64.AppImage)
 
@@ -69,7 +69,7 @@ Download the latest release of IPFS Desktop for your OS, below.
 | Platform | Download link | Download count
 |---------:|---------------|---------------
 | **Windows**  | [ipfs-desktop-setup-0.10.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.0/ipfs-desktop-setup-0.10.0.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.0/ipfs-desktop-setup-0.10.0.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.0/ipfs-desktop-setup-0.10.0.exe)
-| **Mac**    | [ipfs-desktop-0.10.0.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.0/ipfs-desktop-0.10.0.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.0/ipfs-desktop-0.10.0.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.0/ipfs-desktop-0.10.0.dmg)
+| **Mac**    | [ipfs-desktop-0.9.7.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.9.7/ipfs-desktop-0.9.7.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.9.7/ipfs-desktop-0.9.7.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.9.7/ipfs-desktop-0.9.7.dmg)
 
 We build out multiple installers for **Linux**
 
