@@ -30,6 +30,7 @@ nsis:
   oneClick: false
   warningsAsErrors: false
   perMachine: false
+  allowToChangeInstallationDirectory: true
 
 linux:
   artifactName: ${name}-${version}-${os}-${arch}.${ext}
