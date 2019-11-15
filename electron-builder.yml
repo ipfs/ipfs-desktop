@@ -27,7 +27,7 @@ dmg:
 
 nsis:
   include: assets/build/nsis.nsh
-  oneClick: true
+  oneClick: false
   warningsAsErrors: false
   perMachine: false
 
