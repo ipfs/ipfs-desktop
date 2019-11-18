@@ -100,7 +100,7 @@
     "v8-compile-cache": "^2.1.0",
     "which": "^2.0.1",
     "winston": "^3.2.1",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.1"
   },
   "go-ipfs": {
     "version": "v0.4.22"
