@@ -27,9 +27,10 @@ dmg:
 
 nsis:
   include: assets/build/nsis.nsh
-  oneClick: true
+  oneClick: false
   warningsAsErrors: false
   perMachine: false
+  allowToChangeInstallationDirectory: true
 
 linux:
   artifactName: ${name}-${version}-${os}-${arch}.${ext}
