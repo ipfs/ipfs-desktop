@@ -138,12 +138,8 @@ const off = 'off'
 function icon (color) {
   const dir = path.resolve(path.join(__dirname, '../assets/icons/tray'))
 
-  if (IS_WIN) {
-    return path.join(dir, `${color}.ico`)
-  }
-
   if (!IS_MAC) {
-    return path.join(dir, `${color}-64.png`)
+    return path.join(dir, `${color}-big.png`)
   }
 
   return path.join(dir, `${color}-22Template.png`)
