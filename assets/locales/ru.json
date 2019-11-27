@@ -1,18 +1,18 @@
 {
   "ipfsIsRunning": "IPFS запущен",
-  "ipfsIsStopping": "IPFS останавливается",
-  "ipfsIsStarting": "IPFS запускается",
+  "ipfsIsStopping": "IPFS останавлен",
+  "ipfsIsStarting": "IPFS запущен",
   "ipfsIsNotRunning": "IPFS не запущен",
-  "ipfsHasErrored": "IPFS has errored",
+  "ipfsHasErrored": "Произошла ошибка IPFS",
   "start": "Старт",
   "stop": "Стоп",
   "restart": "Перезапуск",
-  "about": "About",
+  "about": "Описание",
   "advanced": "Дополнительно",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub",
+  "openRepoDir": "Открыть Каталог Репозитория",
+  "openLogsDir": "Открыть Каталог Логов",
+  "openConfigFile": "Открыть Файл Конфигурации",
+  "viewOnGitHub": "Cмотреть на GitHub",
   "status": "Статус",
   "files": "Файлы",
   "settings": "Настройки",
@@ -25,95 +25,95 @@
   "clickToOpenLogs": "Нажмите здесь, чтобы открыть логи.",
   "ipfsNotRunning": "IPFS не запущен",
   "cantDownloadHash": "Не удалось скачать хэш",
-  "invalidHashClipboard": "The hash on the clipboard is not valid.",
+  "invalidHashClipboard": "Хэш в буфере обмена недопустим.",
   "errorWhileDownloadingHash": "Произошла ошибка при получении хэша.",
   "errorWhileWritingFiles": "Произошла ошибка при записи файлов в вашу файловую систему.",
   "hashDownloaded": "Хеш скачан",
   "hashDownloadedClickToView": "Содержимое хэша { hash } скачано. Нажмите, чтобы увидеть.",
   "updateAvailable": "Обновление доступно",
-  "clickToInstall": "Нажмите здесь, чтобы перезапустить и установить более новую версию IPFS Desktop.",
-  "updateNotAvailable": "Update not available",
-  "runningLatestVersion": "You seem to be running the latest version.",
-  "couldNotCheckForUpdates": "Could not check for updates",
-  "pleaseCheckInternet": "Please check your Internet connection.",
-  "checkForUpdates": "Check for Updates...",
+  "clickToInstall": "Нажмите здесь, чтобы установить и  перезапустить более новую версию IPFS Desktop.",
+  "updateNotAvailable": "Обновление недоступно",
+  "runningLatestVersion": "Похоже, вы используете последнюю версию.",
+  "couldNotCheckForUpdates": "Не удалось проверить наличие обновлений",
+  "pleaseCheckInternet": "Пожалуйста, проверьте ваше подключение к интернету.",
+  "checkForUpdates": "Проверка наличия обновлений...",
   "yes": "Да",
   "no": "Нет",
   "close": "Закрыть",
   "ok": "Да",
   "cancel": "Отмена",
   "reportTheError": "Сообщить об ошибке",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
+  "restartIpfsDesktop": "Перезапустить IPFS Desktop",
   "openLogs": "Открыть логи",
-  "takeScreenshot": "Take Screenshot",
-  "downloadHash": "Download Hash",
-  "moveRepositoryLocation": "Move Repository Location",
+  "takeScreenshot": "Сделать Скриншот",
+  "downloadHash": "Скачать Хэш",
+  "moveRepositoryLocation": "Переместить хранилище",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "Библиотека Polkit не найдена",
+    "message": "IPFS нельзя добавить в /usr/local/bin/ без агента Polkit."
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "Нет разрешения",
+    "message": "IPFS не удалось добавить в /usr/local/bin/ либо потому, что вы ввели неверный пароль, либо вам было отказано в разрешении."
   },
   "ipfsNotRunningDialog": {
     "title": "IPFS не запущен",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "message": "Для выполнения этого действия необходимо запустить IPFS. Вы хотите запустить демон IPFS?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "Произошла ошибка",
+    "message": "Произошла ошибка, но она не препятствует выполнению IPFS Desktop. Вы можете либо проверить журналы самостоятельно, либо сообщить об ошибке разработчикам."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "Не удается подключиться к API",
+    "message": "IPFS Desktop не удается подключиться к указанному адресу API:{ addr }"
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "IPFS Desktop завершил работу",
+    "message": "IPFS Desktop завершил работу из-за ошибки. Вы можете перезапустить приложение или сообщить об ошибке разработчикам, для чего требуется учетная запись GitHub."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "Переместить репозиторий",
+    "message": "Если хранилище занимает слишком много места на главном диске, его можно переместить в другое место. Имейте в виду, что для правильной работы IPFS Desktop новое расположение всегда должно быть доступно.",
+    "action": "Перемещение и перезапуск узла"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "Репозиторий успешно перемещен",
+    "message": "Ваш репозиторий был успешно перемещен в { location } и ваша конфигурация была обновлена. Демон теперь снова запустится."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "Выбран тот же каталог",
+    "message": "Выбранный вами каталог совпадает с текущим: { location }. Следовательно, никаких изменений не будет сделано."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "Каталог уже существует",
+    "message": "Каталог { location } уже существует. Пожалуйста, попробуйте использовать другой."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "Порты заняты",
+    "message": "Порты { port1 } и { port2 } недоступны. Хотите ли вы использовать { alt1 } и { alt2 } вместо них?",
+    "action": "Вместо этого используйте порты { alt1 } и { alt2 }"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "Порт занят",
+    "message": "Порт { port } недоступен. Вы хотите использовать { alt }   вместо этого?",
+    "action": "Вместо этого использовать { alt } порт"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "Порты заняты",
+    "message": "Невозможно выполнить привязку к одному или нескольким адресам API или шлюза, поскольку порты заняты.",
+    "action": "Открыть файл конфигурации"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "title": "Добавленные элементы",
+    "message": "{ count } элементы добавленны в ваш узел. Общая ссылка была скопирована в буфер обмена. Нажмите здесь, чтобы просмотреть ваши файлы."
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "title": "Элемент добавлен",
+    "message": "Элемент добавлен в ваш узел. Общая ссылка была скопирована в буфер обмена. Нажмите здесь, чтобы просмотреть ваш файл."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "title": "Не удалось добавить элементы",
+    "message": "Не удалось добавить ваши элементы в ваш узел."
   }
 }

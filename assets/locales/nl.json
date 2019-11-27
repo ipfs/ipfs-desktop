@@ -1,119 +1,119 @@
 {
-  "ipfsIsRunning": "IPFS is running",
-  "ipfsIsStopping": "IPFS is stopping",
-  "ipfsIsStarting": "IPFS is starting",
-  "ipfsIsNotRunning": "IPFS is not running",
-  "ipfsHasErrored": "IPFS has errored",
+  "ipfsIsRunning": "IPFS draait",
+  "ipfsIsStopping": "IPFS is aan het stoppen",
+  "ipfsIsStarting": "IPFS is aan het starten",
+  "ipfsIsNotRunning": "IPFS draait niet",
+  "ipfsHasErrored": "IPFS heeft een fout",
   "start": "Start",
   "stop": "Stop",
-  "restart": "Restart",
+  "restart": "Herstart",
   "about": "Over",
   "advanced": "Geavanceerd",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub",
+  "openRepoDir": "Open Repository Map",
+  "openLogsDir": "Open Log Map",
+  "openConfigFile": "Open Configuratie Bestand",
+  "viewOnGitHub": "Bekijken op Github",
   "status": "Status",
   "files": "Bestanden",
   "settings": "Instellingen",
-  "quit": "Quit",
-  "versions": "Versions",
-  "screenshotTaken": "Screenshot taken",
-  "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
-  "couldNotTakeScreenshot": "Could not take screenshot",
-  "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "clickToOpenLogs": "Click here to open the logs.",
-  "ipfsNotRunning": "IPFS is not running",
-  "cantDownloadHash": "Could not download hash",
-  "invalidHashClipboard": "The hash on the clipboard is not valid.",
-  "errorWhileDownloadingHash": "An error occurred while getting the hash.",
-  "errorWhileWritingFiles": "An error occurred while writing the files to your file system.",
-  "hashDownloaded": "Hash downloaded",
-  "hashDownloadedClickToView": "Hash { hash } content downloaded. Click to view.",
-  "updateAvailable": "Update available",
-  "clickToInstall": "Click here to restart and install the newer version of IPFS Desktop.",
-  "updateNotAvailable": "Update not available",
-  "runningLatestVersion": "You seem to be running the latest version.",
-  "couldNotCheckForUpdates": "Could not check for updates",
-  "pleaseCheckInternet": "Please check your Internet connection.",
-  "checkForUpdates": "Check for Updates...",
-  "yes": "Yes",
-  "no": "No",
+  "quit": "Afsluiten",
+  "versions": "Versies",
+  "screenshotTaken": "Screenshot gemaakt",
+  "shareableLinkCopied": "Deelbare link gekopieerd naar het klembord. Klik hier om de screenshot te bekijken.",
+  "couldNotTakeScreenshot": "Kon geen screenshot maken",
+  "errorwhileTakingScreenshot": "Er is een fout opgetreden bij het maken van de screenshot.",
+  "clickToOpenLogs": "Klik hier om de logs te openen.",
+  "ipfsNotRunning": "IPFS draait niet",
+  "cantDownloadHash": "Kon hash niet downloaden.",
+  "invalidHashClipboard": "De hash op het klembord is niet geldig.",
+  "errorWhileDownloadingHash": "Er is een fout opgetreden bij het ophalen van de hash.",
+  "errorWhileWritingFiles": "Er is een fout opgetreden bij het schrijven van de bestanden naar je harde schijf.",
+  "hashDownloaded": "Hash gedownload",
+  "hashDownloadedClickToView": "Inhoud van { hash } gedownload. Klik om te bekijken.",
+  "updateAvailable": "Update beschikbaar",
+  "clickToInstall": "Klik hier om te herstarten en de nieuwere versie van IPFS Desktop te installeren.",
+  "updateNotAvailable": "Update niet beschikbaar",
+  "runningLatestVersion": "Je lijkt de laatste versie te draaien.",
+  "couldNotCheckForUpdates": "Kon niet controleren of er updates zijn.",
+  "pleaseCheckInternet": "Controleer alsjeblieft je internet verbinding.",
+  "checkForUpdates": "Controleer of er updates zijn...",
+  "yes": "Ja",
+  "no": "Nee",
   "close": "Sluiten",
-  "ok": "OK",
+  "ok": "Ok",
   "cancel": "Annuleren",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadHash": "Download Hash",
-  "moveRepositoryLocation": "Move Repository Location",
+  "reportTheError": "Rapporteer deze fout",
+  "restartIpfsDesktop": "IPFS Desktop herstarten",
+  "openLogs": "Logs openen",
+  "takeScreenshot": "Screenshot maken",
+  "downloadHash": "Hash downloaden",
+  "moveRepositoryLocation": "Repository locatie verplaatsen",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "Polkit niet gevonden",
+    "message": "IPFS kan niet worden toegevoegd aan /usr/local/bin/ zonder polkit agent."
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "Geen toestemming",
+    "message": "IPFS kan niet worden toegevoegd aan /usr/local/bin/ omdat je het verkeerde wachtwoord heb ingevoerd of geen toestemming hebt verleend."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS is not running",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "title": "IPFS draait niet",
+    "message": "IPFS moet draaien om deze actie uit te kunnen voeren. Wil je de daemon starten?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "Een fout is opgetreden",
+    "message": "Een fout is opgetreden maar dit voorkomt niet dat IPFS Desktop draait. Je kan zelf de logs inspecteren of de fout rapporteren aan de ontwikkelaars."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "Kan geen verbinding maken met de API",
+    "message": "IPFS Desktop kan geen verbinding maken met het geleverde API adres: { addr }"
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "IPFS Desktop is gesloten",
+    "message": "IPFS Desktop is gesloten vanwege een fout. Je kan de applicatie herstarten of de fout rapporteren aan de ontwikkelaars. Dit vereist een Github account."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "Repository verplaatsen",
+    "message": "Als je repository te veel ruimte inneemt op je harde schijf kan je dit naar een andere locatie verplaatsen. Bedenk dat deze nieuwe locatie altijd beschikbaar moet zijn voor IPFS Desktop om correct te werken.",
+    "action": "Verplaats en herstart node"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "Repository succesvol verplaatst",
+    "message": "Je repository was succesvol verplaatst naar { location } en je configuratie was geupdate. De daemon zal nu weer starten."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "Zelfde map geselecteerd",
+    "message": "De map die je gekozen hebt is dezelfde als de huidige: { location }. Hierdoor kunnen er geen wijzigingen gemaakt worden."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "Map bestaat al",
+    "message": "De map { location } bestaat al. Kies alsjeblieft een andere."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "Poorten zijn bezet",
+    "message": "De poorten { port1 } en { port2 } zijn niet beschikbaar. WIl je { alt1 } en { alt2 } als vervanging gebruiken?",
+    "action": "Gebruik poorten { alt1 } en { alt2 }."
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "Poort is in gebruik",
+    "message": "De poort { port } is niet beschikbaar. Wil je { alt } gebruiken?",
+    "action": "Gebruik poort { alt }"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "Poorten zijn bezet",
+    "message": "Kan niet verbinden met een of meer van de API of gateway adressen omdat de poorten bezet zijn.",
+    "action": "Configuratie bestand openen"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "title": "Items toegevoegd",
+    "message": "{ count } items aan je node toegevoegd. Een deelbare link is gekopieerd naar je klembord. Klik hier om je bestanden te zien."
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "title": "Item toegevoegd",
+    "message": "Item toegevoegd aan je node. Een deelbare link is gekopieerd naar je klembord. Klik hier om je bestand te zien."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "title": "Het is niet gelukt om items toe te voegen",
+    "message": "Het is niet gelukt om je items toe te voegen aan je node."
   }
 }
