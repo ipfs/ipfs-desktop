@@ -40,6 +40,12 @@ app.on('will-finish-launching', () => {
 })
 
 function handleError (err) {
+  // Ignore network errors that might happen during the
+  // execution.
+  if (err.toString().includes('net::')) {
+    return
+  }
+
   logger.error(err)
   criticalErrorDialog(err)
 }
