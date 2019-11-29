@@ -42,7 +42,7 @@ app.on('will-finish-launching', () => {
 function handleError (err) {
   // Ignore network errors that might happen during the
   // execution.
-  if (err.toString().includes('net::')) {
+  if (err.stack.includes('net::')) {
     return
   }
 
