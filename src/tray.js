@@ -147,7 +147,7 @@ function icon (color) {
 
 export default function (ctx) {
   logger.info('[tray] starting')
-  const tray = new Tray(icon(on))
+  const tray = new Tray(icon(off))
   let menu = null
   let status = {}
 
