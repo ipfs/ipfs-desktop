@@ -10,7 +10,7 @@ import store from '../common/store'
 import logger from '../common/logger'
 
 export function configPath (ipfsd) {
-  return join(ipfsd.repoPath, 'config')
+  return join(ipfsd.path, 'config')
 }
 
 function readConfigFile (ipfsd) {
@@ -151,7 +151,7 @@ async function checkPortsArray (ipfsd, addrs) {
       })
 
       if (opt === 0) {
-        shell.openItem(join(ipfsd.repoPath, 'config'))
+        shell.openItem(join(ipfsd.path, 'config'))
       }
 
       throw new Error('ports already being used')

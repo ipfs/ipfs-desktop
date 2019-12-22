@@ -67,7 +67,7 @@ describe('Application launch', function () {
 
   it('starts when external ipfsd is running', async function () {
     const { ipfsd } = await makeRepository()
-    const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
+    const { app } = await startApp({ ipfsPath: ipfsd.path })
     expect(app.isRunning()).to.be.true()
     await ipfsd.stop()
   })
@@ -75,15 +75,15 @@ describe('Application launch', function () {
   it('fixes config for cors checking', async function () {
     // create config
     const { ipfsd } = await makeRepository()
-    const { repoPath } = ipfsd
+    const { path } = ipfsd
     await ipfsd.stop()
 
     // check config has cors disabled
-    const configPath = path.join(repoPath, 'config')
+    const configPath = path.join(path, 'config')
     let config = fs.readJsonSync(configPath)
     expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.include('*')
 
-    const { app } = await startApp({ ipfsPath: repoPath })
+    const { app } = await startApp({ ipfsPath: path })
     expect(app.isRunning()).to.be.true()
     await delay(5000)
     config = fs.readJsonSync(configPath)
@@ -105,18 +105,18 @@ describe('Application launch', function () {
   it('fixes config for cors checking where multiple allowed origins', async function () {
     // create config
     const { ipfsd } = await makeRepository()
-    const { repoPath } = ipfsd
+    const { path } = ipfsd
     await ipfsd.stop()
 
     // check config has cors disabled
-    const configPath = path.join(repoPath, 'config')
+    const configPath = path.join(path, 'config')
     const initConfig = fs.readJsonSync(configPath)
     // update origins to include multiple entries, including wildcard.
     const newOrigins = ['https://webui.ipfs.io', '*']
     initConfig.API.HTTPHeaders['Access-Control-Allow-Origin'] = newOrigins
     fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
 
-    const { app } = await startApp({ ipfsPath: repoPath })
+    const { app } = await startApp({ ipfsPath: path })
     expect(app.isRunning()).to.be.true()
     await delay(5000)
     const config = fs.readJsonSync(configPath)
@@ -127,41 +127,41 @@ describe('Application launch', function () {
 
   it('starts with repository with \'api\' file and no daemon running', async function () {
     const { ipfsd } = await makeRepository()
-    const { repoPath } = ipfsd
+    const { path } = ipfsd
     await ipfsd.stop()
-    const configPath = path.join(repoPath, 'config')
-    const apiPath = path.join(repoPath, 'api')
+    const configPath = path.join(path, 'config')
+    const apiPath = path.join(path, 'api')
     const config = fs.readJsonSync(configPath)
     fs.writeFile(apiPath, config.Addresses.API)
-    const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
+    const { app } = await startApp({ ipfsPath: ipfsd.path })
     expect(app.isRunning()).to.be.true()
   })
 
   it('starts with multiple api addresses', async function () {
     const { ipfsd } = await makeRepository()
-    const { repoPath } = ipfsd
+    const { path } = ipfsd
     await ipfsd.stop()
-    const configPath = path.join(repoPath, 'config')
+    const configPath = path.join(path, 'config')
     const config = fs.readJsonSync(configPath)
 
     config.Addresses.API = ['/ip4/127.0.0.1/tcp/5001', '/ip4/127.0.0.1/tcp/5002']
 
     fs.writeFile(configPath, config)
-    const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
+    const { app } = await startApp({ ipfsPath: ipfsd.path })
     expect(app.isRunning()).to.be.true()
   })
 
   it('starts with multiple gateway addresses', async function () {
     const { ipfsd } = await makeRepository()
-    const { repoPath } = ipfsd
+    const { path } = ipfsd
     await ipfsd.stop()
-    const configPath = path.join(repoPath, 'config')
+    const configPath = path.join(path, 'config')
     const config = fs.readJsonSync(configPath)
 
     config.Addresses.Gateway = ['/ip4/127.0.0.1/tcp/8080', '/ip4/127.0.0.1/tcp/8081']
 
     fs.writeFile(configPath, config)
-    const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
+    const { app } = await startApp({ ipfsPath: ipfsd.path })
     expect(app.isRunning()).to.be.true()
   })
 })

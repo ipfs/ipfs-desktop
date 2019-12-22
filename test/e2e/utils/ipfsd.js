@@ -9,7 +9,7 @@ async function makeRepository () {
 
   const ipfsd = await factory.spawn({
     disposable: false,
-    repoPath: dir.name,
+    path: dir.name,
     init: false,
     start: false
   })

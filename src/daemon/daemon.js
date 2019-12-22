@@ -1,9 +1,9 @@
-import IPFSFactory from 'ipfsd-ctl'
+import Ctl from 'ipfsd-ctl'
 import i18n from 'i18next'
 import fs from 'fs-extra'
 import { app } from 'electron'
 import { execFileSync } from 'child_process'
-import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
+import { findBin } from 'ipfsd-ctl/src/utils'
 import { showDialog } from '../dialogs'
 import logger from '../common/logger'
 import { applyDefaults, checkCorsConfig, checkPorts, configPath } from './config'
@@ -28,13 +28,13 @@ async function cleanup (ipfsd) {
   }
 
   log.info('run: ipfs repo fsck')
-  const exec = findExecutable('go', app.getAppPath())
+  const exec = findBin('go')
 
   try {
     execFileSync(exec, ['repo', 'fsck'], {
       env: {
         ...process.env,
-        IPFS_PATH: ipfsd.repoPath
+        IPFS_PATH: ipfsd.path
       }
     })
     log.end()
@@ -43,13 +43,16 @@ async function cleanup (ipfsd) {
   }
 }
 
-async function spawn ({ type, path, keysize }) {
-  const factory = IPFSFactory.create({ type: type })
+async function spawn ({ type, path, flags, keysize }) {
+  const factory = Ctl.createFactory({
+    remote: false,
+    disposable: false,
+    args: flags,
+    type: type
+  })
 
   const ipfsd = await factory.spawn({
-    disposable: false,
-    defaultAddrs: true,
-    repoPath: path,
+    repo: path,
     init: false,
     start: false
   })
@@ -71,7 +74,7 @@ async function spawn ({ type, path, keysize }) {
 export default async function (opts) {
   const ipfsd = await spawn(opts)
   await checkPorts(ipfsd)
-  await ipfsd.start(opts.flags)
+  await ipfsd.start()
 
   try {
     await ipfsd.api.id()
@@ -81,7 +84,7 @@ export default async function (opts) {
     }
 
     await cleanup(ipfsd)
-    await ipfsd.start(opts.flags)
+    await ipfsd.start()
   }
 
   return ipfsd
