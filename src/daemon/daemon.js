@@ -1,12 +1,10 @@
 import Ctl from 'ipfsd-ctl'
 import i18n from 'i18next'
-import fs from 'fs-extra'
-import { app } from 'electron'
 import { execFileSync } from 'child_process'
 import { findBin } from 'ipfsd-ctl/src/utils'
 import { showDialog } from '../dialogs'
 import logger from '../common/logger'
-import { applyDefaults, checkCorsConfig, checkPorts, configPath } from './config'
+import { applyDefaults, checkCorsConfig, checkPorts, configExists } from './config'
 
 function cannotConnectDialog (addr) {
   showDialog({
@@ -22,9 +20,9 @@ function cannotConnectDialog (addr) {
 async function cleanup (ipfsd) {
   const log = logger.start('[daemon] cleanup')
 
-  if (!await fs.pathExists(configPath(ipfsd))) {
+  if (!configExists(ipfsd.path)) {
     cannotConnectDialog(ipfsd.apiAddr)
-    throw new Error('cannot tonnect to api')
+    throw new Error('cannot connect to api')
   }
 
   log.info('run: ipfs repo fsck')
@@ -44,20 +42,27 @@ async function cleanup (ipfsd) {
 }
 
 async function spawn ({ type, path, flags, keysize }) {
+  // NOTE: presence of env variable IPFS_PATH overrides config
+  path = process.env.IPFS_PATH || path
+
   const factory = Ctl.createFactory({
     remote: false,
     disposable: false,
+    test: false,
     args: flags,
     type: type
   })
 
   const ipfsd = await factory.spawn({
-    repo: path,
+    ipfsOptions: {
+      repo: path
+    },
     init: false,
     start: false
   })
 
-  if (ipfsd.initialized) {
+  // old:  if (ipfsd.initialized) {  TODO: ipfsd.initialized is not set properly when Ctl's factory.spawn is called with init: false
+  if (configExists(ipfsd.path)) {
     checkCorsConfig(ipfsd)
     return ipfsd
   }
@@ -77,7 +82,8 @@ export default async function (opts) {
   await ipfsd.start()
 
   try {
-    await ipfsd.api.id()
+    const { id } = await ipfsd.api.id()
+    logger.info(`[daemon] PeerID is ${id}`)
   } catch (err) {
     if (!err.message.includes('ECONNREFUSED')) {
       throw err

@@ -4,6 +4,6 @@ require('@babel/register')
 
 const tmp = require('tmp')
 const { app } = require('electron')
-const userData = tmp.dirSync({ unsafeCleanup: true })
+const userData = tmp.dirSync({ prefix: 'tmp_userData_', unsafeCleanup: true })
 
 app.setPath('userData', userData.name)

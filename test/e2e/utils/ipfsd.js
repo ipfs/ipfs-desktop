@@ -1,26 +1,37 @@
 /* eslint-env mocha */
 
 import tmp from 'tmp'
-import IPFSFactory from 'ipfsd-ctl'
+import Ctl from 'ipfsd-ctl'
 
-async function makeRepository () {
-  const dir = tmp.dirSync({ unsafeCleanup: true })
-  const factory = IPFSFactory.create({ type: 'go' })
+import { join } from 'path'
+
+const factory = Ctl.createFactory({
+  type: 'go',
+  remote: false,
+  disposable: true,
+  test: true // run on random ports
+})
+
+async function makeRepository ({ start = false }) {
+  const { name: repoPath } = tmp.dirSync({ prefix: 'tmp_IPFS_PATH_', unsafeCleanup: true })
+  const configPath = join(repoPath, 'config')
 
   const ipfsd = await factory.spawn({
-    disposable: false,
-    path: dir.name,
+    ipfsOptions: { repo: repoPath },
     init: false,
     start: false
   })
 
+  // manual init
   await ipfsd.init({
     bits: 1024,
-    profile: 'test',
-    directory: dir.name
+    profiles: ['test'],
+    directory: repoPath
   })
 
-  return { ipfsd, dir }
+  const { id } = await ipfsd.api.id()
+  if (start) await ipfsd.start()
+  return { ipfsd, repoPath, configPath, peerId: id }
 }
 
 module.exports = {

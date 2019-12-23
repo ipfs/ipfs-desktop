@@ -8,6 +8,7 @@ import tmp from 'tmp'
 import delay from 'delay'
 import chai from 'chai'
 import dirtyChai from 'dirty-chai'
+import getPort from 'get-port'
 import { makeRepository } from './utils/ipfsd'
 
 const expect = chai.expect
@@ -18,9 +19,8 @@ chai.use(dirtyChai)
 // const logs = await app.client.getMainProcessLogs()
 // logs.forEach(line => console.log(line))
 //
-function createTmpDir () {
-  return tmp.dirSync({ unsafeCleanup: true }).name
-}
+// Note: logs before "start daemon FINISHED" event are consumed
+// inside of `daemonReady`. To print them, pass DEBUG=true
 
 describe('Application launch', function () {
   this.timeout(60000)
@@ -29,13 +29,12 @@ describe('Application launch', function () {
   afterEach(async function () {
     if (app && app.isRunning()) {
       await app.stop()
-      await delay(3000)
     }
   })
 
   async function startApp ({
-    home = createTmpDir(),
-    ipfsPath = path.join(home, '.ipfs')
+    home = tmp.dirSync({ prefix: 'tmp_HOME_', unsafeCleanup: true }).name,
+    repoPath = path.join(home, '.ipfs')
   }) {
     app = new Application({
       path: electronPath,
@@ -43,125 +42,150 @@ describe('Application launch', function () {
       env: {
         NODE_ENV: 'test',
         HOME: home,
-        IPFS_PATH: ipfsPath
+        IPFS_PATH: repoPath
       }
     })
     await app.start()
-    return { app, ipfsPath, home }
+    return { app, repoPath, home }
+  }
+
+  async function daemonReady (app, timeout = 15000) {
+    // TODO: replace this hack with a signal from the app to know when ipfs is ready.
+    // Right now we can't listen for IPC events in spectron (https://github.com/electron/spectron/issues/91)
+    // As a workaround, we look at console output and match on strings :<
+    const tick = 250
+    const ready = (output) => output && output.match(/(?:daemon is running|Daemon is ready|start daemon FINISHED)/)
+    const hasPeerId = (output) => output && output.match(/PeerID is (\w+)$/)
+    let peerId
+    while (true) {
+      const logs = await app.client.getMainProcessLogs()
+      for (const line of logs) {
+        if (process.env.DEBUG) console.log(line)
+        const idMatch = hasPeerId(line)
+        if (idMatch) peerId = idMatch[1]
+        if (ready(line)) {
+          return { peerId }
+        }
+      }
+      await delay(tick)
+      timeout = timeout - tick
+      if (timeout < 0) throw new Error('timeout while waiting for daemon start in daemonReady(app)')
+    }
   }
 
   it('creates a repository on startup', async function () {
-    const { app, home } = await startApp({})
-    const configPath = path.join(home, '.ipfs', 'config')
+    const { app, repoPath } = await startApp({})
     expect(app.isRunning()).to.be.true()
-
-    // TODO: need a signal from the app to know when ipfs is ready.
-    // SEE: can't listent for IPC events in spectron https://github.com/electron/spectron/issues/91
-    await delay(5000)
+    const { peerId } = await daemonReady(app)
+    // expect config to be created and match peerId
+    const configPath = path.join(repoPath, 'config')
     const config = fs.readJsonSync(configPath)
     expect(config).to.exist()
+    // confirm PeerID is matching one from repoPath/config
+    expect(config.Identity.PeerID).to.be.equal(peerId)
     // ensure strict CORS checking is enabled
     expect(config.API.HTTPHeaders).to.deep.equal({})
     expect(config.Discovery.MDNS.Enabled).to.be.true()
   })
 
-  it('starts when external ipfsd is running', async function () {
-    const { ipfsd } = await makeRepository()
-    const { app } = await startApp({ ipfsPath: ipfsd.path })
+  it('starts fine when node is already running', async function () {
+    const { ipfsd } = await makeRepository({ start: true })
+    const { app } = await startApp({ repoPath: ipfsd.path })
     expect(app.isRunning()).to.be.true()
+    const { peerId } = await daemonReady(app)
+    const { id: expectedId } = await ipfsd.api.id()
+    expect(peerId).to.be.equal(expectedId)
     await ipfsd.stop()
   })
 
-  it('fixes config for cors checking', async function () {
+  it('fixes cors config if access to "*" is granted', async function () {
     // create config
-    const { ipfsd } = await makeRepository()
-    const { path } = ipfsd
-    await ipfsd.stop()
-
-    // check config has cors disabled
-    const configPath = path.join(path, 'config')
+    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
     let config = fs.readJsonSync(configPath)
-    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.include('*')
 
-    const { app } = await startApp({ ipfsPath: path })
+    // pretend someone set dangerous "*" (allowing global access to API)
+    // Note: '*' is the default when running ipfsd-ctl with test=true, but we set it here just to be sure
+    config.API.HTTPHeaders['Access-Control-Allow-Origin'] = ['*']
+    fs.writeJsonSync(configPath, config, { spaces: 2 })
+
+    const { app } = await startApp({ repoPath })
     expect(app.isRunning()).to.be.true()
-    await delay(5000)
-    config = fs.readJsonSync(configPath)
-    // ensure app has enabled cors checking
-    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.deep.equal([])
+    const { peerId } = await daemonReady(app)
+    expect(peerId).to.be.equal(expectedId)
+    await app.stop()
 
-    // TODO: figure out why the app alters the config on subsequent runs in test mode.
-    // NOTE: it does what we expect when running for reals.
-    // await app.stop()
-    // // check it doesn't alter the config on second run.
-    // config.API.HTTPHeaders['Access-Control-Allow-Origin'] = ['*']
-    // fs.writeJsonSync(configPath, config, { spaces: 2 })
-    // await app.start()
-    // delay(5000)
-    // config = fs.readJsonSync(configPath)
-    // expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.include('*')
+    // ensure app has enabled cors checking
+    config = fs.readJsonSync(configPath)
+    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.be.deep.equal([])
   })
 
-  it('fixes config for cors checking where multiple allowed origins', async function () {
-    // create config
-    const { ipfsd } = await makeRepository()
-    const { path } = ipfsd
-    await ipfsd.stop()
+  it('fixes cors config with multiple allowed origins', async function () {
+    // create preexisting, initialized repo and config
+    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
 
-    // check config has cors disabled
-    const configPath = path.join(path, 'config')
+    // setup CORS config for the test
     const initConfig = fs.readJsonSync(configPath)
     // update origins to include multiple entries, including wildcard.
     const newOrigins = ['https://webui.ipfs.io', '*']
     initConfig.API.HTTPHeaders['Access-Control-Allow-Origin'] = newOrigins
     fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
 
-    const { app } = await startApp({ ipfsPath: path })
+    const { app } = await startApp({ repoPath })
     expect(app.isRunning()).to.be.true()
-    await delay(5000)
+
+    const { peerId } = await daemonReady(app)
+    expect(peerId).to.be.equal(expectedId)
+
     const config = fs.readJsonSync(configPath)
     // ensure app has enabled cors checking
     const specificOrigins = newOrigins.filter(origin => origin !== '*')
     expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.deep.equal(specificOrigins)
   })
 
-  it('starts with repository with \'api\' file and no daemon running', async function () {
-    const { ipfsd } = await makeRepository()
-    const { path } = ipfsd
-    await ipfsd.stop()
-    const configPath = path.join(path, 'config')
-    const apiPath = path.join(path, 'api')
-    const config = fs.readJsonSync(configPath)
-    fs.writeFile(apiPath, config.Addresses.API)
-    const { app } = await startApp({ ipfsPath: ipfsd.path })
+  /* TODO: support  for IPFS_PATH/api is broken ATM (was removed at some point?)
+
+  it('starts with repository with "IPFS_PATH/api" file and no daemon running', async function () {
+    // create "remote" repo
+    const { ipfsd, configPath: remoteConfigPath } = await makeRepository({ start: true })
+    const remoteConfig = fs.readJsonSync(remoteConfigPath)
+
+    // create "local" repo
+    const { repoPath, configPath } = await makeRepository({ start: false })
+    fs.unlinkSync(configPath) // remove config file to ensure local repo can't be used
+
+    // create IPFS_PATH/api file to point at remote node
+    const apiPath = path.join(repoPath, 'api')
+    fs.writeFile(apiPath, remoteConfig.Addresses.API)
+    const { app } = await startApp({ repoPath })
     expect(app.isRunning()).to.be.true()
+    await daemonReady(app)
+    await ipfsd.stop()
   })
+  */
 
   it('starts with multiple api addresses', async function () {
-    const { ipfsd } = await makeRepository()
-    const { path } = ipfsd
-    await ipfsd.stop()
-    const configPath = path.join(path, 'config')
+    const { repoPath, configPath } = await makeRepository({ start: false })
     const config = fs.readJsonSync(configPath)
-
-    config.Addresses.API = ['/ip4/127.0.0.1/tcp/5001', '/ip4/127.0.0.1/tcp/5002']
-
-    fs.writeFile(configPath, config)
-    const { app } = await startApp({ ipfsPath: ipfsd.path })
+    config.Addresses.API = [
+      `/ip4/127.0.0.1/tcp/${await getPort(5001)}`,
+      `/ip4/127.0.0.1/tcp/${await getPort(5002)}`
+    ]
+    fs.writeJsonSync(configPath, config, { spaces: 2 })
+    const { app } = await startApp({ repoPath })
     expect(app.isRunning()).to.be.true()
+    await daemonReady(app)
   })
 
   it('starts with multiple gateway addresses', async function () {
-    const { ipfsd } = await makeRepository()
-    const { path } = ipfsd
-    await ipfsd.stop()
-    const configPath = path.join(path, 'config')
+    const { repoPath, configPath } = await makeRepository({ start: false })
     const config = fs.readJsonSync(configPath)
-
-    config.Addresses.Gateway = ['/ip4/127.0.0.1/tcp/8080', '/ip4/127.0.0.1/tcp/8081']
-
-    fs.writeFile(configPath, config)
-    const { app } = await startApp({ ipfsPath: ipfsd.path })
+    config.Addresses.Gateway = [
+      `/ip4/127.0.0.1/tcp/${await getPort(8080)}`,
+      `/ip4/127.0.0.1/tcp/${await getPort(8081)}`
+    ]
+    fs.writeJsonSync(configPath, config, { spaces: 2 })
+    const { app } = await startApp({ repoPath })
     expect(app.isRunning()).to.be.true()
+    await daemonReady(app)
   })
 })

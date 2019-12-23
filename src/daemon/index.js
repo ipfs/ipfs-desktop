@@ -60,11 +60,8 @@ export default async function (ctx) {
 
     try {
       ipfsd = await createDaemon(config)
-
-      // Update the path if it was blank previously.
-      // This way we use the default path when it is
-      // not set.
-      if (config.path === '') {
+      // Update the path if daemon changed it (eg. due to passing a custom IPFS_PATH)
+      if (config.path !== ipfsd.path) {
         config.path = ipfsd.path
         store.set('ipfsConfig', config)
         writeIpfsPath(config.path)
@@ -94,7 +91,6 @@ export default async function (ctx) {
     }
 
     try {
-      // TODO: THIS IS HANGING.
       await ipfsd.stop()
       log.end()
       updateStatus(STATUS.STOPPING_FINISHED)
