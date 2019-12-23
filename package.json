@@ -83,7 +83,7 @@
     "electron-updater": "^4.2.0",
     "fix-path": "^2.1.0",
     "fs-extra": "^8.1.0",
-    "get-port": "^5.0.0",
+    "get-port": "^5.1.0",
     "go-ipfs-dep": "0.4.22",
     "i18next": "^19.0.2",
     "i18next-electron-language-detector": "0.0.10",
