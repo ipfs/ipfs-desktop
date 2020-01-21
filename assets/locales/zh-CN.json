@@ -1,119 +1,119 @@
-{
-  "ipfsIsRunning": "IPFS运行中",
-  "ipfsIsStopping": "IPFS正在停止中",
-  "ipfsIsStarting": "IPFS正在启动中",
-  "ipfsIsNotRunning": "IPFS没有运行",
-  "ipfsHasErrored": "IPFS出现错误",
-  "start": "开始",
-  "stop": "停止",
-  "restart": "重新启动",
-  "about": "关于",
-  "advanced": "高级",
-  "openRepoDir": "打开仓库目录",
-  "openLogsDir": "打开日志目录",
-  "openConfigFile": "打开配置文件",
-  "viewOnGitHub": "在GitHub上查看",
-  "status": "状态",
-  "files": "文件",
-  "settings": "设置",
-  "quit": "退出",
-  "versions": "版本",
-  "screenshotTaken": "截图",
-  "shareableLinkCopied": "可共享链接已复制到剪贴板。 点击此处查看截图。",
-  "couldNotTakeScreenshot": "无法截图",
-  "errorwhileTakingScreenshot": "进行屏幕截图时出错。",
-  "clickToOpenLogs": "点击这里打开日志.",
-  "ipfsNotRunning": "IPFS没有运行",
-  "cantDownloadHash": "无法下载哈希码",
-  "invalidHashClipboard": "剪切板中的哈希码无效",
-  "errorWhileDownloadingHash": "获取哈希码时出错。",
-  "errorWhileWritingFiles": "保存文件到你的文件系统时发生了错误.",
-  "hashDownloaded": "哈希码已经下载",
-  "hashDownloadedClickToView": "哈希码 { hash } 内容已经下载. 点击查看.",
-  "updateAvailable": "有更新可用",
-  "clickToInstall": "单击此处重新启动并安装较新版本的IPFS Desktop",
-  "updateNotAvailable": "暂时没有更新",
-  "runningLatestVersion": "当前运行的是最新版本",
-  "couldNotCheckForUpdates": "不能检查更新",
-  "pleaseCheckInternet": "请检查你的互联网连接",
-  "checkForUpdates": "检查更新",
-  "yes": "是",
-  "no": "否",
-  "close": "关闭",
-  "ok": "好的",
-  "cancel": "取消",
-  "reportTheError": "报告错误",
-  "restartIpfsDesktop": "重启IPFS桌面",
-  "openLogs": "打开日志",
-  "takeScreenshot": "截取镜像",
-  "downloadHash": "下载哈希码",
-  "moveRepositoryLocation": "移动仓库目录",
-  "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
-  },
-  "noPermissionDialog": {
-    "title": "没有权限",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
-  },
-  "ipfsNotRunningDialog": {
-    "title": "IPFS未运行",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
-  },
-  "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
-  },
-  "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
-  },
+{	
+  "ipfsIsRunning": "IPFS运行中",	
+  "ipfsIsStopping": "IPFS正在停止中",	
+  "ipfsIsStarting": "IPFS正在启动中",	
+  "ipfsIsNotRunning": "IPFS没有运行",	
+  "ipfsHasErrored": "IPFS出现错误",	
+  "start": "开始",	
+  "stop": "停止",	
+  "restart": "重新启动",	
+  "about": "关于",	
+  "advanced": "高级",	
+  "openRepoDir": "打开仓库目录",	
+  "openLogsDir": "打开日志目录",	
+  "openConfigFile": "打开配置文件",	
+  "viewOnGitHub": "在GitHub上查看",	
+  "status": "状态",	
+  "files": "文件",	
+  "settings": "设置",	
+  "quit": "退出",	
+  "versions": "版本",	
+  "screenshotTaken": "截图",	
+  "shareableLinkCopied": "可共享链接已复制到剪贴板。 点击此处查看截图。",	
+  "couldNotTakeScreenshot": "无法截图",	
+  "errorwhileTakingScreenshot": "进行屏幕截图时出错。",	
+  "clickToOpenLogs": "点击这里打开日志.",	
+  "ipfsNotRunning": "IPFS没有运行",	
+  "cantDownloadHash": "无法下载哈希码",	
+  "invalidHashClipboard": "剪切板中的哈希码无效",	
+  "errorWhileDownloadingHash": "获取哈希码时出错。",	
+  "errorWhileWritingFiles": "保存文件到你的文件系统时发生了错误.",	
+  "hashDownloaded": "哈希码已经下载",	
+  "hashDownloadedClickToView": "哈希码 { hash } 内容已经下载. 点击查看.",	
+  "updateAvailable": "有更新可用",	
+  "clickToInstall": "单击此处重新启动并安装较新版本的IPFS Desktop",	
+  "updateNotAvailable": "暂时没有更新",	
+  "runningLatestVersion": "当前运行的是最新版本",	
+  "couldNotCheckForUpdates": "不能检查更新",	
+  "pleaseCheckInternet": "请检查你的互联网连接",	
+  "checkForUpdates": "检查更新",	
+  "yes": "是",	
+  "no": "否",	
+  "close": "关闭",	
+  "ok": "好的",	
+  "cancel": "取消",	
+  "reportTheError": "报告错误",	
+  "restartIpfsDesktop": "重启IPFS桌面",	
+  "openLogs": "打开日志",	
+  "takeScreenshot": "截取镜像",	
+  "downloadHash": "下载哈希码",	
+  "moveRepositoryLocation": "移动仓库目录",	
+  "polkitDialog": {	
+    "title": "找不到Polkit",	
+    "message": "如果没有polkit代理，则无法将IPFS添加到/usr/local/bin/中。"	
+  },	
+  "noPermissionDialog": {	
+    "title": "没有权限",	
+    "message": "由于您输入了错误的密码或您拒绝了权限，因此无法将IPFS添加到/usr/local/bin/。"	
+  },	
+  "ipfsNotRunningDialog": {	
+    "title": "IPFS未运行",	
+    "message": "需要运行IPFS才能执行此操作。是否要启动守护程序？"	
+  },	
+  "recoverableErrorDialog": {	
+    "title": "发生错误",	
+    "message": "发生了暂时并未阻止IPFS Desktop运行的错误。您可以自己检查日志，也可以将错误报告给开发人员。如果您需要中文帮助可以通过邮箱eldersjavas@gmail.com联系我。"	
+  },	
+  "cannotConnectToApiDialog": {	
+    "title": "无法连接到API",	
+    "message": "IPFS桌面无法连接到提供的API地址：{ addr }。"	
+  },	
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "IPFS 已关闭",
+    "message": "由于错误，IPFS已关闭。您可以重新启动应用程序或将错误报告给开发人员。如果您需要中文帮助可以通过邮箱eldersjavas@gmail.com联系我。"
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "移动存储库",
+    "message": "如果您的存储库在主驱动器上占用太多空间，则可以将其移动到其他位置。请记住，新位置必须始终可用，以使IPFS Desktop正常工作。",
+    "action": "移动并重新启动节点"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "存储库已成功移动",
+    "message": "您的存储库已成功移至 { location } ，并且您的配置已更新。守护程序现在将再次启动。"
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "选择了相同目录",
+    "message": "您选择的目录与当前目录相同： {location} 。因此，将不会进行任何更改。"
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": " 目录已存在",
+    "message": "目录 { location } 已经存在。请尝试使用其他目录。"
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "多端口占用",
+    "message": "端口{port}不可用。您要改为使用{alt}吗？",
+    "action": "改为使用端口{ alt }"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "单端口占用",
+    "message": "端口 { port } 不可用。您要改为使用 { alt } 吗？",
+    "action": "使用端口已改为 { alt } "
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "多端口占用",
+    "message": "由于端口繁忙，无法绑定到一个或多个API或网关地址。",
+    "action": "打开配置文件"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "title": "项目已添加",
+    "message": "{ count } 个项目已添加到您的节点。一个共享链接已复制到剪贴板。单击此处查看您的文件。"
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "title": "项目已添加",
+    "message": "项目添加到您的节点。可共享的链接已复制到剪贴板。单击此处查看您的文件。"
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
+    "title": "无法添加项目",
     "message": "不能将你的项目加入你的节点"
   }
 }
