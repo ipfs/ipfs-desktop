@@ -4,7 +4,7 @@ services:
   - xvfb
 
 node_js:
-  - 12.1.0
+  - 12.14.1
 
 os:
   - linux
@@ -16,7 +16,7 @@ before_script:
   - |
     if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo apt update
-      sudo apt install -y rpm
+      sudo apt install -y rpm snapd
       sudo snap install snapcraft --classic
       echo $SNAP_TOKEN | snapcraft login --with -
     fi
