@@ -109,7 +109,7 @@ The IPFS Desktop app will launch and should appear in your OS menu bar.
 
 ## Translations
 
-The translations are stored on [./src/locales](./src/locales) and the English version is the source of truth.
+The translations are stored on [./assets/locales](./assets/locales) and the English version is the source of truth.
 Other languages are periodically pulled from [Transifex](https://www.transifex.com/ipfs/ipfs-desktop/), a web interface to help us translate IPFS Desktop and its components to another languages.
 
 ## Releasing
