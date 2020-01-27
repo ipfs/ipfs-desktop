@@ -2,6 +2,7 @@ const { screen, BrowserWindow, ipcMain, app, session } = require('electron')
 const { join } = require('path')
 const { URL } = require('url')
 const serve = require('electron-serve')
+const os = require('os')
 const openExternal = require('./open-external')
 const logger = require('../common/logger')
 const store = require('../common/store')
@@ -101,7 +102,10 @@ module.exports = async function (ctx) {
   })
 
   ipcMain.on('config.get', () => {
-    window.webContents.send('config.changed', { config: store.store })
+    window.webContents.send('config.changed', {
+      platform: os.platform(),
+      config: store.store
+    })
   })
 
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
