@@ -84,7 +84,7 @@
     "fix-path": "^2.1.0",
     "fs-extra": "^8.1.0",
     "get-port": "^5.0.0",
-    "go-ipfs-dep": "0.4.22",
+    "go-ipfs-dep": "0.4.23",
     "i18next": "^19.0.2",
     "i18next-electron-language-detector": "0.0.10",
     "i18next-icu": "^1.1.2",
@@ -103,6 +103,6 @@
     "yargs": "^15.0.2"
   },
   "go-ipfs": {
-    "version": "v0.4.23-rc1"
+    "version": "v0.4.23"
   }
 }
