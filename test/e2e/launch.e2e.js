@@ -23,7 +23,7 @@ function createTmpDir () {
 }
 
 describe('Application launch', function () {
-  this.timeout(60000)
+  this.timeout(process.env.CI ? 180000 : 60000)
   let app = null
 
   afterEach(async function () {
