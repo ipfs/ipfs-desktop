@@ -23,13 +23,33 @@ function createTmpDir () {
   return tmp.dirSync({ unsafeCleanup: true }).name
 }
 
+const timeout = process.env.CI ? 180000 : 60000
+
 describe('Application launch', function () {
-  this.timeout(process.env.CI ? 180000 : 60000)
+  this.timeout(timeout)
   let app = null
 
   afterEach(async function () {
     if (app && app.isRunning()) {
-      await app.stop()
+      // await app.stop() did not work reliably on Mac
+      // we have a manual failsafe that runs on slow CI
+      const pid = await app.mainProcess.pid()
+      const kill = async (pid) => {
+        await delay(15000)
+        try {
+          // send signal 0 to test of pid still exists
+          process.kill(pid, 0)
+        } catch (e) {
+          // no process with the pid, already killed, exiting
+          return
+        }
+        // double tap
+        return app.mainProcess.exit(0)
+      }
+      return Promise.race([
+        app.stop(),
+        kill(pid)
+      ])
     }
   })
 
