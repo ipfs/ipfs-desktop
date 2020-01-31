@@ -30,7 +30,6 @@ describe('Application launch', function () {
   afterEach(async function () {
     if (app && app.isRunning()) {
       await app.stop()
-      await delay(3000)
     }
   })
 
@@ -133,7 +132,7 @@ describe('Application launch', function () {
     const configPath = path.join(repoPath, 'config')
     const apiPath = path.join(repoPath, 'api')
     const config = fs.readJsonSync(configPath)
-    fs.writeFile(apiPath, config.Addresses.API)
+    await fs.writeFile(apiPath, config.Addresses.API)
     const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
     expect(app.isRunning()).to.be.true()
   })
@@ -147,7 +146,7 @@ describe('Application launch', function () {
 
     config.Addresses.API = [`/ip4/127.0.0.1/tcp/${await getPort()}`, `/ip4/127.0.0.1/tcp/${await getPort()}`]
 
-    fs.writeFile(configPath, config)
+    await fs.writeFile(configPath, config)
     const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
     expect(app.isRunning()).to.be.true()
   })
@@ -161,7 +160,7 @@ describe('Application launch', function () {
 
     config.Addresses.Gateway = [`/ip4/127.0.0.1/tcp/${await getPort()}`, `/ip4/127.0.0.1/tcp/${await getPort()}`]
 
-    fs.writeFile(configPath, config)
+    await fs.writeFile(configPath, config)
     const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
     expect(app.isRunning()).to.be.true()
   })
