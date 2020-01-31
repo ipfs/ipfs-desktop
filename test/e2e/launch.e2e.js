@@ -9,6 +9,7 @@ import delay from 'delay'
 import chai from 'chai'
 import dirtyChai from 'dirty-chai'
 import { makeRepository } from './utils/ipfsd'
+import getPort from 'get-port'
 
 const expect = chai.expect
 chai.use(dirtyChai)
@@ -144,7 +145,7 @@ describe('Application launch', function () {
     const configPath = path.join(repoPath, 'config')
     const config = fs.readJsonSync(configPath)
 
-    config.Addresses.API = ['/ip4/127.0.0.1/tcp/5001', '/ip4/127.0.0.1/tcp/5002']
+    config.Addresses.API = [`/ip4/127.0.0.1/tcp/${await getPort()}`, `/ip4/127.0.0.1/tcp/${await getPort()}`]
 
     fs.writeFile(configPath, config)
     const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
@@ -158,7 +159,7 @@ describe('Application launch', function () {
     const configPath = path.join(repoPath, 'config')
     const config = fs.readJsonSync(configPath)
 
-    config.Addresses.Gateway = ['/ip4/127.0.0.1/tcp/8080', '/ip4/127.0.0.1/tcp/8081']
+    config.Addresses.Gateway = [`/ip4/127.0.0.1/tcp/${await getPort()}`, `/ip4/127.0.0.1/tcp/${await getPort()}`]
 
     fs.writeFile(configPath, config)
     const { app } = await startApp({ ipfsPath: ipfsd.repoPath })
