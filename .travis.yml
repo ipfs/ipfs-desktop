@@ -12,6 +12,15 @@ os:
 
 osx_image: xcode11
 
+cache:
+  directories:
+    - $HOME/.npm
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
+
+before_cache:
+  - rm -rf $HOME/.cache/electron-builder/wine
+
 before_script:
   - |
     if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
