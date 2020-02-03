@@ -1,0 +1,119 @@
+{
+  "ipfsIsRunning": "IPFSが実行されています",
+  "ipfsIsStopping": "IPFSが停止しています",
+  "ipfsIsStarting": "IPFSが開始されています",
+  "ipfsIsNotRunning": "IPFSが実行されていません",
+  "ipfsHasErrored": "IPFSにエラーが発生しました",
+  "start": "開始",
+  "stop": "停止",
+  "restart": "再開",
+  "about": "以下について",
+  "advanced": "高度な",
+  "openRepoDir": "リポジトリディレクトリを開く",
+  "openLogsDir": "ログディレクトリを開く",
+  "openConfigFile": "設定ファイルを開く",
+  "viewOnGitHub": "GitHubで表示",
+  "status": "状態",
+  "files": "ファイル",
+  "settings": "設定",
+  "quit": "終了する",
+  "versions": "バージョン",
+  "screenshotTaken": "撮影したスクリーンショット",
+  "shareableLinkCopied": "クリップボードにコピーされた共有可能なリンク。スクリーンショットを表示するにはここをクリックしてください。",
+  "couldNotTakeScreenshot": "スクリーンショットを撮れませんでした",
+  "errorwhileTakingScreenshot": "スクリーンショットの取得中にエラーが発生しました。",
+  "clickToOpenLogs": "ここをクリックしてログを開きます。",
+  "ipfsNotRunning": "IPFSが実行されていません",
+  "cantDownloadHash": "ハッシュをダウンロードできませんでした",
+  "invalidHashClipboard": "クリップボードのハッシュが無効です。",
+  "errorWhileDownloadingHash": "ハッシュの取得中にエラーが発生しました。",
+  "errorWhileWritingFiles": "ファイルシステムへのファイルの書き込み中にエラーが発生しました。",
+  "hashDownloaded": "ダウンロードしたハッシュ",
+  "hashDownloadedClickToView": "ハッシュ  { hash }  コンテンツがダウンロードされました。クリックして表示します。",
+  "updateAvailable": "更新可能",
+  "clickToInstall": "IPFSデスクトップの新しいバージョンを再起動してインストールするには、ここをクリックしてください。",
+  "updateNotAvailable": "更新は利用できません",
+  "runningLatestVersion": "最新バージョンを実行しているようです。",
+  "couldNotCheckForUpdates": "更新を確認できませんでした",
+  "pleaseCheckInternet": "インターネット接続を確認してください。",
+  "checkForUpdates": "更新を確認しています...",
+  "yes": "はい",
+  "no": "いいえ",
+  "close": "閉じる",
+  "ok": "了解",
+  "cancel": "キャンセル",
+  "reportTheError": "エラーを報告する",
+  "restartIpfsDesktop": "IPFSデスクトップを再起動する",
+  "openLogs": "ログを開く",
+  "takeScreenshot": "スクリーンショットを撮ります",
+  "downloadHash": "ハッシュをダウンロード",
+  "moveRepositoryLocation": "リポジトリの場所を移動",
+  "polkitDialog": {
+    "title": "Polkitが見つかりません",
+    "message": "IPFSは、polkitエージェントなしでは/usr/local/bin/に追加できません。"
+  },
+  "noPermissionDialog": {
+    "title": "無許可",
+    "message": "間違ったパスワードを入力したか、許可を拒否したため、IPFSを/usr/local/bin/に追加できませんでした。"
+  },
+  "ipfsNotRunningDialog": {
+    "title": "IPFSが実行されていません",
+    "message": "このアクションを実行するには、IPFSが実行されている必要があります。デーモンを起動しますか？"
+  },
+  "recoverableErrorDialog": {
+    "title": "エラーが発生しました",
+    "message": "エラーが発生しましたが、IPFS Desktopの実行には影響ありません。自分でログを調べるか、開発者にエラーを報告することができます。"
+  },
+  "cannotConnectToApiDialog": {
+    "title": "APIに接続できません",
+    "message": "IPFSデスクトップは、提供されたAPIアドレス  { addr } に接続できません。"
+  },
+  "ipfsDesktopHasShutdownDialog": {
+    "title": "IPFSデスクトップがシャットダウンしました",
+    "message": "エラーが原因でIPFSデスクトップがシャットダウンしました。 GitHubアカウントが必要なアプリを再起動するか、開発者にエラーを報告できます。"
+  },
+  "moveRepositoryWarnDialog": {
+    "title": "リポジトリを移動する",
+    "message": "リポジトリがメインドライブのスペースを使いすぎている場合は、他の場所に移動できます。 IPFSデスクトップが正しく機能するためには、新しい場所が常に利用可能でなければならないことに注意してください。",
+    "action": "ノードを移動して再起動する"
+  },
+  "moveRepositorySuccessDialog": {
+    "title": "リポジトリが正常に移動しました",
+    "message": "リポジトリが  { location }  に正常に移動され、構成が更新されました。デーモンは再び起動します。"
+  },
+  "moveRepositorySameDirDialog": {
+    "title": "同じディレクトリを選択",
+    "message": "選択したディレクトリは、現在のディレクトリと同じです：  { location }  。したがって、変更は行われません。"
+  },
+  "moveRepositoryDirExists": {
+    "title": " ディレクトリはすでに存在します",
+    "message": "ディレクトリ  { location }  は既に存在します。別のものを使用してみてください。"
+  },
+  "busyPortsDialog": {
+    "title": "複数ポートがビジーです",
+    "message": "ポート { port1 } および   { port2 }  は使用できません。代わりに { alt1 } と { alt2 } を使用しますか？",
+    "action": "代わりにポート  { alt1 }  および  { alt2 }  を使用してください"
+  },
+  "busyPortDialog": {
+    "title": "単一ポートがビジーです",
+    "message": "ポート  { port }  は使用できません。代わりに  { alt }  を使用しますか？",
+    "action": "代わりにポート  { alt }  を使用してください"
+  },
+  "multipleBusyPortsDialog": {
+    "title": "複数ポートがビジーです",
+    "message": "複数ポートがビジーであるため、1つ以上のAPIまたはゲートウェイアドレスにバインドできません。",
+    "action": "設定ファイルを開く"
+  },
+  "itemsAddedNotification": {
+    "title": "複数アイテムが追加されました",
+    "message": "{ count } 個のアイテムがノードに追加されました。共有可能なリンクがクリップボードにコピーされました。ファイルを見るにはここをクリックしてください。"
+  },
+  "itemAddedNotification": {
+    "title": "ひとつのアイテムが追加されました",
+    "message": "ひとつのアイテムがノードに追加されました。共有可能なリンクがクリップボードにコピーされました。ファイルを見るにはここをクリックしてください。"
+  },
+  "itemsFailedNotification": {
+    "title": "複数アイテムを追加できませんでした",
+    "message": "複数アイテムをノードに追加できませんでした。"
+  }
+}

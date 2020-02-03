@@ -47,7 +47,7 @@
   "openLogs": "Apri i log",
   "takeScreenshot": "Screenshot eseguito",
   "downloadHash": "Scarica Hash",
-  "moveRepositoryLocation": "Move Repository Location",
+  "moveRepositoryLocation": "Sposta luogo repository",
   "polkitDialog": {
     "title": "Polkit non trovato",
     "message": "IPFS non può essere aggiunto in /usr/local/bin/ senza polkit agent."
@@ -73,21 +73,21 @@
     "message": "A causa di un errore IPFS Desktop si è arrestato. Puoi riavviare l'applicazione o segnalare l'errore agli sviluppatori. Per la segnalazione è necessario un account GitHub."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "Sposta repository",
+    "message": "Se la tua repository sta prendendo troppo spazio sul tuo drive principale, puoi muoverla in un'altro luogo. Tieni a mente che il nuovo luogo deve essere sempre disponibile per permettere ad IPFS Desktop di funzionare correttamente.",
+    "action": "Sposta e riavvia nodo"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "Repository spostata con successo",
+    "message": "La tua repository è stata spostata con successo in { location } e la tua configurazione è stata aggiornata. Il demone verrà di nuovo avviato."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "Stessa directory selezionata",
+    "message": "La directory che hai scelto è la stessa della corrente: { location }. Quindi nessuna modifica verrà compiuta."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "La directory esiste già",
+    "message": "La directory { location } esiste già. Per favore, riprova utilizzandone un'altra."
   },
   "busyPortsDialog": {
     "title": "Le porte sono occupate",
@@ -101,19 +101,19 @@
   },
   "multipleBusyPortsDialog": {
     "title": "Le porte sono occupate",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "message": "Impossibile vincolare ad uno o più indirizzi API o gateway perché le porte sono occupate",
+    "action": "Apri file di configurazione"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "title": "Oggetti aggiunti",
+    "message": "{ count } oggetti aggiunti al tuo nodo. Un collegamento condivisibile è stato copiato alla tua clipboard. Clicca qui per vedere i tuoi file."
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "title": "Oggetto aggiunto",
+    "message": "Oggetto aggiunto al tuo nodo. Un collegamento condivisibile è stato copiato alla tua clipboard. Clicca qui per vedere il tuo file."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "title": "Aggiunta oggetti fallita",
+    "message": "Non è stato possibile aggiungere i tuoi oggetti al tuo nodo."
   }
 }
