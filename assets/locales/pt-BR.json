@@ -1,119 +1,119 @@
 {
-  "ipfsIsRunning": "IPFS is running",
-  "ipfsIsStopping": "IPFS is stopping",
-  "ipfsIsStarting": "IPFS is starting",
-  "ipfsIsNotRunning": "IPFS is not running",
-  "ipfsHasErrored": "IPFS has errored",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
-  "about": "About",
-  "advanced": "Advanced",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub",
-  "status": "Status",
-  "files": "Files",
-  "settings": "Settings",
-  "quit": "Quit",
-  "versions": "Versions",
-  "screenshotTaken": "Screenshot taken",
-  "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
-  "couldNotTakeScreenshot": "Could not take screenshot",
-  "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "clickToOpenLogs": "Click here to open the logs.",
-  "ipfsNotRunning": "IPFS is not running",
-  "cantDownloadHash": "Could not download hash",
-  "invalidHashClipboard": "The hash on the clipboard is not valid.",
-  "errorWhileDownloadingHash": "An error occurred while getting the hash.",
-  "errorWhileWritingFiles": "An error occurred while writing the files to your file system.",
-  "hashDownloaded": "Hash downloaded",
-  "hashDownloadedClickToView": "Hash { hash } content downloaded. Click to view.",
-  "updateAvailable": "Update available",
-  "clickToInstall": "Click here to restart and install the newer version of IPFS Desktop.",
-  "updateNotAvailable": "Update not available",
-  "runningLatestVersion": "You seem to be running the latest version.",
-  "couldNotCheckForUpdates": "Could not check for updates",
-  "pleaseCheckInternet": "Please check your Internet connection.",
-  "checkForUpdates": "Check for Updates...",
-  "yes": "Yes",
-  "no": "No",
-  "close": "Close",
+  "ipfsIsRunning": "IPFS está em execução",
+  "ipfsIsStopping": "IPFS está parando",
+  "ipfsIsStarting": "IPFS está iniciando",
+  "ipfsIsNotRunning": "IPFS não está em execução",
+  "ipfsHasErrored": "IPFS está com erro",
+  "start": "Iniciar",
+  "stop": "Parar",
+  "restart": "Reiniciar",
+  "about": "Sobre",
+  "advanced": "Avançado",
+  "openRepoDir": "Abrir Pasta de Repositórios",
+  "openLogsDir": "Abrir Pasta de Logs",
+  "openConfigFile": "Abrir Arquivo de Configuração",
+  "viewOnGitHub": "Ver no GitHub",
+  "status": "Estado",
+  "files": "Arquivos",
+  "settings": "Configurações",
+  "quit": "Sair",
+  "versions": "Versões",
+  "screenshotTaken": "Captura de tela realizada",
+  "shareableLinkCopied": "Link compartilhável copiado para a área de transferência. Clique aqui para ver a captura de tela.",
+  "couldNotTakeScreenshot": "Não foi possível capturar a tela",
+  "errorwhileTakingScreenshot": "Ocorreu um erro ao capturar a tela.",
+  "clickToOpenLogs": "Clique aqui para abrir os logs.",
+  "ipfsNotRunning": "IPFS não está em execução",
+  "cantDownloadHash": "Não foi possível baixar o hash",
+  "invalidHashClipboard": "O hash na área de transferência não é válido.",
+  "errorWhileDownloadingHash": "Ocorreu um erro ao obter o hash.",
+  "errorWhileWritingFiles": "Ocorreu um erro ao gravar os arquivos no seu sistema de arquivos.",
+  "hashDownloaded": "Hash baixado",
+  "hashDownloadedClickToView": "Conteúdo do hash { hash } baixado. Clique para ver.",
+  "updateAvailable": "Atualização disponível",
+  "clickToInstall": "Clique aqui para reiniciar e instalar a versão mais recente do IPFS Desktop.",
+  "updateNotAvailable": "Atualização não disponível",
+  "runningLatestVersion": "Você parece estar executando a versão mais recente.",
+  "couldNotCheckForUpdates": "Não foi possível verificar se há atualizações",
+  "pleaseCheckInternet": "Por favor, verifique sua conexão à internet.",
+  "checkForUpdates": "Verificar por atualizações ...",
+  "yes": "Sim",
+  "no": "Não",
+  "close": "Fechar",
   "ok": "OK",
-  "cancel": "Cancel",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadHash": "Download Hash",
-  "moveRepositoryLocation": "Move Repository Location",
+  "cancel": "Cancelar",
+  "reportTheError": "Relatar o erro",
+  "restartIpfsDesktop": "Reiniciar IPFS Desktop",
+  "openLogs": "Abrir logs",
+  "takeScreenshot": "Capturar a tela",
+  "downloadHash": "Baixar Hash",
+  "moveRepositoryLocation": "Mover Localização da Pasta",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "Polkit não encontrado",
+    "message": "IPFS não pode ser adicionado a /usr/local/bin sem polkit"
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "Sem permissão",
+    "message": "Não foi possível adicionar o IPFS a /usr/local/bin/, porque você digitou a senha incorreta ou negou permissão."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS is not running",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "title": "IPFS não está em execução",
+    "message": "O IPFS precisa estar em execução para executar esta ação. Deseja iniciar o daemon?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "Ocorreu um erro",
+    "message": "Ocorreu um erro, mas isso não impede a execução do IPFS Desktop. Você pode inspecionar os logs por conta própria ou relatar o erro aos desenvolvedores."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "Não é possível conectar a API",
+    "message": "O IPFS Desktop não pode se conectar ao endereço da API fornecido: { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "O IPFS Desktop foi desligado",
+    "message": "O IPFS Desktop foi desligado devido a um erro. Você pode reiniciar o aplicativo ou relatar o erro aos desenvolvedores, o que requer uma conta do GitHub."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "Mover repositório",
+    "message": "Se o seu repositório estiver ocupando muito espaço em sua unidade principal, você poderá movê-lo para outro local. Lembre-se de que o novo local sempre deve estar disponível para que o IPFS Desktop funcione corretamente.",
+    "action": "Mover e reiniciar nó"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "Respositório movido com sucesso",
+    "message": "Seu repositório foi movido com sucesso para { location } e sua configuração foi atualizada. O processo agora será iniciado novamente."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "Mesma pasta selecionada",
+    "message": "O diretório que você escolheu é o mesmo que o atual: { location }. Portanto, nenhuma alteração será feita."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "Pasta já existe",
+    "message": "A pasta { location }já existe. Por favor, tente utilizar outro."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "Portas estão ocupadas",
+    "message": "As portas { port1 } e { port2 } não estão disponíveis. Gostaria de utilizar { alt1 } e { alt2 } no lugar delas?",
+    "action": "Utilize as portas { alt1 } e { alt2 }"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "Porta está ocupada",
+    "message": "A porta { port } não está disponível. Gostaria de usar { alt }no lugar?",
+    "action": "Use a porta { alt }"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "Portas estão ocupadas",
+    "message": "Não é possível vincular a um ou mais endereços da API ou Gateway porque as portas estão ocupadas.",
+    "action": "Abrir arquivo de configuração"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "title": "Items adicionados",
+    "message": "{ count } itens adicionados ao seu nó. Um link compartilhável copiado para a área de transferência. Clique aqui para ver seus arquivos."
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "title": "Item adicionado",
+    "message": "Item adicionado ao seu nó. Um link compartilhável copiado para a área de transferência. Clique aqui para ver seu arquivo."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "title": "Falha ao adicionar itens",
+    "message": "Não foi possível adicionar seus itens ao seu nó."
   }
 }
