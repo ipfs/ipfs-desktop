@@ -115,9 +115,9 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 ## Releasing
 
 - (Optional) Create a new [Draft Release](https://github.com/ipfs-shipyard/ipfs-desktop/releases).
-- Bump the version in `package.json`.
-- Create a tag with the same version.
-- `git push && git push --tags`
+- Bump the version in `package.json`
+- Create a tag with the same version: `git tag vA.B.C`
+- Publish local changes and the tag to GitHub repo: `git push && git push origin vA.B.C`
 - Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
 - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available. Once a release is published, users should recieve the app update. See: https://www.electron.build/auto-update.
 - Update [Homebrew Cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
