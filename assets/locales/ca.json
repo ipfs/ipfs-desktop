@@ -1,119 +1,119 @@
 {
-  "ipfsIsRunning": "IPFS is running",
-  "ipfsIsStopping": "IPFS is stopping",
-  "ipfsIsStarting": "IPFS is starting",
-  "ipfsIsNotRunning": "IPFS is not running",
-  "ipfsHasErrored": "IPFS has errored",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
-  "about": "About",
-  "advanced": "Advanced",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub",
+  "ipfsIsRunning": "IPFS en marxa",
+  "ipfsIsStopping": "IPFS s'està aturant",
+  "ipfsIsStarting": "IPFS s'està iniciant",
+  "ipfsIsNotRunning": "IPFS no està en marxa",
+  "ipfsHasErrored": "IPFS té un error",
+  "start": "Iniciar",
+  "stop": "Aturar",
+  "restart": "Reiniciar",
+  "about": "Quant a",
+  "advanced": "Avançat",
+  "openRepoDir": "Obrir el Directori del Repositori",
+  "openLogsDir": "Obrir la Carpeta de Logs",
+  "openConfigFile": "Obrir Arxiu de Configuració",
+  "viewOnGitHub": "Veure-ho a GitHub",
   "status": "Estat",
   "files": "Arxius",
   "settings": "Configuració",
-  "quit": "Quit",
+  "quit": "Sortir",
   "versions": "Versions",
-  "screenshotTaken": "Screenshot taken",
-  "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
-  "couldNotTakeScreenshot": "Could not take screenshot",
-  "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "clickToOpenLogs": "Click here to open the logs.",
-  "ipfsNotRunning": "IPFS is not running",
-  "cantDownloadHash": "Could not download hash",
-  "invalidHashClipboard": "The hash on the clipboard is not valid.",
-  "errorWhileDownloadingHash": "An error occurred while getting the hash.",
-  "errorWhileWritingFiles": "An error occurred while writing the files to your file system.",
-  "hashDownloaded": "Hash downloaded",
-  "hashDownloadedClickToView": "Hash { hash } content downloaded. Click to view.",
-  "updateAvailable": "Update available",
-  "clickToInstall": "Click here to restart and install the newer version of IPFS Desktop.",
-  "updateNotAvailable": "Update not available",
-  "runningLatestVersion": "You seem to be running the latest version.",
-  "couldNotCheckForUpdates": "Could not check for updates",
-  "pleaseCheckInternet": "Please check your Internet connection.",
-  "checkForUpdates": "Check for Updates...",
-  "yes": "Yes",
+  "screenshotTaken": "S'ha fet la captura de pantalla",
+  "shareableLinkCopied": "Enllaç compartible copiat al porta-retalls. Clica aquí per veure la captura de pantalla.",
+  "couldNotTakeScreenshot": "No s'ha pogut fer la captura de pantalla",
+  "errorwhileTakingScreenshot": "Hi ha hagut un error fent la captura de pantalla.",
+  "clickToOpenLogs": "Clica aquí per obrir els logs.",
+  "ipfsNotRunning": "IPFS no està en marxa",
+  "cantDownloadHash": "No s'ha pogut descarregar el hash",
+  "invalidHashClipboard": "El Hash del porta-retalls no és vàlid.",
+  "errorWhileDownloadingHash": "Hi ha hagut un error mentre s'obtenia el hash.",
+  "errorWhileWritingFiles": "Hi ha hagut un error mentre s'escrivien els arxius al teu sistema.",
+  "hashDownloaded": "S'ha descarregat el hash",
+  "hashDownloadedClickToView": "S'ha descarregat el contingut del hash { hash }. Clica per veure'l.",
+  "updateAvailable": "Actualització disponible",
+  "clickToInstall": "Clica aquí per reiniciar i instal·lar la nova versió de IPFS d'Escriptori.",
+  "updateNotAvailable": "Actualització no disponible",
+  "runningLatestVersion": "Sembla que utilitzes la darrera versió.",
+  "couldNotCheckForUpdates": "No s'han pogut comprovar les actualitzacions",
+  "pleaseCheckInternet": "Si us plau, comprova la connexió a Internet.",
+  "checkForUpdates": "Comprovar Actualitzacions...",
+  "yes": "Sí",
   "no": "No",
-  "close": "Close",
+  "close": "Tancar",
   "ok": "OK",
-  "cancel": "Cancel",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadHash": "Download Hash",
-  "moveRepositoryLocation": "Move Repository Location",
+  "cancel": "Cancel·lar",
+  "reportTheError": "Comunicar l'error",
+  "restartIpfsDesktop": "Reiniciar IPFS d'Escriptori",
+  "openLogs": "Obrir logs",
+  "takeScreenshot": "Fes una captura de pantalla",
+  "downloadHash": "Descarregar Hash",
+  "moveRepositoryLocation": "Moure l'emplaçament del Repositori",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "No s'ha trobat el Polkit",
+    "message": "No es pot afegir IPFS a /usr/local/bin/ sense l'agent polkit."
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "Sense permís",
+    "message": "No s'ha pogut afegit IPFS a /usr/local/bin/ o bé perquè has introduït una contrasenya incorrecta o bé perquè no tens permisos."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS is not running",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "title": "IPFS no està en marxa",
+    "message": "IPFS ha d'estar en marxa per fer això. Vols engegar-lo?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "Hi ha hagut un error",
+    "message": "Hi ha hagut un error però no ha impedit l'execució de l'IPFS d'Escriptori. Pots mirar els logs per veure què ha passat i/o comunicar l'error als desenvolupadors."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "No s'ha pogut connectar a l'API",
+    "message": "L'IPFS d'Escriptori no es pot connectar a l'adreça API proporcionada: { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "L'IPFS d'Escriptori s'ha aturat",
+    "message": "L'IPFS d'Escriptori s'ha aturat perquè hi ha hagut un error. Pots reiniciar-ho i/o comunicar l'error als desenvolupadors. Reportar errors requereix un compte a GitHub."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "Moure repositori",
+    "message": "Si el teu repositori t'ocupa massa espai del disc dur, el pots moure a algun altre unitat. Tingues present que la nova ubicació haurà d'estar accessible per tal que l'IPFS d'Escriptori funcioni correctament.",
+    "action": "Moure i reiniciar el node"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "Repositori mogut exitosament",
+    "message": "El teu repositori s'ha traslladat exitosament a { location } i la teva configuració s'ha actualitzat. El servei es reiniciarà."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "S'ha seleccionat el mateix directori",
+    "message": "El directori que has seleccionat es el mateix que l'actual: { location }. Per tant, no es faran canvis."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "El directori ja existeix",
+    "message": "El directori { location }ja existeix. Tria'n un de diferent, si et plau."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "Ports ocupats",
+    "message": "Els ports { port1 } i { port2 } no estan disponibles. Vols fer servir el { alt1 } i el { alt2 }?",
+    "action": "Utilitzar els ports { alt1 } i { alt2 }"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "Port ocupat",
+    "message": "El port { port } no està disponible. Vols fer servir el { alt }?",
+    "action": "Utilitzar el port { alt }"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "Els ports estan ocupats",
+    "message": "No es pot enllaçar amb una o més adreces API o Gateway perquè els ports estan ocupats.",
+    "action": "Obrir arxiu de configuració"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "title": "Elements afegits",
+    "message": "{ count } elements afegits al teu node. S'ha copiat un enllaç compartible al teu porta-retalls. Clica aquí per veure els teus arxius."
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "title": "Element afegit",
+    "message": "Element afegit al teu node. S'ha copiat un enllaç compartible al teu porta-retalls. Clica aquí per veure l'arxiu."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "title": "No s'han pogut afegir els elements",
+    "message": "No s'han pogut afegir els teus elements al teu node."
   }
 }

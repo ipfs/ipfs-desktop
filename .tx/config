@@ -1,6 +1,6 @@
 [main]
 host = https://www.transifex.com
-lang_map = zh_CN: zh-CN, zh_HK: zh-HK, zh_TW: zh-TW, ko_KR: ko-KR, pt_PT: pt-PT, pt_BR: pt-BR, ja_JP: ja-JP, he_IL: he-IL, hi_IN: hi-IN
+lang_map = zh_CN: zh-CN, zh_HK: zh-HK, zh_TW: zh-TW, ko_KR: ko-KR, pt_PT: pt-PT, pt_BR: pt-BR, ja_JP: ja-JP, he_IL: he-IL, hi_IN: hi-IN, fa_IR: fa-IR
 
 [ipfs-desktop.ipfs-desktop-json]
 file_filter = assets/locales/<lang>.json
