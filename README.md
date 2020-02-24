@@ -126,12 +126,15 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
     3. Run `node pkgs/macos/notarize-cli.js ./IPFS-Desktop-A.B.C.dmg`
 - Update [Homebrew Cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
 - Update Chocolatey package:
-    1. Update the version number on [ipfs-desktop.nuspec](./pkgs/chocolatey/ipfs-desktop.nuspec#L5)
-    2. Update the binary URL on [chocolateyinstall.ps1](./pkgs/chocolatey/tools/chocolateyinstall.ps1#L3)
-    3. Update the SHA256 of the binary on [chocolateyinstall.ps1](./pkgs/chocolatey/tools/chocolateyinstall.ps1#L4)
-    4. `cd pkgs/chocolatey`
-    5. `choco pack` - generates a `.nupkg` file.
-    6. `choco push $generated_nupkg --key $your_api_key --source https://push.chocolatey.org`
+    1. Wait for the artefact on the [releases page](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
+    2. Run `node pkgs/chocolatey/update.js $version` - this script will update a few files:
+        1. Update the version number on [ipfs-desktop.nuspec](./pkgs/chocolatey/ipfs-desktop.nuspec#L5)
+        2. Update the binary URL on [chocolateyinstall.ps1](./pkgs/chocolatey/tools/chocolateyinstall.ps1#L3)
+        3. Update the SHA256 of the binary on [chocolateyinstall.ps1](./pkgs/chocolatey/tools/chocolateyinstall.ps1#L4)
+    3. Git commit with `pubchoco` in the commit message. Then CI should:
+        1. `cd pkgs/chocolatey`
+        2. `choco pack` - generates a `.nupkg` file.
+        3. `choco push $generated_nupkg --key $api --source https://push.chocolatey.org`
 - To start work on the next version, bump the version in the package.json and repeat theses steps.
 
 ## Contribute

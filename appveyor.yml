@@ -22,4 +22,14 @@ build_script:
   - npm run test:e2e
   - npm run build
 
+on_success:
+  - ps: |
+    if ($env:APPVEYOR_REPO_COMMIT_MESSAGE -Match "pubchoco") {
+      cd pkgs/chocolatey
+      [xml]$spec = Get-Content .\ipfs-desktop.nuspec
+      $version=$spec.package.metadata.version
+      choco pack
+      choco push .\ipfs-desktop.$version.nupkg --key $env:CHOCO_KEY --source https://push.chocolatey.org
+    }
+
 test: off
