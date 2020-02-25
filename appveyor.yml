@@ -24,7 +24,7 @@ build_script:
 
 on_success:
   - ps: |
-      if ($env:APPVEYOR_REPO_COMMIT_MESSAGE -Match "pubchoco") {
+      if (($env:APPVEYOR_REPO_COMMIT_MESSAGE -Match "pubchoco") -and ($env:APPVEYOR_REPO_BRANCH -eq "master")) {
         cd pkgs/chocolatey
         [xml]$spec = Get-Content .\ipfs-desktop.nuspec
         $version=$spec.package.metadata.version
