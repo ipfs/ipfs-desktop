@@ -120,6 +120,9 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 - Publish local changes and the tag to GitHub repo: `git push && git push origin vA.B.C`
 - Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
 - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available. Once a release is published, users should recieve the app update. See: https://www.electron.build/auto-update.
+- Notarize `.dmg` at Apple (context: [#1365](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1211))
+    1. Download `.dmg` from `https://github.com/ipfs-shipyard/ipfs-desktop/releases/vA.B.C`
+    2. Run `node pkgs/macos/notarize-cli.js ./IPFS-Desktop-A.B.C.dmg`
 - Update [Homebrew Cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
 - Update Chocolatey package:
     1. Update the version number on [ipfs-desktop.nuspec](./pkgs/chocolatey/ipfs-desktop.nuspec#L5)
