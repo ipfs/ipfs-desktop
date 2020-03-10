@@ -6,9 +6,15 @@ directories:
 
 asarUnpack: 'out/**/scripts/**/*'
 
+afterSign: './pkgs/macos/notarize-build.js'
+
 mac:
   category: public.app-category.utilities
   darkModeSupport: true
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: './pkgs/macos/entitlements.mac.plist'
+  entitlementsInherit: './pkgs/macos/entitlements.mac.plist'
 
 dmg:
   iconSize: 160
