@@ -30,6 +30,7 @@ IPFS Desktop allows you to run your IPFS Node on your machine without having to 
 - [Contribute](#contribute)
     - [Translations](#translations)
 - [FAQ](#faq)
+- [Troubleshooting](#troubleshooting)
 
 ## Features
 
@@ -163,6 +164,33 @@ Since we're using [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), we have our
 ### Which flags do we use to boot IPFS?
 
 By default we use the flags `--migrate=true --routing=dhtclient ----enable-gc=true` when running the IPFS daemon. They can be changed via the configuration file, which can be easily accessed as mentioned above.
+
+## Troubleshooting
+
+### Does not start on Linux (Debian 10)
+
+Some Linux users may see an error like this:
+
+> The SUID sandbox helper binary was found, but is not configured correctly.
+Rather than run without sandboxing I'm aborting now. You need to make sure that
+chrome-sandbox is owned by root and has mode 4755.
+
+or a very short one, when starting in a terminal:
+
+```console
+$ ipfs-desktop
+$Trace/breakpoint trap
+```
+
+This is a known issue with Electron/Chrome and some hardened kernels.
+If you are interested in details, read [this](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1362#issuecomment-596857282).
+
+The only reliable way to fix this at the moment is to start the app with additional parameter:
+
+```console
+$ ipfs-desktop --no-sandbox
+```
+
 
 ## License
 
