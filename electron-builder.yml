@@ -35,6 +35,8 @@ nsis:
 linux:
   artifactName: ${name}-${version}-${os}-${arch}.${ext}
   executableName: ipfs-desktop
+  executableArgs:
+    - --no-sandbox
   icon: ipfs-desktop
   category: Network;FileTransfer;P2P
   synopsis: A desktop client for IPFS
