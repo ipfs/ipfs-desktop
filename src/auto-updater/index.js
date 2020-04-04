@@ -6,23 +6,32 @@ import { notify } from '../common/notify'
 
 let userRequested = false
 
+function notifyIfRequested (...opts) {
+  if (userRequested) {
+    userRequested = false
+    notify(...opts)
+  }
+}
+
 function setup (ctx) {
   autoUpdater.autoDownload = false
 
   autoUpdater.on('error', (err) => {
-    if (userRequested) {
-      userRequested = false
-      notify({
-        title: i18n.t('couldNotCheckForUpdates'),
-        body: i18n.t('pleaseCheckInternet')
-      })
-    }
+    notifyIfRequested({
+      title: i18n.t('couldNotCheckForUpdates'),
+      body: i18n.t('pleaseCheckInternet')
+    })
 
     logger.error(`[updater] ${err.toString()}`)
   })
 
   autoUpdater.on('update-available', async () => {
     logger.info('[updater] update available. download started')
+
+    notifyIfRequested({
+      title: i18n.t('updateAvailable'),
+      body: i18n.t('updateIsBeingDownloaded')
+    })
 
     try {
       await autoUpdater.downloadUpdate()
@@ -32,13 +41,10 @@ function setup (ctx) {
   })
 
   autoUpdater.on('update-not-available', async () => {
-    if (userRequested) {
-      userRequested = false
-      notify({
-        title: i18n.t('updateNotAvailable'),
-        body: i18n.t('runningLatestVersion')
-      })
-    }
+    notifyIfRequested({
+      title: i18n.t('updateNotAvailable'),
+      body: i18n.t('runningLatestVersion')
+    })
   })
 
   autoUpdater.on('update-downloaded', () => {
