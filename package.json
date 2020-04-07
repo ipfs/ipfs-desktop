@@ -9,7 +9,7 @@
     "start": "cross-env NODE_ENV=development electron src/index.js",
     "lint": "standard",
     "test": "cross-env NODE_ENV=test mocha test/unit/**/*.spec.js",
-    "test:e2e": "xvfb-maybe cross-env NODE_ENV=test mocha test/e2e/**/*.e2e.js --exit",
+    "test:e2e": "xvfb-maybe cross-env NODE_ENV=test LIBP2P_ALLOW_WEAK_RSA_KEYS=1 mocha test/e2e/**/*.e2e.js --exit",
     "postinstall": "run-s install-app-deps build:webui",
     "install-app-deps": "electron-builder install-app-deps",
     "clean:webui": "shx rm -rf assets/webui/",
