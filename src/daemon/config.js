@@ -109,7 +109,7 @@ const parseCfgMultiaddr = (addr) => (addr.includes('/http')
 
 async function checkIfAddrIsDaemon (addr) {
   const options = {
-    method: 'GET',
+    method: 'POST',
     host: addr.address,
     port: addr.port,
     path: '/api/v0/refs?arg=/ipfs/QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn'
