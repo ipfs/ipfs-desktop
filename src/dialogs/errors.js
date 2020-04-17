@@ -1,6 +1,6 @@
-import { app, shell } from 'electron'
-import i18n from 'i18next'
-import dialog from './dialog'
+const { app, shell } = require('electron')
+const i18n = require('i18next')
+const dialog = require('./dialog')
 
 const issueTemplate = (e) => `Please describe what you were doing when this error happened.
 
@@ -20,7 +20,7 @@ ${e.stack}
 
 let hasErrored = false
 
-export function criticalErrorDialog (e) {
+function criticalErrorDialog (e) {
   if (hasErrored) return
   hasErrored = true
 
@@ -44,7 +44,7 @@ export function criticalErrorDialog (e) {
   app.exit(1)
 }
 
-export function recoverableErrorDialog (e) {
+function recoverableErrorDialog (e) {
   const option = dialog({
     title: i18n.t('recoverableErrorDialog.title'),
     message: i18n.t('recoverableErrorDialog.message'),
@@ -62,3 +62,8 @@ export function recoverableErrorDialog (e) {
     shell.openItem(app.getPath('userData'))
   }
 }
+
+module.exports = Object.freeze({
+  criticalErrorDialog,
+  recoverableErrorDialog
+})

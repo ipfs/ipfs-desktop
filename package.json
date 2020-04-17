@@ -4,13 +4,12 @@
   "version": "0.10.4",
   "productName": "IPFS Desktop",
   "description": "IPFS Native Application",
-  "main": "out/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development run-s build:babel start:electron",
-    "start:electron": "electron out/index.js",
+    "start": "cross-env NODE_ENV=development electron src/index.js",
     "lint": "standard",
-    "test": "cross-env NODE_ENV=test mocha test/unit/**/*.spec.js -r @babel/register",
-    "test:e2e": "xvfb-maybe cross-env NODE_ENV=test mocha test/e2e/**/*.e2e.js -r @babel/register --exit",
+    "test": "cross-env NODE_ENV=test mocha test/unit/**/*.spec.js",
+    "test:e2e": "xvfb-maybe cross-env NODE_ENV=test mocha test/e2e/**/*.e2e.js --exit",
     "postinstall": "run-s install-app-deps build:webui",
     "install-app-deps": "electron-builder install-app-deps",
     "clean:webui": "shx rm -rf assets/webui/",
@@ -18,7 +17,6 @@
     "build:webui": "run-s build:webui:*",
     "build:webui:download": "npx ipfs-or-gateway -c Qmexhq2sBHnXQbvyP2GfUdbnY7HCagH2Mw5vUNSBn2nxip -p assets/webui/ -t 360000 --verbose",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
-    "build:babel": "babel src --out-dir out --copy-files --source-maps",
     "build:binaries": "electron-builder --publish onTag"
   },
   "pre-commit": [
@@ -48,11 +46,6 @@
   },
   "homepage": "https://github.com/ipfs-shipyard/ipfs-desktop",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/plugin-transform-runtime": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/register": "^7.9.0",
     "@svgr/cli": "^5.3.1",
     "chai": "^4.2.0",
     "cross-env": "^7.0.2",
@@ -80,7 +73,6 @@
     "xvfb-maybe": "^0.2.1"
   },
   "dependencies": {
-    "@babel/runtime": "^7.9.2",
     "auto-launch": "^5.0.5",
     "countly-sdk-nodejs": "^19.8.0",
     "electron-serve": "^1.0.0",

@@ -1,6 +1,6 @@
-import { app, shell } from 'electron'
+const { app, shell } = require('electron')
 
-export default function () {
+module.exports = function () {
   app.on('web-contents-created', (_, contents) => {
     contents.on('will-navigate', (event, url) => {
       const parsedUrl = new URL(url)

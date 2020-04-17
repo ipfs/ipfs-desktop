@@ -1,12 +1,13 @@
 /* eslint-env mocha */
 
-import sinon from 'sinon'
-import chai, { expect } from 'chai'
-import dirtyChai from 'dirty-chai'
-import mockElectron from './mocks/electron'
-import mockStore from './mocks/store'
-import mockWebUI from './mocks/webui'
-import mockLogger from './mocks/logger'
+const sinon = require('sinon')
+const chai = require('chai')
+const { expect } = chai
+const dirtyChai = require('dirty-chai')
+const mockElectron = require('./mocks/electron')
+const mockStore = require('./mocks/store')
+const mockWebUI = require('./mocks/webui')
+const mockLogger = require('./mocks/logger')
 
 const proxyquire = require('proxyquire').noCallThru()
 chai.use(dirtyChai)
@@ -24,7 +25,7 @@ describe('Create toggler', () => {
       electron: electron,
       './common/logger': logger,
       './common/store': store
-    }).default
+    })
   })
 
   it('activate option with success', (done) => {

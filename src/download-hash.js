@@ -1,17 +1,17 @@
-import path from 'path'
-import fs from 'fs-extra'
-import i18n from 'i18next'
-import { clipboard, app, shell } from 'electron'
-import logger from './common/logger'
-import { IS_MAC } from './common/consts'
-import { notify, notifyError } from './common/notify'
-import setupGlobalShortcut from './setup-global-shortcut'
-import { selectDirectory } from './dialogs'
-import dock from './dock'
+const path = require('path')
+const fs = require('fs-extra')
+const i18n = require('i18next')
+const { clipboard, app, shell } = require('electron')
+const logger = require('./common/logger')
+const { IS_MAC } = require('./common/consts')
+const { notify, notifyError } = require('./common/notify')
+const setupGlobalShortcut = require('./setup-global-shortcut')
+const { selectDirectory } = require('./dialogs')
+const dock = require('./dock')
 
 const CONFIG_KEY = 'downloadHashShortcut'
 
-export const SHORTCUT = IS_MAC
+const SHORTCUT = IS_MAC
   ? 'Command+Control+H'
   : 'CommandOrControl+Alt+D'
 
@@ -20,7 +20,7 @@ async function saveFile (dir, file) {
   await fs.outputFile(location, file.content)
 }
 
-export async function downloadHash (ctx) {
+async function downloadHash (ctx) {
   const { getIpfsd } = ctx
   let text = clipboard.readText().trim()
   const ipfsd = await getIpfsd()
@@ -87,7 +87,7 @@ export async function downloadHash (ctx) {
   }
 }
 
-export default function (ctx) {
+module.exports = function (ctx) {
   setupGlobalShortcut(ctx, {
     settingsOption: CONFIG_KEY,
     accelerator: SHORTCUT,
@@ -96,3 +96,6 @@ export default function (ctx) {
     }
   })
 }
+
+module.exports.downloadHash = downloadHash
+module.exports.SHORTCUT = SHORTCUT

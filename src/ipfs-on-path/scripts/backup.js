@@ -1,5 +1,5 @@
-import fs from 'fs-extra'
-import { join } from 'path'
+const fs = require('fs-extra')
+const { join } = require('path')
 
 function checkErr (err) {
   // NOTE: there is a bug where copySync will throw if the inode
@@ -10,7 +10,7 @@ function checkErr (err) {
   }
 }
 
-export function backup (userData, original) {
+function backup (userData, original) {
   const bin = original.split('/').pop()
   const backup = join(userData, bin + '.bak')
 
@@ -23,7 +23,7 @@ export function backup (userData, original) {
   console.log(`${original} copied to ${backup}`)
 }
 
-export function revert (userData, bin, dst) {
+function revert (userData, bin, dst) {
   const backup = join(userData, bin + '.bak')
 
   try {
@@ -52,3 +52,8 @@ export function revert (userData, bin, dst) {
     // Failed to remove the backup. Suprising, but not worth bothering the user about.
   }
 }
+
+module.exports = Object.freeze({
+  backup,
+  revert
+})

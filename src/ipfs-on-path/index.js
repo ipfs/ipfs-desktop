@@ -1,16 +1,16 @@
-import { join } from 'path'
-import which from 'which'
-import { execFile } from 'child_process'
-import createToggler from '../create-toggler'
-import execOrSudo from '../exec-or-sudo'
-import logger from '../common/logger'
-import store from '../common/store'
-import { IS_WIN } from '../common/consts'
-import { recoverableErrorDialog } from '../dialogs'
+const { join } = require('path')
+const which = require('which')
+const { execFile } = require('child_process')
+const createToggler = require('../create-toggler')
+const execOrSudo = require('../exec-or-sudo')
+const logger = require('../common/logger')
+const store = require('../common/store')
+const { IS_WIN } = require('../common/consts')
+const { recoverableErrorDialog } = require('../dialogs')
 
 const CONFIG_KEY = 'ipfsOnPath'
 
-export default async function (ctx) {
+module.exports = async function (ctx) {
   createToggler(ctx, CONFIG_KEY, async (value, oldValue) => {
     if (value === oldValue || (oldValue === null && !value)) return
     if (value === true) return run('install')

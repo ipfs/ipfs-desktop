@@ -1,11 +1,11 @@
-import toPull from 'stream-to-pull-stream'
-import { ipcRenderer, remote } from 'electron'
-import readdir from 'recursive-readdir'
-import fs from 'fs-extra'
-import path from 'path'
-import screenshotHook from './screenshot'
-import connectionHook from './connection-status'
-import { COUNTLY_KEY, VERSION } from '../common/consts'
+const toPull = require('stream-to-pull-stream')
+const { ipcRenderer, remote } = require('electron')
+const readdir = require('recursive-readdir')
+const fs = require('fs-extra')
+const path = require('path')
+const screenshotHook = require('./screenshot')
+const connectionHook = require('./connection-status')
+const { COUNTLY_KEY, VERSION } = require('../common/consts')
 
 screenshotHook()
 connectionHook()

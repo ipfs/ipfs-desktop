@@ -1,11 +1,11 @@
-import { globalShortcut, ipcMain } from 'electron'
-import createToggler from './create-toggler'
-import store from './common/store'
-import { IS_MAC } from './common/consts'
+const { globalShortcut, ipcMain } = require('electron')
+const createToggler = require('./create-toggler')
+const store = require('./common/store')
+const { IS_MAC } = require('./common/consts')
 
 // This function registers a global shortcut/accelerator with a certain action
 // and (de)activates it according to its 'settingsOption' value on settings.
-export default function (ctx, { settingsOption, accelerator, action }) {
+module.exports = function (ctx, { settingsOption, accelerator, action }) {
   const activate = (value, oldValue) => {
     if (value === oldValue) return
 

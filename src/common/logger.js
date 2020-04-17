@@ -1,13 +1,11 @@
-import { createLogger, format, transports } from 'winston'
-import { join } from 'path'
-import { app } from 'electron'
-import { performance } from 'perf_hooks'
-import Countly from 'countly-sdk-nodejs'
+const { createLogger, format, transports } = require('winston')
+const { join } = require('path')
+const { app } = require('electron')
+const { performance } = require('perf_hooks')
+const Countly = require('countly-sdk-nodejs')
 
 const { combine, splat, timestamp, printf } = format
 const logsPath = app.getPath('userData')
-
-export { logsPath }
 
 const errorFile = new transports.File({
   level: 'error',
@@ -39,7 +37,7 @@ const logger = createLogger({
 
 logger.info(`[meta] logs can be found on ${logsPath}`)
 
-export default {
+module.exports = Object.freeze({
   start: (msg, opts = {}) => {
     const start = performance.now()
     logger.info(`${msg} STARTED`)
@@ -82,5 +80,7 @@ export default {
   error: (err) => {
     Countly.log_error(err)
     logger.error(err)
-  }
-}
+  },
+
+  logsPath
+})

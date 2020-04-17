@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+const { app, BrowserWindow } = require('electron')
 
 function show () {
   if (app.dock) app.dock.show()
@@ -16,7 +16,7 @@ function hide () {
   }
 }
 
-export default {
+module.exports = Object.freeze({
   show,
   hide,
   run: async (fn) => {
@@ -31,4 +31,4 @@ export default {
     hide()
     return res
   }
-}
+})

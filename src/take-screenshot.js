@@ -1,13 +1,13 @@
-import i18n from 'i18next'
-import { clipboard, nativeImage, ipcMain } from 'electron'
-import logger from './common/logger'
-import { IS_MAC } from './common/consts'
-import { notify, notifyError } from './common/notify'
-import setupGlobalShortcut from './setup-global-shortcut'
+const i18n = require('i18next')
+const { clipboard, nativeImage, ipcMain } = require('electron')
+const logger = require('./common/logger')
+const { IS_MAC } = require('./common/consts')
+const { notify, notifyError } = require('./common/notify')
+const setupGlobalShortcut = require('./setup-global-shortcut')
 
 const CONFIG_KEY = 'screenshotShortcut'
 
-export const SHORTCUT = IS_MAC
+const SHORTCUT = IS_MAC
   ? 'Command+Control+S'
   : 'CommandOrControl+Alt+S'
 
@@ -95,13 +95,13 @@ function handleScreenshot (ctx) {
   }
 }
 
-export function takeScreenshot (ctx) {
+function takeScreenshot (ctx) {
   const { webui } = ctx
   logger.info('[screenshot] taking screenshot')
   webui.webContents.send('screenshot')
 }
 
-export default function (ctx) {
+module.exports = function (ctx) {
   setupGlobalShortcut(ctx, {
     settingsOption: CONFIG_KEY,
     accelerator: SHORTCUT,
@@ -112,3 +112,6 @@ export default function (ctx) {
 
   ipcMain.on('screenshot', handleScreenshot(ctx))
 }
+
+module.exports.takeScreenshot = takeScreenshot
+module.exports.SHORTCUT = SHORTCUT

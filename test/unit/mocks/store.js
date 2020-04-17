@@ -1,6 +1,6 @@
-import sinon from 'sinon'
+const sinon = require('sinon')
 
-export default function mockStore () {
+module.exports = function mockStore () {
   let store = {}
 
   return {

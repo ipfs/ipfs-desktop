@@ -1,9 +1,9 @@
-import i18n from 'i18next'
-import dialog from './dialog'
-import { STATUS } from '../daemon'
-import logger from '../common/logger'
+const i18n = require('i18next')
+const dialog = require('./dialog')
+const { STATUS } = require('../daemon')
+const logger = require('../common/logger')
 
-export default async function ({ startIpfs }) {
+module.exports = async function ({ startIpfs }) {
   logger.info('[ipfs-not-running] an action needs ipfs to be running')
 
   const option = dialog({

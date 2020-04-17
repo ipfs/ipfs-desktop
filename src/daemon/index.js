@@ -1,12 +1,12 @@
-import { app, ipcMain } from 'electron'
-import fs from 'fs-extra'
-import { join } from 'path'
-import createDaemon from './daemon'
-import { ipfsNotRunningDialog } from '../dialogs'
-import store from '../common/store'
-import logger from '../common/logger'
+const { app, ipcMain } = require('electron')
+const fs = require('fs-extra')
+const { join } = require('path')
+const createDaemon = require('./daemon')
+const { ipfsNotRunningDialog } = require('../dialogs')
+const store = require('../common/store')
+const logger = require('../common/logger')
 
-export const STATUS = {
+const STATUS = {
   STARTING_STARTED: 1,
   STARTING_FINISHED: 2,
   STARTING_FAILED: 3,
@@ -15,7 +15,7 @@ export const STATUS = {
   STOPPING_FAILED: 6
 }
 
-export default async function (ctx) {
+module.exports = async function (ctx) {
   let ipfsd = null
   let status = null
   let wasOnline = null
@@ -137,6 +137,8 @@ export default async function (ctx) {
     wasOnline = isOnline
   })
 }
+
+module.exports.STATUS = STATUS
 
 function writeIpfsPath (path) {
   fs.outputFileSync(

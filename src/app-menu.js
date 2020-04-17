@@ -1,4 +1,4 @@
-import { app, Menu, shell } from 'electron'
+const { app, Menu, shell } = require('electron')
 
 const template = [
   {
@@ -87,7 +87,7 @@ if (process.platform === 'darwin') {
   ]
 }
 
-export default function () {
+module.exports = function () {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 }

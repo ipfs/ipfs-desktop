@@ -1,14 +1,14 @@
-import { Menu, Tray, shell, app, ipcMain } from 'electron'
-import i18n from 'i18next'
-import path from 'path'
-import { SHORTCUT as SCREENSHOT_SHORTCUT, takeScreenshot } from './take-screenshot'
-import { SHORTCUT as HASH_SHORTCUT, downloadHash } from './download-hash'
-import addToIpfs from './add-to-ipfs'
-import { STATUS } from './daemon'
-import logger from './common/logger'
-import store from './common/store'
-import { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } from './common/consts'
-import moveRepositoryLocation from './move-repository-location'
+const { Menu, Tray, shell, app, ipcMain } = require('electron')
+const i18n = require('i18next')
+const path = require('path')
+const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
+const { SHORTCUT: HASH_SHORTCUT, downloadHash } = require('./download-hash')
+const addToIpfs = require('./add-to-ipfs')
+const { STATUS } = require('./daemon')
+const logger = require('./common/logger')
+const store = require('./common/store')
+const { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } = require('./common/consts')
+const moveRepositoryLocation = require('./move-repository-location')
 
 // Notes on this: we are only supporting accelerators on macOS for now because
 // they natively work as soon as the menu opens. They don't work like that on Windows
@@ -145,7 +145,7 @@ function icon (color) {
   return path.join(dir, `${color}-22Template.png`)
 }
 
-export default function (ctx) {
+module.exports = function (ctx) {
   logger.info('[tray] starting')
   const tray = new Tray(icon(off))
   let menu = null

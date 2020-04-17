@@ -1,8 +1,8 @@
-import { extname, basename } from 'path'
-import { clipboard } from 'electron'
-import i18n from 'i18next'
-import logger from './common/logger'
-import { notify, notifyError } from './common/notify'
+const { extname, basename } = require('path')
+const { clipboard } = require('electron')
+const i18n = require('i18next')
+const logger = require('./common/logger')
+const { notify, notifyError } = require('./common/notify')
 
 async function copyFile (ipfs, hash, name) {
   let i = 0
@@ -72,7 +72,7 @@ function sendNotification (failures, successes, launch, path) {
   })
 }
 
-export default async function ({ getIpfsd, launchWebUI }, files) {
+module.exports = async function ({ getIpfsd, launchWebUI }, files) {
   const ipfsd = await getIpfsd()
 
   if (!ipfsd) {

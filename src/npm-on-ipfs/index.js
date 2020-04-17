@@ -1,12 +1,12 @@
-import which from 'which'
-import * as pkg from './package'
-import logger from '../common/logger'
-import store from '../common/store'
-import createToggler from '../create-toggler'
+const which = require('which')
+const pkg = require('./package')
+const logger = require('../common/logger')
+const store = require('../common/store')
+const createToggler = require('../create-toggler')
 
 const CONFIG_KEY = 'experiments.npmOnIpfs'
 
-export default function (ctx) {
+module.exports = function (ctx) {
   let interval = null
 
   createToggler(ctx, CONFIG_KEY, async (value, oldValue) => {

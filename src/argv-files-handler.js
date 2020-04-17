@@ -1,7 +1,7 @@
-import fs from 'fs-extra'
-import addToIpfs from './add-to-ipfs'
+const fs = require('fs-extra')
+const addToIpfs = require('./add-to-ipfs')
 
-export async function argvHandler (argv, ctx) {
+async function argvHandler (argv, ctx) {
   let handled = false
 
   const files = []
@@ -25,7 +25,9 @@ export async function argvHandler (argv, ctx) {
   return handled
 }
 
-export default async function (ctx) {
+module.exports = async function (ctx) {
   // Checks current proccess
   await argvHandler(process.argv, ctx)
 }
+
+module.exports.argvHandler = argvHandler

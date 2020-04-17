@@ -1,7 +1,7 @@
-import { EventEmitter } from 'events'
-import sinon from 'sinon'
+const { EventEmitter } = require('events')
+const sinon = require('sinon')
 
-export default function mockElectron (opts = {}) {
+module.exports = function mockElectron (opts = {}) {
   opts.withDock = opts.withDock || false
 
   const electron = {

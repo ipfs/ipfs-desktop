@@ -1,12 +1,12 @@
-import util from 'util'
-import logger from '../common/logger'
-import { IS_WIN } from '../common/consts'
-import childProcess from 'child_process'
+const util = require('util')
+const logger = require('../common/logger')
+const { IS_WIN } = require('../common/consts')
+const childProcess = require('child_process')
 
 const execFile = util.promisify(childProcess.execFile)
 const npmBin = IS_WIN ? 'npm.cmd' : 'npm'
 
-export async function update () {
+async function update () {
   try {
     logger.info('[npm on ipfs] ipfs-npm: checking if outdated')
 
@@ -26,7 +26,7 @@ export async function update () {
   install()
 }
 
-export async function install () {
+async function install () {
   try {
     await execFile(npmBin, ['install', '-g', 'ipfs-npm'])
     logger.info('[npm on ipfs] ipfs-npm: installed globally')
@@ -37,7 +37,7 @@ export async function install () {
   }
 }
 
-export async function uninstall () {
+async function uninstall () {
   try {
     await execFile(npmBin, ['uninstall', '-g', 'ipfs-npm'])
     logger.info('[npm on ipfs] ipfs-npm: uninstalled globally')
@@ -47,3 +47,9 @@ export async function uninstall () {
     return false
   }
 }
+
+module.exports = Object.freeze({
+  update,
+  install,
+  uninstall
+})

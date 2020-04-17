@@ -1,23 +1,23 @@
-import 'v8-compile-cache'
-import { app, dialog } from 'electron'
-import fixPath from 'fix-path'
-import { criticalErrorDialog } from './dialogs'
-import logger from './common/logger'
-import setupProtocolHandlers from './protocol-handlers'
-import setupI18n from './i18n'
-import setupNpmOnIpfs from './npm-on-ipfs'
-import setupDaemon from './daemon'
-import setupWebUI from './webui'
-import setupAutoLaunch from './auto-launch'
-import setupDownloadHash from './download-hash'
-import setupTakeScreenshot from './take-screenshot'
-import setupAppMenu from './app-menu'
-import setupArgvFilesHandler from './argv-files-handler'
-import setupAutoUpdater from './auto-updater'
-import setupTray from './tray'
-import setupIpfsOnPath from './ipfs-on-path'
-import setupAnalytics from './analytics'
-import setupSecondInstance from './second-instance'
+require('v8-compile-cache')
+const { app, dialog } = require('electron')
+const fixPath = require('fix-path')
+const { criticalErrorDialog } = require('./dialogs')
+const logger = require('./common/logger')
+const setupProtocolHandlers = require('./protocol-handlers')
+const setupI18n = require('./i18n')
+const setupNpmOnIpfs = require('./npm-on-ipfs')
+const setupDaemon = require('./daemon')
+const setupWebUI = require('./webui')
+const setupAutoLaunch = require('./auto-launch')
+const setupDownloadHash = require('./download-hash')
+const setupTakeScreenshot = require('./take-screenshot')
+const setupAppMenu = require('./app-menu')
+const setupArgvFilesHandler = require('./argv-files-handler')
+const setupAutoUpdater = require('./auto-updater')
+const setupTray = require('./tray')
+const setupIpfsOnPath = require('./ipfs-on-path')
+const setupAnalytics = require('./analytics')
+const setupSecondInstance = require('./second-instance')
 
 // Hide Dock
 if (app.dock) app.dock.hide()

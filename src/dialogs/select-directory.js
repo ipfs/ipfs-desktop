@@ -1,6 +1,6 @@
-import { app, dialog } from 'electron'
+const { app, dialog } = require('electron')
 
-export default async function selectDirectory (options = {}) {
+module.exports = async function selectDirectory (options = {}) {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     title: 'Select a directory',
     defaultPath: app.getPath('home'),

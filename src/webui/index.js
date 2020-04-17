@@ -1,11 +1,11 @@
-import { screen, BrowserWindow, ipcMain, app, session } from 'electron'
-import { join } from 'path'
-import { URL } from 'url'
-import serve from 'electron-serve'
-import openExternal from './open-external'
-import logger from '../common/logger'
-import store from '../common/store'
-import dock from '../dock'
+const { screen, BrowserWindow, ipcMain, app, session } = require('electron')
+const { join } = require('path')
+const { URL } = require('url')
+const serve = require('electron-serve')
+const openExternal = require('./open-external')
+const logger = require('../common/logger')
+const store = require('../common/store')
+const dock = require('../dock')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
@@ -58,7 +58,7 @@ const createWindow = () => {
   return window
 }
 
-export default async function (ctx) {
+module.exports = async function (ctx) {
   openExternal()
 
   const window = createWindow(ctx)
