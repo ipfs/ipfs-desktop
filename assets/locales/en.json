@@ -135,11 +135,11 @@
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
-    "message": "Running the garbage collector will remove all the objects that are not pinned or on your MFS from your repository. This action might take a while. Do you want to run the Garbage Collector?",
-    "action": "Run GC"
+    "message": "Running the garbage collector will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
+    "action": "Run"
   },
   "runGarbageCollectorDone": {
     "title": "Garbage collector",
-    "message": "Garbage collector run was successful."
+    "message": "The garbage collector ran successfully."
   }
 }
