@@ -113,7 +113,7 @@
   },
   "updateAvailableDialog": {
     "title": "Update available",
-    "message": "A new version { version } is available. The download will begin shortly in background."
+    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
   },
   "updateNotAvailableDialog": {
     "title": "Update not available",
