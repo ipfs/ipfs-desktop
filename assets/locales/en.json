@@ -13,6 +13,7 @@
   "openLogsDir": "Open Logs Directory",
   "openConfigFile": "Open Configuration File",
   "viewOnGitHub": "View on GitHub",
+  "readReleaseNotes": "Read Release Notes",
   "status": "Status",
   "files": "Files",
   "settings": "Settings",
@@ -30,13 +31,6 @@
   "errorWhileWritingFiles": "An error occurred while writing the files to your file system.",
   "hashDownloaded": "Hash downloaded",
   "hashDownloadedClickToView": "Hash { hash } content downloaded. Click to view.",
-  "updateAvailable": "Update available",
-  "clickToInstall": "Click here to restart and install the newer version of IPFS Desktop.",
-  "updateNotAvailable": "Update not available",
-  "runningLatestVersion": "You seem to be running the latest version.",
-  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
-  "couldNotCheckForUpdates": "Could not check for updates",
-  "pleaseCheckInternet": "Please check your Internet connection.",
   "checkForUpdates": "Check for Updates...",
   "yes": "Yes",
   "no": "No",
@@ -116,5 +110,26 @@
   "itemsFailedNotification": {
     "title": "Failed to add items",
     "message": "Could not add your items to your node."
+  },
+  "updateAvailableDialog": {
+    "title": "Update available",
+    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
+  },
+  "updateNotAvailableDialog": {
+    "title": "Update not available",
+    "message": "You are on the latest version of IFPS Desktop ({ version })."
+  },
+  "updateErrorDialog": {
+    "title": "Could not download update",
+    "message": "It was not possible to download the update. Please check your Internet connection and try again."
+  },
+  "updateDownloadedDialog": {
+    "title": "Update downloaded",
+    "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
+    "action": "Restart"
+  },
+  "updateDownloadedNotification": {
+    "title": "Update downloaded",
+    "message": "Update for version { version } of IPFS Desktop downloaded. Click this notification to install."
   }
 }

@@ -3,61 +3,110 @@ const i18n = require('i18next')
 const quitAndInstall = require('./quit-and-install')
 const logger = require('../common/logger')
 const { notify } = require('../common/notify')
+const { showDialog } = require('../dialogs')
+const { shell } = require('electron')
 
-let userRequested = false
-
-function notifyIfRequested (...opts) {
-  if (userRequested) {
-    userRequested = false
-    notify(...opts)
-  }
-}
+let feedback = false
 
 function setup (ctx) {
   autoUpdater.autoDownload = false
+  autoUpdater.autoInstallOnAppQuit = true
 
-  autoUpdater.on('error', (err) => {
-    notifyIfRequested({
-      title: i18n.t('couldNotCheckForUpdates'),
-      body: i18n.t('pleaseCheckInternet')
-    })
-
+  autoUpdater.on('error', err => {
     logger.error(`[updater] ${err.toString()}`)
+
+    if (!feedback) {
+      return
+    }
+
+    feedback = false
+    showDialog({
+      title: i18n.t('updateErrorDialog.title'),
+      message: i18n.t('updateErrorDialog.message'),
+      type: 'error',
+      buttons: [
+        i18n.t('close')
+      ]
+    })
   })
 
-  autoUpdater.on('update-available', async () => {
-    logger.info('[updater] update available. download started')
-
-    notifyIfRequested({
-      title: i18n.t('updateAvailable'),
-      body: i18n.t('updateIsBeingDownloaded')
-    })
+  autoUpdater.on('update-available', async ({ version, releaseNotes }) => {
+    logger.info('[updater] update available, download will start')
 
     try {
       await autoUpdater.downloadUpdate()
     } catch (err) {
       logger.error(`[updater] ${err.toString()}`)
     }
+
+    if (!feedback) {
+      return
+    }
+
+    // do not toggle feedback off here so we can show a dialog once the download
+    // is finished.
+
+    const opt = showDialog({
+      title: i18n.t('updateAvailableDialog.title'),
+      message: i18n.t('updateAvailableDialog.message', { version, releaseNotes }),
+      type: 'info',
+      buttons: [
+        i18n.t('close'),
+        i18n.t('readReleaseNotes')
+      ]
+    })
+
+    if (opt === 1) {
+      shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/releases/v${version}`)
+    }
   })
 
-  autoUpdater.on('update-not-available', async () => {
-    notifyIfRequested({
-      title: i18n.t('updateNotAvailable'),
-      body: i18n.t('runningLatestVersion')
+  autoUpdater.on('update-not-available', ({ version }) => {
+    logger.info('[updater] update not available')
+
+    if (!feedback) {
+      return
+    }
+
+    feedback = false
+    showDialog({
+      title: i18n.t('updateNotAvailableDialog.title'),
+      message: i18n.t('updateNotAvailableDialog.message', { version }),
+      type: 'info',
+      buttons: [
+        i18n.t('close')
+      ]
     })
   })
 
-  autoUpdater.on('update-downloaded', () => {
+  autoUpdater.on('update-downloaded', ({ version }) => {
     logger.info('[updater] update downloaded')
 
-    notify({
-      title: i18n.t('updateAvailable'),
-      body: i18n.t('clickToInstall')
-    }, () => {
+    const doIt = () => {
       setImmediate(() => {
         quitAndInstall(ctx)
       })
+    }
+
+    if (!feedback) {
+      notify({
+        title: i18n.t('updateDownloadedNotification.title'),
+        body: i18n.t('updateDownloadedNotification.message', { version })
+      }, doIt)
+    }
+
+    feedback = false
+
+    showDialog({
+      title: i18n.t('updateDownloadedDialog.title'),
+      message: i18n.t('updateDownloadedDialog.message', { version }),
+      type: 'info',
+      buttons: [
+        i18n.t('updateDownloadedDialog.action')
+      ]
     })
+
+    doIt()
   })
 }
 
@@ -70,24 +119,13 @@ async function checkForUpdates () {
 }
 
 module.exports = async function (ctx) {
-  if (process.env.NODE_ENV === 'development') {
-    ctx.checkForUpdates = () => {
-      notify({
-        title: 'DEV Check for Updates',
-        body: 'Yes, you called this function successfully.'
-      })
-    }
-
-    return
-  }
-
   setup(ctx)
 
   await checkForUpdates()
   setInterval(checkForUpdates, 43200000) // every 12 hours
 
   ctx.checkForUpdates = () => {
-    userRequested = true
+    feedback = true
     checkForUpdates()
   }
 }
