@@ -1,4 +1,5 @@
 const { ipcMain } = require('electron')
+const os = require('os')
 const store = require('./common/store')
 const logger = require('./common/logger')
 
@@ -23,6 +24,7 @@ module.exports = function ({ webui }, settingsOption, activate) {
     webui.webContents.send('config.changed', {
       config: store.store,
       changed: settingsOption,
+      platform: os.platform(),
       success
     })
   })

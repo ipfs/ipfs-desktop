@@ -3,6 +3,7 @@
 const sinon = require('sinon')
 const chai = require('chai')
 const { expect } = chai
+const os = require('os')
 const dirtyChai = require('dirty-chai')
 const mockElectron = require('./mocks/electron')
 const mockStore = require('./mocks/store')
@@ -43,6 +44,7 @@ describe('Create toggler', () => {
       expect(args[0]).to.equal('config.changed')
       expect(args[1]).to.deep.equal({
         changed: 'OPT',
+        platform: os.platform(),
         config: {
           OPT: true
         },
@@ -68,6 +70,7 @@ describe('Create toggler', () => {
       expect(args[0]).to.equal('config.changed')
       expect(args[1]).to.deep.equal({
         changed: 'OPT',
+        platform: os.platform(),
         config: {},
         success: false
       })
@@ -93,6 +96,7 @@ describe('Create toggler', () => {
       expect(args[0]).to.equal('config.changed')
       expect(args[1]).to.deep.equal({
         changed: 'OPT',
+        platform: os.platform(),
         config: {
           OPT: false
         },
@@ -120,6 +124,7 @@ describe('Create toggler', () => {
       expect(args[0]).to.equal('config.changed')
       expect(args[1]).to.deep.equal({
         changed: 'OPT',
+        platform: os.platform(),
         config: {
           OPT: true
         },
