@@ -1,119 +1,120 @@
 {
-  "ipfsIsRunning": "IPFS is running",
-  "ipfsIsStopping": "IPFS is stopping",
-  "ipfsIsStarting": "IPFS is starting",
-  "ipfsIsNotRunning": "IPFS is not running",
-  "ipfsHasErrored": "IPFS has errored",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
-  "about": "About",
-  "advanced": "고급설정",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub",
+  "ipfsIsRunning": "IPFS가 실행 중입니다",
+  "ipfsIsStopping": "IPFS가 중지 중입니다",
+  "ipfsIsStarting": "IPFS가 시작 중입니다",
+  "ipfsIsNotRunning": "IPFS가 실행 중이지 않습니다",
+  "ipfsHasErrored": "IPFS에 오류가 발생하였습니다",
+  "start": "시작",
+  "stop": "중지",
+  "restart": "재시작",
+  "about": "정보",
+  "advanced": "고급 설정",
+  "openRepoDir": "리포지터리 디렉터리 열기",
+  "openLogsDir": "로그 디렉터리 열기",
+  "openConfigFile": "구성 파일 열기",
+  "viewOnGitHub": "GitHub에서 보기",
   "status": "상태",
   "files": "파일",
   "settings": "설정",
   "quit": "종료",
-  "versions": "Versions",
-  "screenshotTaken": "Screenshot taken",
-  "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
-  "couldNotTakeScreenshot": "Could not take screenshot",
-  "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "clickToOpenLogs": "Click here to open the logs.",
-  "ipfsNotRunning": "IPFS is not running",
-  "cantDownloadHash": "Could not download hash",
-  "invalidHashClipboard": "The hash on the clipboard is not valid.",
-  "errorWhileDownloadingHash": "An error occurred while getting the hash.",
-  "errorWhileWritingFiles": "An error occurred while writing the files to your file system.",
-  "hashDownloaded": "Hash downloaded",
-  "hashDownloadedClickToView": "Hash { hash } content downloaded. Click to view.",
-  "updateAvailable": "Update available",
-  "clickToInstall": "Click here to restart and install the newer version of IPFS Desktop.",
-  "updateNotAvailable": "Update not available",
-  "runningLatestVersion": "You seem to be running the latest version.",
-  "couldNotCheckForUpdates": "Could not check for updates",
-  "pleaseCheckInternet": "Please check your Internet connection.",
-  "checkForUpdates": "Check for Updates...",
-  "yes": "Yes",
-  "no": "No",
+  "versions": "버전",
+  "screenshotTaken": "스크린샷 찍음",
+  "shareableLinkCopied": "공유 가능한 링크가 클립보드에 복사되었습니다. 여기를 클릭하여 스크린샷을 볼 수 있습니다.",
+  "couldNotTakeScreenshot": "스크린샷을 찍을 수 없습니다",
+  "errorwhileTakingScreenshot": "스크린샷을 찍는 중 오류가 발생하였습니다.",
+  "clickToOpenLogs": "여기를 클릭하여 로그를 열 수 있습니다.",
+  "ipfsNotRunning": "IPFS가 실행 중이지 않습니다",
+  "cantDownloadHash": "해시를 다운로드할 수 없습니다",
+  "invalidHashClipboard": "클립보드의 해시가 올바르지 않습니다.",
+  "errorWhileDownloadingHash": "해시를 가져오는 중 오류가 발생하였습니다.",
+  "errorWhileWritingFiles": "파일 시스템에 파일을 쓰는 중 오류가 발생하였습니다.",
+  "hashDownloaded": "해시 다운로드됨",
+  "hashDownloadedClickToView": "해시 { hash } 내용이 다운로드되었습니다. 클릭하여 볼 수 있습니다.",
+  "updateAvailable": "업데이트 가능",
+  "clickToInstall": "여기를 클릭하여 IPFS Desktop의 새 버전을 설치하실 수 있습니다.",
+  "updateNotAvailable": "업데이트 불가능",
+  "runningLatestVersion": "최신 버전을 사용 중입니다.",
+  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
+  "couldNotCheckForUpdates": "업데이트를 확인할 수 없습니다",
+  "pleaseCheckInternet": "인터넷 연결 상태를 확인해 주세요.",
+  "checkForUpdates": "업데이트 확인...",
+  "yes": "예",
+  "no": "아니오",
   "close": "닫기",
-  "ok": "OK",
+  "ok": "확인",
   "cancel": "취소",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadHash": "Download Hash",
-  "moveRepositoryLocation": "Move Repository Location",
+  "reportTheError": "오류 보고",
+  "restartIpfsDesktop": "IPFS Desktop 재시작",
+  "openLogs": "로그 열기",
+  "takeScreenshot": "스크린샷 찍기",
+  "downloadHash": "해시 다운로드",
+  "moveRepositoryLocation": "리포지터리 위치 이동",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "Polkit을 찾을 수 없습니다",
+    "message": "Polkit Agent 없이는 /usr/local/bin/ 에 IPFS를 추가할 수 없습니다."
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "권한 없음",
+    "message": "/usr/local/bin에 IPFS를 추가할 수 없습니다. 암호를 잘못 입력하였거나 파일 권한이 올바르지 않기 때문일 수 있습니다."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS is not running",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "title": "IPFS가 실행 중이지 않습니다",
+    "message": "이 동작을 수행하려면 IPFS를 실행해야 합니다. 데몬을 시작할까요?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "오류가 발생하였습니다",
+    "message": "오류가 발생하였지만 IPFS Desktop 실행에는 문제가 없었습니다. 로그를 조사하시거나 개발자에게 오류를 보고할 수 있습니다."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "API에 연결할 수 없습니다",
+    "message": "IPFS Desktop이 해당 API 주소에 연결할 수 없습니다: { addr }"
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "IPFS Desktop 종료됨",
+    "message": "IPFS Desktop이 오류로 인해 종료되었습니다. 앱을 재시작하거나 GitHub 계정을 사용하여 개발자에게 오류를 보고할 수 있습니다."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "리포지터리 이동",
+    "message": "리포지터리가 주 드라이브에서 공간을 많이 차지하고 있다면, 리포지터리를 다른 위치로 옮길 수 있습니다. 새로운 위치가 항상 접근 가능해야 IPFS Desktop이 제대로 작동한다는 점을 알아두세요.",
+    "action": "옮기고 노드 재시작"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "성공적으로 리포지터리를 옮겼습니다",
+    "message": "리포지터리가 { location }(으)로 옮겨지고 구성이 업데이트되었습니다. 데몬을 재시작합니다."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "같은 디렉터리 선택됨",
+    "message": "선택하신 디렉터리는 현재 사용 중인 디렉터리 ({ location }) 와 같습니다. 변경 사항이 없으니 무시합니다."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "디렉터리가 이미 존재합니다",
+    "message": "디렉터리 { location }은 이미 존재합니다. 다른 디렉터리를 사용하세요."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "포트가 사용 중입니다",
+    "message": "포트 { port1 }과 { port2 }를 사용할 수 없습니다. 대신 { alt1 }과 { alt2 }를 사용하시겠습니까?",
+    "action": "대신 포트 { alt1 }(와)과 { alt2 }(을)를 사용"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "포트가 사용 중입니다",
+    "message": "포트 { port }(은)는 사용이 불가합니다. 대신 { alt }(을)를 사용할까요?",
+    "action": "포트 { alt }(을)를 대신 사용"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "포트가 사용 중입니다",
+    "message": "포트가 이미 사용 중이기 때문에 하나 이상의 API나 게이트웨이 주소를 할당할 수 없습니다.",
+    "action": "구성 파일 열기"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "title": "항목 추가됨",
+    "message": "{ count }개의 항목이 노드에 추가되었습니다. 공유 가능한 링크가 클립보드에 복사되었습니다. 여기를 클릭하여 파일을 볼 수 있습니다."
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "title": "항목 추가됨",
+    "message": "노드에 항목이 추가되었습니다. 공유 가능한 링크가 클립보드에 복사되었습니다. 여기를 클릭하여 파일을 볼 수 있습니다."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "title": "항목을 추가할 수 없습니다",
+    "message": "노드에 항목을 추가할 수 없습니다."
   }
 }

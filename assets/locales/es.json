@@ -16,7 +16,7 @@
   "status": "Estado",
   "files": "Archivos",
   "settings": "Configuración",
-  "quit": "Abandonar",
+  "quit": "Salir",
   "versions": "Versiones",
   "screenshotTaken": "Captura de pantalla tomada",
   "shareableLinkCopied": "Enlace para compartir copiado al porta papeles. Haga clic aquí para ver la captura de pantalla.",
@@ -25,7 +25,7 @@
   "clickToOpenLogs": "Haga clic aquí para abrir los registros.",
   "ipfsNotRunning": "IPFS no se está ejecutando",
   "cantDownloadHash": "No se pudo descargar el hash",
-  "invalidHashClipboard": "The hash on the clipboard is not valid.",
+  "invalidHashClipboard": "El hash en el porta papeles no es válido.",
   "errorWhileDownloadingHash": "Se produjo un error al obtener el hash.",
   "errorWhileWritingFiles": "Se produjo un error al escribir los archivos en su sistema de archivos.",
   "hashDownloaded": "Hash descargado",
@@ -34,26 +34,27 @@
   "clickToInstall": "Haga clic aquí para reiniciar e instalar la versión más reciente de IPFS Desktop.",
   "updateNotAvailable": "Actualización no disponible",
   "runningLatestVersion": "Parece que estás ejecutando la última versión",
+  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
   "couldNotCheckForUpdates": "No se puede comprobar las actualizaciones",
   "pleaseCheckInternet": "Compruebe su conexion a internet por favor.",
   "checkForUpdates": "Comprobando actualizaciones...",
-  "yes": "Yes",
+  "yes": "Si",
   "no": "No",
   "close": "Cerrar",
-  "ok": "OK",
+  "ok": "Ok",
   "cancel": "Cancelar",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadHash": "Download Hash",
-  "moveRepositoryLocation": "Move Repository Location",
+  "reportTheError": "Reportar el error",
+  "restartIpfsDesktop": "Reiniciar IPFS",
+  "openLogs": "Abrir logs",
+  "takeScreenshot": "Tomar Captura de Pantalla",
+  "downloadHash": "Descargar Hash",
+  "moveRepositoryLocation": "Mover Ubicación del Repositorio",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "No se encuentra Polkit",
+    "message": "IPFS no se puede agregar a /usr/local/bin/ sin el agente polkit."
   },
   "noPermissionDialog": {
-    "title": "No permission",
+    "title": "Sin permiso",
     "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
   },
   "ipfsNotRunningDialog": {
@@ -61,59 +62,59 @@
     "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
+    "title": "Ocurrió un error",
     "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "No se puede conectar con API",
+    "message": "IPFS no se puede conectar con la dirección de API provista: { addr }"
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
+    "title": "IPFS se cerró.",
     "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
+    "title": "Mover repositorio",
     "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "action": "Mover y reiniciar nodo"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
+    "title": "El repositorio se movió con éxito",
     "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
+    "title": "Seleccionado el mismo directorio",
     "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "El directorio ya existe",
+    "message": "El directorio { location } ya existe. Por favor pruebe con otro puerto."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "Puertos ocupados",
+    "message": "Los puertos { port1 } y { port2 } no estan disponibles. Desea usar los puertos { alt1 } y { alt2 }?",
+    "action": "Use el puerto { alt1 } y { alt2 }"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
+    "title": "Puerto ocupado",
     "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "action": "Utilice el puerto { alt }"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
+    "title": "Puertos ocupados",
     "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "action": "Abrir archivo de configuración"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
+    "title": "Items agregados",
     "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
   },
   "itemAddedNotification": {
-    "title": "Item added",
+    "title": "Item agregado",
     "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "title": "Agregar items falló ",
+    "message": "No se pudo agregar los items a tu nodo."
   }
 }

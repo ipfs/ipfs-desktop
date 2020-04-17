@@ -34,6 +34,7 @@
   "clickToInstall": "Clica aquí per reiniciar i instal·lar la nova versió de IPFS d'Escriptori.",
   "updateNotAvailable": "Actualització no disponible",
   "runningLatestVersion": "Sembla que utilitzes la darrera versió.",
+  "updateIsBeingDownloaded": "Hi ha una actualització disponible i s'està descarregant.",
   "couldNotCheckForUpdates": "No s'han pogut comprovar les actualitzacions",
   "pleaseCheckInternet": "Si us plau, comprova la connexió a Internet.",
   "checkForUpdates": "Comprovar Actualitzacions...",

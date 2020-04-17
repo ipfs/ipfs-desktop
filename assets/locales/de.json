@@ -1,16 +1,16 @@
 {
-  "ipfsIsRunning": "IPFS is running",
-  "ipfsIsStopping": "IPFS is stopping",
+  "ipfsIsRunning": "IPFS läuft",
+  "ipfsIsStopping": "IPFS wird gestoppt",
   "ipfsIsStarting": "IPFS startet",
-  "ipfsIsNotRunning": "IPFS is not running",
-  "ipfsHasErrored": "IPFS has errored",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
+  "ipfsIsNotRunning": "IPFS läuft nicht",
+  "ipfsHasErrored": "IPFS hat einen Fehler festgestellt",
+  "start": "Starten",
+  "stop": "Stoppen",
+  "restart": "Neu starten",
   "about": "Über",
   "advanced": "Erweitert",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
+  "openRepoDir": "Speicher-Verzeichnis öffnen",
+  "openLogsDir": "Protokollverzeichnis öffnen",
   "openConfigFile": "Konfigurationsdatei öffnen",
   "viewOnGitHub": "Auf GitHub anschauen",
   "status": "Status",
@@ -23,57 +23,58 @@
   "couldNotTakeScreenshot": "Konnte keinen Screenshot machen",
   "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
   "clickToOpenLogs": "Click here to open the logs.",
-  "ipfsNotRunning": "IPFS is not running",
-  "cantDownloadHash": "Could not download hash",
+  "ipfsNotRunning": "IPFS läuft nicht",
+  "cantDownloadHash": "Konnte Hash nicht herunterladen",
   "invalidHashClipboard": "The hash on the clipboard is not valid.",
   "errorWhileDownloadingHash": "An error occurred while getting the hash.",
   "errorWhileWritingFiles": "An error occurred while writing the files to your file system.",
-  "hashDownloaded": "Hash downloaded",
+  "hashDownloaded": "Hash heruntergeladen",
   "hashDownloadedClickToView": "Hash { hash } content downloaded. Click to view.",
   "updateAvailable": "Update verfügbar",
   "clickToInstall": "Click here to restart and install the newer version of IPFS Desktop.",
   "updateNotAvailable": "Update nicht verfügbar",
   "runningLatestVersion": "You seem to be running the latest version.",
-  "couldNotCheckForUpdates": "Could not check for updates",
+  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
+  "couldNotCheckForUpdates": "Konnte nicht nach Updates suchen",
   "pleaseCheckInternet": "Please check your Internet connection.",
-  "checkForUpdates": "Check for Updates...",
+  "checkForUpdates": "Auf Updates prüfen…",
   "yes": "Ja",
   "no": "Nein",
   "close": "Schließen",
   "ok": "OK",
   "cancel": "Abbrechen",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
+  "reportTheError": "Den Fehler melden",
+  "restartIpfsDesktop": "IPFS Desktop neu starten",
   "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadHash": "Download Hash",
-  "moveRepositoryLocation": "Move Repository Location",
+  "takeScreenshot": "Bildschirmfoto aufnehmen",
+  "downloadHash": "Hash herunterladen",
+  "moveRepositoryLocation": "Speicherort verschieben",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "Polkit nicht gefunden",
+    "message": "IPFS kann ohne den polkit agent nicht zu /usr/local/bin/ hinzugefügt werden."
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "Keine Berechtigung",
+    "message": "IPFS konnte nicht zu /usr/local/bin/ hinzugefügt werden, entweder, weil Du entweder das falsche Passwort eingegeben hast oder die Berechtigung verweigert hast."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS is not running",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "title": "IPFS läuft nicht",
+    "message": "IPFS muss gestartet sein, um diese Aktion auszuführen. Möchtest du den Daemon starten?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "Ein Fehler ist aufgetreten",
+    "message": "Ein Fehler ist aufgetreten, der die Ausführung von IPFS Desktop jedoch nicht verhindert. Du kannst Dir entweder die Protokolle selbst anschauen oder den Fehler den Entwicklern melden."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "Es kann keine Verbindung zur API hergestellt werden",
+    "message": "IPFS Desktop kann keine Verbindung mit der angegebenen API Adresse herstellen: { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
+    "title": "IPFS Desktop wurde gestoppt",
     "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
+    "title": "Speicherort verschieben",
     "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
     "action": "Move and restart node"
   },
@@ -86,7 +87,7 @@
     "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
+    "title": "Verzeichnis existiert bereits",
     "message": "The directory { location } already exists. Please try using a different one."
   },
   "busyPortsDialog": {

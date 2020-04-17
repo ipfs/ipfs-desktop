@@ -34,6 +34,7 @@
   "clickToInstall": "點擊此處以重新啟動並安裝較新版本的 IPFS Desktop。",
   "updateNotAvailable": "暫時沒有更新",
   "runningLatestVersion": "當前運行的是最新版本",
+  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
   "couldNotCheckForUpdates": "無法檢查更新",
   "pleaseCheckInternet": "請檢查你的網路連接",
   "checkForUpdates": "檢查更新...",

@@ -34,6 +34,7 @@
   "clickToInstall": "Klik hier om te herstarten en de nieuwere versie van IPFS Desktop te installeren.",
   "updateNotAvailable": "Update niet beschikbaar",
   "runningLatestVersion": "Je lijkt de laatste versie te draaien.",
+  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
   "couldNotCheckForUpdates": "Kon niet controleren of er updates zijn.",
   "pleaseCheckInternet": "Controleer alsjeblieft je internet verbinding.",
   "checkForUpdates": "Controleer of er updates zijn...",

@@ -34,6 +34,7 @@
   "clickToInstall": "单击此处重新启动并安装较新版本的IPFS Desktop",
   "updateNotAvailable": "暂时没有更新",
   "runningLatestVersion": "当前运行的是最新版本",
+  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
   "couldNotCheckForUpdates": "不能检查更新",
   "pleaseCheckInternet": "请检查你的互联网连接",
   "checkForUpdates": "检查更新",
@@ -49,71 +50,71 @@
   "downloadHash": "下载哈希码",
   "moveRepositoryLocation": "移动仓库目录",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "Polkit(策略工具包)没有找到",
+    "message": "由于缺少polkit代理，无法将IPFS添加到/usr/local/bin/目录里。"
   },
   "noPermissionDialog": {
     "title": "没有权限",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "message": "由于你输入错误的密码或者没有权限，无法将IPFS添加到 /usr/local/bin/目录里。"
   },
   "ipfsNotRunningDialog": {
     "title": "IPFS未运行",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "message": "该功能需要IPFS运行，你想启动它吗？"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "发生了错误",
+    "message": "发生了错误，但不会中断IPFS桌面运行。你可以检查日志或将错误报告给开发者。"
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "无法连接API",
+    "message": "IPFS桌面无法连接到提供的API地址：{ addr }"
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "IPFS桌面已经关闭",
+    "message": "因为发生了一个错误，IPFS桌面已经关闭。你可以重新启动程序，或将该错误报告给开发者，这需要你有个GitHub账号。"
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "移动仓库",
+    "message": "如果仓库在主驱动器上占用了太多空间，可以将其移动到其他位置。 请保证新位置始终可用，以使IPFS桌面程序正常工作。",
+    "action": "移动并重启节点"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "仓库移动成功",
+    "message": "你的仓库已被成功移动到 { location } 且配置已更新。守护程序正在启动。"
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "您选择了当前的目录",
+    "message": "您选择的目录就是仓库所在的目录：{ location }。因此将不会进行任何更改。"
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "目录已经存在",
+    "message": "目录 { location } 已经存在。\n请选择其他目录。"
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "端口忙碌",
+    "message": "端口 { port1 } 和 { port2 } 不可用。您想转而使用端口 { alt1 } 和 { alt2 } 吗？",
+    "action": "使用端口 { alt1 } 和 { alt2 } "
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "端口忙碌",
+    "message": "无法使用端口 { port }，你想使用备用端口 { alt } 吗？",
+    "action": "使用备用端口 { alt }"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "端口忙碌",
+    "message": "由于端口被占用，无法绑定到一个或多个API或网关地址。",
+    "action": "打开配置文件"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "title": "项目已添加",
+    "message": "{ count } 个项目已添加到你的节点。一条可共享的链接拷贝到了你的剪贴板。单击此处查看你的文件。"
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "title": "项目已添加",
+    "message": "项目已添加到你的节点。一条可共享的链接拷贝到了你的剪贴板。单击此处查看你的文件。"
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
+    "title": "项目添加失败",
     "message": "不能将你的项目加入你的节点"
   }
 }

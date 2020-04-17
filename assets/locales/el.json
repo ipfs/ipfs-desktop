@@ -1,119 +1,120 @@
 {
-  "ipfsIsRunning": "IPFS is running",
-  "ipfsIsStopping": "IPFS is stopping",
-  "ipfsIsStarting": "IPFS is starting",
-  "ipfsIsNotRunning": "IPFS is not running",
-  "ipfsHasErrored": "IPFS has errored",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
-  "about": "About",
-  "advanced": "Advanced",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub",
-  "status": "Status",
-  "files": "Files",
-  "settings": "Settings",
-  "quit": "Quit",
-  "versions": "Versions",
-  "screenshotTaken": "Screenshot taken",
-  "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
-  "couldNotTakeScreenshot": "Could not take screenshot",
-  "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "clickToOpenLogs": "Click here to open the logs.",
-  "ipfsNotRunning": "IPFS is not running",
-  "cantDownloadHash": "Could not download hash",
-  "invalidHashClipboard": "The hash on the clipboard is not valid.",
-  "errorWhileDownloadingHash": "An error occurred while getting the hash.",
-  "errorWhileWritingFiles": "An error occurred while writing the files to your file system.",
-  "hashDownloaded": "Hash downloaded",
-  "hashDownloadedClickToView": "Hash { hash } content downloaded. Click to view.",
-  "updateAvailable": "Update available",
-  "clickToInstall": "Click here to restart and install the newer version of IPFS Desktop.",
-  "updateNotAvailable": "Update not available",
-  "runningLatestVersion": "You seem to be running the latest version.",
-  "couldNotCheckForUpdates": "Could not check for updates",
-  "pleaseCheckInternet": "Please check your Internet connection.",
-  "checkForUpdates": "Check for Updates...",
-  "yes": "Yes",
-  "no": "No",
-  "close": "Close",
-  "ok": "OK",
-  "cancel": "Cancel",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadHash": "Download Hash",
-  "moveRepositoryLocation": "Move Repository Location",
+  "ipfsIsRunning": "Το IPFS εκτελείται",
+  "ipfsIsStopping": "Το IPFS σταματάει",
+  "ipfsIsStarting": "Το IPFS αρχίζει",
+  "ipfsIsNotRunning": "Το IPFS δεν εκτελείται",
+  "ipfsHasErrored": "Το IPFS αντιμετώπισε ένα σφάλμα",
+  "start": "Έναρξη",
+  "stop": "Τερματισμός",
+  "restart": "Επανεκκίνηση",
+  "about": "Σχετικά",
+  "advanced": "Ρυθμίσεις για προχωρημένους",
+  "openRepoDir": "Ανοιχτός κατάλογος αποθηκών",
+  "openLogsDir": "Άνοιγμα φακέλου αρχέιων καταγραφής",
+  "openConfigFile": "Άνοιγμα αρχείου ρυθμίσεων",
+  "viewOnGitHub": "Προβολή στο GitHub",
+  "status": "Κατάσταση",
+  "files": "Αρχεία",
+  "settings": "Ρυθμίσεις",
+  "quit": "Έξοδος",
+  "versions": "Εκδόσεις",
+  "screenshotTaken": "Έγινε λήψη στιγμιότυπου",
+  "shareableLinkCopied": "Σύνδεσμος αντιγράφηκε στο πρόχειρο.\nΚάντε κλικ εδώ για να δείτε το στιγμιότυπο.",
+  "couldNotTakeScreenshot": "Αδυναμία λήψης στιγμιότυπου",
+  "errorwhileTakingScreenshot": "Παρουσιάστηκε σφάλμα κατά τη λήψη του στιγμιότυπου.",
+  "clickToOpenLogs": "Κάντε κλικ εδώ για να ανοίξετε τα αρχεία καταγραφής.",
+  "ipfsNotRunning": "Το IPFS δεν εκτελείται",
+  "cantDownloadHash": "Δεν ήταν δυνατή η λήψη του κρυπτογραφήματος",
+  "invalidHashClipboard": "Το κρυπτογράφημα στο πρόχειρο δεν είναι έγκυρο.",
+  "errorWhileDownloadingHash": "Παρουσιάστηκε σφάλμα κατά τη λήψη του κρυπτογραφήματος.",
+  "errorWhileWritingFiles": "Παρουσιάστηκε σφάλμα κατά την εγγραφή των αρχείων στην συσκευή σας.",
+  "hashDownloaded": "Έγινε λήψη κρυπτογραφήματος",
+  "hashDownloadedClickToView": "Έγινε λήψη του κρυπτογραφήματος { hash }. Κάντε κλίκ για προβολή.",
+  "updateAvailable": "Υπάρχει διαθέσιμη ενημέρωση",
+  "clickToInstall": "Κάντε κλικ εδώ για να εγκαταστήσετε την νεότερη έκδοση του IPFS Desktop.",
+  "updateNotAvailable": "Δεν υπάρχουν διαθέσιμες ενημερώσεις.",
+  "runningLatestVersion": "Φαίνεται ότι τρέχετε την πιο πρόσφατη έκδοση.",
+  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
+  "couldNotCheckForUpdates": "Αδυναμία ελέγχου για ενημερώσεις",
+  "pleaseCheckInternet": "Παρακαλώ ελέγξτε την σύνδεση σας στο Ίντερνετ.",
+  "checkForUpdates": "Έλεγχος για ενημερώσεις...",
+  "yes": "Ναί",
+  "no": "Όχι",
+  "close": "Κλείσιμο",
+  "ok": "Εντάξει",
+  "cancel": "Ακύρωση",
+  "reportTheError": "Αναφορά σφαλμάτος",
+  "restartIpfsDesktop": "Επανεκκίνηση του IPFS Desktop",
+  "openLogs": "Άνοιγμα αρχείων καταγραφής",
+  "takeScreenshot": "Λήψη στιγμιότυπου",
+  "downloadHash": "Λήψη κρυπτογραφήματος",
+  "moveRepositoryLocation": "Μετακίνηση τοποθεσίας αποθήκης",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "Το polkit δεν βρέθηκε",
+    "message": "Το IPFS δεν μπορεί να προστεθεί στο /usr/local/bin/ χωρίς το polkit."
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "Δεν υπάρχει άδεια",
+    "message": "Το IPFS δεν μπορούσε να προστεθεί στο /usr/local/bin/, γιατί εισάγατε τον λάθος κωδικό ή δεν έχετε άδεια"
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS is not running",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "title": "Το IPFS δεν εκτελείται",
+    "message": "Το IPFS πρέπει να τρέχει για να το κάνετε αυτό. Θέλετε να το εκκινήσετε;"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "Παρουσιάστηκε σφάλμα",
+    "message": "Παρουσιάστηκε σφάλμα, αλλά δεν εμποδίζει την εκτέλεση του IPFS Desktop. Μπορείτε είτε να δείτε τα αρχεία καταγραφής είτε να αναφέρετε το σφάλμα στους προγραμματιστές."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "Αδυναμία σύνδεσης στο API",
+    "message": "To IPFS Desktop δεν μπορεί να συνδεθεί στην διεύθυνση API { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "Το IPFS Desktop έχει κλείσει",
+    "message": "Το IPFS Desktop έχει κλείσει λόγω σφάλματος. Μπορείτε να κάνετε επανεκκίνηση της εφαρμογής ή να αναφέρετε το σφάλμα στους προγραμματιστές, το οποίο απαιτεί λογαριασμό GitHub."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "Μετακίνηση αποθήκης",
+    "message": "Αν η αποθήση σας παίρνει πάρα πολύ χώρο στον κεντρικό σας δίσκο, μπορείτε να την μετακινήσετε σε κάποια άλλη θέση. Λάβετε υπόψη ότι η νέα τοποθεσία πρέπει να είναι πάντα διαθέσιμη ώστε το IPFS Desktop να λειτουργεί σωστά.",
+    "action": "Μετακίνηση και επανεκκίνηση κόμβου"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "Η αποθήκη μετακινήθηκε επιτυχώς",
+    "message": "Η αποθήκη σας μεταφέρθηκε με επιτυχία στη θέση { location } και η διαμόρφωσή σας ενημερώθηκε. Η εφαρμογή θα επανεκκινηθεί."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "Έχει επιλεγεί ο ίδιος φάκελος.",
+    "message": "Ο κατάλογος που επιλέξατε είναι ο ίδιος με τον τρέχοντα κατάλογο: { location }. Ως εκ τούτου, δεν θα γίνουν αλλαγές."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "Ο κατάλογος υπάρχει ήδη",
+    "message": "Ο κατάλογος { location } υπάρχει ήδη. Δοκιμάστε να χρησιμοποιήσετε διαφορετικό."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "Οι θύρες είναι απασχολημένες",
+    "message": "Οι θύρες { port1 } και { port2 } δεν είναι διαθέσιμες. Θέλετε να χρησιμοποιήσετε τα { alt1 } και { alt2 };",
+    "action": "Χρήση των { alt1 } και { alt2 }"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "Η θύρα είναι απασχολημένη",
+    "message": "Η θύρα { port } δεν είναι διαθέσιμη. Θέλετε να χρησιμοποιήσετε την θύρα { alt }?",
+    "action": "Χρήση του { alt }"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "Οι θύρες είναι απασχολημένες",
+    "message": "Δεν είναι δυνατή η δέσμευση σε μία ή περισσότερες από τις διευθύνσεις API ή Gateway επειδή οι θύρες είναι απασχολημένες.",
+    "action": "Άνοιγμα αρχείου ρυθμίσεων"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "title": "Προστέθηκαν στοιχεία",
+    "message": "{ count } αντικείμενα προστέθηκαν στον κόμβο σας. Έγινε αντιγραφή ενός κοινόχρηστου συνδέσμου στο πρόχειρο σας. Κάντε κλικ εδώ για να δείτε τα αρχεία σας."
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "title": "Προστέθηκε στοιχείο",
+    "message": "Ένα αντικείμενο προστέθηκε στον κόμβο σας. Έγινε αντιγραφή ενός κοινόχρηστου συνδέσμου στο πρόχειρο σας. Κάντε κλικ εδώ για να δείτε το αρχείο σας."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "title": "Απέτυχε η προσθήκη στοιχείων",
+    "message": "Δεν ήταν δυνατή η προσθήκη των αντικειμένων στον κόμβο σας."
   }
 }

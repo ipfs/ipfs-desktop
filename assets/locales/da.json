@@ -34,6 +34,7 @@
   "clickToInstall": "Klik her for at genstarte og installere den nyeste version af IPFS Skrivebord.",
   "updateNotAvailable": "Opdatering ikke tilgængelig",
   "runningLatestVersion": "Du ser ud til at benytte den nyeste version.",
+  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
   "couldNotCheckForUpdates": "Kunne ikke tjekke for opdateringer",
   "pleaseCheckInternet": "Tjek venligst din Internet-forbindelse.",
   "checkForUpdates": "Tjek for opdateringer...",

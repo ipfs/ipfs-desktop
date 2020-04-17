@@ -34,6 +34,7 @@
   "clickToInstall": "IPFSデスクトップの新しいバージョンを再起動してインストールするには、ここをクリックしてください。",
   "updateNotAvailable": "更新は利用できません",
   "runningLatestVersion": "最新バージョンを実行しているようです。",
+  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
   "couldNotCheckForUpdates": "更新を確認できませんでした",
   "pleaseCheckInternet": "インターネット接続を確認してください。",
   "checkForUpdates": "更新を確認しています...",

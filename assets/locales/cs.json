@@ -34,6 +34,7 @@
   "clickToInstall": "Kliknutím sem restartujte a nainstalujte novější verzi Desktop IPFS.",
   "updateNotAvailable": "Aktualizace není k dispozici",
   "runningLatestVersion": "Zdá se, že používáte nejnovější verzi.",
+  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
   "couldNotCheckForUpdates": "Aktualizace se nepodařilo zkontrolovat",
   "pleaseCheckInternet": "Zkontrolujte připojení k internetu.",
   "checkForUpdates": "Kontrola aktualizací...",
