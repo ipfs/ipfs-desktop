@@ -9,8 +9,16 @@ const { showDialog } = require('../dialogs')
 const store = require('../common/store')
 const logger = require('../common/logger')
 
+function configExists (ipfsd) {
+  return fs.pathExistsSync(join(ipfsd.path, 'config'))
+}
+
+function apiFileExists (ipfsd) {
+  return fs.pathExistsSync(join(ipfsd.path, 'api'))
+}
+
 function configPath (ipfsd) {
-  return join(ipfsd.repoPath, 'config')
+  return join(ipfsd.path, 'config')
 }
 
 function readConfigFile (ipfsd) {
@@ -151,7 +159,7 @@ async function checkPortsArray (ipfsd, addrs) {
       })
 
       if (opt === 0) {
-        shell.openItem(join(ipfsd.repoPath, 'config'))
+        shell.openItem(join(ipfsd.path, 'config'))
       }
 
       throw new Error('ports already being used')
@@ -184,8 +192,13 @@ async function checkPorts (ipfsd) {
   const apiPort = parseInt(configApiMa.nodeAddress().port, 10)
   const gatewayPort = parseInt(configGatewayMa.nodeAddress().port, 10)
 
-  const freeGatewayPort = await portfinder.getPortPromise({ port: gatewayPort, stopPort: gatewayPort + 100 })
-  const freeApiPort = await portfinder.getPortPromise({ port: apiPort, stopPort: apiPort + 100 })
+  const findFreePort = async (port, from) => {
+    port = Math.max(port, from, 1024)
+    return portfinder.getPortPromise({ port, stopPort: port + 100 })
+  }
+
+  const freeGatewayPort = await findFreePort(gatewayPort, 8080)
+  const freeApiPort = await findFreePort(apiPort, 5001)
 
   const busyApiPort = apiPort !== freeApiPort
   const busyGatewayPort = gatewayPort !== freeGatewayPort
@@ -194,46 +207,51 @@ async function checkPorts (ipfsd) {
     return
   }
 
-  let message = null
-  let options = null
+  // two "0" in config mean "pick free ports without any prompt"
+  const promptUser = (apiPort !== 0 || gatewayPort !== 0)
 
-  if (busyApiPort && busyGatewayPort) {
-    logger.info('[daemon] api and gateway ports busy')
-    message = 'busyPortsDialog'
-    options = {
-      port1: apiPort,
-      alt1: freeApiPort,
-      port2: gatewayPort,
-      alt2: freeGatewayPort
-    }
-  } else if (busyApiPort) {
-    logger.info('[daemon] api port busy')
-    message = 'busyPortDialog'
-    options = {
-      port: apiPort,
-      alt: freeApiPort
-    }
-  } else {
-    logger.info('[daemon] gateway port busy')
-    message = 'busyPortDialog'
-    options = {
-      port: gatewayPort,
-      alt: freeGatewayPort
-    }
-  }
+  if (promptUser) {
+    let message = null
+    let options = null
 
-  const opt = showDialog({
-    title: i18n.t(`${message}.title`),
-    message: i18n.t(`${message}.message`, options),
-    type: 'error',
-    buttons: [
-      i18n.t(`${message}.action`, options),
-      i18n.t('close')
-    ]
-  })
+    if (busyApiPort && busyGatewayPort) {
+      logger.info('[daemon] api and gateway ports busy')
+      message = 'busyPortsDialog'
+      options = {
+        port1: apiPort,
+        alt1: freeApiPort,
+        port2: gatewayPort,
+        alt2: freeGatewayPort
+      }
+    } else if (busyApiPort) {
+      logger.info('[daemon] api port busy')
+      message = 'busyPortDialog'
+      options = {
+        port: apiPort,
+        alt: freeApiPort
+      }
+    } else {
+      logger.info('[daemon] gateway port busy')
+      message = 'busyPortDialog'
+      options = {
+        port: gatewayPort,
+        alt: freeGatewayPort
+      }
+    }
 
-  if (opt !== 0) {
-    throw new Error('ports already being used')
+    const opt = showDialog({
+      title: i18n.t(`${message}.title`),
+      message: i18n.t(`${message}.message`, options),
+      type: 'error',
+      buttons: [
+        i18n.t(`${message}.action`, options),
+        i18n.t('close')
+      ]
+    })
+
+    if (opt !== 0) {
+      throw new Error('ports already being used')
+    }
   }
 
   if (busyApiPort) {
@@ -250,6 +268,8 @@ async function checkPorts (ipfsd) {
 
 module.exports = Object.freeze({
   configPath,
+  configExists,
+  apiFileExists,
   applyDefaults,
   checkCorsConfig,
   checkPorts

@@ -57,7 +57,7 @@ module.exports = async function (ctx) {
       // This way we use the default path when it is
       // not set.
       if (!config.path || typeof config.path !== 'string') {
-        config.path = ipfsd.repoPath
+        config.path = ipfsd.path
         store.set('ipfsConfig', config)
         writeIpfsPath(config.path)
       }
@@ -78,7 +78,7 @@ module.exports = async function (ctx) {
     const log = logger.start('[ipfsd] stop daemon', { withAnalytics: 'DAEMON_STOP' })
     updateStatus(STATUS.STOPPING_STARTED)
 
-    if (!fs.pathExists(join(ipfsd.repoPath, 'config'))) {
+    if (!fs.pathExists(join(ipfsd.path, 'config'))) {
       // Is remote api... ignore
       ipfsd = null
       updateStatus(STATUS.STOPPING_FINISHED)
@@ -86,13 +86,11 @@ module.exports = async function (ctx) {
     }
 
     try {
-      // give ipfs 3s to stop. An unclean shutdown is preferable to making the
-      // user wait, and taking longer prevents the update mechanism from working.
-      await ipfsd.stop(180)
+      await ipfsd.stop()
       log.end()
       updateStatus(STATUS.STOPPING_FINISHED)
     } catch (err) {
-      logger.error(`[ipfsd] ${err.toString}`)
+      logger.error(`[ipfsd] ${err.toString()}`)
       updateStatus(STATUS.STOPPING_FAILED)
     } finally {
       ipfsd = null

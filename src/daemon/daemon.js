@@ -1,12 +1,9 @@
-const IPFSFactory = require('ipfsd-ctl')
+const Ctl = require('ipfsd-ctl')
 const i18n = require('i18next')
-const fs = require('fs-extra')
-const { app } = require('electron')
 const { execFileSync } = require('child_process')
-const findExecutable = require('ipfsd-ctl/src/utils/find-ipfs-executable')
 const { showDialog } = require('../dialogs')
 const logger = require('../common/logger')
-const { applyDefaults, checkCorsConfig, checkPorts, configPath } = require('./config')
+const { applyDefaults, checkCorsConfig, checkPorts, configExists, apiFileExists } = require('./config')
 
 function cannotConnectDialog (addr) {
   showDialog({
@@ -22,19 +19,19 @@ function cannotConnectDialog (addr) {
 async function cleanup (ipfsd) {
   const log = logger.start('[daemon] cleanup')
 
-  if (!await fs.pathExists(configPath(ipfsd))) {
+  if (!configExists(ipfsd)) {
     cannotConnectDialog(ipfsd.apiAddr)
-    throw new Error('cannot tonnect to api')
+    throw new Error('cannot connect to api')
   }
 
   log.info('run: ipfs repo fsck')
-  const exec = findExecutable('go', app.getAppPath())
+  const exec = require('go-ipfs-dep').path()
 
   try {
     execFileSync(exec, ['repo', 'fsck'], {
       env: {
         ...process.env,
-        IPFS_PATH: ipfsd.repoPath
+        IPFS_PATH: ipfsd.path
       }
     })
     log.end()
@@ -43,45 +40,60 @@ async function cleanup (ipfsd) {
   }
 }
 
-async function spawn ({ type, path, keysize }) {
-  const factory = IPFSFactory.create({ type: type })
+async function spawn ({ flags, path, keysize }) {
+  // js-ipfsd-ctl stopped supporting IPFS_PATH after 1.x
+  // NOTE: https://github.com/ipfs/js-ipfsd-ctl/issues/497
+  if (process.env.IPFS_PATH) {
+    path = process.env.IPFS_PATH
+  }
 
-  const ipfsd = await factory.spawn({
+  const ipfsd = await Ctl.createController({
+    ipfsHttpModule: require('ipfs-http-client'),
+    ipfsBin: require('go-ipfs-dep').path(),
+    ipfsOptions: {
+      repo: path
+    },
+    remote: false,
     disposable: false,
-    defaultAddrs: true,
-    repoPath: path,
-    init: false,
-    start: false
+    test: false,
+    args: flags
   })
 
-  if (ipfsd.initialized) {
+  if (configExists(ipfsd)) {
     checkCorsConfig(ipfsd)
-    return ipfsd
+    return { ipfsd, isRemote: false }
+  }
+
+  // If config does not exist, but $IPFS_PATH/api exists, then
+  // it is a remote repository.
+  if (apiFileExists(ipfsd)) {
+    return { ipfsd, isRemote: true }
   }
 
   await ipfsd.init({
-    directory: path,
-    keysize: keysize
+    bits: keysize
   })
 
   applyDefaults(ipfsd)
-  return ipfsd
+  return { ipfsd, isRemote: false }
 }
 
 module.exports = async function (opts) {
-  const ipfsd = await spawn(opts)
-  await checkPorts(ipfsd)
-  await ipfsd.start(opts.flags)
+  const { ipfsd, isRemote } = await spawn(opts)
+  if (!isRemote) await checkPorts(ipfsd)
 
   try {
-    await ipfsd.api.id()
+    await ipfsd.start()
+    const { id } = await ipfsd.api.id()
+    logger.info(`[daemon] PeerID is ${id}`)
+    logger.info(`[daemon] Repo is at ${ipfsd.path}`)
   } catch (err) {
     if (!err.message.includes('ECONNREFUSED')) {
       throw err
     }
 
     await cleanup(ipfsd)
-    await ipfsd.start(opts.flags)
+    await ipfsd.start()
   }
 
   return ipfsd

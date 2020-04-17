@@ -61,7 +61,7 @@ module.exports = Object.freeze({
       },
       fail: (err) => {
         Countly.log_error(err)
-        logger.error(`${msg} ${err.toString()}`)
+        logger.error(`${msg} ${err.stack}`)
       }
     }
   },
