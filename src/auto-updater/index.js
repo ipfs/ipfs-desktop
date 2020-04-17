@@ -69,19 +69,14 @@ function setup (ctx) {
     }
 
     feedback = false
-    const opt = showDialog({
+    showDialog({
       title: i18n.t('updateNotAvailableDialog.title'),
       message: i18n.t('updateNotAvailableDialog.message', { version }),
       type: 'info',
       buttons: [
-        i18n.t('close'),
-        i18n.t('readReleaseNotes')
+        i18n.t('close')
       ]
     })
-
-    if (opt === 1) {
-      shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/releases/v${version}`)
-    }
   })
 
   autoUpdater.on('update-downloaded', ({ version }) => {
