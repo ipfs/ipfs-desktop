@@ -6,7 +6,7 @@ module.exports = async function (ctx) {
   Countly.init({
     url: 'https://countly.ipfs.io',
     app_key: COUNTLY_KEY,
-    debug: process.env.NODE_ENV === 'development',
+    debug: process.env.DEBUG_COUNTLY === 'true',
     require_consent: true
   })
 
