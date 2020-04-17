@@ -64,7 +64,7 @@ module.exports = async function (ctx) {
       // Update the path if it was blank previously.
       // This way we use the default path when it is
       // not set.
-      if (config.path === '') {
+      if (!config.path || typeof config.path !== 'string') {
         config.path = ipfsd.repoPath
         store.set('ipfsConfig', config)
         writeIpfsPath(config.path)
