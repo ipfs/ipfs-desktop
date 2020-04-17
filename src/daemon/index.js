@@ -5,15 +5,7 @@ const createDaemon = require('./daemon')
 const { ipfsNotRunningDialog } = require('../dialogs')
 const store = require('../common/store')
 const logger = require('../common/logger')
-
-const STATUS = {
-  STARTING_STARTED: 1,
-  STARTING_FINISHED: 2,
-  STARTING_FAILED: 3,
-  STOPPING_STARTED: 4,
-  STOPPING_FINISHED: 5,
-  STOPPING_FAILED: 6
-}
+const { STATUS } = require('./consts')
 
 module.exports = async function (ctx) {
   let ipfsd = null
