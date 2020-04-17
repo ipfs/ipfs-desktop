@@ -125,7 +125,7 @@
   },
   "updateDownloadedDialog": {
     "title": "Update downloaded",
-    "message": "Update for version { version } downloaded. Restarting IPFS Desktop is required to install the update.",
+    "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
     "action": "Restart"
   },
   "updateDownloadedNotification": {
