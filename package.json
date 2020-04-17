@@ -73,7 +73,6 @@
     "xvfb-maybe": "^0.2.1"
   },
   "dependencies": {
-    "auto-launch": "^5.0.5",
     "countly-sdk-nodejs": "^19.8.0",
     "electron-serve": "^1.0.0",
     "electron-store": "^5.1.1",

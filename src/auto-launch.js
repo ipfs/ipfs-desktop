@@ -1,4 +1,3 @@
-const AutoLaunch = require('auto-launch')
 const { app } = require('electron')
 const os = require('os')
 const path = require('path')
@@ -14,21 +13,6 @@ const CONFIG_KEY = 'autoLaunch'
 function isSupported () {
   const plat = os.platform()
   return plat === 'linux' || plat === 'win32' || plat === 'darwin'
-}
-
-// Disable the old auto launch mechanism.
-// TODO: remove on 0.11.0.
-async function disableOldLogin () {
-  try {
-    const autoLauncher = new AutoLaunch({ name: 'IPFS Desktop' })
-
-    if (await autoLauncher.isEnabled()) {
-      await autoLauncher.disable()
-      logger.error('[launch on startup] old mechanism disabled')
-    }
-  } catch (_) {
-    // ignore...
-  }
 }
 
 function getDesktopFile () {
@@ -64,8 +48,6 @@ async function disable () {
 }
 
 module.exports = async function (ctx) {
-  await disableOldLogin()
-
   const activate = async (value, oldValue) => {
     if (process.env.NODE_ENV === 'development') {
       logger.info('[launch on startup] unavailable during development')
