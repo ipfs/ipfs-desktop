@@ -9,7 +9,7 @@ const setupNpmOnIpfs = require('./npm-on-ipfs')
 const setupDaemon = require('./daemon')
 const setupWebUI = require('./webui')
 const setupAutoLaunch = require('./auto-launch')
-const setupDownloadHash = require('./download-hash')
+const setupDownloadCid = require('./download-cid')
 const setupTakeScreenshot = require('./take-screenshot')
 const setupAppMenu = require('./app-menu')
 const setupArgvFilesHandler = require('./argv-files-handler')
@@ -76,7 +76,7 @@ async function run () {
       setupAutoLaunch(ctx),
       setupSecondInstance(ctx),
       // Setup global shortcuts
-      setupDownloadHash(ctx),
+      setupDownloadCid(ctx),
       setupTakeScreenshot(ctx),
       // Setup PATH-related features
       setupNpmOnIpfs(ctx),
