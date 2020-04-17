@@ -117,7 +117,7 @@
   },
   "updateNotAvailableDialog": {
     "title": "Update not available",
-    "message": "You are on the latest version { version }."
+    "message": "You are on the latest version of IFPS Desktop ({ version })."
   },
   "updateErrorDialog": {
     "title": "Could not download update",
