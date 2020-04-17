@@ -9,6 +9,7 @@ const logger = require('./common/logger')
 const store = require('./common/store')
 const { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } = require('./common/consts')
 const moveRepositoryLocation = require('./move-repository-location')
+const runGarbageCollector = require('./run-gc')
 
 // Notes on this: we are only supporting accelerators on macOS for now because
 // they natively work as soon as the menu opens. They don't work like that on Windows
@@ -95,6 +96,12 @@ function buildMenu (ctx) {
         {
           label: i18n.t('moveRepositoryLocation'),
           click: () => { moveRepositoryLocation(ctx) }
+        },
+        {
+          id: 'runGarbageCollector',
+          label: i18n.t('runGarbageCollector'),
+          click: () => { runGarbageCollector(ctx) },
+          enabled: false
         }
       ]
     },
@@ -193,6 +200,7 @@ module.exports = function (ctx) {
 
     menu.getMenuItemById('takeScreenshot').enabled = menu.getMenuItemById('ipfsIsRunning').visible
     menu.getMenuItemById('downloadHash').enabled = menu.getMenuItemById('ipfsIsRunning').visible
+    menu.getMenuItemById('runGarbageCollector').enabled = menu.getMenuItemById('ipfsIsRunning').visible
 
     if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon(on))
