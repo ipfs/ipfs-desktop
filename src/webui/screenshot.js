@@ -15,13 +15,7 @@ async function streamHandler (format, stream) {
 async function screenshot (format) {
   format = format || 'image/png'
 
-  const sources = await new Promise((resolve, reject) => {
-    desktopCapturer.getSources({ types: ['screen'] }, (error, sources) => {
-      if (error) return reject(error)
-      resolve(sources)
-    })
-  })
-
+  const sources = await desktopCapturer.getSources({ types: ['screen'] })
   const output = []
 
   for (const source of sources) {
