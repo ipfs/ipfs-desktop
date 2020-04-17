@@ -9,7 +9,7 @@ const CONFIG_KEY = 'experiments.npmOnIpfs'
 module.exports = function (ctx) {
   let interval = null
 
-  createToggler(ctx, CONFIG_KEY, async (value, oldValue) => {
+  createToggler(CONFIG_KEY, async (value, oldValue) => {
     if (value === oldValue || oldValue === null) return true
 
     // If the user is telling to (un)install even though they have (un)installed
@@ -42,6 +42,8 @@ module.exports = function (ctx) {
     logger.info('[npm on ipfs] no action taken')
   }
 }
+
+module.exports.CONFIG_KEY = CONFIG_KEY
 
 function isPkgInstalled () {
   return !!which.sync('ipfs-npm', { nothrow: true })

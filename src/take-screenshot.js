@@ -96,9 +96,10 @@ function handleScreenshot (ctx) {
 }
 
 function takeScreenshot (ctx) {
-  const { webui } = ctx
-  logger.info('[screenshot] taking screenshot')
-  webui.webContents.send('screenshot')
+  // TODO: fix
+  // const { webui } = ctx
+  // logger.info('[screenshot] taking screenshot')
+  // webui.webContents.send('screenshot')
 }
 
 module.exports = function (ctx) {
@@ -115,3 +116,4 @@ module.exports = function (ctx) {
 
 module.exports.takeScreenshot = takeScreenshot
 module.exports.SHORTCUT = SHORTCUT
+module.exports.CONFIG_KEY = CONFIG_KEY

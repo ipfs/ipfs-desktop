@@ -11,7 +11,7 @@ const { recoverableErrorDialog } = require('../dialogs')
 const CONFIG_KEY = 'ipfsOnPath'
 
 module.exports = async function (ctx) {
-  createToggler(ctx, CONFIG_KEY, async (value, oldValue) => {
+  createToggler(CONFIG_KEY, async (value, oldValue) => {
     if (value === oldValue || (oldValue === null && !value)) return
     if (value === true) return run('install')
     return run('uninstall')
@@ -19,6 +19,8 @@ module.exports = async function (ctx) {
 
   firstTime()
 }
+
+module.exports.CONFIG_KEY = CONFIG_KEY
 
 async function firstTime () {
   // Check if we've done this before.

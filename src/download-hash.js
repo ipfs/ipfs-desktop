@@ -99,3 +99,4 @@ module.exports = function (ctx) {
 
 module.exports.downloadHash = downloadHash
 module.exports.SHORTCUT = SHORTCUT
+module.exports.CONFIG_KEY = CONFIG_KEY

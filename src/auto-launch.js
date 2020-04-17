@@ -96,5 +96,7 @@ module.exports = async function (ctx) {
   }
 
   activate(store.get(CONFIG_KEY, false))
-  createToggler(ctx, CONFIG_KEY, activate)
+  createToggler(CONFIG_KEY, activate)
 }
+
+module.exports.CONFIG_KEY = CONFIG_KEY

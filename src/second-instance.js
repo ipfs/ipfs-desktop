@@ -8,10 +8,6 @@ module.exports = async function (ctx) {
       return
     }
 
-    if (await filesHandler(argv, ctx)) {
-      return
-    }
-
-    ctx.launchWebUI()
+    await filesHandler(argv, ctx)
   })
 }

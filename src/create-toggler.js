@@ -2,28 +2,21 @@ const { ipcMain } = require('electron')
 const store = require('./common/store')
 const logger = require('./common/logger')
 
-module.exports = function ({ webui }, settingsOption, activate) {
-  ipcMain.on('config.toggle', async (_, opt) => {
-    if (opt !== settingsOption) {
-      return
-    }
-
+module.exports = function (settingsOption, activate) {
+  ipcMain.on(`toggle_${settingsOption}`, async () => {
     const oldValue = store.get(settingsOption, null)
     const newValue = !oldValue
-    let success = false
+
+    // TODO: refactor: tell the user if didn't work or not available.
+    // Receive prompt() to ask user if they're sure they want to enable for some.
 
     if (await activate(newValue, oldValue)) {
       store.set(settingsOption, newValue)
-      success = true
 
       const action = newValue ? 'enabled' : 'disabled'
       logger.info(`[${settingsOption}] ${action}`)
     }
 
-    webui.webContents.send('config.changed', {
-      config: store.store,
-      changed: settingsOption,
-      success
-    })
+    ipcMain.emit('configUpdated')
   })
 }

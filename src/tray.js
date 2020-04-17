@@ -1,14 +1,36 @@
 const { Menu, Tray, shell, app, ipcMain } = require('electron')
 const i18n = require('i18next')
 const path = require('path')
-const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
-const { SHORTCUT: HASH_SHORTCUT, downloadHash } = require('./download-hash')
 const addToIpfs = require('./add-to-ipfs')
 const { STATUS } = require('./daemon')
 const logger = require('./common/logger')
 const store = require('./common/store')
 const { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } = require('./common/consts')
 const moveRepositoryLocation = require('./move-repository-location')
+
+const { SHORTCUT: SCREENSHOT_SHORTCUT, CONFIG_KEY: SCREENSHOT_KEY, takeScreenshot } = require('./take-screenshot')
+const { SHORTCUT: HASH_SHORTCUT, CONFIG_KEY: HASH_KEY, downloadHash } = require('./download-hash')
+const { CONFIG_KEY: AUTO_LAUNCH_KEY } = require('./auto-launch')
+const { CONFIG_KEY: IPFS_PATH_KEY } = require('./ipfs-on-path')
+const { CONFIG_KEY: NPM_IPFS_KEY } = require('./npm-on-ipfs')
+
+const CONFIG_KEYS = [
+  AUTO_LAUNCH_KEY,
+  IPFS_PATH_KEY,
+  NPM_IPFS_KEY,
+  SCREENSHOT_KEY,
+  HASH_KEY
+]
+
+function buildCheckbox (key, label) {
+  return {
+    id: key,
+    label: i18n.t(label),
+    click: () => { ipcMain.emit(`toggle_${key}`) },
+    type: 'checkbox',
+    checked: false
+  }
+}
 
 // Notes on this: we are only supporting accelerators on macOS for now because
 // they natively work as soon as the menu opens. They don't work like that on Windows
@@ -57,10 +79,6 @@ function buildMenu (ctx) {
       label: i18n.t('files'),
       click: () => { ctx.launchWebUI('/files') }
     },
-    {
-      label: i18n.t('settings'),
-      click: () => { ctx.launchWebUI('/settings') }
-    },
     { type: 'separator' },
     {
       id: 'takeScreenshot',
@@ -77,6 +95,16 @@ function buildMenu (ctx) {
       enabled: false
     },
     { type: 'separator' },
+    {
+      label: IS_MAC ? i18n.t('settings.preferences') : i18n.t('settings.settings'),
+      submenu: [
+        buildCheckbox(AUTO_LAUNCH_KEY, 'settings.launchOnStartup'),
+        buildCheckbox(IPFS_PATH_KEY, 'settings.ipfsCommandLineTools'),
+        buildCheckbox(SCREENSHOT_KEY, 'settings.takeScreenshotShortcut'),
+        buildCheckbox(HASH_KEY, 'settings.downloadHashShortcut'),
+        buildCheckbox(NPM_IPFS_KEY, 'settings.npmOnIpfs')
+      ]
+    },
     {
       label: i18n.t('advanced'),
       submenu: [
@@ -175,6 +203,7 @@ module.exports = function (ctx) {
     menu.on('menu-will-close', () => { ipcMain.emit('menubar-will-close') })
 
     updateStatus(status)
+    updateConfig()
   }
 
   const updateStatus = data => {
@@ -207,8 +236,15 @@ module.exports = function (ctx) {
     }
   }
 
+  const updateConfig = () => {
+    for (const key of CONFIG_KEYS) {
+      menu.getMenuItemById(key).checked = store.get(key, false)
+    }
+  }
+
   ipcMain.on('ipfsd', (status) => { updateStatus(status) })
   ipcMain.on('languageUpdated', () => { setupMenu(status) })
+  ipcMain.on('configUpdated', (config) => { updateConfig(config) })
   setupMenu()
 
   ctx.tray = tray

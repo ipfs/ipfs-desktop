@@ -67,7 +67,7 @@ async function run () {
     await setupAppMenu(ctx)
 
     await setupAutoUpdater(ctx) // ctx.checkForUpdates
-    await setupWebUI(ctx) // ctx.webui, launchWebUI
+    await setupWebUI(ctx) // launchWebUI
     await setupTray(ctx) // ctx.tray
     await setupDaemon(ctx) // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
 

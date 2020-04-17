@@ -10,14 +10,9 @@
     "lint": "standard",
     "test": "cross-env NODE_ENV=test mocha test/unit/**/*.spec.js",
     "test:e2e": "xvfb-maybe cross-env NODE_ENV=test mocha test/e2e/**/*.e2e.js --exit",
-    "postinstall": "run-s install-app-deps build:webui",
+    "postinstall": "run-s install-app-deps",
     "install-app-deps": "electron-builder install-app-deps",
-    "clean:webui": "shx rm -rf assets/webui/",
-    "build": "run-s clean:webui build:*",
-    "build:webui": "run-s build:webui:*",
-    "build:webui:download": "npx ipfs-or-gateway -c Qmexhq2sBHnXQbvyP2GfUdbnY7HCagH2Mw5vUNSBn2nxip -p assets/webui/ -t 360000 --verbose",
-    "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
-    "build:binaries": "electron-builder --publish onTag"
+    "build": "electron-builder --publish onTag"
   },
   "pre-commit": [
     "lint"

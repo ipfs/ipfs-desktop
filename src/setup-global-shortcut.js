@@ -19,7 +19,7 @@ module.exports = function (ctx, { settingsOption, accelerator, action }) {
   }
 
   activate(store.get(settingsOption, false))
-  createToggler(ctx, settingsOption, activate)
+  createToggler(settingsOption, activate)
 
   if (!IS_MAC) {
     return

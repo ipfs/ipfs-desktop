@@ -15,7 +15,6 @@
   "viewOnGitHub": "View on GitHub",
   "status": "Status",
   "files": "Files",
-  "settings": "Settings",
   "quit": "Quit",
   "versions": "Versions",
   "screenshotTaken": "Screenshot taken",
@@ -116,5 +115,9 @@
   "itemsFailedNotification": {
     "title": "Failed to add items",
     "message": "Could not add your items to your node."
+  },
+  "settings": {
+    "settings": "Settings",
+    "preferences": "Preferences"
   }
 }
