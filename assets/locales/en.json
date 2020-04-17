@@ -118,6 +118,11 @@
   },
   "settings": {
     "settings": "Settings",
-    "preferences": "Preferences"
+    "preferences": "Preferences",
+    "launchOnStartup": "Launch at Login",
+    "ipfsCommandLineTools": "Command Line Tools",
+    "takeScreenshotShortcut": "Take Screenshot Shortcut",
+    "downloadHashShortcut": "Download Hash Shortcut",
+    "npmOnIpfs": "NPM on IPFS Experiment"
   }
 }
