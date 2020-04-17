@@ -1,12 +1,12 @@
-import i18n from 'i18next'
-import path from 'path'
-import fs from 'fs-extra'
-import store from './common/store'
-import logger from './common/logger'
-import { showDialog, recoverableErrorDialog, selectDirectory } from './dialogs'
-import dock from './dock'
+const i18n = require('i18next')
+const path = require('path')
+const fs = require('fs-extra')
+const store = require('./common/store')
+const logger = require('./common/logger')
+const { showDialog, recoverableErrorDialog, selectDirectory } = require('./dialogs')
+const dock = require('./dock')
 
-export default function ({ stopIpfs, startIpfs }) {
+module.exports = function ({ stopIpfs, startIpfs }) {
   dock.run(async () => {
     logger.info('[move repository] user prompted about effects')
 

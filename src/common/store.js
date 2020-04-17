@@ -1,5 +1,5 @@
-import electron from 'electron'
-import Store from 'electron-store'
+const electron = require('electron')
+const Store = require('electron-store')
 
 const store = new Store()
 
@@ -25,4 +25,4 @@ if (!store.get('experiments')) {
   store.set('experiments', {})
 }
 
-export default store
+module.exports = store

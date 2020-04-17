@@ -1,8 +1,8 @@
-import { ipcMain } from 'electron'
-import store from './common/store'
-import logger from './common/logger'
+const { ipcMain } = require('electron')
+const store = require('./common/store')
+const logger = require('./common/logger')
 
-export default function ({ webui }, settingsOption, activate) {
+module.exports = function ({ webui }, settingsOption, activate) {
   ipcMain.on('config.toggle', async (_, opt) => {
     if (opt !== settingsOption) {
       return

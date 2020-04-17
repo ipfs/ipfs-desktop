@@ -1,6 +1,6 @@
-import sinon from 'sinon'
+const sinon = require('sinon')
 
-export default function mockWebUI () {
+module.exports = function mockWebUI () {
   return {
     webContents: {
       send: sinon.spy()

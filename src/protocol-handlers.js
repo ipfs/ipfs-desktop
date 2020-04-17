@@ -1,5 +1,5 @@
-import { app, shell } from 'electron'
-import toUri from 'multiaddr-to-uri'
+const { app, shell } = require('electron')
+const toUri = require('multiaddr-to-uri')
 
 function openLink (protocol, part, base) {
   shell.openExternal(`${base}/${protocol}/${part}`)
@@ -31,7 +31,7 @@ async function parseUrl (url, ctx) {
   return false
 }
 
-export async function argvHandler (argv, ctx) {
+async function argvHandler (argv, ctx) {
   let handled = false
 
   for (const arg of argv) {
@@ -43,7 +43,7 @@ export async function argvHandler (argv, ctx) {
   return handled
 }
 
-export default function (ctx) {
+module.exports = function (ctx) {
   // Handle if the app started running now, and a link
   // was sent to be handled.
   argvHandler(process.argv, ctx)
@@ -54,3 +54,5 @@ export default function (ctx) {
     parseUrl(url, ctx)
   })
 }
+
+module.exports.argvHandler = argvHandler

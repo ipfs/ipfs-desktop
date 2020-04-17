@@ -1,8 +1,8 @@
-import { app } from 'electron'
-import { argvHandler as protocolHandler } from './protocol-handlers'
-import { argvHandler as filesHandler } from './argv-files-handler'
+const { app } = require('electron')
+const { argvHandler: protocolHandler } = require('./protocol-handlers')
+const { argvHandler: filesHandler } = require('./argv-files-handler')
 
-export default async function (ctx) {
+module.exports = async function (ctx) {
   app.on('second-instance', async (_, argv) => {
     if (await protocolHandler(argv, ctx)) {
       return

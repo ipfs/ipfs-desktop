@@ -1,8 +1,8 @@
-import Countly from 'countly-sdk-nodejs'
-import { ipcMain } from 'electron'
-import { COUNTLY_KEY } from './common/consts'
+const Countly = require('countly-sdk-nodejs')
+const { ipcMain } = require('electron')
+const { COUNTLY_KEY } = require('./common/consts')
 
-export default async function (ctx) {
+module.exports = async function (ctx) {
   Countly.init({
     url: 'https://countly.ipfs.io',
     app_key: COUNTLY_KEY,

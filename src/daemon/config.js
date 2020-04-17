@@ -1,15 +1,15 @@
-import { join } from 'path'
-import fs from 'fs-extra'
-import multiaddr from 'multiaddr'
-import http from 'http'
-import getPort from 'get-port'
-import { shell } from 'electron'
-import i18n from 'i18next'
-import { showDialog } from '../dialogs'
-import store from '../common/store'
-import logger from '../common/logger'
+const { join } = require('path')
+const fs = require('fs-extra')
+const multiaddr = require('multiaddr')
+const http = require('http')
+const getPort = require('get-port')
+const { shell } = require('electron')
+const i18n = require('i18next')
+const { showDialog } = require('../dialogs')
+const store = require('../common/store')
+const logger = require('../common/logger')
 
-export function configPath (ipfsd) {
+function configPath (ipfsd) {
   return join(ipfsd.repoPath, 'config')
 }
 
@@ -21,10 +21,10 @@ function writeConfigFile (ipfsd, config) {
   fs.writeJsonSync(configPath(ipfsd), config, { spaces: 2 })
 }
 
-// Set default mininum and maximum of connections to mantain
+// Set default minimum and maximum of connections to maintain
 // by default. This must only be called for repositories created
 // by IPFS Desktop. Existing ones shall remain intact.
-export function applyDefaults (ipfsd) {
+function applyDefaults (ipfsd) {
   const config = readConfigFile(ipfsd)
 
   // Ensure strict CORS checking
@@ -52,7 +52,7 @@ export function applyDefaults (ipfsd) {
 // We remove them the first time we find them. If we find it again on subsequent
 // runs then we leave them in, under the assumption that you really want it.
 // TODO: show warning in UI when wildcard is in the allowed origins.
-export function checkCorsConfig (ipfsd) {
+function checkCorsConfig (ipfsd) {
   if (store.get('checkedCorsConfig')) {
     // We've already checked so skip it.
     return
@@ -159,7 +159,7 @@ async function checkPortsArray (ipfsd, addrs) {
   }
 }
 
-export async function checkPorts (ipfsd) {
+async function checkPorts (ipfsd) {
   const config = readConfigFile(ipfsd)
 
   const apiIsArr = Array.isArray(config.Addresses.API)
@@ -247,3 +247,10 @@ export async function checkPorts (ipfsd) {
   writeConfigFile(ipfsd, config)
   logger.info('[daemon] ports updated')
 }
+
+module.exports = Object.freeze({
+  configPath,
+  applyDefaults,
+  checkCorsConfig,
+  checkPorts
+})

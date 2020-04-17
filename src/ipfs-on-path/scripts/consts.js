@@ -1,4 +1,6 @@
-import { join } from 'path'
+const { join } = require('path')
 
-export const SOURCE_SCRIPT = join(__dirname, 'ipfs.sh').replace('app.asar', 'app.asar.unpacked')
-export const DEST_SCRIPT = '/usr/local/bin/ipfs'
+module.exports = Object.freeze({
+  SOURCE_SCRIPT: join(__dirname, 'ipfs.sh').replace('app.asar', 'app.asar.unpacked'),
+  DEST_SCRIPT: '/usr/local/bin/ipfs'
+})

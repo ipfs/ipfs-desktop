@@ -1,6 +1,6 @@
-import { ipcRenderer } from 'electron'
+const { ipcRenderer } = require('electron')
 
-export default function () {
+module.exports = function () {
   const handler = () => {
     ipcRenderer.send('online-status-changed', navigator.onLine)
   }

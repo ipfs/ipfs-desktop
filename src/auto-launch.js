@@ -1,13 +1,13 @@
-import AutoLaunch from 'auto-launch'
-import { app } from 'electron'
-import os from 'os'
-import path from 'path'
-import fs from 'fs-extra'
-import untildify from 'untildify'
-import createToggler from './create-toggler'
-import logger from './common/logger'
-import store from './common/store'
-import { IS_MAC, IS_WIN } from './common/consts'
+const AutoLaunch = require('auto-launch')
+const { app } = require('electron')
+const os = require('os')
+const path = require('path')
+const fs = require('fs-extra')
+const untildify = require('untildify')
+const createToggler = require('./create-toggler')
+const logger = require('./common/logger')
+const store = require('./common/store')
+const { IS_MAC, IS_WIN } = require('./common/consts')
 
 const CONFIG_KEY = 'autoLaunch'
 
@@ -63,7 +63,7 @@ async function disable () {
   await fs.remove(getDesktopFile())
 }
 
-export default async function (ctx) {
+module.exports = async function (ctx) {
   await disableOldLogin()
 
   const activate = async (value, oldValue) => {

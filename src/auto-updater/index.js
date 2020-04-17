@@ -1,8 +1,8 @@
-import { autoUpdater } from 'electron-updater'
-import i18n from 'i18next'
-import quitAndInstall from './quit-and-install'
-import logger from '../common/logger'
-import { notify } from '../common/notify'
+const { autoUpdater } = require('electron-updater')
+const i18n = require('i18next')
+const quitAndInstall = require('./quit-and-install')
+const logger = require('../common/logger')
+const { notify } = require('../common/notify')
 
 let userRequested = false
 
@@ -69,7 +69,7 @@ async function checkForUpdates () {
   }
 }
 
-export default async function (ctx) {
+module.exports = async function (ctx) {
   if (process.env.NODE_ENV === 'development') {
     ctx.checkForUpdates = () => {
       notify({

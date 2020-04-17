@@ -1,7 +1,7 @@
-import { app, shell, Notification } from 'electron'
-import i18n from 'i18next'
+const { app, shell, Notification } = require('electron')
+const i18n = require('i18next')
 
-export function notify (options, onClick) {
+function notify (options, onClick) {
   const not = new Notification(options)
 
   if (onClick) {
@@ -11,7 +11,7 @@ export function notify (options, onClick) {
   not.show()
 }
 
-export function notifyError ({ title, body = '' }) {
+function notifyError ({ title, body = '' }) {
   notify({
     title,
     body: `${body} ${i18n.t('clickToOpenLogs')}`.trim()
@@ -19,3 +19,8 @@ export function notifyError ({ title, body = '' }) {
     shell.openItem(app.getPath('userData'))
   })
 }
+
+module.exports = Object.freeze({
+  notify,
+  notifyError
+})

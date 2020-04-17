@@ -1,10 +1,10 @@
-import i18n from 'i18next'
-import util from 'util'
-import sudo from 'sudo-prompt'
-import { dialog, app } from 'electron'
-import childProcess from 'child_process'
-import { recoverableErrorDialog } from './dialogs'
-import logger from './common/logger'
+const i18n = require('i18next')
+const util = require('util')
+const sudo = require('sudo-prompt')
+const { dialog, app } = require('electron')
+const childProcess = require('child_process')
+const { recoverableErrorDialog } = require('./dialogs')
+const logger = require('./common/logger')
 
 const execFile = util.promisify(childProcess.execFile)
 
@@ -44,7 +44,7 @@ const getResult = (err, stdout, stderr, scope, failSilently) => {
   return false
 }
 
-export default async function ({ script, scope, failSilently, trySudo = true }) {
+module.exports = async function ({ script, scope, failSilently, trySudo = true }) {
   const dataArg = `--data="${app.getPath('userData')}"`
   let err = null
 

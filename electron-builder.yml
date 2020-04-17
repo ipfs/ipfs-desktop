@@ -4,7 +4,7 @@ generateUpdatesFilesForAllChannels: true
 directories:
   buildResources: assets/build
 
-asarUnpack: 'out/**/scripts/**/*'
+asarUnpack: 'src/**/scripts/**/*'
 
 afterSign: './pkgs/macos/notarize-build.js'
 

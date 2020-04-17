@@ -1,12 +1,12 @@
-import IPFSFactory from 'ipfsd-ctl'
-import i18n from 'i18next'
-import fs from 'fs-extra'
-import { app } from 'electron'
-import { execFileSync } from 'child_process'
-import findExecutable from 'ipfsd-ctl/src/utils/find-ipfs-executable'
-import { showDialog } from '../dialogs'
-import logger from '../common/logger'
-import { applyDefaults, checkCorsConfig, checkPorts, configPath } from './config'
+const IPFSFactory = require('ipfsd-ctl')
+const i18n = require('i18next')
+const fs = require('fs-extra')
+const { app } = require('electron')
+const { execFileSync } = require('child_process')
+const findExecutable = require('ipfsd-ctl/src/utils/find-ipfs-executable')
+const { showDialog } = require('../dialogs')
+const logger = require('../common/logger')
+const { applyDefaults, checkCorsConfig, checkPorts, configPath } = require('./config')
 
 function cannotConnectDialog (addr) {
   showDialog({
@@ -68,7 +68,7 @@ async function spawn ({ type, path, keysize }) {
   return ipfsd
 }
 
-export default async function (opts) {
+module.exports = async function (opts) {
   const ipfsd = await spawn(opts)
   await checkPorts(ipfsd)
   await ipfsd.start(opts.flags)
