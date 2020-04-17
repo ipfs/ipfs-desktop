@@ -78,7 +78,7 @@ module.exports = async function (ctx) {
     const log = logger.start('[ipfsd] stop daemon', { withAnalytics: 'DAEMON_STOP' })
     updateStatus(STATUS.STOPPING_STARTED)
 
-    if (!fs.pathExists(join(ipfsd.path, 'config'))) {
+    if (!fs.pathExistsSync(join(ipfsd.path, 'config'))) {
       // Is remote api... ignore
       ipfsd = null
       updateStatus(STATUS.STOPPING_FINISHED)
