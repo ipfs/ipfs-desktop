@@ -9,7 +9,7 @@ const delay = require('delay')
 const chai = require('chai')
 const dirtyChai = require('dirty-chai')
 const { makeRepository } = require('./utils/ipfsd')
-const getPort = require('get-port')
+const portfinder = require('portfinder')
 
 const expect = chai.expect
 chai.use(dirtyChai)
@@ -21,6 +21,10 @@ chai.use(dirtyChai)
 //
 function createTmpDir () {
   return tmp.dirSync({ unsafeCleanup: true }).name
+}
+
+async function getPort () {
+  return portfinder.getPortPromise()
 }
 
 const timeout = process.env.CI ? 180000 : 60000
