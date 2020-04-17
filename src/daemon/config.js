@@ -2,7 +2,7 @@ const { join } = require('path')
 const fs = require('fs-extra')
 const multiaddr = require('multiaddr')
 const http = require('http')
-const getPort = require('get-port')
+const portfinder = require('portfinder')
 const { shell } = require('electron')
 const i18n = require('i18next')
 const { showDialog } = require('../dialogs')
@@ -137,7 +137,7 @@ async function checkPortsArray (ipfsd, addrs) {
       continue
     }
 
-    const freePort = await getPort({ port: getPort.makeRange(port, port + 100) })
+    const freePort = await portfinder.getPortPromise({ port: port, stopPort: port + 100 })
 
     if (port !== freePort) {
       const opt = showDialog({
@@ -184,8 +184,8 @@ async function checkPorts (ipfsd) {
   const apiPort = parseInt(configApiMa.nodeAddress().port, 10)
   const gatewayPort = parseInt(configGatewayMa.nodeAddress().port, 10)
 
-  const freeGatewayPort = await getPort({ port: getPort.makeRange(gatewayPort, gatewayPort + 100) })
-  const freeApiPort = await getPort({ port: getPort.makeRange(apiPort, apiPort + 100) })
+  const freeGatewayPort = await portfinder.getPortPromise({ port: gatewayPort, stopPort: gatewayPort + 100 })
+  const freeApiPort = await portfinder.getPortPromise({ port: apiPort, stopPort: apiPort + 100 })
 
   const busyApiPort = apiPort !== freeApiPort
   const busyGatewayPort = gatewayPort !== freeGatewayPort
