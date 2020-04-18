@@ -44,7 +44,7 @@ IPFS Desktop has the capacity to handle protocols at the operating system level;
 
 For example, if you come across a link on the Internet whose `href` attribute is `ipns://ipfs.io`, then IPFS Desktop will be able to handle it.
 
-On Windows, an easy way to open a link would be to open the Run window (Win+R), paste the link and hit enter. Then, IPFS Desktop handles the rest. The same happens if you try opening the same link in a browser.
+On Windows, an easy way to open a link would be to open the Run window (Win+R), paste the link, and hit Enter. Then, IPFS Desktop handles the rest. The same happens if you try opening the same link in a browser.
 
 ### Adds `ipfs` to your system
 
