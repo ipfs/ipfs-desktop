@@ -2,6 +2,8 @@ const { join } = require('path')
 const fs = require('fs-extra')
 const i18n = require('i18next')
 const isIPFS = require('is-ipfs')
+const all = require('it-all')
+const concat = require('it-concat')
 const { clipboard, app, shell } = require('electron')
 const logger = require('./common/logger')
 const { IS_MAC } = require('./common/consts')
@@ -18,6 +20,15 @@ const SHORTCUT = IS_MAC
 async function saveFile (dir, file) {
   const location = join(dir, file.path)
   await fs.outputFile(location, file.content)
+}
+
+async function get (ipfs, cid) {
+  return all((async function * () {
+    for await (let { path, content } of ipfs.get(cid)) {
+      content = content ? (await concat(content)).toString() : null
+      yield { path, content }
+    }
+  })())
 }
 
 async function getCID () {
@@ -84,7 +95,7 @@ async function downloadCid (ctx) {
 
   try {
     logger.info(`[cid download] downloading ${path}: started`, { withAnalytics: 'DOWNLOAD_HASH' })
-    files = await ipfsd.api.get(path)
+    files = await get(ipfsd.api, path)
     logger.info(`[cid download] downloading ${path}: completed`)
   } catch (err) {
     logger.error(`[cid download] ${err.stack}`)

@@ -87,6 +87,8 @@
     "ipfs-http-client": "^44.0.0",
     "ipfsd-ctl": "^3.1.0",
     "is-ipfs": "^1.0.0",
+    "it-all": "^1.0.1",
+    "it-concat": "^1.0.0",
     "multiaddr": "^7.4.3",
     "multiaddr-to-uri": "^5.1.0",
     "portfinder": "^1.0.25",
