@@ -23,7 +23,7 @@ function buildMenu (ctx) {
       ['ipfsIsStopping', 'yellow'],
       ['ipfsIsNotRunning', 'gray'],
       ['ipfsHasErrored', 'red'],
-      ['gcIsRunning', 'yellow']
+      ['runningWithGC', 'yellow']
     ].map(([status, color]) => ({
       id: status,
       label: i18n.t(status),
@@ -200,11 +200,15 @@ module.exports = function (ctx) {
     menu.getMenuItemById('ipfsIsStopping').visible = status === STATUS.STOPPING_STARTED && !gcRunning
     menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED && !gcRunning
     menu.getMenuItemById('ipfsHasErrored').visible = errored && !gcRunning
-    menu.getMenuItemById('gcIsRunning').visible = gcRunning
-    menu.getMenuItemById('restartIpfs').visible = (status === STATUS.STARTING_FINISHED || errored) && !gcRunning
+    menu.getMenuItemById('runningWithGC').visible = gcRunning
 
-    menu.getMenuItemById('startIpfs').visible = menu.getMenuItemById('ipfsIsNotRunning').visible
-    menu.getMenuItemById('stopIpfs').visible = menu.getMenuItemById('ipfsIsRunning').visible
+    menu.getMenuItemById('startIpfs').visible = status === STATUS.STOPPING_FINISHED
+    menu.getMenuItemById('stopIpfs').visible = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('restartIpfs').visible = (status === STATUS.STARTING_FINISHED || errored)
+
+    menu.getMenuItemById('startIpfs').enabled = !gcRunning
+    menu.getMenuItemById('stopIpfs').enabled = !gcRunning
+    menu.getMenuItemById('restartIpfs').enabled = !gcRunning
 
     menu.getMenuItemById('takeScreenshot').enabled = status === STATUS.STARTING_FINISHED
     menu.getMenuItemById('downloadHash').enabled = status === STATUS.STARTING_FINISHED
