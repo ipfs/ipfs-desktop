@@ -69,7 +69,10 @@ module.exports = function ({ stopIpfs, startIpfs }) {
       logger.info(`[move repository] moved from ${currDir} to ${newDir}`)
     } catch (err) {
       logger.error(`[move repository] ${err.toString()}`)
-      return recoverableErrorDialog(err)
+      return recoverableErrorDialog(err, {
+        title: i18n.t('moveRepositoryFailed.title'),
+        message: i18n.t('moveRepositoryFailed.message', { currDir, newDir })
+      })
     }
 
     config.path = newDir

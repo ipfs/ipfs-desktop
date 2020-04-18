@@ -1,4 +1,5 @@
 const { join } = require('path')
+const i18n = require('i18next')
 const which = require('which')
 const { execFile } = require('child_process')
 const createToggler = require('../create-toggler')
@@ -53,7 +54,10 @@ async function runWindows (script, { failSilently }) {
         logger.error(`[ipfs on path] ${err.toString()}`)
 
         if (!failSilently) {
-          recoverableErrorDialog(err)
+          recoverableErrorDialog(err, {
+            title: i18n.t('cantAddIpfsToPath.title'),
+            message: i18n.t('cantAddIpfsToPath.message')
+          })
         }
 
         return resolve(false)

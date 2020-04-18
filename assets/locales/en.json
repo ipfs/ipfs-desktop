@@ -141,5 +141,13 @@
   "runGarbageCollectorDone": {
     "title": "Garbage collector",
     "message": "The garbage collector ran successfully."
+  },
+  "moveRepositoryFailed": {
+    "title": "Move repository",
+    "message": "Could not move the repository from { currDir } to { newDir }."
+  },
+  "cantAddIpfsToPath": {
+    "title": "IPFS on PATH",
+    "message": "Could not add IPFS to the PATH."
   }
 }
