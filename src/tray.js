@@ -209,7 +209,7 @@ module.exports = function (ctx) {
     menu.getMenuItemById('takeScreenshot').enabled = status === STATUS.STARTING_FINISHED
     menu.getMenuItemById('downloadHash').enabled = status === STATUS.STARTING_FINISHED
 
-    menu.getMenuItemById('moveRepositoryLocation').enabled = !gcRunning
+    menu.getMenuItemById('moveRepositoryLocation').enabled = !gcRunning && status !== STATUS.STOPPING_STARTED
     menu.getMenuItemById('runGarbageCollector').enabled = menu.getMenuItemById('ipfsIsRunning').visible && !gcRunning
 
     if (status === STATUS.STARTING_FINISHED) {
