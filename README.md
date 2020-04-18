@@ -40,7 +40,7 @@ IPFS Desktop's main feature is to allow you to have the IPFS daemon always runni
 
 ### Handle `ipfs://`, `ipns://` and `dweb:` links
 
-IPFS Desktop has the capacity to handle protocols at the Operating System level, i.e., if an application tries to open a link to either `ipfs://`, `ipns://` or `dweb:`, then the OS will call IPFS Desktop, which will handle the link.
+IPFS Desktop has the capacity to handle protocols at the operating system level; i.e., if an application tries to open a link to either `ipfs://`, `ipns://` or `dweb:`, then the OS will call IPFS Desktop, which will handle the link.
 
 For example, if you come across a link on the Internet whose `href` attribute is `ipns://ipfs.io`, then IPFS Desktop will be able to handle it.
 
