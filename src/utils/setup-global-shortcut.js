@@ -1,15 +1,30 @@
 const { globalShortcut, ipcMain } = require('electron')
+const i18n = require('i18next')
 const createToggler = require('./create-toggler')
 const store = require('../common/store')
 const { IS_MAC } = require('../common/consts')
+const { showDialog } = require('../dialogs')
 
 // This function registers a global shortcut/accelerator with a certain action
 // and (de)activates it according to its 'settingsOption' value on settings.
-module.exports = function (ctx, { settingsOption, accelerator, action }) {
-  const activate = (value, oldValue) => {
-    if (value === oldValue) return
+module.exports = function ({ settingsOption, accelerator, action, confirmationDialog }) {
+  const activate = ({ newValue, oldValue, feedback }) => {
+    if (newValue === oldValue) return
 
-    if (value === true) {
+    if (newValue === true) {
+      if (feedback && confirmationDialog) {
+        if (showDialog({
+          ...confirmationDialog,
+          buttons: [
+            i18n.t('enable'),
+            i18n.t('cancel')
+          ]
+        }) !== 0) {
+          // User canceled
+          return
+        }
+      }
+
       globalShortcut.register(accelerator, action)
     } else {
       globalShortcut.unregister(accelerator)
@@ -18,8 +33,8 @@ module.exports = function (ctx, { settingsOption, accelerator, action }) {
     return true
   }
 
-  activate(store.get(settingsOption, false))
-  createToggler(ctx, settingsOption, activate)
+  activate({ newValue: store.get(settingsOption, false) })
+  createToggler(settingsOption, activate)
 
   if (!IS_MAC) {
     return

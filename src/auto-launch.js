@@ -1,4 +1,5 @@
 const { app } = require('electron')
+const i18n = require('i18next')
 const os = require('os')
 const path = require('path')
 const fs = require('fs-extra')
@@ -7,6 +8,7 @@ const createToggler = require('./utils/create-toggler')
 const logger = require('./common/logger')
 const store = require('./common/store')
 const { IS_MAC, IS_WIN } = require('./common/consts')
+const { showDialog, recoverableErrorDialog } = require('./dialogs')
 
 const CONFIG_KEY = 'autoLaunch'
 
@@ -47,22 +49,40 @@ async function disable () {
   await fs.remove(getDesktopFile())
 }
 
-module.exports = async function (ctx) {
-  const activate = async (value, oldValue) => {
+module.exports = async function () {
+  const activate = async ({ newValue, oldValue, feedback }) => {
     if (process.env.NODE_ENV === 'development') {
       logger.info('[launch on startup] unavailable during development')
+
+      if (feedback) {
+        showDialog({
+          title: 'Launch at Login',
+          message: 'Not available during development.',
+          buttons: [i18n.t('close')]
+        })
+      }
+
       return
     }
 
     if (!isSupported()) {
       logger.info('[launch on startup] not supported on this platform')
+
+      if (feedback) {
+        showDialog({
+          title: i18n.t('launchAtLoginNotSupported.title'),
+          message: i18n.t('launchAtLoginNotSupported.message'),
+          buttons: [i18n.t('close')]
+        })
+      }
+
       return false
     }
 
-    if (value === oldValue) return
+    if (newValue === oldValue) return
 
     try {
-      if (value === true) {
+      if (newValue === true) {
         await enable()
         logger.info('[launch on startup] enabled')
       } else {
@@ -73,10 +93,21 @@ module.exports = async function (ctx) {
       return true
     } catch (err) {
       logger.error(`[launch on startup] ${err.toString()}`)
+
+      if (feedback) {
+        recoverableErrorDialog(err, {
+          title: i18n.t('launchAtLoginFailed.title'),
+          message: i18n.t('launchAtLoginFailed.message')
+        })
+      }
+
       return false
     }
   }
 
-  activate(store.get(CONFIG_KEY, false))
-  createToggler(ctx, CONFIG_KEY, activate)
+  activate({ newValue: store.get(CONFIG_KEY, false) })
+  createToggler(CONFIG_KEY, activate)
 }
+
+module.exports.CONFIG_KEY = CONFIG_KEY
+module.exports.isSupported = isSupported

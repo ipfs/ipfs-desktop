@@ -7,19 +7,56 @@ const execOrSudo = require('../utils/exec-or-sudo')
 const logger = require('../common/logger')
 const store = require('../common/store')
 const { IS_WIN } = require('../common/consts')
-const { recoverableErrorDialog } = require('../dialogs')
+const { showDialog, recoverableErrorDialog } = require('../dialogs')
 
 const CONFIG_KEY = 'ipfsOnPath'
 
-module.exports = async function (ctx) {
-  createToggler(ctx, CONFIG_KEY, async (value, oldValue) => {
-    if (value === oldValue || (oldValue === null && !value)) return
-    if (value === true) return run('install')
+const errorMessage = {
+  title: i18n.t('cantAddIpfsToPath.title'),
+  message: i18n.t('cantAddIpfsToPath.message')
+}
+
+module.exports = async function () {
+  createToggler(CONFIG_KEY, async ({ newValue, oldValue }) => {
+    if (newValue === oldValue || (oldValue === null && !newValue)) {
+      return
+    }
+
+    if (newValue === true) {
+      if (showDialog({
+        title: i18n.t('enableIpfsOnPath.title'),
+        message: i18n.t('enableIpfsOnPath.message'),
+        buttons: [
+          i18n.t('enableIpfsOnPath.action'),
+          i18n.t('cancel')
+        ]
+      }) !== 0) {
+        // User canceled
+        return
+      }
+
+      return run('install')
+    }
+
+    if (showDialog({
+      title: i18n.t('disableIpfsOnPath.title'),
+      message: i18n.t('disableIpfsOnPath.message'),
+      buttons: [
+        i18n.t('disableIpfsOnPath.action'),
+        i18n.t('cancel')
+      ]
+    }) !== 0) {
+      // User canceled
+      return
+    }
+
     return run('uninstall')
   })
 
   firstTime()
 }
+
+module.exports.CONFIG_KEY = CONFIG_KEY
 
 async function firstTime () {
   // Check if we've done this before.
@@ -54,10 +91,7 @@ async function runWindows (script, { failSilently }) {
         logger.error(`[ipfs on path] ${err.toString()}`)
 
         if (!failSilently) {
-          recoverableErrorDialog(err, {
-            title: i18n.t('cantAddIpfsToPath.title'),
-            message: i18n.t('cantAddIpfsToPath.message')
-          })
+          recoverableErrorDialog(err, errorMessage)
         }
 
         return resolve(false)
@@ -78,6 +112,7 @@ async function run (script, { trySudo = true, failSilently = false } = {}) {
     script: join(__dirname, `./scripts/${script}.js`),
     scope: 'ipfs on path',
     trySudo,
-    failSilently
+    failSilently,
+    errorOptions: errorMessage
   })
 }

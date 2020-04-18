@@ -140,7 +140,11 @@ async function downloadCid (ctx) {
 }
 
 module.exports = function (ctx) {
-  setupGlobalShortcut(ctx, {
+  setupGlobalShortcut({
+    confirmationDialog: {
+      title: i18n.t('enableGlobalDownloadShortcut.title'),
+      message: i18n.t('enableGlobalDownloadShortcut.message', { accelerator: SHORTCUT })
+    },
     settingsOption: CONFIG_KEY,
     accelerator: SHORTCUT,
     action: () => {
@@ -151,3 +155,4 @@ module.exports = function (ctx) {
 
 module.exports.downloadCid = downloadCid
 module.exports.SHORTCUT = SHORTCUT
+module.exports.CONFIG_KEY = CONFIG_KEY

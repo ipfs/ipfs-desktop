@@ -102,7 +102,11 @@ function takeScreenshot (ctx) {
 }
 
 module.exports = function (ctx) {
-  setupGlobalShortcut(ctx, {
+  setupGlobalShortcut({
+    confirmationDialog: {
+      title: i18n.t('enableGlobalTakeScreenshotShortcut.title'),
+      message: i18n.t('enableGlobalTakeScreenshotShortcut.message', { accelerator: SHORTCUT })
+    },
     settingsOption: CONFIG_KEY,
     accelerator: SHORTCUT,
     action: () => {
@@ -115,3 +119,4 @@ module.exports = function (ctx) {
 
 module.exports.takeScreenshot = takeScreenshot
 module.exports.SHORTCUT = SHORTCUT
+module.exports.CONFIG_KEY = CONFIG_KEY

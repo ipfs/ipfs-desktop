@@ -47,7 +47,7 @@ function criticalErrorDialog (e) {
 // Shows a recoverable error dialog with the default title and message.
 // Passing an options object alongside the error can be used to override
 // the title and message.
-function recoverableErrorDialog (e, options = {}) {
+function recoverableErrorDialog (e, options) {
   const cfg = {
     title: i18n.t('recoverableErrorDialog.title'),
     message: i18n.t('recoverableErrorDialog.message'),
@@ -59,12 +59,14 @@ function recoverableErrorDialog (e, options = {}) {
     ]
   }
 
-  if (options.title) {
-    cfg.title = options.title
-  }
+  if (options) {
+    if (options.title) {
+      cfg.title = options.title
+    }
 
-  if (options.message) {
-    cfg.message = options.message
+    if (options.message) {
+      cfg.message = options.message
+    }
   }
 
   const option = dialog(cfg)

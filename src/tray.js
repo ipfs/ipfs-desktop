@@ -1,15 +1,37 @@
 const { Menu, Tray, shell, app, ipcMain } = require('electron')
 const i18n = require('i18next')
 const path = require('path')
-const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
-const { SHORTCUT: DOWNLOAD_SHORTCUT, downloadCid } = require('./download-cid')
 const addToIpfs = require('./add-to-ipfs')
-const { STATUS } = require('./daemon')
 const logger = require('./common/logger')
 const store = require('./common/store')
-const { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } = require('./common/consts')
 const moveRepositoryLocation = require('./move-repository-location')
 const runGarbageCollector = require('./run-gc')
+const { STATUS } = require('./daemon')
+const { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } = require('./common/consts')
+
+const { CONFIG_KEY: SCREENSHOT_KEY, SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
+const { CONFIG_KEY: DOWNLOAD_KEY, SHORTCUT: DOWNLOAD_SHORTCUT, downloadCid } = require('./download-cid')
+const { CONFIG_KEY: AUTO_LAUNCH_KEY, isSupported: supportsLaunchAtLogin } = require('./auto-launch')
+const { CONFIG_KEY: IPFS_PATH_KEY } = require('./ipfs-on-path')
+const { CONFIG_KEY: NPM_IPFS_KEY } = require('./npm-on-ipfs')
+
+const CONFIG_KEYS = [
+  AUTO_LAUNCH_KEY,
+  IPFS_PATH_KEY,
+  NPM_IPFS_KEY,
+  SCREENSHOT_KEY,
+  DOWNLOAD_KEY
+]
+
+function buildCheckbox (key, label) {
+  return {
+    id: key,
+    label: i18n.t(label),
+    click: () => { ipcMain.emit(`toggle_${key}`) },
+    type: 'checkbox',
+    checked: false
+  }
+}
 
 // Notes on this: we are only supporting accelerators on macOS for now because
 // they natively work as soon as the menu opens. They don't work like that on Windows
@@ -60,8 +82,8 @@ function buildMenu (ctx) {
       click: () => { ctx.launchWebUI('/files') }
     },
     {
-      label: i18n.t('settings'),
-      click: () => { ctx.launchWebUI('/settings') }
+      label: i18n.t('peers'),
+      click: () => { ctx.launchWebUI('/peers') }
     },
     { type: 'separator' },
     {
@@ -79,6 +101,30 @@ function buildMenu (ctx) {
       enabled: false
     },
     { type: 'separator' },
+    {
+      label: IS_MAC ? i18n.t('settings.preferences') : i18n.t('settings.settings'),
+      submenu: [
+        {
+          label: i18n.t('settings.openNodeSettings'),
+          click: () => { ctx.launchWebUI('/settings') }
+        },
+        { type: 'separator' },
+        {
+          label: i18n.t('settings.desktopIntegrations'),
+          enabled: false
+        },
+        buildCheckbox(AUTO_LAUNCH_KEY, 'settings.launchOnStartup'),
+        buildCheckbox(IPFS_PATH_KEY, 'settings.ipfsCommandLineTools'),
+        buildCheckbox(SCREENSHOT_KEY, 'settings.takeScreenshotShortcut'),
+        buildCheckbox(DOWNLOAD_KEY, 'settings.downloadHashShortcut'),
+        { type: 'separator' },
+        {
+          label: i18n.t('settings.experiments'),
+          enabled: false
+        },
+        buildCheckbox(NPM_IPFS_KEY, 'settings.npmOnIpfs')
+      ]
+    },
     {
       label: i18n.t('advanced'),
       submenu: [
@@ -211,6 +257,7 @@ module.exports = function (ctx) {
     menu.getMenuItemById('stopIpfs').enabled = !gcRunning
     menu.getMenuItemById('restartIpfs').enabled = !gcRunning
 
+    menu.getMenuItemById(AUTO_LAUNCH_KEY).enabled = supportsLaunchAtLogin()
     menu.getMenuItemById('takeScreenshot').enabled = status === STATUS.STARTING_FINISHED
     menu.getMenuItemById('downloadCid').enabled = status === STATUS.STARTING_FINISHED
 
@@ -221,6 +268,11 @@ module.exports = function (ctx) {
       tray.setImage(icon(on))
     } else {
       tray.setImage(icon(off))
+    }
+
+    // Update configuration checkboxes.
+    for (const key of CONFIG_KEYS) {
+      menu.getMenuItemById(key).checked = store.get(key, false)
     }
 
     if (!IS_MAC && !IS_WIN) {
@@ -245,6 +297,7 @@ module.exports = function (ctx) {
     updateMenu()
   })
 
+  ipcMain.on('configUpdated', () => { updateMenu() })
   ipcMain.on('languageUpdated', () => { setupMenu() })
 
   setupMenu()
