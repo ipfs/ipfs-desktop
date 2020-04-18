@@ -1,8 +1,9 @@
 const { app, dialog } = require('electron')
+const i18n = require('i18next')
 
 module.exports = async function selectDirectory (options = {}) {
   const { canceled, filePaths } = await dialog.showOpenDialog({
-    title: 'Select a directory',
+    title: i18n.t('selectDirectory'),
     defaultPath: app.getPath('home'),
     properties: [
       'openDirectory',
