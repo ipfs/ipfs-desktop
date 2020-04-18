@@ -119,6 +119,18 @@ async function checkForUpdates () {
 }
 
 module.exports = async function (ctx) {
+  if (process.env.NODE_ENV === 'development') {
+    ctx.checkForUpdates = () => {
+      showDialog({
+        title: 'Not available in development',
+        message: 'Yes, you called this function successfully.',
+        buttons: [i18n.t('close')]
+      })
+    }
+
+    return
+  }
+
   setup(ctx)
 
   await checkForUpdates()
