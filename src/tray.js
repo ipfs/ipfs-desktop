@@ -93,6 +93,7 @@ function buildMenu (ctx) {
           label: i18n.t('openConfigFile'),
           click: () => { shell.openItem(store.path) }
         },
+        { type: 'separator' },
         {
           label: i18n.t('moveRepositoryLocation'),
           click: () => { moveRepositoryLocation(ctx) }
