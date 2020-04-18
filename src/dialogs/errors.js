@@ -44,8 +44,11 @@ function criticalErrorDialog (e) {
   app.exit(1)
 }
 
-function recoverableErrorDialog (e) {
-  const option = dialog({
+// Shows a recoverable error dialog with the default title and message.
+// Passing an options object alongside the error can be used to override
+// the title and message.
+function recoverableErrorDialog (e, options = {}) {
+  const cfg = {
     title: i18n.t('recoverableErrorDialog.title'),
     message: i18n.t('recoverableErrorDialog.message'),
     type: 'error',
@@ -54,7 +57,17 @@ function recoverableErrorDialog (e) {
       i18n.t('reportTheError'),
       i18n.t('openLogs')
     ]
-  })
+  }
+
+  if (options.title) {
+    cfg.title = options.title
+  }
+
+  if (options.message) {
+    cfg.message = options.message
+  }
+
+  const option = dialog(cfg)
 
   if (option === 1) {
     shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`)
