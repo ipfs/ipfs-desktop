@@ -4,6 +4,7 @@
   "ipfsIsStarting": "IPFS is starting",
   "ipfsIsNotRunning": "IPFS is not running",
   "ipfsHasErrored": "IPFS has errored",
+  "gcIsRunning": "GC is running",
   "start": "Start",
   "stop": "Stop",
   "restart": "Restart",
@@ -149,5 +150,9 @@
   "cantAddIpfsToPath": {
     "title": "IPFS on PATH",
     "message": "Could not add IPFS to the PATH."
+  },
+  "runGarbageCollectorErrored": {
+    "title": "Garbage collector",
+    "message": "The garbage collector ran could not be completed successfully."
   }
 }

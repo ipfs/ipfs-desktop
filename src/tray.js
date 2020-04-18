@@ -22,7 +22,8 @@ function buildMenu (ctx) {
       ['ipfsIsRunning', 'green'],
       ['ipfsIsStopping', 'yellow'],
       ['ipfsIsNotRunning', 'gray'],
-      ['ipfsHasErrored', 'red']
+      ['ipfsHasErrored', 'red'],
+      ['gcIsRunning', 'yellow']
     ].map(([status, color]) => ({
       id: status,
       label: i18n.t(status),
@@ -94,6 +95,7 @@ function buildMenu (ctx) {
           click: () => { shell.openItem(store.path) }
         },
         {
+          id: 'moveRepositoryLocation',
           label: i18n.t('moveRepositoryLocation'),
           click: () => { moveRepositoryLocation(ctx) }
         },
@@ -156,7 +158,11 @@ module.exports = function (ctx) {
   logger.info('[tray] starting')
   const tray = new Tray(icon(off))
   let menu = null
-  let status = {}
+
+  const state = {
+    status: null,
+    gcRunning: false
+  }
 
   // macOS tray drop files
   tray.on('drop-files', async (_, files) => {
@@ -175,32 +181,36 @@ module.exports = function (ctx) {
 
   const setupMenu = () => {
     menu = buildMenu(ctx)
+
     tray.setContextMenu(menu)
     tray.setToolTip('IPFS Desktop')
 
     menu.on('menu-will-show', () => { ipcMain.emit('menubar-will-open') })
     menu.on('menu-will-close', () => { ipcMain.emit('menubar-will-close') })
 
-    updateStatus(status)
+    updateMenu()
   }
 
-  const updateStatus = data => {
-    status = data
+  const updateMenu = () => {
+    const { status, gcRunning } = state
+    const errored = status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
 
-    menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED
-    menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED
-    menu.getMenuItemById('ipfsIsStopping').visible = status === STATUS.STOPPING_STARTED
-    menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED
-    menu.getMenuItemById('ipfsHasErrored').visible = status === STATUS.STARTING_FAILED ||
-      status === STATUS.STOPPING_FAILED
-    menu.getMenuItemById('restartIpfs').visible = status === STATUS.STARTING_FINISHED ||
-      menu.getMenuItemById('ipfsHasErrored').visible
+    menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED && !gcRunning
+    menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED && !gcRunning
+    menu.getMenuItemById('ipfsIsStopping').visible = status === STATUS.STOPPING_STARTED && !gcRunning
+    menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED && !gcRunning
+    menu.getMenuItemById('ipfsHasErrored').visible = errored && !gcRunning
+    menu.getMenuItemById('gcIsRunning').visible = gcRunning
+    menu.getMenuItemById('restartIpfs').visible = (status === STATUS.STARTING_FINISHED || errored) && !gcRunning
+
     menu.getMenuItemById('startIpfs').visible = menu.getMenuItemById('ipfsIsNotRunning').visible
     menu.getMenuItemById('stopIpfs').visible = menu.getMenuItemById('ipfsIsRunning').visible
 
-    menu.getMenuItemById('takeScreenshot').enabled = menu.getMenuItemById('ipfsIsRunning').visible
-    menu.getMenuItemById('downloadHash').enabled = menu.getMenuItemById('ipfsIsRunning').visible
-    menu.getMenuItemById('runGarbageCollector').enabled = menu.getMenuItemById('ipfsIsRunning').visible
+    menu.getMenuItemById('takeScreenshot').enabled = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('downloadHash').enabled = status === STATUS.STARTING_FINISHED
+
+    menu.getMenuItemById('moveRepositoryLocation').enabled = !gcRunning
+    menu.getMenuItemById('runGarbageCollector').enabled = menu.getMenuItemById('ipfsIsRunning').visible && !gcRunning
 
     if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon(on))
@@ -215,8 +225,23 @@ module.exports = function (ctx) {
     }
   }
 
-  ipcMain.on('ipfsd', (status) => { updateStatus(status) })
-  ipcMain.on('languageUpdated', () => { setupMenu(status) })
+  ipcMain.on('ipfsd', status => {
+    state.status = status
+    updateMenu()
+  })
+
+  ipcMain.on('gcRunning', () => {
+    state.gcRunning = true
+    updateMenu()
+  })
+
+  ipcMain.on('gcEnded', () => {
+    state.gcRunning = false
+    updateMenu()
+  })
+
+  ipcMain.on('languageUpdated', () => { setupMenu() })
+
   setupMenu()
 
   ctx.tray = tray
