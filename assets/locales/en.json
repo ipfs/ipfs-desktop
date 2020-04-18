@@ -44,6 +44,7 @@
   "downloadHash": "Download Hash",
   "moveRepositoryLocation": "Move Repository Location",
   "runGarbageCollector": "Run Garbage Collector",
+  "selectDirectory": "Select Directory",
   "polkitDialog": {
     "title": "Polkit not found",
     "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
