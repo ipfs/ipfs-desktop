@@ -144,7 +144,7 @@
   },
   "moveRepositoryFailed": {
     "title": "Move repository",
-    "message": "Could not move the repository from { currDir } to { newDir }."
+    "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
   },
   "cantAddIpfsToPath": {
     "title": "IPFS on PATH",
