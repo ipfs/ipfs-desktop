@@ -14,9 +14,11 @@ const { CONFIG_KEY: DOWNLOAD_KEY, SHORTCUT: DOWNLOAD_SHORTCUT, downloadCid } = r
 const { CONFIG_KEY: AUTO_LAUNCH_KEY, isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const { CONFIG_KEY: IPFS_PATH_KEY } = require('./ipfs-on-path')
 const { CONFIG_KEY: NPM_IPFS_KEY } = require('./npm-on-ipfs')
+const { CONFIG_KEY: AUTO_LAUNCH_WEBUI_KEY } = require('./webui')
 
 const CONFIG_KEYS = [
   AUTO_LAUNCH_KEY,
+  AUTO_LAUNCH_WEBUI_KEY,
   IPFS_PATH_KEY,
   NPM_IPFS_KEY,
   SCREENSHOT_KEY,
@@ -118,6 +120,7 @@ function buildMenu (ctx) {
           enabled: false
         },
         buildCheckbox(AUTO_LAUNCH_KEY, 'settings.launchOnStartup'),
+        buildCheckbox(AUTO_LAUNCH_WEBUI_KEY, 'settings.launchWebUIOnStartup'),
         buildCheckbox(IPFS_PATH_KEY, 'settings.ipfsCommandLineTools'),
         buildCheckbox(SCREENSHOT_KEY, 'settings.takeScreenshotShortcut'),
         buildCheckbox(DOWNLOAD_KEY, 'settings.downloadHashShortcut'),

@@ -7,10 +7,14 @@ const os = require('os')
 const openExternal = require('./open-external')
 const logger = require('../common/logger')
 const store = require('../common/store')
+const { IS_MAC, IS_WIN } = require('../common/consts')
 const dock = require('../utils/dock')
 const { VERSION } = require('../common/consts')
+const createToggler = require('../utils/create-toggler')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
+
+const CONFIG_KEY = 'webuiAtLogin'
 
 const createWindow = () => {
   const dimensions = screen.getPrimaryDisplay()
@@ -72,6 +76,17 @@ const apiOrigin = (apiMultiaddr) => {
 }
 
 module.exports = async function (ctx) {
+  // First time running this. If it's not macOS, nor Windows,
+  // enable launching web ui at login.
+  if (store.get(CONFIG_KEY, null) === null) {
+    store.set(CONFIG_KEY, !IS_MAC && !IS_WIN)
+  }
+
+  createToggler(CONFIG_KEY, async ({ newValue }) => {
+    store.set(CONFIG_KEY, newValue)
+    return true
+  })
+
   openExternal()
 
   const window = createWindow(ctx)
@@ -130,6 +145,11 @@ module.exports = async function (ctx) {
   return new Promise(resolve => {
     window.once('ready-to-show', () => {
       logger.info('[web ui] window ready')
+
+      if (store.get(CONFIG_KEY)) {
+        ctx.launchWebUI('/')
+      }
+
       resolve()
     })
 
@@ -137,3 +157,5 @@ module.exports = async function (ctx) {
     window.loadURL(url.toString())
   })
 }
+
+module.exports.CONFIG_KEY = CONFIG_KEY
