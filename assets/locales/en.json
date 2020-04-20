@@ -4,7 +4,7 @@
   "ipfsIsStarting": "IPFS is Starting",
   "ipfsIsNotRunning": "IPFS is Not Running",
   "ipfsHasErrored": "IPFS has Errored",
-  "runningWithGC": "Running (GC in progress…)",
+  "runningWithGC": "Running (GC in progress)",
   "start": "Start",
   "stop": "Stop",
   "restart": "Restart",
@@ -136,7 +136,7 @@
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
-    "message": "Running the garbage collector will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
+    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
     "action": "Run"
   },
   "runGarbageCollectorDone": {
