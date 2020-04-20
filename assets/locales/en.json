@@ -4,7 +4,7 @@
   "ipfsIsStarting": "IPFS is Starting",
   "ipfsIsNotRunning": "IPFS is Not Running",
   "ipfsHasErrored": "IPFS has Errored",
-  "runningWithGC": "Running (Garbage Collecting)",
+  "runningWithGC": "Running (GC in progress…)",
   "start": "Start",
   "stop": "Stop",
   "restart": "Restart",
