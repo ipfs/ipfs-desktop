@@ -153,6 +153,6 @@
   },
   "runGarbageCollectorErrored": {
     "title": "Garbage collector",
-    "message": "The garbage collector ran could not be completed successfully."
+    "message": "The garbage collector run could not be completed successfully."
   }
 }
