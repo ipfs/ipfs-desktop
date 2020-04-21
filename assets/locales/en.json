@@ -152,8 +152,8 @@
   },
   "downloadCidContentDialog": {
     "title": "Download",
-    "message": "Enter a CID, IPFS path, or IPNS path to download its contents:",
-    "action": "Download"
+    "message": "Enter a CID, IPFS path, or IPNS path:",
+    "action": "Next"
   },
   "cantResolveCidDialog": {
     "title": "Error",
