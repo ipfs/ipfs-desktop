@@ -41,12 +41,6 @@ async function cleanup (ipfsd) {
 }
 
 async function spawn ({ flags, path, keysize }) {
-  // js-ipfsd-ctl stopped supporting IPFS_PATH after 1.x
-  // NOTE: https://github.com/ipfs/js-ipfsd-ctl/issues/497
-  if (process.env.IPFS_PATH) {
-    path = process.env.IPFS_PATH
-  }
-
   const ipfsd = await Ctl.createController({
     ipfsHttpModule: require('ipfs-http-client'),
     ipfsBin: require('go-ipfs-dep').path(),
