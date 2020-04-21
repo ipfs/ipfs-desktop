@@ -1,9 +1,10 @@
 {
-  "ipfsIsRunning": "IPFS is running",
-  "ipfsIsStopping": "IPFS is stopping",
-  "ipfsIsStarting": "IPFS is starting",
-  "ipfsIsNotRunning": "IPFS is not running",
-  "ipfsHasErrored": "IPFS has errored",
+  "ipfsIsRunning": "IPFS is Running",
+  "ipfsIsStopping": "IPFS is Stopping",
+  "ipfsIsStarting": "IPFS is Starting",
+  "ipfsIsNotRunning": "IPFS is Not Running",
+  "ipfsHasErrored": "IPFS has Errored",
+  "runningWithGC": "Running (GC in progress)",
   "start": "Start",
   "stop": "Stop",
   "restart": "Restart",
@@ -136,7 +137,7 @@
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
-    "message": "Running the garbage collector will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
+    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
     "action": "Run"
   },
   "runGarbageCollectorDone": {
@@ -150,5 +151,9 @@
   "cantAddIpfsToPath": {
     "title": "IPFS on PATH",
     "message": "Could not add IPFS to the PATH."
+  },
+  "runGarbageCollectorErrored": {
+    "title": "Garbage collector",
+    "message": "The garbage collector run could not be completed successfully."
   }
 }
