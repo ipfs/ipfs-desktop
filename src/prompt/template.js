@@ -86,7 +86,7 @@ module.exports = ({ pallette, message, defaultValue, buttons, id }) => (`<!DOCTY
     }
 
     document.querySelector('input').addEventListener('keypress', (event) => {
-      if (event.keyCode == 13) {
+      if (event.code === 'Enter') {
         event.preventDefault()
         document.querySelector('button.default').click()
       }
