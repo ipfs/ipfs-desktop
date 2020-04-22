@@ -2,7 +2,7 @@ const { Menu, Tray, shell, app, ipcMain } = require('electron')
 const i18n = require('i18next')
 const path = require('path')
 const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
-const { SHORTCUT: HASH_SHORTCUT, downloadHash } = require('./download-hash')
+const { SHORTCUT: DOWNLOAD_SHORTCUT, downloadCid } = require('./download-cid')
 const addToIpfs = require('./add-to-ipfs')
 const { STATUS } = require('./daemon')
 const logger = require('./common/logger')
@@ -72,10 +72,10 @@ function buildMenu (ctx) {
       enabled: false
     },
     {
-      id: 'downloadHash',
-      label: i18n.t('downloadHash'),
-      click: () => { downloadHash(ctx) },
-      accelerator: IS_MAC ? HASH_SHORTCUT : null,
+      id: 'downloadCid',
+      label: i18n.t('downloadCid'),
+      click: () => { downloadCid(ctx) },
+      accelerator: IS_MAC ? DOWNLOAD_SHORTCUT : null,
       enabled: false
     },
     { type: 'separator' },
@@ -212,7 +212,7 @@ module.exports = function (ctx) {
     menu.getMenuItemById('restartIpfs').enabled = !gcRunning
 
     menu.getMenuItemById('takeScreenshot').enabled = status === STATUS.STARTING_FINISHED
-    menu.getMenuItemById('downloadHash').enabled = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('downloadCid').enabled = status === STATUS.STARTING_FINISHED
 
     menu.getMenuItemById('moveRepositoryLocation').enabled = !gcRunning && status !== STATUS.STOPPING_STARTED
     menu.getMenuItemById('runGarbageCollector').enabled = menu.getMenuItemById('ipfsIsRunning').visible && !gcRunning
