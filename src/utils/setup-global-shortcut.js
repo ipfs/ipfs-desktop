@@ -1,7 +1,7 @@
 const { globalShortcut, ipcMain } = require('electron')
 const createToggler = require('./create-toggler')
-const store = require('./common/store')
-const { IS_MAC } = require('./common/consts')
+const store = require('../common/store')
+const { IS_MAC } = require('../common/consts')
 
 // This function registers a global shortcut/accelerator with a certain action
 // and (de)activates it according to its 'settingsOption' value on settings.

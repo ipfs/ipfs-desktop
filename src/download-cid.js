@@ -5,11 +5,9 @@ const isIPFS = require('is-ipfs')
 const { clipboard, app, shell } = require('electron')
 const logger = require('./common/logger')
 const { IS_MAC } = require('./common/consts')
-const setupGlobalShortcut = require('./setup-global-shortcut')
-const { selectDirectory } = require('./dialogs')
-const dock = require('./dock')
-const showPrompt = require('./prompt')
-const { showDialog } = require('./dialogs')
+const setupGlobalShortcut = require('./utils/setup-global-shortcut')
+const dock = require('./utils/dock')
+const { showDialog, showPrompt, selectDirectory } = require('./dialogs')
 
 const CONFIG_KEY = 'downloadHashShortcut'
 

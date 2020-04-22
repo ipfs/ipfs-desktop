@@ -2,7 +2,7 @@ const i18n = require('i18next')
 const { ipcMain } = require('electron')
 const logger = require('./common/logger')
 const { showDialog, recoverableErrorDialog } = require('./dialogs')
-const dock = require('./dock')
+const dock = require('./utils/dock')
 
 module.exports = function runGarbageCollector ({ getIpfsd }) {
   dock.run(async () => {

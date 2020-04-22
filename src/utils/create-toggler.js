@@ -1,7 +1,7 @@
 const { ipcMain } = require('electron')
 const os = require('os')
-const store = require('./common/store')
-const logger = require('./common/logger')
+const store = require('../common/store')
+const logger = require('../common/logger')
 
 module.exports = function ({ webui }, settingsOption, activate) {
   ipcMain.on('config.toggle', async (_, opt) => {

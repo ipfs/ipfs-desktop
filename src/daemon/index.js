@@ -1,11 +1,11 @@
 const { app, ipcMain } = require('electron')
 const fs = require('fs-extra')
 const { join } = require('path')
-const createDaemon = require('./daemon')
 const { ipfsNotRunningDialog } = require('../dialogs')
 const store = require('../common/store')
 const logger = require('../common/logger')
 const { STATUS } = require('./consts')
+const createDaemon = require('./daemon')
 
 module.exports = async function (ctx) {
   let ipfsd = null

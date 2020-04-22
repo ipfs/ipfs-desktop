@@ -2,7 +2,7 @@ const which = require('which')
 const pkg = require('./package')
 const logger = require('../common/logger')
 const store = require('../common/store')
-const createToggler = require('../create-toggler')
+const createToggler = require('../utils/create-toggler')
 
 const CONFIG_KEY = 'experiments.npmOnIpfs'
 

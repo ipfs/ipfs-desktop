@@ -3,8 +3,8 @@ const util = require('util')
 const sudo = require('sudo-prompt')
 const { dialog, app } = require('electron')
 const childProcess = require('child_process')
-const { recoverableErrorDialog } = require('./dialogs')
-const logger = require('./common/logger')
+const { recoverableErrorDialog } = require('../dialogs')
+const logger = require('../common/logger')
 
 const execFile = util.promisify(childProcess.execFile)
 

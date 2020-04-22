@@ -4,7 +4,7 @@ const fs = require('fs-extra')
 const store = require('./common/store')
 const logger = require('./common/logger')
 const { showDialog, recoverableErrorDialog, selectDirectory } = require('./dialogs')
-const dock = require('./dock')
+const dock = require('./utils/dock')
 
 module.exports = function ({ stopIpfs, startIpfs }) {
   dock.run(async () => {

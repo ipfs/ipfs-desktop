@@ -1,7 +1,7 @@
 const { dialog } = require('electron')
 const i18n = require('i18next')
 const { IS_MAC } = require('../common/consts')
-const dock = require('../dock')
+const dock = require('../utils/dock')
 
 // NOTE: always send the buttons in the order [OK, Cancel, ...Actions].
 // See this post for more interesting information about the topic:

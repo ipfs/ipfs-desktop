@@ -1,10 +1,10 @@
+const { shell } = require('electron')
 const { autoUpdater } = require('electron-updater')
 const i18n = require('i18next')
-const quitAndInstall = require('./quit-and-install')
 const logger = require('../common/logger')
 const { notify } = require('../common/notify')
 const { showDialog } = require('../dialogs')
-const { shell } = require('electron')
+const quitAndInstall = require('./quit-and-install')
 
 let feedback = false
 
