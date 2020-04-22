@@ -22,10 +22,10 @@ describe('Create toggler', () => {
     store = mockStore()
     webui = mockWebUI()
     logger = mockLogger()
-    createToggler = proxyquire('../../src/create-toggler', {
+    createToggler = proxyquire('../../src/utils/create-toggler', {
       electron: electron,
-      './common/logger': logger,
-      './common/store': store
+      '../common/logger': logger,
+      '../common/store': store
     })
   })
 

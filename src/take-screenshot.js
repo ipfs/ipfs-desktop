@@ -3,7 +3,7 @@ const { clipboard, nativeImage, ipcMain } = require('electron')
 const logger = require('./common/logger')
 const { IS_MAC } = require('./common/consts')
 const { notify, notifyError } = require('./common/notify')
-const setupGlobalShortcut = require('./setup-global-shortcut')
+const setupGlobalShortcut = require('./utils/setup-global-shortcut')
 
 const CONFIG_KEY = 'screenshotShortcut'
 

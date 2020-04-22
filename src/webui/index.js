@@ -6,7 +6,7 @@ const os = require('os')
 const openExternal = require('./open-external')
 const logger = require('../common/logger')
 const store = require('../common/store')
-const dock = require('../dock')
+const dock = require('../utils/dock')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 

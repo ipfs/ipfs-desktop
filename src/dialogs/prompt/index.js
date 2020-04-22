@@ -1,6 +1,6 @@
 const { BrowserWindow, ipcMain, nativeTheme } = require('electron')
 const crypto = require('crypto')
-const { IS_MAC } = require('../common/consts')
+const { IS_MAC } = require('../../common/consts')
 const makePage = require('./template')
 
 const pallette = {
