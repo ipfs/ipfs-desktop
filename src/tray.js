@@ -110,7 +110,7 @@ function buildMenu (ctx) {
         },
         { type: 'separator' },
         {
-          label: i18n.t('settings.desktopIntegrations'),
+          label: i18n.t('settings.appPreferences'),
           enabled: false
         },
         buildCheckbox(AUTO_LAUNCH_KEY, 'settings.launchOnStartup'),

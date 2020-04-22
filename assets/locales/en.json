@@ -216,7 +216,7 @@
     "settings": "Settings",
     "preferences": "Preferences",
     "openNodeSettings": "Open Node Settings",
-    "desktopIntegrations": "Desktop Integrations",
+    "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
