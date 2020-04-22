@@ -34,7 +34,7 @@ async function getCID () {
       i18n.t('cancel')
     ],
     window: {
-      width: 460,
+      width: 500,
       height: 120
     }
   })
