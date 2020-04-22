@@ -28,7 +28,7 @@ async function getCID () {
   const { button, input } = await showPrompt({
     title: i18n.t('downloadCidContentDialog.title'),
     message: i18n.t('downloadCidContentDialog.message'),
-    defaultValue: isIPFS.cid(text) ? text : '',
+    defaultValue: (isIPFS.cid(text) || isIPFS.path(text)) ? text : '',
     buttons: [
       i18n.t('downloadCidContentDialog.action'),
       i18n.t('cancel')
