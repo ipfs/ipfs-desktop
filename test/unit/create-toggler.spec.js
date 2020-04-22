@@ -24,8 +24,8 @@ describe('Create toggler', () => {
     logger = mockLogger()
     createToggler = proxyquire('../../src/utils/create-toggler', {
       electron: electron,
-      './common/logger': logger,
-      './common/store': store
+      '../common/logger': logger,
+      '../common/store': store
     })
   })
 
