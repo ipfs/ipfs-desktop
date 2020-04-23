@@ -16,6 +16,12 @@ function cannotConnectDialog (addr) {
   })
 }
 
+function getIpfsBinPath () {
+  return require('go-ipfs-dep')
+    .path()
+    .replace('app.asar', 'app.asar.unpacked')
+}
+
 async function cleanup (ipfsd) {
   const log = logger.start('[daemon] cleanup')
 
@@ -25,7 +31,7 @@ async function cleanup (ipfsd) {
   }
 
   log.info('run: ipfs repo fsck')
-  const exec = require('go-ipfs-dep').path()
+  const exec = getIpfsBinPath()
 
   try {
     execFileSync(exec, ['repo', 'fsck'], {
@@ -43,7 +49,7 @@ async function cleanup (ipfsd) {
 async function spawn ({ flags, path, keysize }) {
   const ipfsd = await Ctl.createController({
     ipfsHttpModule: require('ipfs-http-client'),
-    ipfsBin: require('go-ipfs-dep').path(),
+    ipfsBin: getIpfsBinPath(),
     ipfsOptions: {
       repo: path
     },
