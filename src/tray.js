@@ -74,14 +74,17 @@ function buildMenu (ctx) {
     },
     { type: 'separator' },
     {
+      id: 'webuiStatus',
       label: i18n.t('status'),
       click: () => { ctx.launchWebUI('/') }
     },
     {
+      id: 'webuiFiles',
       label: i18n.t('files'),
       click: () => { ctx.launchWebUI('/files') }
     },
     {
+      id: 'webuiPeers',
       label: i18n.t('peers'),
       click: () => { ctx.launchWebUI('/peers') }
     },
@@ -252,6 +255,10 @@ module.exports = function (ctx) {
     menu.getMenuItemById('startIpfs').visible = status === STATUS.STOPPING_FINISHED
     menu.getMenuItemById('stopIpfs').visible = status === STATUS.STARTING_FINISHED
     menu.getMenuItemById('restartIpfs').visible = (status === STATUS.STARTING_FINISHED || errored)
+
+    menu.getMenuItemById('webuiStatus').enabled = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('webuiFiles').enabled = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('webuiPeers').enabled = status === STATUS.STARTING_FINISHED
 
     menu.getMenuItemById('startIpfs').enabled = !gcRunning
     menu.getMenuItemById('stopIpfs').enabled = !gcRunning
