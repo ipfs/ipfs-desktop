@@ -1,9 +1,8 @@
 const Ctl = require('ipfsd-ctl')
 const i18n = require('i18next')
-const { execFileSync } = require('child_process')
 const { showDialog } = require('../dialogs')
 const logger = require('../common/logger')
-const { applyDefaults, checkCorsConfig, checkPorts, configExists, apiFileExists } = require('./config')
+const { applyDefaults, checkCorsConfig, checkPorts, configExists, rmApiFile, apiFileExists } = require('./config')
 
 function cannotConnectDialog (addr) {
   showDialog({
@@ -20,30 +19,6 @@ function getIpfsBinPath () {
   return require('go-ipfs-dep')
     .path()
     .replace('app.asar', 'app.asar.unpacked')
-}
-
-async function cleanup (ipfsd) {
-  const log = logger.start('[daemon] cleanup')
-
-  if (!configExists(ipfsd)) {
-    cannotConnectDialog(ipfsd.apiAddr)
-    throw new Error('cannot connect to api')
-  }
-
-  log.info('run: ipfs repo fsck')
-  const exec = getIpfsBinPath()
-
-  try {
-    execFileSync(exec, ['repo', 'fsck'], {
-      env: {
-        ...process.env,
-        IPFS_PATH: ipfsd.path
-      }
-    })
-    log.end()
-  } catch (err) {
-    log.fail(err)
-  }
 }
 
 async function spawn ({ flags, path, keysize }) {
@@ -92,7 +67,13 @@ module.exports = async function (opts) {
       throw err
     }
 
-    await cleanup(ipfsd)
+    if (!configExists(ipfsd)) {
+      cannotConnectDialog(ipfsd.apiAddr)
+      throw err
+    }
+
+    logger.info('[daemon] removing api file')
+    rmApiFile(ipfsd)
     await ipfsd.start()
   }
 

@@ -17,6 +17,10 @@ function apiFileExists (ipfsd) {
   return fs.pathExistsSync(join(ipfsd.path, 'api'))
 }
 
+function rmApiFile (ipfsd) {
+  return fs.removeSync(join(ipfsd.path, 'api'))
+}
+
 function configPath (ipfsd) {
   return join(ipfsd.path, 'config')
 }
@@ -270,6 +274,7 @@ module.exports = Object.freeze({
   configPath,
   configExists,
   apiFileExists,
+  rmApiFile,
   applyDefaults,
   checkCorsConfig,
   checkPorts
