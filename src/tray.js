@@ -108,6 +108,7 @@ function buildMenu (ctx) {
       label: IS_MAC ? i18n.t('settings.preferences') : i18n.t('settings.settings'),
       submenu: [
         {
+          id: 'webuiNodeSettings',
           label: i18n.t('settings.openNodeSettings'),
           click: () => { ctx.launchWebUI('/settings') }
         },
@@ -259,6 +260,7 @@ module.exports = function (ctx) {
     menu.getMenuItemById('webuiStatus').enabled = status === STATUS.STARTING_FINISHED
     menu.getMenuItemById('webuiFiles').enabled = status === STATUS.STARTING_FINISHED
     menu.getMenuItemById('webuiPeers').enabled = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('webuiNodeSettings').enabled = status === STATUS.STARTING_FINISHED
 
     menu.getMenuItemById('startIpfs').enabled = !gcRunning
     menu.getMenuItemById('stopIpfs').enabled = !gcRunning
