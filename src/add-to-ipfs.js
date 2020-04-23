@@ -3,8 +3,9 @@ const { clipboard } = require('electron')
 const i18n = require('i18next')
 const logger = require('./common/logger')
 const { notify, notifyError } = require('./common/notify')
+const { globSource } = require('ipfs-http-client')
 
-async function copyFile (ipfs, hash, name) {
+async function copyFile (ipfs, cid, name) {
   let i = 0
   const ext = extname(name)
   const base = basename(name, ext)
@@ -22,7 +23,7 @@ async function copyFile (ipfs, hash, name) {
     i++
   }
 
-  return ipfs.files.cp(`/ipfs/${hash}`, `/${name}`)
+  return ipfs.files.cp(`/ipfs/${cid.toString()}`, `/${name}`)
 }
 
 async function makeShareableObject (ipfs, results) {
@@ -33,15 +34,15 @@ async function makeShareableObject (ipfs, results) {
 
   let baseCID = await ipfs.object.new('unixfs-dir')
 
-  for (const { hash, path, size } of results) {
+  for (const { cid, path, size } of results) {
     baseCID = (await ipfs.object.patch.addLink(baseCID, {
       name: path,
       size,
-      cid: hash
-    })).toString()
+      cid
+    }))
   }
 
-  return { hash: baseCID, path: '' }
+  return { cid: baseCID, path: '' }
 }
 
 function sendNotification (failures, successes, launch, path) {
@@ -86,10 +87,13 @@ module.exports = async function ({ getIpfsd, launchWebUI }, files) {
 
   await Promise.all(files.map(async file => {
     try {
-      const results = await ipfsd.api.addFromFs(file, { recursive: true })
-      const { path, hash, size } = results[results.length - 1]
-      await copyFile(ipfsd.api, hash, path)
-      successes.push({ path, hash, size })
+      let result = null
+      for await (const res of ipfsd.api.add(globSource(file, { recursive: true }))) {
+        result = res
+      }
+
+      await copyFile(ipfsd.api, result.cid, result.path)
+      successes.push(result)
     } catch (e) {
       failures.push(e)
     }
@@ -101,9 +105,9 @@ module.exports = async function ({ getIpfsd, launchWebUI }, files) {
     log.end()
   }
 
-  const { hash, path } = await makeShareableObject(ipfsd.api, successes)
+  const { cid, path } = await makeShareableObject(ipfsd.api, successes)
   sendNotification(failures, successes, launchWebUI, path)
 
-  const url = `https://ipfs.io/ipfs/${hash}`
+  const url = `https://ipfs.io/ipfs/${cid.toString()}`
   clipboard.writeText(url)
 }

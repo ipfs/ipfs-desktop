@@ -33,7 +33,18 @@ module.exports = function runGarbageCollector ({ getIpfsd }) {
     ipcMain.emit('gcRunning')
 
     try {
-      await ipfsd.api.repo.gc()
+      const errors = []
+
+      for await (const res of ipfsd.api.repo.gc()) {
+        if (res instanceof Error) {
+          errors.push(res)
+        }
+      }
+
+      if (errors.length) {
+        throw errors
+      }
+
       showDialog({
         title: i18n.t('runGarbageCollectorDone.title'),
         message: i18n.t('runGarbageCollectorDone.message'),
