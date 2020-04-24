@@ -1,9 +1,10 @@
 {
-  "ipfsIsRunning": "IPFS가 실행 중입니다",
-  "ipfsIsStopping": "IPFS가 중지 중입니다",
-  "ipfsIsStarting": "IPFS가 시작 중입니다",
-  "ipfsIsNotRunning": "IPFS가 실행 중이지 않습니다",
-  "ipfsHasErrored": "IPFS에 오류가 발생하였습니다",
+  "ipfsIsRunning": "IPFS is Running",
+  "ipfsIsStopping": "IPFS is Stopping",
+  "ipfsIsStarting": "IPFS is Starting",
+  "ipfsIsNotRunning": "IPFS is Not Running",
+  "ipfsHasErrored": "IPFS has Errored",
+  "runningWithGC": "Running (GC in progress)",
   "start": "시작",
   "stop": "중지",
   "restart": "재시작",
@@ -13,6 +14,7 @@
   "openLogsDir": "로그 디렉터리 열기",
   "openConfigFile": "구성 파일 열기",
   "viewOnGitHub": "GitHub에서 보기",
+  "readReleaseNotes": "Read Release Notes",
   "status": "상태",
   "files": "파일",
   "settings": "설정",
@@ -24,19 +26,6 @@
   "errorwhileTakingScreenshot": "스크린샷을 찍는 중 오류가 발생하였습니다.",
   "clickToOpenLogs": "여기를 클릭하여 로그를 열 수 있습니다.",
   "ipfsNotRunning": "IPFS가 실행 중이지 않습니다",
-  "cantDownloadHash": "해시를 다운로드할 수 없습니다",
-  "invalidHashClipboard": "클립보드의 해시가 올바르지 않습니다.",
-  "errorWhileDownloadingHash": "해시를 가져오는 중 오류가 발생하였습니다.",
-  "errorWhileWritingFiles": "파일 시스템에 파일을 쓰는 중 오류가 발생하였습니다.",
-  "hashDownloaded": "해시 다운로드됨",
-  "hashDownloadedClickToView": "해시 { hash } 내용이 다운로드되었습니다. 클릭하여 볼 수 있습니다.",
-  "updateAvailable": "업데이트 가능",
-  "clickToInstall": "여기를 클릭하여 IPFS Desktop의 새 버전을 설치하실 수 있습니다.",
-  "updateNotAvailable": "업데이트 불가능",
-  "runningLatestVersion": "최신 버전을 사용 중입니다.",
-  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
-  "couldNotCheckForUpdates": "업데이트를 확인할 수 없습니다",
-  "pleaseCheckInternet": "인터넷 연결 상태를 확인해 주세요.",
   "checkForUpdates": "업데이트 확인...",
   "yes": "예",
   "no": "아니오",
@@ -47,8 +36,10 @@
   "restartIpfsDesktop": "IPFS Desktop 재시작",
   "openLogs": "로그 열기",
   "takeScreenshot": "스크린샷 찍기",
-  "downloadHash": "해시 다운로드",
+  "downloadCid": "Download...",
   "moveRepositoryLocation": "리포지터리 위치 이동",
+  "runGarbageCollector": "Run Garbage Collector",
+  "selectDirectory": "Select Directory",
   "polkitDialog": {
     "title": "Polkit을 찾을 수 없습니다",
     "message": "Polkit Agent 없이는 /usr/local/bin/ 에 IPFS를 추가할 수 없습니다."
@@ -116,5 +107,69 @@
   "itemsFailedNotification": {
     "title": "항목을 추가할 수 없습니다",
     "message": "노드에 항목을 추가할 수 없습니다."
+  },
+  "updateAvailableDialog": {
+    "title": "업데이트 가능",
+    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
+  },
+  "updateNotAvailableDialog": {
+    "title": "업데이트 불가능",
+    "message": "You are on the latest version of IFPS Desktop ({ version })."
+  },
+  "updateErrorDialog": {
+    "title": "Could not download update",
+    "message": "It was not possible to download the update. Please check your Internet connection and try again."
+  },
+  "updateDownloadedDialog": {
+    "title": "Update downloaded",
+    "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
+    "action": "재시작"
+  },
+  "updateDownloadedNotification": {
+    "title": "Update downloaded",
+    "message": "Update for version { version } of IPFS Desktop downloaded. Click this notification to install."
+  },
+  "runGarbageCollectorWarning": {
+    "title": "Garbage collector",
+    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
+    "action": "Run"
+  },
+  "runGarbageCollectorDone": {
+    "title": "Garbage collector",
+    "message": "The garbage collector ran successfully."
+  },
+  "moveRepositoryFailed": {
+    "title": "리포지터리 이동",
+    "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
+  },
+  "cantAddIpfsToPath": {
+    "title": "IPFS on PATH",
+    "message": "Could not add IPFS to the PATH."
+  },
+  "runGarbageCollectorErrored": {
+    "title": "Garbage collector",
+    "message": "The garbage collector run could not be completed successfully."
+  },
+  "downloadCidContentDialog": {
+    "title": "Download to a local directory",
+    "message": "Enter a CID, IPFS path, or IPNS path:",
+    "action": "Next"
+  },
+  "cantResolveCidDialog": {
+    "title": "Error",
+    "message": "Unable to resolve \"{ path }\"."
+  },
+  "couldNotGetCidDialog": {
+    "title": "Error",
+    "message": "Unable to fetch \"{ path }\"."
+  },
+  "contentsSavedDialog": {
+    "title": "Success",
+    "message": "The contents of \"{ path }\" were successfully downloaded.",
+    "action": "See Files"
+  },
+  "couldNotSaveDialog": {
+    "title": "Could not write to disk",
+    "message": "There was an error writing to the disk. Please try again."
   }
 }

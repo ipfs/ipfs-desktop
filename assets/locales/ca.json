@@ -1,9 +1,10 @@
 {
-  "ipfsIsRunning": "IPFS en marxa",
+  "ipfsIsRunning": "IPFS ha arrencat",
   "ipfsIsStopping": "IPFS s'està aturant",
   "ipfsIsStarting": "IPFS s'està iniciant",
-  "ipfsIsNotRunning": "IPFS no està en marxa",
-  "ipfsHasErrored": "IPFS té un error",
+  "ipfsIsNotRunning": "IPFS no està en funcionament",
+  "ipfsHasErrored": "IPFS ha tingut errors",
+  "runningWithGC": "Arrencat (RB en progrés)",
   "start": "Iniciar",
   "stop": "Aturar",
   "restart": "Reiniciar",
@@ -13,6 +14,7 @@
   "openLogsDir": "Obrir la Carpeta de Logs",
   "openConfigFile": "Obrir Arxiu de Configuració",
   "viewOnGitHub": "Veure-ho a GitHub",
+  "readReleaseNotes": "Llegeixi les notes del llançament",
   "status": "Estat",
   "files": "Arxius",
   "settings": "Configuració",
@@ -24,19 +26,6 @@
   "errorwhileTakingScreenshot": "Hi ha hagut un error fent la captura de pantalla.",
   "clickToOpenLogs": "Clica aquí per obrir els logs.",
   "ipfsNotRunning": "IPFS no està en marxa",
-  "cantDownloadHash": "No s'ha pogut descarregar el hash",
-  "invalidHashClipboard": "El Hash del porta-retalls no és vàlid.",
-  "errorWhileDownloadingHash": "Hi ha hagut un error mentre s'obtenia el hash.",
-  "errorWhileWritingFiles": "Hi ha hagut un error mentre s'escrivien els arxius al teu sistema.",
-  "hashDownloaded": "S'ha descarregat el hash",
-  "hashDownloadedClickToView": "S'ha descarregat el contingut del hash { hash }. Clica per veure'l.",
-  "updateAvailable": "Actualització disponible",
-  "clickToInstall": "Clica aquí per reiniciar i instal·lar la nova versió de IPFS d'Escriptori.",
-  "updateNotAvailable": "Actualització no disponible",
-  "runningLatestVersion": "Sembla que utilitzes la darrera versió.",
-  "updateIsBeingDownloaded": "Hi ha una actualització disponible i s'està descarregant.",
-  "couldNotCheckForUpdates": "No s'han pogut comprovar les actualitzacions",
-  "pleaseCheckInternet": "Si us plau, comprova la connexió a Internet.",
   "checkForUpdates": "Comprovar Actualitzacions...",
   "yes": "Sí",
   "no": "No",
@@ -47,8 +36,10 @@
   "restartIpfsDesktop": "Reiniciar IPFS d'Escriptori",
   "openLogs": "Obrir logs",
   "takeScreenshot": "Fes una captura de pantalla",
-  "downloadHash": "Descarregar Hash",
+  "downloadCid": "Descarrega...",
   "moveRepositoryLocation": "Moure l'emplaçament del Repositori",
+  "runGarbageCollector": "Arrenca el recollidor de brossa",
+  "selectDirectory": "Selecciona un directori",
   "polkitDialog": {
     "title": "No s'ha trobat el Polkit",
     "message": "No es pot afegir IPFS a /usr/local/bin/ sense l'agent polkit."
@@ -116,5 +107,69 @@
   "itemsFailedNotification": {
     "title": "No s'han pogut afegir els elements",
     "message": "No s'han pogut afegir els teus elements al teu node."
+  },
+  "updateAvailableDialog": {
+    "title": "Actualització disponible",
+    "message": "Hi ha disponible una nova versió ({ version }) d'IPFS Desktop. La descarrega començarà en segon pla en pocs instants."
+  },
+  "updateNotAvailableDialog": {
+    "title": "Actualització no disponible",
+    "message": "Aquesta és la última versió d'IPFS Desktop ({ version })."
+  },
+  "updateErrorDialog": {
+    "title": "No s'ha pogut descarregar l'actualització",
+    "message": "No ha estat possible descarregar l'actualització. Si us plau, comproveu la connexió a internet i proveu-ho de nou."
+  },
+  "updateDownloadedDialog": {
+    "title": "Actualització descarregada",
+    "message": "S'ha descarregat l'actualització de la versió { version }. Per instal·lar-la, si us plau reinici IPFS Desktop.",
+    "action": "Reiniciar"
+  },
+  "updateDownloadedNotification": {
+    "title": "Actualització descarregada",
+    "message": "S'ha descarregat l'actualització de la versió { version }d'IPFS Desktop. Cliqui aquesta notificació per instal·lar-la."
+  },
+  "runGarbageCollectorWarning": {
+    "title": "Recollidor de brossa",
+    "message": "Arrencant el recollidor de brossa (RB) eliminaràs tots els objectes que no estiguin fixats en el teu MFS. Això pot tardar una mica. Vols continuar?",
+    "action": "Arrenca"
+  },
+  "runGarbageCollectorDone": {
+    "title": "Recollidor de brossa",
+    "message": "L'arrencada del recollidor de brossa ha estat satisfactòria."
+  },
+  "moveRepositoryFailed": {
+    "title": "Moure repositori",
+    "message": "No s'ha pogut moure el repositori de \"{ currDir }\" a \"{ newDir }\"."
+  },
+  "cantAddIpfsToPath": {
+    "title": "IPFS a la RUTA",
+    "message": "No s'ha pogut afegir IPFS a la RUTA."
+  },
+  "runGarbageCollectorErrored": {
+    "title": "Recollidor de brossa",
+    "message": "L'arrencada del recollidor de brossa no ha pogut acabar satisfactòriament."
+  },
+  "downloadCidContentDialog": {
+    "title": "Descarrega a un directori local",
+    "message": "Introdueixi un CID, un camí IPFS, o un camí IPNS:",
+    "action": "Següent"
+  },
+  "cantResolveCidDialog": {
+    "title": "Error",
+    "message": "No s'ha pogut resoldre \"{ path }\"."
+  },
+  "couldNotGetCidDialog": {
+    "title": "Error",
+    "message": "No s'ha pogut portar \"{ path }\"."
+  },
+  "contentsSavedDialog": {
+    "title": "Completat",
+    "message": "Els continguts de \"{ path }\" han sigut descarregats satisfactòriament.",
+    "action": "Mostra els fitxers"
+  },
+  "couldNotSaveDialog": {
+    "title": "No s'ha pogut escriure al disc",
+    "message": "Hi ha hagut un error intentant escriure al disc. Si us plau, proveu-ho de nou."
   }
 }

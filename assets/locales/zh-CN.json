@@ -1,10 +1,11 @@
 {
-  "ipfsIsRunning": "IPFS运行中",
-  "ipfsIsStopping": "IPFS正在停止中",
-  "ipfsIsStarting": "IPFS正在启动中",
-  "ipfsIsNotRunning": "IPFS没有运行",
-  "ipfsHasErrored": "IPFS出现错误",
-  "start": "开始",
+  "ipfsIsRunning": "IPFS 正在运行",
+  "ipfsIsStopping": "IPFS 正在停止",
+  "ipfsIsStarting": "IPFS 正在启动",
+  "ipfsIsNotRunning": "IPFS 未能运行",
+  "ipfsHasErrored": "IPFS 出现错误",
+  "runningWithGC": "运行中（正在进行垃圾回收GC）",
+  "start": "启动",
   "stop": "停止",
   "restart": "重新启动",
   "about": "关于",
@@ -12,31 +13,19 @@
   "openRepoDir": "打开仓库目录",
   "openLogsDir": "打开日志目录",
   "openConfigFile": "打开配置文件",
-  "viewOnGitHub": "在GitHub上查看",
+  "viewOnGitHub": "在 GitHub 上查看",
+  "readReleaseNotes": "更新内容",
   "status": "状态",
   "files": "文件",
   "settings": "设置",
   "quit": "退出",
   "versions": "版本",
-  "screenshotTaken": "截图",
+  "screenshotTaken": "已捕获截图",
   "shareableLinkCopied": "可共享链接已复制到剪贴板。 点击此处查看截图。",
   "couldNotTakeScreenshot": "无法截图",
   "errorwhileTakingScreenshot": "进行屏幕截图时出错。",
-  "clickToOpenLogs": "点击这里打开日志.",
+  "clickToOpenLogs": "点击这里打开日志。",
   "ipfsNotRunning": "IPFS没有运行",
-  "cantDownloadHash": "无法下载哈希码",
-  "invalidHashClipboard": "剪切板中的哈希码无效",
-  "errorWhileDownloadingHash": "获取哈希码时出错。",
-  "errorWhileWritingFiles": "保存文件到你的文件系统时发生了错误.",
-  "hashDownloaded": "哈希码已经下载",
-  "hashDownloadedClickToView": "哈希码 { hash } 内容已经下载. 点击查看.",
-  "updateAvailable": "有更新可用",
-  "clickToInstall": "单击此处重新启动并安装较新版本的IPFS Desktop",
-  "updateNotAvailable": "暂时没有更新",
-  "runningLatestVersion": "当前运行的是最新版本",
-  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
-  "couldNotCheckForUpdates": "不能检查更新",
-  "pleaseCheckInternet": "请检查你的互联网连接",
   "checkForUpdates": "检查更新",
   "yes": "是",
   "no": "否",
@@ -44,38 +33,40 @@
   "ok": "好的",
   "cancel": "取消",
   "reportTheError": "报告错误",
-  "restartIpfsDesktop": "重启IPFS桌面",
+  "restartIpfsDesktop": "重启 IPFS 桌面",
   "openLogs": "打开日志",
   "takeScreenshot": "截取镜像",
-  "downloadHash": "下载哈希码",
+  "downloadCid": "Download...",
   "moveRepositoryLocation": "移动仓库目录",
+  "runGarbageCollector": "进行缓存清理",
+  "selectDirectory": "选择目录",
   "polkitDialog": {
-    "title": "Polkit(策略工具包)没有找到",
-    "message": "由于缺少polkit代理，无法将IPFS添加到/usr/local/bin/目录里。"
+    "title": "Polkit (策略工具包)没有找到",
+    "message": "由于缺少 Polkit 代理，无法将 IPFS 添加到 /usr/local/bin/ 目录中。"
   },
   "noPermissionDialog": {
     "title": "没有权限",
-    "message": "由于你输入错误的密码或者没有权限，无法将IPFS添加到 /usr/local/bin/目录里。"
+    "message": "由于密码错误或者没有权限，无法将 IPFS 添加到 /usr/local/bin/ 目录中。"
   },
   "ipfsNotRunningDialog": {
     "title": "IPFS未运行",
-    "message": "该功能需要IPFS运行，你想启动它吗？"
+    "message": "该功能需要 IPFS 运行，你想启动它吗？"
   },
   "recoverableErrorDialog": {
     "title": "发生了错误",
-    "message": "发生了错误，但不会中断IPFS桌面运行。你可以检查日志或将错误报告给开发者。"
+    "message": "发生了错误，但不会中断 IPFS 桌面运行。你可以检查日志或将错误报告给开发者。"
   },
   "cannotConnectToApiDialog": {
-    "title": "无法连接API",
-    "message": "IPFS桌面无法连接到提供的API地址：{ addr }"
+    "title": "无法连接 API",
+    "message": "IPFS 桌面无法连接到提供的 API 地址：{ addr }"
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS桌面已经关闭",
-    "message": "因为发生了一个错误，IPFS桌面已经关闭。你可以重新启动程序，或将该错误报告给开发者，这需要你有个GitHub账号。"
+    "title": "IPFS 桌面已经关闭",
+    "message": "因为发生了一个错误， IPFS 桌面已经关闭。你可以重新启动程序，或将该错误报告给开发者，这需要你有一个 GitHub 账号。"
   },
   "moveRepositoryWarnDialog": {
     "title": "移动仓库",
-    "message": "如果仓库在主驱动器上占用了太多空间，可以将其移动到其他位置。 请保证新位置始终可用，以使IPFS桌面程序正常工作。",
+    "message": "如果仓库在主驱动器上占用了太多空间，可以将其移动到其他位置。 请保证新位置始终可用，以保持 IPFS 桌面正常工作。",
     "action": "移动并重启节点"
   },
   "moveRepositorySuccessDialog": {
@@ -84,7 +75,7 @@
   },
   "moveRepositorySameDirDialog": {
     "title": "您选择了当前的目录",
-    "message": "您选择的目录就是仓库所在的目录：{ location }。因此将不会进行任何更改。"
+    "message": "您选择的目录就是仓库所在的目录 { location } ，因此不会进行任何更改。"
   },
   "moveRepositoryDirExists": {
     "title": "目录已经存在",
@@ -102,7 +93,7 @@
   },
   "multipleBusyPortsDialog": {
     "title": "端口忙碌",
-    "message": "由于端口被占用，无法绑定到一个或多个API或网关地址。",
+    "message": "由于端口被占用，无法绑定到一个或多个 API 或网关地址。",
     "action": "打开配置文件"
   },
   "itemsAddedNotification": {
@@ -115,6 +106,70 @@
   },
   "itemsFailedNotification": {
     "title": "项目添加失败",
-    "message": "不能将你的项目加入你的节点"
+    "message": "不能将此项目加入节点"
+  },
+  "updateAvailableDialog": {
+    "title": "新版本可用",
+    "message": "IPFS 桌面的一个新版本 ({ version }) 已经准备就绪，将在后台启动下载。"
+  },
+  "updateNotAvailableDialog": {
+    "title": "无可用更新",
+    "message": "已经是最新的 IPFS 桌面 ({ version }) "
+  },
+  "updateErrorDialog": {
+    "title": "更新下载失败",
+    "message": "无法下载更新，请检查您的网络连接并重试。"
+  },
+  "updateDownloadedDialog": {
+    "title": "更新已下载",
+    "message": "版本 { version } 更新已下载，请重启 IPFS 桌面以安装更新。",
+    "action": "重启"
+  },
+  "updateDownloadedNotification": {
+    "title": "更新已下载",
+    "message": "IPFS 桌面版本 { version } 更新已下载，点击此处以安装。"
+  },
+  "runGarbageCollectorWarning": {
+    "title": "缓存清理",
+    "message": "进行缓存清理（GC）将从存储库中删除所有未固定或在MFS上的对象。这可能需要一段时间，你想继续吗？",
+    "action": "运行"
+  },
+  "runGarbageCollectorDone": {
+    "title": "缓存清理",
+    "message": "已清理缓存"
+  },
+  "moveRepositoryFailed": {
+    "title": "移动仓库",
+    "message": "未能将仓库从 \"{ currDir }\" 移动到 \"{ newDir }\" 。"
+  },
+  "cantAddIpfsToPath": {
+    "title": "IPFS 系统路径",
+    "message": "未能将 IPFS 加入系统路径"
+  },
+  "runGarbageCollectorErrored": {
+    "title": "缓存清理",
+    "message": "缓存清理未能完全进行"
+  },
+  "downloadCidContentDialog": {
+    "title": "Download to a local directory",
+    "message": "Enter a CID, IPFS path, or IPNS path:",
+    "action": "下一步"
+  },
+  "cantResolveCidDialog": {
+    "title": "错误",
+    "message": "Unable to resolve \"{ path }\"."
+  },
+  "couldNotGetCidDialog": {
+    "title": "错误",
+    "message": "Unable to fetch \"{ path }\"."
+  },
+  "contentsSavedDialog": {
+    "title": "Success",
+    "message": "The contents of \"{ path }\" were successfully downloaded.",
+    "action": "See Files"
+  },
+  "couldNotSaveDialog": {
+    "title": "Could not write to disk",
+    "message": "There was an error writing to the disk. Please try again."
   }
 }

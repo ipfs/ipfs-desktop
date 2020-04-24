@@ -1,9 +1,10 @@
 {
-  "ipfsIsRunning": "IPFSが実行されています",
-  "ipfsIsStopping": "IPFSが停止しています",
-  "ipfsIsStarting": "IPFSが開始されています",
-  "ipfsIsNotRunning": "IPFSが実行されていません",
-  "ipfsHasErrored": "IPFSにエラーが発生しました",
+  "ipfsIsRunning": "IPFS is Running",
+  "ipfsIsStopping": "IPFS is Stopping",
+  "ipfsIsStarting": "IPFS is Starting",
+  "ipfsIsNotRunning": "IPFS is Not Running",
+  "ipfsHasErrored": "IPFS has Errored",
+  "runningWithGC": "Running (GC in progress)",
   "start": "開始",
   "stop": "停止",
   "restart": "再開",
@@ -13,6 +14,7 @@
   "openLogsDir": "ログディレクトリを開く",
   "openConfigFile": "設定ファイルを開く",
   "viewOnGitHub": "GitHubで表示",
+  "readReleaseNotes": "Read Release Notes",
   "status": "状態",
   "files": "ファイル",
   "settings": "設定",
@@ -24,19 +26,6 @@
   "errorwhileTakingScreenshot": "スクリーンショットの取得中にエラーが発生しました。",
   "clickToOpenLogs": "ここをクリックしてログを開きます。",
   "ipfsNotRunning": "IPFSが実行されていません",
-  "cantDownloadHash": "ハッシュをダウンロードできませんでした",
-  "invalidHashClipboard": "クリップボードのハッシュが無効です。",
-  "errorWhileDownloadingHash": "ハッシュの取得中にエラーが発生しました。",
-  "errorWhileWritingFiles": "ファイルシステムへのファイルの書き込み中にエラーが発生しました。",
-  "hashDownloaded": "ダウンロードしたハッシュ",
-  "hashDownloadedClickToView": "ハッシュ  { hash }  コンテンツがダウンロードされました。クリックして表示します。",
-  "updateAvailable": "更新可能",
-  "clickToInstall": "IPFSデスクトップの新しいバージョンを再起動してインストールするには、ここをクリックしてください。",
-  "updateNotAvailable": "更新は利用できません",
-  "runningLatestVersion": "最新バージョンを実行しているようです。",
-  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
-  "couldNotCheckForUpdates": "更新を確認できませんでした",
-  "pleaseCheckInternet": "インターネット接続を確認してください。",
   "checkForUpdates": "更新を確認しています...",
   "yes": "はい",
   "no": "いいえ",
@@ -47,8 +36,10 @@
   "restartIpfsDesktop": "IPFSデスクトップを再起動する",
   "openLogs": "ログを開く",
   "takeScreenshot": "スクリーンショットを撮ります",
-  "downloadHash": "ハッシュをダウンロード",
+  "downloadCid": "Download...",
   "moveRepositoryLocation": "リポジトリの場所を移動",
+  "runGarbageCollector": "Run Garbage Collector",
+  "selectDirectory": "Select Directory",
   "polkitDialog": {
     "title": "Polkitが見つかりません",
     "message": "IPFSは、polkitエージェントなしでは/usr/local/bin/に追加できません。"
@@ -116,5 +107,69 @@
   "itemsFailedNotification": {
     "title": "複数アイテムを追加できませんでした",
     "message": "複数アイテムをノードに追加できませんでした。"
+  },
+  "updateAvailableDialog": {
+    "title": "更新可能",
+    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
+  },
+  "updateNotAvailableDialog": {
+    "title": "更新は利用できません",
+    "message": "You are on the latest version of IFPS Desktop ({ version })."
+  },
+  "updateErrorDialog": {
+    "title": "Could not download update",
+    "message": "It was not possible to download the update. Please check your Internet connection and try again."
+  },
+  "updateDownloadedDialog": {
+    "title": "Update downloaded",
+    "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
+    "action": "再開"
+  },
+  "updateDownloadedNotification": {
+    "title": "Update downloaded",
+    "message": "Update for version { version } of IPFS Desktop downloaded. Click this notification to install."
+  },
+  "runGarbageCollectorWarning": {
+    "title": "Garbage collector",
+    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
+    "action": "Run"
+  },
+  "runGarbageCollectorDone": {
+    "title": "Garbage collector",
+    "message": "The garbage collector ran successfully."
+  },
+  "moveRepositoryFailed": {
+    "title": "リポジトリを移動する",
+    "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
+  },
+  "cantAddIpfsToPath": {
+    "title": "IPFS on PATH",
+    "message": "Could not add IPFS to the PATH."
+  },
+  "runGarbageCollectorErrored": {
+    "title": "Garbage collector",
+    "message": "The garbage collector run could not be completed successfully."
+  },
+  "downloadCidContentDialog": {
+    "title": "Download to a local directory",
+    "message": "Enter a CID, IPFS path, or IPNS path:",
+    "action": "Next"
+  },
+  "cantResolveCidDialog": {
+    "title": "Error",
+    "message": "Unable to resolve \"{ path }\"."
+  },
+  "couldNotGetCidDialog": {
+    "title": "Error",
+    "message": "Unable to fetch \"{ path }\"."
+  },
+  "contentsSavedDialog": {
+    "title": "Success",
+    "message": "The contents of \"{ path }\" were successfully downloaded.",
+    "action": "See Files"
+  },
+  "couldNotSaveDialog": {
+    "title": "Could not write to disk",
+    "message": "There was an error writing to the disk. Please try again."
   }
 }

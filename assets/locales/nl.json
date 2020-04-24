@@ -1,9 +1,10 @@
 {
-  "ipfsIsRunning": "IPFS draait",
-  "ipfsIsStopping": "IPFS is aan het stoppen",
-  "ipfsIsStarting": "IPFS is aan het starten",
-  "ipfsIsNotRunning": "IPFS draait niet",
-  "ipfsHasErrored": "IPFS heeft een fout",
+  "ipfsIsRunning": "IPFS is Running",
+  "ipfsIsStopping": "IPFS is Stopping",
+  "ipfsIsStarting": "IPFS is Starting",
+  "ipfsIsNotRunning": "IPFS is Not Running",
+  "ipfsHasErrored": "IPFS has Errored",
+  "runningWithGC": "Running (GC in progress)",
   "start": "Start",
   "stop": "Stop",
   "restart": "Herstart",
@@ -13,6 +14,7 @@
   "openLogsDir": "Open Log Map",
   "openConfigFile": "Open Configuratie Bestand",
   "viewOnGitHub": "Bekijken op Github",
+  "readReleaseNotes": "Read Release Notes",
   "status": "Status",
   "files": "Bestanden",
   "settings": "Instellingen",
@@ -24,19 +26,6 @@
   "errorwhileTakingScreenshot": "Er is een fout opgetreden bij het maken van de screenshot.",
   "clickToOpenLogs": "Klik hier om de logs te openen.",
   "ipfsNotRunning": "IPFS draait niet",
-  "cantDownloadHash": "Kon hash niet downloaden.",
-  "invalidHashClipboard": "De hash op het klembord is niet geldig.",
-  "errorWhileDownloadingHash": "Er is een fout opgetreden bij het ophalen van de hash.",
-  "errorWhileWritingFiles": "Er is een fout opgetreden bij het schrijven van de bestanden naar je harde schijf.",
-  "hashDownloaded": "Hash gedownload",
-  "hashDownloadedClickToView": "Inhoud van { hash } gedownload. Klik om te bekijken.",
-  "updateAvailable": "Update beschikbaar",
-  "clickToInstall": "Klik hier om te herstarten en de nieuwere versie van IPFS Desktop te installeren.",
-  "updateNotAvailable": "Update niet beschikbaar",
-  "runningLatestVersion": "Je lijkt de laatste versie te draaien.",
-  "updateIsBeingDownloaded": "There is an update available and it is being downloaded.",
-  "couldNotCheckForUpdates": "Kon niet controleren of er updates zijn.",
-  "pleaseCheckInternet": "Controleer alsjeblieft je internet verbinding.",
   "checkForUpdates": "Controleer of er updates zijn...",
   "yes": "Ja",
   "no": "Nee",
@@ -47,8 +36,10 @@
   "restartIpfsDesktop": "IPFS Desktop herstarten",
   "openLogs": "Logs openen",
   "takeScreenshot": "Screenshot maken",
-  "downloadHash": "Hash downloaden",
+  "downloadCid": "Download...",
   "moveRepositoryLocation": "Repository locatie verplaatsen",
+  "runGarbageCollector": "Run Garbage Collector",
+  "selectDirectory": "Select Directory",
   "polkitDialog": {
     "title": "Polkit niet gevonden",
     "message": "IPFS kan niet worden toegevoegd aan /usr/local/bin/ zonder polkit agent."
@@ -116,5 +107,69 @@
   "itemsFailedNotification": {
     "title": "Het is niet gelukt om items toe te voegen",
     "message": "Het is niet gelukt om je items toe te voegen aan je node."
+  },
+  "updateAvailableDialog": {
+    "title": "Update beschikbaar",
+    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
+  },
+  "updateNotAvailableDialog": {
+    "title": "Update niet beschikbaar",
+    "message": "You are on the latest version of IFPS Desktop ({ version })."
+  },
+  "updateErrorDialog": {
+    "title": "Could not download update",
+    "message": "It was not possible to download the update. Please check your Internet connection and try again."
+  },
+  "updateDownloadedDialog": {
+    "title": "Update downloaded",
+    "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
+    "action": "Herstart"
+  },
+  "updateDownloadedNotification": {
+    "title": "Update downloaded",
+    "message": "Update for version { version } of IPFS Desktop downloaded. Click this notification to install."
+  },
+  "runGarbageCollectorWarning": {
+    "title": "Garbage collector",
+    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
+    "action": "Run"
+  },
+  "runGarbageCollectorDone": {
+    "title": "Garbage collector",
+    "message": "The garbage collector ran successfully."
+  },
+  "moveRepositoryFailed": {
+    "title": "Repository verplaatsen",
+    "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
+  },
+  "cantAddIpfsToPath": {
+    "title": "IPFS on PATH",
+    "message": "Could not add IPFS to the PATH."
+  },
+  "runGarbageCollectorErrored": {
+    "title": "Garbage collector",
+    "message": "The garbage collector run could not be completed successfully."
+  },
+  "downloadCidContentDialog": {
+    "title": "Download to a local directory",
+    "message": "Enter a CID, IPFS path, or IPNS path:",
+    "action": "Next"
+  },
+  "cantResolveCidDialog": {
+    "title": "Fout",
+    "message": "Unable to resolve \"{ path }\"."
+  },
+  "couldNotGetCidDialog": {
+    "title": "Fout",
+    "message": "Unable to fetch \"{ path }\"."
+  },
+  "contentsSavedDialog": {
+    "title": "Success",
+    "message": "The contents of \"{ path }\" were successfully downloaded.",
+    "action": "See Files"
+  },
+  "couldNotSaveDialog": {
+    "title": "Could not write to disk",
+    "message": "There was an error writing to the disk. Please try again."
   }
 }
