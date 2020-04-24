@@ -1,31 +1,22 @@
 const { ipcMain } = require('electron')
-const os = require('os')
 const store = require('../common/store')
 const logger = require('../common/logger')
 
-module.exports = function ({ webui }, settingsOption, activate) {
-  ipcMain.on('config.toggle', async (_, opt) => {
-    if (opt !== settingsOption) {
-      return
-    }
-
+module.exports = function (settingsOption, activate) {
+  ipcMain.on(`toggle_${settingsOption}`, async () => {
     const oldValue = store.get(settingsOption, null)
     const newValue = !oldValue
-    let success = false
 
-    if (await activate(newValue, oldValue)) {
+    if (await activate({ newValue, oldValue, feedback: true })) {
       store.set(settingsOption, newValue)
-      success = true
 
       const action = newValue ? 'enabled' : 'disabled'
       logger.info(`[${settingsOption}] ${action}`)
     }
 
-    webui.webContents.send('config.changed', {
-      config: store.store,
-      changed: settingsOption,
-      platform: os.platform(),
-      success
-    })
+    // We always emit the event so any handlers for it can act upon
+    // the current configuration, whether it was successfully
+    // updated or not.
+    ipcMain.emit('configUpdated')
   })
 }

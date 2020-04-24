@@ -53,22 +53,6 @@ window.ipfsDesktop = {
 
   version: VERSION,
 
-  onConfigChanged: (listener) => {
-    ipcRenderer.on('config.changed', (_, config) => {
-      listener(config)
-    })
-
-    ipcRenderer.send('config.get')
-  },
-
-  toggleSetting: (setting) => {
-    ipcRenderer.send('config.toggle', setting)
-  },
-
-  configHasChanged: () => {
-    ipcRenderer.send('ipfsConfigChanged')
-  },
-
   selectDirectory: () => {
     return new Promise(resolve => {
       remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
