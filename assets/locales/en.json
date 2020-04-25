@@ -219,7 +219,7 @@
     "openNodeSettings": "Open Node Settings",
     "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
-    "launchWebUIOnStartup": "Launch Web UI on Startup",
+    "openWebUIAtLaunch": "Open Web UI at Launch",
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
