@@ -1,10 +1,10 @@
 {
-  "ipfsIsRunning": "IPFS is Running",
-  "ipfsIsStopping": "IPFS is Stopping",
-  "ipfsIsStarting": "IPFS is Starting",
-  "ipfsIsNotRunning": "IPFS is Not Running",
-  "ipfsHasErrored": "IPFS has Errored",
-  "runningWithGC": "Running (GC in progress)",
+  "ipfsIsRunning": "IPFS läuft",
+  "ipfsIsStopping": "IPFS stoppt",
+  "ipfsIsStarting": "IPFS startet",
+  "ipfsIsNotRunning": "IPFS gestoppt",
+  "ipfsHasErrored": "IPFS fehler",
+  "runningWithGC": "Läuft (GC in Arbeit)",
   "start": "Starten",
   "stop": "Stoppen",
   "restart": "Neu starten",
@@ -14,7 +14,7 @@
   "openLogsDir": "Protokollverzeichnis öffnen",
   "openConfigFile": "Konfigurationsdatei öffnen",
   "viewOnGitHub": "Auf GitHub anschauen",
-  "readReleaseNotes": "Read Release Notes",
+  "readReleaseNotes": "Release Notes lesen",
   "status": "Status",
   "files": "Dateien",
   "settings": "Einstellungen",
@@ -24,7 +24,7 @@
   "shareableLinkCopied": "Ein Link zum Teilen wurde zur Zwischenablage hinzugefügt. Klicke hier um den Screenshot zu sehen.",
   "couldNotTakeScreenshot": "Konnte keinen Screenshot machen",
   "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "clickToOpenLogs": "Click here to open the logs.",
+  "clickToOpenLogs": "Hier klicken um die Logs zu öffnen",
   "ipfsNotRunning": "IPFS läuft nicht",
   "checkForUpdates": "Auf Updates prüfen…",
   "yes": "Ja",
@@ -38,8 +38,8 @@
   "takeScreenshot": "Bildschirmfoto aufnehmen",
   "downloadCid": "Download...",
   "moveRepositoryLocation": "Speicherort verschieben",
-  "runGarbageCollector": "Run Garbage Collector",
-  "selectDirectory": "Select Directory",
+  "runGarbageCollector": "Garbage Collector starten",
+  "selectDirectory": "Verzeichniss wählen",
   "polkitDialog": {
     "title": "Polkit nicht gefunden",
     "message": "IPFS kann ohne den polkit agent nicht zu /usr/local/bin/ hinzugefügt werden."
@@ -62,24 +62,24 @@
   },
   "ipfsDesktopHasShutdownDialog": {
     "title": "IPFS Desktop wurde gestoppt",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "message": "IPFS Desktop wurde wegen eines Fehlers gestoppt. Du kannst die App neu starten oder den Fehler an die Entwickler melden, dafür wird ein GitHub Account benötigt."
   },
   "moveRepositoryWarnDialog": {
     "title": "Speicherort verschieben",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
+    "message": "Wenn deine repository zu viel Platz in Anspruch auf deiner Hauptfestplatte nimmt, kannst du sie an einen anderen Ort verschieben. Behalte aber im Hinterkopf das der neue Speicherort immer verfügbar sein muss damit IPFS-Desktop funktioniert.",
     "action": "Move and restart node"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "Repository erfolgreich verschoben",
+    "message": "Deine Repository wurde erfolgreich nach { location } verschoben und die Konfiguration wurde erfolgreich aktualisiert. Der daemon wird nun neu starten."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "Identisches Verzeichniss ausgewählt",
+    "message": "Das Verzeichniss das du gewählt hast ist das selbe wie das jetzige: { location }. Daher werden keine Änderungen getätig."
   },
   "moveRepositoryDirExists": {
     "title": "Verzeichnis existiert bereits",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "message": "Das Verzeichniss { location } existiert bereits. Bitte versuche ein anderes zu nutzen."
   },
   "busyPortsDialog": {
     "title": "Ports are busy",
