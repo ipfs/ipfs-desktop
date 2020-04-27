@@ -14,7 +14,7 @@ const createToggler = require('../utils/create-toggler')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
-const CONFIG_KEY = 'webuiAtLogin'
+const CONFIG_KEY = 'openWebUIAtLaunch'
 
 const createWindow = () => {
   const dimensions = screen.getPrimaryDisplay()
