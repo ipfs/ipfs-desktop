@@ -13,11 +13,12 @@
   "openRepoDir": "打开仓库目录",
   "openLogsDir": "打开日志目录",
   "openConfigFile": "打开配置文件",
-  "viewOnGitHub": "在 GitHub 上查看",
+  "viewOnGitHub": "View on GitHub…",
+  "helpUsTranslate": "Help Translate This App…",
   "readReleaseNotes": "更新内容",
   "status": "状态",
   "files": "文件",
-  "settings": "设置",
+  "peers": "节点",
   "quit": "退出",
   "versions": "版本",
   "screenshotTaken": "已捕获截图",
@@ -26,17 +27,18 @@
   "errorwhileTakingScreenshot": "进行屏幕截图时出错。",
   "clickToOpenLogs": "点击这里打开日志。",
   "ipfsNotRunning": "IPFS没有运行",
-  "checkForUpdates": "检查更新",
+  "checkForUpdates": "Check for Updates…",
   "yes": "是",
   "no": "否",
   "close": "关闭",
   "ok": "好的",
   "cancel": "取消",
+  "enable": "Enable",
   "reportTheError": "报告错误",
   "restartIpfsDesktop": "重启 IPFS 桌面",
   "openLogs": "打开日志",
   "takeScreenshot": "截取镜像",
-  "downloadCid": "Download...",
+  "downloadCid": "Download…",
   "moveRepositoryLocation": "移动仓库目录",
   "runGarbageCollector": "进行缓存清理",
   "selectDirectory": "选择目录",
@@ -171,5 +173,56 @@
   "couldNotSaveDialog": {
     "title": "Could not write to disk",
     "message": "There was an error writing to the disk. Please try again."
+  },
+  "launchAtLoginNotSupported": {
+    "title": "错误",
+    "message": "Launch at login is not supported on your platform."
+  },
+  "launchAtLoginFailed": {
+    "title": "错误",
+    "message": "Launch at login could not be enabled on your machine."
+  },
+  "enableIpfsOnPath": {
+    "title": "Enable IPFS on PATH",
+    "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
+    "action": "Enable"
+  },
+  "disableIpfsOnPath": {
+    "title": "Disable IPFS on PATH",
+    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
+    "action": "Disable"
+  },
+  "enableGlobalTakeScreenshotShortcut": {
+    "title": "Enable screenshot shortcut",
+    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+  },
+  "enableGlobalDownloadShortcut": {
+    "title": "Enable download shortcut",
+    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
+  },
+  "installNpmOnIpfsWarning": {
+    "title": "Install npm on IPFS",
+    "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
+    "action": "安装"
+  },
+  "unableToInstallNpmOnIpfs": {
+    "title": "错误",
+    "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
+  },
+  "unableToUninstallNpmOnIpfs": {
+    "title": "错误",
+    "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
+  },
+  "settings": {
+    "settings": "配置",
+    "preferences": "Preferences",
+    "openNodeSettings": "Open Node Settings",
+    "appPreferences": "App Preferences",
+    "launchOnStartup": "Launch at Login",
+    "ipfsCommandLineTools": "Command Line Tools",
+    "takeScreenshotShortcut": "Global Screenshot Shortcut",
+    "downloadHashShortcut": "Global Download Shortcut",
+    "experiments": "试验",
+    "npmOnIpfs": "npm on IPFS"
   }
 }

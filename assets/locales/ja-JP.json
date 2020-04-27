@@ -13,11 +13,12 @@
   "openRepoDir": "リポジトリディレクトリを開く",
   "openLogsDir": "ログディレクトリを開く",
   "openConfigFile": "設定ファイルを開く",
-  "viewOnGitHub": "GitHubで表示",
+  "viewOnGitHub": "View on GitHub…",
+  "helpUsTranslate": "Help Translate This App…",
   "readReleaseNotes": "Read Release Notes",
   "status": "状態",
   "files": "ファイル",
-  "settings": "設定",
+  "peers": "仲間",
   "quit": "終了する",
   "versions": "バージョン",
   "screenshotTaken": "撮影したスクリーンショット",
@@ -26,17 +27,18 @@
   "errorwhileTakingScreenshot": "スクリーンショットの取得中にエラーが発生しました。",
   "clickToOpenLogs": "ここをクリックしてログを開きます。",
   "ipfsNotRunning": "IPFSが実行されていません",
-  "checkForUpdates": "更新を確認しています...",
+  "checkForUpdates": "Check for Updates…",
   "yes": "はい",
   "no": "いいえ",
   "close": "閉じる",
   "ok": "了解",
   "cancel": "キャンセル",
+  "enable": "Enable",
   "reportTheError": "エラーを報告する",
   "restartIpfsDesktop": "IPFSデスクトップを再起動する",
   "openLogs": "ログを開く",
   "takeScreenshot": "スクリーンショットを撮ります",
-  "downloadCid": "Download...",
+  "downloadCid": "Download…",
   "moveRepositoryLocation": "リポジトリの場所を移動",
   "runGarbageCollector": "Run Garbage Collector",
   "selectDirectory": "Select Directory",
@@ -171,5 +173,56 @@
   "couldNotSaveDialog": {
     "title": "Could not write to disk",
     "message": "There was an error writing to the disk. Please try again."
+  },
+  "launchAtLoginNotSupported": {
+    "title": "Error",
+    "message": "Launch at login is not supported on your platform."
+  },
+  "launchAtLoginFailed": {
+    "title": "Error",
+    "message": "Launch at login could not be enabled on your machine."
+  },
+  "enableIpfsOnPath": {
+    "title": "Enable IPFS on PATH",
+    "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
+    "action": "Enable"
+  },
+  "disableIpfsOnPath": {
+    "title": "Disable IPFS on PATH",
+    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
+    "action": "Disable"
+  },
+  "enableGlobalTakeScreenshotShortcut": {
+    "title": "Enable screenshot shortcut",
+    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+  },
+  "enableGlobalDownloadShortcut": {
+    "title": "Enable download shortcut",
+    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
+  },
+  "installNpmOnIpfsWarning": {
+    "title": "Install npm on IPFS",
+    "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
+    "action": "Install"
+  },
+  "unableToInstallNpmOnIpfs": {
+    "title": "Error",
+    "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
+  },
+  "unableToUninstallNpmOnIpfs": {
+    "title": "Error",
+    "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
+  },
+  "settings": {
+    "settings": "設定",
+    "preferences": "Preferences",
+    "openNodeSettings": "Open Node Settings",
+    "appPreferences": "App Preferences",
+    "launchOnStartup": "Launch at Login",
+    "ipfsCommandLineTools": "Command Line Tools",
+    "takeScreenshotShortcut": "Global Screenshot Shortcut",
+    "downloadHashShortcut": "Global Download Shortcut",
+    "experiments": "実験",
+    "npmOnIpfs": "npm on IPFS"
   }
 }

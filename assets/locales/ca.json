@@ -13,11 +13,12 @@
   "openRepoDir": "Obrir el Directori del Repositori",
   "openLogsDir": "Obrir la Carpeta de Logs",
   "openConfigFile": "Obrir Arxiu de Configuració",
-  "viewOnGitHub": "Veure-ho a GitHub",
+  "viewOnGitHub": "View on GitHub…",
+  "helpUsTranslate": "Help Translate This App…",
   "readReleaseNotes": "Llegeixi les notes del llançament",
   "status": "Estat",
   "files": "Arxius",
-  "settings": "Configuració",
+  "peers": "Peers",
   "quit": "Sortir",
   "versions": "Versions",
   "screenshotTaken": "S'ha fet la captura de pantalla",
@@ -26,17 +27,18 @@
   "errorwhileTakingScreenshot": "Hi ha hagut un error fent la captura de pantalla.",
   "clickToOpenLogs": "Clica aquí per obrir els logs.",
   "ipfsNotRunning": "IPFS no està en marxa",
-  "checkForUpdates": "Comprovar Actualitzacions...",
+  "checkForUpdates": "Check for Updates…",
   "yes": "Sí",
   "no": "No",
   "close": "Tancar",
   "ok": "OK",
   "cancel": "Cancel·lar",
+  "enable": "Enable",
   "reportTheError": "Comunicar l'error",
   "restartIpfsDesktop": "Reiniciar IPFS d'Escriptori",
   "openLogs": "Obrir logs",
   "takeScreenshot": "Fes una captura de pantalla",
-  "downloadCid": "Descarrega...",
+  "downloadCid": "Download…",
   "moveRepositoryLocation": "Moure l'emplaçament del Repositori",
   "runGarbageCollector": "Arrenca el recollidor de brossa",
   "selectDirectory": "Selecciona un directori",
@@ -171,5 +173,56 @@
   "couldNotSaveDialog": {
     "title": "No s'ha pogut escriure al disc",
     "message": "Hi ha hagut un error intentant escriure al disc. Si us plau, proveu-ho de nou."
+  },
+  "launchAtLoginNotSupported": {
+    "title": "Error",
+    "message": "Launch at login is not supported on your platform."
+  },
+  "launchAtLoginFailed": {
+    "title": "Error",
+    "message": "Launch at login could not be enabled on your machine."
+  },
+  "enableIpfsOnPath": {
+    "title": "Enable IPFS on PATH",
+    "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
+    "action": "Enable"
+  },
+  "disableIpfsOnPath": {
+    "title": "Disable IPFS on PATH",
+    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
+    "action": "Disable"
+  },
+  "enableGlobalTakeScreenshotShortcut": {
+    "title": "Enable screenshot shortcut",
+    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+  },
+  "enableGlobalDownloadShortcut": {
+    "title": "Enable download shortcut",
+    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
+  },
+  "installNpmOnIpfsWarning": {
+    "title": "Install npm on IPFS",
+    "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
+    "action": "Install"
+  },
+  "unableToInstallNpmOnIpfs": {
+    "title": "Error",
+    "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
+  },
+  "unableToUninstallNpmOnIpfs": {
+    "title": "Error",
+    "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
+  },
+  "settings": {
+    "settings": "Configuració",
+    "preferences": "Preferences",
+    "openNodeSettings": "Open Node Settings",
+    "appPreferences": "App Preferences",
+    "launchOnStartup": "Launch at Login",
+    "ipfsCommandLineTools": "Command Line Tools",
+    "takeScreenshotShortcut": "Global Screenshot Shortcut",
+    "downloadHashShortcut": "Global Download Shortcut",
+    "experiments": "Experiments",
+    "npmOnIpfs": "npm on IPFS"
   }
 }

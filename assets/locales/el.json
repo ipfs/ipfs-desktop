@@ -13,11 +13,12 @@
   "openRepoDir": "Ανοιχτός κατάλογος αποθηκών",
   "openLogsDir": "Άνοιγμα φακέλου αρχέιων καταγραφής",
   "openConfigFile": "Άνοιγμα αρχείου ρυθμίσεων",
-  "viewOnGitHub": "Προβολή στο GitHub",
+  "viewOnGitHub": "View on GitHub…",
+  "helpUsTranslate": "Help Translate This App…",
   "readReleaseNotes": "Read Release Notes",
   "status": "Κατάσταση",
   "files": "Αρχεία",
-  "settings": "Ρυθμίσεις",
+  "peers": "Peers",
   "quit": "Έξοδος",
   "versions": "Εκδόσεις",
   "screenshotTaken": "Έγινε λήψη στιγμιότυπου",
@@ -26,17 +27,18 @@
   "errorwhileTakingScreenshot": "Παρουσιάστηκε σφάλμα κατά τη λήψη του στιγμιότυπου.",
   "clickToOpenLogs": "Κάντε κλικ εδώ για να ανοίξετε τα αρχεία καταγραφής.",
   "ipfsNotRunning": "Το IPFS δεν εκτελείται",
-  "checkForUpdates": "Έλεγχος για ενημερώσεις...",
+  "checkForUpdates": "Check for Updates…",
   "yes": "Ναί",
   "no": "Όχι",
   "close": "Κλείσιμο",
   "ok": "Εντάξει",
   "cancel": "Ακύρωση",
+  "enable": "Enable",
   "reportTheError": "Αναφορά σφαλμάτος",
   "restartIpfsDesktop": "Επανεκκίνηση του IPFS Desktop",
   "openLogs": "Άνοιγμα αρχείων καταγραφής",
   "takeScreenshot": "Λήψη στιγμιότυπου",
-  "downloadCid": "Download...",
+  "downloadCid": "Download…",
   "moveRepositoryLocation": "Μετακίνηση τοποθεσίας αποθήκης",
   "runGarbageCollector": "Run Garbage Collector",
   "selectDirectory": "Select Directory",
@@ -171,5 +173,56 @@
   "couldNotSaveDialog": {
     "title": "Could not write to disk",
     "message": "There was an error writing to the disk. Please try again."
+  },
+  "launchAtLoginNotSupported": {
+    "title": "Error",
+    "message": "Launch at login is not supported on your platform."
+  },
+  "launchAtLoginFailed": {
+    "title": "Error",
+    "message": "Launch at login could not be enabled on your machine."
+  },
+  "enableIpfsOnPath": {
+    "title": "Enable IPFS on PATH",
+    "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
+    "action": "Enable"
+  },
+  "disableIpfsOnPath": {
+    "title": "Disable IPFS on PATH",
+    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
+    "action": "Disable"
+  },
+  "enableGlobalTakeScreenshotShortcut": {
+    "title": "Enable screenshot shortcut",
+    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+  },
+  "enableGlobalDownloadShortcut": {
+    "title": "Enable download shortcut",
+    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
+  },
+  "installNpmOnIpfsWarning": {
+    "title": "Install npm on IPFS",
+    "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
+    "action": "Install"
+  },
+  "unableToInstallNpmOnIpfs": {
+    "title": "Error",
+    "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
+  },
+  "unableToUninstallNpmOnIpfs": {
+    "title": "Error",
+    "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
+  },
+  "settings": {
+    "settings": "Ρυθμίσεις",
+    "preferences": "Preferences",
+    "openNodeSettings": "Open Node Settings",
+    "appPreferences": "App Preferences",
+    "launchOnStartup": "Launch at Login",
+    "ipfsCommandLineTools": "Command Line Tools",
+    "takeScreenshotShortcut": "Global Screenshot Shortcut",
+    "downloadHashShortcut": "Global Download Shortcut",
+    "experiments": "Experiments",
+    "npmOnIpfs": "npm on IPFS"
   }
 }
