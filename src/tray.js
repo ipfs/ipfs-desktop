@@ -178,9 +178,14 @@ function buildMenu (ctx) {
           label: i18n.t('checkForUpdates'),
           click: () => { ctx.checkForUpdates() }
         },
+        { type: 'separator' },
         {
           label: i18n.t('viewOnGitHub'),
           click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/blob/master/README.md') }
+        },
+        {
+          label: i18n.t('helpUsTranslate'),
+          click: () => { shell.openExternal('https://www.transifex.com/ipfs/ipfs-desktop/') }
         }
       ]
     },
