@@ -1,6 +1,7 @@
 const { BrowserWindow, ipcMain, nativeTheme } = require('electron')
 const crypto = require('crypto')
 const { IS_MAC } = require('../../common/consts')
+const dock = require('../../utils/dock')
 const makePage = require('./template')
 
 const pallette = {
@@ -29,8 +30,11 @@ function generatePage ({ message, defaultValue = '', buttons }, id) {
   return `data:text/html;base64,${Buffer.from(page, 'utf8').toString('base64')}`
 }
 
-module.exports = async function showPrompt (options = {}) {
-  options.window = options.window || {}
+module.exports = async function showPrompt (options) {
+  options = Object.assign({}, {
+    window: {},
+    showDock: true
+  }, options)
 
   const window = new BrowserWindow({
     title: options.title,
@@ -55,14 +59,17 @@ module.exports = async function showPrompt (options = {}) {
   return new Promise(resolve => {
     ipcMain.once(id, (_, data) => {
       window.destroy()
+      if (options.showDock) dock.hide()
       resolve(data)
     })
 
     window.on('close', () => {
+      if (options.showDock) dock.hide()
       resolve({ input: '', button: null })
     })
 
     window.once('ready-to-show', () => {
+      if (options.showDock) dock.show()
       window.show()
     })
 
