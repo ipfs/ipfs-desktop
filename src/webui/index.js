@@ -127,7 +127,6 @@ module.exports = async function (ctx) {
       apiAddress = ipfsd.apiAddr
       url.searchParams.set('api', apiAddress)
       updateLanguage()
-      console.log(url.toString())
       window.loadURL(url.toString())
     }
   })
