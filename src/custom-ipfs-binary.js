@@ -58,7 +58,7 @@ async function setCustomBinary (ctx) {
 }
 
 function clearCustomBinary (ctx) {
-  store.delete('binaryPath')
+  store.delete(SETTINGS_KEY)
   logger.info('[custom binary] cleared')
 
   const opt = showDialog({
