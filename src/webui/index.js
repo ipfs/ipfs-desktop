@@ -96,12 +96,17 @@ module.exports = async function (ctx) {
 
   ctx.webui = window
 
-  ctx.launchWebUI = (url, { focus = true } = {}) => {
-    if (!url) {
+  const url = new URL('/', 'webui://-')
+  url.hash = '/blank'
+  url.searchParams.set('deviceId', ctx.countlyDeviceId)
+
+  ctx.launchWebUI = (path, { focus = true } = {}) => {
+    if (!path) {
       logger.info('[web ui] launching web ui')
     } else {
-      logger.info(`[web ui] navigate to ${url}`)
-      window.webContents.send('updatedPage', url)
+      logger.info(`[web ui] navigate to ${path}`)
+      window.webContents.send('updatedPage', path)
+      url.hash = path
     }
 
     if (focus) {
@@ -110,10 +115,6 @@ module.exports = async function (ctx) {
       dock.show()
     }
   }
-
-  const url = new URL('/', 'webui://-')
-  url.hash = '/blank'
-  url.searchParams.set('deviceId', ctx.countlyDeviceId)
 
   function updateLanguage () {
     url.searchParams.set('lng', store.get('language'))
@@ -126,6 +127,7 @@ module.exports = async function (ctx) {
       apiAddress = ipfsd.apiAddr
       url.searchParams.set('api', apiAddress)
       updateLanguage()
+      console.log(url.toString())
       window.loadURL(url.toString())
     }
   })
