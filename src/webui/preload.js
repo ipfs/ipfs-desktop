@@ -12,6 +12,15 @@ connectionHook()
 
 const urlParams = new URLSearchParams(window.location.search)
 
+function checkIfVisible () {
+  if (document.hidden) {
+    previousHash = window.location.hash
+    window.location.hash = '/blank'
+  } else {
+    window.location.hash = previousHash
+  }
+}
+
 var originalSetItem = window.localStorage.setItem
 window.localStorage.setItem = function () {
   if (arguments[0] === 'i18nextLng') {
@@ -29,12 +38,11 @@ ipcRenderer.on('updatedPage', (_, url) => {
 })
 
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    previousHash = window.location.hash
-    window.location.hash = '/blank'
-  } else {
-    window.location.hash = previousHash
-  }
+  checkIfVisible()
+})
+
+document.addEventListener('DOMContentReady', () => {
+  checkIfVisible()
 })
 
 window.ipfsDesktop = {
