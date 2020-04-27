@@ -1,40 +1,36 @@
 const electron = require('electron')
 const Store = require('electron-store')
 
-const store = new Store()
-
-const defaultFlags = [
-  '--migrate',
-  '--enable-gc',
-  '--routing', 'dhtclient'
-]
-
-if (store.get('version', 0) < 5) {
-  store.clear()
-
-  // default config
-  store.set('ipfsConfig', {
+const defaults = {
+  ipfsConfig: {
     type: 'go',
     path: '',
-    flags: defaultFlags,
+    flags: [
+      '--migrate',
+      '--enable-gc',
+      '--routing', 'dhtclient'
+    ],
     keysize: 2048
-  })
-
-  store.set('version', 5)
+  },
+  language: (electron.app || electron.remote.app).getLocale(),
+  experiments: {}
 }
 
-const flags = store.get('ipfsConfig.flags', [])
+const migrations = {
+  '>=0.11.0': store => {
+    store.delete('version')
 
-if (flags.includes('--migrate=true') || flags.includes('--enable-gc=true')) {
-  store.set('ipfsConfig.flags', defaultFlags)
+    const flags = store.get('ipfsConfig.flags', [])
+
+    if (flags.includes('--migrate=true') || flags.includes('--enable-gc=true')) {
+      store.set('ipfsConfig.flags', defaults.ipfsConfig.flags)
+    }
+  }
 }
 
-if (!store.get('language')) {
-  store.set('language', (electron.app || electron.remote.app).getLocale())
-}
-
-if (!store.get('experiments')) {
-  store.set('experiments', {})
-}
+const store = new Store({
+  defaults,
+  migrations
+})
 
 module.exports = store
