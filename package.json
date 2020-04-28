@@ -15,7 +15,7 @@
     "clean:webui": "shx rm -rf assets/webui/",
     "build": "run-s clean:webui build:*",
     "build:webui": "run-s build:webui:*",
-    "build:webui:download": "npx ipfs-or-gateway -c bafybeicevz7mmgt45zitnmg73khkmvioz2ozixvd6guujphhtsenu2pt2a -p assets/webui/ -t 360000 --verbose",
+    "build:webui:download": "npx ipfs-or-gateway -c bafybeicp23nbcxtt2k2twyfivcbrc6kr3l5lnaiv3ozvwbemtrb7v52r6i -p assets/webui/ -t 360000 --verbose",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
     "build:binaries": "electron-builder --publish onTag"
   },
@@ -57,6 +57,7 @@
     "electron-notarize": "^0.3.0",
     "electron-notarize-dmg": "1.0.0",
     "got": "^11.0.2",
+    "ipfs-or-gateway": "^2.1.0",
     "mocha": "^7.1.2",
     "npm-run-all": "^4.1.5",
     "pre-commit": "^1.2.2",
