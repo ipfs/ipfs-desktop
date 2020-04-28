@@ -178,6 +178,12 @@ By default we use the flags `--migrate=true --routing=dhtclient ----enable-gc=tr
 
 ## Troubleshooting
 
+### No tray icon on Linux
+
+Linux moved to `StatusNotifier` spec, and old `XEmbed` trays no longer work with Electron apps such as ipfs-desktop.
+
+To get tray icon back on `i3bar` or any other old menu app try running [snixembed](https://git.sr.ht/~steef/snixembed) or one of workarounds listed [here](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1153#issuecomment-596780147).
+
 ### Does not start on Linux (Debian 10)
 
 Some Linux users may see an error like this:
