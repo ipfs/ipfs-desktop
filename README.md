@@ -6,8 +6,8 @@
 
 **Download the latest release**
 
-- Mac - [IPFS-Desktop-0.10.4.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-0.10.4.dmg) or `brew cask install ipfs`
-- Windows - [IPFS-Desktop-Setup-0.10.4.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-Setup-0.10.4.exe) or `choco install ipfs-desktop`
+- Mac - [IPFS-Desktop-0.11.0.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/IPFS-Desktop-0.11.0.dmg) or `brew cask install ipfs`
+- Windows - [IPFS-Desktop-Setup-0.11.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/IPFS-Desktop-Setup-0.11.0.exe) or `choco install ipfs-desktop`
 - Linux - see the [install](#install) section for available options
 
 ![IPFS Desktop](https://user-images.githubusercontent.com/157609/55424318-426b1680-5580-11e9-93ec-ec261879367f.jpg)
@@ -17,7 +17,7 @@
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 [![](https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/ipfs-desktop)
 [![total download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
-[![latest release download count](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.10.4)
+[![latest release download count](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.0/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.11.0)
 
 IPFS Desktop allows you to run your IPFS Node on your machine without having to bother with command line tools. With it, you have the power of [Web UI](https://github.com/ipfs-shipyard/ipfs-webui) on tip of your hands plus a handful of shortcuts you can find on settings.
 
@@ -71,18 +71,18 @@ Download the latest release of IPFS Desktop for your OS, below.
 
 | Platform | Download link | Download count
 |---------:|---------------|---------------
-| **Windows**  | [IPFS-Desktop-Setup-0.10.4.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-Setup-0.10.4.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/IPFS-Desktop-Setup-0.10.4.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-Setup-0.10.4.exe)
-| **Mac**    | [IPFS-Desktop-0.10.4.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-0.10.4.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/IPFS-Desktop-0.10.4.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-0.10.4.dmg)
+| **Windows**  | [IPFS-Desktop-Setup-0.11.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/IPFS-Desktop-Setup-0.11.0.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.0/IPFS-Desktop-Setup-0.11.0.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/IPFS-Desktop-Setup-0.11.0.exe)
+| **Mac**    | [IPFS-Desktop-0.11.0.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/IPFS-Desktop-0.11.0.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.0/IPFS-Desktop-0.11.0.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/IPFS-Desktop-0.11.0.dmg)
 
 We provide multiple _experimental_ installers for **Linux** and **FreeBSD**:
 
 | Package | Download link | Download count
 |---------:|---------------|---------------
-| tar | [ipfs-desktop-0.10.4-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x64.tar.xz) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/ipfs-desktop-0.10.4-linux-x64.tar.xz.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x64.tar.xz)
-| deb | [ipfs-desktop-0.10.4-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/ipfs-desktop-0.10.4-linux-amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-amd64.deb)
-| rpm | [ipfs-desktop-0.10.4-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.rpm)
-| AppImage | [ipfs-desktop-0.10.4-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.AppImage)
-| freebsd | [ipfs-desktop-0.10.4-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x64.freebsd) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/ipfs-desktop-0.10.4-linux-x64.freebsd.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x64.freebsd)
+| tar | [ipfs-desktop-0.11.0-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/ipfs-desktop-0.11.0-linux-x64.tar.xz) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.0/ipfs-desktop-0.11.0-linux-x64.tar.xz.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/ipfs-desktop-0.11.0-linux-x64.tar.xz)
+| deb | [ipfs-desktop-0.11.0-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/ipfs-desktop-0.11.0-linux-amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.0/ipfs-desktop-0.11.0-linux-amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/ipfs-desktop-0.11.0-linux-amd64.deb)
+| rpm | [ipfs-desktop-0.11.0-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/ipfs-desktop-0.11.0-linux-x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.0/ipfs-desktop-0.11.0-linux-x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/ipfs-desktop-0.11.0-linux-x86_64.rpm)
+| AppImage | [ipfs-desktop-0.11.0-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/ipfs-desktop-0.11.0-linux-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.0/ipfs-desktop-0.11.0-linux-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/ipfs-desktop-0.11.0-linux-x86_64.AppImage)
+| freebsd | [ipfs-desktop-0.11.0-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/ipfs-desktop-0.11.0-linux-x64.freebsd) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.0/ipfs-desktop-0.11.0-linux-x64.freebsd.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.0/ipfs-desktop-0.11.0-linux-x64.freebsd)
 
 Or you can use your favorite package manager:
 
@@ -97,7 +97,7 @@ You can find releases notes and older versions on the [releases](https://github.
 
 ### Install from Source
 
-To install it from source you need [Node.js](https://nodejs.org/en/) `>=10.4.0` and
+To install it from source you need [Node.js](https://nodejs.org/en/) `>=12` and
 need [npm](npmjs.org) `>=6.1.0` installed. This uses [`node-gyp`](https://github.com/nodejs/node-gyp) so **you must take a look** at their [platform specific dependencies](https://github.com/nodejs/node-gyp#installation).
 
 Then the follow the steps below to clone the source code, install the dependencies and run it the app:
