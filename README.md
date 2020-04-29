@@ -180,7 +180,7 @@ By default we use the flags `--migrate=true --routing=dhtclient ----enable-gc=tr
 
 ### No tray icon on Linux
 
-The old tray interface on Linux called `XEmbed` is no longer supported by Electron and Chromium code used in ipfs-desktop app ([electron#21445](https://github.com/electron/electron/issues/21445)).
+The old tray interface on Linux called `XEmbed` is no longer supported by Electron and Chromium code used in the IPFS Desktop app ([electron#21445](https://github.com/electron/electron/issues/21445)).
 
 This means people running custom setups may not see the IPFS tray icon unless they:
 
