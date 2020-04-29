@@ -100,7 +100,7 @@ You can find releases notes and older versions on the [releases](https://github.
 To install it from source you need [Node.js](https://nodejs.org/en/) `>=12` and
 need [npm](npmjs.org) `>=6.1.0` installed. This uses [`node-gyp`](https://github.com/nodejs/node-gyp) so **you must take a look** at their [platform specific dependencies](https://github.com/nodejs/node-gyp#installation).
 
-Then the follow the steps below to clone the source code, install the dependencies and run it the app:
+Then follow the steps below to clone the source code, install the dependencies and run it the app:
 
 ```bash
 git clone https://github.com/ipfs-shipyard/ipfs-desktop.git
