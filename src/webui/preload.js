@@ -61,35 +61,33 @@ window.ipfsDesktop = {
 
   version: VERSION,
 
-  selectDirectory: () => {
-    return new Promise(resolve => {
-      remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
-        title: 'Select a directory',
-        properties: [
-          'openDirectory',
-          'createDirectory'
-        ]
-      }, async (res) => {
-        if (!res || res.length === 0) {
-          return resolve()
-        }
-
-        const files = []
-
-        const prefix = path.dirname(res[0])
-
-        for (const path of await readdir(res[0])) {
-          const size = (await fs.stat(path)).size
-          files.push({
-            path: path.substring(prefix.length, path.length),
-            content: toPull.source(fs.createReadStream(path)),
-            size: size
-          })
-        }
-
-        resolve(files)
-      })
+  selectDirectory: async () => {
+    const response = await remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
+      title: 'Select a directory',
+      properties: [
+        'openDirectory',
+        'createDirectory'
+      ]
     })
+
+    if (!response || response.canceled) {
+      return
+    }
+
+    const files = []
+    const filesToRead = response.filePaths[0]
+    const prefix = path.dirname(filesToRead)
+
+    for (const path of await readdir(filesToRead)) {
+      const size = (await fs.stat(path)).size
+      files.push({
+        path: path.substring(prefix.length, path.length),
+        content: toPull.source(fs.createReadStream(path)),
+        size: size
+      })
+    }
+
+    return files
   },
 
   removeConsent: (consent) => {
