@@ -6,8 +6,8 @@
 
 **Download the latest release**
 
-- Mac - [IPFS-Desktop-0.10.4.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-0.10.4.dmg) or `brew cask install ipfs`
-- Windows - [IPFS-Desktop-Setup-0.10.4.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-Setup-0.10.4.exe) or `choco install ipfs-desktop`
+- Mac - [IPFS-Desktop-0.11.1.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/IPFS-Desktop-0.11.1.dmg) or `brew cask install ipfs`
+- Windows - [IPFS-Desktop-Setup-0.11.1.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/IPFS-Desktop-Setup-0.11.1.exe) or `choco install ipfs-desktop`
 - Linux - see the [install](#install) section for available options
 
 ![IPFS Desktop](https://user-images.githubusercontent.com/157609/55424318-426b1680-5580-11e9-93ec-ec261879367f.jpg)
@@ -17,7 +17,7 @@
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 [![](https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/ipfs-desktop)
 [![total download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
-[![latest release download count](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.10.4)
+[![latest release download count](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.1/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.11.1)
 
 IPFS Desktop allows you to run your IPFS Node on your machine without having to bother with command line tools. With it, you have the power of [Web UI](https://github.com/ipfs-shipyard/ipfs-webui) on tip of your hands plus a handful of shortcuts you can find on settings.
 
@@ -71,18 +71,18 @@ Download the latest release of IPFS Desktop for your OS, below.
 
 | Platform | Download link | Download count
 |---------:|---------------|---------------
-| **Windows**  | [IPFS-Desktop-Setup-0.10.4.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-Setup-0.10.4.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/IPFS-Desktop-Setup-0.10.4.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-Setup-0.10.4.exe)
-| **Mac**    | [IPFS-Desktop-0.10.4.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-0.10.4.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/IPFS-Desktop-0.10.4.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/IPFS-Desktop-0.10.4.dmg)
+| **Windows**  | [IPFS-Desktop-Setup-0.11.1.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/IPFS-Desktop-Setup-0.11.1.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.1/IPFS-Desktop-Setup-0.11.1.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/IPFS-Desktop-Setup-0.11.1.exe)
+| **Mac**    | [IPFS-Desktop-0.11.1.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/IPFS-Desktop-0.11.1.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.1/IPFS-Desktop-0.11.1.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/IPFS-Desktop-0.11.1.dmg)
 
 We provide multiple _experimental_ installers for **Linux** and **FreeBSD**:
 
 | Package | Download link | Download count
 |---------:|---------------|---------------
-| tar | [ipfs-desktop-0.10.4-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x64.tar.xz) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/ipfs-desktop-0.10.4-linux-x64.tar.xz.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x64.tar.xz)
-| deb | [ipfs-desktop-0.10.4-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/ipfs-desktop-0.10.4-linux-amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-amd64.deb)
-| rpm | [ipfs-desktop-0.10.4-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.rpm)
-| AppImage | [ipfs-desktop-0.10.4-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x86_64.AppImage)
-| freebsd | [ipfs-desktop-0.10.4-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x64.freebsd) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.10.4/ipfs-desktop-0.10.4-linux-x64.freebsd.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.10.4/ipfs-desktop-0.10.4-linux-x64.freebsd)
+| tar | [ipfs-desktop-0.11.1-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/ipfs-desktop-0.11.1-linux-x64.tar.xz) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.1/ipfs-desktop-0.11.1-linux-x64.tar.xz.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/ipfs-desktop-0.11.1-linux-x64.tar.xz)
+| deb | [ipfs-desktop-0.11.1-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/ipfs-desktop-0.11.1-linux-amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.1/ipfs-desktop-0.11.1-linux-amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/ipfs-desktop-0.11.1-linux-amd64.deb)
+| rpm | [ipfs-desktop-0.11.1-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/ipfs-desktop-0.11.1-linux-x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.1/ipfs-desktop-0.11.1-linux-x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/ipfs-desktop-0.11.1-linux-x86_64.rpm)
+| AppImage | [ipfs-desktop-0.11.1-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/ipfs-desktop-0.11.1-linux-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.1/ipfs-desktop-0.11.1-linux-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/ipfs-desktop-0.11.1-linux-x86_64.AppImage)
+| freebsd | [ipfs-desktop-0.11.1-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/ipfs-desktop-0.11.1-linux-x64.freebsd) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.1/ipfs-desktop-0.11.1-linux-x64.freebsd.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.1/ipfs-desktop-0.11.1-linux-x64.freebsd)
 
 Or you can use your favorite package manager:
 
@@ -97,10 +97,10 @@ You can find releases notes and older versions on the [releases](https://github.
 
 ### Install from Source
 
-To install it from source you need [Node.js](https://nodejs.org/en/) `>=10.4.0` and
+To install it from source you need [Node.js](https://nodejs.org/en/) `>=12` and
 need [npm](npmjs.org) `>=6.1.0` installed. This uses [`node-gyp`](https://github.com/nodejs/node-gyp) so **you must take a look** at their [platform specific dependencies](https://github.com/nodejs/node-gyp#installation).
 
-Then the follow the steps below to clone the source code, install the dependencies and run it the app:
+Then follow the steps below to clone the source code, install the dependencies and run it the app:
 
 ```bash
 git clone https://github.com/ipfs-shipyard/ipfs-desktop.git
@@ -129,6 +129,7 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
     2. Ensure `APPLEID` and `APPLEIDPASS` are set either as environment variables or entries in `.env` file. Those need to belong to the same org as cert used for signing.
     3. Run `node pkgs/macos/notarize-cli.js ./IPFS-Desktop-A.B.C.dmg`
     4. Debug errors by calling the tool directly: `xcrun altool --notarize-app -f /path/to/IPFS-Desktop-0.X.0.dmg --primary-bundle-id io.ipfs.desktop -u XXX-from-vault-XXX -p XXX-app-specific-password-from-vault-XXX`, also see the [long list of hoops Apple might ask you to jump through](https://github.com/ipfs-shipyard/ipfs-desktop/pull/1365#issuecomment-598127684).
+- Update links and badges in `README` to point to the new version (`A.B.C`)
 - Update [Homebrew Cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
 - Update Chocolatey package:
     1. Wait for the artefact on the [releases page](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
@@ -140,7 +141,7 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
         1. `cd pkgs/chocolatey`
         2. `choco pack` - generates a `.nupkg` file.
         3. `choco push $generated_nupkg --key $api --source https://push.chocolatey.org`
-- To start work on the next version, bump the version in the package.json and repeat theses steps.
+- To start work on the next version, bump the version in the `package.json`
 
 ## Contribute
 
