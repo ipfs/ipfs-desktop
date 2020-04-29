@@ -178,6 +178,15 @@ By default we use the flags `--migrate=true --routing=dhtclient ----enable-gc=tr
 
 ## Troubleshooting
 
+### No tray icon on Linux
+
+The old tray interface on Linux called `XEmbed` is no longer supported by Electron and Chromium code used in the IPFS Desktop app ([electron#21445](https://github.com/electron/electron/issues/21445)).
+
+This means people running custom setups may not see the IPFS tray icon unless they:
+
+- enable support for `StatusNotifier` ([details](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1153#issuecomment-596780147))
+- OR run `StatusNotifier`→`XEmbed` proxy called [snixembed](https://git.sr.ht/~steef/snixembed)
+
 ### Does not start on Linux (Debian 10)
 
 Some Linux users may see an error like this:
