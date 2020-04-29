@@ -95,7 +95,7 @@
     "portfinder": "^1.0.25",
     "recursive-readdir": "^2.2.2",
     "stream-to-pull-stream": "^1.7.3",
-    "sudo-prompt": "^9.1.1",
+    "sudo-prompt": "^9.2.1",
     "untildify": "^4.0.0",
     "v8-compile-cache": "^2.1.0",
     "which": "^2.0.2",
