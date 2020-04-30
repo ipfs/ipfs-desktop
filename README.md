@@ -118,8 +118,8 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 
 ## Releasing
 
-- (Optional) Create a new [Draft Release](https://github.com/ipfs-shipyard/ipfs-desktop/releases).
 - Bump the version in `package.json`
+- Commit the changes
 - Create a tag with the same version: `git tag vA.B.C`
 - Publish local changes and the tag to GitHub repo: `git push && git push origin vA.B.C`
 - Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
