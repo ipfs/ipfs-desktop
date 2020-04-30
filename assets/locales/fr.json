@@ -217,9 +217,9 @@
     "message": "Il n'a pas été possible de désinstaller le paquet \"ipfs-npm\" sur votre système. Merci de vérifier les logs pour plus d'information ou essayez de le désinstaller manuellement en exécutant \"npm uninstall -g ipfs-npm\" en ligne de commande."
   },
   "settings": {
-    "settings": "Réglages",
+    "settings": "Paramètres",
     "preferences": "Préférences",
-    "openNodeSettings": "Ouvrir les Réglages du noeud",
+    "openNodeSettings": "Ouvrir les Paramètres du noeud",
     "appPreferences": "Préférences de l'app",
     "launchOnStartup": "Lancement au démarrage",
     "openWebUIAtLaunch": "Ouvrir l'interface web au démarrage",

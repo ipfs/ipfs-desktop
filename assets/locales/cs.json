@@ -42,6 +42,9 @@
   "moveRepositoryLocation": "Přesunout umístění repozitáře",
   "runGarbageCollector": "Spustit sběr odpadu",
   "selectDirectory": "Vyberat adresář",
+  "customIpfsBinary": "Custom IPFS Binary",
+  "setCustomIpfsBinary": "Set Custom IPFS Binary",
+  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
   "polkitDialog": {
     "title": "Polkit nebyl nalezen",
     "message": "IPFS nelze přidat do /usr/local/bin/ bez agenta polkit."
@@ -116,7 +119,7 @@
   },
   "updateNotAvailableDialog": {
     "title": "Aktualizace není k dispozici",
-    "message": "Jste na nejnovější verzi IFPS ({ version })."
+    "message": "You are on the latest version of IPFS Desktop ({ version })."
   },
   "updateErrorDialog": {
     "title": "Aktualizace se nepodařilo stáhnout",
@@ -219,10 +222,23 @@
     "openNodeSettings": "Open Node Settings",
     "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
+    "openWebUIAtLaunch": "Open Web UI at Launch",
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
     "experiments": "Experimenty",
     "npmOnIpfs": "npm on IPFS"
+  },
+  "setCustomIpfsBinaryConfirmation": {
+    "title": "Custom IPFS binary",
+    "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
+  },
+  "setCustomIpfsBinarySuccess": {
+    "title": "Custom IPFS binary",
+    "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
+  },
+  "clearCustomIpfsBinarySuccess": {
+    "title": "Clear custom IPFS binary",
+    "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
   }
 }
