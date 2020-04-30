@@ -13,8 +13,8 @@
   "openRepoDir": "打开仓库目录",
   "openLogsDir": "打开日志目录",
   "openConfigFile": "打开配置文件",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
+  "viewOnGitHub": "在 GitHub 查看",
+  "helpUsTranslate": "帮助翻译",
   "readReleaseNotes": "更新内容",
   "status": "状态",
   "files": "文件",
@@ -27,18 +27,18 @@
   "errorwhileTakingScreenshot": "进行屏幕截图时出错。",
   "clickToOpenLogs": "点击这里打开日志。",
   "ipfsNotRunning": "IPFS没有运行",
-  "checkForUpdates": "Check for Updates…",
+  "checkForUpdates": "检查更新",
   "yes": "是",
   "no": "否",
   "close": "关闭",
   "ok": "好的",
   "cancel": "取消",
-  "enable": "Enable",
+  "enable": "启用",
   "reportTheError": "报告错误",
   "restartIpfsDesktop": "重启 IPFS 桌面",
   "openLogs": "打开日志",
-  "takeScreenshot": "截取镜像",
-  "downloadCid": "Download…",
+  "takeScreenshot": "截图",
+  "downloadCid": "下载",
   "moveRepositoryLocation": "移动仓库目录",
   "runGarbageCollector": "进行缓存清理",
   "selectDirectory": "选择目录",
@@ -153,76 +153,76 @@
     "message": "缓存清理未能完全进行"
   },
   "downloadCidContentDialog": {
-    "title": "Download to a local directory",
-    "message": "Enter a CID, IPFS path, or IPNS path:",
+    "title": "下载到一个本地目录",
+    "message": "输入一个 CID, IPFS path, 或者 IPNS path:",
     "action": "下一步"
   },
   "cantResolveCidDialog": {
     "title": "错误",
-    "message": "Unable to resolve \"{ path }\"."
+    "message": "无法解析 \"{ path }\"."
   },
   "couldNotGetCidDialog": {
     "title": "错误",
-    "message": "Unable to fetch \"{ path }\"."
+    "message": "无法获取 \"{ path }\"."
   },
   "contentsSavedDialog": {
-    "title": "Success",
-    "message": "The contents of \"{ path }\" were successfully downloaded.",
-    "action": "See Files"
+    "title": "成功",
+    "message": "成功下载 \"{ path }\".",
+    "action": "查看文件"
   },
   "couldNotSaveDialog": {
-    "title": "Could not write to disk",
-    "message": "There was an error writing to the disk. Please try again."
+    "title": "无法写入磁盘",
+    "message": "写入磁盘时出现错误，请重新尝试。"
   },
   "launchAtLoginNotSupported": {
     "title": "错误",
-    "message": "Launch at login is not supported on your platform."
+    "message": "您的系统不支持开机启动。"
   },
   "launchAtLoginFailed": {
     "title": "错误",
-    "message": "Launch at login could not be enabled on your machine."
+    "message": "无法在您的计算机上启用开机启动。"
   },
   "enableIpfsOnPath": {
-    "title": "Enable IPFS on PATH",
-    "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
+    "title": "在 PATH 上启用 IPFS",
+    "message": "启用这个选项后, 您将能在命令行使用 \"ipfs\"。 该选项能被取消。",
+    "action": "启用"
   },
   "disableIpfsOnPath": {
-    "title": "Disable IPFS on PATH",
-    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
+    "title": "在 PATH 上禁用 IPFS",
+    "message": "禁用后，将不再支持命令行使用 \"ipfs\".",
     "action": "Disable"
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "Enable screenshot shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+    "title": "启用截屏快捷键",
+    "message": "启用后，您将能在 IPFS Desktop 启动期间使用快捷键 \"{ accelerator }\" 进行截屏。 "
   },
   "enableGlobalDownloadShortcut": {
-    "title": "Enable download shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
+    "title": "启用下载快捷键",
+    "message": "启用后，您将能在 IPFS Desktop 启动期间使用快捷键 \"{ accelerator }\" 进行下载。 "
   },
   "installNpmOnIpfsWarning": {
-    "title": "Install npm on IPFS",
-    "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
+    "title": "安装 npm on IPFS",
+    "message": "此实验功能将在您的系统上安装 \"ipfs-npm\" 。 它需要安装 Node.js 。",
     "action": "安装"
   },
   "unableToInstallNpmOnIpfs": {
     "title": "错误",
-    "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
+    "message": "无法在系统上安装 \"ipfs-npm\" 软件包。请检查日志以获取更多信息，或尝试通过在命令行上运行 \"npm install -g ipfs-npm\" 手动安装。"
   },
   "unableToUninstallNpmOnIpfs": {
     "title": "错误",
-    "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
+    "message": "无法在系统上卸载 \"ipfs-npm\" 软件包。请检查日志以获取更多信息，或尝试通过在命令行上运行 \"npm uninstall -g ipfs-npm\" 手动卸载。"
   },
   "settings": {
     "settings": "配置",
-    "preferences": "Preferences",
-    "openNodeSettings": "Open Node Settings",
-    "appPreferences": "App Preferences",
-    "launchOnStartup": "Launch at Login",
-    "ipfsCommandLineTools": "Command Line Tools",
-    "takeScreenshotShortcut": "Global Screenshot Shortcut",
-    "downloadHashShortcut": "Global Download Shortcut",
-    "experiments": "试验",
+    "preferences": "偏好",
+    "openNodeSettings": "打开节点设置",
+    "appPreferences": "应用程序首选项",
+    "launchOnStartup": "开机启动",
+    "ipfsCommandLineTools": "命令行工具",
+    "takeScreenshotShortcut": "全局截图快捷键",
+    "downloadHashShortcut": "全局下载快捷键",
+    "experiments": "实验性功能",
     "npmOnIpfs": "npm on IPFS"
   }
 }
