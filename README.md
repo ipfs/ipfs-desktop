@@ -123,12 +123,7 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 - Create a tag with the same version: `git tag vA.B.C`
 - Publish local changes and the tag to GitHub repo: `git push && git push origin vA.B.C`
 - Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
-- The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available. Once a release is published, users should recieve the app update. See: https://www.electron.build/auto-update.
-- Notarize `.dmg` at Apple (context: [#1365](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1211))
-    1. Download `.dmg` from `https://github.com/ipfs-shipyard/ipfs-desktop/releases/vA.B.C`
-    2. Ensure `APPLEID` and `APPLEIDPASS` are set either as environment variables or entries in `.env` file. Those need to belong to the same org as cert used for signing.
-    3. Run `node pkgs/macos/notarize-cli.js ./IPFS-Desktop-A.B.C.dmg`
-    4. Debug errors by calling the tool directly: `xcrun altool --notarize-app -f /path/to/IPFS-Desktop-0.X.0.dmg --primary-bundle-id io.ipfs.desktop -u XXX-from-vault-XXX -p XXX-app-specific-password-from-vault-XXX`, also see the [long list of hoops Apple might ask you to jump through](https://github.com/ipfs-shipyard/ipfs-desktop/pull/1365#issuecomment-598127684).
+- The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available. Once a release is published, users should receive the app update. See: https://www.electron.build/auto-update.
 - Update links and badges in `README` to point to the new version (`A.B.C`)
 - Update [Homebrew Cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
 - Update Chocolatey package:
@@ -142,6 +137,14 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
         2. `choco pack` - generates a `.nupkg` file.
         3. `choco push $generated_nupkg --key $api --source https://push.chocolatey.org`
 - To start work on the next version, bump the version in the `package.json`
+
+### Manual notarization (Fallback in-case CI is not doing it correctly)
+
+- Notarize `.dmg` at Apple (context: [#1365](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1211))
+    1. Download `.dmg` from `https://github.com/ipfs-shipyard/ipfs-desktop/releases/vA.B.C`
+    2. Ensure `APPLEID` and `APPLEIDPASS` are set either as environment variables or entries in `.env` file. Those need to belong to the same org as cert used for signing.
+    3. Run `node pkgs/macos/notarize-cli.js ./IPFS-Desktop-A.B.C.dmg`
+    4. Debug errors by calling the tool directly: `xcrun altool --notarize-app -f /path/to/IPFS-Desktop-0.X.0.dmg --primary-bundle-id io.ipfs.desktop -u XXX-from-vault-XXX -p XXX-app-specific-password-from-vault-XXX`, also see the [long list of hoops Apple might ask you to jump through](https://github.com/ipfs-shipyard/ipfs-desktop/pull/1365#issuecomment-598127684).
 
 ## Contribute
 
