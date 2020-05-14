@@ -70,7 +70,7 @@
     "spectron": "^10.0.1",
     "standard": "^14.3.4",
     "tar": "^6.0.2",
-    "tmp": "0.2.0",
+    "tmp": "0.2.1",
     "xvfb-maybe": "^0.2.1"
   },
   "dependencies": {
