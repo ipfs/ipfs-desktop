@@ -17,7 +17,7 @@ module.exports = async function quitAndInstall ({ stopIpfs }) {
     if (status === STATUS.STOPPING_FAILED || status === STATUS.STOPPING_FINISHED) {
       autoUpdater.quitAndInstall(true, true)
     }
-  } catch(err) {
+  } catch (err) {
     logger.error(err)
     autoUpdater.quitAndInstall(true, true)
   }
