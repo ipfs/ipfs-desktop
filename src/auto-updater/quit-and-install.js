@@ -1,6 +1,5 @@
 const { app, BrowserWindow } = require('electron')
 const { autoUpdater } = require('electron-updater')
-const { STATUS } = require('../daemon')
 const logger = require('../common/logger')
 
 // adapted from https://github.com/electron-userland/electron-builder/issues/1604#issuecomment-372091881
@@ -13,12 +12,10 @@ module.exports = async function quitAndInstall ({ stopIpfs }) {
 
   try {
     const status = await stopIpfs()
-
-    if (status === STATUS.STOPPING_FAILED || status === STATUS.STOPPING_FINISHED) {
-      autoUpdater.quitAndInstall(true, true)
-    }
+    logger.info(`[quit-and-install] stopIpfs had finished with status: ${status}`)
   } catch (err) {
-    logger.error(err)
-    autoUpdater.quitAndInstall(true, true)
+    logger.error('[quit-and-install] stopIpfs had an error', err)
   }
+
+  autoUpdater.quitAndInstall(true, true)
 }
