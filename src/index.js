@@ -66,10 +66,10 @@ async function run () {
     await setupI18n(ctx)
     await setupAppMenu(ctx)
 
-    await setupAutoUpdater(ctx) // ctx.checkForUpdates
     await setupWebUI(ctx) // ctx.webui, launchWebUI
     await setupTray(ctx) // ctx.tray
     await setupDaemon(ctx) // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
+    await setupAutoUpdater(ctx) // ctx.checkForUpdates
 
     await Promise.all([
       setupArgvFilesHandler(ctx),
