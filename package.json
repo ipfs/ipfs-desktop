@@ -45,6 +45,9 @@
     "url": "https://github.com/ipfs-shipyard/ipfs-desktop/issues"
   },
   "homepage": "https://github.com/ipfs-shipyard/ipfs-desktop",
+  "go-ipfs": {
+    "version": "v0.6.0-rc1"
+  },
   "devDependencies": {
     "@svgr/cli": "^5.4.0",
     "chai": "^4.2.0",
