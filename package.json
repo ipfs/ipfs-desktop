@@ -15,7 +15,7 @@
     "clean:webui": "shx rm -rf assets/webui/",
     "build": "run-s clean:webui build:*",
     "build:webui": "run-s build:webui:*",
-    "build:webui:download": "npx ipfs-or-gateway -c bafybeicp23nbcxtt2k2twyfivcbrc6kr3l5lnaiv3ozvwbemtrb7v52r6i -p assets/webui/ -t 360000 --verbose",
+    "build:webui:download": "npx ipfs-or-gateway -c bafybeigkbbjnltbd4ewfj7elajsbnjwinyk6tiilczkqsibf3o7dcr6nn4 -p assets/webui/ -t 360000 --verbose",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
     "build:binaries": "electron-builder --publish onTag"
   },
