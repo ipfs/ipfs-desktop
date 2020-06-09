@@ -84,10 +84,11 @@ We provide multiple _experimental_ installers for **Linux** and **FreeBSD**:
 | AppImage | [ipfs-desktop-0.11.4-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.4/ipfs-desktop-0.11.4-linux-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.4/ipfs-desktop-0.11.4-linux-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.4/ipfs-desktop-0.11.4-linux-x86_64.AppImage)
 | freebsd | [ipfs-desktop-0.11.4-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.4/ipfs-desktop-0.11.4-linux-x64.freebsd) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.11.4/ipfs-desktop-0.11.4-linux-x64.freebsd.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.4/ipfs-desktop-0.11.4-linux-x64.freebsd)
 
-Or you can use your favorite package manager:
+Or you can use your favorite package manager and a third-party package maintained by the community:
 
 - **Homebrew** - `brew cask install ipfs`
 - **Chocolatey** - `choco install ipfs-desktop`
+- **Scoop** - `scoop install ipfs-desktop`
 - **Snap** - `snap install ipfs-desktop`
 - **AUR** - [`ipfs-desktop` package](https://aur.archlinux.org/packages/ipfs-desktop/) maintained by [@alexhenrie](https://github.com/alexhenrie)
 
