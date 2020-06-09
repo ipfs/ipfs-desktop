@@ -63,9 +63,7 @@ snap:
     - network-bind
     - removable-media
   publish:
-    - provider: snapStore
-      channels:
-        - stable
+    - github
 
 publish:
   - github

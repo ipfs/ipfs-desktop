@@ -27,7 +27,6 @@ before_script:
       sudo apt update
       sudo apt install -y rpm snapd
       sudo snap install snapcraft --classic
-      echo $SNAP_TOKEN | snapcraft login --with -
     fi
 
 script:
