@@ -46,7 +46,7 @@
   },
   "homepage": "https://github.com/ipfs-shipyard/ipfs-desktop",
   "go-ipfs": {
-    "version": "v0.6.0-rc6"
+    "version": "v0.6.0-rc7"
   },
   "devDependencies": {
     "@svgr/cli": "^5.4.0",
