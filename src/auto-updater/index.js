@@ -21,9 +21,9 @@ function setup (ctx) {
    * Should be removed once https://github.com/electron-userland/electron-builder/issues/4815 is resolved.
    */
   app.once('before-quit', ev => {
-    if (_installOnQuit) {
+    if (installOnQuit) {
       ev.preventDefault()
-      _installOnQuit = false
+      installOnQuit = false
       autoUpdater.quitAndInstall(false, false)
     }
   })
@@ -98,7 +98,7 @@ function setup (ctx) {
   autoUpdater.on('update-downloaded', ({ version }) => {
     logger.info('[updater] update downloaded')
 
-    _installOnQuit = true
+    installOnQuit = true
 
     const doIt = () => {
       setImmediate(() => {
