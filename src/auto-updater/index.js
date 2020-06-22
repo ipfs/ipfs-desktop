@@ -7,6 +7,7 @@ const { showDialog } = require('../dialogs')
 const quitAndInstall = require('./quit-and-install')
 
 let feedback = false
+let installOnQuit = false
 
 function setup (ctx) {
   autoUpdater.autoDownload = false
@@ -20,9 +21,9 @@ function setup (ctx) {
    * Should be removed once https://github.com/electron-userland/electron-builder/issues/4815 is resolved.
    */
   app.once('before-quit', ev => {
-    if (this._installOnQuit) {
+    if (_installOnQuit) {
       ev.preventDefault()
-      this._installOnQuit = false
+      _installOnQuit = false
       autoUpdater.quitAndInstall(false, false)
     }
   })
@@ -96,6 +97,8 @@ function setup (ctx) {
 
   autoUpdater.on('update-downloaded', ({ version }) => {
     logger.info('[updater] update downloaded')
+
+    _installOnQuit = true
 
     const doIt = () => {
       setImmediate(() => {
