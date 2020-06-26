@@ -1,4 +1,4 @@
-const { shell } = require('electron')
+const { app, shell } = require('electron')
 const { autoUpdater } = require('electron-updater')
 const i18n = require('i18next')
 const logger = require('../common/logger')
@@ -7,10 +7,26 @@ const { showDialog } = require('../dialogs')
 const quitAndInstall = require('./quit-and-install')
 
 let feedback = false
+let installOnQuit = false
 
 function setup (ctx) {
   autoUpdater.autoDownload = false
-  autoUpdater.autoInstallOnAppQuit = true
+  autoUpdater.autoInstallOnAppQuit = false
+
+  /**
+   * this replaces the autoInstallOnAppQuit feature of autoUpdater, which causes the app
+   * to uninstall itself if it is installed for all users on a windows system.
+   *
+   * More info: https://github.com/ipfs-shipyard/ipfs-desktop/issues/1514
+   * Should be removed once https://github.com/electron-userland/electron-builder/issues/4815 is resolved.
+   */
+  app.once('before-quit', ev => {
+    if (installOnQuit) {
+      ev.preventDefault()
+      installOnQuit = false
+      autoUpdater.quitAndInstall(false, false)
+    }
+  })
 
   autoUpdater.on('error', err => {
     logger.error(`[updater] ${err.toString()}`)
@@ -81,6 +97,8 @@ function setup (ctx) {
 
   autoUpdater.on('update-downloaded', ({ version }) => {
     logger.info('[updater] update downloaded')
+
+    installOnQuit = true
 
     const doIt = () => {
       setImmediate(() => {
