@@ -6,8 +6,8 @@
 
 **Download the latest release**
 
-- Mac - [IPFS-Desktop-0.11.4.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.4/IPFS-Desktop-0.11.4.dmg) or `brew cask install ipfs`
-- Windows - [IPFS-Desktop-Setup-0.11.4.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.11.4/IPFS-Desktop-Setup-0.11.4.exe) or `choco install ipfs-desktop`
+- Mac - [IPFS-Desktop-0.12.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/IPFS-Desktop-0.12.2.dmg) or `brew cask install ipfs`
+- Windows - [IPFS-Desktop-Setup-0.12.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/IPFS-Desktop-Setup-0.12.2.exe) or `choco install ipfs-desktop`
 - Linux - see the [install](#install) section for available options
 
 ![IPFS Desktop](https://user-images.githubusercontent.com/157609/55424318-426b1680-5580-11e9-93ec-ec261879367f.jpg)
