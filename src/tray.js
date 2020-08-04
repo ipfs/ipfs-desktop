@@ -57,6 +57,11 @@ function buildMenu (ctx) {
       icon: path.resolve(path.join(__dirname, `../assets/icons/status/${color}.png`))
     })),
     {
+      id: 'numberOfPeers',
+      label: i18n.t('numberOfPeers'),
+      enabled: false
+    },
+    {
       id: 'restartIpfs',
       label: i18n.t('restart'),
       click: () => { ctx.restartIpfs() },
@@ -258,7 +263,7 @@ module.exports = function (ctx) {
     menu = buildMenu(ctx)
 
     tray.setContextMenu(menu)
-    tray.setToolTip('IPFS Desktop')
+    tray.setToolTip('Foo Peers')
 
     menu.on('menu-will-show', () => { ipcMain.emit('menubar-will-open') })
     menu.on('menu-will-close', () => { ipcMain.emit('menubar-will-close') })
@@ -276,6 +281,8 @@ module.exports = function (ctx) {
     menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED && !gcRunning
     menu.getMenuItemById('ipfsHasErrored').visible = errored && !gcRunning
     menu.getMenuItemById('runningWithGC').visible = gcRunning
+
+    menu.getMenuItemById('numberOfPeers').visible = status === STATUS.STARTING_FINISHED && !gcRunning
 
     menu.getMenuItemById('startIpfs').visible = status === STATUS.STOPPING_FINISHED
     menu.getMenuItemById('stopIpfs').visible = status === STATUS.STARTING_FINISHED
