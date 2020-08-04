@@ -263,7 +263,7 @@ module.exports = function (ctx) {
     menu = buildMenu(ctx)
 
     tray.setContextMenu(menu)
-    tray.setToolTip('Foo Peers')
+    tray.setToolTip('Foo' + ' ' + i18n.t('peers'))
 
     menu.on('menu-will-show', () => { ipcMain.emit('menubar-will-open') })
     menu.on('menu-will-close', () => { ipcMain.emit('menubar-will-close') })
