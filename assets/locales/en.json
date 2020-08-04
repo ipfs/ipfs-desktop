@@ -5,7 +5,6 @@
   "ipfsIsNotRunning": "IPFS is Not Running",
   "ipfsHasErrored": "IPFS has Errored",
   "runningWithGC": "Running (GC in progress)",
-  "numberOfPeers": "Foo Peers",
   "start": "Start",
   "stop": "Stop",
   "restart": "Restart",

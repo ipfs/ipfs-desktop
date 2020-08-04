@@ -58,7 +58,7 @@ function buildMenu (ctx) {
     })),
     {
       id: 'numberOfPeers',
-      label: i18n.t('numberOfPeers'),
+      label: 'Foo' + ' ' + i18n.t('peers'),
       enabled: false
     },
     {
