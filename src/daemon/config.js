@@ -52,7 +52,7 @@ function applyDefaults (ipfsd) {
 
   config.Discovery = config.Discovery || {}
   config.Discovery.MDNS = config.Discovery.MDNS || {}
-  config.Discovery.MDNS.enabled = true
+  config.Discovery.MDNS.Enabled = true
 
   writeConfigFile(ipfsd, config)
 }
