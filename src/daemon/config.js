@@ -62,7 +62,7 @@ function applyDefaults (ipfsd) {
 function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
   const REVISION = 1
-  const REVISION_KEY = 'nodeConfigRevision'
+  const REVISION_KEY = 'daemonConfigRevision'
 
   // Migration is applied only once per revision
   if (store.get(REVISION_KEY) >= REVISION) return

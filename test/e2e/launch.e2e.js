@@ -108,7 +108,7 @@ describe('Application launch', function () {
 
     // setup "broken" config for the test
     const initConfig = fs.readJsonSync(configPath)
-    // update origins to include multiple entries, including wildcard.
+    // simulate bug from https://github.com/ipfs-shipyard/ipfs-desktop/issues/1631
     delete initConfig.Discovery.MDNS.Enabled
     initConfig.Discovery.MDNS.enabled = true
     fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
