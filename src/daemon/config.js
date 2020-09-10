@@ -57,6 +57,48 @@ function applyDefaults (ipfsd) {
   writeConfigFile(ipfsd, config)
 }
 
+// Apply one-time updates to the config of IPFS node.
+// This is the place where we execute fixes and performance tweaks for existing users.
+function migrateConfig (ipfsd) {
+  // Bump revision number when new migration rule is added
+  const REVISION = 1
+  const REVISION_KEY = 'nodeConfigRevision'
+
+  // Migration is applied only once per revision
+  if (store.get(REVISION_KEY) >= REVISION) return
+
+  // Read config
+  let config = null
+  let changed = false
+  try {
+    config = readConfigFile(ipfsd)
+  } catch (err) {
+    // This is a best effort check, dont blow up here, that should happen else where.
+    logger.error(`[daemon] migrateConfig: error reading config file: ${err.message || err}`)
+    return
+  }
+
+  // Cleanup https://github.com/ipfs-shipyard/ipfs-desktop/issues/1631
+  if (config.Discovery && config.Discovery.MDNS && config.Discovery.MDNS.enabled) {
+    config.Discovery.MDNS.Enabled = config.Discovery.MDNS.Enabled || true
+    delete config.Discovery.MDNS.enabled
+    changed = true
+  }
+
+  // TODO: update config.Swarm.ConnMgr.*
+
+  if (changed) {
+    try {
+      writeConfigFile(ipfsd, config)
+      store.set(REVISION_KEY, REVISION)
+    } catch (err) {
+      logger.error(`[daemon] migrateConfig: error writing config file: ${err.message || err}`)
+      return
+    }
+  }
+  store.set(REVISION_KEY, REVISION)
+}
+
 // Check for * and webui://- in allowed origins on API headers.
 // The wildcard was a ipfsd-ctl default, that we don't want, and
 // webui://- was an earlier experiement that should be cleared out.
@@ -276,6 +318,7 @@ module.exports = Object.freeze({
   apiFileExists,
   rmApiFile,
   applyDefaults,
+  migrateConfig,
   checkCorsConfig,
   checkPorts
 })

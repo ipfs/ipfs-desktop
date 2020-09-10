@@ -102,6 +102,29 @@ describe('Application launch', function () {
     await ipfsd.stop()
   })
 
+  it('applies config migration to existing config', async function () {
+    // create preexisting, initialized repo and config
+    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
+
+    // setup "broken" config for the test
+    const initConfig = fs.readJsonSync(configPath)
+    // update origins to include multiple entries, including wildcard.
+    delete initConfig.Discovery.MDNS.Enabled
+    initConfig.Discovery.MDNS.enabled = true
+    fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
+
+    const { app } = await startApp({ repoPath })
+    expect(app.isRunning()).to.be.true()
+
+    const { peerId } = await daemonReady(app)
+    expect(peerId).to.be.equal(expectedId)
+
+    const config = fs.readJsonSync(configPath)
+    // ensure app has migrated config
+    expect(config.Discovery.MDNS.enabled).to.be.undefined()
+    expect(config.Discovery.MDNS.Enabled).to.be.true()
+  })
+
   it('fixes cors config if access to "*" is granted', async function () {
     // create config
     const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
