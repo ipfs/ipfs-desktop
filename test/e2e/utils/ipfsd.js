@@ -8,7 +8,7 @@ const { join } = require('path')
 const factory = Ctl.createFactory({
   type: 'go',
   ipfsHttpModule: require('ipfs-http-client'),
-  ipfsBin: require('go-ipfs-dep').path(),
+  ipfsBin: require('go-ipfs').path(),
   remote: false,
   disposable: true,
   test: true // run on random ports
@@ -26,7 +26,6 @@ async function makeRepository ({ start = false }) {
 
   // manual init
   await ipfsd.init({
-    bits: 1024,
     profiles: ['test'],
     directory: repoPath
   })
