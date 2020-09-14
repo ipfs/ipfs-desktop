@@ -9,7 +9,7 @@ const logger = require('../common/logger')
 const store = require('../common/store')
 const { IS_MAC, IS_WIN } = require('../common/consts')
 const dock = require('../utils/dock')
-const { VERSION } = require('../common/consts')
+const { VERSION, ELECTRON_VERSION } = require('../common/consts')
 const createToggler = require('../utils/create-toggler')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
@@ -138,11 +138,24 @@ module.exports = async function (ctx) {
     })
   })
 
+  // Avoid setting CORS by acting like /webui loaded from API port
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-    // Avoid setting CORS by acting like /webui loaded from API port
     details.requestHeaders.Origin = apiOrigin(apiAddress)
-    details.requestHeaders['User-Agent'] = `ipfs-desktop/${VERSION}`
+    details.requestHeaders['User-Agent'] = `ipfs-desktop/${VERSION} (Electron ${ELECTRON_VERSION})`
     callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
+  })
+
+  // modify CORS preflight on the fly
+  const webuiOrigin = 'webui://-'
+  const acao = 'Access-Control-Allow-Origin'
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    const { responseHeaders } = details
+    // If Access-Control-Allow-Origin header is returned, override it to match webuiOrigin
+    if (responseHeaders && responseHeaders[acao]) {
+      responseHeaders[acao] = webuiOrigin
+    }
+    // eslint-disable-next-line
+    callback({ responseHeaders })
   })
 
   return new Promise(resolve => {
