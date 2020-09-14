@@ -6,8 +6,10 @@ platform:
   - x64
 
 cache:
-  #  - node_modules
-  #- '%USERPROFILE%\.electron'
+  - node_modules
+  - '%USERPROFILE%\.electron'
+
+skip_branch_with_pr: true # Do not build feature branch with open Pull Requests
 
 init:
   - git config --global core.autocrlf input
