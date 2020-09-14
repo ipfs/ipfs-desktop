@@ -1,8 +1,4 @@
-const toPull = require('stream-to-pull-stream')
-const { ipcRenderer, remote } = require('electron')
-const readdir = require('recursive-readdir')
-const fs = require('fs-extra')
-const path = require('path')
+const { ipcRenderer } = require('electron')
 const screenshotHook = require('./screenshot')
 const connectionHook = require('./connection-status')
 const { COUNTLY_KEY, VERSION } = require('../common/consts')
@@ -60,35 +56,6 @@ window.ipfsDesktop = {
   ],
 
   version: VERSION,
-
-  selectDirectory: async () => {
-    const response = await remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
-      title: 'Select a directory',
-      properties: [
-        'openDirectory',
-        'createDirectory'
-      ]
-    })
-
-    if (!response || response.canceled) {
-      return
-    }
-
-    const files = []
-    const filesToRead = response.filePaths[0]
-    const prefix = path.dirname(filesToRead)
-
-    for (const path of await readdir(filesToRead)) {
-      const size = (await fs.stat(path)).size
-      files.push({
-        path: path.substring(prefix.length, path.length),
-        content: toPull.source(fs.createReadStream(path)),
-        size: size
-      })
-    }
-
-    return files
-  },
 
   removeConsent: (consent) => {
     ipcRenderer.send('countly.removeConsent', consent)
