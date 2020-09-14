@@ -74,7 +74,7 @@
     "xvfb-maybe": "^0.2.1"
   },
   "dependencies": {
-    "countly-sdk-nodejs": "^19.8.0",
+    "countly-sdk-nodejs": "^20.4.0",
     "electron-serve": "^1.0.0",
     "electron-store": "^6.0.0",
     "electron-updater": "^4.3.4",
