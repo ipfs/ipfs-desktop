@@ -6,6 +6,7 @@ const defaults = {
     type: 'go',
     path: '',
     flags: [
+      '--enable-pubsub-experiment',
       '--migrate',
       '--enable-gc',
       '--routing', 'dhtclient'
