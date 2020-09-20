@@ -3,7 +3,7 @@ const { autoUpdater } = require('electron-updater')
 const i18n = require('i18next')
 const logger = require('../common/logger')
 const { notify } = require('../common/notify')
-const { showDialog } = require('../dialogs')
+const { showAsyncDialog } = require('../dialogs')
 const quitAndInstall = require('./quit-and-install')
 
 let feedback = false
@@ -20,7 +20,7 @@ function setup (ctx) {
     }
 
     feedback = false
-    showDialog({
+    showAsyncDialog({
       title: i18n.t('updateErrorDialog.title'),
       message: i18n.t('updateErrorDialog.message'),
       type: 'error',
@@ -46,7 +46,7 @@ function setup (ctx) {
     // do not toggle feedback off here so we can show a dialog once the download
     // is finished.
 
-    const opt = showDialog({
+    const opt = showAsyncDialog({
       title: i18n.t('updateAvailableDialog.title'),
       message: i18n.t('updateAvailableDialog.message', { version, releaseNotes }),
       type: 'info',
@@ -69,7 +69,7 @@ function setup (ctx) {
     }
 
     feedback = false
-    showDialog({
+    showAsyncDialog({
       title: i18n.t('updateNotAvailableDialog.title'),
       message: i18n.t('updateNotAvailableDialog.message', { version }),
       type: 'info',
@@ -97,7 +97,7 @@ function setup (ctx) {
 
     feedback = false
 
-    showDialog({
+    showAsyncDialog({
       title: i18n.t('updateDownloadedDialog.title'),
       message: i18n.t('updateDownloadedDialog.message', { version }),
       type: 'info',
@@ -121,7 +121,7 @@ async function checkForUpdates () {
 module.exports = async function (ctx) {
   if (process.env.NODE_ENV === 'development') {
     ctx.checkForUpdates = () => {
-      showDialog({
+      showAsyncDialog({
         title: 'Not available in development',
         message: 'Yes, you called this function successfully.',
         buttons: [i18n.t('close')]
