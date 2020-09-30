@@ -13,11 +13,11 @@
     "postinstall": "run-s install-app-deps build:webui",
     "install-app-deps": "electron-builder install-app-deps",
     "clean:webui": "shx rm -rf assets/webui/",
-    "build": "run-s build:*",
+    "build": "run-s build:webui",
     "build:webui": "run-s clean:webui build:webui:*",
     "build:webui:download": "npx ipfs-or-gateway -c bafybeifekmcbbi4nwyj4aasti6x3nuhyli464wfjjfdjg4xnz53lhyiedq -p assets/webui/ -t 360000 --verbose",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
-    "build:binaries": "electron-builder --publish onTag"
+    "build:packages": "electron-builder --publish onTag"
   },
   "pre-commit": [
     "lint"
