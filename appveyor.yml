@@ -9,12 +9,14 @@ cache:
   - node_modules
   - '%USERPROFILE%\.electron'
 
+skip_branch_with_pr: true # Do not build feature branch with open Pull Requests
+
 init:
   - git config --global core.autocrlf input
 
 install:
   - ps: Install-Product node 12 x64
-  - npm install
+  - npm ci
 
 build_script:
   - npm run lint
