@@ -20,9 +20,9 @@ install:
   - npm ci
 
 build_script:
-  - npm run build
-
-test_script:
   - npm run test
   - npm run test:e2e
   - npm run lint
+  - npm run build
+
+test: off
