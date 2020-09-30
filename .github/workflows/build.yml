@@ -1,0 +1,46 @@
+name: CI
+# https://github.com/marketplace/actions/electron-builder-action
+
+on: push
+
+jobs:
+  release:
+    name: Test and Build
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        # TODO: remove Travis and add linux and macOS
+        os: [windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install dependencies
+        run: npm ci
+      - name: Test
+        run: npm run test
+      - name: Test End-to-end
+        run: npm run test:e2e
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+
+      # TODO: run electron builder only on release tag? ${{ startsWith(github.ref, 'refs/tags/v') }}
+      - name: Build binaries with electron-builder
+        uses: samuelmeuli/action-electron-builder@92327c67bc45ff7c38bf55d8aa8c4d75b7ea38e7 # v1.6.0 but safer than a tag that can be changed
+        with:
+          # TODO: args: --publish onTag # attach signed binaries to a release draft only when building a tag
+          release: false # keep github release as draft for manual inspection
+          max_attempts: 1
+          # TODO: secrets for mac, snap, chocolatey
+          github_token: ${{ secrets.github_token }}
+          windows_certs: ${{ secrets.windows_certs }}
+          windows_certs_password: ${{ secrets.windows_certs_password }}

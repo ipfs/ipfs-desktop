@@ -53,7 +53,7 @@ describe('Application launch', function () {
     return { app, repoPath, home }
   }
 
-  async function daemonReady (app, timeout = 15000) {
+  async function daemonReady (app, timeout = 45000) {
     // TODO: replace this hack with a signal from the app to know when ipfs is ready.
     // Right now we can't listen for IPC events in spectron (https://github.com/electron/spectron/issues/91)
     // As a workaround, we look at console output and match on strings :<
