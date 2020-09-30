@@ -117,6 +117,8 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 
 ## Releasing
 
+- Fetch new translations from Transifex: `tx pull -a`
+- Commit the changes
 - Bump the version in `package.json`
 - Commit the changes
 - Create a tag with the same version: `git tag vA.B.C`
@@ -188,12 +190,14 @@ By default we use the flags `--migrate=true --routing=dhtclient ----enable-gc=tr
 
 ### No tray icon on Linux
 
-The old tray interface on Linux called `XEmbed` is no longer supported by Electron and Chromium code used in the IPFS Desktop app ([electron#21445](https://github.com/electron/electron/issues/21445)).
+Poor tray support is a long running problem with Electron apps: [electron/issues/21445](https://github.com/electron/electron/issues/21445).  
 
-This means people running custom setups may not see the IPFS tray icon unless they:
+According to [electron/v9.3.0/docs/api/tray.md](https://github.com/electron/electron/blob/v9.3.0/docs/api/tray.md#class-tray):
 
-- enable support for `StatusNotifier` ([details](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1153#issuecomment-596780147))
-- OR run `StatusNotifier`→`XEmbed` proxy called [snixembed](https://git.sr.ht/~steef/snixembed)
+* On Linux the app indicator will be used if it is supported, otherwise `GtkStatusIcon` will be used instead.
+* On Linux distributions that only have app indicator support, you have to install `libappindicator1` to make the tray icon work.
+
+Why the old tray is back since v0.13? We had no control over this: Electron team [removed support for `StatusNotifier` and restored the old tray interface on Linux called `XEmbed`](https://github.com/electron/electron/issues/21445#issuecomment-634163402).
 
 ### Does not start on Linux (Debian 10)
 
