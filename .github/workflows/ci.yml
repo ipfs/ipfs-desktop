@@ -1,7 +1,5 @@
 name: ci
-# https://github.com/marketplace/actions/electron-builder-action
-
-on: push
+on: [push, pull_request]
 
 env:
   XDG_CACHE_HOME: ${{ github.workspace }}/.cache
