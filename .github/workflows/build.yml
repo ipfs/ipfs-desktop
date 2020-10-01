@@ -10,8 +10,8 @@ jobs:
 
     strategy:
       matrix:
-        # TODO: remove Travis and add linux and macOS
-        os: [windows-latest]
+        # TODO: remove Travis and add macOS
+        os: [windows-latest, ubuntu-latest]
 
     env:
       XDG_CACHE_HOME: .cache
