@@ -1,4 +1,4 @@
-name: CI
+name: ci
 # https://github.com/marketplace/actions/electron-builder-action
 
 on: push
@@ -11,9 +11,9 @@ env:
 jobs:
 
   test:
-    name: Test
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
 
@@ -55,10 +55,10 @@ jobs:
         run: npm run lint
 
   build:
-    name: Build
     runs-on: ${{ matrix.os }}
     needs: test # build packages only if tests passed
     strategy:
+      fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
 
