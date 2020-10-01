@@ -10,13 +10,12 @@ jobs:
 
     strategy:
       matrix:
-        # TODO: remove Travis and add macOS
-        os: [windows-latest, ubuntu-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     env:
-      XDG_CACHE_HOME: .cache
-      ELECTRON_CACHE: .cache/electron
-      ELECTRON_BUILDER_CACHE: .cache/electron-builder
+      XDG_CACHE_HOME: ${{ github.workspace }}/.cache
+      ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
+      ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
 
     steps:
       - name: Check out Git repository
@@ -31,14 +30,14 @@ jobs:
         uses: actions/cache@v2
         id: cache
         with:
-          path: .cache
-          key: ${{ runner.os }}-${{ env.node-version }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
+          path: ${{ github.workspace }}/.cache
+          key: ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
           restore-keys: |
-            ${{ runner.os }}-${{ env.node-version }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
-            ${{ runner.os }}-${{ env.node-version }}-
+            ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
+            ${{ runner.os }}-
 
       - name: Install dependencies
-        run: npm ci --prefer-offline --no-audit --progress=false --cache .cache/npm
+        run: npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
 
       - name: Build
         run: npm run build
@@ -47,7 +46,10 @@ jobs:
         run: npm run test
 
       - name: Test end-to-end
-        run: npm run test:e2e
+        uses: GabrielBB/xvfb-action@f040be23a619e5ec34116f24098ad3626ceab681 # v1.4
+        with:
+          working-directory: ${{ github.workspace }}
+          run: npm run test:e2e
 
       - name: Lint
         run: npm run lint
@@ -59,10 +61,21 @@ jobs:
           # TODO: args: --publish onTag # attach signed binaries to a release draft only when building a tag
           release: false # keep github release as draft for manual inspection
           max_attempts: 1
-          # TODO: secrets for mac, snap, chocolatey
+          # GH token for attaching atrifacts to release draft on tag build
           github_token: ${{ secrets.github_token }}
+          # Windows signing
           windows_certs: ${{ secrets.windows_certs }}
           windows_certs_password: ${{ secrets.windows_certs_password }}
+          # Apple signing
+          mac_certs: ${{ secrets.mac_certs }}
+          mac_certs_password: ${{ secrets.mac_certs_password }}
+          # TODO: secrets forsnap, chocolatey
+        env:
+          # Apple notarization
+          APPLEID: ${{ secrets.apple_id }}
+          APPLEIDPASS: ${{ secrets.apple_id_pass }}
+
+
 
       - name: Show dist/
         run: du -sh dist/ && ls -l dist/
@@ -79,5 +92,5 @@ jobs:
           if-no-files-found: error
 
       - name: Show Cache
-        run: du -sh .cache/ && ls -l .cache/
+        run: du -sh ${{ github.workspace }}/.cache/ && ls -l ${{ github.workspace }}/.cache/
 

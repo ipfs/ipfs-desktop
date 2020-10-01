@@ -27,7 +27,7 @@ async function getPort () {
 // inside of `daemonReady`. To print them, pass DEBUG=true
 
 describe('Application launch', function () {
-  this.timeout(process.env.CI ? 180000 : 60000)
+  this.timeout(60000)
   let app = null
 
   afterEach(async function () {

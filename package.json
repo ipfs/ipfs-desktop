@@ -12,7 +12,7 @@
     "test:e2e": "xvfb-maybe cross-env NODE_ENV=test LIBP2P_ALLOW_WEAK_RSA_KEYS=1 mocha test/e2e/**/*.e2e.js --exit",
     "postinstall": "run-s install-app-deps",
     "install-app-deps": "electron-builder install-app-deps",
-    "clean": "shx rm -rf assets/webui/ dist/ node_modules/go-ipfs/bin",
+    "clean": "shx rm -rf assets/webui/ node_modules/go-ipfs/bin",
     "build": "run-s clean build:webui",
     "build:webui": "run-s build:webui:*",
     "build:webui:download": "npx ipfs-or-gateway -c bafybeifekmcbbi4nwyj4aasti6x3nuhyli464wfjjfdjg4xnz53lhyiedq -p assets/webui/ -t 360000 --verbose --clean",
