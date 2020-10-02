@@ -1,0 +1,130 @@
+name: ci
+on: [push, pull_request]
+
+env:
+  XDG_CACHE_HOME: ${{ github.workspace }}/.cache
+  ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
+  ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
+
+jobs:
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Cache bigger downloads
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: ${{ github.workspace }}/.cache
+          key: ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm run test
+
+      - name: Test end-to-end
+        uses: GabrielBB/xvfb-action@f040be23a619e5ec34116f24098ad3626ceab681 # v1.4
+        with:
+          working-directory: ${{ github.workspace }}
+          run: npm run test:e2e
+
+      - name: Lint
+        run: npm run lint
+
+  build:
+    runs-on: ${{ matrix.os }}
+    needs: test # build packages only if tests passed
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Cache bigger downloads
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: ${{ github.workspace }}/.cache
+          key: ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
+
+      - name: Build
+        run: npm run build
+
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@12319896edaa290b27558e34a177804e9b8d077b # v1
+        continue-on-error: true # empty steps.tag.outputs.tag will inform the next step
+
+      - name: Build binaries with electron-builder
+        uses: samuelmeuli/action-electron-builder@92327c67bc45ff7c38bf55d8aa8c4d75b7ea38e7 # v1.6.0 but safer than a tag that can be changed
+        with:
+          args: --publish onTag # attach signed binaries to a release draft only when building a tag
+          release: false # keep github release as draft for manual inspection
+          max_attempts: 2
+          # GH token for attaching atrifacts to release draft on tag build
+          github_token: ${{ secrets.github_token }}
+          # Windows signing
+          windows_certs: ${{ secrets.windows_certs }}
+          windows_certs_password: ${{ secrets.windows_certs_password }}
+          # Apple signing
+          mac_certs: ${{ secrets.mac_certs }}
+          mac_certs_password: ${{ secrets.mac_certs_password }}
+          # TODO: secrets forsnap, chocolatey
+        env:
+          CI_BUILD_TAG: ${{steps.tag.outputs.tag}} # used by --publish onTag
+          # Apple notarization
+          APPLEID: ${{ secrets.apple_id }}
+          APPLEIDPASS: ${{ secrets.apple_id_pass }}
+
+      - name: Show dist/
+        run: du -sh dist/ && ls -l dist/
+
+      # Persist produced binaries and effective config used for building them
+      # - this is not for releases, but for quick testing during the dev
+      # - action artifacts can be downloaded for 90 days, then are removed by github
+      # - binaries in PRs from forks won't be signed
+      - name: Attach produced packages to Github Action
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-${{ matrix.os }}
+          path: dist/*esktop*.*
+          if-no-files-found: error
+
+      - name: Show Cache
+        run: du -sh ${{ github.workspace }}/.cache/ && ls -l ${{ github.workspace }}/.cache/
+
