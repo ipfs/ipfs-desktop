@@ -31,6 +31,7 @@ const nl = require('i18next-icu/locale-data/nl')
 const no = require('i18next-icu/locale-data/no')
 const pl = require('i18next-icu/locale-data/pl')
 const pt = require('i18next-icu/locale-data/pt')
+const ro = require('i18next-icu/locale-data/ro')
 const ru = require('i18next-icu/locale-data/ru')
 const sk = require('i18next-icu/locale-data/sk')
 const sl = require('i18next-icu/locale-data/sl')
@@ -43,7 +44,7 @@ const zh = require('i18next-icu/locale-data/zh')
 
 const localeData = [
   ar, ca, cs, da, de, el, eo, es, en, et, fa, fi, fr, he, hi, hr, hu, it,
-  ja, ko, lt, lv, nl, no, pl, pt, ru, sk, sl, sr, sv, tr, uk, uz, zh
+  ja, ko, lt, lv, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, tr, uk, uz, zh
 ]
 
 module.exports = async function () {
