@@ -17,7 +17,7 @@
     "build:webui": "run-s build:webui:*",
     "build:webui:download": "npx ipfs-or-gateway -c bafybeifekmcbbi4nwyj4aasti6x3nuhyli464wfjjfdjg4xnz53lhyiedq -p assets/webui/ -t 360000 --verbose --clean",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
-    "build:packages": "shx rm -rf dist/ && electron-builder --publish onTag"
+    "package": "shx rm -rf dist/ && run-s build && electron-builder --publish onTag"
   },
   "pre-commit": [
     "lint"
