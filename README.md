@@ -6,8 +6,8 @@
 
 **Download the latest release**
 
-- Mac - [IPFS-Desktop-0.12.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/IPFS-Desktop-0.12.2.dmg) or `brew cask install ipfs`
-- Windows - [IPFS-Desktop-Setup-0.12.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/IPFS-Desktop-Setup-0.12.2.exe) or `choco install ipfs-desktop`
+- Mac - [IPFS-Desktop-0.13.0.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/IPFS-Desktop-0.13.0.dmg) or `brew cask install ipfs`
+- Windows - [IPFS-Desktop-Setup-0.13.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/IPFS-Desktop-Setup-0.13.0.exe) or `choco install ipfs-desktop`
 - Linux - see the [install](#install) section for available options
 
 ![IPFS Desktop](https://user-images.githubusercontent.com/157609/55424318-426b1680-5580-11e9-93ec-ec261879367f.jpg)
@@ -17,7 +17,7 @@
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 [![](https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/ipfs-desktop)
 [![total download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
-[![latest release download count](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.12.2/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.12.2)
+[![latest release download count](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.0/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.13.0)
 
 IPFS Desktop allows you to run your IPFS Node on your machine without having to bother with command line tools. With it, you have the power of [Web UI](https://github.com/ipfs-shipyard/ipfs-webui) on tip of your hands plus a handful of shortcuts you can find on settings.
 
@@ -69,18 +69,18 @@ Download the latest release of IPFS Desktop for your OS, below.
 
 | Platform | Download link | Download count
 |---------:|---------------|---------------
-| **Windows**  | [IPFS-Desktop-Setup-0.12.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/IPFS-Desktop-Setup-0.12.2.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.12.2/IPFS-Desktop-Setup-0.12.2.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/IPFS-Desktop-Setup-0.12.2.exe)
-| **Mac**    | [IPFS-Desktop-0.12.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/IPFS-Desktop-0.12.2.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.12.2/IPFS-Desktop-0.12.2.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/IPFS-Desktop-0.12.2.dmg)
+| **Windows**  | [IPFS-Desktop-Setup-0.13.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/IPFS-Desktop-Setup-0.13.0.exe) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.0/IPFS-Desktop-Setup-0.13.0.exe.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/IPFS-Desktop-Setup-0.13.0.exe)
+| **Mac**    | [IPFS-Desktop-0.13.0.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/IPFS-Desktop-0.13.0.dmg) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.0/IPFS-Desktop-0.13.0.dmg.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/IPFS-Desktop-0.13.0.dmg)
 
 We provide multiple _experimental_ installers for **Linux** and **FreeBSD**:
 
 | Package | Download link | Download count
 |---------:|---------------|---------------
-| tar | [ipfs-desktop-0.12.2-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/ipfs-desktop-0.12.2-linux-x64.tar.xz) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.12.2/ipfs-desktop-0.12.2-linux-x64.tar.xz.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/ipfs-desktop-0.12.2-linux-x64.tar.xz)
-| deb | [ipfs-desktop-0.12.2-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/ipfs-desktop-0.12.2-linux-amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.12.2/ipfs-desktop-0.12.2-linux-amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/ipfs-desktop-0.12.2-linux-amd64.deb)
-| rpm | [ipfs-desktop-0.12.2-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/ipfs-desktop-0.12.2-linux-x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.12.2/ipfs-desktop-0.12.2-linux-x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/ipfs-desktop-0.12.2-linux-x86_64.rpm)
-| AppImage | [ipfs-desktop-0.12.2-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/ipfs-desktop-0.12.2-linux-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.12.2/ipfs-desktop-0.12.2-linux-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/ipfs-desktop-0.12.2-linux-x86_64.AppImage)
-| freebsd | [ipfs-desktop-0.12.2-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/ipfs-desktop-0.12.2-linux-x64.freebsd) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.12.2/ipfs-desktop-0.12.2-linux-x64.freebsd.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.12.2/ipfs-desktop-0.12.2-linux-x64.freebsd)
+| tar | [ipfs-desktop-0.13.0-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/ipfs-desktop-0.13.0-linux-x64.tar.xz) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.0/ipfs-desktop-0.13.0-linux-x64.tar.xz.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/ipfs-desktop-0.13.0-linux-x64.tar.xz)
+| deb | [ipfs-desktop-0.13.0-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/ipfs-desktop-0.13.0-linux-amd64.deb) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.0/ipfs-desktop-0.13.0-linux-amd64.deb.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/ipfs-desktop-0.13.0-linux-amd64.deb)
+| rpm | [ipfs-desktop-0.13.0-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/ipfs-desktop-0.13.0-linux-x86_64.rpm) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.0/ipfs-desktop-0.13.0-linux-x86_64.rpm.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/ipfs-desktop-0.13.0-linux-x86_64.rpm)
+| AppImage | [ipfs-desktop-0.13.0-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/ipfs-desktop-0.13.3-linux-x86_64.AppImage) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.0/ipfs-desktop-0.13.0-linux-x86_64.AppImage.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/ipfs-desktop-0.13.0-linux-x86_64.AppImage)
+| freebsd | [ipfs-desktop-0.13.0-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/ipfs-desktop-0.13.0-linux-x64.freebsd) | [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.0/ipfs-desktop-0.13.0-linux-x64.freebsd.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/ipfs-desktop-0.13.0-linux-x64.freebsd)
 
 Or you can use your favorite package manager and a third-party package maintained by the community:
 
