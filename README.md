@@ -130,7 +130,7 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
   - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available.
 - Update links and badges in `README` to point to the new version (`A.B.C`)
 - Update selected package managers
-  - Update [Snap](https://snapcraft.io/ipfs-desktop).
+  - Wait for Github Action to finish and confirm it updated [Snap](https://snapcraft.io/ipfs-desktop).
   - Update [Homebrew Cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
   - Update Chocolatey package:
       1. Wait for the artefact on the [releases page](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
