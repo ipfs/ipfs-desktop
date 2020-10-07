@@ -33,7 +33,7 @@ Add any other context about the problem here.
 ATTACH LOGS
 
 If possible:
-1. From the "IPFS icon" menu in your menubar/system tray, go to `Advanced` → `Open Logs Directory` *(for Linux users who do not have this menu, skip these steps or look for your logs directory at `...../.config/IPFS Desktop` )*
+1. From the "IPFS icon" menu in your menubar/system tray, go to `Advanced` → `Open Logs Directory` *(for Linux users who do not have this menu, logs can be found in `$HOME/.config/IPFS Desktop` )*
 2. Find `*.log` files
 3. Attach `error.log` and `combined.log` to this issue.
 -->
