@@ -2,12 +2,29 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [v0.13.0] - 2020-10-07
+- Web UI: [`v2.11.4`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.11.4)
+- IPFS: [`go-ipfs v0.7.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.7.0)
+
+### ✨ Features
+- webui v2.11.4
+- go-ipfs v0.7.0 (#1638)
+- synchronized and added new locales
+
+### 🛠 Fixes and Maintenance
+- electron 9 (#1641, 42b069b)
+- fix: ensure small asar archive (#1660)
+- fix: uppercase Discovery.MDNS.enabled in default config (#1632)
+- ci: move to GitHub Actions (#1657)
+
 ## [v0.12.2] - 2020-07-17
 - Web UI: [`v2.10.2`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.10.2)
 - IPFS: [`go-ipfs v0.6.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.6.0)
 
 ### ✨ Features
 - feat: ipfs-webui v2.10.2
+
 ## [v0.12.1] - 2020-07-07
 - Web UI: [`v2.9.0`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.9.0)
 - IPFS: [`go-ipfs v0.6.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.6.0)
