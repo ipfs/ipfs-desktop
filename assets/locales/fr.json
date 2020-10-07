@@ -1,5 +1,5 @@
 {
-  "ipfsIsRunning": "IPFS est en cours d'exécution",
+  "ipfsIsRunning": "IPFS est allumé",
   "ipfsIsStopping": "IPFS s'arrête ",
   "ipfsIsStarting": "IPFS démarre",
   "ipfsIsNotRunning": "IPFS est éteint",
@@ -103,15 +103,15 @@
   },
   "itemsAddedNotification": {
     "title": "Eléments ajoutés",
-    "message": "{ count } éléments ajoutés à votre noeud. Un lien partageable a été copié dans votre presse-papier. Cliquez ici pour voir vos fichiers."
+    "message": "{ count } éléments ajoutés à votre nœud. Un lien partageable a été copié dans votre presse-papier. Cliquez ici pour voir vos fichiers."
   },
   "itemAddedNotification": {
     "title": "Elément ajouté",
-    "message": "Elément ajouté à votre noeud. Un lien partageable a été copié dans votre presse-papier. Cliquez ici pour voir votre fichier."
+    "message": "Elément ajouté à votre nœud. Un lien partageable a été copié dans votre presse-papier. Cliquez ici pour voir votre fichier."
   },
   "itemsFailedNotification": {
     "title": "Echec de l'ajout des éléments",
-    "message": "Impossible d'ajouter des éléments à votre noeud."
+    "message": "Impossible d'ajouter des éléments à votre nœud."
   },
   "updateAvailableDialog": {
     "title": "Mise à jour disponible",
@@ -193,7 +193,7 @@
   "disableIpfsOnPath": {
     "title": "Désactiver IPFS dans le PATH",
     "message": "En déactivant cette option, IPFS ne sera plus disponible en ligne de commande en tant que \"ipfs\".",
-    "action": "Déactiver"
+    "action": "Désactiver"
   },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Activer le raccourci pour les captures d'écran",
@@ -219,7 +219,7 @@
   "settings": {
     "settings": "Paramètres",
     "preferences": "Préférences",
-    "openNodeSettings": "Ouvrir les Paramètres du noeud",
+    "openNodeSettings": "Ouvrir les Paramètres du nœud",
     "appPreferences": "Préférences de l'app",
     "launchOnStartup": "Lancement au démarrage",
     "openWebUIAtLaunch": "Ouvrir l'interface web au démarrage",
