@@ -6,7 +6,8 @@ labels: need/triage
 assignees: ''
 
 ---
- - OS: [e.g. macOS, Windows, Linux]
+
+- OS: [e.g. macOS, Windows, Linux]
  - Version of IPFS Desktop [e.g. 0.11.1]
 
 **Describe the bug**
@@ -32,7 +33,7 @@ Add any other context about the problem here.
 ATTACH LOGS
 
 If possible:
-1. Go to `Advanced` → `Open Logs Directory`
+1. From the "IPFS icon" menu in your menubar/system tray, go to `Advanced` → `Open Logs Directory` *(for Linux users who do not have this menu, logs can be found in `$HOME/.config/IPFS Desktop` )*
 2. Find `*.log` files
 3. Attach `error.log` and `combined.log` to this issue.
 -->
