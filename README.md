@@ -10,7 +10,7 @@
 - Windows - [IPFS-Desktop-Setup-0.13.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.0/IPFS-Desktop-Setup-0.13.0.exe) or `choco install ipfs-desktop`
 - Linux - see the [install](#install) section for available options
 
-![IPFS Desktop](https://user-images.githubusercontent.com/157609/55424318-426b1680-5580-11e9-93ec-ec261879367f.jpg)
+![IPFS Desktop](https://gateway.ipfs.io/ipfs/QmZA5oT9bN2qaPFX8Div6F2b5UX6gcyj47i55kpBoPyzW1)
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
 [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
