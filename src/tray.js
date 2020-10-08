@@ -195,7 +195,7 @@ function buildMenu (ctx) {
         { type: 'separator' },
         {
           label: i18n.t('checkForUpdates'),
-          click: () => { ctx.checkForUpdates() }
+          click: () => { ctx.manualCheckForUpdates() }
         },
         { type: 'separator' },
         {
