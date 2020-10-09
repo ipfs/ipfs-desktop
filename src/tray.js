@@ -138,15 +138,15 @@ function buildMenu (ctx) {
       submenu: [
         {
           label: i18n.t('openLogsDir'),
-          click: () => { shell.openItem(app.getPath('userData')) }
+          click: () => { shell.openPath(app.getPath('userData')) }
         },
         {
           label: i18n.t('openRepoDir'),
-          click: () => { shell.openItem(store.get('ipfsConfig.path')) }
+          click: () => { shell.openPath(store.get('ipfsConfig.path')) }
         },
         {
           label: i18n.t('openConfigFile'),
-          click: () => { shell.openItem(store.path) }
+          click: () => { shell.openPath(store.path) }
         },
         { type: 'separator' },
         {
@@ -184,13 +184,13 @@ function buildMenu (ctx) {
         },
         {
           label: `ipfs-desktop ${VERSION}`,
-          click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/releases') }
+          click: () => { shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/releases/v${VERSION}`) }
         },
         {
           label: hasCustomBinary()
             ? i18n.t('customIpfsBinary')
             : `go-ipfs ${GO_IPFS_VERSION}`,
-          click: () => { shell.openExternal('https://github.com/ipfs/go-ipfs/releases') }
+          click: () => { shell.openExternal(`https://github.com/ipfs/go-ipfs/releases/v${GO_IPFS_VERSION}`) }
         },
         { type: 'separator' },
         {
@@ -204,7 +204,7 @@ function buildMenu (ctx) {
         },
         {
           label: i18n.t('helpUsTranslate'),
-          click: () => { shell.openExternal('https://www.transifex.com/ipfs/ipfs-desktop/') }
+          click: () => { shell.openExternal('https://www.transifex.com/ipfs/public/') }
         }
       ]
     },

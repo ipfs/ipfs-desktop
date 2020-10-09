@@ -1,4 +1,5 @@
 const { app, shell } = require('electron')
+const path = require('path')
 const i18n = require('i18next')
 const dialog = require('./dialog')
 
@@ -20,6 +21,8 @@ ${e.stack}
 
 let hasErrored = false
 
+const newIssueUrl = (e) => `https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`.substring(0, 1999)
+
 function criticalErrorDialog (e) {
   if (hasErrored) return
   hasErrored = true
@@ -38,7 +41,7 @@ function criticalErrorDialog (e) {
   if (option === 0) {
     app.relaunch()
   } else if (option === 2) {
-    shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`)
+    shell.openExternal(newIssueUrl(e))
   }
 
   app.exit(1)
@@ -72,9 +75,9 @@ function recoverableErrorDialog (e, options) {
   const option = dialog(cfg)
 
   if (option === 1) {
-    shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`)
+    shell.openExternal(newIssueUrl(e))
   } else if (option === 2) {
-    shell.openItem(app.getPath('userData'))
+    shell.openPath(path.join(app.getPath('userData'), 'combined.log'))
   }
 }
 

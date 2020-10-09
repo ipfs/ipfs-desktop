@@ -205,7 +205,7 @@ async function checkPortsArray (ipfsd, addrs) {
       })
 
       if (opt === 0) {
-        shell.openItem(join(ipfsd.path, 'config'))
+        shell.openPath(join(ipfsd.path, 'config'))
       }
 
       throw new Error('ports already being used')
