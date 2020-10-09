@@ -200,7 +200,7 @@ function buildMenu (ctx) {
         { type: 'separator' },
         {
           label: i18n.t('viewOnGitHub'),
-          click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/') }
+          click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/blob/master/README.md') }
         },
         {
           label: i18n.t('helpUsTranslate'),
