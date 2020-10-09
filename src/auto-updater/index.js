@@ -5,7 +5,7 @@ const logger = require('../common/logger')
 const { notify } = require('../common/notify')
 const { showDialog } = require('../dialogs')
 const macQuitAndInstall = require('./macos-quit-and-install')
-const macOS = process.platform === 'darwin'
+const { IS_MAC } = require('../common/consts')
 
 let feedback = false
 
@@ -14,7 +14,7 @@ function setup (ctx) {
   autoUpdater.autoDownload = false
 
   // mac requires manual upgrade, other platforms work out of the box
-  autoUpdater.autoInstallOnAppQuit = !macOS
+  autoUpdater.autoInstallOnAppQuit = !IS_MAC
 
   autoUpdater.on('error', err => {
     logger.error(`[updater] ${err.toString()}`)
@@ -92,7 +92,7 @@ function setup (ctx) {
       if (autoInstallOnAppQuit) return
       // Else, do custom install handling
       setImmediate(() => {
-        if (macOS) macQuitAndInstall(ctx)
+        if (IS_MAC) macQuitAndInstall(ctx)
       })
     }
 
