@@ -107,7 +107,7 @@ module.exports = async function ({ getIpfsd, launchWebUI }, files) {
 
   const { cid, path } = await makeShareableObject(ipfsd.api, successes)
   sendNotification(failures, successes, launchWebUI, path)
-
-  const url = `https://ipfs.io/ipfs/${cid.toString()}`
+  const filename = path ? `?filename=${encodeURIComponent(path.split('/').pop())}` : ''
+  const url = `https://dweb.link/ipfs/${cid.toString()}${filename}`
   clipboard.writeText(url)
 }
