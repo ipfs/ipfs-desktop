@@ -19,9 +19,11 @@ async function makeScreenshotDir (ipfs) {
   }
 }
 
-async function onSucess (ipfs, launchWebUI, path, img) {
-  const stats = await ipfs.files.stat(path)
-  const url = `https://share.ipfs.io/#/${stats.hash}`
+async function onSuccess (ipfs, launchWebUI, path, img) {
+  // preserve filename if single file is shared
+  const filename = path.endsWith('.png') ? `?filename=${encodeURIComponent(path.split('/').pop())}` : ''
+  const { cid } = await ipfs.files.stat(path)
+  const url = `https://dweb.link/ipfs/${cid}${filename}`
   clipboard.writeText(url)
 
   notify({
@@ -65,14 +67,15 @@ function handleScreenshot (ctx) {
     try {
       await makeScreenshotDir(ipfs)
       const isDir = output.length > 1
-      const rawDate = new Date()
-      const date = `${rawDate.getFullYear()}-${rawDate.getMonth()}-${rawDate.getDate()}`
-      const time = `${rawDate.getHours()}.${rawDate.getMinutes()}.${rawDate.getMilliseconds()}`
-      let baseName = `/screenshots/${date} ${time}`
+      const d = new Date()
+      const pad = n => String(n).padStart(2, '0')
+      const date = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+      const time = `${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getMilliseconds())}`
+      let baseName = `/screenshots/${date}_${time}`
 
       if (isDir) {
         baseName += '/'
-        await ipfs.files.mkdir(baseName)
+        await ipfs.files.mkdir(baseName, { parents: true })
       } else {
         baseName += '.png'
       }
@@ -83,12 +86,13 @@ function handleScreenshot (ctx) {
       for (const { name, image } of output) {
         const img = nativeImage.createFromDataURL(image)
         const path = isDir ? `${baseName}${name}.png` : baseName
-        await ipfs.files.write(path, img.toPNG(), { create: true })
+        const { cid } = await ipfs.add(img.toPNG(), { pin: false }) // no low level pin, presence in MFS will be enough to keep it around
+        await ipfs.files.cp(cid, path)
         lastImage = img
       }
 
       logger.info(`[screenshot] completed: writing screenshots to ${baseName}`)
-      onSucess(ipfs, launchWebUI, baseName, lastImage)
+      onSuccess(ipfs, launchWebUI, baseName, lastImage)
     } catch (e) {
       onError(e)
     }
