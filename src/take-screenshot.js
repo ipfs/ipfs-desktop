@@ -67,10 +67,11 @@ function handleScreenshot (ctx) {
     try {
       await makeScreenshotDir(ipfs)
       const isDir = output.length > 1
-      const rawDate = new Date()
-      const date = `${rawDate.getFullYear()}-${rawDate.getMonth()}-${rawDate.getDate()}`
-      const time = `${rawDate.getHours()}.${rawDate.getMinutes()}.${rawDate.getMilliseconds()}`
-      let baseName = `/screenshots/${date} ${time}`
+      const d = new Date()
+      const pad = n => String(n).padStart(2, '0')
+      const date = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+      const time = `${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getMilliseconds())}`
+      let baseName = `/screenshots/${date}_${time}`
 
       if (isDir) {
         baseName += '/'
