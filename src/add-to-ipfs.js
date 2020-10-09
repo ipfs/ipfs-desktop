@@ -32,7 +32,7 @@ async function makeShareableObject (ipfs, results) {
     return results[0]
   }
 
-  let baseCID = await ipfs.object.new('unixfs-dir')
+  let baseCID = await ipfs.object.new({ template: 'unixfs-dir' })
 
   for (const { cid, path, size } of results) {
     baseCID = (await ipfs.object.patch.addLink(baseCID, {
