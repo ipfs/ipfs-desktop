@@ -173,8 +173,6 @@ The configuration file and logs are located on:
 
 For quick access to this folders, just right-click on your tray icon and then 'Logs Directory' or 'Configuration File', depending on what you want.
 
-**Note for developers:** When running dev version via `npm start` configuration will be placed in `/Electron/` instead of `/IPFS Desktop/` (`~/.config/Electron/config.json` on Linux). This is a known limitation of dev mode, does not impact packaged versions.
-
 ### How do we select the IPFS repo location?
 
 We use [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, in default conditions, will check `IPFS_PATH` environment variable. If not set, we fallback to `$HOME/.ipfs`. As soon as the first run has succeded, we save the information about the repository location in the configuration file, which becomes the source of truth.
