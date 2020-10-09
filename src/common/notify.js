@@ -16,7 +16,7 @@ function notifyError ({ title, body = '' }) {
     title,
     body: `${body} ${i18n.t('clickToOpenLogs')}`.trim()
   }, () => {
-    shell.openItem(app.getPath('userData'))
+    shell.openPath(app.getPath('userData'))
   })
 }
 
