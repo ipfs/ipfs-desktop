@@ -32,7 +32,7 @@ async function makeShareableObject (ipfs, results) {
     return results[0]
   }
 
-  let baseCID = await ipfs.object.new('unixfs-dir')
+  let baseCID = await ipfs.object.new({ template: 'unixfs-dir' })
 
   for (const { cid, path, size } of results) {
     baseCID = (await ipfs.object.patch.addLink(baseCID, {
@@ -87,11 +87,7 @@ module.exports = async function ({ getIpfsd, launchWebUI }, files) {
 
   await Promise.all(files.map(async file => {
     try {
-      let result = null
-      for await (const res of ipfsd.api.add(globSource(file, { recursive: true }))) {
-        result = res
-      }
-
+      const result = await ipfsd.api.add(globSource(file, { recursive: true }))
       await copyFile(ipfsd.api, result.cid, result.path)
       successes.push(result)
     } catch (e) {
