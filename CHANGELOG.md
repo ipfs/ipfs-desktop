@@ -3,13 +3,33 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v0.13.0] - 2020-10-07
+## [v0.13.2] - 2020-10-12
 - Web UI: [`v2.11.4`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.11.4)
 - IPFS: [`go-ipfs v0.7.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.7.0)
 
 ### ✨ Features
-- webui v2.11.4
-- go-ipfs v0.7.0 (#1638)
+- Use `dweb.link` gateway when shareable link is copied to clipboard
+- Preserve filename when a single file is shared (screenshot, quick import)
+
+### 🛠 Fixes and Maintenance
+- fix: windows auto-update (#1679)
+- feat(ci): automated Snapcraft publishing (#1678)
+- fix: openItem errors (#1687)
+- feat: screenshot improvements (#1689)
+- fix: OS integrations for quick file import (#1691)
+- fix(windows): autoInstallOnAppQuit (#1682)
+
+## [v0.13.1] - 2020-10-12
+This release is exactly the same as [v0.13.2].
+It exists so people can test Windows autoupdate fix on their own.
+
+## [v0.13.0] - 2020-10-08
+- Web UI: [`v2.11.4`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.11.4)
+- IPFS: [`go-ipfs v0.7.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.7.0)
+
+### ✨ Features
+- webui v2.11.4 ([RELEASE NOTES](https://github.com/ipfs-shipyard/ipfs-webui/releases/tag/v2.11.4))
+- go-ipfs v0.7.0 ([CHANGELOG](https://github.com/ipfs/go-ipfs/blob/master/CHANGELOG.md#v070-2020-09-22))
 - synchronized and added new locales
 
 ### 🛠 Fixes and Maintenance
@@ -17,6 +37,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - fix: ensure small asar archive (#1660)
 - fix: uppercase Discovery.MDNS.enabled in default config (#1632)
 - ci: move to GitHub Actions (#1657)
+
+### 📣 Windows updates may be delayed
+Windows 10 users may need to wait a bit longer to see this release.
+We are working on a fix.
 
 ## [v0.12.2] - 2020-07-17
 - Web UI: [`v2.10.2`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.10.2)
