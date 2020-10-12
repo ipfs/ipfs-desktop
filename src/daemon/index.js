@@ -109,12 +109,8 @@ module.exports = async function (ctx) {
 
   ipcMain.on('ipfsConfigChanged', restartIpfs)
 
-  app.on('before-quit', async e => {
-    if (ipfsd) {
-      e.preventDefault()
-      await stopIpfs()
-      app.quit()
-    }
+  app.on('before-quit', async () => {
+    if (ipfsd) await stopIpfs()
   })
 
   await startIpfs()

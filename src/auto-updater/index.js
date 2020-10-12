@@ -4,13 +4,17 @@ const i18n = require('i18next')
 const logger = require('../common/logger')
 const { notify } = require('../common/notify')
 const { showDialog } = require('../dialogs')
-const quitAndInstall = require('./quit-and-install')
+const macQuitAndInstall = require('./macos-quit-and-install')
+const { IS_MAC } = require('../common/consts')
 
 let feedback = false
 
 function setup (ctx) {
+  // we download manually in 'update-available'
   autoUpdater.autoDownload = false
-  autoUpdater.autoInstallOnAppQuit = true
+
+  // mac requires manual upgrade, other platforms work out of the box
+  autoUpdater.autoInstallOnAppQuit = !IS_MAC
 
   autoUpdater.on('error', err => {
     logger.error(`[updater] ${err.toString()}`)
@@ -31,7 +35,7 @@ function setup (ctx) {
   })
 
   autoUpdater.on('update-available', async ({ version, releaseNotes }) => {
-    logger.info('[updater] update available, download will start')
+    logger.info(`[updater] update to ${version} available, download will start`)
 
     try {
       await autoUpdater.downloadUpdate()
@@ -80,11 +84,15 @@ function setup (ctx) {
   })
 
   autoUpdater.on('update-downloaded', ({ version }) => {
-    logger.info('[updater] update downloaded')
+    logger.info(`[updater] update to ${version} downloaded`)
 
+    const { autoInstallOnAppQuit } = autoUpdater
     const doIt = () => {
+      // Do nothing if install is handled by upstream logic
+      if (autoInstallOnAppQuit) return
+      // Else, do custom install handling
       setImmediate(() => {
-        quitAndInstall(ctx)
+        if (IS_MAC) macQuitAndInstall(ctx)
       })
     }
 
@@ -102,7 +110,7 @@ function setup (ctx) {
       message: i18n.t('updateDownloadedDialog.message', { version }),
       type: 'info',
       buttons: [
-        i18n.t('updateDownloadedDialog.action')
+        (autoInstallOnAppQuit ? i18n.t('ok') : i18n.t('updateDownloadedDialog.action'))
       ]
     })
 
@@ -120,23 +128,23 @@ async function checkForUpdates () {
 
 module.exports = async function (ctx) {
   if (process.env.NODE_ENV === 'development') {
-    ctx.checkForUpdates = () => {
+    ctx.manualCheckForUpdates = () => {
       showDialog({
         title: 'Not available in development',
         message: 'Yes, you called this function successfully.',
         buttons: [i18n.t('close')]
       })
     }
-
     return
   }
 
   setup(ctx)
 
-  await checkForUpdates()
+  checkForUpdates() // background check
+
   setInterval(checkForUpdates, 43200000) // every 12 hours
 
-  ctx.checkForUpdates = () => {
+  ctx.manualCheckForUpdates = () => {
     feedback = true
     checkForUpdates()
   }
