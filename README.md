@@ -105,7 +105,7 @@ Then follow the steps below to clone the source code, install the dependencies a
 git clone https://github.com/ipfs-shipyard/ipfs-desktop.git
 cd ipfs-desktop
 npm ci
-npm run-script build
+npm run build
 npm start
 ```
 
