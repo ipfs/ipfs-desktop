@@ -119,10 +119,10 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 ## Releasing
 
 - Manually test a few things that don't transfer well to automated testing:
-     - Mac/Win/Linux: Confirm that "Take Screenshot" under menubar/system tray menu works as expected for both single- and multi-monitor setups (file(s) imported, correct link copied to clipboard)
+     - Mac/Win/Linux: confirm that "Take Screenshot" under menubar/system tray menu works as expected for both single- and multi-monitor setups (file(s) imported, correct link copied to clipboard)
      - Mac only: drag/drop onto menubar icon behaves as expected when dragging one file, several files, and a combination of files/folders (file(s) imported, correct link copied to clipboard)
      - Win only: right-click on a file and "Add to IPFS" from context menu works as expected (file imported, correct link copied to clipboard)
-     - Protocol handler (details TBD)
+     - Mac/Win: confirm that OS-wide protocol handler got registered by opening <a href="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi">`ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi`</a> in user agent without IPFS Companion
 - Fetch new translations from Transifex: `tx pull -a`
 - Commit the changes
 - Bump the version in `package.json`
