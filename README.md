@@ -136,18 +136,8 @@ Other languages are periodically pulled from [Transifex](https://www.transifex.c
 - Update links and badges in `README.md` to point to the new version (`A.B.C`)
 - Update `CHANGELOG.md` with details from release/release draft
 - Update selected package managers
-  - Wait for Github Action to finish and confirm it updated [Snap](https://snapcraft.io/ipfs-desktop).
+  - Wait for CI to finish and confirm it updated [Snap](https://snapcraft.io/ipfs-desktop) and is at least pending review on [Chocolatey](https://chocolatey.org/packages/ipfs-desktop#versionhistory).
   - Update [Homebrew Cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
-  - Update Chocolatey package:
-      1. Wait for the artefact on the [releases page](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
-      2. Run `node pkgs/chocolatey/update.js A.B.C` - this script will update version to `A.B.C` in a few files:
-          1. Update the version number on [ipfs-desktop.nuspec](./pkgs/chocolatey/ipfs-desktop.nuspec#L5)
-          2. Update the binary URL on [chocolateyinstall.ps1](./pkgs/chocolatey/tools/chocolateyinstall.ps1#L3)
-          3. Update the SHA256 of the binary on [chocolateyinstall.ps1](./pkgs/chocolatey/tools/chocolateyinstall.ps1#L4)
-      3. Next, create `.nupkg` file and publish it:
-          1. `cd pkgs/chocolatey`
-          2. `choco pack` - generates a `.nupkg` file.
-          3. `choco push $generated_nupkg --key $api --source https://push.chocolatey.org`
 - To start work on the next version, bump the version in the `package.json`
 
 ### Manual notarization (Fallback in-case CI is not doing it correctly)
