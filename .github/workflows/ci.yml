@@ -104,7 +104,6 @@ jobs:
           # Apple signing
           mac_certs: ${{ secrets.mac_certs }}
           mac_certs_password: ${{ secrets.mac_certs_password }}
-          # TODO: secrets forsnap, chocolatey
         env:
           CI_BUILD_TAG: ${{steps.tag.outputs.tag}} # used by --publish onTag
           # Apple notarization
