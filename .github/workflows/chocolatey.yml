@@ -1,15 +1,15 @@
 name: chocolatey
 
-on: [push]
-#  release:
-#  types: [published]
+on:
+  release:
+    types: [published]
 
 env:
   XDG_CACHE_HOME: ${{ github.workspace }}/.cache
   ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
   ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
-  release_name: 0.13.2 # todo: replace with github.event.release.name
-  release_tag: v0.13.2 # todo: replace with github.event.release.tag_name
+  release_name: ${{ github.event.release.name }}
+  release_tag: ${{ github.event.release.tag_name }}
 
 jobs:
   publish:
