@@ -19,6 +19,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - fix: OS integrations for quick file import (#1691)
 - fix(windows): autoInstallOnAppQuit (#1682)
 
+#### :mega: Windows users may need to update manually
+
+Below PRs fixed autoupdate issues on Windows platform, however older versions may still struggle to update.
+
+-  fix: windows auto-update (#1679) 
+-  fix(windows): autoInstallOnAppQuit (#1682) 
+
+**If your node is unable to apply update to this version, please install [IPFS-Desktop-Setup-0.13.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-Setup-0.13.2.exe) manually.**
+From now on, Windows updates should work as expected.
+
 ## [v0.13.1] - 2020-10-12
 This release is exactly the same as [v0.13.2].
 It exists so people can test Windows autoupdate fix on their own.
