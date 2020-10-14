@@ -1,0 +1,47 @@
+name: chocolatey
+
+on:
+  release:
+    types: [published]
+
+env:
+  XDG_CACHE_HOME: ${{ github.workspace }}/.cache
+  ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
+  ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
+  release_name: ${{ github.event.release.name }}
+  release_tag: ${{ github.event.release.tag_name }}
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js for update script
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Cache bigger downloads
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: ${{ github.workspace }}/.cache
+          key: ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
+
+      - name: Download .exe, update version, URL and hash
+        run: node pkgs\chocolatey\update.js ${{ env.release_name }}
+
+      - name: Create .nupkg
+        run: cd pkgs\chocolatey && choco pack
+
+      - name: Publish to Chocolatey
+        run: choco push pkgs/chocolatey/ipfs-desktop.${{ env.release_name }}.nupkg --key ${{ secrets.chocolatey_key }} --source "https://push.chocolatey.org"
