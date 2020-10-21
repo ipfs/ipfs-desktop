@@ -13,6 +13,10 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the comman
 
 ![Status screen of IPFS Desktop](https://gateway.ipfs.io/ipfs/QmYHuXitXMf5xTjiQXmXdqszvMTADvrM5zA7EqoDj3d3RH)
 
+| Files | Explore | Peers | Settings | Menu |
+|-------|---------|-------|----------|------|
+| ![Screenshot of the file browser page](docs/screenshots/ipfs-webui-files.png) | ![Screenshot of the IPLD explorer page](docs/screenshots/ipfs-webui-explore.png) | ![Screenshot of the swarm peers map](docs/screenshots/ipfs-webui-peers.png) | ![Screenshot of the settings page](docs/screenshots/ipfs-webui-settings.png) | ![Screenshot of the settings page](docs/screenshots/ipfs-webui-settings.png) |
+
 **Install now!** 🎉 📥
 
 - **Mac:** [IPFS-Desktop-0.13.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-0.13.2.dmg) or `brew cask install ipfs`
@@ -28,54 +32,51 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the comman
 
 ## Features
 
-IPFS Desktop combines a complete IPFS node (running go-ipfs) and the [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) into a single, convenient desktop app — plus adds a menubar/system tray menu to your OS for easy access to a variety of common IPFS tasks.
+IPFS Desktop combines a complete IPFS node (running [go-ipfs](https://github.com/ipfs/go-ipfs)) and the [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) into a single, convenient desktop app — plus adds a menu to your OS menubar/system tray for easy access to a variety of common IPFS tasks.
 
 If you already have an IPFS node on your computer, IPFS Desktop will act as a control panel and file browser for that node. If you don't have a node, it'll install one for you. And either way, IPFS Desktop will automatically check for updates.
 
 ![IPFS Desktop](https://gateway.ipfs.io/ipfs/QmbT2YtuNo17Qaq31FJWRZgRMY4E6N9cdfBwzZTFSHUoBP)
 
-
 ### Start your node at system startup and control it from your OS
 
-IPFS Desktop's main feature is to allow you to have the IPFS daemon always running in the background. But fear not! If you need to stop it, you can do it just by clicking on 'Stop'.
+IPFS Desktop can be set to launch at system startup, ensuring that your node is running whenever your computer is on. Plus, if you'd like to stop or restart your node at any point, you can do so straight from the IPFS logo menu in your OS menubar/system tray.
 
-### File browser lets you add, move, view, share, and pin files
+### Easily import files, folders, and screenshots to IPFS
 
-foo
-
-### Peer visualizer gives you info on connected nodes worldwide
-
-foo
-
-#### IPLD Explorer
-
-foo
-
-### Handle `ipfs://`, `ipns://` and `dweb:` links
-
-IPFS Desktop has the capacity to handle protocols at the operating system level; i.e., if an application tries to open a link to either `ipfs://`, `ipns://` or `dweb:`, then the OS will call IPFS Desktop, which will handle the link.
-
-For example, if you come across a link on the Internet whose `href` attribute is `ipns://ipfs.io`, then IPFS Desktop will be able to handle it.
-
-On Windows, an easy way to open a link would be to open the Run window (Win+R), paste the link, and hit Enter. Then, IPFS Desktop handles the rest. The same happens if you try opening the same link in a browser.
-
-Goes great with IPFS Companion!
-
-
-### Easily import items to IPFS
-
-Quickly import files and folders to your IPFS node in a variety of ways:
-- Drag and drop items onto IPFS Desktop's Files screen
+Quickly import files and folders to your IPFS node in a variety of convenient ways:
+- Drag and drop items onto IPFS Desktop's `Files` screen
+- Click the `Import` button on the `Files` screen to add items from your computer or an IPFS content ID
 - (Windows) Right-click a file/folder's icon to add it to IPFS from the pop-up menu
 - (Mac) Drag and drop a file/folder onto the IPFS icon in your menubar
 
-### Automagically import your screenshots
+Plus, you can use `Take Screenshot` under the IPFS logo menu to take a screenshot and import it to your node with one click.
 
-Use `Take Screenshot` under the IPFS icon menu (in your menubar/system tray) to take a screenshot and import it to your IPFS node with one click.
+### Use the Files screen to manage the contents of your node
+
+IPFS Desktop's `Files` screen gives you an easy, familiar interface for working with files on your IPFS node:
+- Easily rename, move, or remove files
+- Preview most common file formats directly in IPFS Desktop
+- Copy a file/folder's IPFS content ID or a shareable link to your clipboard
+- ["Pin"](https://docs.ipfs.io/concepts/persistence/) files to your IPFS node or (coming soon!) to a third-party pinning service to ensure that important data is retained 
 
 ### Quick download for CIDs, IPFS paths, and IPNS paths
 
-Just want to download an IPFS CID or IPFS/IPNS content path? Choose `Download...` from the IPFS icon menu, paste it in, and you're good to go.
+Just want to download an IPFS content ID or IPFS/IPNS content path? Choose `Download...` from the IPFS logo menu, paste it in, and you're good to go.
+
+### Visualize your IPFS peers worldwide
+
+Visit the `Peers` screen to see what nodes you're connected to, where they are, the connections they're using, and more.
+
+### Explore the "Merkle Forest" of IPFS files
+
+Use the `Explore` screen to explore some example datasets — or your own files — and see firsthand how items stored on IPFS are broken down into content-addressed pieces.
+
+### Enjoy OS-wide support for IPFS files and links
+
+IPFS Desktop enables your operating system to support protocols including `ipfs://`, `ipns://` and `dweb:`. This means that if an app on your computer tries to open a link starting with one of those protocol identifiers (for example, if your web browser encounters a link to `ipns://ipfs.io`), it'll automatically open in IPFS Desktop.
+
+For an even better experience in native support for `ipfs://`, `ipns://` and `dweb:` addresses, we recommend installing [IPFS Companion](https://github.com/ipfs-shipyard/ipfs-companion) as well!
 
 ### Learn IPFS commands as you go
 
@@ -187,7 +188,7 @@ $ ipfs-desktop --no-sandbox
 
 ### Where are my IPFS configuration and log files?
 
-You can open these files from the IPFS Desktop menubar/system tray menu by selecting `Open Logs Directory` or `Open Configuration File` from the `Advanced` submenu. Or, find them in your OS as follows:
+You can open these files from the IPFS Desktop logo menu by selecting `Open Logs Directory` or `Open Configuration File` from the `Advanced` submenu. Or, find them in your OS as follows:
 - **Mac:** `~/Library/Application Support/IPFS Desktop/`
 - **Windows:** `%appdata%/IPFS Desktop/`
 - **Linux:** `~/.config/IPFS Desktop/`
@@ -196,13 +197,13 @@ You can open these files from the IPFS Desktop menubar/system tray menu by selec
 
 IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, by default, checks the `IPFS_PATH` environment variable. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeded, repository location info is saved in the configuration file, which becomes the source of truth.
 
-To open your repo directory from the IPFS Desktop menubar/system tray menu, select `Open Repository Directory` from the `Advanced` submenu.
+To open your repo directory from the IPFS Desktop logo menu, select `Open Repository Directory` from the `Advanced` submenu.
 
 ### Which version of IPFS does IPFS Desktop use?
 
 Since IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), it includes its own embedded IPFS binary, which in most circumstances is the latest version of [go-ipfs](https://github.com/ipfs/go-ipfs).
 
-You can check which version of IPFS you're running from the IPFS Desktop menubar/system tray menu by looking in the `About` submenu.
+You can check which version of IPFS you're running from the IPFS Desktop logo menu by looking in the `About` submenu.
 
 ### Which flags does IPFS Desktop boot with?
 
