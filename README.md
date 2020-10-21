@@ -7,9 +7,9 @@
 [![total download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/total.svg?style=flat-square&label=all%20downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
 [![latest release download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.13.2/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.13.2)
 
-**IPFS Desktop gives you all the power of [IPFS](https://ipfs.io) in an easy desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
+**IPFS Desktop gives you all the power of [IPFS](https://ipfs.io) in a convenient desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
 
-Use IPFS Desktop to get acquainted with IPFS without needing to touch the command line — or, if you're already experienced, use the powerful menubar/taskbar shortcuts alongside the command line to make your IPFS workflow faster.
+Use IPFS Desktop to get acquainted with IPFS without needing to touch the terminal — or, if you're already experienced, use the powerful menubar/taskbar shortcuts alongside the command line to make your IPFS workflow faster.
 
 ![Status screen of IPFS Desktop](https://gateway.ipfs.io/ipfs/QmYHuXitXMf5xTjiQXmXdqszvMTADvrM5zA7EqoDj3d3RH)
 
@@ -48,12 +48,12 @@ Import files and folders to your IPFS node in a variety of convenient ways:
 - (Windows) Right-click a file/folder's icon to add it to IPFS from the pop-up menu
 - (Mac) Drag and drop a file/folder onto the IPFS logo in your menubar
 
-Plus, you can use `Take Screenshot` under the IPFS logo menu to take a screenshot and import it to your node with one click.
+Plus, you can use the `Take Screenshot` command under the IPFS logo menu to take a screenshot and import it to your node with one click.
 
 ### Easily manage the contents of your node
 
-IPFS Desktop's `Files` screen gives you an easy, familiar interface for working with files on your node:
-- Easily rename, move, or remove files
+IPFS Desktop's `Files` screen gives you an easy, familiar interface for working with the contents of your node:
+- Easily rename, move, or remove files and folders
 - Preview many common file formats directly in IPFS Desktop
 - Copy a file/folder's IPFS content ID or a shareable link to your clipboard
 - ["Pin"](https://docs.ipfs.io/concepts/persistence/) files to your IPFS node or (coming soon!) to a third-party pinning service
@@ -109,7 +109,7 @@ Don't see your favorite package manager? Visit our [package managers page](https
 - **FreeBSD** (experimental): [ipfs-desktop-0.13.2-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x64.freebsd)\
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.13.2/ipfs-desktop-0.13.2-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x64.freebsd)
 - **Snapcraft** (community-maintained): `snap install ipfs-desktop`
-- **AUR** (maintained by [@alexhenrie](https://github.com/alexhenrie)): [`ipfs-desktop` package](https://aur.archlinux.org/packages/ipfs-desktop/) 
+- **AUR** (maintained by [@alexhenrie](https://github.com/alexhenrie)): Use the [`ipfs-desktop` package](https://aur.archlinux.org/packages/ipfs-desktop/) 
 
 ### Install from source
 
@@ -138,14 +138,14 @@ No matter how you contribute, please be sure you read and follow the [IPFS Contr
 
 ### Translations
 
-Contributing translations in your language is particularly valuable! We use Transifex to manage internationalization, which means you don't need to change any of the code in this repo to add your translations — just sign up for a Transifex account.
+Contributing translations in your language is particularly valuable! We use Transifex to manage internationalization, which means you don't need to change a single line of code to add your translations — just sign up for a Transifex account.
 
-Because IPFS Desktop app includes code from [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) and [IPLD Explorer](https://github.com/ipfs-shipyard/ipld-explorer), you'll want to join all three Transifex projects in order to see all the text:
+Because IPFS Desktop app includes text from [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) and [IPLD Explorer](https://github.com/ipfs-shipyard/ipld-explorer), you'll want to join all three Transifex projects in order to see all the text:
 - https://www.transifex.com/ipfs/ipfs-desktop/
 - https://www.transifex.com/ipfs/ipfs-webui/
 - https://www.transifex.com/ipfs/ipld-explorer/
 
-*Note for developers: We use English as our source of truth. This means that if you add any new text, make those additions in `[./assets/locales/en.json]`(./assets/locales/en.json) and they will automatically propagate in Transifex for other languages.*
+*Note for developers: We use English as our source of truth. This means that if you add any new text, make those additions in [`./assets/locales/en.json`](./assets/locales/en.json) and they will automatically propagate in Transifex for other languages.*
 
 ### Developer notes
 
@@ -186,7 +186,7 @@ $ ipfs-desktop --no-sandbox
 
 ### Where are my IPFS configuration and log files?
 
-You can open these files from the IPFS Desktop logo menu by selecting `Open Logs Directory` or `Open Configuration File` from the `Advanced` submenu. Or, find them in your OS as follows:
+You can open these files from the IPFS logo menu by selecting `Open Logs Directory` or `Open Configuration File` from the `Advanced` submenu. Or, find them in your OS as follows:
 - **Mac:** `~/Library/Application Support/IPFS Desktop/`
 - **Windows:** `%appdata%/IPFS Desktop/`
 - **Linux:** `~/.config/IPFS Desktop/`
@@ -195,13 +195,13 @@ You can open these files from the IPFS Desktop logo menu by selecting `Open Logs
 
 IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, by default, checks the `IPFS_PATH` environment variable. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeded, repository location info is saved in the configuration file, which becomes the source of truth.
 
-To open your repo directory from the IPFS Desktop logo menu, select `Open Repository Directory` from the `Advanced` submenu.
+To open your repo directory from the IPFS logo menu, select `Open Repository Directory` from the `Advanced` submenu.
 
 ### Which version of IPFS does IPFS Desktop use?
 
 Since IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), it includes its own embedded IPFS binary, which in most circumstances is the latest version of [go-ipfs](https://github.com/ipfs/go-ipfs).
 
-You can check which version of IPFS you're running from the IPFS Desktop logo menu by looking in the `About` submenu.
+You can check which version of IPFS you're running from the IPFS logo menu by looking in the `About` submenu.
 
 ### Which flags does IPFS Desktop boot with?
 
