@@ -9,16 +9,15 @@
 
 **IPFS Desktop gives you all the power of [IPFS](https://ipfs.io) in an easy desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
 
-![Status screen of IPFS Desktop](https://gateway.ipfs.io/ipfs/QmYHuXitXMf5xTjiQXmXdqszvMTADvrM5zA7EqoDj3d3RH)
-
 Use IPFS Desktop to get acquainted with IPFS without needing to touch the command line — or, if you're already experienced, use the powerful menubar/taskbar shortcuts alongside the command line to make your IPFS workflow faster.
+
+![Status screen of IPFS Desktop](https://gateway.ipfs.io/ipfs/QmYHuXitXMf5xTjiQXmXdqszvMTADvrM5zA7EqoDj3d3RH)
 
 **Install now!** 🎉 📥
 
 - **Mac:** [IPFS-Desktop-0.13.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-0.13.2.dmg) or `brew cask install ipfs`
 - **Windows:** [IPFS-Desktop-Setup-0.13.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-Setup-0.13.2.exe) or `choco install ipfs-desktop`
 - **Linux:** See [installation options](#install) below
-
 
 ## Table of Contents
 
@@ -29,15 +28,28 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the comman
 
 ## Features
 
+IPFS Desktop combines a complete IPFS node (running go-ipfs) and the [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) into a single, convenient desktop app — plus adds a menubar/system tray menu to your OS for easy access to a variety of common IPFS tasks.
+
+If you already have an IPFS node on your computer, IPFS Desktop will act as a control panel and file browser for that node. If you don't have a node, it'll install one for you. And either way, IPFS Desktop will automatically check for updates.
+
 ![IPFS Desktop](https://gateway.ipfs.io/ipfs/QmbT2YtuNo17Qaq31FJWRZgRMY4E6N9cdfBwzZTFSHUoBP)
 
-IPFS Desktop allows you to run your IPFS Node on your machine without having to bother with command line tools. With it, you have the power of [Web UI](https://github.com/ipfs-shipyard/ipfs-webui) on tip of your hands plus a handful of shortcuts you can find on settings.
 
-It's based on Web UI running in Electron to add those extra, awesome menu commands.
-
-### IPFS daemon always running
+### Start your node at system startup and control it from your OS
 
 IPFS Desktop's main feature is to allow you to have the IPFS daemon always running in the background. But fear not! If you need to stop it, you can do it just by clicking on 'Stop'.
+
+### File browser lets you add, move, view, share, and pin files
+
+foo
+
+### Peer visualizer gives you info on connected nodes worldwide
+
+foo
+
+#### IPLD Explorer
+
+foo
 
 ### Handle `ipfs://`, `ipns://` and `dweb:` links
 
@@ -47,24 +59,27 @@ For example, if you come across a link on the Internet whose `href` attribute is
 
 On Windows, an easy way to open a link would be to open the Run window (Win+R), paste the link, and hit Enter. Then, IPFS Desktop handles the rest. The same happens if you try opening the same link in a browser.
 
-### Adds `ipfs` to your system
+Goes great with IPFS Companion!
 
-If you're using macOS or Windows and don't have `ipfs` installed on your system, IPFS Desktop will automatically install it so it is available through the command line. If you're using Linux, or already have `ipfs` installed, you can tell IPFS Desktop to take care of it (and keep it up to date!) by toggling the option on Settings.
 
-### Easy add to IPFS
+### Easily import items to IPFS
 
-You can easily add files and folders to IPFS:
+Quickly import files and folders to your IPFS node in a variety of ways:
+- Drag and drop items onto IPFS Desktop's Files screen
+- (Windows) Right-click a file/folder's icon to add it to IPFS from the pop-up menu
+- (Mac) Drag and drop a file/folder onto the IPFS icon in your menubar
 
-- On Windows, you can right click on files to add them to IPFS through IPFS Desktop.
-- On macOS, you can drag and drop them to the tray icon.
+### Automagically import your screenshots
 
-### Download copied hashes
+Use `Take Screenshot` under the IPFS icon menu (in your menubar/system tray) to take a screenshot and import it to your IPFS node with one click.
 
-You can enable, on Settings, a shortcut to download an hash on the keyboard.
+### Quick download for CIDs, IPFS paths, and IPNS paths
 
-### Auto-add screenshots
+Just want to download an IPFS CID or IPFS/IPNS content path? Choose `Download...` from the IPFS icon menu, paste it in, and you're good to go.
 
-You can enable, on Settings, a shortcut to take screenshots and add them automatically to IPFS.
+### Learn IPFS commands as you go
+
+If you're interested in learning how to use IPFS from the command line, IPFS Desktop's CLI Tutor Mode can show you common IPFS commands as you go. Just check the `CLI Tutor Mode` box on the `Settings` screen to switch on this feature.
 
 ## Install
 
