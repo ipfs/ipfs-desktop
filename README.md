@@ -145,7 +145,7 @@ Manually test a few things that don't transfer well to automated testing:
 3. **Windows only:** Right-click on a file and "Add to IPFS" from context menu works as expected:
    - File(s) import correctly
    - Correct link is copied to clipboard
-4. **Mac/Windows:** Confirm that OS-wide protocol handler was registered by opening <a href="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi">`ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi`</a> in user agent _without_ IPFS Companion
+4. **Mac/Windows:** Confirm that OS-wide protocol handler was registered by opening <a href="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi">`ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi`</a> in a user agent _without_ IPFS Companion
      
 #### Main release process
 1. Fetch new translations from Transifex: `tx pull -a`.
@@ -156,13 +156,13 @@ Manually test a few things that don't transfer well to automated testing:
 6. Publish local changes and the tag to the GitHub repo: `git push && git push origin vA.B.C`.
 7. Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
 8. Publish a release draft.
-  - Once a release is published, users should receive the app update (see https://www.electron.build/auto-update for details).
-  - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available.
+   - Once a release is published, users should receive the app update (see https://www.electron.build/auto-update for details).
+   - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available.
 9. Update all links and badges in `README.md` to point to the new version (`A.B.C`).
 10. Update `CHANGELOG.md` with details from release/release draft.
 11. Update selected package managers:
-  - Wait for CI to finish and confirm that it updated [Snap](https://snapcraft.io/ipfs-desktop), and is at least pending review on [Chocolatey](https://chocolatey.org/packages/ipfs-desktop#versionhistory).
-  - Update the [Homebrew cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
+   - Wait for CI to finish and confirm that it updated [Snap](https://snapcraft.io/ipfs-desktop), and is at least pending review on [Chocolatey](https://chocolatey.org/packages/ipfs-desktop#versionhistory).
+   - Update the [Homebrew cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
 12. To start work on the next version, bump the version in `package.json`.
 
 #### Manually notarize `.dmg` with Apple
