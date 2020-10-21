@@ -71,20 +71,20 @@ Release notes and older versions of IPFS Desktop can be found on the [releases p
 Don't see your favorite package manager? Visit our [package managers page](https://github.com/ipfs-shipyard/ipfs-desktop/issues/691) and help us add support for it!
 
 ### Mac
-- **Official installer:** [IPFS-Desktop-0.13.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-0.13.2.dmg)  [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/IPFS-Desktop-0.13.2.dmg.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-0.13.2.dmg)
+- **Installer:** [IPFS-Desktop-0.13.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-0.13.2.dmg)  [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/IPFS-Desktop-0.13.2.dmg.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-0.13.2.dmg)
 - **Homebrew** (community-maintained): `brew cask install ipfs`
 
 ### Windows
-- **Official installer:** [IPFS-Desktop-Setup-0.13.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-Setup-0.13.2.exe) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/IPFS-Desktop-Setup-0.13.2.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-Setup-0.13.2.exe)
+- **Installer:** [IPFS-Desktop-Setup-0.13.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-Setup-0.13.2.exe) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/IPFS-Desktop-Setup-0.13.2.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-Setup-0.13.2.exe)
 - **Chocolatey** (community-maintained): `choco install ipfs-desktop`
 - **Scoop** (community-maintained): `scoop install ipfs-desktop`
 
 ### Linux/FreeBSD
-- **Official tarball** (experimental!): [ipfs-desktop-0.13.2-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x64.tar.xz) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/ipfs-desktop-0.13.2-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x64.tar.xz)
-- **Official Debian DEB** (experimental!): [ipfs-desktop-0.13.2-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-amd64.deb) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/ipfs-desktop-0.13.2-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-amd64.deb)
-- **Official Red Hat RPM** (experimental!): [ipfs-desktop-0.13.2-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.rpm) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.rpm)
-- **Official AppImage** (experimental!): [ipfs-desktop-0.13.2-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.AppImage) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.AppImage)
-- **Official FreeBSD** (experimental!): [ipfs-desktop-0.13.2-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x64.freebsd) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/ipfs-desktop-0.13.2-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x64.freebsd)
+- **Tarball** (experimental!): [ipfs-desktop-0.13.2-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x64.tar.xz) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/ipfs-desktop-0.13.2-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x64.tar.xz)
+- **Debian DEB** (experimental!): [ipfs-desktop-0.13.2-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-amd64.deb) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/ipfs-desktop-0.13.2-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-amd64.deb)
+- **Red Hat RPM** (experimental!): [ipfs-desktop-0.13.2-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.rpm) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.rpm)
+- **AppImage** (experimental!): [ipfs-desktop-0.13.2-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.AppImage) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x86_64.AppImage)
+- **FreeBSD** (experimental!): [ipfs-desktop-0.13.2-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x64.freebsd) [![](https://img.shields.io/github/downloads-pre/ipfs-shipyard/ipfs-desktop/v0.13.2/ipfs-desktop-0.13.2-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/ipfs-desktop-0.13.2-linux-x64.freebsd)
 - **Snapcraft** (community-maintained): `snap install ipfs-desktop`
 - **AUR** (maintained by [@alexhenrie](https://github.com/alexhenrie)): [`ipfs-desktop` package](https://aur.archlinux.org/packages/ipfs-desktop/) 
 
@@ -95,7 +95,7 @@ To install and run IPFS Desktop from source, you'll also need:
 - [npm](npmjs.org) `>=6.1.0` 
 - Any [platform-specific dependencies](https://github.com/nodejs/node-gyp#installation) required by [`node-gyp`](https://github.com/nodejs/node-gyp)
 
-Then, follow the steps below to clone the source code, install dependencies, and run the app. Once IPFS Desktop launches, you'll see an IPFS icon in your OS menu bar or system tray.
+Then, follow the steps below to clone the source code, install dependencies, and run the app.
 
 ```bash
 git clone https://github.com/ipfs-shipyard/ipfs-desktop.git
@@ -107,54 +107,72 @@ npm start
 
 ## Contribute
 
-We welcome contributions to IPFS Desktop! The best way to get started is to check out our current [open issues](https://github.com/ipfs-shipyard/ipfs-desktop/issues) (or drill down specifically for [issues labeled "help wanted"](https://github.com/ipfs-shipyard/ipfs-desktop/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)) and find something interesting. All issues are categorized by the [standard label taxonomy](https://github.com/ipfs/community/blob/master/ISSUE_LABELS.md) used across the IPFS project, so you can also drill by issue type (for example, [UX-related issues](https://github.com/ipfs-shipyard/ipfs-desktop/issues?q=is%3Aissue+is%3Aopen+label%3Atopic%2Fdesign-ux)).
+We welcome all contributions to IPFS Desktop! The best way to get started is to check the current [open issues](https://github.com/ipfs-shipyard/ipfs-desktop/issues) (or drill down specifically for [issues labeled "help wanted"](https://github.com/ipfs-shipyard/ipfs-desktop/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)) and find something interesting. All issues are categorized by the [standard label taxonomy](https://github.com/ipfs/community/blob/master/ISSUE_LABELS.md) used across the IPFS project, so you can also drill by topic (for example, [UX-related issues](https://github.com/ipfs-shipyard/ipfs-desktop/issues?q=is%3Aissue+is%3Aopen+label%3Atopic%2Fdesign-ux)).
 
-You may also enjoy taking part in the IPFS GUI & Web Browsers Working Group's biweekly meeting to catch up on the latest plans and developments. This meeting does shift around in the calendar, so please check the [IPFS Community Calendar](https://calendar.google.com/calendar/embed?src=ipfs.io_eal36ugu5e75s207gfjcu0ae84@group.calendar.google.com&ctz=UTC) for the latest day/time.
+You may also enjoy taking part in the IPFS GUI & Web Browsers Working Group's biweekly meeting to catch up on the latest plans. This meeting does shift around, so please check the [IPFS Community Calendar](https://calendar.google.com/calendar/embed?src=ipfs.io_eal36ugu5e75s207gfjcu0ae84@group.calendar.google.com&ctz=UTC) for the latest day/time.
 
 No matter how you contribute, please be sure you read and follow the [IPFS Contributing Guidelines](https://github.com/ipfs/community/blob/master/CONTRIBUTING.md) and the [IPFS Community Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md).
 
 ### Translations
 
-Contributing translations in your language is particularly welcome! The IPFS project as a whole uses Transifex to manage internationalization, which means that you don't need to change any of the code in this repo to add your translations — you just need to sign up for a Transifex account.
+Contributing translations in your language is particularly valuable! The IPFS project as a whole uses Transifex to manage internationalization, which means that you don't need to change any of the code in this repo to add your translations — you just need to sign up for a Transifex account.
 
-Because the IPFS Desktop app also includes code from [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) and [IPLD Explorer](https://github.com/ipfs-shipyard/ipld-explorer), you'll want to join all three projects in order to see all the text in need of translation:
+Because IPFS Desktop app includes code from [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) and [IPLD Explorer](https://github.com/ipfs-shipyard/ipld-explorer), you'll want to join all three Transifex projects in order to see all the text in need of translation:
 - https://www.transifex.com/ipfs/ipfs-desktop/
 - https://www.transifex.com/ipfs/ipfs-webui/
 - https://www.transifex.com/ipfs/ipld-explorer/
 
-*Note for developers:* We use the English version of text as the source of truth. This means that if you add any new text that will need to be localized, make those additions in [./assets/locales/en.json](./assets/locales/en.json) and they will automatically be added to Transifex for the community to translate.
+*Note for developers: We use the English text as the source of truth. This means that if you add any new text, make those additions in [./assets/locales/en.json](./assets/locales/en.json) and they will automatically be added to Transifex for the community to translate.*
 
-### Releasing
+### Developer notes
 
-- Manually test a few things that don't transfer well to automated testing:
-     - Mac/Win/Linux: confirm that "Take Screenshot" under menubar/system tray menu works as expected for both single- and multi-monitor setups (file(s) imported, correct link copied to clipboard)
-     - Mac only: drag/drop onto menubar icon behaves as expected when dragging one file, several files, and a combination of files/folders (file(s) imported, correct link copied to clipboard)
-     - Win only: right-click on a file and "Add to IPFS" from context menu works as expected (file imported, correct link copied to clipboard)
-     - Mac/Win: confirm that OS-wide protocol handler got registered by opening <a href="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi">`ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi`</a> in user agent without IPFS Companion
-- Fetch new translations from Transifex: `tx pull -a`
-- Commit the changes
-- Bump the version in `package.json`
-- Commit the changes
-- Create a tag with the same version: `git tag vA.B.C`
-- Publish local changes and the tag to GitHub repo: `git push && git push origin vA.B.C`
-- Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
-- Publish release draft.
-  - Once a release is published, users should receive the app update. See: https://www.electron.build/auto-update.
+For more detailed information about hacking on IPFS Desktop, including a release checklist, please see the full [DEVELOPER-NOTES.md](developer notes).
+
+### Release checklist
+
+Before cutting a new release of IPFS Desktop, please go through the following process:
+
+#### Manual testing
+
+Manually test a few things that don't transfer well to automated testing:
+
+1. **Mac/Windows/Linux:** Confirm that "Take Screenshot" under the menubar/system tray menu works as expected for both single- and multi-monitor setups:
+   - File(s) import correctly
+   - Correct link is copied to clipboard
+2. **Mac only:** Drag/drop onto menubar icon behaves as expected when dragging one file, several files, and a combination of files/folders:
+   - File(s) import correctly
+   - Correct link is copied to clipboard
+3. **Windows only:** Right-click on a file and "Add to IPFS" from context menu works as expected:
+   - File(s) import correctly
+   - Correct link is copied to clipboard
+4. **Mac/Windows:** Confirm that OS-wide protocol handler was registered by opening <a href="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi">`ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi`</a> in user agent _without_ IPFS Companion
+     
+#### Main release process
+1. Fetch new translations from Transifex: `tx pull -a`.
+2. Commit the changes.
+3. Bump the version in `package.json`.
+4. Commit the changes.
+5. Create a tag with the same version as your bump: `git tag vA.B.C`.
+6. Publish local changes and the tag to the GitHub repo: `git push && git push origin vA.B.C`.
+7. Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
+8. Publish a release draft.
+  - Once a release is published, users should receive the app update (see https://www.electron.build/auto-update for details).
   - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available.
-- Update links and badges in `README.md` to point to the new version (`A.B.C`)
-- Update `CHANGELOG.md` with details from release/release draft
-- Update selected package managers
-  - Wait for CI to finish and confirm it updated [Snap](https://snapcraft.io/ipfs-desktop) and is at least pending review on [Chocolatey](https://chocolatey.org/packages/ipfs-desktop#versionhistory).
-  - Update [Homebrew Cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
-- To start work on the next version, bump the version in the `package.json`
+9. Update all links and badges in `README.md` to point to the new version (`A.B.C`).
+10. Update `CHANGELOG.md` with details from release/release draft.
+11. Update selected package managers:
+  - Wait for CI to finish and confirm that it updated [Snap](https://snapcraft.io/ipfs-desktop), and is at least pending review on [Chocolatey](https://chocolatey.org/packages/ipfs-desktop#versionhistory).
+  - Update the [Homebrew cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
+12. To start work on the next version, bump the version in `package.json`.
 
-#### Manual notarization (Fallback in-case CI is not doing it correctly)
+#### Manually notarize `.dmg` with Apple
 
-- Notarize `.dmg` at Apple (context: [#1365](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1211))
-    1. Download `.dmg` from `https://github.com/ipfs-shipyard/ipfs-desktop/releases/vA.B.C`
-    2. Ensure `APPLEID` and `APPLEIDPASS` are set either as environment variables or entries in `.env` file. Those need to belong to the same org as cert used for signing.
-    3. Run `node pkgs/macos/notarize-cli.js ./IPFS-Desktop-A.B.C.dmg`
-    4. Debug errors by calling the tool directly: `xcrun altool --notarize-app -f /path/to/IPFS-Desktop-0.X.0.dmg --primary-bundle-id io.ipfs.desktop -u XXX-from-vault-XXX -p XXX-app-specific-password-from-vault-XXX`, also see the [long list of hoops Apple might ask you to jump through](https://github.com/ipfs-shipyard/ipfs-desktop/pull/1365#issuecomment-598127684).
+These steps are only needed as a fallback if CI is not correctly notarizing the `.dmg` file. For context, see [#1365](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1211).
+
+1. Download the `.dmg` from `https://github.com/ipfs-shipyard/ipfs-desktop/releases/vA.B.C`.
+2. Ensure `APPLEID` and `APPLEIDPASS` are set either as environment variables or entries in `.env` file. These need to belong to the same org as the certificate used for signing.
+3. Run `node pkgs/macos/notarize-cli.js ./IPFS-Desktop-A.B.C.dmg`.
+4. Debug errors by calling the tool directly: `xcrun altool --notarize-app -f /path/to/IPFS-Desktop-0.X.0.dmg --primary-bundle-id io.ipfs.desktop -u XXX-from-vault-XXX -p XXX-app-specific-password-from-vault-XXX`; also, see the [long list of hoops Apple may ask you to jump through](https://github.com/ipfs-shipyard/ipfs-desktop/pull/1365#issuecomment-598127684).
 
 ## FAQ & Troubleshooting
 
