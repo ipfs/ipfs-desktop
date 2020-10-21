@@ -115,10 +115,14 @@ No matter how you contribute, please be sure you read and follow the [IPFS Contr
 
 ### Translations
 
-The translations are stored on [./assets/locales](./assets/locales) and the English version is the source of truth.
-Other languages are periodically pulled from [Transifex](https://www.transifex.com/ipfs/ipfs-desktop/), a web interface to help us translate IPFS Desktop and its components to another languages.
+Contributing translations in your language is particularly welcome! The IPFS project as a whole uses Transifex to manage internationalization, which means that you don't need to change any of the code in this repo to add your translations — you just need to sign up for a Transifex account.
 
-If you're interested in contributing translations, go to [project page on Transifex](https://www.transifex.com/ipfs/ipfs-desktop/), create an account, pick a language and start translating.
+Because the IPFS Desktop app also includes code from [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) and [IPLD Explorer](https://github.com/ipfs-shipyard/ipld-explorer), you'll want to join all three projects in order to see all the text in need of translation:
+- https://www.transifex.com/ipfs/ipfs-desktop/
+- https://www.transifex.com/ipfs/ipfs-webui/
+- https://www.transifex.com/ipfs/ipld-explorer/
+
+*Note for developers:* We use the English version of text as the source of truth. This means that if you add any new text that will need to be localized, make those additions in [./assets/locales/en.json](./assets/locales/en.json) and they will automatically be added to Transifex for the community to translate.
 
 ### Releasing
 
