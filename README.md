@@ -9,6 +9,8 @@
 
 **IPFS Desktop gives you all the power of [IPFS](https://ipfs.io) in an easy desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
 
+![Status screen of IPFS Desktop](https://gateway.ipfs.io/ipfs/QmYHuXitXMf5xTjiQXmXdqszvMTADvrM5zA7EqoDj3d3RH)
+
 Use IPFS Desktop to get acquainted with IPFS without needing to touch the command line — or, if you're already experienced, use the powerful menubar/taskbar shortcuts alongside the command line to make your IPFS workflow faster.
 
 **Install now!** 🎉 📥
