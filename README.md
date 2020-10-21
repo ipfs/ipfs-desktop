@@ -13,9 +13,9 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the comman
 
 ![Status screen of IPFS Desktop](https://gateway.ipfs.io/ipfs/QmYHuXitXMf5xTjiQXmXdqszvMTADvrM5zA7EqoDj3d3RH)
 
-| Files | Explore | Peers | Settings | Menu |
+| Files screen | Explore screen | Peers screen | Settings screen | Menubar/taskbar |
 |-------|---------|-------|----------|------|
-| ![Screenshot of the file browser page](docs/screenshots/ipfs-webui-files.png) | ![Screenshot of the IPLD explorer page](docs/screenshots/ipfs-webui-explore.png) | ![Screenshot of the swarm peers map](docs/screenshots/ipfs-webui-peers.png) | ![Screenshot of the settings page](docs/screenshots/ipfs-webui-settings.png) | ![Screenshot of Mac/Windows menus](https://gateway.ipfs.io/ipfs/QmbT2YtuNo17Qaq31FJWRZgRMY4E6N9cdfBwzZTFSHUoBP) |
+| ![Screenshot of the Files screen](https://gateway.ipfs.io/ipfs/QmRN82RPWHKuSuBadijTQuaCjFKAGaymt3aFBoG6Du9Vi3) | ![Screenshot of the Explore screen](https://gateway.ipfs.io/ipfs/Qmaerxh9UKf9F3YPKnV2cBEnPQoJdVmkswFdz7kNQGncKt) | ![Screenshot of the Peers screen](https://gateway.ipfs.io/ipfs/QmaVbBYsEBb34HMP1YWeErrS7X3TB6Y9t1iQ4sBRnTvSwa) | ![Screenshot of the Settings screen](https://gateway.ipfs.io/ipfs/Qmby5RuN7K9s5W9RVLdrQSE8gRKQ66EX8c39iC31DLAxN6) | ![Screenshot of Mac/Windows menus](https://gateway.ipfs.io/ipfs/QmbT2YtuNo17Qaq31FJWRZgRMY4E6N9cdfBwzZTFSHUoBP) |
 
 ### Quick-install shortcuts
 
@@ -145,7 +145,7 @@ Because IPFS Desktop app includes code from [IPFS Web UI](https://github.com/ipf
 - https://www.transifex.com/ipfs/ipfs-webui/
 - https://www.transifex.com/ipfs/ipld-explorer/
 
-*Note for developers: We use English as our source of truth. This means that if you add any new text, make those additions in [./assets/locales/en.json](./assets/locales/en.json) and they will automatically propagate in Transifex for other languages.*
+*Note for developers: We use English as our source of truth. This means that if you add any new text, make those additions in `[./assets/locales/en.json]`(./assets/locales/en.json) and they will automatically propagate in Transifex for other languages.*
 
 ### Developer notes
 
