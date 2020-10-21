@@ -126,7 +126,7 @@ Because IPFS Desktop app includes code from [IPFS Web UI](https://github.com/ipf
 
 ### Developer notes
 
-For more detailed information about hacking on IPFS Desktop, including a release checklist, please see the full [DEVELOPER-NOTES.md](developer notes).
+For more detailed information about hacking on IPFS Desktop, including a release checklist, please see the full [developer notes](DEVELOPER-NOTES.md).
 
 ## FAQ & Troubleshooting
 
