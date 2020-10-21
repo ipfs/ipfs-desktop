@@ -20,12 +20,12 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the comman
 
 ## Table of Contents
 
-- [IPFS Desktop Features](#ipfs-desktop-features)
+- [Features](#features)
 - [Install](#install)
 - [Contribute](#contribute) (including [translations](#translations))
-- [FAQ & Troubleshooting](#faq-troubleshooting)
+- [FAQ & Troubleshooting](#faq--troubleshooting)
 
-## IPFS Desktop Features
+## Features
 
 ![IPFS Desktop](https://gateway.ipfs.io/ipfs/QmbT2YtuNo17Qaq31FJWRZgRMY4E6N9cdfBwzZTFSHUoBP)
 
@@ -137,61 +137,65 @@ For more detailed information about hacking on IPFS Desktop, including a release
 
 ## FAQ & Troubleshooting
 
-### Where are my IPFS configuration and log files?
+### Why am I missing the system tray menu on Linux?
 
-The configuration file and logs are located on:
-- Mac: `~/Library/Application Support/IPFS Desktop/`
-- Windows: `%appdata%/IPFS Desktop/`
-- Linux: `~/.config/IPFS Desktop/`
+IPFS Desktop is built using Electron, and unfortunately, poor system tray support has been a [longstanding problem with Electron apps](https://github.com/electron/electron/issues/21445).  
 
-For quick access to this folders, just right-click on your tray icon and then 'Logs Directory' or 'Configuration File', depending on what you want.
+You may wish to try troubleshooting according to the [Electron v9.3.0 docs](https://github.com/electron/electron/blob/v9.3.0/docs/api/tray.md#class-tray):
 
-### How does IPFS Dekstop select the IPFS repo location?
+- On Linux, the app indicator will be used if it is supported; otherwise `GtkStatusIcon` will be used
+- On Linux distributions that only have app indicator support, you must install `libappindicator1` to make the tray icon work
 
-We use [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, in default conditions, will check `IPFS_PATH` environment variable. If not set, we fallback to `$HOME/.ipfs`. As soon as the first run has succeded, we save the information about the repository location in the configuration file, which becomes the source of truth.
+If you've noticed that the old system tray is back in IPFS Desktop v0.13, this is because the Electron team [removed support for `StatusNotifier` and restored the old tray interface on Linux called `XEmbed`](https://github.com/electron/electron/issues/21445#issuecomment-634163402).
 
-### Which version of IPFS does IPFS Desktop run?
+### Why can't I start IPFS Desktop under Debian 10?
 
-Since we're using [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), we have our own embedded IPFS binary. We try to always have the latest version.
+Some Linux users may see one of the following errors when trying to launch IPFS Desktop:
 
-### Which flags does IPFS Desktop boot with?
-
-By default we use the flags `--migrate=true --routing=dhtclient ----enable-gc=true` when running the IPFS daemon. They can be changed via the configuration file, which can be easily accessed as mentioned above.
-
-### I don't have a system tray icon on Linux. Why?
-
-Poor tray support is a long running problem with Electron apps: [electron/issues/21445](https://github.com/electron/electron/issues/21445).  
-
-According to [electron/v9.3.0/docs/api/tray.md](https://github.com/electron/electron/blob/v9.3.0/docs/api/tray.md#class-tray):
-
-* On Linux the app indicator will be used if it is supported, otherwise `GtkStatusIcon` will be used instead.
-* On Linux distributions that only have app indicator support, you have to install `libappindicator1` to make the tray icon work.
-
-Why the old tray is back since v0.13? We had no control over this: Electron team [removed support for `StatusNotifier` and restored the old tray interface on Linux called `XEmbed`](https://github.com/electron/electron/issues/21445#issuecomment-634163402).
-
-### I can't start IPFS Desktop under Debian 10. Why?
-
-Some Linux users may see an error like this:
-
+When launching by double-clicking the app icon:
 > The SUID sandbox helper binary was found, but is not configured correctly.
 Rather than run without sandboxing I'm aborting now. You need to make sure that
 chrome-sandbox is owned by root and has mode 4755.
 
-or a very short one, when starting in a terminal:
-
+When launching from the terminal:
 ```console
 $ ipfs-desktop
 $Trace/breakpoint trap
 ```
 
-This is a known issue with Electron/Chrome and some hardened kernels.
-If you are interested in details, read [this](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1362#issuecomment-596857282).
-
-The only reliable way to fix this at the moment is to start the app with additional parameter:
-
+This is a known issue with Electron/Chrome and some hardened kernels. More details can be found [here](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1362#issuecomment-596857282), but a fix is to start IPFS Desktop from the terminal with the following additional parameter:
 ```console
 $ ipfs-desktop --no-sandbox
 ```
+
+### Where are my IPFS configuration and log files?
+
+You can open these files from the IPFS Desktop menubar/system tray menu by selecting `Open Logs Directory` or `Open Configuration File` from the `Advanced` submenu. Or, find them in your OS as follows:
+- **Mac:** `~/Library/Application Support/IPFS Desktop/`
+- **Windows:** `%appdata%/IPFS Desktop/`
+- **Linux:** `~/.config/IPFS Desktop/`
+
+### How does IPFS Desktop select the IPFS repo location?
+
+IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, by default, checks the `IPFS_PATH` environment variable. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeded, repository location info is saved in the configuration file, which becomes the source of truth.
+
+To open your repo directory from the IPFS Desktop menubar/system tray menu, select `Open Repository Directory` from the `Advanced` submenu.
+
+### Which version of IPFS does IPFS Desktop use?
+
+Since IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), it includes its own embedded IPFS binary, which in most circumstances is the latest version of [go-ipfs](https://github.com/ipfs/go-ipfs).
+
+You can check which version of IPFS you're running from the IPFS Desktop menubar/system tray menu by looking in the `About` submenu.
+
+### Which flags does IPFS Desktop boot with?
+
+By default, IPFS Desktop starts the IPFS daemon with the flags `--migrate=true --routing=dhtclient ----enable-gc=true`. You can change this in the config file by editing the `IPFS Config` section of IPFS Desktop's `Settings` screen.
+
+### I need more help!
+
+If you need help with using IPFS Desktop, the quickest way to get answers is to post them in the [official IPFS forums](https://discuss.ipfs.io). 
+
+If you think you've found a bug or other issue with IPFS Desktop itself, please [open an issue](https://github.com/ipfs-shipyard/ipfs-desktop/issues/new/choose).
 
 ## License
 
