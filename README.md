@@ -38,17 +38,17 @@ If you already have an IPFS node on your computer, IPFS Desktop will act as a co
 
 ### Start your node at system startup and control it from your OS
 
-(Mac/Windows) IPFS Desktop can be set to launch at system startup, ensuring that your node is running whenever your computer is on. Plus, if you'd like to stop or restart your node at any point, you can do so straight from the IPFS logo menu in your OS menubar/system tray.
+IPFS Desktop enables you to stop or restart your node straight from the IPFS logo menu in your OS menubar/system tray. For Mac and Windows users, IPFS Desktop can be also be set to launch at system startup, ensuring that your node is running whenever your computer is on.
 
 ### Quickly import files, folders, and screenshots to IPFS
 
 Import files and folders to your IPFS node in a variety of convenient ways:
 - Drag and drop items onto IPFS Desktop's `Files` screen
-- Click the `Import` button on the `Files` screen to add items from your computer or an IPFS content ID
+- Click the `Import` button on the `Files` screen to add items from your computer or an IPFS [content ID (CID)](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats)
 - (Windows) Right-click a file/folder's icon to add it to IPFS from the pop-up menu
 - (Mac) Drag and drop a file/folder onto the IPFS logo in your menubar
 
-Plus, you can use the `Take Screenshot` command under the IPFS logo menu to take a screenshot and import it to your node with one click. Shareable link will be automatically placed in your clipboard.
+Plus, you can use the `Take Screenshot` command under the IPFS logo menu to take a screenshot, import it to your node, and copy a shareable link to your clipboard with one click.
 
 ### Easily manage the contents of your node
 
@@ -72,7 +72,7 @@ Use the `Explore` screen to explore some example datasets — or your own files 
 
 ### Enjoy OS-wide support for IPFS files and links
 
-IPFS Desktop enables your operating system (Mac/Windows and some Linux variants) to support protocols including `ipfs://`, `ipns://` and `dweb:`. This means that if an app on your computer tries to open a link starting with one of those protocol identifiers (for example, if your web browser encounters a link to `ipns://en.wikipedia-on-ipfs.org`), it'll automatically open in IPFS Desktop.
+IPFS Desktop enables most operating systems (Mac, Windows and some Linux flavors) to support protocols including `ipfs://`, `ipns://` and `dweb:`. This means that if an app on your computer tries to open a link starting with one of those protocol identifiers (for example, if your web browser encounters a link to `ipns://en.wikipedia-on-ipfs.org`), it'll automatically open in IPFS Desktop.
 
 For an even better experience with `ipfs://`, `ipns://` and `dweb:` addresses, we also recommend installing [IPFS Companion](https://github.com/ipfs-shipyard/ipfs-companion) to add support in your favorite browser!
 
@@ -199,7 +199,7 @@ To open your repo directory from the IPFS logo menu, select `Open Repository Dir
 
 ### Which version of IPFS does IPFS Desktop use?
 
-IPFS Desktop includes its own embedded binary in version defined in `package.json`, which iis the latest version of [go-ipfs](https://github.com/ipfs/go-ipfs) that passed QA for desktop use.
+IPFS Desktop includes its own embedded binary (with version defined in `package.json`); this is the latest version of [go-ipfs](https://github.com/ipfs/go-ipfs) that has passed QA for IPFS Desktop use.
 
 You can check which version of IPFS you're running from the IPFS logo menu by looking in the `About` submenu.
 
@@ -207,7 +207,7 @@ You can check which version of IPFS you're running from the IPFS logo menu by lo
 
 By default, IPFS Desktop starts the IPFS daemon with the flags `--migrate=true --routing=dhtclient ----enable-gc=true`. 
 
-You can change this in the Desktop config file by selecting `Open Configuration File` from the `Advanced` submenu.
+You can change this in the IPFS Desktop config file by selecting `Open Configuration File` from the `Advanced` submenu.
 
 ### I need more help!
 
