@@ -55,7 +55,7 @@ Plus, you can use the `Take Screenshot` command under the IPFS logo menu to take
 IPFS Desktop's `Files` screen gives you an easy, familiar interface for working with the contents of your node:
 - Easily rename, move, or remove files and folders
 - Preview many common file formats directly in IPFS Desktop
-- Copy a file/folder's IPFS content ID or a shareable link to your clipboard
+- Copy a file/folder's IPFS [content ID (CID)](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) or a shareable link to your clipboard
 - ["Pin"](https://docs.ipfs.io/concepts/persistence/) files to your IPFS node or (coming soon!) to a third-party pinning service
 
 ### Quick download for CIDs, IPFS paths, and IPNS paths
