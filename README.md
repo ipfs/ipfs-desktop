@@ -48,7 +48,7 @@ Import files and folders to your IPFS node in a variety of convenient ways:
 - (Windows) Right-click a file/folder's icon to add it to IPFS from the pop-up menu
 - (Mac) Drag and drop a file/folder onto the IPFS logo in your menubar
 
-Plus, you can use the `Take Screenshot` command under the IPFS logo menu to take a screenshot and import it to your node with one click.
+Plus, you can use the `Take Screenshot` command under the IPFS logo menu to take a screenshot and import it to your node with one click. Shareable link will be automatically placed in your clipboard.
 
 ### Easily manage the contents of your node
 
