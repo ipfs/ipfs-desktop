@@ -207,7 +207,7 @@ You can check which version of IPFS you're running from the IPFS logo menu by lo
 
 By default, IPFS Desktop starts the IPFS daemon with the flags `--migrate=true --routing=dhtclient ----enable-gc=true`. 
 
-You can change this in the config file by editing the `IPFS Config` section of IPFS Desktop's `Settings` screen.
+You can change this in the Desktop config file by selecting `Open Configuration File` from the `Advanced` submenu.
 
 ### I need more help!
 
