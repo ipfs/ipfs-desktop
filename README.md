@@ -199,7 +199,7 @@ To open your repo directory from the IPFS logo menu, select `Open Repository Dir
 
 ### Which version of IPFS does IPFS Desktop use?
 
-Since IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), it includes its own embedded IPFS binary, which in most circumstances is the latest version of [go-ipfs](https://github.com/ipfs/go-ipfs).
+IPFS Desktop includes its own embedded binary in version defined in `package.json`, which iis the latest version of [go-ipfs](https://github.com/ipfs/go-ipfs) that passed QA for desktop use.
 
 You can check which version of IPFS you're running from the IPFS logo menu by looking in the `About` submenu.
 
