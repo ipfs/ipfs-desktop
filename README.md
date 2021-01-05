@@ -89,7 +89,7 @@ Don't see your favorite package manager? Visit our [package managers page](https
 ### Mac
 - **Installer:** [IPFS-Desktop-0.13.2.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-0.13.2.dmg)\
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.13.2/IPFS-Desktop-0.13.2.dmg.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-0.13.2.dmg)
-- **Homebrew** (community-maintained): `brew cask install ipfs`
+- **Homebrew** (community-maintained): `brew install --cask ipfs`
 
 ### Windows
 - **Installer:** [IPFS-Desktop-Setup-0.13.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-Setup-0.13.2.exe)\
