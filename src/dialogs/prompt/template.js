@@ -1,7 +1,7 @@
 module.exports = ({ pallette, message, defaultValue, buttons, id }) => (`<!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" /> 
   </head>
   <body>
     <p>${message}</p>
