@@ -124,7 +124,6 @@ function buildMenu (ctx) {
         },
         buildCheckbox(AUTO_LAUNCH_KEY, 'settings.launchOnStartup'),
         buildCheckbox(AUTO_LAUNCH_WEBUI_KEY, 'settings.openWebUIAtLaunch'),
-        buildCheckbox(PUBSUB_KEY, 'settings.pubsub'),
         buildCheckbox(IPFS_PATH_KEY, 'settings.ipfsCommandLineTools'),
         buildCheckbox(SCREENSHOT_KEY, 'settings.takeScreenshotShortcut'),
         buildCheckbox(DOWNLOAD_KEY, 'settings.downloadHashShortcut'),
@@ -133,6 +132,7 @@ function buildMenu (ctx) {
           label: i18n.t('settings.experiments'),
           enabled: false
         },
+        buildCheckbox(PUBSUB_KEY, 'settings.pubsub'),
         buildCheckbox(NPM_IPFS_KEY, 'settings.npmOnIpfs')
       ]
     },
