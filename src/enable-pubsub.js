@@ -34,10 +34,8 @@ module.exports = async function () {
     try {
       if (newValue === true) {
         enable()
-        logger.info('[pubsub] enabled')
       } else {
         disable()
-        logger.info('[pubsub] disabled')
       }
 
       return true
@@ -47,9 +45,9 @@ module.exports = async function () {
       return false
     }
   }
-
   activate({ newValue: store.get(CONFIG_KEY, false) })
   createToggler(CONFIG_KEY, activate)
+  logger.info(`[pubsub] ${store.get(CONFIG_KEY, false) ? 'enabled' : 'disabled'}`)
 }
 
 module.exports.CONFIG_KEY = CONFIG_KEY
