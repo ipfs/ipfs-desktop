@@ -48,6 +48,7 @@ module.exports = async function () {
     }
   }
 
+  activate({ newValue: store.get(CONFIG_KEY, false) })
   createToggler(CONFIG_KEY, activate)
 }
 
