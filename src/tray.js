@@ -13,6 +13,7 @@ const { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } = require('./common/consts')
 const { CONFIG_KEY: SCREENSHOT_KEY, SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
 const { CONFIG_KEY: DOWNLOAD_KEY, SHORTCUT: DOWNLOAD_SHORTCUT, downloadCid } = require('./download-cid')
 const { CONFIG_KEY: AUTO_LAUNCH_KEY, isSupported: supportsLaunchAtLogin } = require('./auto-launch')
+const { CONFIG_KEY: PUBSUB_KEY } = require('./enable-pubsub')
 const { CONFIG_KEY: IPFS_PATH_KEY } = require('./ipfs-on-path')
 const { CONFIG_KEY: NPM_IPFS_KEY } = require('./npm-on-ipfs')
 const { CONFIG_KEY: AUTO_LAUNCH_WEBUI_KEY } = require('./webui')
@@ -23,7 +24,8 @@ const CONFIG_KEYS = [
   IPFS_PATH_KEY,
   NPM_IPFS_KEY,
   SCREENSHOT_KEY,
-  DOWNLOAD_KEY
+  DOWNLOAD_KEY,
+  PUBSUB_KEY
 ]
 
 function buildCheckbox (key, label) {
@@ -122,6 +124,7 @@ function buildMenu (ctx) {
         },
         buildCheckbox(AUTO_LAUNCH_KEY, 'settings.launchOnStartup'),
         buildCheckbox(AUTO_LAUNCH_WEBUI_KEY, 'settings.openWebUIAtLaunch'),
+        buildCheckbox(PUBSUB_KEY, 'settings.pubsub'),
         buildCheckbox(IPFS_PATH_KEY, 'settings.ipfsCommandLineTools'),
         buildCheckbox(SCREENSHOT_KEY, 'settings.takeScreenshotShortcut'),
         buildCheckbox(DOWNLOAD_KEY, 'settings.downloadHashShortcut'),
