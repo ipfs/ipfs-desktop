@@ -86,7 +86,7 @@
     "i18next-icu": "^1.3.1",
     "i18next-node-fs-backend": "^2.1.3",
     "ipfs-http-client": "47.0.1",
-    "ipfsd-ctl": "^7.0.0",
+    "ipfsd-ctl": "^7.2.0",
     "is-ipfs": "^2.0.0",
     "it-all": "^1.0.2",
     "it-concat": "^1.0.1",

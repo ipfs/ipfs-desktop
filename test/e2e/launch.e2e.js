@@ -139,10 +139,11 @@ describe('Application launch', function () {
     expect(app.isRunning()).to.be.true()
     const { peerId } = await daemonReady(app)
     expect(peerId).to.be.equal(expectedId)
-    await app.stop()
 
     // ensure app has enabled cors checking
     config = fs.readJsonSync(configPath)
+    await app.stop()
+
     expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.be.deep.equal([])
   })
 
