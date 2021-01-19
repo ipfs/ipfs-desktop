@@ -1,18 +1,30 @@
 const createToggler = require('./utils/create-toggler')
 const logger = require('./common/logger')
 const store = require('./common/store')
+const { ipcMain } = require('electron')
 
 const CONFIG_KEY = 'pubsub'
+const pubsubFlag = '--enable-pubsub-experiment'
 
 function enable () {
-  var flags = store.get('ipfsConfig.flags', [])
-  flags.push('--enable-pubsub-experiment')
-  store.set('ipfsConfig.flags', flags)
+  let flags = store.get('ipfsConfig.flags', [])
+  flags = flags.filter(item => item !== pubsubFlag) // avoid duplication when user has one added manually
+  flags.push(pubsubFlag)
+  applyConfig(flags)
 }
 
 function disable () {
-  var flags = store.get('ipfsConfig.flags', [])
-  store.set('ipfsConfig.flags', flags.filter(item => item !== '--enable-pubsub-experiment'))
+  let flags = store.get('ipfsConfig.flags', [])
+  flags = flags.filter(item => item !== pubsubFlag) // remove flag
+  applyConfig(flags)
+}
+
+function applyConfig (newFlags) {
+  const flags = store.get('ipfsConfig.flags', [])
+  if (flags.length !== newFlags.length) {
+    store.set('ipfsConfig.flags', newFlags)
+    ipcMain.emit('ipfsConfigChanged') // trigger node restart
+  }
 }
 
 module.exports = async function () {
@@ -36,7 +48,6 @@ module.exports = async function () {
     }
   }
 
-  activate({ newValue: store.get(CONFIG_KEY, false) })
   createToggler(CONFIG_KEY, activate)
 }
 
