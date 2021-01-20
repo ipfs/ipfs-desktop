@@ -5,26 +5,27 @@ const { ipcMain } = require('electron')
 
 const CONFIG_KEY = 'pubsub'
 const pubsubFlag = '--enable-pubsub-experiment'
+const isEnabled = flags => flags.some(f => f === pubsubFlag)
 
 function enable () {
-  let flags = store.get('ipfsConfig.flags', [])
-  flags = flags.filter(item => item !== pubsubFlag) // avoid duplication when user has one added manually
-  flags.push(pubsubFlag)
-  applyConfig(flags)
+  const flags = store.get('ipfsConfig.flags', [])
+  if (!isEnabled(flags)) {
+    flags.push(pubsubFlag)
+    applyConfig(flags)
+  }
 }
 
 function disable () {
   let flags = store.get('ipfsConfig.flags', [])
-  flags = flags.filter(item => item !== pubsubFlag) // remove flag
-  applyConfig(flags)
+  if (isEnabled(flags)) {
+    flags = flags.filter(item => item !== pubsubFlag) // remove flag
+    applyConfig(flags)
+  }
 }
 
 function applyConfig (newFlags) {
-  const flags = store.get('ipfsConfig.flags', [])
-  if (flags.length !== newFlags.length) {
-    store.set('ipfsConfig.flags', newFlags)
-    ipcMain.emit('ipfsConfigChanged') // trigger node restart
-  }
+  store.set('ipfsConfig.flags', newFlags)
+  ipcMain.emit('ipfsConfigChanged') // trigger node restart
 }
 
 module.exports = async function () {
