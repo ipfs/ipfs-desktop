@@ -3,7 +3,7 @@ const logger = require('./common/logger')
 const store = require('./common/store')
 const { ipcMain } = require('electron')
 
-const CONFIG_KEY = 'namesys-pubsub'
+const CONFIG_KEY = 'experiments.pubsubNamesys'
 const namesysPubsubFlag = '--enable-namesys-pubsub'
 const isEnabled = flags => flags.some(f => f === namesysPubsubFlag)
 

@@ -3,7 +3,7 @@ const logger = require('./common/logger')
 const store = require('./common/store')
 const { ipcMain } = require('electron')
 
-const CONFIG_KEY = 'pubsub'
+const CONFIG_KEY = 'experiments.pubsub'
 const pubsubFlag = '--enable-pubsub-experiment'
 const isEnabled = flags => flags.some(f => f === pubsubFlag)
 
