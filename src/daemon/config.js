@@ -145,10 +145,20 @@ function applyCrustApi (config) {
 
 function applyCrustBootstrap (config) {
   config.Bootstrap = config.Bootstrap || []
-  config.Bootstrap = [
-    ...config.Bootstrap,
-    ...['/ip4/101.33.32.103/tcp/4001/p2p/12D3KooWEVFe1uGbgsDCgt9GV5sAC864RNPPDJLTnX9phoWHuV2d']
-  ]
+  const node = '/ip4/101.33.32.103/tcp/4001/p2p/12D3KooWEVFe1uGbgsDCgt9GV5sAC864RNPPDJLTnX9phoWHuV2d'
+  let founded = false
+  for (const strap of config.Bootstrap) {
+    if (strap === node) {
+      founded = true
+      break
+    }
+  }
+  if (!founded) {
+    config.Bootstrap = [
+      ...config.Bootstrap,
+      ...[node]
+    ]
+  }
   return config
 }
 
@@ -167,16 +177,14 @@ function crustConfig (ipfsd) {
   let config = null
   try {
     config = readConfigFile(ipfsd)
+    const applyWrite = writeConfig(ipfsd)
+
+    const applyChanges = compose(applyWrite, applyCrustApi, applyCrustBootstrap)
+    applyChanges(config)
   } catch (err) {
     // This is a best effort check, dont blow up here, that should happen else where.
     logger.error(`[daemon] migrateConfig: error reading config file: ${err.message || err}`)
-    return
   }
-
-  const applyWrite = writeConfig(ipfsd)
-
-  const applyChanges = compose(applyWrite, applyCrustApi, applyCrustBootstrap)
-  applyChanges(config)
 }
 
 // Check for * and webui://- in allowed origins on API headers.
