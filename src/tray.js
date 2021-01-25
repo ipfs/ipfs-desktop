@@ -14,6 +14,7 @@ const { CONFIG_KEY: SCREENSHOT_KEY, SHORTCUT: SCREENSHOT_SHORTCUT, takeScreensho
 const { CONFIG_KEY: DOWNLOAD_KEY, SHORTCUT: DOWNLOAD_SHORTCUT, downloadCid } = require('./download-cid')
 const { CONFIG_KEY: AUTO_LAUNCH_KEY, isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const { CONFIG_KEY: PUBSUB_KEY } = require('./enable-pubsub')
+const { CONFIG_KEY: NAMESYS_PUBSUB_KEY } = require('./enable-namesys-pubsub')
 const { CONFIG_KEY: AUTO_GC_KEY } = require('./automatic-gc')
 const { CONFIG_KEY: IPFS_PATH_KEY } = require('./ipfs-on-path')
 const { CONFIG_KEY: NPM_IPFS_KEY } = require('./npm-on-ipfs')
@@ -27,7 +28,8 @@ const CONFIG_KEYS = [
   NPM_IPFS_KEY,
   SCREENSHOT_KEY,
   DOWNLOAD_KEY,
-  PUBSUB_KEY
+  PUBSUB_KEY,
+  NAMESYS_PUBSUB_KEY
 ]
 
 function buildCheckbox (key, label) {
@@ -136,6 +138,7 @@ function buildMenu (ctx) {
           enabled: false
         },
         buildCheckbox(PUBSUB_KEY, 'settings.pubsub'),
+        buildCheckbox(NAMESYS_PUBSUB_KEY, 'settings.namesysPubsub'),
         buildCheckbox(NPM_IPFS_KEY, 'settings.npmOnIpfs')
       ]
     },
