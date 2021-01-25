@@ -225,11 +225,12 @@
     "openWebUIAtLaunch": "Open Web UI at Launch",
     "pubsub": "Enable PubSub",
     "namesysPubsub": "Enable IPNS over PubSub",
+    "automaticGC": "Automatic Garbage Collection",
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
     "experiments": "Experiments",
-    "npmOnIpfs": "npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",
