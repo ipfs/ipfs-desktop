@@ -9,8 +9,7 @@ const defaults = {
       '--migrate',
       '--enable-gc',
       '--routing', 'dhtclient'
-    ],
-    keysize: 2048
+    ]
   },
   language: (electron.app || electron.remote.app).getLocale(),
   experiments: {}
@@ -24,6 +23,14 @@ const migrations = {
 
     if (flags.includes('--migrate=true') || flags.includes('--enable-gc=true')) {
       store.set('ipfsConfig.flags', defaults.ipfsConfig.flags)
+    }
+  },
+  '>0.13.2': store => {
+    const flags = store.get('ipfsConfig.flags', [])
+    const automaticGC = store.get('automaticGC', false)
+    // ensure checkbox follows cli flag config
+    if (flags.includes('--enable-gc') && !automaticGC) {
+      store.set('automaticGC', true)
     }
   }
 }
