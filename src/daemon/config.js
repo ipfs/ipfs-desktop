@@ -41,7 +41,15 @@ function applyDefaults (ipfsd) {
 
   // Ensure strict CORS checking
   // See: https://github.com/ipfs/js-ipfsd-ctl/issues/333
-  config.API = { HTTPHeaders: {} }
+  config.API = {
+    HTTPHeaders: {
+      'Access-Control-Allow-Origin': ['https://apps.crust.network', 'http://localhost:3000', 'http://127.0.0.1:5001', 'https://webui.ipfs.io'],
+      'Access-Control-Allow-Methods': [
+        'PUT',
+        'POST'
+      ]
+    }
+  }
 
   config.Swarm = config.Swarm || {}
   config.Swarm.DisableNatPortMap = false
@@ -53,6 +61,12 @@ function applyDefaults (ipfsd) {
   config.Discovery = config.Discovery || {}
   config.Discovery.MDNS = config.Discovery.MDNS || {}
   config.Discovery.MDNS.Enabled = true
+
+  config.Bootstrap = config.Bootstrap || []
+  config.Bootstrap = [
+    ...config.Bootstrap,
+    ...['/ip4/101.33.32.103/tcp/4001/p2p/12D3KooWEVFe1uGbgsDCgt9GV5sAC864RNPPDJLTnX9phoWHuV2d']
+  ]
 
   writeConfigFile(ipfsd, config)
 }
@@ -97,6 +111,72 @@ function migrateConfig (ipfsd) {
     }
   }
   store.set(REVISION_KEY, REVISION)
+}
+
+function compose (...funcs) {
+  if (funcs.length === 0) {
+    return arg => arg
+  }
+  if (funcs.length === 1) {
+    return funcs[0]
+  }
+  return funcs.reduce((a, b) => (...args) => a(b(...args)))
+}
+
+function applyCrustApi (config) {
+  let headers = {}
+  try {
+    headers = config.API.HTTPHeaders
+  } catch (error) {
+    headers = {}
+  }
+  config.API = {
+    HTTPHeaders: {
+      ...headers,
+      'Access-Control-Allow-Origin': ['https://apps.crust.network', 'http://localhost:3000', 'http://127.0.0.1:5001', 'https://webui.ipfs.io'],
+      'Access-Control-Allow-Methods': [
+        'PUT',
+        'POST'
+      ]
+    }
+  }
+  return config
+}
+
+function applyCrustBootstrap (config) {
+  config.Bootstrap = config.Bootstrap || []
+  config.Bootstrap = [
+    ...config.Bootstrap,
+    ...['/ip4/101.33.32.103/tcp/4001/p2p/12D3KooWEVFe1uGbgsDCgt9GV5sAC864RNPPDJLTnX9phoWHuV2d']
+  ]
+  return config
+}
+
+function writeConfig (ipfsd) {
+  const file = configPath(ipfsd)
+  return (config) => {
+    try {
+      fs.writeJSONSync(file, config, { spaces: 2 })
+    } catch (err) {
+      logger.error(`[daemon] migrateConfig: error writing config file: ${err.message || err}`)
+    }
+  }
+}
+
+function crustConfig (ipfsd) {
+  let config = null
+  try {
+    config = readConfigFile(ipfsd)
+  } catch (err) {
+    // This is a best effort check, dont blow up here, that should happen else where.
+    logger.error(`[daemon] migrateConfig: error reading config file: ${err.message || err}`)
+    return
+  }
+
+  const applyWrite = writeConfig(ipfsd)
+
+  const applyChanges = compose(applyWrite, applyCrustApi, applyCrustBootstrap)
+  applyChanges(config)
 }
 
 // Check for * and webui://- in allowed origins on API headers.
@@ -320,5 +400,6 @@ module.exports = Object.freeze({
   applyDefaults,
   migrateConfig,
   checkCorsConfig,
-  checkPorts
+  checkPorts,
+  crustConfig
 })
