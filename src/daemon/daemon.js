@@ -5,7 +5,7 @@ const { join } = require('path')
 const { app } = require('electron')
 const { showDialog } = require('../dialogs')
 const logger = require('../common/logger')
-const { applyDefaults, migrateConfig, checkCorsConfig, checkPorts, configExists, rmApiFile, apiFileExists } = require('./config')
+const { applyDefaults, migrateConfig, checkCorsConfig, checkPorts, configExists, rmApiFile, apiFileExists, crustConfig } = require('./config')
 const { getCustomBinary } = require('../custom-ipfs-binary')
 
 function cannotConnectDialog (addr) {
@@ -54,6 +54,7 @@ async function spawn ({ flags, path, keysize }) {
   if (configExists(ipfsd)) {
     migrateConfig(ipfsd)
     checkCorsConfig(ipfsd)
+    crustConfig(ipfsd)
     return { ipfsd, isRemote: false }
   }
 
