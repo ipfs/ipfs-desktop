@@ -3,7 +3,7 @@ const logger = require('./common/logger')
 const store = require('./common/store')
 const { ipcMain } = require('electron')
 
-const CONFIG_KEY = 'automaticGc'
+const CONFIG_KEY = 'automaticGC'
 const gcFlag = '--enable-gc'
 const isEnabled = flags => flags.some(f => f === gcFlag)
 

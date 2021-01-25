@@ -126,7 +126,7 @@ function buildMenu (ctx) {
         },
         buildCheckbox(AUTO_LAUNCH_KEY, 'settings.launchOnStartup'),
         buildCheckbox(AUTO_LAUNCH_WEBUI_KEY, 'settings.openWebUIAtLaunch'),
-        buildCheckbox(AUTO_GC_KEY, 'settings.automaticGc'),
+        buildCheckbox(AUTO_GC_KEY, 'settings.automaticGC'),
         buildCheckbox(IPFS_PATH_KEY, 'settings.ipfsCommandLineTools'),
         buildCheckbox(SCREENSHOT_KEY, 'settings.takeScreenshotShortcut'),
         buildCheckbox(DOWNLOAD_KEY, 'settings.downloadHashShortcut'),
