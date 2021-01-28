@@ -8,6 +8,7 @@ const i18n = require('i18next')
 const { showDialog } = require('../dialogs')
 const store = require('../common/store')
 const logger = require('../common/logger')
+const _ = require('lodash')
 
 function configExists (ipfsd) {
   return fs.pathExistsSync(join(ipfsd.path, 'config'))
@@ -37,19 +38,12 @@ function writeConfigFile (ipfsd, config) {
 // by default. This must only be called for repositories created
 // by IPFS Desktop. Existing ones shall remain intact.
 function applyDefaults (ipfsd) {
-  const config = readConfigFile(ipfsd)
+  let config = readConfigFile(ipfsd)
 
   // Ensure strict CORS checking
   // See: https://github.com/ipfs/js-ipfsd-ctl/issues/333
-  config.API = {
-    HTTPHeaders: {
-      'Access-Control-Allow-Origin': ['https://apps.crust.network', 'http://localhost:3000', 'http://127.0.0.1:5001', 'https://webui.ipfs.io'],
-      'Access-Control-Allow-Methods': [
-        'PUT',
-        'POST'
-      ]
-    }
-  }
+
+  config = applyCrustApi(config)
 
   config.Swarm = config.Swarm || {}
   config.Swarm.DisableNatPortMap = false
@@ -62,11 +56,7 @@ function applyDefaults (ipfsd) {
   config.Discovery.MDNS = config.Discovery.MDNS || {}
   config.Discovery.MDNS.Enabled = true
 
-  config.Bootstrap = config.Bootstrap || []
-  config.Bootstrap = [
-    ...config.Bootstrap,
-    ...['/ip4/101.33.32.103/tcp/4001/p2p/12D3KooWEVFe1uGbgsDCgt9GV5sAC864RNPPDJLTnX9phoWHuV2d']
-  ]
+  config = applyCrustBootstrap(config)
 
   writeConfigFile(ipfsd, config)
 }
@@ -125,15 +115,25 @@ function compose (...funcs) {
 
 function applyCrustApi (config) {
   let headers = {}
+  let origins = []
   try {
-    headers = config.API.HTTPHeaders
+    headers = config.API.HTTPHeaders || {}
+    origins = config.API.HTTPHeaders['Access-Control-Allow-Origin'] || []
   } catch (error) {
     headers = {}
+    origins = []
   }
+
+  const originsToAdd = ['https://apps.crust.network', 'http://localhost:3000', 'http://127.0.0.1:5001', 'https://webui.ipfs.io']
+
+  const diff = _.difference(originsToAdd, origins)
+  console.log('diff', diff, 'origins', origins)
+
+
   config.API = {
     HTTPHeaders: {
       ...headers,
-      'Access-Control-Allow-Origin': ['https://apps.crust.network', 'http://localhost:3000', 'http://127.0.0.1:5001', 'https://webui.ipfs.io'],
+      'Access-Control-Allow-Origin': [...origins, ...diff],
       'Access-Control-Allow-Methods': [
         'PUT',
         'POST'
@@ -145,20 +145,14 @@ function applyCrustApi (config) {
 
 function applyCrustBootstrap (config) {
   config.Bootstrap = config.Bootstrap || []
-  const node = '/ip4/101.33.32.103/tcp/4001/p2p/12D3KooWEVFe1uGbgsDCgt9GV5sAC864RNPPDJLTnX9phoWHuV2d'
-  let founded = false
-  for (const strap of config.Bootstrap) {
-    if (strap === node) {
-      founded = true
-      break
-    }
-  }
-  if (!founded) {
-    config.Bootstrap = [
-      ...config.Bootstrap,
-      ...[node]
-    ]
-  }
+  const node = ['/ip4/101.33.32.103/tcp/4001/p2p/12D3KooWEVFe1uGbgsDCgt9GV5sAC864RNPPDJLTnX9phoWHuV2d']
+
+  const diff = _.difference(node, config.Bootstrap)
+
+  config.Bootstrap = [
+    ...config.Bootstrap,
+    ...diff
+  ]
   return config
 }
 
