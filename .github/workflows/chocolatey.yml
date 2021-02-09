@@ -45,3 +45,4 @@ jobs:
 
       - name: Publish to Chocolatey
         run: choco push pkgs/chocolatey/ipfs-desktop.${{ env.release_name }}.nupkg --key ${{ secrets.chocolatey_key }} --source "https://push.chocolatey.org"
+        
