@@ -155,6 +155,7 @@ const parseCfgMultiaddr = (addr) => (addr.includes('/http')
 
 async function checkIfAddrIsDaemon (addr) {
   const options = {
+    timeout: 3000, // 3s is plenty for localhost request
     method: 'POST',
     host: addr.address,
     port: addr.port,
