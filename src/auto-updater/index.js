@@ -1,6 +1,7 @@
 const { shell } = require('electron')
 const { autoUpdater } = require('electron-updater')
 const i18n = require('i18next')
+const { ipcMain } = require('electron')
 const logger = require('../common/logger')
 const { notify } = require('../common/notify')
 const { showDialog } = require('../dialogs')
@@ -125,11 +126,13 @@ function setup (ctx) {
 }
 
 async function checkForUpdates () {
+  ipcMain.emit('updating')
   try {
     await autoUpdater.checkForUpdates()
   } catch (_) {
     // Ignore. The errors are already handled on 'error' event.
   }
+  ipcMain.emit('updatingEnded')
 }
 
 module.exports = async function (ctx) {

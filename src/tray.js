@@ -54,7 +54,8 @@ function buildMenu (ctx) {
       ['ipfsIsStopping', 'yellow'],
       ['ipfsIsNotRunning', 'gray'],
       ['ipfsHasErrored', 'red'],
-      ['runningWithGC', 'yellow']
+      ['runningWithGC', 'yellow'],
+      ['runningWhileCheckingForUpdate', 'yellow']
     ].map(([status, color]) => ({
       id: status,
       label: i18n.t(status),
@@ -203,8 +204,14 @@ function buildMenu (ctx) {
         },
         { type: 'separator' },
         {
+          id: 'checkForUpdates',
           label: i18n.t('checkForUpdates'),
           click: () => { ctx.manualCheckForUpdates() }
+        },
+        {
+          id: 'checkingForUpdates',
+          label: i18n.t('checkingForUpdates'),
+          enabled: false
         },
         { type: 'separator' },
         {
@@ -245,7 +252,8 @@ module.exports = function (ctx) {
 
   const state = {
     status: null,
-    gcRunning: false
+    gcRunning: false,
+    isUpdating: false
   }
 
   // macOS tray drop files
@@ -276,15 +284,16 @@ module.exports = function (ctx) {
   }
 
   const updateMenu = () => {
-    const { status, gcRunning } = state
+    const { status, gcRunning, isUpdating } = state
     const errored = status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
 
-    menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED && !gcRunning
-    menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED && !gcRunning
-    menu.getMenuItemById('ipfsIsStopping').visible = status === STATUS.STOPPING_STARTED && !gcRunning
-    menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED && !gcRunning
-    menu.getMenuItemById('ipfsHasErrored').visible = errored && !gcRunning
+    menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsIsStopping').visible = status === STATUS.STOPPING_STARTED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsHasErrored').visible = errored && !gcRunning && !isUpdating
     menu.getMenuItemById('runningWithGC').visible = gcRunning
+    menu.getMenuItemById('runningWhileCheckingForUpdate').visible = isUpdating
 
     menu.getMenuItemById('startIpfs').visible = status === STATUS.STOPPING_FINISHED
     menu.getMenuItemById('stopIpfs').visible = status === STATUS.STARTING_FINISHED
@@ -308,6 +317,10 @@ module.exports = function (ctx) {
 
     menu.getMenuItemById('setCustomBinary').visible = !hasCustomBinary()
     menu.getMenuItemById('clearCustomBinary').visible = hasCustomBinary()
+
+    menu.getMenuItemById('checkForUpdates').enabled = !isUpdating
+    menu.getMenuItemById('checkForUpdates').visible = !isUpdating
+    menu.getMenuItemById('checkingForUpdates').visible = isUpdating
 
     if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon(on))
@@ -339,6 +352,16 @@ module.exports = function (ctx) {
 
   ipcMain.on('gcEnded', () => {
     state.gcRunning = false
+    updateMenu()
+  })
+
+  ipcMain.on('updating', () => {
+    state.isUpdating = true
+    updateMenu()
+  })
+
+  ipcMain.on('updatingEnded', () => {
+    state.isUpdating = false
     updateMenu()
   })
 
