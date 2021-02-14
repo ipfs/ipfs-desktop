@@ -290,19 +290,19 @@ module.exports = function (ctx) {
   tray.on('right-click', popupMenu)
   tray.on('double-click', () => ctx.launchWebUI('/'))
 
-  const pollPeers = () => {
+  const fetchPeers = () => {
     // If the daemon is running, send a request to retrieve the number
-    // of connected peers. Emit 'peersPolled' event upon retrieval.
+    // of connected peers. Emit 'peerCountFetched' event upon retrieval.
     if (state.status === STATUS.STARTING_FINISHED && ctx.getIpfsd) {
       ctx.getIpfsd().then((daemon) => {
         daemon.api.swarm.peers().then((value) => {
           if (value.length) {
-            ipcMain.emit('peersPolled', value.length)
+            ipcMain.emit('peerCountFetched', value.length)
           }
         })
       })
     } else {
-      ipcMain.emit('peersPolled', 0)
+      ipcMain.emit('peerCountFetched', 0)
     }
   }
 
@@ -377,6 +377,12 @@ module.exports = function (ctx) {
     }
   }
 
+  ipcMain.on('menubar-will-open', () => {
+    fetchPeers()
+    setupMenu()
+    updateMenu()
+  })
+
   ipcMain.on('ipfsd', status => {
     state.status = status
     updateMenu()
@@ -402,17 +408,12 @@ module.exports = function (ctx) {
     updateMenu()
   })
 
-  ipcMain.on('peersPolled', peerCount => {
+  ipcMain.on('peerCountFetched', peerCount => {
     // When a new peer count is retrieved, rebuild the menu and update
     // the tray tooltip with the new number if necessary.
     if (peerCount !== state.peerCount) {
       state.peerCount = peerCount
-      menu = buildMenu(ctx, state.peerCount)
-      menu.on('menu-will-show', () => { ipcMain.emit('menubar-will-open') })
-      menu.on('menu-will-close', () => { ipcMain.emit('menubar-will-close') })
-      tray.setContextMenu(menu)
       tray.setToolTip(state.peerCount.toString() + ' ' + i18n.t('peerCount'))
-      updateMenu()
     }
   })
 
@@ -420,8 +421,8 @@ module.exports = function (ctx) {
   ipcMain.on('languageUpdated', () => { setupMenu() })
 
   setupMenu()
-  setInterval(pollPeers, 60000)
 
+  tray.on('mouse-move', () => { fetchPeers() })
   ctx.tray = tray
   logger.info('[tray] started')
 }
