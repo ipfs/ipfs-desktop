@@ -53,7 +53,7 @@ function buildCheckbox (key, label) {
 // they natively work as soon as the menu opens. They don't work like that on Windows
 // or other OSes and must be registered globally. They still collide with global
 // accelerator. Please see ../utils/setup-global-shortcut.js for more info.
-function buildMenu (ctx) {
+function buildMenu (ctx, peerCount) {
   return Menu.buildFromTemplate([
     ...[
       ['ipfsIsStarting', 'yellow'],
@@ -70,6 +70,11 @@ function buildMenu (ctx) {
       enabled: false,
       icon: path.resolve(path.join(__dirname, `../assets/icons/status/${color}.png`))
     })),
+    {
+      id: 'peerCount',
+      label: peerCount.toString() + ' ' + i18n.t('peerCount'),
+      enabled: false
+    },
     {
       id: 'restartIpfs',
       label: i18n.t('restart'),
@@ -260,7 +265,8 @@ module.exports = function (ctx) {
   const state = {
     status: null,
     gcRunning: false,
-    isUpdating: false
+    isUpdating: false,
+    peerCount: 0
   }
 
   // macOS tray drop files
@@ -284,15 +290,30 @@ module.exports = function (ctx) {
   tray.on('right-click', popupMenu)
   tray.on('double-click', () => ctx.launchWebUI('/'))
 
+  const pollPeers = () => {
+    // If the daemon is running, send a request to retrieve the number
+    // of connected peers. Emit 'peersPolled' event upon retrieval.
+    if (state.status === STATUS.STARTING_FINISHED && ctx.getIpfsd) {
+      ctx.getIpfsd().then((daemon) => {
+        daemon.api.swarm.peers().then((value) => {
+          if (value.length) {
+            ipcMain.emit('peersPolled', value.length)
+          }
+        })
+      })
+    } else {
+      ipcMain.emit('peersPolled', 0)
+    }
+  }
+
   const setupMenu = () => {
-    menu = buildMenu(ctx)
+    menu = buildMenu(ctx, state.peerCount)
 
     tray.setContextMenu(menu)
-    tray.setToolTip('IPFS Desktop')
+    tray.setToolTip(state.peerCount.toString() + ' ' + i18n.t('peerCount'))
 
     menu.on('menu-will-show', () => { ipcMain.emit('menubar-will-open') })
     menu.on('menu-will-close', () => { ipcMain.emit('menubar-will-close') })
-
     updateMenu()
   }
 
@@ -305,6 +326,7 @@ module.exports = function (ctx) {
     menu.getMenuItemById('ipfsIsStopping').visible = status === STATUS.STOPPING_STARTED && !gcRunning && !isUpdating
     menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED && !gcRunning && !isUpdating
     menu.getMenuItemById('ipfsHasErrored').visible = errored && !gcRunning && !isUpdating
+    menu.getMenuItemById('peerCount').visible = status === STATUS.STARTING_FINISHED
     menu.getMenuItemById('runningWithGC').visible = gcRunning
     menu.getMenuItemById('runningWhileCheckingForUpdate').visible = isUpdating
 
@@ -380,10 +402,25 @@ module.exports = function (ctx) {
     updateMenu()
   })
 
+  ipcMain.on('peersPolled', peerCount => {
+    // When a new peer count is retrieved, rebuild the menu and update
+    // the tray tooltip with the new number if necessary.
+    if (peerCount !== state.peerCount) {
+      state.peerCount = peerCount
+      menu = buildMenu(ctx, state.peerCount)
+      menu.on('menu-will-show', () => { ipcMain.emit('menubar-will-open') })
+      menu.on('menu-will-close', () => { ipcMain.emit('menubar-will-close') })
+      tray.setContextMenu(menu)
+      tray.setToolTip(state.peerCount.toString() + ' ' + i18n.t('peerCount'))
+      updateMenu()
+    }
+  })
+
   ipcMain.on('configUpdated', () => { updateMenu() })
   ipcMain.on('languageUpdated', () => { setupMenu() })
 
   setupMenu()
+  setInterval(pollPeers, 60000)
 
   ctx.tray = tray
   logger.info('[tray] started')
