@@ -1,10 +1,11 @@
 {
-  "ipfsIsRunning": "IPFS is Running",
-  "ipfsIsStopping": "IPFS is Stopping",
-  "ipfsIsStarting": "IPFS is Starting",
-  "ipfsIsNotRunning": "IPFS is Not Running",
-  "ipfsHasErrored": "IPFS has Errored",
-  "runningWithGC": "Running (GC in progress)",
+  "ipfsIsRunning": "IPFS je spuštěn",
+  "ipfsIsStopping": "IPFS se zastavuje",
+  "ipfsIsStarting": "IPFS startuje",
+  "ipfsIsNotRunning": "IPFS neběží",
+  "ipfsHasErrored": "IPFS zaznamenalo chybu",
+  "runningWithGC": "Běží (Probíhá úklid paměti)",
+  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
   "start": "Začít",
   "stop": "Zastavit",
   "restart": "Restartovat",
@@ -13,8 +14,8 @@
   "openRepoDir": "Otevřít adresář úložiště",
   "openLogsDir": "Otevřít adresář Logů",
   "openConfigFile": "Otevřít konfigurační soubor",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
+  "viewOnGitHub": "Navštívit GitHub projektu...",
+  "helpUsTranslate": "Pomozte s překladem...",
   "readReleaseNotes": "Přečtěte si poznámky k vydání",
   "status": "Stav",
   "files": "Soubory",
@@ -27,24 +28,25 @@
   "errorwhileTakingScreenshot": "Při pořizování snímku obrazovky došlo k chybě.",
   "clickToOpenLogs": "Klepnutím sem otevřete logy.",
   "ipfsNotRunning": "IPFS neběží",
-  "checkForUpdates": "Check for Updates…",
+  "checkForUpdates": "Zkontrolovat aktulizace ...",
+  "checkingForUpdates": "Checking for Updates",
   "yes": "Ano",
   "no": "Ne",
   "close": "Zavřít",
   "ok": "OK",
   "cancel": "Zrušit",
-  "enable": "Enable",
+  "enable": "Povolit",
   "reportTheError": "Nahlásit chybu",
   "restartIpfsDesktop": "Restartovat IPFS Desktop",
   "openLogs": "Otevřít logy",
   "takeScreenshot": "Udělat snímek obrazovky",
-  "downloadCid": "Download…",
+  "downloadCid": "Stáhnout...",
   "moveRepositoryLocation": "Přesunout umístění repozitáře",
   "runGarbageCollector": "Spustit sběr odpadu",
   "selectDirectory": "Vyberat adresář",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
+  "customIpfsBinary": "Vlastní IPFS binárka",
+  "setCustomIpfsBinary": "Nastavit vlastní IPFS binárku",
+  "clearCustomIpfsBinary": "Nepoužívat vlastní IPFS binárku",
   "polkitDialog": {
     "title": "Polkit nebyl nalezen",
     "message": "IPFS nelze přidat do /usr/local/bin/ bez agenta polkit."
@@ -119,7 +121,7 @@
   },
   "updateNotAvailableDialog": {
     "title": "Aktualizace není k dispozici",
-    "message": "You are on the latest version of IPFS Desktop ({ version })."
+    "message": "Jste na nejnovější verzi IFPS Desktop ({ version })."
   },
   "updateErrorDialog": {
     "title": "Aktualizace se nepodařilo stáhnout",
@@ -136,7 +138,7 @@
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
-    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
+    "message": "Spuštění garbage collectoru (GC) odstraní z úložiště všechny objekty, které nejsou připnuté nebo na vašem MFS. Může to chvíli trvat. Přejete si pokračovat?",
     "action": "Spustit"
   },
   "runGarbageCollectorDone": {
@@ -188,7 +190,7 @@
   "enableIpfsOnPath": {
     "title": "Enable IPFS on PATH",
     "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
+    "action": "Povolit"
   },
   "disableIpfsOnPath": {
     "title": "Disable IPFS on PATH",
@@ -223,11 +225,14 @@
     "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
     "openWebUIAtLaunch": "Open Web UI at Launch",
+    "pubsub": "Enable PubSub",
+    "namesysPubsub": "Enable IPNS over PubSub",
+    "automaticGC": "Automatic Garbage Collection",
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
     "experiments": "Experimenty",
-    "npmOnIpfs": "npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",

@@ -5,6 +5,7 @@
   "ipfsIsNotRunning": "IPFS is Not Running",
   "ipfsHasErrored": "IPFS has Errored",
   "runningWithGC": "Running (GC in progress)",
+  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
   "start": "Start",
   "stop": "Stop",
   "restart": "Restart",
@@ -17,7 +18,7 @@
   "helpUsTranslate": "Help Translate This App…",
   "readReleaseNotes": "Read Release Notes",
   "status": "Status",
-  "files": "Files",
+  "files": "Датотеке",
   "peers": "Peers",
   "quit": "Quit",
   "versions": "Versions",
@@ -28,9 +29,10 @@
   "clickToOpenLogs": "Click here to open the logs.",
   "ipfsNotRunning": "IPFS is not running",
   "checkForUpdates": "Check for Updates…",
+  "checkingForUpdates": "Checking for Updates",
   "yes": "Yes",
   "no": "No",
-  "close": "Close",
+  "close": "Затвори",
   "ok": "OK",
   "cancel": "Cancel",
   "enable": "Enable",
@@ -158,7 +160,7 @@
   "downloadCidContentDialog": {
     "title": "Download to a local directory",
     "message": "Enter a CID, IPFS path, or IPNS path:",
-    "action": "Next"
+    "action": "Следеће"
   },
   "cantResolveCidDialog": {
     "title": "Error",
@@ -223,11 +225,14 @@
     "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
     "openWebUIAtLaunch": "Open Web UI at Launch",
+    "pubsub": "Enable PubSub",
+    "namesysPubsub": "Enable IPNS over PubSub",
+    "automaticGC": "Automatic Garbage Collection",
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
     "experiments": "Experiments",
-    "npmOnIpfs": "npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",

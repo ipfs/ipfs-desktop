@@ -5,6 +5,7 @@
   "ipfsIsNotRunning": "IPFS nu rulează",
   "ipfsHasErrored": "IPFS a dat eroare",
   "runningWithGC": "Rulează (GC în progres)",
+  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
   "start": "Start",
   "stop": "Stop",
   "restart": "Repornește",
@@ -28,6 +29,7 @@
   "clickToOpenLogs": "Click here to open the logs.",
   "ipfsNotRunning": "IPFS nu rulează",
   "checkForUpdates": "Check for Updates…",
+  "checkingForUpdates": "Checking for Updates",
   "yes": "Yes",
   "no": "No",
   "close": "Închide",
@@ -223,11 +225,14 @@
     "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
     "openWebUIAtLaunch": "Open Web UI at Launch",
+    "pubsub": "Enable PubSub",
+    "namesysPubsub": "Enable IPNS over PubSub",
+    "automaticGC": "Automatic Garbage Collection",
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
     "experiments": "Experiments",
-    "npmOnIpfs": "npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",

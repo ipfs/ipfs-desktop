@@ -1,103 +1,105 @@
 {
-  "ipfsIsRunning": "IPFS is Running",
-  "ipfsIsStopping": "IPFS is Stopping",
-  "ipfsIsStarting": "IPFS is Starting",
-  "ipfsIsNotRunning": "IPFS is Not Running",
-  "ipfsHasErrored": "IPFS has Errored",
-  "runningWithGC": "Running (GC in progress)",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
-  "about": "About",
-  "advanced": "Advanced",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
-  "readReleaseNotes": "Read Release Notes",
-  "status": "Status",
-  "files": "Files",
-  "peers": "Peers",
-  "quit": "Quit",
-  "versions": "Versions",
-  "screenshotTaken": "Screenshot taken",
-  "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
-  "couldNotTakeScreenshot": "Could not take screenshot",
-  "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "clickToOpenLogs": "Click here to open the logs.",
-  "ipfsNotRunning": "IPFS is not running",
-  "checkForUpdates": "Check for Updates…",
-  "yes": "Yes",
-  "no": "No",
-  "close": "Close",
-  "ok": "OK",
-  "cancel": "Cancel",
-  "enable": "Enable",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadCid": "Download…",
-  "moveRepositoryLocation": "Move Repository Location",
-  "runGarbageCollector": "Run Garbage Collector",
-  "selectDirectory": "Select Directory",
+  "ipfsIsRunning": "IPFS працює",
+  "ipfsIsStopping": "IPFS зупиняється",
+  "ipfsIsStarting": "IPFS запускається",
+  "ipfsIsNotRunning": "IPFS не працює",
+  "ipfsHasErrored": "IPFS має проблеми",
+  "runningWithGC": "Працює (очищується сміття)",
+  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "start": "Запустити",
+  "stop": "Зупинити",
+  "restart": "Перезапустити",
+  "about": "Про программу ",
+  "advanced": "Продвинуті",
+  "openRepoDir": "Відкрити каталог сховища",
+  "openLogsDir": "Відкрити каталог журналу",
+  "openConfigFile": "Відкрити файл параметрів",
+  "viewOnGitHub": "Подивитись на GitHub",
+  "helpUsTranslate": "Допомогти перекласти цей застосунок",
+  "readReleaseNotes": "Прочитати зміни в випуску",
+  "status": "Стан",
+  "files": "Файли",
+  "peers": "Піри",
+  "quit": "Вийти",
+  "versions": "Версії",
+  "screenshotTaken": "Знімок екрану зроблено",
+  "shareableLinkCopied": "Публічне посилання скопійовано до буферу обміну. Натисніть тут для того щоб побачити знімок екрана.",
+  "couldNotTakeScreenshot": "Не вдалося зробити знімок екрана",
+  "errorwhileTakingScreenshot": "Трапилася помилка під час знімку екрана.",
+  "clickToOpenLogs": "Натисніть тут, щоб відкрити журнал.",
+  "ipfsNotRunning": "IPFS не працює",
+  "checkForUpdates": "Пошук оновлень...",
+  "checkingForUpdates": "Checking for Updates",
+  "yes": "Так",
+  "no": "Ні",
+  "close": "Закрити",
+  "ok": "ОК",
+  "cancel": "Скасувати",
+  "enable": "Увімкнути",
+  "reportTheError": "Повідомити про помилку",
+  "restartIpfsDesktop": "Перезапустити IPFS Desktop",
+  "openLogs": "Відкрити журнал",
+  "takeScreenshot": "Зробити знімок екрану",
+  "downloadCid": "Завантаження...",
+  "moveRepositoryLocation": "Змінити розташування сховища",
+  "runGarbageCollector": "Запустити збирач сміття",
+  "selectDirectory": "Вибрати каталог",
   "customIpfsBinary": "Custom IPFS Binary",
   "setCustomIpfsBinary": "Set Custom IPFS Binary",
   "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "Polkit не знайдено",
+    "message": "Неможливо додати IPFS в каталог /usr/local/bin/ без агента polkit."
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "Немає дозволу",
+    "message": "Неможливо додати IPFS в каталог /usr/local/bin/, через невірно введений пароль, або через те, що немає дозволу."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS is not running",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "title": "IPFS не працює",
+    "message": "Щоб виконати цю дію необхідно, щоб працював IPFS. Хочете запустити цей сервіс?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "Трапилася помилка",
+    "message": "Трапилася помилка, однак це не перешкоджає виконанню IPFS Desktop. Ви можете переглянути журнал помилок чи повідомити про помилку розробникам."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "Не вдалося з'єднатися з API",
+    "message": "IPFS Desktop не вдалося з'єднатися з наданою API адресою: { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "IPFS Desktop вимкнено",
+    "message": "IPFS Desktop вимкнено через помилку. Ви можете перезапустити застосунок чи повідомити про помилку розробників, але для цього потрібно мати обліковий запис на GitHub."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "Перемістити сховище",
+    "message": "Якщо ваше сховище займає надто багато місця на диску, ви можете його перемістити в інше розташування. Однак, майте на увазі, що нове розташування повинне бути завжди доступним, щоб IPFS Desktop працював як належне.",
+    "action": "Перемістити і перезапустити вузол"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "Сховище успішно переміщено",
+    "message": "Ваше сховище успішно переміщено в { location }. Налаштування оновлено. Сервіс зараз запуститься."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "Вибрано той самий каталог",
+    "message": "Каталог, який ви вибрали такий самий як поточний: { location }. Тому, нічого не помінялося."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "Каталог вже існує",
+    "message": "Каталог { location } вже існує. Спробуйте інший."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "Порти зайняті",
+    "message": "Порти { port1 } та { port2 } не доступні. Хочете використати натомість порти { alt1 } і { alt2 }?",
+    "action": "Використати порти { alt1 } та { alt2 }"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "Порт зайнятий",
+    "message": "Порт { port } не доступний. Хочете використати натомість порт { alt }?",
+    "action": "Використати порт { alt }"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
+    "title": "Порти зайняті",
     "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
     "action": "Open configuration file"
   },
@@ -128,7 +130,7 @@
   "updateDownloadedDialog": {
     "title": "Update downloaded",
     "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
-    "action": "Restart"
+    "action": "Перезапустити"
   },
   "updateDownloadedNotification": {
     "title": "Update downloaded",
@@ -136,7 +138,7 @@
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
-    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
+    "message": "Запуск збирача сміття (GC) видалить усі незакріплені об'єкти з вашого репозиторію чи з MFS (мінливої файлової системи). Це може зайняти деякий час. Бажаєте продовжити?",
     "action": "Run"
   },
   "runGarbageCollectorDone": {
@@ -144,7 +146,7 @@
     "message": "The garbage collector ran successfully."
   },
   "moveRepositoryFailed": {
-    "title": "Move repository",
+    "title": "Перемістити сховище",
     "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
   },
   "cantAddIpfsToPath": {
@@ -188,7 +190,7 @@
   "enableIpfsOnPath": {
     "title": "Enable IPFS on PATH",
     "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
+    "action": "Увімкнути"
   },
   "disableIpfsOnPath": {
     "title": "Disable IPFS on PATH",
@@ -217,17 +219,20 @@
     "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
   },
   "settings": {
-    "settings": "Settings",
+    "settings": "Налаштування",
     "preferences": "Preferences",
     "openNodeSettings": "Open Node Settings",
     "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
     "openWebUIAtLaunch": "Open Web UI at Launch",
+    "pubsub": "Enable PubSub",
+    "namesysPubsub": "Enable IPNS over PubSub",
+    "automaticGC": "Automatic Garbage Collection",
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
-    "experiments": "Experiments",
-    "npmOnIpfs": "npm on IPFS"
+    "experiments": "Експерименти",
+    "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",

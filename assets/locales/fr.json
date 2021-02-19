@@ -5,6 +5,7 @@
   "ipfsIsNotRunning": "IPFS est éteint",
   "ipfsHasErrored": "IPFS est en erreur",
   "runningWithGC": "Fonctionne (RM en cours)",
+  "runningWhileCheckingForUpdate": "Allumé (recherche de mises-à-jour)",
   "start": "Démarrer",
   "stop": "Arrêter",
   "restart": "Redémarrer",
@@ -25,9 +26,10 @@
   "shareableLinkCopied": "Lien partageable copié dans le presse-papier. Cliquez ici pour voir la capture d'écran.",
   "couldNotTakeScreenshot": "La capture d'écran n'a pas pu être réalisée.",
   "errorwhileTakingScreenshot": "Une erreur est survenue pendant la prise de la capture d'écran.",
-  "clickToOpenLogs": "Cliquez ici pour ouvrir les logs.",
+  "clickToOpenLogs": "Cliquez ici pour ouvrir le journal des évènements.",
   "ipfsNotRunning": "IPFS est à l'arrêt",
   "checkForUpdates": "Vérifier les mises à jour...",
+  "checkingForUpdates": "Recherche de mises-à-jour",
   "yes": "Oui",
   "no": "Non",
   "close": "Fermer",
@@ -43,7 +45,7 @@
   "runGarbageCollector": "Lancer le Ramasse-Miettes",
   "selectDirectory": "Sélectionner le dossier",
   "customIpfsBinary": "Binaire IPFS personnalisé",
-  "setCustomIpfsBinary": "Choisir le binaire IPFS personnalisé",
+  "setCustomIpfsBinary": "Choisir un binaire IPFS personnalisé",
   "clearCustomIpfsBinary": "Désélectionner le binaire IPFS personnalisé",
   "polkitDialog": {
     "title": "Polkit manquant",
@@ -156,8 +158,8 @@
     "message": "Le ramasse-miettes n'a pas pu s'exécuter correctement jusqu'au bout."
   },
   "downloadCidContentDialog": {
-    "title": "Télécharger vers un dossier local.",
-    "message": "Entrez un CID, chemin IPFS, ou chemin IPNS:",
+    "title": "Télécharger vers un dossier local",
+    "message": "Entrez un CID, un chemin IPFS, ou un chemin IPNS:",
     "action": "Suivant"
   },
   "cantResolveCidDialog": {
@@ -204,7 +206,7 @@
     "message": "En activant cette option, le raccourci \"{ accelerator }\" pourra télécharger des fichiers tant que IPFS Desktop fonctionne."
   },
   "installNpmOnIpfsWarning": {
-    "title": "Installer npm via IPFS",
+    "title": "Installer npm sur IPFS",
     "message": "Cette fonctionnalité expérimentale installe le paquet \"ipfs-npm\" sur votre système. Node.js est requit pour cette installation. ",
     "action": "Installer"
   },
@@ -223,11 +225,14 @@
     "appPreferences": "Préférences de l'app",
     "launchOnStartup": "Lancement au démarrage",
     "openWebUIAtLaunch": "Ouvrir l'interface web au démarrage",
+    "pubsub": "Activer PubSub",
+    "namesysPubsub": "Activer IPNS via PubSub",
+    "automaticGC": "Ramasse-miettes automatique",
     "ipfsCommandLineTools": "Outils de ligne de commande",
     "takeScreenshotShortcut": "Raccourci de capture d'écran global",
     "downloadHashShortcut": "Raccourci de téléchargement global",
     "experiments": "Fonctionnalités expérimentales",
-    "npmOnIpfs": "npm via IPFS"
+    "npmOnIpfs": "Activer npm sur IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binaire IPFS personnalisé",

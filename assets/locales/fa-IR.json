@@ -1,150 +1,152 @@
 {
-  "ipfsIsRunning": "IPFS is Running",
-  "ipfsIsStopping": "IPFS is Stopping",
+  "ipfsIsRunning": "IPFS در حال اجرا است",
+  "ipfsIsStopping": "IPFS در حال متوقف شدن",
   "ipfsIsStarting": "IPFS is Starting",
-  "ipfsIsNotRunning": "IPFS is Not Running",
+  "ipfsIsNotRunning": "IPFS در حال اجرا نیست",
   "ipfsHasErrored": "IPFS has Errored",
   "runningWithGC": "Running (GC in progress)",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
-  "about": "About",
-  "advanced": "Advanced",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
+  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "start": "اجرا",
+  "stop": "توقف",
+  "restart": "راه اندازی مجدد",
+  "about": "درباره",
+  "advanced": "پیشرفته",
+  "openRepoDir": "بازکردن دایرکتوری مخزن",
+  "openLogsDir": "بازکردن گزارش های دایرکتوری",
+  "openConfigFile": "بازکردن فایل پیکربندی",
+  "viewOnGitHub": "مشاهده در GitHub",
+  "helpUsTranslate": "به ترجمه ی این برنامه کمک کنید...",
   "readReleaseNotes": "Read Release Notes",
-  "status": "Status",
-  "files": "Files",
-  "peers": "Peers",
-  "quit": "Quit",
-  "versions": "Versions",
-  "screenshotTaken": "Screenshot taken",
-  "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
-  "couldNotTakeScreenshot": "Could not take screenshot",
-  "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "clickToOpenLogs": "Click here to open the logs.",
-  "ipfsNotRunning": "IPFS is not running",
-  "checkForUpdates": "Check for Updates…",
-  "yes": "Yes",
-  "no": "No",
-  "close": "Close",
+  "status": "وضعیت",
+  "files": "فایل ها",
+  "peers": "همتا",
+  "quit": "خروج",
+  "versions": "نسخه ها",
+  "screenshotTaken": "اسکرین شات های گرفته شده",
+  "shareableLinkCopied": "لینک قابل اشتراک گذاری در کلیپ بورد کپی شد. برای مشاهده اسکرین شات اینجا را کلیک کنید.",
+  "couldNotTakeScreenshot": "نمیشود اسکرین شات گرفت",
+  "errorwhileTakingScreenshot": "هنگام گرفتن اسکرین شات خطایی رخ داد.",
+  "clickToOpenLogs": "برای بازکردن گزارش ها اینجا کلیک کنید.",
+  "ipfsNotRunning": "IPFS در حال اجرا نیست",
+  "checkForUpdates": "بررسی بروزرسانی جدید...",
+  "checkingForUpdates": "Checking for Updates",
+  "yes": "بله",
+  "no": "خیر",
+  "close": "بستن",
   "ok": "OK",
-  "cancel": "Cancel",
-  "enable": "Enable",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadCid": "Download…",
-  "moveRepositoryLocation": "Move Repository Location",
+  "cancel": "لغو",
+  "enable": "فعال",
+  "reportTheError": "گزارش خطا",
+  "restartIpfsDesktop": "ری استارت IPFS Desktop",
+  "openLogs": "بازکردن گزارش ها",
+  "takeScreenshot": "گرفتن اسکرین شات",
+  "downloadCid": "بارگیری...",
+  "moveRepositoryLocation": "انتقال مکان مخزن",
   "runGarbageCollector": "Run Garbage Collector",
-  "selectDirectory": "Select Directory",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
+  "selectDirectory": "انتخاب دایرکتوری",
+  "customIpfsBinary": "باینری IPFS سفارشی",
+  "setCustomIpfsBinary": "تنظیم باینری IPFS سفارشی",
+  "clearCustomIpfsBinary": "پاک کردن باینری IPFS سفارشی",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "Polkit یافت نشد",
+    "message": "IPFS بدون عامل Polkit  نمیتواند به /usr/local/bin/ اضافه شود."
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "بدون مجوز",
+    "message": "ّIPFS نمیتواند به /usr/local/bin/ اضافه شود، یا گذرواژه خود را اشتباه وارد کردید یا دسترسی را رد کردید."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS is not running",
+    "title": "IPFS در حال اجرا نیست",
     "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "خطایی رخ داده است",
+    "message": "خطایی رخ داده است اما مانع اجرای IPFS Desktop نمی شود. شما می توانید لاگ ها را بازرسی کنید و یا خطا را به توسعه دهندگان گزارش دهید."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "اتصال به API امکان پذیر نیست",
+    "message": "IPFS Desktop نمی تواند به نشانی API ارائه شده متصل شود: { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "IPFS Desktop خاموش است",
+    "message": "IPFS Desktop به دلیل خطای بوجود آمده خاموش است. می توانید برنامه را مجدداً راه اندازی کنید یا خطا را به توسعه دهندگان گزارش دهید، اما به حساب GitHub نیاز دارد."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "انتقال مخزن",
+    "message": "اگر مخزن شما فضای زیادی را در درایو اصلی شما اشغال می کند ، می توانید آن را به مکان دیگری منتقل کنید.اما به خاطر داشته باشید که محل جدید باید همیشه در دسترس باشد تا IPFS Desktop به درستی کار کند.",
+    "action": "انتقال گره و راه اندازی مجدد"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
+    "title": "مخزن با موفقیت منتقل شد",
     "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
   },
   "moveRepositorySameDirDialog": {
     "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "message": "دایرکتوری که انتخاب کردید همان دایرکتوری است:{ location }. به همین دلیل ، هیچ تغییری ایجاد نخواهد شد."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "دایرکتوری از قبل موجود است",
+    "message": "دایرکتوری { location } وجود دارد.\n لطفا دایرکتوری دیگری انتخاب کنید."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
+    "title": "پورت ها مشغول هستند",
     "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "action": "بجای پورت { alt1 } از پورت { alt2 } استفاده کنید"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "پورت مشغول است",
+    "message": "پورت { port } موجود نیست به جای آن میخواهید از پورت{ alt } استفاده کنید؟",
+    "action": "به جای آن از پورت { alt } استفاده کنید"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "پورت ها مشغول هستند",
+    "message": "اتصال به یک یا چند آدرس API یا Gateway امکان پذیر نیست زیرا پورت ها مشغول هستند.",
+    "action": "بازکردن فایل پیکربندی"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
+    "title": "ایتم ها اضافه شد",
     "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "title": "ایتم اضافه شد",
+    "message": "آیتم به گره شما اضافه شد. یک پیوند قابل اشتراک در کلیپ بورد شما کپی شد. برای دیدن فایل خود اینجا را کلیک کنید."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "title": "آیتم اضافه نشد",
+    "message": "ایتم شما به گره شما اضافه نشد."
   },
   "updateAvailableDialog": {
-    "title": "Update available",
-    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
+    "title": "بروزرسانی موجود است",
+    "message": "نسخه جدید ({ version }) IPFS Desktop موجود است. بارگیری در پس زمینه آغاز می شود."
   },
   "updateNotAvailableDialog": {
-    "title": "Update not available",
-    "message": "You are on the latest version of IPFS Desktop ({ version })."
+    "title": "بروزرسانی موجود نیست",
+    "message": "شما از آخرین نسخه IPFS Desktop استفاده میکنید ({ version })."
   },
   "updateErrorDialog": {
-    "title": "Could not download update",
-    "message": "It was not possible to download the update. Please check your Internet connection and try again."
+    "title": "بروزرسانی بارگیری نشد",
+    "message": "بارگیری بروزرسانی امکان پذیر نیست.\nلطفاً اتصال اینترنت خود را بررسی کرده و دوباره امتحان کنید."
   },
   "updateDownloadedDialog": {
-    "title": "Update downloaded",
-    "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
-    "action": "Restart"
+    "title": "بروزرسانی بارگیری شد",
+    "message": "بارگیری نسخه { version } انجام شده. \n برای نصب  بروزرسانی ، لطفاً IPFS Desktop را مجدداً راه اندازی کنید.",
+    "action": "ری استارت"
   },
   "updateDownloadedNotification": {
-    "title": "Update downloaded",
-    "message": "Update for version { version } of IPFS Desktop downloaded. Click this notification to install."
+    "title": "بروزرسانی بارگیری شد",
+    "message": "به روزرسانی نسخه { version } IPFS Desktop بارگیری شده. برای نصب روی این اعلان کلیک کنید."
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
     "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
-    "action": "Run"
+    "action": "اجرا"
   },
   "runGarbageCollectorDone": {
     "title": "Garbage collector",
     "message": "The garbage collector ran successfully."
   },
   "moveRepositoryFailed": {
-    "title": "Move repository",
+    "title": "انتقال مخزن",
     "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
   },
   "cantAddIpfsToPath": {
@@ -158,76 +160,79 @@
   "downloadCidContentDialog": {
     "title": "Download to a local directory",
     "message": "Enter a CID, IPFS path, or IPNS path:",
-    "action": "Next"
+    "action": "بعدی"
   },
   "cantResolveCidDialog": {
-    "title": "Error",
+    "title": "خطا",
     "message": "Unable to resolve \"{ path }\"."
   },
   "couldNotGetCidDialog": {
-    "title": "Error",
+    "title": "خطا",
     "message": "Unable to fetch \"{ path }\"."
   },
   "contentsSavedDialog": {
     "title": "Success",
     "message": "The contents of \"{ path }\" were successfully downloaded.",
-    "action": "See Files"
+    "action": "مشاهده فایل ها"
   },
   "couldNotSaveDialog": {
-    "title": "Could not write to disk",
-    "message": "There was an error writing to the disk. Please try again."
+    "title": "نوشتن روی دیسک امکان پذیر نیست",
+    "message": "هنگام نوشتن روی دیسک خطایی رخ داد. لطفا دوباره تلاش کنید."
   },
   "launchAtLoginNotSupported": {
-    "title": "Error",
+    "title": "خطا",
     "message": "Launch at login is not supported on your platform."
   },
   "launchAtLoginFailed": {
-    "title": "Error",
+    "title": "خطا",
     "message": "Launch at login could not be enabled on your machine."
   },
   "enableIpfsOnPath": {
     "title": "Enable IPFS on PATH",
     "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
+    "action": "فعال"
   },
   "disableIpfsOnPath": {
     "title": "Disable IPFS on PATH",
-    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
-    "action": "Disable"
+    "message": "با غیرفعال کردن این گزینه ، IPFS دیگر در خط فرمان شما با عنوان \"ipfs\" در دسترس نخواهد بود.",
+    "action": "غیرفعال"
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "Enable screenshot shortcut",
+    "title": "فعال کردن میانبر اسکرین شات",
     "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
   },
   "enableGlobalDownloadShortcut": {
-    "title": "Enable download shortcut",
+    "title": "فعال کردن میانبر بارگیری",
     "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
   },
   "installNpmOnIpfsWarning": {
     "title": "Install npm on IPFS",
     "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
-    "action": "Install"
+    "action": "نصب"
   },
   "unableToInstallNpmOnIpfs": {
-    "title": "Error",
+    "title": "خطا",
     "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
   },
   "unableToUninstallNpmOnIpfs": {
-    "title": "Error",
+    "title": "خطا",
     "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
   },
   "settings": {
-    "settings": "Settings",
+    "settings": "تنظیمات",
     "preferences": "Preferences",
-    "openNodeSettings": "Open Node Settings",
+    "openNodeSettings": "بازکردن تنظیمات گره",
     "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
     "openWebUIAtLaunch": "Open Web UI at Launch",
-    "ipfsCommandLineTools": "Command Line Tools",
+    "pubsub": "Enable PubSub",
+    "namesysPubsub": "Enable IPNS over PubSub",
+    "automaticGC": "Automatic Garbage Collection",
+    "ipfsCommandLineTools": "ابزارهای خط فرمان",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
     "experiments": "Experiments",
-    "npmOnIpfs": "npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",
