@@ -76,8 +76,13 @@ async function firstTime () {
   // to sudo so the user doesn't get annoying prompts when running IPFS Desktop
   // for the first time. Sets the option according to the success or failure of the
   // procedure.
-  const res = await run('install', { trySudo: false, failSilently: true })
-  store.set(CONFIG_KEY, res)
+  try {
+    const res = await run('install', { trySudo: false, failSilently: true })
+    store.set(CONFIG_KEY, res)
+  } catch (err) {
+    logger.error(`[ipfs on path] unexpected error while no-sudo install: ${err.toString()}`)
+    store.set(CONFIG_KEY, false)
+  }
 }
 
 async function runWindows (script, { failSilently }) {
