@@ -101,7 +101,8 @@ module.exports = async function (ctx) {
   url.hash = '/blank'
   url.searchParams.set('deviceId', ctx.countlyDeviceId)
 
-  ctx.launchWebUI = (path, { focus = true } = {}) => {
+  ctx.launchWebUI = (path, { focus = true, forceRefresh = false } = {}) => {
+    if (forceRefresh) window.webContents.reload()
     if (!path) {
       logger.info('[web ui] launching web ui')
     } else {
