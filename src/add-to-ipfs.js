@@ -45,7 +45,7 @@ async function makeShareableObject (ipfs, results) {
   return { cid: baseCID, path: '' }
 }
 
-function sendNotification (failures, successes, launch, path) {
+function sendNotification (failures, successes, launchWebUI, path) {
   let link, title, body, fn
 
   if (failures.length === 0) {
@@ -69,7 +69,7 @@ function sendNotification (failures, successes, launch, path) {
   }
 
   fn({ title, body }, () => {
-    launch(link)
+    launchWebUI(link, { forceRefresh: true })
   })
 }
 
