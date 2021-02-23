@@ -34,6 +34,7 @@ const CONFIG_KEYS = [
 
 // We show them if user enabled them before, but hide when off
 const DEPRECATED_KEYS = new Set([
+  IPFS_PATH_KEY, // brittle, buggy, way better if user does this by hand for now
   NPM_IPFS_KEY // superseded by https://github.com/forestpm/forest
 ])
 
