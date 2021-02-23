@@ -32,12 +32,18 @@ const CONFIG_KEYS = [
   NAMESYS_PUBSUB_KEY
 ]
 
+// We show them if user enabled them before, but hide when off
+const DEPRECATED_KEYS = new Set([
+  NPM_IPFS_KEY // superseded by https://github.com/forestpm/forest
+])
+
 function buildCheckbox (key, label) {
   return {
     id: key,
     label: i18n.t(label),
     click: () => { ipcMain.emit(`toggle_${key}`) },
     type: 'checkbox',
+    visible: !DEPRECATED_KEYS.has(key),
     checked: false
   }
 }
@@ -336,7 +342,9 @@ module.exports = function (ctx) {
 
     // Update configuration checkboxes.
     for (const key of CONFIG_KEYS) {
-      menu.getMenuItemById(key).checked = store.get(key, false)
+      const enabled = store.get(key, false)
+      menu.getMenuItemById(key).checked = enabled
+      menu.getMenuItemById(key).visible = !DEPRECATED_KEYS.has(key) || enabled
     }
 
     if (!IS_MAC && !IS_WIN) {
