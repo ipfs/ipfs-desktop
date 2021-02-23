@@ -262,14 +262,20 @@ module.exports = function (ctx) {
     ctx.launchWebUI('/files', { focus: false })
   })
 
+  const popupMenu = (event) => {
+    // https://github.com/ipfs-shipyard/ipfs-desktop/issues/1762 ¯\_(ツ)_/¯
+    if (event && typeof event.preventDefault === 'function') event.preventDefault()
+
+    tray.popUpContextMenu()
+  }
+
   if (!IS_MAC) {
     // Show the context menu on left click on other
     // platforms than macOS.
-    tray.on('click', event => {
-      event.preventDefault()
-      tray.popUpContextMenu()
-    })
+    tray.on('click', popupMenu)
   }
+  tray.on('right-click', popupMenu)
+  tray.on('double-click', () => ctx.launchWebUI('/'))
 
   const setupMenu = () => {
     menu = buildMenu(ctx)
