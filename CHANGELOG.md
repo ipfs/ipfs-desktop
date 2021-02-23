@@ -3,6 +3,37 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.14.0] - 2021-01-02
+
+- IPFS: [`go-ipfs v0.8.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.8.0)
+- UI: [`v2.11.4`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.11.4)
+
+### ✨ Features
+
+- go-ipfs 0.8.0 (#1715 +  [RELEASE NOTES](https://github.com/ipfs/go-ipfs/releases/tag/v0.8.0))
+- electron 11.x (#1715)
+- improve updating ux (#1758) 
+- enable ipns over pubsub via settings menu (#1739)
+- disable/enable gc via settings menu (#1740)
+- enable pubsub via settings menu (#1735)
+
+### 🛠 Fixes and Maintenance
+
+- fix: timeout during checkIfAddrIsDaemon (#1750)
+- fix: default Open WebUI at Launch to true (#1757) 
+- fix: autoupdate only on supported platforms (#1698) 
+- fix:  specify content-type in prompt template (#1729)
+- fix: use correct config path during development (#1690) 
+- fix(mac): refresh file list after import (#1767)
+- refactor: tray click events (#1766)
+- chore: deprecate ipfs-on-path (#1768) and npm-on-ipfs (17578745addb6c665b0c3a3e50499d3967c8efb5)
+- docs: rework readme (#1703)
+- chore: automated Chocolatey publishing (#1697)
+- docs: Homebrew instructions (#1727) 
+- docs: brew cask has been deprecated (#1732) 
+- chore(i18n): locale sync (https://github.com/ipfs-shipyard/ipfs-desktop/commit/2f1631d2a1f83b98a2ef79bd2a8b37f9696b5a46)
+
+
 ## [v0.13.2] - 2020-10-12
 - Web UI: [`v2.11.4`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.11.4)
 - IPFS: [`go-ipfs v0.7.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.7.0)
