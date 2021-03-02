@@ -19,9 +19,12 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the termin
 
 ### Quick-install shortcuts
 
-- **Mac:** [IPFS-Desktop-0.14.0.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.14.0/IPFS-Desktop-0.14.0.dmg) or `brew install --cask ipfs`
-- **Windows:** [IPFS-Desktop-Setup-0.14.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.14.0/IPFS-Desktop-Setup-0.14.0.exe) or `choco install ipfs-desktop`
-- **Linux:** See [installation options](#install) below
+When in doubt, pick one of package formats with built-in automatic update mechanism:
+
+- **Mac:** [IPFS-Desktop-0.14.0.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.14.0/IPFS-Desktop-0.14.0.dmg)
+- **Windows:** [IPFS-Desktop-Setup-0.14.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.14.0/IPFS-Desktop-Setup-0.14.0.exe)
+- **Linux:**  [ipfs-desktop-0.14.0-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.14.0/ipfs-desktop-0.14.0-linux-x86_64.AppImage)
+  - If you prefer to manage updates on your own, see [other package formats](#install) below.
 
 ## Table of Contents
 
@@ -108,7 +111,7 @@ Don't see your favorite package manager? Visit our [package managers page](https
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.14.0/ipfs-desktop-0.14.0-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.14.0/ipfs-desktop-0.14.0-linux-x86_64.AppImage)
 - **FreeBSD** (experimental): [ipfs-desktop-0.14.0-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.14.0/ipfs-desktop-0.14.0-linux-x64.freebsd)\
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.14.0/ipfs-desktop-0.14.0-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.14.0/ipfs-desktop-0.14.0-linux-x64.freebsd)
-- **Snapcraft** (community-maintained): `snap install ipfs-desktop`
+- **Snapcraft** (community-maintained, YMMV): `snap install ipfs-desktop`
 - **AUR** (maintained by [@alexhenrie](https://github.com/alexhenrie)): Use the [`ipfs-desktop` package](https://aur.archlinux.org/packages/ipfs-desktop/) 
 
 ### Install from source
