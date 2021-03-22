@@ -1,16 +1,16 @@
 {
-  "ipfsIsRunning": "IPFS is Running",
-  "ipfsIsStopping": "IPFS is Stopping",
-  "ipfsIsStarting": "IPFS is Starting",
-  "ipfsIsNotRunning": "IPFS is Not Running",
-  "ipfsHasErrored": "IPFS has Errored",
-  "runningWithGC": "Running (GC in progress)",
+  "ipfsIsRunning": "IPFS သည် အလုပ်လုပ်နေသည်",
+  "ipfsIsStopping": "IPFS သည် ရပ်တန့်နေသည်",
+  "ipfsIsStarting": "IPFS သည် စတင်နေသည်",
+  "ipfsIsNotRunning": "IPFS သည် အလုပ် လုပ်မနေပါ",
+  "ipfsHasErrored": "IPFS တွင် အမှားဖြစ်ခဲ့သည်",
+  "runningWithGC": "အလုပ်လုပ်နေသည် (အမှိုက်သိမ်းခြင်း လုပ်ဆောင်နေ)",
   "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
-  "about": "About",
-  "advanced": "Avancerad",
+  "start": "စတင်ရန်",
+  "stop": "ရပ်တန့်ရန်",
+  "restart": "ပြန်စရန်",
+  "about": "အကြောင်း",
+  "advanced": "အဆင့်မြင့်",
   "openRepoDir": "Open Repository Directory",
   "openLogsDir": "Open Logs Directory",
   "openConfigFile": "Open Configuration File",
@@ -19,7 +19,7 @@
   "readReleaseNotes": "Read Release Notes",
   "status": "Status",
   "files": "Files",
-  "peers": "Kopplingar",
+  "peers": "Peers",
   "quit": "Quit",
   "versions": "Versions",
   "screenshotTaken": "Screenshot taken",
@@ -32,9 +32,9 @@
   "checkingForUpdates": "Checking for Updates",
   "yes": "Yes",
   "no": "No",
-  "close": "Stäng",
+  "close": "Close",
   "ok": "OK",
-  "cancel": "Ångra",
+  "cancel": "Cancel",
   "enable": "Enable",
   "reportTheError": "Report the error",
   "restartIpfsDesktop": "Restart IPFS Desktop",
@@ -130,7 +130,7 @@
   "updateDownloadedDialog": {
     "title": "Update downloaded",
     "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
-    "action": "Restart"
+    "action": "ပြန်စရန်"
   },
   "updateDownloadedNotification": {
     "title": "Update downloaded",
@@ -219,7 +219,7 @@
     "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
   },
   "settings": {
-    "settings": "Inställningar",
+    "settings": "Settings",
     "preferences": "Preferences",
     "openNodeSettings": "Open Node Settings",
     "appPreferences": "App Preferences",
@@ -231,7 +231,7 @@
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
-    "experiments": "Experiment",
+    "experiments": "Experiments",
     "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {

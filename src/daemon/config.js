@@ -127,8 +127,6 @@ function applyCrustApi (config) {
   const originsToAdd = ['https://apps.crust.network', 'http://localhost:3000', 'http://127.0.0.1:5001', 'https://webui.ipfs.io']
 
   const diff = _.difference(originsToAdd, origins)
-  console.log('diff', diff, 'origins', origins)
-
 
   config.API = {
     HTTPHeaders: {
@@ -237,6 +235,7 @@ const parseCfgMultiaddr = (addr) => (addr.includes('/http')
 
 async function checkIfAddrIsDaemon (addr) {
   const options = {
+    timeout: 3000, // 3s is plenty for localhost request
     method: 'POST',
     host: addr.address,
     port: addr.port,

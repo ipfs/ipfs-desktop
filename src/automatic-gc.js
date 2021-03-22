@@ -3,14 +3,14 @@ const logger = require('./common/logger')
 const store = require('./common/store')
 const { ipcMain } = require('electron')
 
-const CONFIG_KEY = 'experiments.pubsub'
-const pubsubFlag = '--enable-pubsub-experiment'
-const isEnabled = flags => flags.some(f => f === pubsubFlag)
+const CONFIG_KEY = 'automaticGC'
+const gcFlag = '--enable-gc'
+const isEnabled = flags => flags.some(f => f === gcFlag)
 
 function enable () {
   const flags = store.get('ipfsConfig.flags', [])
   if (!isEnabled(flags)) {
-    flags.push(pubsubFlag)
+    flags.push(gcFlag)
     applyConfig(flags)
   }
 }
@@ -18,7 +18,7 @@ function enable () {
 function disable () {
   let flags = store.get('ipfsConfig.flags', [])
   if (isEnabled(flags)) {
-    flags = flags.filter(item => item !== pubsubFlag) // remove flag
+    flags = flags.filter(item => item !== gcFlag) // remove flag
     applyConfig(flags)
   }
 }
@@ -41,14 +41,14 @@ module.exports = async function () {
 
       return true
     } catch (err) {
-      logger.error(`[pubsub] ${err.toString()}`)
+      logger.error(`[automatic gc] ${err.toString()}`)
 
       return false
     }
   }
-  activate({ newValue: store.get(CONFIG_KEY, false) })
+  activate({ newValue: store.get(CONFIG_KEY, true) })
   createToggler(CONFIG_KEY, activate)
-  logger.info(`[pubsub] ${store.get(CONFIG_KEY, false) ? 'enabled' : 'disabled'}`)
+  logger.info(`[automatic gc] ${store.get(CONFIG_KEY, true) ? 'enabled' : 'disabled'}`)
 }
 
 module.exports.CONFIG_KEY = CONFIG_KEY

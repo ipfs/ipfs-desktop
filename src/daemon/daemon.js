@@ -35,7 +35,7 @@ function writeIpfsBinaryPath (path) {
   )
 }
 
-async function spawn ({ flags, path, keysize }) {
+async function spawn ({ flags, path }) {
   const ipfsBin = getIpfsBinPath()
   writeIpfsBinaryPath(ipfsBin)
 

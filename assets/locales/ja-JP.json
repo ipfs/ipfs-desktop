@@ -5,6 +5,7 @@
   "ipfsIsNotRunning": "IPFS is Not Running",
   "ipfsHasErrored": "IPFS has Errored",
   "runningWithGC": "Running (GC in progress)",
+  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
   "start": "開始",
   "stop": "停止",
   "restart": "再開",
@@ -28,6 +29,7 @@
   "clickToOpenLogs": "ここをクリックしてログを開きます。",
   "ipfsNotRunning": "IPFSが実行されていません",
   "checkForUpdates": "Check for Updates…",
+  "checkingForUpdates": "Checking for Updates",
   "yes": "はい",
   "no": "いいえ",
   "close": "閉じる",
@@ -158,7 +160,7 @@
   "downloadCidContentDialog": {
     "title": "Download to a local directory",
     "message": "Enter a CID, IPFS path, or IPNS path:",
-    "action": "Next"
+    "action": "次へ"
   },
   "cantResolveCidDialog": {
     "title": "Error",
@@ -223,11 +225,14 @@
     "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
     "openWebUIAtLaunch": "Open Web UI at Launch",
+    "pubsub": "Enable PubSub",
+    "namesysPubsub": "Enable IPNS over PubSub",
+    "automaticGC": "Automatic Garbage Collection",
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
     "experiments": "実験",
-    "npmOnIpfs": "npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",

@@ -7,7 +7,6 @@ const os = require('os')
 const openExternal = require('./open-external')
 const logger = require('../common/logger')
 const store = require('../common/store')
-const { IS_MAC, IS_WIN } = require('../common/consts')
 const dock = require('../utils/dock')
 const { VERSION, ELECTRON_VERSION } = require('../common/consts')
 const createToggler = require('../utils/create-toggler')
@@ -31,6 +30,7 @@ const createWindow = () => {
       preload: join(__dirname, 'preload.js'),
       webSecurity: false,
       allowRunningInsecureContent: false,
+      enableRemoteModule: process.env.NODE_ENV === 'test', // https://github.com/electron-userland/spectron/pull/738#issuecomment-754810364
       nodeIntegration: process.env.NODE_ENV === 'test'
     }
   })
@@ -77,11 +77,12 @@ const apiOrigin = (apiMultiaddr) => {
 
 module.exports = async function (ctx) {
   if (store.get(CONFIG_KEY, null) === null) {
-    // First time running this. If it's not macOS, nor Windows,
-    // enable opening ipfs-webui at app launch.
-    // This is the best we can do to mitigate Tray issues on Linux:
-    // https://github.com/ipfs-shipyard/ipfs-desktop/issues/1153
-    store.set(CONFIG_KEY, !IS_MAC && !IS_WIN)
+    // First time running this. Enable opening ipfs-webui at app launch.
+    // This accounts for users on OSes who may have extensions for
+    // decluttering system menus/trays, and thus have no initial "way in" to
+    // Desktop upon install:
+    // https://github.com/ipfs-shipyard/ipfs-desktop/issues/1741
+    store.set(CONFIG_KEY, true)
   }
 
   createToggler(CONFIG_KEY, async ({ newValue }) => {
@@ -100,7 +101,8 @@ module.exports = async function (ctx) {
   url.hash = '/blank'
   url.searchParams.set('deviceId', ctx.countlyDeviceId)
 
-  ctx.launchWebUI = (path, { focus = true } = {}) => {
+  ctx.launchWebUI = (path, { focus = true, forceRefresh = false } = {}) => {
+    if (forceRefresh) window.webContents.reload()
     if (!path) {
       logger.info('[web ui] launching web ui')
     } else {

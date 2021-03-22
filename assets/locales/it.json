@@ -5,6 +5,7 @@
   "ipfsIsNotRunning": "IPFS non è in Esecuzione",
   "ipfsHasErrored": "IPFS è in Errore",
   "runningWithGC": "In Esecuzione (GC in corso)",
+  "runningWhileCheckingForUpdate": "In esecuzione (Controllo aggiornamenti in corso)",
   "start": "Avvia",
   "stop": "Arresta",
   "restart": "Riavvia",
@@ -27,7 +28,8 @@
   "errorwhileTakingScreenshot": "È stato riscontrato un errore durante lo screenshot.",
   "clickToOpenLogs": "Clicca qui per aprire i file di log.",
   "ipfsNotRunning": "IPFS non è in esecuzione",
-  "checkForUpdates": "Verificando presenza aggiornamenti...",
+  "checkForUpdates": "Verifica presenza aggiornamenti...",
+  "checkingForUpdates": "Controllo aggiornamenti in corso…",
   "yes": "Sì",
   "no": "No",
   "close": "Chiudi",
@@ -39,12 +41,12 @@
   "openLogs": "Apri i log",
   "takeScreenshot": "Screenshot eseguito",
   "downloadCid": "Scarica...",
-  "moveRepositoryLocation": "Sposta luogo repository",
+  "moveRepositoryLocation": "Sposta Luogo Repository",
   "runGarbageCollector": "Avvia Garbage Collector",
   "selectDirectory": "Seleziona Cartella",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
+  "customIpfsBinary": "File Binario IPFS Personalizzato",
+  "setCustomIpfsBinary": "Imposta un File Binario IPFS Personalizzato",
+  "clearCustomIpfsBinary": "Cancella il file binario IPFS personalizzato",
   "polkitDialog": {
     "title": "Polkit non trovato",
     "message": "IPFS non può essere aggiunto in /usr/local/bin/ senza polkit agent."
@@ -80,7 +82,7 @@
   },
   "moveRepositorySameDirDialog": {
     "title": "Stessa directory selezionata",
-    "message": "La directory che hai scelto è la stessa della corrente: { location }. Quindi nessuna modifica verrà compiuta."
+    "message": "La directory che hai scelto è la stessa corrente: { location }. Quindi nessuna modifica verrà compiuta."
   },
   "moveRepositoryDirExists": {
     "title": "La directory esiste già",
@@ -98,7 +100,7 @@
   },
   "multipleBusyPortsDialog": {
     "title": "Le porte sono occupate",
-    "message": "Impossibile vincolare ad uno o più indirizzi API o gateway perché le porte sono occupate",
+    "message": "Impossibile vincolare ad uno o più indirizzi API o gateway perché le porte sono occupate.",
     "action": "Apri file di configurazione"
   },
   "itemsAddedNotification": {
@@ -119,7 +121,7 @@
   },
   "updateNotAvailableDialog": {
     "title": "Aggiornamento non disponibile",
-    "message": "You are on the latest version of IPFS Desktop ({ version })."
+    "message": "Sei sull'ultima versione di IPFS Desktop ({ version })."
   },
   "updateErrorDialog": {
     "title": "Non è stato possibile scaricare l'aggiornamento",
@@ -136,7 +138,7 @@
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
-    "message": "Avviando il garbage collector (GC) tutti i tuoi oggetti che non sono fissati o non sono nel tuo MFS saranno rimossi dalla tua repository. Potrebbe impiegarci parecchio. Desideri continuare?",
+    "message": "Avviando il garbage collector (GC) tutti i tuoi oggetti che non sono affissi o che non sono nel tuo MFS saranno rimossi dalla tua repository. Potrebbe impiegarci parecchio. Desideri continuare?",
     "action": "Avvia"
   },
   "runGarbageCollectorDone": {
@@ -157,8 +159,8 @@
   },
   "downloadCidContentDialog": {
     "title": "Scarica in una cartella locale.",
-    "message": "Inserisci un CID, un percorso IPFS od un percorso IPNS.",
-    "action": "Prossimo"
+    "message": "Inserisci un CID, un percorso IPFS od un percorso IPNS:",
+    "action": "Avanti"
   },
   "cantResolveCidDialog": {
     "title": "Errore",
@@ -197,11 +199,11 @@
   },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Abilita scorciatoia screenshot",
-    "message": "Abilitando ciò, la scorciatoia \"{ accelerator }\" sarà abilitata a fare screenshot finché IPFS Desktop rimarrà avviato."
+    "message": "Abilitando ciò, la scorciatoia \"{ accelerator }\" sarà disponibile per scattare screenshot finché IPFS Desktop rimarrà in esecuzione."
   },
   "enableGlobalDownloadShortcut": {
     "title": "Abilita scorciatoia download",
-    "message": "Abilitando ciò, la scorciatoia \"{ accelerator }\" sarà abilitata a scaricare file finché IPFS Desktop rimarrà avviato."
+    "message": "Abilitando ciò, la scorciatoia \"{ accelerator }\" sarà disponibile per scaricare file finché IPFS Desktop rimarrà in esecuzione."
   },
   "installNpmOnIpfsWarning": {
     "title": "Installa npm su IPFS",
@@ -222,23 +224,26 @@
     "openNodeSettings": "Apri Impostazioni Nodo",
     "appPreferences": "Preferenze App",
     "launchOnStartup": "Avvia al Login",
-    "openWebUIAtLaunch": "Open Web UI at Launch",
+    "openWebUIAtLaunch": "Apri l'interfaccia web all'avvio",
+    "pubsub": "Abilita PubSub",
+    "namesysPubsub": "Abilita IPNS su PubSub",
+    "automaticGC": "Garbage Collection automatica",
     "ipfsCommandLineTools": "Strumenti a Riga di Comando",
     "takeScreenshotShortcut": "Scorciatoia Screenshot Globale",
     "downloadHashShortcut": "Scorciatoia Download Globale",
     "experiments": "Esperimenti",
-    "npmOnIpfs": "npm su IPFS"
+    "npmOnIpfs": "Abilita npm su IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
-    "title": "Custom IPFS binary",
-    "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
+    "title": "File binario IPFS personalizzato",
+    "message": "Impostando un IPFS personalizzato, IPFS Desktop non utilizzerà più la versione IPFS nel bundle e utilizzerà il file binario specificato. Vuoi procedere?"
   },
   "setCustomIpfsBinarySuccess": {
-    "title": "Custom IPFS binary",
-    "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
+    "title": "File binario IPFS personalizzato",
+    "message": "IPFS desktop inizierà a utilizzare il file binario situato in {percorso}. Per iniziare a usarlo, è necessario prima riavviare IPFS."
   },
   "clearCustomIpfsBinarySuccess": {
-    "title": "Clear custom IPFS binary",
-    "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+    "title": "Cancella il file binario IPFS personalizzato",
+    "message": "Il file binario IPFS personalizzato è stato cancellato. Per iniziare a utilizzare la versione nel bundle IPFS, è necessario prima riavviare IPFS."
   }
 }

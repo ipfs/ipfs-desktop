@@ -9,7 +9,9 @@ const setupNpmOnIpfs = require('./npm-on-ipfs')
 const setupDaemon = require('./daemon')
 const setupWebUI = require('./webui')
 const setupAutoLaunch = require('./auto-launch')
+const setupAutoGc = require('./automatic-gc')
 const setupPubsub = require('./enable-pubsub')
+const setupNamesysPubsub = require('./enable-namesys-pubsub')
 const setupDownloadCid = require('./download-cid')
 const setupTakeScreenshot = require('./take-screenshot')
 const setupAppMenu = require('./app-menu')
@@ -75,7 +77,9 @@ async function run () {
     await Promise.all([
       setupArgvFilesHandler(ctx),
       setupAutoLaunch(ctx),
+      setupAutoGc(ctx),
       setupPubsub(ctx),
+      setupNamesysPubsub(ctx),
       setupSecondInstance(ctx),
       // Setup global shortcuts
       setupDownloadCid(ctx),

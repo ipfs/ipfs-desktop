@@ -5,22 +5,23 @@
   "ipfsIsNotRunning": "IPFS is Not Running",
   "ipfsHasErrored": "IPFS has Errored",
   "runningWithGC": "Running (GC in progress)",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
-  "about": "About",
-  "advanced": "Advanced",
+  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "start": "Pradėti",
+  "stop": "Sustabdyti",
+  "restart": "Paleisti iš naujo",
+  "about": "Apie",
+  "advanced": "Išplėstiniai",
   "openRepoDir": "Open Repository Directory",
   "openLogsDir": "Open Logs Directory",
   "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
+  "viewOnGitHub": "Žiūrėti GitHub...",
+  "helpUsTranslate": "Padėti išversti šią programą...",
   "readReleaseNotes": "Read Release Notes",
-  "status": "Status",
-  "files": "Files",
+  "status": "Būsena",
+  "files": "Failai",
   "peers": "Peers",
   "quit": "Quit",
-  "versions": "Versions",
+  "versions": "Versijos",
   "screenshotTaken": "Screenshot taken",
   "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
   "couldNotTakeScreenshot": "Could not take screenshot",
@@ -28,13 +29,14 @@
   "clickToOpenLogs": "Click here to open the logs.",
   "ipfsNotRunning": "IPFS is not running",
   "checkForUpdates": "Check for Updates…",
-  "yes": "Yes",
-  "no": "No",
-  "close": "Close",
-  "ok": "OK",
-  "cancel": "Cancel",
-  "enable": "Enable",
-  "reportTheError": "Report the error",
+  "checkingForUpdates": "Checking for Updates",
+  "yes": "Taip",
+  "no": "Ne",
+  "close": "Uždaryti",
+  "ok": "Gerai",
+  "cancel": "Atšaukti",
+  "enable": "Įgalinti",
+  "reportTheError": "Pranešti apie klaidą",
   "restartIpfsDesktop": "Restart IPFS Desktop",
   "openLogs": "Open logs",
   "takeScreenshot": "Take Screenshot",
@@ -58,7 +60,7 @@
     "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
+    "title": "Įvyko klaida",
     "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
   },
   "cannotConnectToApiDialog": {
@@ -118,20 +120,20 @@
     "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
   },
   "updateNotAvailableDialog": {
-    "title": "Update not available",
+    "title": "Atnaujinimas neprieinamas",
     "message": "You are on the latest version of IPFS Desktop ({ version })."
   },
   "updateErrorDialog": {
-    "title": "Could not download update",
-    "message": "It was not possible to download the update. Please check your Internet connection and try again."
+    "title": "Nepavyko atsisiųsti atnaujinimo",
+    "message": "Neįmanoma atsisiųsti atnaujinimo. Patikrinkite interneto ryšį ir mėginkite dar kartą."
   },
   "updateDownloadedDialog": {
-    "title": "Update downloaded",
+    "title": "Atnaujinimas atsisiųstas",
     "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
-    "action": "Restart"
+    "action": "Paleisti iš naujo"
   },
   "updateDownloadedNotification": {
-    "title": "Update downloaded",
+    "title": "Atnaujinimas atsisiųstas",
     "message": "Update for version { version } of IPFS Desktop downloaded. Click this notification to install."
   },
   "runGarbageCollectorWarning": {
@@ -161,34 +163,34 @@
     "action": "Next"
   },
   "cantResolveCidDialog": {
-    "title": "Error",
+    "title": "Klaida",
     "message": "Unable to resolve \"{ path }\"."
   },
   "couldNotGetCidDialog": {
-    "title": "Error",
+    "title": "Klaida",
     "message": "Unable to fetch \"{ path }\"."
   },
   "contentsSavedDialog": {
-    "title": "Success",
+    "title": "Pavyko",
     "message": "The contents of \"{ path }\" were successfully downloaded.",
-    "action": "See Files"
+    "action": "Žiūrėti failus"
   },
   "couldNotSaveDialog": {
-    "title": "Could not write to disk",
-    "message": "There was an error writing to the disk. Please try again."
+    "title": "Nepavyko įrašyti į diską",
+    "message": "Įrašant į diską įvyko klaida. Mėginkite dar kartą."
   },
   "launchAtLoginNotSupported": {
-    "title": "Error",
+    "title": "Klaida",
     "message": "Launch at login is not supported on your platform."
   },
   "launchAtLoginFailed": {
-    "title": "Error",
+    "title": "Klaida",
     "message": "Launch at login could not be enabled on your machine."
   },
   "enableIpfsOnPath": {
     "title": "Enable IPFS on PATH",
     "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
+    "action": "Įgalinti"
   },
   "disableIpfsOnPath": {
     "title": "Disable IPFS on PATH",
@@ -206,14 +208,14 @@
   "installNpmOnIpfsWarning": {
     "title": "Install npm on IPFS",
     "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
-    "action": "Install"
+    "action": "Įdiegti"
   },
   "unableToInstallNpmOnIpfs": {
-    "title": "Error",
+    "title": "Klaida",
     "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
   },
   "unableToUninstallNpmOnIpfs": {
-    "title": "Error",
+    "title": "Klaida",
     "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
   },
   "settings": {
@@ -223,11 +225,14 @@
     "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
     "openWebUIAtLaunch": "Open Web UI at Launch",
+    "pubsub": "Enable PubSub",
+    "namesysPubsub": "Enable IPNS over PubSub",
+    "automaticGC": "Automatic Garbage Collection",
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
-    "experiments": "Experiments",
-    "npmOnIpfs": "npm on IPFS"
+    "experiments": "Eksperimentai",
+    "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",

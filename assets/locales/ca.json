@@ -4,62 +4,64 @@
   "ipfsIsStarting": "IPFS s'està iniciant",
   "ipfsIsNotRunning": "IPFS no està en funcionament",
   "ipfsHasErrored": "IPFS ha tingut errors",
-  "runningWithGC": "Arrencat (RB en progrés)",
+  "runningWithGC": "Iniciat (RB en procés)",
+  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
   "start": "Iniciar",
   "stop": "Aturar",
   "restart": "Reiniciar",
   "about": "Quant a",
   "advanced": "Avançat",
   "openRepoDir": "Obrir el Directori del Repositori",
-  "openLogsDir": "Obrir la Carpeta de Logs",
-  "openConfigFile": "Obrir Arxiu de Configuració",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
+  "openLogsDir": "Obrir la carpeta del registre",
+  "openConfigFile": "Obrir l'arxiu de configuració",
+  "viewOnGitHub": "Obre-ho a GitHub...",
+  "helpUsTranslate": "Ajuda a traduir aquesta aplicació...",
   "readReleaseNotes": "Llegeixi les notes del llançament",
   "status": "Estat",
   "files": "Arxius",
-  "peers": "Peers",
+  "peers": "Parells",
   "quit": "Sortir",
   "versions": "Versions",
-  "screenshotTaken": "S'ha fet la captura de pantalla",
+  "screenshotTaken": "S'ha fet una captura de pantalla",
   "shareableLinkCopied": "Enllaç compartible copiat al porta-retalls. Clica aquí per veure la captura de pantalla.",
   "couldNotTakeScreenshot": "No s'ha pogut fer la captura de pantalla",
   "errorwhileTakingScreenshot": "Hi ha hagut un error fent la captura de pantalla.",
-  "clickToOpenLogs": "Clica aquí per obrir els logs.",
+  "clickToOpenLogs": "Clica aquí per obrir el registre.",
   "ipfsNotRunning": "IPFS no està en marxa",
-  "checkForUpdates": "Check for Updates…",
+  "checkForUpdates": "Comprova si hi ha actualitzacions...",
+  "checkingForUpdates": "Checking for Updates",
   "yes": "Sí",
   "no": "No",
   "close": "Tancar",
-  "ok": "OK",
+  "ok": "D'acord",
   "cancel": "Cancel·lar",
-  "enable": "Enable",
-  "reportTheError": "Comunicar l'error",
+  "enable": "Activa",
+  "reportTheError": "Comunica l'error",
   "restartIpfsDesktop": "Reiniciar IPFS d'Escriptori",
-  "openLogs": "Obrir logs",
+  "openLogs": "Obrir el registre",
   "takeScreenshot": "Fes una captura de pantalla",
-  "downloadCid": "Download…",
-  "moveRepositoryLocation": "Moure l'emplaçament del Repositori",
-  "runGarbageCollector": "Arrenca el recollidor de brossa",
+  "downloadCid": "Descarrega...",
+  "moveRepositoryLocation": "Moure l'emplaçament del repositori",
+  "runGarbageCollector": "Inicia el recollidor de brossa",
   "selectDirectory": "Selecciona un directori",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
+  "customIpfsBinary": "Binari d'IPFS personalitzat",
+  "setCustomIpfsBinary": "Personalitza el binari d'IPFS",
+  "clearCustomIpfsBinary": "Treu el binari d'IPFS personalitzat",
   "polkitDialog": {
     "title": "No s'ha trobat el Polkit",
     "message": "No es pot afegir IPFS a /usr/local/bin/ sense l'agent polkit."
   },
   "noPermissionDialog": {
     "title": "Sense permís",
-    "message": "No s'ha pogut afegit IPFS a /usr/local/bin/ o bé perquè has introduït una contrasenya incorrecta o bé perquè no tens permisos."
+    "message": "No s'ha pogut afegit IPFS a /usr/local/bin/ o bé perquè heu introduït una contrasenya incorrecta o bé perquè has denegat el permís."
   },
   "ipfsNotRunningDialog": {
     "title": "IPFS no està en marxa",
-    "message": "IPFS ha d'estar en marxa per fer això. Vols engegar-lo?"
+    "message": "IPFS ha d'estar en marxa per fer això. Voleu iniciar el daemon?"
   },
   "recoverableErrorDialog": {
     "title": "Hi ha hagut un error",
-    "message": "Hi ha hagut un error però no ha impedit l'execució de l'IPFS d'Escriptori. Pots mirar els logs per veure què ha passat i/o comunicar l'error als desenvolupadors."
+    "message": "Hi ha hagut un error però no ha impedit l'execució de l'IPFS d'Escriptori. Podeu mirar el registre per veure què ha passat i/o comunicar l'error als desenvolupadors."
   },
   "cannotConnectToApiDialog": {
     "title": "No s'ha pogut connectar a l'API",
@@ -67,59 +69,59 @@
   },
   "ipfsDesktopHasShutdownDialog": {
     "title": "L'IPFS d'Escriptori s'ha aturat",
-    "message": "L'IPFS d'Escriptori s'ha aturat perquè hi ha hagut un error. Pots reiniciar-ho i/o comunicar l'error als desenvolupadors. Reportar errors requereix un compte a GitHub."
+    "message": "L'IPFS d'Escriptori s'ha aturat perquè hi ha hagut un error. Pots reiniciar-lo i/o comunicar l'error als desenvolupadors. Reportar errors requereix un compte a GitHub."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Moure repositori",
-    "message": "Si el teu repositori t'ocupa massa espai del disc dur, el pots moure a algun altre unitat. Tingues present que la nova ubicació haurà d'estar accessible per tal que l'IPFS d'Escriptori funcioni correctament.",
+    "title": "Moure el repositori",
+    "message": "Si el vostre repositori ocupa massa espai del disc dur, el podeu moure a alguna altra unitat. Tingueu present que la nova ubicació haurà d'estar accessible per tal que l'IPFS d'Escriptori funcioni correctament.",
     "action": "Moure i reiniciar el node"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repositori mogut exitosament",
-    "message": "El teu repositori s'ha traslladat exitosament a { location } i la teva configuració s'ha actualitzat. El servei es reiniciarà."
+    "title": "El repositori s'ha mogut correctament",
+    "message": "El vostre repositori s'ha traslladat correctament a { location } i la vostra configuració s'ha actualitzat. El servei es reiniciarà."
   },
   "moveRepositorySameDirDialog": {
     "title": "S'ha seleccionat el mateix directori",
-    "message": "El directori que has seleccionat es el mateix que l'actual: { location }. Per tant, no es faran canvis."
+    "message": "El directori que heu seleccionat es el mateix que l'actual: { location }. Per tant, no es faran canvis."
   },
   "moveRepositoryDirExists": {
     "title": "El directori ja existeix",
-    "message": "El directori { location }ja existeix. Tria'n un de diferent, si et plau."
+    "message": "El directori { location }ja existeix. Trieu-ne un de diferent, si us plau."
   },
   "busyPortsDialog": {
     "title": "Ports ocupats",
-    "message": "Els ports { port1 } i { port2 } no estan disponibles. Vols fer servir el { alt1 } i el { alt2 }?",
+    "message": "Els ports { port1 } i { port2 } no estan disponibles. Voleu fer servir el { alt1 } i el { alt2 }?",
     "action": "Utilitzar els ports { alt1 } i { alt2 }"
   },
   "busyPortDialog": {
     "title": "Port ocupat",
-    "message": "El port { port } no està disponible. Vols fer servir el { alt }?",
+    "message": "El port { port } no està disponible. Voleu fer servir el { alt }?",
     "action": "Utilitzar el port { alt }"
   },
   "multipleBusyPortsDialog": {
     "title": "Els ports estan ocupats",
     "message": "No es pot enllaçar amb una o més adreces API o Gateway perquè els ports estan ocupats.",
-    "action": "Obrir arxiu de configuració"
+    "action": "Obre l'arxiu de configuració"
   },
   "itemsAddedNotification": {
     "title": "Elements afegits",
-    "message": "{ count } elements afegits al teu node. S'ha copiat un enllaç compartible al teu porta-retalls. Clica aquí per veure els teus arxius."
+    "message": "{ count } elements afegits al vostre node. S'ha copiat un enllaç compartible al vostre porta-retalls. Clica aquí per veure els vostres arxius."
   },
   "itemAddedNotification": {
     "title": "Element afegit",
-    "message": "Element afegit al teu node. S'ha copiat un enllaç compartible al teu porta-retalls. Clica aquí per veure l'arxiu."
+    "message": "Element afegit al vostre node. S'ha copiat un enllaç compartible al vostre porta-retalls. Clica aquí per veure l'arxiu."
   },
   "itemsFailedNotification": {
     "title": "No s'han pogut afegir els elements",
-    "message": "No s'han pogut afegir els teus elements al teu node."
+    "message": "No s'han pogut afegir els vostres elements al vostre node."
   },
   "updateAvailableDialog": {
     "title": "Actualització disponible",
-    "message": "Hi ha disponible una nova versió ({ version }) d'IPFS Desktop. La descarrega començarà en segon pla en pocs instants."
+    "message": "Hi ha disponible una nova versió ({ version }) de l'IPFS d'Escriptori. La descarrega començarà en segon pla en pocs instants."
   },
   "updateNotAvailableDialog": {
     "title": "Actualització no disponible",
-    "message": "You are on the latest version of IPFS Desktop ({ version })."
+    "message": "És a la última versió de l'IPFS d'Escriptori ({ version })."
   },
   "updateErrorDialog": {
     "title": "No s'ha pogut descarregar l'actualització",
@@ -127,24 +129,24 @@
   },
   "updateDownloadedDialog": {
     "title": "Actualització descarregada",
-    "message": "S'ha descarregat l'actualització de la versió { version }. Per instal·lar-la, si us plau reinici IPFS Desktop.",
+    "message": "S'ha descarregat l'actualització de la versió { version }. Per instal·lar-la, si us plau reinicieu l'IPFS d'Escriptori.",
     "action": "Reiniciar"
   },
   "updateDownloadedNotification": {
     "title": "Actualització descarregada",
-    "message": "S'ha descarregat l'actualització de la versió { version }d'IPFS Desktop. Cliqui aquesta notificació per instal·lar-la."
+    "message": "S'ha descarregat l'actualització de la versió { version }de l'IPFS d'Escriptori. Cliqui aquesta notificació per instal·lar-la."
   },
   "runGarbageCollectorWarning": {
     "title": "Recollidor de brossa",
-    "message": "Arrencant el recollidor de brossa (RB) eliminaràs tots els objectes que no estiguin fixats en el teu MFS. Això pot tardar una mica. Vols continuar?",
-    "action": "Arrenca"
+    "message": "Iniciant el recollidor de brossa (RB) eliminarà tots els objectes que no estiguin ancorats al teu MFS. Això pot tardar una mica. Voleu continuar?",
+    "action": "Arranca"
   },
   "runGarbageCollectorDone": {
     "title": "Recollidor de brossa",
-    "message": "L'arrencada del recollidor de brossa ha estat satisfactòria."
+    "message": "El recollidor de brossa s'ha passat satisfactòriament."
   },
   "moveRepositoryFailed": {
-    "title": "Moure repositori",
+    "title": "Mou el repositori",
     "message": "No s'ha pogut moure el repositori de \"{ currDir }\" a \"{ newDir }\"."
   },
   "cantAddIpfsToPath": {
@@ -153,7 +155,7 @@
   },
   "runGarbageCollectorErrored": {
     "title": "Recollidor de brossa",
-    "message": "L'arrencada del recollidor de brossa no ha pogut acabar satisfactòriament."
+    "message": "No s'ha pogut passar el recollidor de brossa de forma satisfactòria."
   },
   "downloadCidContentDialog": {
     "title": "Descarrega a un directori local",
@@ -179,66 +181,69 @@
   },
   "launchAtLoginNotSupported": {
     "title": "Error",
-    "message": "Launch at login is not supported on your platform."
+    "message": "La vostra plataforma no permet arrencar a l'inici de sessió."
   },
   "launchAtLoginFailed": {
     "title": "Error",
-    "message": "Launch at login could not be enabled on your machine."
+    "message": "No s'ha pogut habilitar l'arrencada a l'iniciar sessió al vostre aparell."
   },
   "enableIpfsOnPath": {
-    "title": "Enable IPFS on PATH",
-    "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
+    "title": "Habilita IPFS a PATH",
+    "message": "Habilitant aquesta opció, IPFS estarà disponible al terminal d'ordres com a \"ipfs\" . Aquesta acció és reversible.",
+    "action": "Activa"
   },
   "disableIpfsOnPath": {
-    "title": "Disable IPFS on PATH",
-    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
-    "action": "Disable"
+    "title": "Deshabilita IPFS a PATH",
+    "message": "Deshabilitant aquesta opció, IPFS deixarà d'estar disponible al terminal d'ordres com a \"ipfs\".",
+    "action": "Inhabilita"
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "Enable screenshot shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+    "title": "Habilita la drecera de teclat per fer captures de pantalla",
+    "message": "Habilitant això, la dracera de teclat \"{ accelerator }\" podrà fer captures de pantalla mentre funcioni l'IPFS d'Escriptori."
   },
   "enableGlobalDownloadShortcut": {
-    "title": "Enable download shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
+    "title": "Habilita la drecera de teclat per a descarregar",
+    "message": "Habilitant això, la dracera de teclat \"{ accelerator }\" podrà descarregar arxius mentre funcioni l'IPFS d'Escriptori."
   },
   "installNpmOnIpfsWarning": {
-    "title": "Install npm on IPFS",
-    "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
-    "action": "Install"
+    "title": "Instalar npm a IPFS",
+    "message": "Aquesta opció experimental instal·larà el paquet \"ipfs-npm\" al vostre sistema. És necessari que Node.js estigui instalat.",
+    "action": "Instala"
   },
   "unableToInstallNpmOnIpfs": {
     "title": "Error",
-    "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
+    "message": "No ha estat possible instalar el paquet \"ipfs-npm\" al vostre sistema. Per més informació, si us plau comproveu el registre o proveu d'instalar-lo manualment executant \"npm install -g ipfs-npm\" al vostre terminal d'ordres."
   },
   "unableToUninstallNpmOnIpfs": {
     "title": "Error",
-    "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
+    "message": "No ha estat possible desinstalar el paquet \"ipfs-npm\" del vostre sistema. Per més informació, si us plau comproveu el registre o proveu de desinstalar-lo manualment executant \"npm uninstall -g ipfs-npm\" al vostre terminal d'ordres."
   },
   "settings": {
     "settings": "Configuració",
-    "preferences": "Preferences",
-    "openNodeSettings": "Open Node Settings",
-    "appPreferences": "App Preferences",
-    "launchOnStartup": "Launch at Login",
-    "openWebUIAtLaunch": "Open Web UI at Launch",
-    "ipfsCommandLineTools": "Command Line Tools",
-    "takeScreenshotShortcut": "Global Screenshot Shortcut",
-    "downloadHashShortcut": "Global Download Shortcut",
-    "experiments": "Experiments",
-    "npmOnIpfs": "npm on IPFS"
+    "preferences": "Preferències",
+    "openNodeSettings": "Obre la configuració del node",
+    "appPreferences": "Preferències de l'aplicació",
+    "launchOnStartup": "Arrenca a l'iniciar sessió",
+    "openWebUIAtLaunch": "Obre el Web UI a l'arrencar",
+    "pubsub": "Enable PubSub",
+    "namesysPubsub": "Enable IPNS over PubSub",
+    "automaticGC": "Automatic Garbage Collection",
+    "ipfsCommandLineTools": "Eines del terminal d'ordres",
+    "takeScreenshotShortcut": "Drecera de teclat de captura de pantalla general",
+    "downloadHashShortcut": "Drecera de teclat de descarrega general",
+    "experiments": "Experimental",
+    "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
-    "title": "Custom IPFS binary",
-    "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
+    "title": "Binari d'IPFS personalitzat",
+    "message": "Configurant un IPFS personalitzat, l'IPFS d'Escriptori no utilitzarà la versió d'IPFS vinculada i utilitzarà el binari que vostè especifiqui. Voleu continuar?"
   },
   "setCustomIpfsBinarySuccess": {
-    "title": "Custom IPFS binary",
-    "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
+    "title": "Binari d'IPFS personalitzat",
+    "message": "L'IPFS d'Escriptori començarà a utilitzar el binari que es troba a { path }. Per començar a utilitzar-lo, primer cal que es reinici l'IPFS."
   },
   "clearCustomIpfsBinarySuccess": {
-    "title": "Clear custom IPFS binary",
-    "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+    "title": "Neteja el binari d'IPFS personalitzat",
+    "message": "El binari d'IPFS personalitzat ha estat netejat. Per començar a utilitzar la versió d'IPFS vinculada, primer cal que IPFS es reinici."
   }
 }

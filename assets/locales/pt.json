@@ -5,6 +5,7 @@
   "ipfsIsNotRunning": "IPFS is Not Running",
   "ipfsHasErrored": "IPFS has Errored",
   "runningWithGC": "Running (GC in progress)",
+  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
   "start": "Iniciar",
   "stop": "Parar",
   "restart": "Reiniciar",
@@ -28,6 +29,7 @@
   "clickToOpenLogs": "Clique para abrir os registos.",
   "ipfsNotRunning": "O IPFS não está a ser executado",
   "checkForUpdates": "Check for Updates…",
+  "checkingForUpdates": "Checking for Updates",
   "yes": "Sim",
   "no": "Não",
   "close": "Fechar",
@@ -223,11 +225,14 @@
     "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
     "openWebUIAtLaunch": "Open Web UI at Launch",
+    "pubsub": "Enable PubSub",
+    "namesysPubsub": "Enable IPNS over PubSub",
+    "automaticGC": "Automatic Garbage Collection",
     "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
     "experiments": "Experimentos",
-    "npmOnIpfs": "npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",

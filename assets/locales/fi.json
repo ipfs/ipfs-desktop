@@ -1,76 +1,78 @@
 {
-  "ipfsIsRunning": "IPFS is Running",
-  "ipfsIsStopping": "IPFS is Stopping",
-  "ipfsIsStarting": "IPFS is Starting",
-  "ipfsIsNotRunning": "IPFS is Not Running",
-  "ipfsHasErrored": "IPFS has Errored",
-  "runningWithGC": "Running (GC in progress)",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
-  "about": "About",
-  "advanced": "Lisätietoja",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
-  "readReleaseNotes": "Read Release Notes",
+  "ipfsIsRunning": "IPFS on Käynnissä",
+  "ipfsIsStopping": "IPFS Pysähtyy",
+  "ipfsIsStarting": "IPFS Käynnistyy",
+  "ipfsIsNotRunning": "IPFS ei ole Käynnissä",
+  "ipfsHasErrored": "Virhe IPFS:ssä",
+  "runningWithGC": "Käynnissä (suoritetaan RK)",
+  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "start": "Käynnistä",
+  "stop": "Pysäytä",
+  "restart": "Käynnistä uudelleen",
+  "about": "Lisätietoja",
+  "advanced": "Lisäasetukset",
+  "openRepoDir": "Avaa säilöpaikkahakemisto",
+  "openLogsDir": "Avaa lokihakemisto",
+  "openConfigFile": "Avaa asetustiedosto",
+  "viewOnGitHub": "Katso Github:ssa",
+  "helpUsTranslate": "Auta tämän applikaation kääntämisessä",
+  "readReleaseNotes": "Lue julkaisutiedot",
   "status": "Tila",
   "files": "Tiedostot",
   "peers": "Vertaisia",
-  "quit": "Quit",
-  "versions": "Versions",
-  "screenshotTaken": "Screenshot taken",
-  "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
-  "couldNotTakeScreenshot": "Could not take screenshot",
-  "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "clickToOpenLogs": "Click here to open the logs.",
-  "ipfsNotRunning": "IPFS is not running",
-  "checkForUpdates": "Check for Updates…",
-  "yes": "Yes",
-  "no": "No",
+  "quit": "Lopeta",
+  "versions": "Versiot",
+  "screenshotTaken": "Kuvakaappaus otettu",
+  "shareableLinkCopied": "Jaettava linkki kopioitu leikepöydälle. Klikkaa tähän katsoaksesi kuvakaappauksen.",
+  "couldNotTakeScreenshot": "Ei pystytty ottamaan kuvakaappausta",
+  "errorwhileTakingScreenshot": "Virhe ilmeni kuvakaappauksen ottamisen yhteydessä.",
+  "clickToOpenLogs": "Klikkaa tästä avaaksesi lokin.",
+  "ipfsNotRunning": "IPFS ei ole käynnissä",
+  "checkForUpdates": "Hae päivityksiä...",
+  "checkingForUpdates": "Checking for Updates",
+  "yes": "Kyllä",
+  "no": "Ei",
   "close": "Sulje",
   "ok": "OK",
   "cancel": "Peruuta",
-  "enable": "Enable",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadCid": "Download…",
-  "moveRepositoryLocation": "Move Repository Location",
-  "runGarbageCollector": "Run Garbage Collector",
-  "selectDirectory": "Select Directory",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
+  "enable": "Ota käyttöön",
+  "reportTheError": "Raportoi virhe",
+  "restartIpfsDesktop": "Käynnistä 'IPFS Desktop' uudelleen",
+  "openLogs": "Avaa loki",
+  "takeScreenshot": "Ota kuvakaappaus",
+  "downloadCid": "Lataa...",
+  "moveRepositoryLocation": "Siirrä säilöpaikan sijaintia",
+  "runGarbageCollector": "Suorita roskankerääjä",
+  "selectDirectory": "Valitse hakemisto",
+  "customIpfsBinary": "Muokattu IPFS-binääri",
+  "setCustomIpfsBinary": "Aseta muokattu IPFS-binääri",
+  "clearCustomIpfsBinary": "Tyhjennä muokattu IPFS-binääri",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "'Polkit' ei löydettävissä",
+    "message": "IPFS:ää ei voida lisätä kansioon /usr/local/bin/ ilman 'polkit'-agenttia"
   },
   "noPermissionDialog": {
-    "title": "No permission",
+    "title": "Ei oikeutta",
     "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS is not running",
+    "title": "IPFS ei ole käynnissä",
     "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
+    "title": "Virhe on ilmennyt",
     "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
+    "title": "Ohjelmointirajapintaan ei voida yhdistää",
     "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
+    "title": "IPFS Desktop on lakannut toimimasta",
     "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
+    "title": "Siirrä säilöpaikka",
     "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
     "action": "Move and restart node"
   },
@@ -110,7 +112,7 @@
     "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
+    "title": "Epäonnistuttiin lisäämään kohteita",
     "message": "Could not add your items to your node."
   },
   "updateAvailableDialog": {
@@ -128,72 +130,72 @@
   "updateDownloadedDialog": {
     "title": "Update downloaded",
     "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
-    "action": "Restart"
+    "action": "Käynnistä uudelleen"
   },
   "updateDownloadedNotification": {
     "title": "Update downloaded",
     "message": "Update for version { version } of IPFS Desktop downloaded. Click this notification to install."
   },
   "runGarbageCollectorWarning": {
-    "title": "Garbage collector",
+    "title": "Roskankerääjä",
     "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
-    "action": "Run"
+    "action": "Suorita"
   },
   "runGarbageCollectorDone": {
-    "title": "Garbage collector",
-    "message": "The garbage collector ran successfully."
+    "title": "Roskankerääjä",
+    "message": "Roskankerääjä suoritettiin onnistuneesti."
   },
   "moveRepositoryFailed": {
-    "title": "Move repository",
-    "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
+    "title": "Siirrä säilöpaikka",
+    "message": "Säilöpaikkaa ei voitu siirtää sijainnista \"{ currDir }\" sijaintiin \"{ newDir }\"."
   },
   "cantAddIpfsToPath": {
     "title": "IPFS on PATH",
     "message": "Could not add IPFS to the PATH."
   },
   "runGarbageCollectorErrored": {
-    "title": "Garbage collector",
-    "message": "The garbage collector run could not be completed successfully."
+    "title": "Roskankerääjä",
+    "message": "Roskankerääjää ei voitu suorittaa onnistuneesti."
   },
   "downloadCidContentDialog": {
-    "title": "Download to a local directory",
-    "message": "Enter a CID, IPFS path, or IPNS path:",
+    "title": "Lataa paikalliseen hakemistoon",
+    "message": "Anna CID, IPFS-polku tai IPNS-polku:",
     "action": "Seuraava"
   },
   "cantResolveCidDialog": {
-    "title": "Error",
-    "message": "Unable to resolve \"{ path }\"."
+    "title": "Virhe",
+    "message": "Ei pystytty selvittämään polkua \"{ path }\"."
   },
   "couldNotGetCidDialog": {
-    "title": "Error",
-    "message": "Unable to fetch \"{ path }\"."
+    "title": "Virhe",
+    "message": "Ei pystytty hakemaan polkua \"{ path }\"."
   },
   "contentsSavedDialog": {
-    "title": "Success",
-    "message": "The contents of \"{ path }\" were successfully downloaded.",
-    "action": "See Files"
+    "title": "Onnistuminen",
+    "message": "Polun \"{ path }\" sisältö ladattiin onnistuneesti.",
+    "action": "Katso tiedostot"
   },
   "couldNotSaveDialog": {
-    "title": "Could not write to disk",
-    "message": "There was an error writing to the disk. Please try again."
+    "title": "Ei voitu kirjoittaa kovalevylle",
+    "message": "Virhe ilmeni kirjoittaessa kovalevylle. Yritäthän uudelleen."
   },
   "launchAtLoginNotSupported": {
-    "title": "Error",
-    "message": "Launch at login is not supported on your platform."
+    "title": "Virhe",
+    "message": "'Käynnistä sisäänkirjautumisen yhteydessä' ei ole tuettu alustallasi."
   },
   "launchAtLoginFailed": {
-    "title": "Error",
-    "message": "Launch at login could not be enabled on your machine."
+    "title": "Virhe",
+    "message": "Ei pystytty ottamaan 'Käynnistä sisäänkirjautumisen yhteydessä' käyttöön laitteellasi."
   },
   "enableIpfsOnPath": {
     "title": "Enable IPFS on PATH",
     "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
+    "action": "Ota käyttöön"
   },
   "disableIpfsOnPath": {
     "title": "Disable IPFS on PATH",
     "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
-    "action": "Disable"
+    "action": "Ota pois käytöstä"
   },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Enable screenshot shortcut",
@@ -209,11 +211,11 @@
     "action": "Install"
   },
   "unableToInstallNpmOnIpfs": {
-    "title": "Error",
+    "title": "Virhe",
     "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
   },
   "unableToUninstallNpmOnIpfs": {
-    "title": "Error",
+    "title": "Virhe",
     "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
   },
   "settings": {
@@ -221,13 +223,16 @@
     "preferences": "Preferences",
     "openNodeSettings": "Open Node Settings",
     "appPreferences": "App Preferences",
-    "launchOnStartup": "Launch at Login",
+    "launchOnStartup": "Käynnistä sisäänkirjautumisen yhteydessä",
     "openWebUIAtLaunch": "Open Web UI at Launch",
-    "ipfsCommandLineTools": "Command Line Tools",
-    "takeScreenshotShortcut": "Global Screenshot Shortcut",
-    "downloadHashShortcut": "Global Download Shortcut",
+    "pubsub": "Enable PubSub",
+    "namesysPubsub": "Enable IPNS over PubSub",
+    "automaticGC": "Automatic Garbage Collection",
+    "ipfsCommandLineTools": "Pääte työkalut",
+    "takeScreenshotShortcut": "Globaali kuvakaappaus oikotie",
+    "downloadHashShortcut": "Globaali lataus oikotie",
     "experiments": "Kokeilut",
-    "npmOnIpfs": "npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",

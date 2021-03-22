@@ -2,9 +2,10 @@
   "ipfsIsRunning": "IPFS 正在运行",
   "ipfsIsStopping": "IPFS 正在停止",
   "ipfsIsStarting": "IPFS 正在启动",
-  "ipfsIsNotRunning": "IPFS 未能运行",
+  "ipfsIsNotRunning": "IPFS 没有运行",
   "ipfsHasErrored": "IPFS 出现错误",
   "runningWithGC": "运行中（正在进行垃圾回收GC）",
+  "runningWhileCheckingForUpdate": "运行中（正在检查更新）",
   "start": "启动",
   "stop": "停止",
   "restart": "重新启动",
@@ -13,38 +14,39 @@
   "openRepoDir": "打开仓库目录",
   "openLogsDir": "打开日志目录",
   "openConfigFile": "打开配置文件",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
-  "readReleaseNotes": "更新内容",
+  "viewOnGitHub": "在GitHub上查看…",
+  "helpUsTranslate": "帮助翻译此应用程序…",
+  "readReleaseNotes": "阅读更新内容",
   "status": "状态",
   "files": "文件",
   "peers": "节点",
   "quit": "退出",
   "versions": "版本",
   "screenshotTaken": "已捕获截图",
-  "shareableLinkCopied": "可共享链接已复制到剪贴板。 点击此处查看截图。",
+  "shareableLinkCopied": "可共享的链接已复制到剪贴板。 点击此处查看截图。",
   "couldNotTakeScreenshot": "无法截图",
-  "errorwhileTakingScreenshot": "进行屏幕截图时出错。",
+  "errorwhileTakingScreenshot": "进行截图时出错。",
   "clickToOpenLogs": "点击这里打开日志。",
   "ipfsNotRunning": "IPFS没有运行",
-  "checkForUpdates": "Check for Updates…",
+  "checkForUpdates": "检查更新…",
+  "checkingForUpdates": "正在检查更新",
   "yes": "是",
   "no": "否",
   "close": "关闭",
   "ok": "好的",
   "cancel": "取消",
-  "enable": "Enable",
+  "enable": "启用",
   "reportTheError": "报告错误",
   "restartIpfsDesktop": "重启 IPFS 桌面",
   "openLogs": "打开日志",
-  "takeScreenshot": "截取镜像",
-  "downloadCid": "Download…",
+  "takeScreenshot": "截屏",
+  "downloadCid": "下载…",
   "moveRepositoryLocation": "移动仓库目录",
   "runGarbageCollector": "进行缓存清理",
   "selectDirectory": "选择目录",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
+  "customIpfsBinary": "自定义IPFS二进制文件",
+  "setCustomIpfsBinary": "设置自定义IPFS二进制文件",
+  "clearCustomIpfsBinary": "清除自定义IPFS二进制文件",
   "polkitDialog": {
     "title": "Polkit (策略工具包)没有找到",
     "message": "由于缺少 Polkit 代理，无法将 IPFS 添加到 /usr/local/bin/ 目录中。"
@@ -84,20 +86,20 @@
   },
   "moveRepositoryDirExists": {
     "title": "目录已经存在",
-    "message": "目录 { location } 已经存在。\n请选择其他目录。"
+    "message": "目录 { location } 已经存在。请选择其他目录。"
   },
   "busyPortsDialog": {
-    "title": "端口忙碌",
+    "title": "端口繁忙",
     "message": "端口 { port1 } 和 { port2 } 不可用。您想转而使用端口 { alt1 } 和 { alt2 } 吗？",
     "action": "使用端口 { alt1 } 和 { alt2 } "
   },
   "busyPortDialog": {
-    "title": "端口忙碌",
+    "title": "端口繁忙",
     "message": "无法使用端口 { port }，你想使用备用端口 { alt } 吗？",
     "action": "使用备用端口 { alt }"
   },
   "multipleBusyPortsDialog": {
-    "title": "端口忙碌",
+    "title": "端口繁忙",
     "message": "由于端口被占用，无法绑定到一个或多个 API 或网关地址。",
     "action": "打开配置文件"
   },
@@ -119,7 +121,7 @@
   },
   "updateNotAvailableDialog": {
     "title": "无可用更新",
-    "message": "You are on the latest version of IPFS Desktop ({ version })."
+    "message": "已经是最新的 IPFS 桌面 ({ version }) "
   },
   "updateErrorDialog": {
     "title": "更新下载失败",
@@ -156,89 +158,92 @@
     "message": "缓存清理未能完全进行"
   },
   "downloadCidContentDialog": {
-    "title": "Download to a local directory",
-    "message": "Enter a CID, IPFS path, or IPNS path:",
+    "title": "下载到本地目录",
+    "message": "输入CID、IPFS路径或IPNS路径：",
     "action": "下一步"
   },
   "cantResolveCidDialog": {
     "title": "错误",
-    "message": "Unable to resolve \"{ path }\"."
+    "message": "找不到“{ path }”。"
   },
   "couldNotGetCidDialog": {
     "title": "错误",
-    "message": "Unable to fetch \"{ path }\"."
+    "message": "无法获取“{ path }”。"
   },
   "contentsSavedDialog": {
-    "title": "Success",
-    "message": "The contents of \"{ path }\" were successfully downloaded.",
-    "action": "See Files"
+    "title": "成功",
+    "message": "已成功下载“{ path }”的内容。",
+    "action": "查看文件"
   },
   "couldNotSaveDialog": {
-    "title": "Could not write to disk",
-    "message": "There was an error writing to the disk. Please try again."
+    "title": "无法写入磁盘",
+    "message": "写入磁盘时出错，请重试。"
   },
   "launchAtLoginNotSupported": {
     "title": "错误",
-    "message": "Launch at login is not supported on your platform."
+    "message": "您的平台不支持在登录时启动。"
   },
   "launchAtLoginFailed": {
     "title": "错误",
-    "message": "Launch at login could not be enabled on your machine."
+    "message": "无法在您的计算机上启用登录时启动。"
   },
   "enableIpfsOnPath": {
-    "title": "Enable IPFS on PATH",
-    "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
+    "title": "将IPFS加入命令行搜索路径",
+    "message": "通过启用此选项，IPFS将作为“ipfs”在命令行中可用。本设置可以撤销。",
+    "action": "启用"
   },
   "disableIpfsOnPath": {
-    "title": "Disable IPFS on PATH",
-    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
-    "action": "Disable"
+    "title": "从命令行搜索路径移除IPFS",
+    "message": "通过禁用此选项，IPFS将不再作为“ipfs”在命令行中可用。",
+    "action": "禁用"
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "Enable screenshot shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+    "title": "启用屏幕快照快捷键",
+    "message": "启用此选项，在IPFS桌面运行时，可以用快捷键“{ accelerator }”获取屏幕快照。"
   },
   "enableGlobalDownloadShortcut": {
-    "title": "Enable download shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
+    "title": "启用下载快捷键",
+    "message": "启用此选项，在IPFS桌面运行时，可以用快捷键“{ accelerator }”下载文件。"
   },
   "installNpmOnIpfsWarning": {
-    "title": "Install npm on IPFS",
-    "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
+    "title": "在IPFS上安装npm",
+    "message": "此实验性功能将在您的系统上安装“ipfs-npm”包，这个包需要系统上有Node.js。",
     "action": "安装"
   },
   "unableToInstallNpmOnIpfs": {
     "title": "错误",
-    "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
+    "message": "无法在您的系统上安装“ipfs-npm”软件包。请检查日志以获取更多信息，或者尝试通过在命令行上运行“npm install -g ipfs-npm”手动安装它。"
   },
   "unableToUninstallNpmOnIpfs": {
     "title": "错误",
-    "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
+    "message": "无法从您的系统上卸载“ipfs-npm”包。请检查日志以获取更多信息，或者尝试通过在命令行上运行“npm uninstall -g ipfs-npm”手动卸载它。"
   },
   "settings": {
     "settings": "配置",
-    "preferences": "Preferences",
-    "openNodeSettings": "Open Node Settings",
-    "appPreferences": "App Preferences",
-    "launchOnStartup": "Launch at Login",
-    "openWebUIAtLaunch": "Open Web UI at Launch",
-    "ipfsCommandLineTools": "Command Line Tools",
-    "takeScreenshotShortcut": "Global Screenshot Shortcut",
-    "downloadHashShortcut": "Global Download Shortcut",
+    "preferences": "首选项",
+    "openNodeSettings": "打开节点设置",
+    "appPreferences": "应用首选项",
+    "launchOnStartup": "登录时启动",
+    "openWebUIAtLaunch": "启动时打开Web UI界面",
+    "pubsub": "启用 PubSub",
+    "namesysPubsub": "启用基于 PubSub 的 IPNS",
+    "automaticGC": "自动缓存清理",
+    "ipfsCommandLineTools": "命令行工具",
+    "takeScreenshotShortcut": "全局屏幕截图快捷键",
+    "downloadHashShortcut": "全局下载快捷键",
     "experiments": "试验",
-    "npmOnIpfs": "npm on IPFS"
+    "npmOnIpfs": "启用 IPFS 上的 npm"
   },
   "setCustomIpfsBinaryConfirmation": {
-    "title": "Custom IPFS binary",
-    "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
+    "title": "自定义IPFS二进制文件",
+    "message": "通过设置自定义IPFS，IPFS 桌面将不再使用捆绑的IPFS版本，并将使用指定的二进制文件。继续吗？"
   },
   "setCustomIpfsBinarySuccess": {
-    "title": "Custom IPFS binary",
-    "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
+    "title": "自定义IPFS二进制文件",
+    "message": "IPFS桌面将使用位于{ path }的二进制文件。要使用它，首先要重新启动IPFS。"
   },
   "clearCustomIpfsBinarySuccess": {
-    "title": "Clear custom IPFS binary",
-    "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+    "title": "清除自定义IPFS二进制文件",
+    "message": "已清除自定义IPFS二进制文件。要开始使用捆绑的IPFS版本，首先要重新启动IPFS。"
   }
 }
