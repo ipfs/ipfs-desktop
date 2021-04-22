@@ -15,7 +15,7 @@
     "clean": "shx rm -rf assets/webui/ node_modules/go-ipfs/bin",
     "build": "run-s clean build:webui",
     "build:webui": "run-s build:webui:*",
-    "build:webui:download": "npx ipfs-or-gateway -c bafybeif4zkmu7qdhkpf3pnhwxipylqleof7rl6ojbe7mq3fzogz6m4xk3i -p assets/webui/ -t 360000 --verbose --clean",
+    "build:webui:download": "npx ipfs-or-gateway -c bafybeift4ptovt53gunayyrxe2rx3zpeuuq5d7ipbl5veen73s7ppac7yi -p assets/webui/ -t 360000 --verbose --clean",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
     "package": "shx rm -rf dist/ && run-s build && electron-builder --publish onTag"
   },
