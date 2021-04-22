@@ -1,0 +1,249 @@
+{
+  "ipfsIsRunning": "IPFS กำลังทำงาน",
+  "ipfsIsStopping": "IPFS กำลังหยุด",
+  "ipfsIsStarting": "IPFS กำลังเริ่ม",
+  "ipfsIsNotRunning": "IPFS ยังไม่ได้ทำงาน",
+  "ipfsHasErrored": "IPFS เกิดข้อผิดพลาด",
+  "runningWithGC": "กำลังทำงาน (อยู่ในขั้นตอน GC)",
+  "runningWhileCheckingForUpdate": "กำลังทำงาน (ตรวจสอบอัพเดท)",
+  "start": "เริ่ม",
+  "stop": "หยุด",
+  "restart": "รีสตาร์ท",
+  "about": "เกี่ยวกับ",
+  "advanced": "ขั้นสูง",
+  "openRepoDir": "เปิดโฟลเดอร์",
+  "openLogsDir": "เปิดโฟลเดอร์ Log",
+  "openConfigFile": "เปิดไฟล์ตั้งค่า",
+  "viewOnGitHub": "ดูใน Github....",
+  "helpUsTranslate": "ช่วยแปลแอปพลิเคชันนี้",
+  "readReleaseNotes": "อ่านบันทึกการอัพเดท",
+  "status": "สถานะ",
+  "files": "ไฟล์",
+  "peers": "เพียร์",
+  "quit": "ออก",
+  "versions": "เวอร์ชั่น",
+  "screenshotTaken": "ถ่ายภาพหน้าจอแล้ว",
+  "shareableLinkCopied": "คัดลอกลิ้งค์เรียบร้อย. คลิ๊ก ที่นี่ เพื่อดูภาพหน้าจอ",
+  "couldNotTakeScreenshot": "ไม่สามารถถ่ายภาพหน้าจอได้",
+  "errorwhileTakingScreenshot": "มีปัญหาเกิดขึ้นระหว่างถ่ายภาพหน้าจอ.",
+  "clickToOpenLogs": "คลิ๊กที่นี่เพื่อเปิดดูบันทึกกิจกรรม.",
+  "ipfsNotRunning": "IPFS ไม่ได้ทำงานอยู่",
+  "checkForUpdates": "ตรวจหาอัพเดท...",
+  "checkingForUpdates": "กำลังตรวจหาอัพเดท",
+  "yes": "ใช่",
+  "no": "ไม่",
+  "close": "ปิด",
+  "ok": "โอเค",
+  "cancel": "ยกเลิก",
+  "enable": "ใช้งาน",
+  "reportTheError": "แจ้งปัญหา",
+  "restartIpfsDesktop": "รีสตาร์ท IPFS",
+  "openLogs": "เปิดบันทึกกิจกรรม",
+  "takeScreenshot": "ถ่ายภาพหน้าจอ",
+  "downloadCid": "ดาวน์โหลด...",
+  "moveRepositoryLocation": "ย้ายสถานที่โฟลเดอร์",
+  "runGarbageCollector": "เปิดใช้การลบขยะ",
+  "selectDirectory": "เลือกโฟลเดอร์",
+  "customIpfsBinary": "ไบนารี่ IPFS ที่กำหนดเอง",
+  "setCustomIpfsBinary": "กำหนดไบนารี่ IPFS",
+  "clearCustomIpfsBinary": "ล้างไบนารี่ IPFS ที่กำหนดไว้",
+  "polkitDialog": {
+    "title": "ไม่พบ Polkit",
+    "message": "ไม่สามารถเพิ่ม IPFS ไปยัง /usr/local/bin/ ได้ หากไม่มี Polkit."
+  },
+  "noPermissionDialog": {
+    "title": "ไม่มีสิทธิ์เข้าถึง",
+    "message": "ไม่สามารถเพิ่ม IPFS ไปยัง /usr/local/bin/ ได้ เนื่องจากรหัสผ่านไม่ถูกต้อง หรือไม่มีสิทธิ์เข้าถึงโฟลเดอร์."
+  },
+  "ipfsNotRunningDialog": {
+    "title": "IPFS ไม่ได้ทำงานอยู่",
+    "message": "IPFS ต้องทำงานอยู่ จึงจะใช้งานได้. คุณต้องการเปิด Daemon ไหม?"
+  },
+  "recoverableErrorDialog": {
+    "title": "มีปัญหาเกิดขึ้น",
+    "message": "มีปัญหาเกิดขึ้น แต่ยังสามารถใช้งาน IPFS Desktop ได้อยู่. คุณสามารถตรวจสอบบันทึก หรือ แจ้งปัญหาไปยังผู้พัฒนาได้ หากต้องการ."
+  },
+  "cannotConnectToApiDialog": {
+    "title": "ไม่สามารถเชื่อมต่อไปที่ API",
+    "message": "IPFS Desktop ไม่สามารถเชื่อมต่อไปยัง API ที่กำหนดใว้: { addr }."
+  },
+  "ipfsDesktopHasShutdownDialog": {
+    "title": "IPFS Desktop ถูกปิดตัวลง",
+    "message": "IPFS Desktop ถูกปิดตัวลงเนื่องจากมีปัญหาเกิดขึ้น. คุณสามารถรีสตาร์ทแอปพลิเคชั่น หรือ แจ้งปัญหาไปยังผู้พัฒนา, ซึ่งต้องมีบัญชี GitHub."
+  },
+  "moveRepositoryWarnDialog": {
+    "title": "ย้ายโฟลเดอร์",
+    "message": "ถ้าโฟลเดอร์ของคุณมีพื้นที่มากเกินไป, คุณสามารถย้ายส่วนนึงของโฟลเดอร์ไปที่ไดร์ฟอื่นได้. แต่ไดร์ฟทุกไดร์ฟจะต้องใช้งานได้ เพื่อที่จะให้ IPFS Desktop ทำงานเป็นปกติ.",
+    "action": "ย้ายและรีสตาร์ทโหนด"
+  },
+  "moveRepositorySuccessDialog": {
+    "title": "ย้ายโฟลเดอร์เรียบร้อยแล้ว",
+    "message": "โฟลเดอร์ของคุณถูกย้ายไปยัง { location } แล้ว และการตั้งค่าถูกอัพเดทเรียบร้อย. Daemon จะถูกรีสตาร์ทในอีกไม่ช้า."
+  },
+  "moveRepositorySameDirDialog": {
+    "title": "ได้เลือกโฟลเดอร์เดียวกัน",
+    "message": "โฟลเดอร์ที่คุณเลือก เป็นอันเดียวกันกับโฟลเดอร์ปัจจุบัน: { location }. ฉะนั้น, จะไม่มีการเปลี่ยนแปลงเกิดขึ้น. "
+  },
+  "moveRepositoryDirExists": {
+    "title": "มีโฟลเดอร์อยู่แล้ว",
+    "message": "ที่อยู่ { location } มีอยู่แล้ว. โปรดลองใช้ที่อยู่อื่น."
+  },
+  "busyPortsDialog": {
+    "title": "พอร์ทกำลังถูกใช้งานอยู่",
+    "message": "พอร์ท { port1 } และ { port2 } ไม่สามารถใช้งานได้. คุณต้องการเปลี่ยนไปใช้พอร์ท { alt1 } และ { alt2 } แทนหรือไม่? ",
+    "action": "ใช้พอร์ท { alt1 } และ { alt2 } แทนที่"
+  },
+  "busyPortDialog": {
+    "title": "พอร์ทกำลังถูกใช้งานอยู่",
+    "message": "พอร์ท { port } ไม่สามารถใช้งานได้. คุณต้องการเปลี่ยนไปใช้พอร์ท { alt } แทนหรือไม่?",
+    "action": "ใช้พอร์ท { alt } แทนที่"
+  },
+  "multipleBusyPortsDialog": {
+    "title": "พอร์ทกำลังถูกใช้งานอยู่",
+    "message": "ไม่สามารถเพิ่มที่อยู่ API หรือ Gateway ได้ เนื่องจากพอร์ทไม่ว่าง.",
+    "action": "เปิดไฟล์การตั้งค่า"
+  },
+  "itemsAddedNotification": {
+    "title": "เพิ่มไอเทมแล้ว",
+    "message": "{ count } ไอเทมถูกเพิ่มไปยังโหนดของคุณแล้ว. ลิ้งค์ถูกก๊อปปี้ไปยังคลิปบอร์ดของคุณแล้ว. คลิ๊ก ที่นี่ เพื่อดูไฟล์ของคุณ."
+  },
+  "itemAddedNotification": {
+    "title": "เพิ่มไอเทมแล้ว",
+    "message": "ไอเทมถูกเพิ่มไปยังโหนดของคุณแล้ว. ลิ้งค์ถูกก๊อปปี้ไปยังคลิปบอร์ดของคุณแล้ว. คลิ๊ก ที่นี่ เพื่อดูไฟล์ของคุณ."
+  },
+  "itemsFailedNotification": {
+    "title": "มีปัญหาระหว่างเพิ่มไอเทม",
+    "message": "ไม่สามารถเพิ่มไอเทมไปยังโหนดของคุณ."
+  },
+  "updateAvailableDialog": {
+    "title": "มีอัพเดทพร้อมติดตั้ง",
+    "message": "มีเวอร์ชั่นใหม่ ({ version }) ของ IPFS Desktop พร้อมติดตั้ง. การดาวน์โหลดอัพเดท จะเริ่มขึ้นในพื้นหลังในอีกไม่ช้า."
+  },
+  "updateNotAvailableDialog": {
+    "title": "ไม่มีอัพเดทที่ใหม่กว่า",
+    "message": "คุณกำลังใช้งาน IPFS Desktop เวอร์ชั่นล่าสุด ({ version })."
+  },
+  "updateErrorDialog": {
+    "title": "ไม่สามารถดาวน์โหลดอัพเดท",
+    "message": "ไม่สามารถดาวน์โหลดอัพเดทได้. โปรดตรวจสอบการเชื่อมต่อของคุณและลองใหม่อีกครั้ง."
+  },
+  "updateDownloadedDialog": {
+    "title": "ดาวน์โหลดอัพเดทแล้ว",
+    "message": "ดาวน์โหลดอัพเดทเวอร์ชั่น { version } แล้ว. โปรดรีสตาร์ท IPFS Desktop เพื่อทำการติดตั้ง.",
+    "action": "รีสตาร์ท"
+  },
+  "updateDownloadedNotification": {
+    "title": "ดาวน์โหลดอัพเดทแล้ว",
+    "message": "ดาวน์โหลดอัพเดทเวอร์ชั่น { version } แล้ว. คลิ๊กที่การแจ้งเตือนนี้เพื่อทำการติดตั้ง."
+  },
+  "runGarbageCollectorWarning": {
+    "title": "ตัวลบขยะ",
+    "message": "การเปิดใช้ตัวลบขยะ (GC) จะลบทุกอย่างที่ไม่ได้ถูกปักหมุดไว้ หรือไม่ได้อยู่ใน MFS ของคุณ. กระบวนการนี้อาจจะใช้เวลาสักครู่. คุณต้องการดำเนินต่อไหม?",
+    "action": "ทำงาน"
+  },
+  "runGarbageCollectorDone": {
+    "title": "ตัวลบขยะ",
+    "message": "ตัวลบขยะ ทำงานเสร็จสิ้้น."
+  },
+  "moveRepositoryFailed": {
+    "title": "ย้ายโฟลเดอร์",
+    "message": "ไม่สามารถย้ายโฟลเดอร์จาก \"{ currDir }\" ไปที่ \"{ newDir }\"."
+  },
+  "cantAddIpfsToPath": {
+    "title": "IPFS ใน PATH",
+    "message": "ไม่สามารถเพิ่ม IPFS ไปยัง PATH ของคุณ."
+  },
+  "runGarbageCollectorErrored": {
+    "title": "ตัวลบขยะ",
+    "message": "ตัวลบขยะ ไม่สามารถดำเนินการได้."
+  },
+  "downloadCidContentDialog": {
+    "title": "ดาวน์โหลดไปยังที่จัดเก็บของคุณ",
+    "message": "โปรดใส่ CID, IPFS path, หรือ IPNS path:",
+    "action": "ถัดไป"
+  },
+  "cantResolveCidDialog": {
+    "title": "มีปัญหา",
+    "message": "ไม่สามารถดำเนินการกับ \"{ path }\"."
+  },
+  "couldNotGetCidDialog": {
+    "title": "มีปัญหา",
+    "message": "ไม่สามารถดึงข้อมูลจาก \"{ path }\"."
+  },
+  "contentsSavedDialog": {
+    "title": "สำเร็จ",
+    "message": "คอนเทนต์ของ \"{ path }\" ถูกดาวน์โหลดเสร็จสิ้น.",
+    "action": "ดูไฟล์"
+  },
+  "couldNotSaveDialog": {
+    "title": "ไม่สามารถเขียนไปยังดิสก์ได้",
+    "message": "มีปัญหาเกิดขึ้นระหว่างการเขียนไปยังดิสก์. โปรดลองอีกครั้ง."
+  },
+  "launchAtLoginNotSupported": {
+    "title": "มีปัญหา",
+    "message": "ฟังก์ชั่นนี้ไม่สามารถใช้งานได้ในแพลตฟอร์มนี้."
+  },
+  "launchAtLoginFailed": {
+    "title": "มีปัญหา",
+    "message": "ฟังก์ชั่นนี้ไม่สามารถใช้งานได้ในเครื่องนี้."
+  },
+  "enableIpfsOnPath": {
+    "title": "เปิดใช้งาน IPFS บน PATH",
+    "message": "การเปิดใช้งานตัวเลือกนี้, IPFS จะสามารถใช้งานบน command line ได้ โดยใช้คำสั่ง \"ipfs\". ในการเปิดใช้งานแล้ว จะไม่สามารถย้อนกลับได้.",
+    "action": "ใช้งาน"
+  },
+  "disableIpfsOnPath": {
+    "title": "ปิดใช้งาน IPFS บน PATH",
+    "message": "การปิดใช้งานตัวเลือกนี้, IPFS จะไม่สามารถใช้งานบน command line ได้ โดยใช้คำสั่ง \"ipfs\".",
+    "action": "ปิดใช้งาน"
+  },
+  "enableGlobalTakeScreenshotShortcut": {
+    "title": "เปิดใช้งานคีย์ลัดในการถ่ายภาพหน้าจอ",
+    "message": "ในการเปิดคีย์ลัดนี้, \"{ accelerator }\" จะสามารถใช้ในการถ่ายรูปหน้าจอของคุณได้ ตราบใดที่ IPFS Desktop ยังทำงานอยู่."
+  },
+  "enableGlobalDownloadShortcut": {
+    "title": "เปิดใช้งานคีย์ลัดในการดาวน์โหลด",
+    "message": "ในการเปิดใช้งานคีย์ลัดนี้, \"{ accelerator }\" จะสามารถดาวน์โหลดไฟล์ได้ หาก IPFS Desktop ยังทำงานอยู่."
+  },
+  "installNpmOnIpfsWarning": {
+    "title": "ติดตั้ง npm บน IPFS",
+    "message": "ฟีเจอร์ทดลองนี้ จะต้องติดตั้งแพ็คเกจ \"ipfs-npm\" บนเครื่องของคุณ. คุณจะต้องติดตั้ง Node.js ก่อน ในการที่จะใช้ใช้ฟีเจอร์นี้.",
+    "action": "ติดตั้ง"
+  },
+  "unableToInstallNpmOnIpfs": {
+    "title": "มีปัญหา",
+    "message": "ไม่สามารถติดตั้ง \"ipfs-npm\" บนเครื่องของคุณได้. โปรดตรวจสอบบันทึก หรือติดตั้งด้วยตัวเอง โดยใช้คำสั่ง \"npm install -g ipfs-npm\" บน command line."
+  },
+  "unableToUninstallNpmOnIpfs": {
+    "title": "มีปัญหา",
+    "message": "ไม่สามารถถอนการติดตั้ง \"ipfs-npm\" บนเครื่องของคุณได้. โปรดตรวจสอบบันทึก หรือใช้คำสั่ง \"npm uninstall -g ipfs-npm\" ด้วยตัวเอง บน command line."
+  },
+  "settings": {
+    "settings": "การตั้งค่า",
+    "preferences": "ตั้งค่าสไตล์",
+    "openNodeSettings": "เปิดการตั้งค่าโหนด",
+    "appPreferences": "การตั้งค่าสไตล์ของแอปพลิเคชั่น",
+    "launchOnStartup": "เปิดระหว่างการเข้าสู่ระบบ",
+    "openWebUIAtLaunch": "เปิดหน้าเว็บ ขณะกำลังเริ่มทำงาน",
+    "pubsub": "เปิดใช้งาน PubSub",
+    "namesysPubsub": "เปิดใช้งาน IPNS บน PubSub",
+    "automaticGC": "การล้างขยะอัตโนมัติ",
+    "ipfsCommandLineTools": "เครื่องมือ Command Line",
+    "takeScreenshotShortcut": "คีย์ลัดในการถ่ายภาพหน้าจอ",
+    "downloadHashShortcut": "คีย์ลัดในการดาวน์โหลด",
+    "experiments": "ฟังก์ชั่นทดลอง",
+    "npmOnIpfs": "เปิดใช้งาน npm บน IPFS"
+  },
+  "setCustomIpfsBinaryConfirmation": {
+    "title": "กำหนดค่าไบนารี่ IPFS",
+    "message": "ในการตั้งค่า IPFS แบบกำหนดเอง, IPFS Desktop จะไม่ได้ใช้เวอร์ชั่นส่วนรวม แต่จะเปลี่ยนไปใช้ IPFS Desktop แบบไบนารี่ที่กำหนดเอง. คุณต้องการดำเนินการต่อหรือไม่?"
+  },
+  "setCustomIpfsBinarySuccess": {
+    "title": "กำหนดค่าไบนารี่ IPFS",
+    "message": "IPFS Desktop จะเริ่มใช้เวอร์ชั่นไบนารี่ใน { path }. ในการเริ่มต้นการใช้งาน, จะต้องรีสตาร์ท IPFS ก่อน."
+  },
+  "clearCustomIpfsBinarySuccess": {
+    "title": "ล้างไบนารี่ IPFS ที่กำหนดเอง",
+    "message": "ไบนารี่ IPFS ที่กำหนดเองถูกล้างเรียบร้อย. ในการใช้งาน IPFS เวอร์ชั่นส่วนรวม, จะต้องรีสตาร์ท IPFS ก่อน."
+  }
+}

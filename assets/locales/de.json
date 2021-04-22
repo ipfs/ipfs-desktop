@@ -5,7 +5,7 @@
   "ipfsIsNotRunning": "IPFS läuft nicht",
   "ipfsHasErrored": "IPFS hat einen Fehler festgestellt",
   "runningWithGC": "Läuft (Automatische Speicherbereinigung im Gange)",
-  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "runningWhileCheckingForUpdate": "Läuft (Prüfe auf Updates)",
   "start": "Starten",
   "stop": "Stoppen",
   "restart": "Neu starten",
@@ -29,7 +29,7 @@
   "clickToOpenLogs": "Klicke hier um die Protokolle zu öffnen.",
   "ipfsNotRunning": "IPFS läuft nicht",
   "checkForUpdates": "Auf Updates prüfen…",
-  "checkingForUpdates": "Checking for Updates",
+  "checkingForUpdates": "Prüfe nach Updates",
   "yes": "Ja",
   "no": "Nein",
   "close": "Schließen",
@@ -74,7 +74,7 @@
   "moveRepositoryWarnDialog": {
     "title": "Speicherort verschieben",
     "message": "Wenn der Speicher zu viel Platz auf der Festplatte einnimmt, kannst du ihn an einen anderen Ort verschieben. Beachte aber, dass dieser Ort immer verfügbar sein muss, damit IPFS Desktop korrekt funktioniert.",
-    "action": "Move and restart node"
+    "action": "Node verschieben und neu starten"
   },
   "moveRepositorySuccessDialog": {
     "title": "Speicher erfolgreich verschoben",
@@ -100,20 +100,20 @@
   },
   "multipleBusyPortsDialog": {
     "title": "Die Ports sind nicht verfügbar",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
+    "message": "Kann nicht an eine oder mehrere der API- oder Gateway-Adressen binden, da die Ports beschäftigt sind.",
     "action": "Konfigurationsdatei öffnen"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "title": "Elemente hinzugefügt",
+    "message": "{ count } Element(e) zu deinem Node hinzugefügt. Ein teilbarer Link wurde in deine Zwischenablage kopiert. Klicke hier um deine Datei zu sehen."
   },
   "itemAddedNotification": {
     "title": "Element hinzugefügt",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "message": "Element zu deinem Node hinzugefügt. Ein teilbarer Link wurde in deine Zwischenablage kopiert. Klicke hier um deine Datei zu sehen."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "title": "Hinzufügen von Elementen fehlgeschlagen",
+    "message": "Konnte deine Elemente nicht zu deinem Node hinzufügen."
   },
   "updateAvailableDialog": {
     "title": "Update verfügbar",
@@ -125,7 +125,7 @@
   },
   "updateErrorDialog": {
     "title": "Update konnte nicht geladen werden",
-    "message": "It was not possible to download the update. Please check your Internet connection and try again."
+    "message": "Es war nicht möglich das Update herunterzuladen. Bitte prüfe deine Internetverbindung und versuche es dann erneut."
   },
   "updateDownloadedDialog": {
     "title": "Update heruntergeladen",
@@ -138,72 +138,72 @@
   },
   "runGarbageCollectorWarning": {
     "title": "Automatische Speicherbereinigung",
-    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
-    "action": "Run"
+    "message": "Die Garbage Collection (GC) auszuführen, wird alle nicht im MFS angepinnten Objekte aus deinem Speicher entfernen. Dies kann eine Weile dauern. Möchtest du fortfahren?",
+    "action": "Starten"
   },
   "runGarbageCollectorDone": {
     "title": "Automatische Speicherbereinigung",
-    "message": "The garbage collector ran successfully."
+    "message": "Der Garbage Collector ist erfolgreich gelaufen."
   },
   "moveRepositoryFailed": {
     "title": "Speicherort verschieben",
-    "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
+    "message": "Konnte den Speicher nicht von \"{ currDir }\" nach \"{ newDir }\" verschieben."
   },
   "cantAddIpfsToPath": {
-    "title": "IPFS on PATH",
-    "message": "Could not add IPFS to the PATH."
+    "title": "IPFS im Pfad",
+    "message": "Konnte IPFS nicht zum Pfad hinzufügen."
   },
   "runGarbageCollectorErrored": {
     "title": "Automatische Speicherbereinigung",
-    "message": "The garbage collector run could not be completed successfully."
+    "message": "Die Garbage Collection konnte nicht erfolgreich ausgeführt werden."
   },
   "downloadCidContentDialog": {
     "title": "In ein lokales Verzeichnis herunterladen",
-    "message": "Enter a CID, IPFS path, or IPNS path:",
+    "message": "Gib eine CID, einen IPFS-Pfad oder einen IPNS-Pfad an:",
     "action": "Weiter"
   },
   "cantResolveCidDialog": {
     "title": "Fehler",
-    "message": "Unable to resolve \"{ path }\"."
+    "message": "Kann \"{ path }\" nicht auflösen."
   },
   "couldNotGetCidDialog": {
     "title": "Fehler",
-    "message": "Unable to fetch \"{ path }\"."
+    "message": "Kann \"{ path }\" nicht laden."
   },
   "contentsSavedDialog": {
     "title": "Erfolg",
-    "message": "The contents of \"{ path }\" were successfully downloaded.",
-    "action": "See Files"
+    "message": "Die Inhalte von \"{ path }\" wurden erfolgreich heruntergeladen.",
+    "action": "Dateien ansehen"
   },
   "couldNotSaveDialog": {
-    "title": "Could not write to disk",
+    "title": "Konnte nicht auf die Festplatte schreiben",
     "message": "Beim Schreiben auf die Festplatte ist ein Fehler aufgetreten. Bitte versuche es erneut."
   },
   "launchAtLoginNotSupported": {
     "title": "Fehler",
-    "message": "Launch at login is not supported on your platform."
+    "message": "Bei Anmeldung ausführen wird auf deiner Plattform nicht unterstützt."
   },
   "launchAtLoginFailed": {
     "title": "Fehler",
-    "message": "Launch at login could not be enabled on your machine."
+    "message": "Bei Anmeldung ausführen konnte nicht auf deinem Gerät aktiviert werden."
   },
   "enableIpfsOnPath": {
-    "title": "Enable IPFS on PATH",
-    "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
+    "title": "IPFS im Pfad aktivieren",
+    "message": "Wenn du diese Option wählst, wird IPFS in deiner Kommandozeile als \"ipfs\" verfügbar sein. Diese Aktion ist umkehrbar.",
     "action": "Aktivieren"
   },
   "disableIpfsOnPath": {
-    "title": "Disable IPFS on PATH",
-    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
+    "title": "IPFS im Pfad deaktivieren",
+    "message": "Wenn du diese Option wählst, wird IPFS nicht mehr in deiner Kommandozeile als \"ipfs\" verfügbar sein.",
     "action": "Deaktivieren"
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "Enable screenshot shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+    "title": "Screenshot-Tastaturkürzel aktivieren",
+    "message": "Wenn du dies aktivierst, wird das Tastaturkürzel \"{ accelerator }\" verfügbar sein um Screenshots aufzunehmen, solange IPFS Desktop ausgeführt wird."
   },
   "enableGlobalDownloadShortcut": {
-    "title": "Enable download shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
+    "title": "Download-Tastaturkürzel aktivieren",
+    "message": "Wenn du dies aktivierst, wird das Tastaturkürzel \"{ accelerator }\" verfügbar sein um Dateien herunterzuladen, solange IPFS Desktop ausgeführt wird."
   },
   "installNpmOnIpfsWarning": {
     "title": "npm auf IPFS installieren",
@@ -225,25 +225,25 @@
     "appPreferences": "App-Einstellungen",
     "launchOnStartup": "Beim Login starten",
     "openWebUIAtLaunch": "Beim Login die Web-UI öffnen",
-    "pubsub": "Enable PubSub",
-    "namesysPubsub": "Enable IPNS over PubSub",
-    "automaticGC": "Automatic Garbage Collection",
+    "pubsub": "PubSub aktivieren",
+    "namesysPubsub": "IPNS über PubSub aktivieren",
+    "automaticGC": "Automatische Garbage Collection",
     "ipfsCommandLineTools": "Kommandozeilen Werkzeuge",
-    "takeScreenshotShortcut": "Global Screenshot Shortcut",
-    "downloadHashShortcut": "Global Download Shortcut",
+    "takeScreenshotShortcut": "Globales Screenshot-Tastaturkürzel",
+    "downloadHashShortcut": "Globales Download-Tastaturkürzel",
     "experiments": "Experimente",
-    "npmOnIpfs": "Enable npm on IPFS"
+    "npmOnIpfs": "npm in IPFS aktivieren"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Benutzerdefinierte IPFS-Binärdatei",
-    "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
+    "message": "Wenn du ein eigenes IPFS einstellst, wird IPFS Desktop nicht länger die gebündelte IPFS version nutzen, sondern die Binärversion nutzen, die du angibst. Möchtest du fortfahren?"
   },
   "setCustomIpfsBinarySuccess": {
     "title": "Benutzerdefinierte IPFS-Binärdatei",
-    "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
+    "message": "IPFS Desktop wird die Binärdatei unter { path } nutzen. Dafür muss IPFS jedoch zuerst neu gestartet werden."
   },
   "clearCustomIpfsBinarySuccess": {
     "title": "Benutzerdefinierte IPFS-Binärdatei löschen",
-    "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+    "message": "Die Angabe der eigenen IPFS Binärdatei wurde entfernt. Um die gebündelte IPFS-Version zu nutzen, muss IPFS zuerst neu gestartet werden."
   }
 }

@@ -12,6 +12,9 @@ module.exports = async function () {
     .init({
       lng: store.get('language'),
       fallbackLng: {
+        'zh-Hans': ['zh-CN', 'en'],
+        'zh-Hant': ['zh-TW', 'en'],
+        zh: ['zh-CN', 'en'],
         default: ['en']
       },
       backend: {
