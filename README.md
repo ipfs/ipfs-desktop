@@ -98,7 +98,7 @@ Don't see your favorite package manager? Visit our [package managers page](https
 - **Installer:** [IPFS-Desktop-Setup-0.14.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.14.0/IPFS-Desktop-Setup-0.14.0.exe)\
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.14.0/IPFS-Desktop-Setup-0.14.0.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.14.0/IPFS-Desktop-Setup-0.14.0.exe)
 - **Chocolatey** (community-maintained): `choco install ipfs-desktop`
-- **Scoop** (community-maintained): `scoop install ipfs-desktop`
+- **Scoop** (community-maintained): `scoop bucket add extras; scoop install extras/ipfs-desktop`
 
 ### Linux/FreeBSD
 - **Tarball** (experimental): [ipfs-desktop-0.14.0-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.14.0/ipfs-desktop-0.14.0-linux-x64.tar.xz)\
