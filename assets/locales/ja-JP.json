@@ -1,11 +1,11 @@
 {
-  "ipfsIsRunning": "IPFS is Running",
-  "ipfsIsStopping": "IPFS is Stopping",
-  "ipfsIsStarting": "IPFS is Starting",
-  "ipfsIsNotRunning": "IPFS is Not Running",
-  "ipfsHasErrored": "IPFS has Errored",
+  "ipfsIsRunning": "IPFS 動作中",
+  "ipfsIsStopping": "IPFS 停止中",
+  "ipfsIsStarting": "IPFS 開始中",
+  "ipfsIsNotRunning": "IPFS 非稼働中",
+  "ipfsHasErrored": "IPFS エラー発生",
   "runningWithGC": "Running (GC in progress)",
-  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "runningWhileCheckingForUpdate": "動作中 (アップデートを確認中)",
   "start": "開始",
   "stop": "停止",
   "restart": "再開",
@@ -14,13 +14,13 @@
   "openRepoDir": "リポジトリディレクトリを開く",
   "openLogsDir": "ログディレクトリを開く",
   "openConfigFile": "設定ファイルを開く",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
-  "readReleaseNotes": "Read Release Notes",
+  "viewOnGitHub": "GitHub で表示...",
+  "helpUsTranslate": "翻訳を手伝う...",
+  "readReleaseNotes": "リリースノートを見る",
   "status": "状態",
   "files": "ファイル",
   "peers": "仲間",
-  "quit": "終了する",
+  "quit": "終了",
   "versions": "バージョン",
   "screenshotTaken": "撮影したスクリーンショット",
   "shareableLinkCopied": "クリップボードにコピーされた共有可能なリンク。スクリーンショットを表示するにはここをクリックしてください。",
@@ -28,25 +28,25 @@
   "errorwhileTakingScreenshot": "スクリーンショットの取得中にエラーが発生しました。",
   "clickToOpenLogs": "ここをクリックしてログを開きます。",
   "ipfsNotRunning": "IPFSが実行されていません",
-  "checkForUpdates": "Check for Updates…",
-  "checkingForUpdates": "Checking for Updates",
+  "checkForUpdates": "アップデートを確認...",
+  "checkingForUpdates": "アップデートを確認中",
   "yes": "はい",
   "no": "いいえ",
   "close": "閉じる",
   "ok": "了解",
   "cancel": "キャンセル",
-  "enable": "Enable",
+  "enable": "有効",
   "reportTheError": "エラーを報告する",
   "restartIpfsDesktop": "IPFSデスクトップを再起動する",
   "openLogs": "ログを開く",
   "takeScreenshot": "スクリーンショットを撮ります",
-  "downloadCid": "Download…",
+  "downloadCid": "ダウンロード...",
   "moveRepositoryLocation": "リポジトリの場所を移動",
   "runGarbageCollector": "Run Garbage Collector",
-  "selectDirectory": "Select Directory",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
+  "selectDirectory": "ディレクトリを選択",
+  "customIpfsBinary": "カスタム IPFS バイナリ",
+  "setCustomIpfsBinary": "カスタム IPFS バイナリをセット",
+  "clearCustomIpfsBinary": "カスタム IPFS バイナリをクリア",
   "polkitDialog": {
     "title": "Polkitが見つかりません",
     "message": "IPFSは、polkitエージェントなしでは/usr/local/bin/に追加できません。"
@@ -117,11 +117,11 @@
   },
   "updateAvailableDialog": {
     "title": "更新可能",
-    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
+    "message": "新しいバージョン ({ version }) の IPFS Desktop が利用可能です。バックグラウンドでダウンロードが開始します。"
   },
   "updateNotAvailableDialog": {
     "title": "更新は利用できません",
-    "message": "You are on the latest version of IPFS Desktop ({ version })."
+    "message": "最新の IPFS Desktop ({ version }) を使用しています。"
   },
   "updateErrorDialog": {
     "title": "Could not download update",
@@ -163,42 +163,42 @@
     "action": "次へ"
   },
   "cantResolveCidDialog": {
-    "title": "Error",
+    "title": "エラー",
     "message": "Unable to resolve \"{ path }\"."
   },
   "couldNotGetCidDialog": {
-    "title": "Error",
+    "title": "エラー",
     "message": "Unable to fetch \"{ path }\"."
   },
   "contentsSavedDialog": {
     "title": "Success",
     "message": "The contents of \"{ path }\" were successfully downloaded.",
-    "action": "See Files"
+    "action": "ファイルを見る"
   },
   "couldNotSaveDialog": {
-    "title": "Could not write to disk",
+    "title": "ディスクに書き込めませんでした",
     "message": "There was an error writing to the disk. Please try again."
   },
   "launchAtLoginNotSupported": {
-    "title": "Error",
+    "title": "エラー",
     "message": "Launch at login is not supported on your platform."
   },
   "launchAtLoginFailed": {
-    "title": "Error",
+    "title": "エラー",
     "message": "Launch at login could not be enabled on your machine."
   },
   "enableIpfsOnPath": {
     "title": "Enable IPFS on PATH",
     "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
+    "action": "有効"
   },
   "disableIpfsOnPath": {
     "title": "Disable IPFS on PATH",
     "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
-    "action": "Disable"
+    "action": "無効"
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "Enable screenshot shortcut",
+    "title": "スクリーンショットショートカットを有効にする",
     "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
   },
   "enableGlobalDownloadShortcut": {
@@ -208,14 +208,14 @@
   "installNpmOnIpfsWarning": {
     "title": "Install npm on IPFS",
     "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
-    "action": "Install"
+    "action": "インストール"
   },
   "unableToInstallNpmOnIpfs": {
-    "title": "Error",
+    "title": "エラー",
     "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
   },
   "unableToUninstallNpmOnIpfs": {
-    "title": "Error",
+    "title": "エラー",
     "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
   },
   "settings": {
@@ -223,23 +223,23 @@
     "preferences": "Preferences",
     "openNodeSettings": "Open Node Settings",
     "appPreferences": "App Preferences",
-    "launchOnStartup": "Launch at Login",
+    "launchOnStartup": "ログイン時に起動",
     "openWebUIAtLaunch": "Open Web UI at Launch",
     "pubsub": "Enable PubSub",
     "namesysPubsub": "Enable IPNS over PubSub",
     "automaticGC": "Automatic Garbage Collection",
-    "ipfsCommandLineTools": "Command Line Tools",
+    "ipfsCommandLineTools": "コマンドラインツール",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "downloadHashShortcut": "Global Download Shortcut",
     "experiments": "実験",
     "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
-    "title": "Custom IPFS binary",
+    "title": "カスタム IPFS バイナリ",
     "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
   },
   "setCustomIpfsBinarySuccess": {
-    "title": "Custom IPFS binary",
+    "title": "カスタム IPFS バイナリ",
     "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
   },
   "clearCustomIpfsBinarySuccess": {

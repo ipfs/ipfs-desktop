@@ -75,9 +75,9 @@ Use the `Explore` screen to explore some example datasets — or your own files 
 
 ### Enjoy OS-wide support for IPFS files and links
 
-IPFS Desktop enables most operating systems (Mac, Windows and some Linux flavors) to support protocols including `ipfs://`, `ipns://` and `dweb:`. This means that if an app on your computer tries to open a link starting with one of those protocol identifiers (for example, if your web browser encounters a link to `ipns://en.wikipedia-on-ipfs.org`), it'll automatically open in IPFS Desktop.
+IPFS Desktop enables most operating systems (Mac, Windows and some Linux flavors) to support protocols including `ipfs://` and `ipns://`. This means that if an app on your computer tries to open a link starting with one of those protocol identifiers (for example, if your web browser encounters a link to `ipns://en.wikipedia-on-ipfs.org`), it'll automatically open in IPFS Desktop.
 
-For an even better experience with `ipfs://`, `ipns://` and `dweb:` addresses, we also recommend installing [IPFS Companion](https://github.com/ipfs-shipyard/ipfs-companion) to add support in your favorite browser!
+For an even better experience with `ipfs://`, and `ipns://` addresses, we also recommend installing [IPFS Companion](https://github.com/ipfs-shipyard/ipfs-companion) to add support in your favorite browser!
 
 ### Learn IPFS commands as you go
 

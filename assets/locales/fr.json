@@ -116,11 +116,11 @@
     "message": "Impossible d'ajouter des éléments à votre nœud."
   },
   "updateAvailableDialog": {
-    "title": "Mise à jour disponible",
+    "title": "Une mise à jour est disponible",
     "message": "Une nouvelle version ({ version }) d'IPFS Desktop est disponible. Le téléchargement va commencer en tâche de fond."
   },
   "updateNotAvailableDialog": {
-    "title": "Mise à jour indisponible",
+    "title": "Pas de mise à jour disponible",
     "message": "Vous avez la dernière version d'IPFS Desktop ({ version })."
   },
   "updateErrorDialog": {
@@ -129,7 +129,7 @@
   },
   "updateDownloadedDialog": {
     "title": "Mise à jour téléchargée",
-    "message": "Mise à jour version { version }téléchargée. Pour l'installer, redémarrez IPFS Desktop.",
+    "message": "Mise à jour version { version } téléchargée. Pour l'installer, redémarrez IPFS Desktop.",
     "action": "Redémarrer"
   },
   "updateDownloadedNotification": {

@@ -1,52 +1,52 @@
 {
-  "ipfsIsRunning": "IPFS is Running",
-  "ipfsIsStopping": "IPFS is Stopping",
-  "ipfsIsStarting": "IPFS is Starting",
-  "ipfsIsNotRunning": "IPFS is Not Running",
-  "ipfsHasErrored": "IPFS has Errored",
-  "runningWithGC": "Running (GC in progress)",
-  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
-  "start": "開始",
+  "ipfsIsRunning": "IPFS 正在執行",
+  "ipfsIsStopping": "IPFS 正在停止",
+  "ipfsIsStarting": "IPFS 正在啟動",
+  "ipfsIsNotRunning": "IPFS 沒有執行",
+  "ipfsHasErrored": "IPFS 發生錯誤",
+  "runningWithGC": "正在執行（記憶體回收行程進行中）",
+  "runningWhileCheckingForUpdate": "正在執行（正在檢查更新）",
+  "start": "啟動",
   "stop": "停止",
   "restart": "重新啟動",
   "about": "關於",
   "advanced": "進階",
-  "openRepoDir": "打開倉庫目錄",
-  "openLogsDir": "打開日誌目錄",
-  "openConfigFile": "打開配置文件",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
-  "readReleaseNotes": "Read Release Notes",
+  "openRepoDir": "開啟存放庫目錄",
+  "openLogsDir": "開啟記錄檔目錄",
+  "openConfigFile": "開啟設定檔",
+  "viewOnGitHub": "在 GitHub 檢視…",
+  "helpUsTranslate": "快來幫我們翻譯這個軟體",
+  "readReleaseNotes": "閱讀版本資訊",
   "status": "狀態",
   "files": "檔案",
-  "peers": "節點",
-  "quit": "退出",
+  "peers": "同儕節點",
+  "quit": "結束",
   "versions": "版本",
-  "screenshotTaken": "截圖",
-  "shareableLinkCopied": "可共享鏈接已複製到剪貼簿。 點擊此處查看截圖。",
-  "couldNotTakeScreenshot": "無法截圖",
-  "errorwhileTakingScreenshot": "進行螢幕截圖時出錯。",
-  "clickToOpenLogs": "點擊這裡打開日誌.",
-  "ipfsNotRunning": "IPFS 沒有運行",
-  "checkForUpdates": "Check for Updates…",
-  "checkingForUpdates": "Checking for Updates",
+  "screenshotTaken": "擷取的螢幕畫面",
+  "shareableLinkCopied": "可共用連結已複製至剪貼簿。 按這裡檢視擷取的螢幕畫面。",
+  "couldNotTakeScreenshot": "無法擷取螢幕畫面",
+  "errorwhileTakingScreenshot": "在擷取螢幕畫面時發生錯誤。",
+  "clickToOpenLogs": "按這裡開啟記錄檔。",
+  "ipfsNotRunning": "IPFS 沒有執行",
+  "checkForUpdates": "檢查更新…",
+  "checkingForUpdates": "正在檢查更新",
   "yes": "是",
   "no": "否",
   "close": "關閉",
   "ok": "好的",
   "cancel": "取消",
-  "enable": "Enable",
+  "enable": "啟用",
   "reportTheError": "報告錯誤",
-  "restartIpfsDesktop": "重啟 IPFS Desktop",
-  "openLogs": "打開日誌",
-  "takeScreenshot": "截取螢幕截圖",
-  "downloadCid": "Download…",
-  "moveRepositoryLocation": "移動倉庫目錄",
-  "runGarbageCollector": "Run Garbage Collector",
-  "selectDirectory": "Select Directory",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
+  "restartIpfsDesktop": "重新啟動 IPFS 桌面版",
+  "openLogs": "開啟記錄檔",
+  "takeScreenshot": "擷取螢幕畫面",
+  "downloadCid": "正在下載…",
+  "moveRepositoryLocation": "移動存放庫位置",
+  "runGarbageCollector": "執行記憶體回收行程",
+  "selectDirectory": "選取目錄",
+  "customIpfsBinary": "自訂 IPFS 二進位檔",
+  "setCustomIpfsBinary": "設定自訂 IPFS 二進位檔",
+  "clearCustomIpfsBinary": "清除自訂 IPFS 二進位檔",
   "polkitDialog": {
     "title": "Polkit not found",
     "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
@@ -56,97 +56,97 @@
     "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS 未運行",
+    "title": "IPFS 沒有執行",
     "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
+    "title": "已發生錯誤",
     "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
+    "title": "無法連線至 API",
     "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
+    "title": "IPFS 桌面版已關閉",
     "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
+    "title": "移動存放庫",
     "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "action": "移動並重新啟動節點"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
+    "title": "存放庫移動成功",
     "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
+    "title": "你選取了相同的目錄",
     "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
+    "title": "目錄已存在",
     "message": "The directory { location } already exists. Please try using a different one."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
+    "title": "連接埠忙碌中",
     "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
     "action": "Use ports { alt1 } and { alt2 } instead"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
+    "title": "連接埠忙碌中",
     "message": "The port { port } is not available. Do you want to use { alt } instead?",
     "action": "Use port { alt } instead"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
+    "title": "連接埠忙碌中",
     "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "action": "開啟設定檔"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
+    "title": "項目已新增",
     "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
   },
   "itemAddedNotification": {
-    "title": "Item added",
+    "title": "項目已新增",
     "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "不能將你的項目加入你的節點"
+    "title": "新增項目失敗",
+    "message": "無法將你的項目新增至你的節點"
   },
   "updateAvailableDialog": {
-    "title": "有更新可用",
+    "title": "有可用的更新",
     "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
   },
   "updateNotAvailableDialog": {
-    "title": "暫時沒有更新",
+    "title": "沒有可供使用的更新",
     "message": "You are on the latest version of IPFS Desktop ({ version })."
   },
   "updateErrorDialog": {
-    "title": "Could not download update",
+    "title": " 無法下載更新",
     "message": "It was not possible to download the update. Please check your Internet connection and try again."
   },
   "updateDownloadedDialog": {
-    "title": "Update downloaded",
+    "title": "已經下載的更新",
     "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
     "action": "重新啟動"
   },
   "updateDownloadedNotification": {
-    "title": "Update downloaded",
+    "title": "已經下載的更新",
     "message": "Update for version { version } of IPFS Desktop downloaded. Click this notification to install."
   },
   "runGarbageCollectorWarning": {
-    "title": "Garbage collector",
+    "title": "記憶體回收行程",
     "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
-    "action": "Run"
+    "action": "執行"
   },
   "runGarbageCollectorDone": {
-    "title": "Garbage collector",
-    "message": "The garbage collector ran successfully."
+    "title": "記憶體回收行程",
+    "message": "已成功執行記憶體回收行程。"
   },
   "moveRepositoryFailed": {
-    "title": "Move repository",
+    "title": "移動存放庫",
     "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
   },
   "cantAddIpfsToPath": {
@@ -154,96 +154,96 @@
     "message": "Could not add IPFS to the PATH."
   },
   "runGarbageCollectorErrored": {
-    "title": "Garbage collector",
+    "title": "記憶體回收行程",
     "message": "The garbage collector run could not be completed successfully."
   },
   "downloadCidContentDialog": {
-    "title": "Download to a local directory",
+    "title": "下載至本機目錄",
     "message": "Enter a CID, IPFS path, or IPNS path:",
-    "action": "Next"
+    "action": "下一步"
   },
   "cantResolveCidDialog": {
-    "title": "Error",
-    "message": "Unable to resolve \"{ path }\"."
+    "title": "錯誤",
+    "message": "無法解析 \"{ path }\"。"
   },
   "couldNotGetCidDialog": {
-    "title": "Error",
-    "message": "Unable to fetch \"{ path }\"."
+    "title": "錯誤",
+    "message": "無法擷取 \"{ path }\"。"
   },
   "contentsSavedDialog": {
-    "title": "Success",
-    "message": "The contents of \"{ path }\" were successfully downloaded.",
-    "action": "See Files"
+    "title": "成功",
+    "message": "\"{ path }\" 的內容已成功下載。",
+    "action": "查看檔案"
   },
   "couldNotSaveDialog": {
-    "title": "Could not write to disk",
-    "message": "There was an error writing to the disk. Please try again."
+    "title": "無法寫入磁碟",
+    "message": "寫入磁碟時發生錯誤。請稍後再試。"
   },
   "launchAtLoginNotSupported": {
-    "title": "Error",
-    "message": "Launch at login is not supported on your platform."
+    "title": "錯誤",
+    "message": "你的平台不支援在登入時啟動。"
   },
   "launchAtLoginFailed": {
-    "title": "Error",
+    "title": "錯誤",
     "message": "Launch at login could not be enabled on your machine."
   },
   "enableIpfsOnPath": {
     "title": "Enable IPFS on PATH",
     "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
+    "action": "啟用"
   },
   "disableIpfsOnPath": {
     "title": "Disable IPFS on PATH",
     "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
-    "action": "Disable"
+    "action": "停用"
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "Enable screenshot shortcut",
+    "title": "啟用螢幕擷取畫面快速鍵",
     "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
   },
   "enableGlobalDownloadShortcut": {
-    "title": "Enable download shortcut",
+    "title": "啟用下載快速鍵",
     "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
   },
   "installNpmOnIpfsWarning": {
     "title": "Install npm on IPFS",
     "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
-    "action": "Install"
+    "action": "安裝"
   },
   "unableToInstallNpmOnIpfs": {
-    "title": "Error",
+    "title": "錯誤",
     "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
   },
   "unableToUninstallNpmOnIpfs": {
-    "title": "Error",
+    "title": "錯誤",
     "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
   },
   "settings": {
-    "settings": "設置",
-    "preferences": "Preferences",
-    "openNodeSettings": "Open Node Settings",
-    "appPreferences": "App Preferences",
-    "launchOnStartup": "Launch at Login",
-    "openWebUIAtLaunch": "Open Web UI at Launch",
-    "pubsub": "Enable PubSub",
+    "settings": "設定",
+    "preferences": "喜好設定",
+    "openNodeSettings": "開啟節點設定",
+    "appPreferences": "應用程式喜好設定",
+    "launchOnStartup": "在登入時啟動",
+    "openWebUIAtLaunch": "在啟動時開啟 Web UI",
+    "pubsub": "啟用 PubSub",
     "namesysPubsub": "Enable IPNS over PubSub",
-    "automaticGC": "Automatic Garbage Collection",
-    "ipfsCommandLineTools": "Command Line Tools",
-    "takeScreenshotShortcut": "Global Screenshot Shortcut",
-    "downloadHashShortcut": "Global Download Shortcut",
-    "experiments": "Experiments",
+    "automaticGC": "自動化記憶體回收行程",
+    "ipfsCommandLineTools": "命令列工具",
+    "takeScreenshotShortcut": "全域螢幕擷取畫面快速鍵",
+    "downloadHashShortcut": "全域下載快速鍵",
+    "experiments": "實驗",
     "npmOnIpfs": "Enable npm on IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
-    "title": "Custom IPFS binary",
+    "title": "自訂 IPFS 二進位檔",
     "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
   },
   "setCustomIpfsBinarySuccess": {
-    "title": "Custom IPFS binary",
+    "title": "自訂 IPFS 二進位檔",
     "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
   },
   "clearCustomIpfsBinarySuccess": {
-    "title": "Clear custom IPFS binary",
+    "title": "清除自訂 IPFS 二進位檔",
     "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
   }
 }
