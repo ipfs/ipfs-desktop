@@ -53,7 +53,7 @@ function buildCheckbox (key, label) {
 // they natively work as soon as the menu opens. They don't work like that on Windows
 // or other OSes and must be registered globally. They still collide with global
 // accelerator. Please see ../utils/setup-global-shortcut.js for more info.
-function buildMenu (ctx, peerCount) {
+function buildMenu (ctx, peerCount = 0) {
   return Menu.buildFromTemplate([
     ...[
       ['ipfsIsStarting', 'yellow'],
@@ -72,7 +72,7 @@ function buildMenu (ctx, peerCount) {
     })),
     {
       id: 'peerCount',
-      label: peerCount.toString() + ' ' + i18n.t('peerCount'),
+      label: i18n.t('peerCount', { peerCount }),
       enabled: false
     },
     {
@@ -296,9 +296,7 @@ module.exports = function (ctx) {
     if (state.status === STATUS.STARTING_FINISHED && ctx.getIpfsd) {
       ctx.getIpfsd().then((daemon) => {
         daemon.api.swarm.peers().then((value) => {
-          if (value.length) {
-            ipcMain.emit('peerCountFetched', value.length)
-          }
+          ipcMain.emit('peerCountFetched', Array.isArray(value) ? value.length : 0)
         })
       })
     } else {
@@ -310,7 +308,7 @@ module.exports = function (ctx) {
     menu = buildMenu(ctx, state.peerCount)
 
     tray.setContextMenu(menu)
-    tray.setToolTip(state.peerCount.toString() + ' ' + i18n.t('peerCount'))
+    tray.setToolTip(i18n.t('peerCount', { peerCount: state.peerCount }))
 
     menu.on('menu-will-show', () => { ipcMain.emit('menubar-will-open') })
     menu.on('menu-will-close', () => { ipcMain.emit('menubar-will-close') })
@@ -374,13 +372,13 @@ module.exports = function (ctx) {
       // On Linux, in order for changes made to individual MenuItems to take effect,
       // you have to call setContextMenu again - https://electronjs.org/docs/api/tray
       tray.setContextMenu(menu)
+      tray.setToolTip(i18n.t('peerCount', { peerCount: state.peerCount }))
     }
   }
 
   ipcMain.on('menubar-will-open', () => {
     fetchPeers()
     setupMenu()
-    updateMenu()
   })
 
   ipcMain.on('ipfsd', status => {
@@ -411,9 +409,9 @@ module.exports = function (ctx) {
   ipcMain.on('peerCountFetched', peerCount => {
     // When a new peer count is retrieved, rebuild the menu and update
     // the tray tooltip with the new number if necessary.
-    if (peerCount !== state.peerCount) {
+    if (typeof peerCount === 'number' && peerCount !== state.peerCount) {
       state.peerCount = peerCount
-      tray.setToolTip(state.peerCount.toString() + ' ' + i18n.t('peerCount'))
+      tray.setToolTip(i18n.t('peerCount', { peerCount: state.peerCount }))
     }
   })
 
@@ -422,7 +420,17 @@ module.exports = function (ctx) {
 
   setupMenu()
 
-  tray.on('mouse-move', () => { fetchPeers() })
+  // Trigger peer count refresh using event available on specific platform
+  const platformSupportsMouseMoveEvent = IS_MAC || IS_WIN
+  if (platformSupportsMouseMoveEvent) {
+    tray.on('mouse-move', fetchPeers)
+  } else {
+    /* TODO: what to do on Linux?
+     - 'mouse-move' event is mac and windows only
+     - When app indicator is used on Linux, the 'click' events are ignored.
+     */
+  }
+
   ctx.tray = tray
   logger.info('[tray] started')
 }
