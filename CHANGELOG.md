@@ -3,6 +3,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.15.0] - 2021-05-04
+
+- IPFS: [`go-ipfs v0.8.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.8.0)
+- UI: [`v2.12.2`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.12.2) 
+
+### ✨ Features
+
+- ipfs webui v2.12 with basic support for remote pinning (#1807)
+  👉️ see [RELEASE NOTES for v2.12](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.12.0) for details
+- electron 12.x (#1807)
+
+### 🛠 Fixes and Maintenance
+
+- fix: ipfs-on-path should never fail on boot (#1769)
+- docs(readme): fix scoop install steps (#1808) 
+- docs: promote AppImage for Linux (#1776) 
+- chore: switch actions to v2 (#1708) 
+- chore(i18n): i18next update and locale sync
+
+
 ## [v0.14.0] - 2021-01-02
 
 - IPFS: [`go-ipfs v0.8.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.8.0)
