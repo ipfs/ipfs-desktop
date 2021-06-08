@@ -16,7 +16,7 @@ const setupDownloadCid = require('./download-cid')
 const setupTakeScreenshot = require('./take-screenshot')
 const setupAppMenu = require('./app-menu')
 const setupArgvFilesHandler = require('./argv-files-handler')
-const setupAutoUpdater = require('./auto-updater')
+// const setupAutoUpdater = require('./auto-updater')
 const setupTray = require('./tray')
 const setupIpfsOnPath = require('./ipfs-on-path')
 const setupAnalytics = require('./analytics')
@@ -72,7 +72,7 @@ async function run () {
     await setupWebUI(ctx) // ctx.webui, launchWebUI
     await setupTray(ctx) // ctx.tray
     await setupDaemon(ctx) // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
-    await setupAutoUpdater(ctx) // ctx.manualCheckForUpdates
+    // await setupAutoUpdater(ctx) // ctx.manualCheckForUpdates
 
     await Promise.all([
       setupArgvFilesHandler(ctx),
