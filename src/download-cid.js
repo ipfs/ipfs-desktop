@@ -18,8 +18,11 @@ const SHORTCUT = IS_MAC
   : 'CommandOrControl+Alt+D'
 
 async function saveFile (dir, file) {
-  const location = join(dir, file.path)
-  await fs.outputFile(location, file.content)
+  const destination = join(dir, file.path)
+  if (!destination.startsWith(dir)) {
+    throw new Error(`unable to create '${file.path}' outside of '${dir}'`)
+  }
+  await fs.outputFile(destination, file.content)
 }
 
 async function get (ipfs, cid) {
@@ -129,11 +132,12 @@ async function downloadCid (ctx) {
       shell.showItemInFolder(join(dir, files[0].path))
     }
   } catch (err) {
-    logger.error(`[cid download] ${err.toString()}`)
+    const errMsg = err.toString()
+    logger.error(`[cid download] ${errMsg}`)
 
     showDialog({
       title: i18n.t('couldNotSaveDialog.title'),
-      message: i18n.t('couldNotSaveDialog.message'),
+      message: i18n.t('couldNotSaveDialog.message', { dir, error: errMsg }),
       buttons: [i18n.t('close')]
     })
   }
