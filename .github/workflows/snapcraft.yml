@@ -7,7 +7,6 @@ on:
         required: true
         description: 'Release number to publish (without v prefix)'
         default: '0.0.0'
-  push:
   release:
     types: [published]
 
@@ -15,7 +14,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-      SNAP_RELEASE_NAME: '0.15.1' # ${{ github.event.inputs.manual_name || github.event.release.name }}
+      SNAP_RELEASE_NAME: ${{ github.event.inputs.manual_name || github.event.release.name }}
 
     steps:
       - name: Download .snap artifact
