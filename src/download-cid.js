@@ -1,4 +1,4 @@
-const { join } = require('path')
+const { join, dirname } = require('path')
 const fs = require('fs-extra')
 const i18n = require('i18next')
 const isIPFS = require('is-ipfs')
@@ -19,8 +19,22 @@ const SHORTCUT = IS_MAC
 
 async function saveFile (dir, file) {
   const destination = join(dir, file.path)
+  // ensure files are saved within the dir picked by the user
   if (!destination.startsWith(dir)) {
     throw new Error(`unable to create '${file.path}' outside of '${dir}'`)
+  }
+  // abort if destination already exists (safer default than overwriting user data)
+  if (fs.existsSync(destination)) {
+    throw new Error(`unable to create '${file.path}' as it already exists at '${destination}'`)
+  }
+  // abort if symlinks in the target dir point outside of it
+  const subDir = dirname(destination)
+  if (fs.existsSync(subDir)) {
+    const realRootDir = await fs.realpath(dir)
+    const realSubDir = await fs.realpath(subDir)
+    if (!realSubDir.startsWith(realRootDir)) {
+      throw new Error(`unable to create subdir '${realSubDir}' outside of '${realRootDir}'`)
+    }
   }
   await fs.outputFile(destination, file.content)
 }
