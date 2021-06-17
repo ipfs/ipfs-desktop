@@ -48,7 +48,8 @@ module.exports = async function showPrompt (options) {
       ? pallette.dark.background
       : pallette.default.background,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false
     },
     ...options.window
   })
