@@ -24,9 +24,7 @@ Manually test a few things that don't transfer well to automated testing:
 ### Main release process
 1. Fetch new translations from Transifex: `tx pull -af`.
 2. Commit the changes.
-3. Bump the version in `package.json`.
-4. Commit the changes.
-5. Create a tag with the same version as your bump: `git tag vA.B.C`.
+3. Update the version using `npm version [major|minor|patch]` (it will create a new tag `vA.B.C`, note it down)
 6. Publish local changes and the tag to the GitHub repo: `git push && git push origin vA.B.C`.
 7. Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
 8. Publish a release draft.
