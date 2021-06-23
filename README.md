@@ -99,6 +99,7 @@ Don't see your favorite package manager? Visit our [package managers page](https
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.15.1/IPFS-Desktop-Setup-0.15.1.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.15.1/IPFS-Desktop-Setup-0.15.1.exe)
 - **Chocolatey** (community-maintained): `choco install ipfs-desktop`
 - **Scoop** (community-maintained): `scoop bucket add extras; scoop install extras/ipfs-desktop`
+- **WinGet** (community-maintained): `winget install IPFS.IPFS-Desktop`
 
 ### Linux/FreeBSD
 - **Tarball** (experimental): [ipfs-desktop-0.15.1-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.15.1/ipfs-desktop-0.15.1-linux-x64.tar.xz)\
