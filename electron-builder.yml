@@ -24,8 +24,8 @@ mac:
   entitlements: './pkgs/macos/entitlements.mac.plist'
   entitlementsInherit: './pkgs/macos/entitlements.mac.plist'
   target:
-    - zip
-    - dmg
+    - target: default
+      arch: ['universal']
 
 dmg:
   artifactName: ${name}-${version}-mac.${ext}
