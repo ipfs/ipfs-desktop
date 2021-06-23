@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "无法写入磁盘",
-    "message": "写入磁盘时出错，请重试。"
+    "message": "写入\"{ dir }\": \"{ error }\"时发生错误，请重试或通过查询日志来获取详细信息。"
   },
   "launchAtLoginNotSupported": {
     "title": "错误",

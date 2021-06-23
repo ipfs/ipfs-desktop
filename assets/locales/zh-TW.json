@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "無法寫入磁碟",
-    "message": "寫入磁碟時發生錯誤。請稍後再試。"
+    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
   },
   "launchAtLoginNotSupported": {
     "title": "錯誤",

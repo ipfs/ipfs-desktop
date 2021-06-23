@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "ไม่สามารถเขียนไปยังดิสก์ได้",
-    "message": "มีปัญหาเกิดขึ้นระหว่างการเขียนไปยังดิสก์. โปรดลองอีกครั้ง."
+    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
   },
   "launchAtLoginNotSupported": {
     "title": "มีปัญหา",

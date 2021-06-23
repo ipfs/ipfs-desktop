@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "Impossible d'écrire sur le disque",
-    "message": "Il y a eu une erreur lors de l'écriture sur le disque. Merci de réessayer. "
+    "message": "Une erreur est survenue lors de l'écriture dans \"{ dir }\" : \"{ error }\". Merci de réessayer ou d'inspecter le journal des évènements pour plus de détails."
   },
   "launchAtLoginNotSupported": {
     "title": "Erreur",

@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "Не могу записать на диск",
-    "message": "Ошибка записи на диск. Попробуйте еще раз."
+    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
   },
   "launchAtLoginNotSupported": {
     "title": "Ошибка",

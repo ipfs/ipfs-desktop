@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "Nem tudok írni a lemezre",
-    "message": "A lemezre írás közben hiba lépett fel. Kérlek próbáld meg újra."
+    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
   },
   "launchAtLoginNotSupported": {
     "title": "Hiba",

@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "Non è stato possibile scrivere sul disco",
-    "message": "C'è stato un errore durante la scrittura sul disco. Per favore, riprova."
+    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
   },
   "launchAtLoginNotSupported": {
     "title": "Errore",

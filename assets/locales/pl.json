@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "Nie można zapisać na dysku",
-    "message": "Wystąpił błąd zapisu na dysku. Proszę spróbować ponownie."
+    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
   },
   "launchAtLoginNotSupported": {
     "title": "Błąd",

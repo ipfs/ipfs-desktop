@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "Could not write to disk",
-    "message": "There was an error writing to the disk. Please try again."
+    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
   },
   "launchAtLoginNotSupported": {
     "title": "Fout",

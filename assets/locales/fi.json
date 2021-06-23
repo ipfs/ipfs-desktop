@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "Ei voitu kirjoittaa kovalevylle",
-    "message": "Virhe ilmeni kirjoittaessa kovalevylle. Yritäthän uudelleen."
+    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
   },
   "launchAtLoginNotSupported": {
     "title": "Virhe",
