@@ -1,6 +1,12 @@
 name: chocolatey
 
 on:
+  workflow_dispatch:
+    inputs:
+      manual_name:
+        required: true
+        description: 'Release number to publish (without v prefix)'
+        default: '0.0.0'
   release:
     types: [published]
 
@@ -8,8 +14,7 @@ env:
   XDG_CACHE_HOME: ${{ github.workspace }}/.cache
   ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
   ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
-  release_name: ${{ github.event.release.name }}
-  release_tag: ${{ github.event.release.tag_name }}
+  release_name: ${{ github.event.inputs.manual_name || github.event.release.name }}
 
 jobs:
   publish:
@@ -19,10 +24,10 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v1
 
-      - name: Install Node.js for update script
-        uses: actions/setup-node@v1
+      - name: Install Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 12.x
+          node-version: '14'
 
       - name: Cache bigger downloads
         uses: actions/cache@v2
