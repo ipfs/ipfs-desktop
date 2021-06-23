@@ -107,15 +107,16 @@ module.exports = async function (ctx) {
       logger.info('[web ui] launching web ui')
     } else {
       logger.info(`[web ui] navigate to ${path}`)
-      window.webContents.send('updatedPage', path)
       url.hash = path
+      window.webContents.loadURL(url.toString())
     }
-
     if (focus) {
       window.show()
       window.focus()
       dock.show()
     }
+    // load again: minimize visual jitter on windows
+    if (path) window.webContents.loadURL(url.toString())
   }
 
   function updateLanguage () {

@@ -69,6 +69,8 @@ function sendNotification (failures, successes, launchWebUI, path) {
   }
 
   fn({ title, body }, () => {
+    // force refresh for Files screen to pick up newly added items
+    // https://github.com/ipfs/ipfs-desktop/issues/1763
     launchWebUI(link, { forceRefresh: true })
   })
 }
