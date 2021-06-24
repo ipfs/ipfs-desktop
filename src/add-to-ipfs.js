@@ -87,7 +87,7 @@ module.exports = async function ({ getIpfsd, launchWebUI }, files) {
 
   await Promise.all(files.map(async file => {
     try {
-      const result = await ipfsd.api.add(globSource(file, { recursive: true }))
+      const result = await ipfsd.api.add(globSource(file, { recursive: true }), { pin: false })
       await copyFile(ipfsd.api, result.cid, result.path)
       successes.push(result)
     } catch (e) {
