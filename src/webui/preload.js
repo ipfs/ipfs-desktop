@@ -10,9 +10,11 @@ const urlParams = new URLSearchParams(window.location.search)
 
 function checkIfVisible () {
   if (document.hidden) {
+    if (window.location.hash === '#/blank') return // skip, already blank
     previousHash = window.location.hash
     window.location.hash = '/blank'
   } else {
+    if (previousHash === '#/blank') return // skip
     window.location.hash = previousHash
   }
 }
@@ -28,17 +30,18 @@ window.localStorage.setItem = function () {
 
 let previousHash = null
 
-ipcRenderer.on('updatedPage', (_, url) => {
-  previousHash = url
-  window.location.hash = url
-})
-
 document.addEventListener('visibilitychange', () => {
   checkIfVisible()
 })
 
 document.addEventListener('DOMContentReady', () => {
   checkIfVisible()
+})
+
+// track hash changes, so checkIfVisible always has the right previousHash
+document.addEventListener('hashchange', () => {
+  if (window.location.hash === '#/blank') return // skip
+  previousHash = window.location.hash
 })
 
 window.ipfsDesktop = {
