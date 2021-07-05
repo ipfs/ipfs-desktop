@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "Konnte nicht auf die Festplatte schreiben",
-    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
+    "message": "Beim Schreiben in \"{ dir }\" ist ein Fehler aufgetreten: \"{ error }\". Bitte versuche es erneut oder überprüfe die Protokolle, um weitere Informationen zu erhalten."
   },
   "launchAtLoginNotSupported": {
     "title": "Fehler",
