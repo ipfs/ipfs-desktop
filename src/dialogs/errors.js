@@ -21,7 +21,7 @@ ${e.stack}
 
 let hasErrored = false
 
-const newIssueUrl = (e) => `https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?body=${encodeURI(issueTemplate(e))}`.substring(0, 1999)
+const newIssueUrl = (e) => `https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?labels=need%2Ftriage&template=bug_report.md&title=[gui%20error%20report]&body=${encodeURI(issueTemplate(e))}`.substring(0, 1999)
 
 function criticalErrorDialog (e) {
   if (hasErrored) return
