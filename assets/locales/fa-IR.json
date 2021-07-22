@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "نوشتن روی دیسک امکان پذیر نیست",
-    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
+    "message": "خطایی در نوشتن \"{ dir }\" وجود داشت: \"{ error }\". لطفاً دوباره امتحان کنید یا لاگ ها را برای جزئیات بیشتر بررسی کنید."
   },
   "launchAtLoginNotSupported": {
     "title": "خطا",
