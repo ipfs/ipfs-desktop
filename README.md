@@ -113,7 +113,7 @@ Don't see your favorite package manager? Visit our [package managers page](https
 - **FreeBSD** (experimental): [ipfs-desktop-0.16.2-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.16.2/ipfs-desktop-0.16.2-linux-x64.freebsd)\
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.16.2/ipfs-desktop-0.16.2-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.16.2/ipfs-desktop-0.16.2-linux-x64.freebsd)
 - **Snapcraft** (community-maintained, YMMV): `snap install ipfs-desktop`
-- **AUR** (maintained by [@alexhenrie](https://github.com/alexhenrie)): Use the [`ipfs-desktop` package](https://aur.archlinux.org/packages/ipfs-desktop/) 
+- **AUR** (maintained by [@RubenKelevra](https://github.com/RubenKelevra)) Use the [`ipfs-desktop` package](https://aur.archlinux.org/packages/ipfs-desktop/) 
 
 ### Install from source
 
