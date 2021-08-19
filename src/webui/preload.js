@@ -1,8 +1,7 @@
-const { ipcRenderer } = require('electron')
+const { ipcRenderer, contextBridge } = require('electron')
 const screenshotHook = require('./screenshot')
 const connectionHook = require('./connection-status')
 const { COUNTLY_KEY, VERSION } = require('../common/consts')
-const { contextBridge } = require('electron')
 
 screenshotHook()
 connectionHook()
