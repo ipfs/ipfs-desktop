@@ -29,7 +29,6 @@ const createWindow = () => {
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       webSecurity: false,
-      contextIsolation: false,
       allowRunningInsecureContent: false,
       enableRemoteModule: process.env.NODE_ENV === 'test', // https://github.com/electron-userland/spectron/pull/738#issuecomment-754810364
       nodeIntegration: process.env.NODE_ENV === 'test'

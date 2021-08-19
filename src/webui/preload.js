@@ -2,11 +2,14 @@ const { ipcRenderer } = require('electron')
 const screenshotHook = require('./screenshot')
 const connectionHook = require('./connection-status')
 const { COUNTLY_KEY, VERSION } = require('../common/consts')
+const { contextBridge } = require('electron')
 
 screenshotHook()
 connectionHook()
 
 const urlParams = new URLSearchParams(window.location.search)
+
+let previousHash = null
 
 function checkIfVisible () {
   if (document.hidden) {
@@ -18,17 +21,6 @@ function checkIfVisible () {
     window.location.hash = previousHash
   }
 }
-
-var originalSetItem = window.localStorage.setItem
-window.localStorage.setItem = function () {
-  if (arguments[0] === 'i18nextLng') {
-    ipcRenderer.send('updateLanguage', arguments[1])
-  }
-
-  originalSetItem.apply(this, arguments)
-}
-
-let previousHash = null
 
 document.addEventListener('visibilitychange', () => {
   checkIfVisible()
@@ -44,7 +36,7 @@ document.addEventListener('hashchange', () => {
   previousHash = window.location.hash
 })
 
-window.ipfsDesktop = {
+contextBridge.exposeInMainWorld('ipfsDesktop', {
   countlyAppKey: COUNTLY_KEY,
 
   countlyDeviceId: urlParams.get('deviceId'),
@@ -66,8 +58,12 @@ window.ipfsDesktop = {
 
   addConsent: (consent) => {
     ipcRenderer.send('countly.addConsent', consent)
+  },
+
+  updateLanguage: (language) => {
+    ipcRenderer.send('updateLanguage', language)
   }
-}
+})
 
 // Inject api address
 window.localStorage.setItem('ipfsApi', urlParams.get('api'))
