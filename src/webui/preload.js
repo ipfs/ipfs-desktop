@@ -19,7 +19,7 @@ function checkIfVisible () {
   }
 }
 
-var originalSetItem = window.localStorage.setItem
+const originalSetItem = window.localStorage.setItem
 window.localStorage.setItem = function () {
   if (arguments[0] === 'i18nextLng') {
     ipcRenderer.send('updateLanguage', arguments[1])
