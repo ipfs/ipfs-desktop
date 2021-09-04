@@ -35,6 +35,11 @@ const createWindow = () => {
     }
   })
 
+  // open devtools with: DEBUG=ipfs-desktop ipfs-desktop
+  if (process.env['DEBUG'].match(/ipfs-desktop/)) {
+    window.webContents.openDevTools()
+  }
+
   window.webContents.on('crashed', event => {
     logger.error(`[web ui] crashed: ${event.toString()}`)
   })
