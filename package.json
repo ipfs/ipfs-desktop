@@ -54,7 +54,7 @@
     "dotenv": "^10.0.0",
     "electron": "13.2.1",
     "electron-builder": "22.11.7",
-    "electron-notarize": "1.1.0",
+    "electron-notarize": "1.1.1",
     "electron-notarize-dmg": "1.0.0",
     "got": "^11.8.2",
     "ipfs-or-gateway": "^2.1.0",
