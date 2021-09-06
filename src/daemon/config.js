@@ -163,7 +163,7 @@ async function checkIfAddrIsDaemon (addr) {
   }
 
   return new Promise(resolve => {
-    var req = http.request(options, function (r) {
+    const req = http.request(options, function (r) {
       resolve(r.statusCode === 200)
     })
 
