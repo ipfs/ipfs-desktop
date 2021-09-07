@@ -3,6 +3,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.16.3] - 2021-09-08
+
+- IPFS: [`go-ipfs v0.9.1`](https://github.com/ipfs/go-ipfs/releases/tag/v0.9.1)
+- UI: [`v2.13.0`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.13.0)
+
+### 🛠 Fixes and Maintenance
+
+- feat: ipfs-webui v2.13.0 (#1903)
+- feat: allow to show devtools (#1901)
+- chore: update non-major dependencies (#1895)
+- fix: use context bridge (#1894)
+- docs: FreeBSD Linux Binary Compatibility (#1878)
+- docs: debian 11 troubleshooting (b8044741aeb365f773f9c6f78dadbd26e1083963)
+- chore: update maintainer AUR (#1880)
+- chore(i18n):  locale sync
+
 ## [v0.16.2] - 2021-07-23
 
 - IPFS: [`go-ipfs v0.9.1`](https://github.com/ipfs/go-ipfs/releases/tag/v0.9.1)
