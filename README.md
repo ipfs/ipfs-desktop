@@ -163,9 +163,14 @@ You may wish to try troubleshooting according to the [Electron v9.3.0 docs](http
 
 - On Linux, the app indicator will be used if it is supported; otherwise `GtkStatusIcon` will be used
 - On Linux distributions that only have app indicator support, you must install `libappindicator1` to make the tray icon work
-  - Debian package depends on `libappindicator3-1` which does not exist in Debian. Use [this workaround](https://github.com/Clansty/Icalingua/issues/162#issuecomment-899255738).
 
 If you've noticed that the old system tray is back in IPFS Desktop v0.13, this is because the Electron team [removed support for `StatusNotifier` and restored the old tray interface on Linux called `XEmbed`](https://github.com/electron/electron/issues/21445#issuecomment-634163402).
+
+### Why can't I install IPFS Desktop under Debian 11?
+
+Debian package depends on `libappindicator3-1` which does not exist in Debian anymore. 
+
+Use [this workaround](https://github.com/Clansty/Icalingua/issues/162#issuecomment-899255738) for now.
 
 ### Why can't I start IPFS Desktop under Debian 10?
 
