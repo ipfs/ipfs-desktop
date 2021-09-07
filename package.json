@@ -52,7 +52,7 @@
     "delay": "^5.0.0",
     "dirty-chai": "^2.0.1",
     "dotenv": "^10.0.0",
-    "electron": "13.2.1",
+    "electron": "14.0.0",
     "electron-builder": "22.11.7",
     "electron-notarize": "1.1.1",
     "electron-notarize-dmg": "1.0.0",
