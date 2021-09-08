@@ -79,7 +79,7 @@ module.exports = async function (opts) {
     logger.info(`[daemon] PeerID is ${id}`)
     logger.info(`[daemon] Repo is at ${ipfsd.path}`)
   } catch (err) {
-    if (!err.message.includes('ECONNREFUSED')) {
+    if (!err.message.includes('ERR_CONNECTION_REFUSED')) {
       throw err
     }
 

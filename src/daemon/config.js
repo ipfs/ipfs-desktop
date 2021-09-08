@@ -1,6 +1,6 @@
 const { join } = require('path')
 const fs = require('fs-extra')
-const multiaddr = require('multiaddr')
+const { multiaddr } = require('multiaddr')
 const http = require('http')
 const portfinder = require('portfinder')
 const { shell } = require('electron')
