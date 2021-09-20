@@ -45,6 +45,27 @@ const createWindow = () => {
 
   window.webContents.on('unresponsive', event => {
     logger.error(`[web ui] unresponsive: ${event.toString()}`)
+
+    let blocked = true
+    const unblock = () => {
+      logger.info('[web ui] recovered from unresponsiveness')
+      blocked = false
+    }
+
+    // Unblock the window in case it gets responsive within 10s.
+    window.webContents.once('responsive', unblock)
+
+    setTimeout(() => {
+      window.removeListener('responsive', unblock)
+      if (!blocked) {
+        return
+      }
+
+      // Destroy and restart window
+      logger.info('[web ui] unresponsive for 10s, will restart')
+      window.destroy()
+      // TODO: restart the window
+    }, 10000)
   })
 
   window.on('resize', () => {
