@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "No s'ha pogut escriure al disc",
-    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
+    "message": "Hi ha hagut un error a \"  { dir }\":\" { error }\". Si us plau, torneu-ho a provar o reviseu els registres per més informació."
   },
   "launchAtLoginNotSupported": {
     "title": "Error",

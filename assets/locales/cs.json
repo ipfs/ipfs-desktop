@@ -5,7 +5,7 @@
   "ipfsIsNotRunning": "IPFS neběží",
   "ipfsHasErrored": "IPFS zaznamenalo chybu",
   "runningWithGC": "Běží (Probíhá úklid paměti)",
-  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "runningWhileCheckingForUpdate": "Běží (kontrola aktualizací)",
   "start": "Začít",
   "stop": "Zastavit",
   "restart": "Restartovat",
@@ -29,7 +29,7 @@
   "clickToOpenLogs": "Klepnutím sem otevřete logy.",
   "ipfsNotRunning": "IPFS neběží",
   "checkForUpdates": "Zkontrolovat aktulizace ...",
-  "checkingForUpdates": "Checking for Updates",
+  "checkingForUpdates": "Kontrola aktualizací",
   "yes": "Ano",
   "no": "Ne",
   "close": "Zavřít",
@@ -158,7 +158,7 @@
     "message": "The garbage collector run could not be completed successfully."
   },
   "downloadCidContentDialog": {
-    "title": "Download to a local directory",
+    "title": "Stáhnout do místního adresáře",
     "message": "Enter a CID, IPFS path, or IPNS path:",
     "action": "Další"
   },
@@ -171,12 +171,12 @@
     "message": "Unable to fetch \"{ path }\"."
   },
   "contentsSavedDialog": {
-    "title": "Success",
+    "title": "Úspěšný",
     "message": "The contents of \"{ path }\" were successfully downloaded.",
     "action": "See Files"
   },
   "couldNotSaveDialog": {
-    "title": "Could not write to disk",
+    "title": "Nepodařilo se zapsat na disk",
     "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
   },
   "launchAtLoginNotSupported": {
