@@ -2,7 +2,7 @@ const { join } = require('path')
 const { ipcMain } = require('electron')
 const i18n = require('i18next')
 const ICU = require('i18next-icu')
-const Backend = require('i18next-node-fs-backend')
+const Backend = require('i18next-fs-backend')
 const store = require('./common/store')
 
 module.exports = async function () {
