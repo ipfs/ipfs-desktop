@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.17.0] - 2021-10-05
+
+- IPFS: [`go-ipfs v0.10.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.10.0)
+- UI: [`v2.13.0`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.13.0)
+
+## What's Changed
+
+* feat: go-ipfs 0.10.0 by @guseggert in https://github.com/ipfs/ipfs-desktop/pull/1896
+* fix(ci): cache ipfs-webui by @lidel in https://github.com/ipfs/ipfs-desktop/pull/1913
+* fix: analytics storage_path by @milahu in https://github.com/ipfs/ipfs-desktop/pull/1900
+* chore: default `--agent-version-suffix` and `--routing` by @lidel in https://github.com/ipfs/ipfs-desktop/pull/1914
+* chore: electron v13.5.1 and other deps by @lidel in https://github.com/ipfs/ipfs-desktop/pull/1915
+* chore: switch to i18next-fs-backend by @lidel in https://github.com/ipfs/ipfs-desktop/pull/1916
+
 ## [v0.16.3] - 2021-09-08
 
 - IPFS: [`go-ipfs v0.9.1`](https://github.com/ipfs/go-ipfs/releases/tag/v0.9.1)
