@@ -99,9 +99,11 @@ function handleScreenshot (ctx) {
   }
 }
 
-function takeScreenshot (ctx) {
-  const { webui } = ctx
+async function takeScreenshot (ctx) {
+  const { getWebUI } = ctx
   logger.info('[screenshot] taking screenshot')
+
+  const webui = await getWebUI()
   webui.webContents.send('screenshot')
 }
 

@@ -12,6 +12,6 @@ module.exports = async function (ctx) {
       return
     }
 
-    ctx.launchWebUI()
+    await ctx.launchWebUI()
   })
 }
