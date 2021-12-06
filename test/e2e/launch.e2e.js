@@ -1,11 +1,9 @@
 /* eslint-env mocha */
 
-const { Application } = require('spectron')
-const electronPath = require('electron') // Require Electron = require(the binaries included in node_modules.)
+const { _electron: electron } = require('playwright')
 const path = require('path')
 const fs = require('fs-extra')
 const tmp = require('tmp')
-const delay = require('delay')
 const chai = require('chai')
 const dirtyChai = require('dirty-chai')
 const { makeRepository } = require('./utils/ipfsd')
@@ -14,72 +12,61 @@ const portfinder = require('portfinder')
 const expect = chai.expect
 chai.use(dirtyChai)
 
-// To print the app logs, add the following to your test:
-//
-// const logs = await app.client.getMainProcessLogs()
-// logs.forEach(line => console.log(line))
-//
 async function getPort () {
   return portfinder.getPortPromise()
 }
-
-// Note: logs before "start daemon FINISHED" event are consumed
-// inside of `daemonReady`. To print them, pass DEBUG=true
 
 describe('Application launch', function () {
   this.timeout(60000)
   let app = null
 
   afterEach(async function () {
-    if (app && app.isRunning()) {
-      await app.stop()
+    if (app) {
+      await app.close()
     }
   })
 
-  async function startApp ({
-    home = tmp.dirSync({ prefix: 'tmp_HOME_', unsafeCleanup: true }).name,
-    repoPath = path.join(home, '.ipfs')
-  }) {
-    app = new Application({
-      path: electronPath,
-      args: ['-r', path.join(__dirname, 'utils/include.js'), path.join(__dirname, '../../src/index.js')],
+  async function startApp ({ repoPath } = {}) {
+    const home = tmp.dirSync({ prefix: 'tmp_home_', unsafeCleanup: true }).name
+
+    app = await electron.launch({
+      args: [path.join(__dirname, '../../src/index.js')],
       env: {
         NODE_ENV: 'test',
         HOME: home,
         IPFS_PATH: repoPath
       }
     })
-    await app.start()
+
+    if (!repoPath) {
+      repoPath = path.join(home, '.ipfs')
+    }
+
     return { app, repoPath, home }
   }
 
-  async function daemonReady (app, timeout = 45000) {
-    // TODO: replace this hack with a signal from the app to know when ipfs is ready.
-    // Right now we can't listen for IPC events in spectron (https://github.com/electron/spectron/issues/91)
-    // As a workaround, we look at console output and match on strings :<
-    const tick = 250
-    const ready = (output) => output && output.match(/(?:daemon is running|Daemon is ready|start daemon FINISHED)/)
-    const hasPeerId = (output) => output && output.trim().match(/PeerID is (\w+)$/)
-    let peerId
-    while (true) {
-      const logs = await app.client.getMainProcessLogs()
-      for (const line of logs) {
-        if (process.env.DEBUG) console.log(line)
-        const idMatch = hasPeerId(line)
-        if (idMatch) peerId = idMatch[1]
-        if (ready(line)) {
-          return { peerId }
+  async function daemonReady (app) {
+    const peerId = await app.evaluate(async ({ ipcMain }) => new Promise((resolve, reject) => {
+      ipcMain.on('ipfsd', (status, peerId) => {
+        switch (status) {
+          // NOTE: this code runs inside the main process of electron, so we cannot use
+          // things we've imported outside of this function. The hard coded values can be
+          // found in src/daemon/consts.js.
+          case 3:
+            reject(new Error('starting daemon failed'))
+            break
+          case 2:
+            resolve(peerId)
+            break
         }
-      }
-      await delay(tick)
-      timeout = timeout - tick
-      if (timeout < 0) throw new Error('timeout while waiting for daemon start in daemonReady(app)')
-    }
+      })
+    }))
+
+    return { peerId }
   }
 
   it('creates a repository on startup', async function () {
     const { app, repoPath } = await startApp({})
-    expect(app.isRunning()).to.be.true()
     const { peerId } = await daemonReady(app)
     // expect config to be created and match peerId
     const configPath = path.join(repoPath, 'config')
@@ -95,7 +82,6 @@ describe('Application launch', function () {
   it('starts fine when node is already running', async function () {
     const { ipfsd } = await makeRepository({ start: true })
     const { app } = await startApp({ repoPath: ipfsd.path })
-    expect(app.isRunning()).to.be.true()
     const { peerId } = await daemonReady(app)
     const { id: expectedId } = await ipfsd.api.id()
     expect(peerId).to.be.equal(expectedId)
@@ -114,8 +100,6 @@ describe('Application launch', function () {
     fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
 
     const { app } = await startApp({ repoPath })
-    expect(app.isRunning()).to.be.true()
-
     const { peerId } = await daemonReady(app)
     expect(peerId).to.be.equal(expectedId)
 
@@ -136,14 +120,11 @@ describe('Application launch', function () {
     fs.writeJsonSync(configPath, config, { spaces: 2 })
 
     const { app } = await startApp({ repoPath })
-    expect(app.isRunning()).to.be.true()
     const { peerId } = await daemonReady(app)
     expect(peerId).to.be.equal(expectedId)
 
     // ensure app has enabled cors checking
     config = fs.readJsonSync(configPath)
-    await app.stop()
-
     expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.be.deep.equal([])
   })
 
@@ -159,8 +140,6 @@ describe('Application launch', function () {
     fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
 
     const { app } = await startApp({ repoPath })
-    expect(app.isRunning()).to.be.true()
-
     const { peerId } = await daemonReady(app)
     expect(peerId).to.be.equal(expectedId)
 
@@ -183,7 +162,6 @@ describe('Application launch', function () {
     fs.writeFile(apiPath, ipfsd.apiAddr.toString())
 
     const { app } = await startApp({ repoPath })
-    expect(app.isRunning()).to.be.true()
     await daemonReady(app)
     await ipfsd.stop()
   })
@@ -197,7 +175,6 @@ describe('Application launch', function () {
     ]
     fs.writeJsonSync(configPath, config, { spaces: 2 })
     const { app } = await startApp({ repoPath })
-    expect(app.isRunning()).to.be.true()
     await daemonReady(app)
   })
 
@@ -210,7 +187,6 @@ describe('Application launch', function () {
     ]
     fs.writeJsonSync(configPath, config, { spaces: 2 })
     const { app } = await startApp({ repoPath })
-    expect(app.isRunning()).to.be.true()
     await daemonReady(app)
   })
 })
