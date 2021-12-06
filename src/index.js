@@ -1,5 +1,13 @@
 require('v8-compile-cache')
 const { app, dialog } = require('electron')
+
+if (process.env.NODE_ENV === 'test') {
+  const path = require('path')
+
+  app.setPath('home', process.env.HOME)
+  app.setPath('userData', path.join(process.env.HOME, 'data'))
+}
+
 const fixPath = require('fix-path')
 const { criticalErrorDialog } = require('./dialogs')
 const logger = require('./common/logger')
