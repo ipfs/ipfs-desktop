@@ -177,7 +177,7 @@
   },
   "couldNotSaveDialog": {
     "title": "Diske yazılamadı",
-    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
+    "message": "\"{ dir }\"yazarken bir hata oluştu: \"{ error }\". Lütfen tekrar deneyin veya daha fazla ayrıntı için günlükleri inceleyin."
   },
   "launchAtLoginNotSupported": {
     "title": "Hata",
