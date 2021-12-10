@@ -1,0 +1,249 @@
+{
+  "ipfsIsRunning": "IPFS sedang berjalan",
+  "ipfsIsStopping": "IPFS Berhenti",
+  "ipfsIsStarting": "IPFS Dimulai",
+  "ipfsIsNotRunning": "IPFS Tidak Berjalan",
+  "ipfsHasErrored": "IPFS terdapat Kesalahan",
+  "runningWithGC": "Berjalan (GC sedang berlangsung)",
+  "runningWhileCheckingForUpdate": "Berjalan (Memeriksa Pembaruan)",
+  "start": "Mulai",
+  "stop": "Berhenti",
+  "restart": "Memulai ulang",
+  "about": "Tentang",
+  "advanced": "Canggih",
+  "openRepoDir": "Buka Direktori Repositori",
+  "openLogsDir": "Buka Direktori Catatan",
+  "openConfigFile": "Buka Berkas Konfigurasi",
+  "viewOnGitHub": "Lihat di GitHub…",
+  "helpUsTranslate": "Bantu Terjemahkan Aplikasi Ini…",
+  "readReleaseNotes": "Baca Catatan Rilis",
+  "status": "Status",
+  "files": "Berkas",
+  "peers": "Rekan",
+  "quit": "Keluar",
+  "versions": "Versi",
+  "screenshotTaken": "Tangkapan layar diambil",
+  "shareableLinkCopied": "Tautan yang dapat dibagikan disalin ke papan klip. Klik di sini untuk melihat tangkapan layar.",
+  "couldNotTakeScreenshot": "Tidak dapat mengambil tangkapan layar",
+  "errorwhileTakingScreenshot": "Terjadi kesalahan saat mengambil tangkapan layar.",
+  "clickToOpenLogs": "Klik di sini untuk membuka catatan.",
+  "ipfsNotRunning": "IPFS tidak berjalan",
+  "checkForUpdates": "Periksa Pembaruan…",
+  "checkingForUpdates": "Memeriksa Pembaruan",
+  "yes": "Ya",
+  "no": "Tidak",
+  "close": "Tutup",
+  "ok": "OK",
+  "cancel": "Batalkan",
+  "enable": "Diaktifkan",
+  "reportTheError": "Laporkan kesalahan",
+  "restartIpfsDesktop": "Mulai ulang Desktop IPFS",
+  "openLogs": "Buka catatan",
+  "takeScreenshot": "Ambil Tangkapan Layar",
+  "downloadCid": "Unduh...",
+  "moveRepositoryLocation": "Pindahkan Lokasi Repositori",
+  "runGarbageCollector": "Jalankan Pengumpul Sampah",
+  "selectDirectory": "Pilih Direktori",
+  "customIpfsBinary": "Biner IPFS Kustom",
+  "setCustomIpfsBinary": "Setel Biner IPFS Kustom",
+  "clearCustomIpfsBinary": "Hapus Biner IPFS Kustom",
+  "polkitDialog": {
+    "title": "Polkit tidak ditemukan",
+    "message": "IPFS tidak dapat ditambahkan ke /usr/local/bin/ tanpa agen polkit."
+  },
+  "noPermissionDialog": {
+    "title": "Tidak ada izin",
+    "message": "IPFS tidak dapat ditambahkan ke /usr/local/bin/, baik karena Anda memasukkan kata sandi yang salah, atau Anda menolak izin."
+  },
+  "ipfsNotRunningDialog": {
+    "title": "IPFS tidak berjalan",
+    "message": "IPFS perlu dijalankan untuk melakukan tindakan ini. Apakah Anda ingin memulai daemon?"
+  },
+  "recoverableErrorDialog": {
+    "title": "Sebuah kesalahan telah terjadi",
+    "message": "Terjadi kesalahan tetapi tidak mencegah eksekusi Desktop IPFS. Anda dapat memeriksa catatan sendiri atau melaporkan kesalahan kepada pengembang."
+  },
+  "cannotConnectToApiDialog": {
+    "title": "Tidak dapat terhubung ke API",
+    "message": "Desktop IPFS tidak dapat terhubung ke alamat API yang disediakan: { addr }."
+  },
+  "ipfsDesktopHasShutdownDialog": {
+    "title": "Desktop IPFS telah dimatikan",
+    "message": "Desktop IPFS mati karena kesalahan. Anda dapat memulai ulang aplikasi atau melaporkan kesalahan kepada pengembang, yang memerlukan akun GitHub."
+  },
+  "moveRepositoryWarnDialog": {
+    "title": "Pindahkan repositori",
+    "message": "Jika repositori Anda mengambil terlalu banyak ruang pada drive utama Anda, Anda dapat memindahkannya ke beberapa lokasi lain. Ingatlah bahwa lokasi baru harus selalu tersedia agar Desktop IPFS berfungsi dengan benar.",
+    "action": "Pindahkan dan mulai ulang node"
+  },
+  "moveRepositorySuccessDialog": {
+    "title": "Repositori berhasil dipindahkan",
+    "message": "Repositori Anda berhasil dipindahkan ke { location } dan konfigurasi Anda telah diperbarui. Daemon sekarang akan mulai lagi."
+  },
+  "moveRepositorySameDirDialog": {
+    "title": "Direktori yang sama dipilih",
+    "message": "Direktori yang Anda pilih sama dengan direktori saat ini: { location }. Karenanya, tidak ada perubahan yang akan dilakukan."
+  },
+  "moveRepositoryDirExists": {
+    "title": "Direktori sudah ada",
+    "message": "Direktori { location } sudah ada. Silahkan coba gunakan yang lain."
+  },
+  "busyPortsDialog": {
+    "title": "Port sedang sibuk",
+    "message": "Port { port1 } dan { port2 } tidak tersedia. Apakah Anda ingin menggunakan { alt1 } dan { alt2 } sebagai gantinya?",
+    "action": "Gunakan port { alt1 } dan { alt2 } sebagai gantinya"
+  },
+  "busyPortDialog": {
+    "title": "Port sedang sibuk",
+    "message": "Port { port } tidak tersedia. Apakah Anda ingin menggunakan { alt } sebagai gantinya?",
+    "action": "Gunakan port { alt } sebagai gantinya"
+  },
+  "multipleBusyPortsDialog": {
+    "title": "Port sedang sibuk",
+    "message": "Tidak dapat mengikat ke satu atau beberapa alamat API atau Gerbang karena port sedang sibuk.",
+    "action": "Buka berkas konfigurasi"
+  },
+  "itemsAddedNotification": {
+    "title": "Item ditambahkan",
+    "message": "{ count } item ditambahkan ke node Anda. Tautan yang dapat dibagikan telah disalin ke papan klip Anda. Klik di sini untuk melihat berkas Anda."
+  },
+  "itemAddedNotification": {
+    "title": "Item ditambahkan",
+    "message": "Item ditambahkan ke node Anda. Tautan yang dapat dibagikan telah disalin ke papan klip Anda. Klik di sini untuk melihat berkas Anda."
+  },
+  "itemsFailedNotification": {
+    "title": "Gagal menambahkan item",
+    "message": "Tidak dapat menambahkan item Anda ke node."
+  },
+  "updateAvailableDialog": {
+    "title": "Pembaruan tersedia",
+    "message": "Versi baru ({ version }) Desktop IPFS telah tersedia. Unduh akan segera dimulai di latar belakang."
+  },
+  "updateNotAvailableDialog": {
+    "title": "Pembaruan tidak tersedia",
+    "message": "Anda menggunakan Desktop IPFS versi terbaru ({ version })."
+  },
+  "updateErrorDialog": {
+    "title": "Tidak dapat unduh pembaruan",
+    "message": "Tidak mungkin unduh pembaruan. Silakan periksa koneksi internet Anda dan coba lagi."
+  },
+  "updateDownloadedDialog": {
+    "title": "Perbarui diunduh",
+    "message": "Perbarui untuk versi { version } yang diunduh. Untuk menginstal pembaruan, silakan mulai ulang Desktop IPFS.",
+    "action": "Memulai ulang"
+  },
+  "updateDownloadedNotification": {
+    "title": "Perbarui diunduh",
+    "message": "Pembaruan untuk versi { version } Desktop IPFS yang diunduh. Klik pemberitahuan ini untuk menginstal."
+  },
+  "runGarbageCollectorWarning": {
+    "title": "Pengumpul sampah",
+    "message": "Menjalankan pengumpul sampah (GC) akan menghapus dari repositori Anda semua objek yang tidak disematkan atau pada MFS Anda. Ini mungkin memakan waktu cukup lama. Apakah Anda ingin melanjutkan?",
+    "action": "Jalankan"
+  },
+  "runGarbageCollectorDone": {
+    "title": "Pengumpul sampah",
+    "message": "Pengumpul sampah berjalan dengan sukses."
+  },
+  "moveRepositoryFailed": {
+    "title": "Pindahkan repositori",
+    "message": "Tidak dapat memindahkan repositori dari \"{ currDir }\" ke \"{ newDir }\"."
+  },
+  "cantAddIpfsToPath": {
+    "title": "IPFS di Jalur",
+    "message": "Tidak dapat menambahkan IPFS ke Jalur."
+  },
+  "runGarbageCollectorErrored": {
+    "title": "Pengumpul sampah",
+    "message": "Proses pengumpul sampah tidak dapat diselesaikan dengan sukses."
+  },
+  "downloadCidContentDialog": {
+    "title": "Unduh ke direktori lokal",
+    "message": "Masukkan sebuah CID, jalur IPFS, atau jalur IPNS:",
+    "action": "Lanjut"
+  },
+  "cantResolveCidDialog": {
+    "title": "Kesalahan",
+    "message": "Tidak dapat menyelesaikan \"{ path }\"."
+  },
+  "couldNotGetCidDialog": {
+    "title": "Kesalahan",
+    "message": "Tidak dapat mengambil \"{ path }\"."
+  },
+  "contentsSavedDialog": {
+    "title": "Sukses",
+    "message": "Konten \"{ path }\" berhasil diunduh.",
+    "action": "Lihat Berkas"
+  },
+  "couldNotSaveDialog": {
+    "title": "Tidak dapat menulis ke disk",
+    "message": "Terjadi kesalahan saat menulis ke \"{ dir }\": \"{ error }\". Harap coba lagi atau periksa catatan untuk detail selengkapnya."
+  },
+  "launchAtLoginNotSupported": {
+    "title": "Kesalahan",
+    "message": "Peluncuran saat login tidak didukung di platform Anda."
+  },
+  "launchAtLoginFailed": {
+    "title": "Kesalahan",
+    "message": "Peluncuran saat masuk tidak dapat diaktifkan di mesin Anda."
+  },
+  "enableIpfsOnPath": {
+    "title": "Aktifkan IPFS di Jalur",
+    "message": "Dengan mengaktifkan opsi ini, IPFS akan tersedia di baris perintah Anda sebagai \"ipfs\". Tindakan ini dapat dibalik.",
+    "action": "Diaktifkan"
+  },
+  "disableIpfsOnPath": {
+    "title": "Nonaktifkan IPFS di Jalur",
+    "message": "Dengan menonaktifkan opsi ini, IPFS tidak akan lagi tersedia di baris perintah Anda sebagai \"ipfs\".",
+    "action": "Nonaktifkan"
+  },
+  "enableGlobalTakeScreenshotShortcut": {
+    "title": "Aktifkan pintasan tangkapan layar",
+    "message": "Dengan mengaktifkan ini, pintasan \"{ accelerator }\" akan tersedia untuk mengambil tangkapan layar selama IPFS Desktop berjalan."
+  },
+  "enableGlobalDownloadShortcut": {
+    "title": "Aktifkan pintasan unduh",
+    "message": "Dengan mengaktifkan ini, pintasan \"{ accelerator }\" akan tersedia untuk unduh berkas selama IPFS Desktop berjalan."
+  },
+  "installNpmOnIpfsWarning": {
+    "title": "Pasang npm di IPFS",
+    "message": "Fitur eksperimental ini menginstal paket \"ipfs-npm\" di sistem Anda. Itu membutuhkan Node.js untuk diinstal.",
+    "action": "Pasang"
+  },
+  "unableToInstallNpmOnIpfs": {
+    "title": "Kesalahan",
+    "message": "Tidak mungkin memasang paket \"ipfs-npm\" di sistem Anda. Silakan periksa catatan untuk informasi lebih lanjut atau coba pasang secara manual dengan menjalankan \"npm install -g ipfs-npm\" pada baris perintah Anda."
+  },
+  "unableToUninstallNpmOnIpfs": {
+    "title": "Kesalahan",
+    "message": "Tidak mungkin untuk menghapus paket \"ipfs-npm\" di sistem Anda. Silakan periksa catatan untuk informasi lebih lanjut atau coba hapus pemasangannya secara manual dengan menjalankan \"npm uninstall -g ipfs-npm\" di baris perintah Anda."
+  },
+  "settings": {
+    "settings": "Pengaturan",
+    "preferences": "Preferensi",
+    "openNodeSettings": "Buka Pengaturan Node",
+    "appPreferences": "Preferensi Aplikasi",
+    "launchOnStartup": "Luncurkan saat Masuk",
+    "openWebUIAtLaunch": "Buka UI Web saat Peluncuran",
+    "pubsub": "Aktifkan PubSub",
+    "namesysPubsub": "Aktifkan IPNS melalui PubSub",
+    "automaticGC": "Pengumpulan Sampah Otomatis",
+    "ipfsCommandLineTools": "Alat Baris Perintah",
+    "takeScreenshotShortcut": "Pintasan Tangkapan Layar Global",
+    "downloadHashShortcut": "Pintasan Unduh Global",
+    "experiments": "Eksperimen",
+    "npmOnIpfs": "Aktifkan npm di IPFS"
+  },
+  "setCustomIpfsBinaryConfirmation": {
+    "title": "Biner IPFS Kustom",
+    "message": "Dengan menyetel kustom IPFS, Desktop IPFS tidak akan lagi menggunakan versi paket IPFS dan akan menggunakan biner yang Anda tentukan. Apakah Anda ingin melanjutkan?"
+  },
+  "setCustomIpfsBinarySuccess": {
+    "title": "Biner IPFS Kustom",
+    "message": "Desktop IPFS akan mulai menggunakan biner yang terletak di { path }. Untuk mulai menggunakannya, IPFS perlu dimulai ulang terlebih dahulu."
+  },
+  "clearCustomIpfsBinarySuccess": {
+    "title": "Hapus biner IPFS kustom",
+    "message": "Biner IPFS kustom telah dihapus. Untuk mulai menggunakan versi paket IPFS, IPFS harus dimulai ulang terlebih dahulu."
+  }
+}
