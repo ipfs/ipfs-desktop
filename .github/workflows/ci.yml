@@ -19,18 +19,10 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Setup go
-        uses: actions/setup-go@v2
+      - uses: ipfs/download-ipfs-distribution-action@1d4876d458d67682f46bbb7fd1d824a097c5d4d0
         with:
-          go-version: '1.16'
-      - name: Build go-ipfs binary
-        run: go install github.com/ipfs/go-ipfs/cmd/ipfs@latest
-      - name: Initialize go-ipfs and start daemon
-        run: |
-          sudo sysctl -w net.core.rmem_max=2500000
-          ipfs init --profile flatfs,server
-          ipfs daemon --enable-gc=false &
-          while (! ipfs id --api "/ip4/127.0.0.1/tcp/5001"); do sleep 1; done
+          name: go-ipfs
+      - uses: ipfs/start-ipfs-daemon-action@c50c980982756bd0e2659a3367f9d62fb0162dd3
 
       - name: Cache webui
         uses: actions/cache@v2
