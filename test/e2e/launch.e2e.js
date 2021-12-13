@@ -28,6 +28,9 @@ describe('Application launch', function () {
 
   async function startApp ({ repoPath } = {}) {
     const home = tmp.dirSync({ prefix: 'tmp_home_', unsafeCleanup: true }).name
+    if (!repoPath) {
+      repoPath = path.join(home, '.ipfs')
+    }
 
     app = await electron.launch({
       args: [path.join(__dirname, '../../src/index.js')],
@@ -37,10 +40,6 @@ describe('Application launch', function () {
         IPFS_PATH: repoPath
       }
     })
-
-    if (!repoPath) {
-      repoPath = path.join(home, '.ipfs')
-    }
 
     return { app, repoPath, home }
   }
