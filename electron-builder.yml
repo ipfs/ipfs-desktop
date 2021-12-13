@@ -22,7 +22,6 @@ mac:
   gatekeeperAssess: false
   entitlements: './pkgs/macos/entitlements.mac.plist'
   entitlementsInherit: './pkgs/macos/entitlements.mac.plist'
-  target: 'dmg'
 
 dmg:
   iconSize: 160
