@@ -19,9 +19,10 @@ async function getPort () {
 describe('Application launch', function () {
   this.timeout(60000)
   let app = null
+  let closed = false
 
   afterEach(async function () {
-    if (app) {
+    if (app && !closed) {
       await app.close()
     }
   })
@@ -39,6 +40,10 @@ describe('Application launch', function () {
         HOME: home,
         IPFS_PATH: repoPath
       }
+    })
+
+    app.on('close', () => {
+      closed = true
     })
 
     return { app, repoPath, home }
