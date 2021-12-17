@@ -84,7 +84,6 @@ describe('Application launch', function () {
     const { peerId } = await daemonReady(app)
     const { id: expectedId } = await ipfsd.api.id()
     expect(peerId).to.be.equal(expectedId)
-    // await ipfsd.stop()
   })
 
   it('applies config migration to existing config', async function () {
@@ -162,7 +161,6 @@ describe('Application launch', function () {
 
     const { app } = await startApp({ repoPath })
     await daemonReady(app)
-    // await ipfsd.stop()
   })
 
   it('starts with multiple api addresses', async function () {
