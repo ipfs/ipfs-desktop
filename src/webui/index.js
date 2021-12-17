@@ -1,7 +1,6 @@
 const { screen, BrowserWindow, ipcMain, app, session } = require('electron')
 const { join } = require('path')
 const { URL } = require('url')
-const toUri = require('multiaddr-to-uri')
 const serve = require('electron-serve')
 const os = require('os')
 const openExternal = require('./open-external')
@@ -67,16 +66,6 @@ const createWindow = () => {
   })
 
   return window
-}
-
-// Converts a Multiaddr to a valid value for Origin HTTP header
-const apiOrigin = (apiMultiaddr) => {
-  // Return opaque origin when there is no API yet
-  // https://html.spec.whatwg.org/multipage/origin.html#concept-origin-opaque
-  if (!apiMultiaddr) return 'null'
-  // Return the Origin of HTTP API
-  const apiUri = toUri(apiMultiaddr, { assumeHttp: true })
-  return new URL(apiUri).origin
 }
 
 module.exports = async function (ctx) {
@@ -145,24 +134,10 @@ module.exports = async function (ctx) {
     })
   })
 
-  // Avoid setting CORS by acting like /webui loaded from API port
+  // Set user agent
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-    details.requestHeaders.Origin = apiOrigin(apiAddress)
     details.requestHeaders['User-Agent'] = `ipfs-desktop/${VERSION} (Electron ${ELECTRON_VERSION})`
     callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
-  })
-
-  // modify CORS preflight on the fly
-  const webuiOrigin = 'webui://-'
-  const acao = 'Access-Control-Allow-Origin'
-  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-    const { responseHeaders } = details
-    // If Access-Control-Allow-Origin header is returned, override it to match webuiOrigin
-    if (responseHeaders && responseHeaders[acao]) {
-      responseHeaders[acao] = webuiOrigin
-    }
-    // eslint-disable-next-line
-    callback({ responseHeaders })
   })
 
   return new Promise(resolve => {
