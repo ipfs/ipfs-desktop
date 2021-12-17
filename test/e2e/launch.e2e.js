@@ -17,7 +17,7 @@ async function getPort () {
 }
 
 describe('Application launch', function () {
-  // this.timeout(60000)
+  this.timeout(60000)
   let app = null
 
   afterEach(async function () {
