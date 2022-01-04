@@ -12,6 +12,7 @@ const npmBin = IS_WIN ? 'npm.cmd' : 'npm'
 
 const CONFIG_KEY = 'experiments.npmOnIpfs'
 
+// Deprecated in February 2021. Remove soon.
 module.exports = function (ctx) {
   if (store.get(CONFIG_KEY, null) === true) {
     logger.info('[npm on ipfs] deprecated, removing')
@@ -19,7 +20,7 @@ module.exports = function (ctx) {
     uninstall()
 
     showDialog({
-      title: 'NPM on IPFS Deprecated',
+      title: 'NPM on IPFS Uninstalled',
       message: 'NPM on IPFS via IPFS Desktop has been deprecated since February 2021. It was now fully removed. As an alternative, you can use https://github.com/forestpm/forest.',
       buttons: [i18n.t('close')]
     })
