@@ -149,10 +149,6 @@
     "title": "Move repository",
     "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS on PATH",
-    "message": "Could not add IPFS to the PATH."
-  },
   "runGarbageCollectorErrored": {
     "title": "Garbage collector",
     "message": "The garbage collector run could not be completed successfully."

@@ -11,25 +11,22 @@ const { unlinkSync } = require('fs')
 
 const CONFIG_KEY = 'ipfsOnPath'
 
-const errorMessage = {
-  title: i18n.t('cantAddIpfsToPath.title'),
-  message: i18n.t('cantAddIpfsToPath.message')
-}
-
+// Deprecated in February 2021 https://github.com/ipfs/ipfs-desktop/pull/1768
+// Once this bit of code is removed, also remove ../utils/exec-or-sudo.
 module.exports = async function () {
   if (store.get(CONFIG_KEY, null) === true) {
     try {
       await uninstall('uninstall')
     } catch (err) {
       // Weird, but not worth bothering.
-      logger.error(`[ipfs on path] ${err.toStrinng()}`)
+      logger.error(`[ipfs on path] ${err.toString()}`)
     }
 
     try {
       unlinkSync(join(app.getPath('home'), './.ipfs-desktop/IPFS_PATH').replace('app.asar', 'app.asar.unpacked'))
     } catch (err) {
       // Weird, but not worth bothering.
-      logger.error(`[ipfs on path] ${err.toStrinng()}`)
+      logger.error(`[ipfs on path] ${err.toString()}`)
     }
 
     logger.info('[ipfs on path] uninstalled')
@@ -71,7 +68,6 @@ async function uninstall () {
     script: join(__dirname, './scripts/uninstall.js'),
     scope: 'ipfs on path',
     trySudo: true,
-    failSilently: false,
-    errorOptions: errorMessage
+    failSilently: true
   })
 }
