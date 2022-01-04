@@ -43,13 +43,6 @@ module.exports = async function (ctx) {
     const config = store.get('ipfsConfig')
     updateStatus(STATUS.STARTING_STARTED)
 
-    if (config.path) {
-      // Updates the IPFS_PATH file. We do this every time we start up
-      // to make sure we always have that file present, even though
-      // there are installations and updates that might remove the file.
-      writeIpfsPath(config.path)
-    }
-
     try {
       ipfsd = await createDaemon(config)
 
@@ -59,7 +52,6 @@ module.exports = async function (ctx) {
       if (!config.path || typeof config.path !== 'string') {
         config.path = ipfsd.path
         store.set('ipfsConfig', config)
-        writeIpfsPath(config.path)
       }
 
       log.end()
@@ -125,11 +117,3 @@ module.exports = async function (ctx) {
 }
 
 module.exports.STATUS = STATUS
-
-function writeIpfsPath (path) {
-  fs.outputFileSync(
-    join(app.getPath('home'), './.ipfs-desktop/IPFS_PATH')
-      .replace('app.asar', 'app.asar.unpacked'),
-    path
-  )
-}
