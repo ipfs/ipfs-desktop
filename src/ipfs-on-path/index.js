@@ -24,6 +24,7 @@ module.exports = async function () {
 
     try {
       unlinkSync(join(app.getPath('home'), './.ipfs-desktop/IPFS_PATH').replace('app.asar', 'app.asar.unpacked'))
+      unlinkSync(join(app.getPath('home'), './.ipfs-desktop/IPFS_EXEC').replace('app.asar', 'app.asar.unpacked'))
     } catch (err) {
       // Weird, but not worth bothering.
       logger.error(`[ipfs on path] ${err.toString()}`)
