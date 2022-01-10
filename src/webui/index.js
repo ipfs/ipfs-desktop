@@ -42,8 +42,8 @@ const createWindow = () => {
     logger.error(`[web ui] crashed: ${reason}, code: ${exitCode}`)
   })
 
-  window.webContents.on('unresponsive', event => {
-    logger.error(`[web ui] unresponsive: ${event.toString()}`)
+  window.webContents.on('unresponsive', () => {
+    logger.error('[web ui] the webui became unresponsive')
   })
 
   window.on('resize', () => {
