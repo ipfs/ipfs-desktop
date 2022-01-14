@@ -2,7 +2,7 @@ const Ctl = require('ipfsd-ctl')
 const i18n = require('i18next')
 const { showDialog } = require('../dialogs')
 const logger = require('../common/logger')
-const { applyDefaults, migrateConfig, checkCorsConfig, checkPorts, configExists, rmApiFile, apiFileExists } = require('./config')
+const { applyDefaults, migrateConfig, checkPorts, configExists, rmApiFile, apiFileExists } = require('./config')
 const { getCustomBinary } = require('../custom-ipfs-binary')
 
 function cannotConnectDialog (addr) {
@@ -41,7 +41,6 @@ async function spawn ({ flags, path }) {
 
   if (configExists(ipfsd)) {
     migrateConfig(ipfsd)
-    checkCorsConfig(ipfsd)
     return { ipfsd, isRemote: false }
   }
 

@@ -99,46 +99,6 @@ test.describe.serial('Application launch', async () => {
     expect(config.Discovery.MDNS.Enabled).toBeTruthy()
   })
 
-  test('fixes cors config if access to "*" is granted', async () => {
-    // create config
-    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
-    let config = fs.readJsonSync(configPath)
-
-    // pretend someone set dangerous "*" (allowing global access to API)
-    // Note: '*' is the default when running ipfsd-ctl with test=true, but we set it here just to be sure
-    config.API.HTTPHeaders['Access-Control-Allow-Origin'] = ['*']
-    fs.writeJsonSync(configPath, config, { spaces: 2 })
-
-    const { app } = await startApp({ repoPath })
-    const { peerId } = await daemonReady(app)
-    expect(peerId).toBe(expectedId)
-
-    // ensure app has enabled cors checking
-    config = fs.readJsonSync(configPath)
-    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).toEqual([])
-  })
-
-  test('fixes cors config with multiple allowed origins', async () => {
-    // create preexisting, initialized repo and config
-    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
-
-    // setup CORS config for the test
-    const initConfig = fs.readJsonSync(configPath)
-    // update origins to include multiple entries, including wildcard.
-    const newOrigins = ['https://webui.ipfs.io', '*']
-    initConfig.API.HTTPHeaders['Access-Control-Allow-Origin'] = newOrigins
-    fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
-
-    const { app } = await startApp({ repoPath })
-    const { peerId } = await daemonReady(app)
-    expect(peerId).toBe(expectedId)
-
-    const config = fs.readJsonSync(configPath)
-    // ensure app has enabled cors checking
-    const specificOrigins = newOrigins.filter(origin => origin !== '*')
-    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).toEqual(specificOrigins)
-  })
-
   test('starts with repository with "IPFS_PATH/api" file and no daemon running', async () => {
     // create "remote" repo
     const { ipfsd } = await makeRepository({ start: true })

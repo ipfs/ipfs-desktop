@@ -99,55 +99,6 @@ function migrateConfig (ipfsd) {
   store.set(REVISION_KEY, REVISION)
 }
 
-// Check for * and webui://- in allowed origins on API headers.
-// The wildcard was a ipfsd-ctl default, that we don't want, and
-// webui://- was an earlier experiement that should be cleared out.
-//
-// We remove them the first time we find them. If we find it again on subsequent
-// runs then we leave them in, under the assumption that you really want it.
-// TODO: show warning in UI when wildcard is in the allowed origins.
-function checkCorsConfig (ipfsd) {
-  if (store.get('checkedCorsConfig')) {
-    // We've already checked so skip it.
-    return
-  }
-
-  let config = null
-
-  try {
-    config = readConfigFile(ipfsd)
-  } catch (err) {
-    // This is a best effort check, dont blow up here, that should happen else where.
-    // TODO: gracefully handle config errors elsewhere!
-    logger.error(`[daemon] checkCorsConfig: error reading config file: ${err.message || err}`)
-    return
-  }
-
-  if (config.API && config.API.HTTPHeaders && config.API.HTTPHeaders['Access-Control-Allow-Origin']) {
-    const allowedOrigins = config.API.HTTPHeaders['Access-Control-Allow-Origin']
-    const originsToRemove = ['*', 'webui://-']
-
-    if (Array.isArray(allowedOrigins)) {
-      const specificOrigins = allowedOrigins.filter(origin => !originsToRemove.includes(origin))
-
-      if (specificOrigins.length !== allowedOrigins.length) {
-        config.API.HTTPHeaders['Access-Control-Allow-Origin'] = specificOrigins
-
-        try {
-          writeConfigFile(ipfsd, config)
-          store.set('updatedCorsConfig', Date.now())
-        } catch (err) {
-          logger.error(`[daemon] checkCorsConfig: error writing config file: ${err.message || err}`)
-          // don't skip setting checkedCorsConfig so we try again next time time.
-          return
-        }
-      }
-    }
-  }
-
-  store.set('checkedCorsConfig', true)
-}
-
 const parseCfgMultiaddr = (addr) => (addr.includes('/http')
   ? multiaddr(addr)
   : multiaddr(addr).encapsulate('/http')
@@ -320,6 +271,5 @@ module.exports = Object.freeze({
   rmApiFile,
   applyDefaults,
   migrateConfig,
-  checkCorsConfig,
   checkPorts
 })
