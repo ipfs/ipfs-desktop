@@ -57,15 +57,29 @@ function applyDefaults (ipfsd) {
   writeConfigFile(ipfsd, config)
 }
 
+function getGatewayPort (config) {
+  let gatewayUrl = null
+
+  if (Array.isArray(config.Addresses.Gateway)) {
+    gatewayUrl = config.Addresses.Gateway.find(v => v.includes('127.0.0.1'))
+  } else {
+    gatewayUrl = config.Addresses.Gateway
+  }
+
+  const gw = parseCfgMultiaddr(gatewayUrl)
+  return gw.nodeAddress().port
+}
+
 // Apply one-time updates to the config of IPFS node.
 // This is the place where we execute fixes and performance tweaks for existing users.
 function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
-  const REVISION = 1
+  const REVISION = 2
   const REVISION_KEY = 'daemonConfigRevision'
+  const CURRENT_REVISION = store.get(REVISION_KEY, 0)
 
   // Migration is applied only once per revision
-  if (store.get(REVISION_KEY) >= REVISION) return
+  if (CURRENT_REVISION >= REVISION) return
 
   // Read config
   let config = null
@@ -78,11 +92,37 @@ function migrateConfig (ipfsd) {
     return
   }
 
-  // Cleanup https://github.com/ipfs-shipyard/ipfs-desktop/issues/1631
-  if (config.Discovery && config.Discovery.MDNS && config.Discovery.MDNS.enabled) {
-    config.Discovery.MDNS.Enabled = config.Discovery.MDNS.Enabled || true
-    delete config.Discovery.MDNS.enabled
-    changed = true
+  if (CURRENT_REVISION <= 0) {
+    // Cleanup https://github.com/ipfs-shipyard/ipfs-desktop/issues/1631
+    if (config.Discovery && config.Discovery.MDNS && config.Discovery.MDNS.enabled) {
+      config.Discovery.MDNS.Enabled = config.Discovery.MDNS.Enabled || true
+      delete config.Discovery.MDNS.enabled
+      changed = true
+    }
+  }
+
+  if (CURRENT_REVISION <= 1) {
+    const api = config.API || {}
+    const httpHeaders = api.HTTPHeaders || {}
+    const accessControlAllowOrigin = httpHeaders['Access-Control-Allow-Origin'] || []
+
+    const addURL = url => {
+      if (!accessControlAllowOrigin.includes(url)) {
+        accessControlAllowOrigin.push(url)
+        return true
+      }
+      return false
+    }
+
+    const addedWebUI = addURL('https://webui.ipfs.io')
+    const addedGw = addURL(`http://webui.ipfs.io.ipns.localhost:${getGatewayPort(config)}`)
+
+    if (addedWebUI || addedGw) {
+      httpHeaders['Access-Control-Allow-Origin'] = accessControlAllowOrigin
+      api.HTTPHeaders = httpHeaders
+      config.API = api
+      changed = true
+    }
   }
 
   // TODO: update config.Swarm.ConnMgr.*
