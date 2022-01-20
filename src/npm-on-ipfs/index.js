@@ -21,7 +21,7 @@ module.exports = function (ctx) {
 
     showDialog({
       title: 'NPM on IPFS Uninstalled',
-      message: 'NPM on IPFS via IPFS Desktop has been deprecated since February 2021. It was now fully removed. As an alternative, you can use https://github.com/forestpm/forest.',
+      message: 'NPM on IPFS via IPFS Desktop has been deprecated since February 2021. It was now fully removed. As an alternative, you can use https://github.com/foragepm/forage.',
       buttons: [i18n.t('close')]
     })
   }
@@ -43,6 +43,6 @@ async function uninstall () {
     logger.info('[npm on ipfs] ipfs-npm: uninstalled globally')
     return true
   } catch (err) {
-    logger.error(`[npm on ipfs] ${err.toString()}`)
+    logger.error(`[npm on ipfs] ipfs-npm failed to uninstall: ${err.toString()}`, err)
   }
 }
