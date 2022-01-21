@@ -14,25 +14,6 @@ function checkErr (err) {
 function revert (userData, bin, dst) {
   const backup = join(userData, bin + '.bak')
 
-  try {
-    fs.removeSync(dst)
-  } catch (err) {
-    if (err.code !== 'ENOENT') {
-      throw err
-    }
-  }
-
-  try {
-    fs.copySync(backup, dst)
-    console.log(`${backup} restored to ${dst}`)
-  } catch (err) {
-    if (err.code === 'ENOENT') {
-      console.log(`${backup} not found, skipping`)
-      return
-    }
-
-    checkErr(err)
-  }
 
   try {
     fs.unlinkSync(backup)
