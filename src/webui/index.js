@@ -45,6 +45,8 @@ const createWindow = () => {
   })
 
   window.webContents.on('unresponsive', async () => {
+    logger.error('[web ui] the webui became unresponsive')
+
     const opt = showDialog({
       title: i18n.t('unresponsiveWindowDialog.title'),
       message: i18n.t('unresponsiveWindowDialog.message'),
