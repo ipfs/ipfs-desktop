@@ -1,27 +1,29 @@
 const which = require('which')
+const util = require('util')
 const i18n = require('i18next')
-const pkg = require('./package')
 const logger = require('../common/logger')
 const store = require('../common/store')
 const { showDialog } = require('../dialogs')
-const createToggler = require('../utils/create-toggler')
+const { IS_WIN } = require('../common/consts')
+const childProcess = require('child_process')
+
+const execFile = util.promisify(childProcess.execFile)
+const npmBin = IS_WIN ? 'npm.cmd' : 'npm'
 
 const CONFIG_KEY = 'experiments.npmOnIpfs'
 
+// Deprecated in February 2021. Remove soon.
 module.exports = function (ctx) {
-  // Every 12 hours, check if `ipfs-npm` is installed and, if it is,
-  // tries to update it to the latest version.
-  setInterval(existsAndUpdate, 43200000)
+  if (store.get(CONFIG_KEY, null) === true) {
+    logger.info('[npm on ipfs] deprecated, removing')
+    store.delete(CONFIG_KEY)
+    uninstall()
 
-  // Configure toggler
-  createToggler(CONFIG_KEY, toggle)
-
-  // When running for the first time, update the config to know if `ipfs-npm`
-  // is installed or not.
-  if (store.get(CONFIG_KEY, null) === null) {
-    const exists = isPkgInstalled()
-    logger.info(`[npm on ipfs] 1st time running and package is ${exists ? 'installed' : 'not installed'}`)
-    store.set(CONFIG_KEY, exists)
+    showDialog({
+      title: 'NPM on IPFS Uninstalled',
+      message: 'NPM on IPFS via IPFS Desktop has been deprecated since February 2021. It was now fully removed. As an alternative, you can use https://github.com/foragepm/forage.',
+      buttons: [i18n.t('close')]
+    })
   }
 }
 
@@ -31,41 +33,16 @@ function isPkgInstalled () {
   return !!which.sync('ipfs-npm', { nothrow: true })
 }
 
-function existsAndUpdate () {
-  if (isPkgInstalled()) {
-    pkg.update()
-  } else {
-    store.set(CONFIG_KEY, false)
-  }
-}
-
-async function toggle ({ newValue, oldValue }) {
-  if (newValue === oldValue || oldValue === null) {
-    return true
-  }
-
-  // If the user is telling to (un)install even though they have (un)installed
-  // ipfs-npm package manually.
-  const manual = isPkgInstalled() === newValue
-
-  if (!newValue) {
-    return manual || pkg.uninstall()
-  }
-
-  const opt = showDialog({
-    type: 'warning',
-    title: i18n.t('installNpmOnIpfsWarning.title'),
-    message: i18n.t('installNpmOnIpfsWarning.message'),
-    buttons: [
-      i18n.t('installNpmOnIpfsWarning.action'),
-      i18n.t('cancel')
-    ]
-  })
-
-  if (opt !== 0) {
-    // User canceled
+async function uninstall () {
+  if (isPkgInstalled() === false) {
     return
   }
 
-  return manual || pkg.install()
+  try {
+    await execFile(npmBin, ['uninstall', '-g', 'ipfs-npm'])
+    logger.info('[npm on ipfs] ipfs-npm: uninstalled globally')
+    return true
+  } catch (err) {
+    logger.error(`[npm on ipfs] ipfs-npm failed to uninstall: ${err.toString()}`, err)
+  }
 }

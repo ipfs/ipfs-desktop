@@ -205,19 +205,6 @@
     "title": "Enable download shortcut",
     "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
   },
-  "installNpmOnIpfsWarning": {
-    "title": "Install npm on IPFS",
-    "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
-    "action": "Install"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "Error",
-    "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "Error",
-    "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
-  },
   "settings": {
     "settings": "Settings",
     "preferences": "Preferences",

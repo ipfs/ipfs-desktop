@@ -17,7 +17,6 @@ const { CONFIG_KEY: PUBSUB_KEY } = require('./enable-pubsub')
 const { CONFIG_KEY: NAMESYS_PUBSUB_KEY } = require('./enable-namesys-pubsub')
 const { CONFIG_KEY: AUTO_GC_KEY } = require('./automatic-gc')
 const { CONFIG_KEY: IPFS_PATH_KEY } = require('./ipfs-on-path')
-const { CONFIG_KEY: NPM_IPFS_KEY } = require('./npm-on-ipfs')
 const { CONFIG_KEY: AUTO_LAUNCH_WEBUI_KEY } = require('./webui')
 
 const CONFIG_KEYS = [
@@ -25,7 +24,6 @@ const CONFIG_KEYS = [
   AUTO_LAUNCH_WEBUI_KEY,
   AUTO_GC_KEY,
   IPFS_PATH_KEY,
-  NPM_IPFS_KEY,
   SCREENSHOT_KEY,
   DOWNLOAD_KEY,
   PUBSUB_KEY,
@@ -34,8 +32,7 @@ const CONFIG_KEYS = [
 
 // We show them if user enabled them before, but hide when off
 const DEPRECATED_KEYS = new Set([
-  IPFS_PATH_KEY, // brittle, buggy, way better if user does this by hand for now
-  NPM_IPFS_KEY // superseded by https://github.com/forestpm/forest
+  IPFS_PATH_KEY // brittle, buggy, way better if user does this by hand for now
 ])
 
 function buildCheckbox (key, label) {
@@ -146,8 +143,7 @@ function buildMenu (ctx) {
           enabled: false
         },
         buildCheckbox(PUBSUB_KEY, 'settings.pubsub'),
-        buildCheckbox(NAMESYS_PUBSUB_KEY, 'settings.namesysPubsub'),
-        buildCheckbox(NPM_IPFS_KEY, 'settings.npmOnIpfs')
+        buildCheckbox(NAMESYS_PUBSUB_KEY, 'settings.namesysPubsub')
       ]
     },
     {
