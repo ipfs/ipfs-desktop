@@ -1,6 +1,6 @@
 const { join } = require('path')
 const i18n = require('i18next')
-const { app } = require('electron')
+const { app, shell } = require('electron')
 const { execFile } = require('child_process')
 const execOrSudo = require('../utils/exec-or-sudo')
 const logger = require('../common/logger')
@@ -32,13 +32,18 @@ module.exports = async function () {
 
     logger.info('[ipfs on path] uninstalled')
 
-    showDialog({
+    const opt = showDialog({
       title: 'Command Line Tools Uninstalled',
       message: 'Command Line Tools via IPFS Desktop have been deprecated in February 2021. They have now been uninstalled. Please refer to https://docs.ipfs.io/install/command-line/ if you need to use ipfs from the command line.',
       buttons: [
+        i18n.t('openCliDocumentation'),
         i18n.t('close')
       ]
     })
+
+    if (opt === 0) {
+      shell.openExternal('https://docs.ipfs.io/install/command-line/')
+    }
   }
 
   store.delete(CONFIG_KEY)
