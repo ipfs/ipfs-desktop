@@ -39,7 +39,7 @@ const createWindow = () => {
   }
 
   window.webContents.on('render-process-gone', (_, { reason, exitCode }) => {
-    logger.error(`[web ui] crashed: ${reason}, code: ${exitCode}`)
+    logger.error(`[web ui] render-process-gone: ${reason}, code: ${exitCode}`)
   })
 
   window.webContents.on('unresponsive', () => {
