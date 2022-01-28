@@ -17,6 +17,7 @@ const { CONFIG_KEY: PUBSUB_KEY } = require('./enable-pubsub')
 const { CONFIG_KEY: NAMESYS_PUBSUB_KEY } = require('./enable-namesys-pubsub')
 const { CONFIG_KEY: AUTO_GC_KEY } = require('./automatic-gc')
 const { CONFIG_KEY: AUTO_LAUNCH_WEBUI_KEY } = require('./webui')
+const { CONFIG_KEY: ASK_OPENING_IPFS_URIS } = require('./protocol-handlers')
 
 const CONFIG_KEYS = [
   AUTO_LAUNCH_KEY,
@@ -25,7 +26,8 @@ const CONFIG_KEYS = [
   SCREENSHOT_KEY,
   DOWNLOAD_KEY,
   PUBSUB_KEY,
-  NAMESYS_PUBSUB_KEY
+  NAMESYS_PUBSUB_KEY,
+  ASK_OPENING_IPFS_URIS
 ]
 
 function buildCheckbox (key, label) {
@@ -125,6 +127,7 @@ function buildMenu (ctx) {
         },
         buildCheckbox(AUTO_LAUNCH_KEY, 'settings.launchOnStartup'),
         buildCheckbox(AUTO_LAUNCH_WEBUI_KEY, 'settings.openWebUIAtLaunch'),
+        buildCheckbox(ASK_OPENING_IPFS_URIS, 'settings.askWhenOpeningIpfsURIs'),
         buildCheckbox(AUTO_GC_KEY, 'settings.automaticGC'),
         buildCheckbox(SCREENSHOT_KEY, 'settings.takeScreenshotShortcut'),
         buildCheckbox(DOWNLOAD_KEY, 'settings.downloadHashShortcut'),

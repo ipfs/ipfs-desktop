@@ -1,14 +1,16 @@
 const { styles } = require('./styles')
 
-module.exports = ({ message, defaultValue, buttons, id }) => (`<!DOCTYPE html>
+module.exports = ({ message, inputs, buttons, id }) => (`<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" /> 
   </head>
   <body>
     <p>${message}</p>
-    <input type="text" value="${defaultValue}" />
-    <div id="buttons">${buttons.join('\n')}</div>
+    <form>
+      ${inputs}
+      <div id="buttons">${buttons}</div>
+    </form>
   </body>
   <style>
   ${styles}
@@ -19,7 +21,7 @@ module.exports = ({ message, defaultValue, buttons, id }) => (`<!DOCTYPE html>
     for (const button of document.querySelectorAll('button')) {
       button.addEventListener('click', event => {
         ipcRenderer.send('${id}', {
-          input: document.querySelector('input').value,
+          input: Object.fromEntries(new FormData(document.querySelector('form')).entries()),
           button: Number(button.id)
         })
       })
