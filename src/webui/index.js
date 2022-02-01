@@ -51,8 +51,8 @@ const createWindow = () => {
       title: i18n.t('unresponsiveWindowDialog.title'),
       message: i18n.t('unresponsiveWindowDialog.message'),
       buttons: [
-        i18n.t('ok'),
-        i18n.t('cancel')
+        i18n.t('unresponsiveWindowDialog.forceReload'),
+        i18n.t('unresponsiveWindowDialog.doNothing')
       ]
     })
 

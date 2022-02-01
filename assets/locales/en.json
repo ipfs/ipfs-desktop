@@ -235,6 +235,8 @@
   },
   "unresponsiveWindowDialog": {
     "title": "IPFS Desktop became unresponsive",
-    "message": "Do you wish to forcefully reload the app?"
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }
