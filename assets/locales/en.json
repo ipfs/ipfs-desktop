@@ -232,5 +232,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "Clear custom IPFS binary",
     "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }

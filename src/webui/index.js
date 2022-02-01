@@ -3,12 +3,14 @@ const { join } = require('path')
 const { URL } = require('url')
 const serve = require('electron-serve')
 const os = require('os')
+const i18n = require('i18next')
 const openExternal = require('./open-external')
 const logger = require('../common/logger')
 const store = require('../common/store')
 const dock = require('../utils/dock')
 const { VERSION, ELECTRON_VERSION } = require('../common/consts')
 const createToggler = require('../utils/create-toggler')
+const { showDialog } = require('../dialogs')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
@@ -38,12 +40,26 @@ const createWindow = () => {
     window.webContents.openDevTools()
   }
 
-  window.webContents.on('crashed', event => {
-    logger.error(`[web ui] crashed: ${event.toString()}`)
+  window.webContents.on('render-process-gone', (_, { reason, exitCode }) => {
+    logger.error(`[web ui] render-process-gone: ${reason}, code: ${exitCode}`)
   })
 
-  window.webContents.on('unresponsive', event => {
-    logger.error(`[web ui] unresponsive: ${event.toString()}`)
+  window.webContents.on('unresponsive', async () => {
+    logger.error('[web ui] the webui became unresponsive')
+
+    const opt = showDialog({
+      title: i18n.t('unresponsiveWindowDialog.title'),
+      message: i18n.t('unresponsiveWindowDialog.message'),
+      buttons: [
+        i18n.t('unresponsiveWindowDialog.forceReload'),
+        i18n.t('unresponsiveWindowDialog.doNothing')
+      ]
+    })
+
+    if (opt === 0) {
+      window.webContents.forcefullyCrashRenderer()
+      window.webContents.reload()
+    }
   })
 
   window.on('resize', () => {
