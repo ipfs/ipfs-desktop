@@ -236,5 +236,18 @@
   "startupFailedDialog": {
     "title": "IPFS Desktop Startup Has Failed",
     "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "migrationFailedDialog": {
+    "title": "IPFS Desktop Migration Has Failed",
+    "message": "IPFS has encountered an error and migration could not be completed:"
+  },
+  "protocolHandlerDialog": {
+    "title": "Opening IPFS URIs",
+    "message": "How would you like IPFS Desktop to open IPFS URIs?",
+    "browserPublicGateway": "In my default browser using a public gateway",
+    "browserLocalGateway": "In my default browser using a local gateway",
+    "filesScreen": "In the Files screen",
+    "exploreScreen": "In the Explore screen",
+    "rememberThisChoice": "Remember this choice for all IPFS URIs"
   }
 }
