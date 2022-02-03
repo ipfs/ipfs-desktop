@@ -100,7 +100,7 @@ jobs:
         run: npm run test
 
       - name: Test end-to-end
-        uses: GabrielBB/xvfb-action@f040be23a619e5ec34116f24098ad3626ceab681 # v1.4
+        uses: GabrielBB/xvfb-action@86d97bde4a65fe9b290c0b3fb92c2c4ed0e5302d # v1.6
         with:
           working-directory: ${{ github.workspace }}
           run: npm run test:e2e
