@@ -1,123 +1,79 @@
 const { join } = require('path')
 const i18n = require('i18next')
-const which = require('which')
+const { app, shell } = require('electron')
 const { execFile } = require('child_process')
-const createToggler = require('../utils/create-toggler')
 const execOrSudo = require('../utils/exec-or-sudo')
 const logger = require('../common/logger')
 const store = require('../common/store')
 const { IS_WIN } = require('../common/consts')
-const { showDialog, recoverableErrorDialog } = require('../dialogs')
+const { showDialog } = require('../dialogs')
+const { unlinkSync } = require('fs')
 
 const CONFIG_KEY = 'ipfsOnPath'
 
-const errorMessage = {
-  title: i18n.t('cantAddIpfsToPath.title'),
-  message: i18n.t('cantAddIpfsToPath.message')
-}
-
+// Deprecated in February 2021 https://github.com/ipfs/ipfs-desktop/pull/1768
+// Once this bit of code is removed, also remove ../utils/exec-or-sudo.
 module.exports = async function () {
-  createToggler(CONFIG_KEY, async ({ newValue, oldValue }) => {
-    if (newValue === oldValue || (oldValue === null && !newValue)) {
-      return
+  if (store.get(CONFIG_KEY, null) === true) {
+    try {
+      await uninstall('uninstall')
+    } catch (err) {
+      // Weird, but not worth bothering.
+      logger.error(`[ipfs on path] ${err.toString()}`)
     }
 
-    if (newValue === true) {
-      if (showDialog({
-        title: i18n.t('enableIpfsOnPath.title'),
-        message: i18n.t('enableIpfsOnPath.message'),
-        buttons: [
-          i18n.t('enableIpfsOnPath.action'),
-          i18n.t('cancel')
-        ]
-      }) !== 0) {
-        // User canceled
-        return
-      }
-
-      return run('install')
+    try {
+      unlinkSync(join(app.getPath('home'), './.ipfs-desktop/IPFS_PATH').replace('app.asar', 'app.asar.unpacked'))
+      unlinkSync(join(app.getPath('home'), './.ipfs-desktop/IPFS_EXEC').replace('app.asar', 'app.asar.unpacked'))
+    } catch (err) {
+      // Weird, but not worth bothering.
+      logger.error(`[ipfs on path] ${err.toString()}`)
     }
 
-    if (showDialog({
-      title: i18n.t('disableIpfsOnPath.title'),
-      message: i18n.t('disableIpfsOnPath.message'),
+    logger.info('[ipfs on path] uninstalled')
+
+    const opt = showDialog({
+      title: 'Command Line Tools Uninstalled',
+      message: 'Command Line Tools via IPFS Desktop have been deprecated in February 2021. They have now been uninstalled. Please refer to https://docs.ipfs.io/install/command-line/ if you need to use ipfs from the command line.',
       buttons: [
-        i18n.t('disableIpfsOnPath.action'),
-        i18n.t('cancel')
+        i18n.t('openCliDocumentation'),
+        i18n.t('close')
       ]
-    }) !== 0) {
-      // User canceled
-      return
+    })
+
+    if (opt === 0) {
+      shell.openExternal('https://docs.ipfs.io/install/command-line/')
     }
+  }
 
-    return run('uninstall')
-  })
-
-  firstTime()
+  store.delete(CONFIG_KEY)
 }
 
-module.exports.CONFIG_KEY = CONFIG_KEY
-
-async function firstTime () {
-  // Check if we've done this before.
-  if (store.get(CONFIG_KEY, null) !== null) {
-    logger.info('[ipfs on path] no action taken')
-    return
-  }
-
-  if (which.sync('ipfs', { nothrow: true }) !== null) {
-    // ipfs already exists on user's system so we won't take any action
-    // by default. Doesn't try again next time.
-    store.set(CONFIG_KEY, false)
-    return
-  }
-
-  // Tries to install ipfs-on-path on the system. It doesn't try to elevate
-  // to sudo so the user doesn't get annoying prompts when running IPFS Desktop
-  // for the first time. Sets the option according to the success or failure of the
-  // procedure.
-  try {
-    const res = await run('install', { trySudo: false, failSilently: true })
-    store.set(CONFIG_KEY, res)
-  } catch (err) {
-    logger.error(`[ipfs on path] unexpected error while no-sudo install: ${err.toString()}`)
-    store.set(CONFIG_KEY, false)
-  }
-}
-
-async function runWindows (script, { failSilently }) {
-  return new Promise(resolve => {
+async function uninstallWindows () {
+  return new Promise((resolve, reject) => {
     execFile('powershell.exe', [
       '-nop', '-exec', 'bypass',
       '-win', 'hidden', '-File',
-      join(__dirname, `scripts/${script}.ps1`).replace('app.asar', 'app.asar.unpacked')
+      join(__dirname, 'scripts/uninstall.ps1').replace('app.asar', 'app.asar.unpacked')
     ], {}, err => {
       if (err) {
-        logger.error(`[ipfs on path] ${err.toString()}`)
-
-        if (!failSilently) {
-          recoverableErrorDialog(err, errorMessage)
-        }
-
-        return resolve(false)
+        return reject(err)
       }
 
-      logger.info(`[ipfs on path] ${script}ed`)
-      resolve(true)
+      resolve()
     })
   })
 }
 
-async function run (script, { trySudo = true, failSilently = false } = {}) {
+async function uninstall () {
   if (IS_WIN) {
-    return runWindows(script, { failSilently })
+    return uninstallWindows()
   }
 
   return execOrSudo({
-    script: join(__dirname, `./scripts/${script}.js`),
+    script: join(__dirname, './scripts/uninstall.js'),
     scope: 'ipfs on path',
-    trySudo,
-    failSilently,
-    errorOptions: errorMessage
+    trySudo: true,
+    failSilently: true
   })
 }

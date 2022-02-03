@@ -1,8 +1,5 @@
 const Ctl = require('ipfsd-ctl')
 const i18n = require('i18next')
-const fs = require('fs-extra')
-const { join } = require('path')
-const { app } = require('electron')
 const { showDialog } = require('../dialogs')
 const logger = require('../common/logger')
 const { applyDefaults, migrateConfig, checkCorsConfig, checkPorts, configExists, rmApiFile, apiFileExists } = require('./config')
@@ -27,17 +24,8 @@ function getIpfsBinPath () {
       .replace('app.asar', 'app.asar.unpacked')
 }
 
-function writeIpfsBinaryPath (path) {
-  fs.outputFileSync(
-    join(app.getPath('home'), './.ipfs-desktop/IPFS_EXEC')
-      .replace('app.asar', 'app.asar.unpacked'),
-    path
-  )
-}
-
 async function spawn ({ flags, path }) {
   const ipfsBin = getIpfsBinPath()
-  writeIpfsBinaryPath(ipfsBin)
 
   const ipfsd = await Ctl.createController({
     ipfsHttpModule: require('ipfs-http-client'),

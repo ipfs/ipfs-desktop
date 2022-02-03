@@ -16,24 +16,17 @@ const { CONFIG_KEY: AUTO_LAUNCH_KEY, isSupported: supportsLaunchAtLogin } = requ
 const { CONFIG_KEY: PUBSUB_KEY } = require('./enable-pubsub')
 const { CONFIG_KEY: NAMESYS_PUBSUB_KEY } = require('./enable-namesys-pubsub')
 const { CONFIG_KEY: AUTO_GC_KEY } = require('./automatic-gc')
-const { CONFIG_KEY: IPFS_PATH_KEY } = require('./ipfs-on-path')
 const { CONFIG_KEY: AUTO_LAUNCH_WEBUI_KEY } = require('./webui')
 
 const CONFIG_KEYS = [
   AUTO_LAUNCH_KEY,
   AUTO_LAUNCH_WEBUI_KEY,
   AUTO_GC_KEY,
-  IPFS_PATH_KEY,
   SCREENSHOT_KEY,
   DOWNLOAD_KEY,
   PUBSUB_KEY,
   NAMESYS_PUBSUB_KEY
 ]
-
-// We show them if user enabled them before, but hide when off
-const DEPRECATED_KEYS = new Set([
-  IPFS_PATH_KEY // brittle, buggy, way better if user does this by hand for now
-])
 
 function buildCheckbox (key, label) {
   return {
@@ -41,7 +34,6 @@ function buildCheckbox (key, label) {
     label: i18n.t(label),
     click: () => { ipcMain.emit(`toggle_${key}`) },
     type: 'checkbox',
-    visible: !DEPRECATED_KEYS.has(key),
     checked: false
   }
 }
@@ -134,7 +126,6 @@ function buildMenu (ctx) {
         buildCheckbox(AUTO_LAUNCH_KEY, 'settings.launchOnStartup'),
         buildCheckbox(AUTO_LAUNCH_WEBUI_KEY, 'settings.openWebUIAtLaunch'),
         buildCheckbox(AUTO_GC_KEY, 'settings.automaticGC'),
-        buildCheckbox(IPFS_PATH_KEY, 'settings.ipfsCommandLineTools'),
         buildCheckbox(SCREENSHOT_KEY, 'settings.takeScreenshotShortcut'),
         buildCheckbox(DOWNLOAD_KEY, 'settings.downloadHashShortcut'),
         { type: 'separator' },
@@ -341,7 +332,6 @@ module.exports = function (ctx) {
     for (const key of CONFIG_KEYS) {
       const enabled = store.get(key, false)
       menu.getMenuItemById(key).checked = enabled
-      menu.getMenuItemById(key).visible = !DEPRECATED_KEYS.has(key) || enabled
     }
 
     if (!IS_MAC && !IS_WIN) {
