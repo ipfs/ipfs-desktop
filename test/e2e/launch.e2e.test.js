@@ -1,26 +1,20 @@
-/* eslint-env mocha */
-
 const { _electron: electron } = require('playwright')
+const { test, expect } = require('@playwright/test')
+
 const path = require('path')
 const fs = require('fs-extra')
 const tmp = require('tmp')
-const chai = require('chai')
-const dirtyChai = require('dirty-chai')
 const { makeRepository } = require('./utils/ipfsd')
 const portfinder = require('portfinder')
-
-const expect = chai.expect
-chai.use(dirtyChai)
 
 async function getPort () {
   return portfinder.getPortPromise()
 }
 
-describe('Application launch', function () {
-  this.timeout(60000)
+test.describe.serial('Application launch', async () => {
   let app = null
 
-  afterEach(async function () {
+  test.afterEach(async () => {
     if (app) {
       await app.close()
     }
@@ -31,16 +25,14 @@ describe('Application launch', function () {
     if (!repoPath) {
       repoPath = path.join(home, '.ipfs')
     }
-
     app = await electron.launch({
       args: [path.join(__dirname, '../../src/index.js')],
-      env: {
+      env: Object.assign({}, process.env, {
         NODE_ENV: 'test',
         HOME: home,
         IPFS_PATH: repoPath
-      }
+      })
     })
-
     return { app, repoPath, home }
   }
 
@@ -64,29 +56,29 @@ describe('Application launch', function () {
     return { peerId }
   }
 
-  it('creates a repository on startup', async function () {
+  test('creates a repository on startup', async () => {
     const { app, repoPath } = await startApp({})
     const { peerId } = await daemonReady(app)
     // expect config to be created and match peerId
     const configPath = path.join(repoPath, 'config')
     const config = fs.readJsonSync(configPath)
-    expect(config).to.exist()
+    expect(config).toBeDefined()
     // confirm PeerID is matching one from repoPath/config
-    expect(config.Identity.PeerID).to.be.equal(peerId)
+    expect(config.Identity.PeerID).toBe(peerId)
     // ensure strict CORS checking is enabled
-    expect(config.API.HTTPHeaders).to.deep.equal({})
-    expect(config.Discovery.MDNS.Enabled).to.be.true()
+    expect(config.API.HTTPHeaders).toEqual({})
+    expect(config.Discovery.MDNS.Enabled).toBeTruthy()
   })
 
-  it('starts fine when node is already running', async function () {
+  test('starts fine when node is already running', async () => {
     const { ipfsd } = await makeRepository({ start: true })
     const { app } = await startApp({ repoPath: ipfsd.path })
     const { peerId } = await daemonReady(app)
     const { id: expectedId } = await ipfsd.api.id()
-    expect(peerId).to.be.equal(expectedId)
+    expect(peerId).toBe(expectedId)
   })
 
-  it('applies config migration to existing config', async function () {
+  test('applies config migration to existing config', async () => {
     // create preexisting, initialized repo and config
     const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
 
@@ -99,15 +91,15 @@ describe('Application launch', function () {
 
     const { app } = await startApp({ repoPath })
     const { peerId } = await daemonReady(app)
-    expect(peerId).to.be.equal(expectedId)
+    expect(peerId).toBe(expectedId)
 
     const config = fs.readJsonSync(configPath)
     // ensure app has migrated config
-    expect(config.Discovery.MDNS.enabled).to.be.undefined()
-    expect(config.Discovery.MDNS.Enabled).to.be.true()
+    expect(config.Discovery.MDNS.enabled).toBeUndefined()
+    expect(config.Discovery.MDNS.Enabled).toBeTruthy()
   })
 
-  it('fixes cors config if access to "*" is granted', async function () {
+  test('fixes cors config if access to "*" is granted', async () => {
     // create config
     const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
     let config = fs.readJsonSync(configPath)
@@ -119,14 +111,14 @@ describe('Application launch', function () {
 
     const { app } = await startApp({ repoPath })
     const { peerId } = await daemonReady(app)
-    expect(peerId).to.be.equal(expectedId)
+    expect(peerId).toBe(expectedId)
 
     // ensure app has enabled cors checking
     config = fs.readJsonSync(configPath)
-    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.be.deep.equal([])
+    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).toEqual([])
   })
 
-  it('fixes cors config with multiple allowed origins', async function () {
+  test('fixes cors config with multiple allowed origins', async () => {
     // create preexisting, initialized repo and config
     const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
 
@@ -139,15 +131,15 @@ describe('Application launch', function () {
 
     const { app } = await startApp({ repoPath })
     const { peerId } = await daemonReady(app)
-    expect(peerId).to.be.equal(expectedId)
+    expect(peerId).toBe(expectedId)
 
     const config = fs.readJsonSync(configPath)
     // ensure app has enabled cors checking
     const specificOrigins = newOrigins.filter(origin => origin !== '*')
-    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).to.deep.equal(specificOrigins)
+    expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).toEqual(specificOrigins)
   })
 
-  it('starts with repository with "IPFS_PATH/api" file and no daemon running', async function () {
+  test('starts with repository with "IPFS_PATH/api" file and no daemon running', async () => {
     // create "remote" repo
     const { ipfsd } = await makeRepository({ start: true })
 
@@ -163,7 +155,7 @@ describe('Application launch', function () {
     await daemonReady(app)
   })
 
-  it('starts with multiple api addresses', async function () {
+  test('starts with multiple api addresses', async () => {
     const { repoPath, configPath } = await makeRepository({ start: false })
     const config = fs.readJsonSync(configPath)
     config.Addresses.API = [
@@ -175,7 +167,7 @@ describe('Application launch', function () {
     await daemonReady(app)
   })
 
-  it('starts with multiple gateway addresses', async function () {
+  test('starts with multiple gateway addresses', async () => {
     const { repoPath, configPath } = await makeRepository({ start: false })
     const config = fs.readJsonSync(configPath)
     config.Addresses.Gateway = [
