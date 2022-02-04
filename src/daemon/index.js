@@ -12,9 +12,9 @@ module.exports = async function (ctx) {
   let status = null
   let wasOnline = null
 
-  const updateStatus = (stat) => {
+  const updateStatus = (stat, id = null) => {
     status = stat
-    ipcMain.emit('ipfsd', status)
+    ipcMain.emit('ipfsd', status, id)
   }
 
   const getIpfsd = async (optional = false) => {
@@ -45,6 +45,7 @@ module.exports = async function (ctx) {
 
     try {
       ipfsd = await createDaemon(config)
+      const { id } = await ipfsd.api.id()
 
       // Update the path if it was blank previously.
       // This way we use the default path when it is
@@ -55,7 +56,7 @@ module.exports = async function (ctx) {
       }
 
       log.end()
-      updateStatus(STATUS.STARTING_FINISHED)
+      updateStatus(STATUS.STARTING_FINISHED, id)
     } catch (err) {
       log.fail(err)
       updateStatus(STATUS.STARTING_FAILED)
