@@ -47,6 +47,7 @@
   "customIpfsBinary": "File Binario IPFS Personalizzato",
   "setCustomIpfsBinary": "Imposta un File Binario IPFS Personalizzato",
   "clearCustomIpfsBinary": "Cancella il file binario IPFS personalizzato",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "Polkit non trovato",
     "message": "IPFS non può essere aggiunto in /usr/local/bin/ senza polkit agent."
@@ -149,10 +150,6 @@
     "title": "Sposta repository",
     "message": "Non è stato possibile spostare il repository da \"{ currDir }\" a \"{ newDir }\"."
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS su PERCORSO",
-    "message": "Non è stato possibile aggiungere IPFS al PERCORSO."
-  },
   "runGarbageCollectorErrored": {
     "title": "Garbage collector",
     "message": "Non è stato possibile completare il lavoro del garbage collector con successo."
@@ -187,16 +184,6 @@
     "title": "Errore",
     "message": "L'avvio al login non è attivabile sul tuo computer."
   },
-  "enableIpfsOnPath": {
-    "title": "Abilita IPFS su PERCORSO",
-    "message": "Abilitando quest'opzione, IPFS sarà disponibile nella tua riga di comando come \"ipfs\". Quest'azione è reversibile.",
-    "action": "Abilita"
-  },
-  "disableIpfsOnPath": {
-    "title": "Disabilita IPFS su PERCORSO",
-    "message": "Disabilitando quest'opzione, IPFS non sarà più disponibile nella tua riga di comando come \"ipfs\".",
-    "action": "Disabilita"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Abilita scorciatoia screenshot",
     "message": "Abilitando ciò, la scorciatoia \"{ accelerator }\" sarà disponibile per scattare screenshot finché IPFS Desktop rimarrà in esecuzione."
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "Abilita scorciatoia download",
     "message": "Abilitando ciò, la scorciatoia \"{ accelerator }\" sarà disponibile per scaricare file finché IPFS Desktop rimarrà in esecuzione."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "Installa npm su IPFS",
-    "message": "Questa funzionalità sperimentale installa il pacchetto \"ipfs-npm\" sul tuo sistema. Ciò richiede Node.js per essere installato.",
-    "action": "Installa"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "Errore",
-    "message": "Non è stato possibile installare il pacchetto \"ipfs-npm\" sul tuo sistema. Per favore, controlla i log per ulteriori informazioni o prova ad installarlo manualmente avviando \"npm install -g ipfs-npm\" nella tua riga di comando."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "Errore",
-    "message": "Non è stato possibile disinstallare il pacchetto \"ipfs-npm\" dal tuo sistema. Per favore, controlla i log per ulteriori informazioni o prova a disinstallarlo manualmente avviando \"npm uninstall -g ipfs-npm\" nella tua riga di comando."
   },
   "settings": {
     "settings": "Impostazioni",
@@ -228,7 +202,6 @@
     "pubsub": "Abilita PubSub",
     "namesysPubsub": "Abilita IPNS su PubSub",
     "automaticGC": "Garbage Collection automatica",
-    "ipfsCommandLineTools": "Strumenti a Riga di Comando",
     "takeScreenshotShortcut": "Scorciatoia Screenshot Globale",
     "downloadHashShortcut": "Scorciatoia Download Globale",
     "experiments": "Esperimenti",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "Cancella il file binario IPFS personalizzato",
     "message": "Il file binario IPFS personalizzato è stato cancellato. Per iniziare a utilizzare la versione nel bundle IPFS, è necessario prima riavviare IPFS."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }

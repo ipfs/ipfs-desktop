@@ -47,6 +47,7 @@
   "customIpfsBinary": "ثنائي مخصص IPFS",
   "setCustomIpfsBinary": "تعيين ثنائي مخصص IPFS",
   "clearCustomIpfsBinary": "مسح ثنائي مخصص IPFS",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "لم يتم العثور على Polkit",
     "message": "لا يمكن إضافة IPFS إلى / usr / local / bin / بدون وكيل polkit."
@@ -149,10 +150,6 @@
     "title": "نقل المستودع",
     "message": "تعذر نقل المستودع من \"{ currDir }\" إلى \"{ newDir }\"."
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS على PATH",
-    "message": "تعذرت إضافة IPFS إلى المسار."
-  },
   "runGarbageCollectorErrored": {
     "title": "جامع القمامة",
     "message": "تعذر إكمال تشغيل جامع البيانات المهملة بنجاح."
@@ -187,16 +184,6 @@
     "title": "خطأ",
     "message": "تعذر تمكين التشغيل عند تسجيل الدخول على جهازك."
   },
-  "enableIpfsOnPath": {
-    "title": "تمكين IPFS على PATH",
-    "message": "من خلال تمكين هذا الخيار ، سيكون IPFS متاحًا في سطر الأوامر الخاص بك باسم \"ipfs\". هذا الإجراء قابل للعكس.",
-    "action": "ممكن"
-  },
-  "disableIpfsOnPath": {
-    "title": "تعطيل IPFS على PATH",
-    "message": "من خلال تعطيل هذا الخيار ، لن يكون IPFS متاحًا في سطر الأوامر باسم \"ipfs\".",
-    "action": "تعطيل"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "تمكين اختصار لقطة الشاشة",
     "message": "من خلال تمكين ذلك ، سيكون الاختصار \"{ accelerator }\" متاحًا لالتقاط لقطات الشاشة طالما أن IPFS لسطح المكتب قيد التشغيل."
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "تمكين اختصار التنزيل",
     "message": "من خلال تمكين ذلك ، سيكون الاختصار \"{ accelerator }\" متاحًا لتنزيل الملفات طالما أن IPFS لسطح المكتب قيد التشغيل."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "تثبيت npm على IPFS",
-    "message": "تقوم هذه الميزة التجريبية بتثبيت حزمة \"ipfs-npm\" على نظامك. يتطلب تثبيت Node.js.",
-    "action": "تثبيت"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "خطأ",
-    "message": "لم يكن من الممكن تثبيت حزمة \"ipfs-npm\" على نظامك. يُرجى التحقق من السجلات للحصول على مزيد من المعلومات أو محاولة تثبيتها يدويًا عن طريق تشغيل \"npm install -g ipfs-npm\" في سطر الأوامر."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "خطأ",
-    "message": "لم يكن من الممكن إلغاء تثبيت حزمة \"ipfs-npm\" على نظامك. يرجى التحقق من السجلات للحصول على مزيد من المعلومات أو محاولة إلغاء تثبيتها يدويًا عن طريق تشغيل \"npm uninstall -g ipfs-npm\" في سطر الأوامر."
   },
   "settings": {
     "settings": "الإعدادات",
@@ -228,7 +202,6 @@
     "pubsub": "تمكين PubSub",
     "namesysPubsub": "قم بتمكين IPNS عبر PubSub",
     "automaticGC": "جمع القمامة التلقائي",
-    "ipfsCommandLineTools": "أدوات سطر الأوامر",
     "takeScreenshotShortcut": "اختصار لقطة الشاشة العامة",
     "downloadHashShortcut": "اختصار التنزيل العالمي",
     "experiments": "التجارب",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "مسح ثنائي مخصص IPFS",
     "message": "تم محو ثنائي IPFS المخصص. لبدء استخدام إصدار IPFS المرفق ، يجب إعادة تشغيل IPFS أولاً."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }

@@ -47,6 +47,7 @@
   "customIpfsBinary": "ไบนารี่ IPFS ที่กำหนดเอง",
   "setCustomIpfsBinary": "กำหนดไบนารี่ IPFS",
   "clearCustomIpfsBinary": "ล้างไบนารี่ IPFS ที่กำหนดไว้",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "ไม่พบ Polkit",
     "message": "ไม่สามารถเพิ่ม IPFS ไปยัง /usr/local/bin/ ได้ หากไม่มี Polkit."
@@ -149,10 +150,6 @@
     "title": "ย้ายโฟลเดอร์",
     "message": "ไม่สามารถย้ายโฟลเดอร์จาก \"{ currDir }\" ไปที่ \"{ newDir }\"."
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS ใน PATH",
-    "message": "ไม่สามารถเพิ่ม IPFS ไปยัง PATH ของคุณ."
-  },
   "runGarbageCollectorErrored": {
     "title": "ตัวลบขยะ",
     "message": "ตัวลบขยะ ไม่สามารถดำเนินการได้."
@@ -187,16 +184,6 @@
     "title": "มีปัญหา",
     "message": "ฟังก์ชั่นนี้ไม่สามารถใช้งานได้ในเครื่องนี้."
   },
-  "enableIpfsOnPath": {
-    "title": "เปิดใช้งาน IPFS บน PATH",
-    "message": "การเปิดใช้งานตัวเลือกนี้, IPFS จะสามารถใช้งานบน command line ได้ โดยใช้คำสั่ง \"ipfs\". ในการเปิดใช้งานแล้ว จะไม่สามารถย้อนกลับได้.",
-    "action": "ใช้งาน"
-  },
-  "disableIpfsOnPath": {
-    "title": "ปิดใช้งาน IPFS บน PATH",
-    "message": "การปิดใช้งานตัวเลือกนี้, IPFS จะไม่สามารถใช้งานบน command line ได้ โดยใช้คำสั่ง \"ipfs\".",
-    "action": "ปิดใช้งาน"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "เปิดใช้งานคีย์ลัดในการถ่ายภาพหน้าจอ",
     "message": "ในการเปิดคีย์ลัดนี้, \"{ accelerator }\" จะสามารถใช้ในการถ่ายรูปหน้าจอของคุณได้ ตราบใดที่ IPFS Desktop ยังทำงานอยู่."
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "เปิดใช้งานคีย์ลัดในการดาวน์โหลด",
     "message": "ในการเปิดใช้งานคีย์ลัดนี้, \"{ accelerator }\" จะสามารถดาวน์โหลดไฟล์ได้ หาก IPFS Desktop ยังทำงานอยู่."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "ติดตั้ง npm บน IPFS",
-    "message": "ฟีเจอร์ทดลองนี้ จะต้องติดตั้งแพ็คเกจ \"ipfs-npm\" บนเครื่องของคุณ. คุณจะต้องติดตั้ง Node.js ก่อน ในการที่จะใช้ใช้ฟีเจอร์นี้.",
-    "action": "ติดตั้ง"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "มีปัญหา",
-    "message": "ไม่สามารถติดตั้ง \"ipfs-npm\" บนเครื่องของคุณได้. โปรดตรวจสอบบันทึก หรือติดตั้งด้วยตัวเอง โดยใช้คำสั่ง \"npm install -g ipfs-npm\" บน command line."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "มีปัญหา",
-    "message": "ไม่สามารถถอนการติดตั้ง \"ipfs-npm\" บนเครื่องของคุณได้. โปรดตรวจสอบบันทึก หรือใช้คำสั่ง \"npm uninstall -g ipfs-npm\" ด้วยตัวเอง บน command line."
   },
   "settings": {
     "settings": "การตั้งค่า",
@@ -228,7 +202,6 @@
     "pubsub": "เปิดใช้งาน PubSub",
     "namesysPubsub": "เปิดใช้งาน IPNS บน PubSub",
     "automaticGC": "การล้างขยะอัตโนมัติ",
-    "ipfsCommandLineTools": "เครื่องมือ Command Line",
     "takeScreenshotShortcut": "คีย์ลัดในการถ่ายภาพหน้าจอ",
     "downloadHashShortcut": "คีย์ลัดในการดาวน์โหลด",
     "experiments": "ฟังก์ชั่นทดลอง",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "ล้างไบนารี่ IPFS ที่กำหนดเอง",
     "message": "ไบนารี่ IPFS ที่กำหนดเองถูกล้างเรียบร้อย. ในการใช้งาน IPFS เวอร์ชั่นส่วนรวม, จะต้องรีสตาร์ท IPFS ก่อน."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }

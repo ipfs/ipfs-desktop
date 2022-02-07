@@ -47,6 +47,7 @@
   "customIpfsBinary": "カスタム IPFS バイナリ",
   "setCustomIpfsBinary": "カスタム IPFS バイナリをセット",
   "clearCustomIpfsBinary": "カスタム IPFS バイナリをクリア",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "Polkitが見つかりません",
     "message": "IPFSは、polkitエージェントなしでは/usr/local/bin/に追加できません。"
@@ -149,10 +150,6 @@
     "title": "リポジトリを移動する",
     "message": "リポジトリは\"{ currDir }\"から\"{ newDir }\"まで移動できませんでした。"
   },
-  "cantAddIpfsToPath": {
-    "title": "PATHにIPFS",
-    "message": "IPFSをPATHに追加できませんでした。"
-  },
   "runGarbageCollectorErrored": {
     "title": "ゴミコレクター",
     "message": "ゴミコレクターは成功に完了できませんでした。"
@@ -187,16 +184,6 @@
     "title": "エラー",
     "message": "ログイン時の開始はこのコンピューターに有効できませんでした。"
   },
-  "enableIpfsOnPath": {
-    "title": "PATHにIPFSを有効",
-    "message": "オプションを有効にすると、\"ipfs\"の入力でIPFSはコマンドラインから使用可能になります。この作用は可逆的です。",
-    "action": "有効"
-  },
-  "disableIpfsOnPath": {
-    "title": "PATHにIPFSを無効",
-    "message": "オプションを無効にすると、\"ipfs\"の入力でIPFSはコマンドラインから使用できなくなります。",
-    "action": "無効"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "スクリーンショットショートカットを有効にする",
     "message": "有効にすると、IPFSデスクトップは実行される限り\"{ accelerator }\"ショートカットはスクリーンショットを撮ることができます。"
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "ダウンロードのショートカットを有効",
     "message": "有効にすると、IPFSデスクトップは実行される限り\"{ accelerator }\"ショートカットはファイルをダウンロードできます。"
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "IPFSにnpmをインストールする",
-    "message": "この実験的機能はシステムに\"ipfs-npm\"パッケージをインストールします。Node.jsのインストールを必要とします。",
-    "action": "インストール"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "エラー",
-    "message": "このシステムに\"ipfs-npm\"パッケージをインストールできませんでした。詳しくはログを読む、それともコマンドラインから\"npm install -g ipfs-npm\"を実行して手動でインストールして下さい。"
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "エラー",
-    "message": "このシステムに\"ipfs-npm\"パッケージをアンインストールできませんでした。詳しくはログを読む、それともコマンドラインから\"npm uninstall -g ipfs-npm\"を実行して手動でアンインストールして下さい。"
   },
   "settings": {
     "settings": "設定",
@@ -228,7 +202,6 @@
     "pubsub": "PubSubを有効",
     "namesysPubsub": "IPNS・オーバー・PubSubを有効",
     "automaticGC": "自動的なゴミコレクター",
-    "ipfsCommandLineTools": "コマンドラインツール",
     "takeScreenshotShortcut": "グローバルスクリーンショットのショートカット",
     "downloadHashShortcut": "グローバルダウンロードのショートカット",
     "experiments": "実験",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "カスタムIPFSバイナリを除去",
     "message": "カスタムIPFSバイナリは除去されました。同梱IPFSバージョンを使用し始めるのに、IPFSを再起動する必要があります。"
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }

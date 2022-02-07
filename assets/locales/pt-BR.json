@@ -47,6 +47,7 @@
   "customIpfsBinary": "Binário IPFS Personalizado",
   "setCustomIpfsBinary": "Definir Binário IPFS Personalizado",
   "clearCustomIpfsBinary": "Desmarcar Binário IPFS Personalizado",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "Polkit não encontrado",
     "message": "IPFS não pode ser adicionado a /usr/local/bin sem polkit"
@@ -149,10 +150,6 @@
     "title": "Mover repositório",
     "message": "Não foi possível mover o repositório de \"{ currDir }\" para \"{ newDir }\"."
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS no PATH",
-    "message": "Não foi possível adicionar o IPFS ao PATH."
-  },
   "runGarbageCollectorErrored": {
     "title": "Limpeza",
     "message": "A execução da limpeza não foi completada com sucesso."
@@ -187,16 +184,6 @@
     "title": "Erro",
     "message": "O carregamento no login não pôde ser ativado em sua plataforma."
   },
-  "enableIpfsOnPath": {
-    "title": "Ativar IPFS no PATH",
-    "message": "Ao ativar esta opção, o IPFS estará disponível em sua linha de comando como \"ipfs\". Esta ação é reversível.",
-    "action": "Habilitar"
-  },
-  "disableIpfsOnPath": {
-    "title": "Desativar IPFS no PATH",
-    "message": "Ao desativar esta opção, o IPFS não estará mais disponível em sua linha de comando como \"ipfs\".",
-    "action": "Desativar"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Ativar atalho de captura de tela",
     "message": "Ao ativar isto, o atalho \"{ accelerator }\" estará disponível para realizar capturas de tela enquanto o ambiente de trabalho IPFS estiver rodando."
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "Ativar atalho para baixar arquivo",
     "message": "Ao ativar isto, o atalho \"{ accelerator }\" estará disponível para baixar arquivos enquanto o ambiente de trabalho IPFS estiver rodando."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "Instalar npm no IPFS",
-    "message": "Este recurso experimental instala o pacote \"ipfs-npm\" em seu sistema. Ele requer que o Node.js seja instalado.",
-    "action": "Instalar"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "Erro",
-    "message": "Não foi possível instalar o pacote \"ipfs-npm\" em seu sistema. Verifique os logs para mais informações ou tente instalá-lo manualmente executando \"npm install -g ipfs-npm\" na linha de comando."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "Erro",
-    "message": "Não foi possível desinstalar o pacote \"ipfs-npm\" em seu sistema. Verifique os logs para mais informações ou tente desinstalá-lo manualmente executando \"npm uninstall -g ipfs-npm\" na linha de comando."
   },
   "settings": {
     "settings": "Configurações",
@@ -228,7 +202,6 @@
     "pubsub": "Ativar PubSub",
     "namesysPubsub": "Ativar IPNS no PubSub",
     "automaticGC": "Limpeza Automática",
-    "ipfsCommandLineTools": "Ferramentas de Linha de Comando",
     "takeScreenshotShortcut": "Atalho de captura de tela integral",
     "downloadHashShortcut": "Atalho de download global",
     "experiments": "Experimentos",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "Limpar binário IPFS personalizado",
     "message": "O binário IPFS personalizado foi limpo. Para começar a usar a versão IPFS integrada, o IPFS precisa ser reiniciado primeiro."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }

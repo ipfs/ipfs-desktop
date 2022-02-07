@@ -47,6 +47,7 @@
   "customIpfsBinary": "باینری IPFS سفارشی",
   "setCustomIpfsBinary": "تنظیم باینری IPFS سفارشی",
   "clearCustomIpfsBinary": "پاک کردن باینری IPFS سفارشی",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "Polkit یافت نشد",
     "message": "IPFS بدون عامل Polkit  نمیتواند به /usr/local/bin/ اضافه شود."
@@ -149,10 +150,6 @@
     "title": "انتقال مخزن",
     "message": "مخزن از \"{ currDir }\" به \"{ newDir }\" منتقل نشد."
   },
-  "cantAddIpfsToPath": {
-    "title": "ّIPFS دراین مکان",
-    "message": "نمی توان IPFS را به این مکان اضافه کرد."
-  },
   "runGarbageCollectorErrored": {
     "title": "بازیابی حافظه",
     "message": "عملیات بازیابی حافظه با موفقیت انجام نشد."
@@ -187,16 +184,6 @@
     "title": "خطا",
     "message": "راه اندازی هنگام ورود روی سیستم شما امکان پذیر نیست."
   },
-  "enableIpfsOnPath": {
-    "title": "فعال کردن IPFS در مکان",
-    "message": "با فعال کردن این گزینه ، IPFS با دستور \"ipfs\" در خط فرمان شما در دسترس خواهد بود. این عمل قابل برگشت است.",
-    "action": "فعال"
-  },
-  "disableIpfsOnPath": {
-    "title": "غیرفعال کردن IPFS در مکان",
-    "message": "با غیرفعال کردن این گزینه ، IPFS دیگر در خط فرمان شما با عنوان \"ipfs\" در دسترس نخواهد بود.",
-    "action": "غیرفعال"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "فعال کردن میانبر اسکرین شات",
     "message": "با فعال کردن این گزینه ،‌ میانبر\"{ accelerator }\"  برای گرفتن اسکرین شات از صفحه تا زمانی که IPFS Desktop در حال اجرا است ، در دسترس خواهد بود. "
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "فعال کردن میانبر بارگیری",
     "message": "با فعال کردن این گزینه ، میانبر \"{ accelerator }\" برای بارگیری پرونده ها تا زمانی که IPFS Desktop در حال اجرا است ، در دسترس خواهد بود."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "npm را روی IPFS نصب کنید",
-    "message": "این ویژگی آزمایشی بسته \"ipfs-npm\" را بر روی سیستم شما نصب می کند. این بسته نیاز به نصب Node.js دارد.",
-    "action": "نصب"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "خطا",
-    "message": "نصب بسته \"ipfs-npm\" بر روی سیستم شما امکان پذیر نبود. لطفاً برای کسب اطلاعات بیشتر لاگ ها را بررسی کنید یا با اجرای \"npm install -g ipfs-npm\" در خط فرمان خود ، آن را به صورت دستی نصب کنید."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "خطا",
-    "message": "حذف بسته \"ipfs-npm\" بر روی سیستم شما امکان پذیر نبود. لطفاً برای اطلاعات بیشتر لاگ های مربوطه را بررسی کنید یا با اجرای \"npm uninstall -g ipfs-npm\" در خط فرمان خود ، آن را به صورت دستی حذف کنید."
   },
   "settings": {
     "settings": "تنظیمات",
@@ -228,7 +202,6 @@
     "pubsub": "فعال کردن PubSub",
     "namesysPubsub": "فعال کردن IPNS از طریق PubSub",
     "automaticGC": "بازیابی حافظه خودکار",
-    "ipfsCommandLineTools": "ابزارهای خط فرمان",
     "takeScreenshotShortcut": "میانبر اصلی اسکرین شات",
     "downloadHashShortcut": "میانبر اصلی بارگیری",
     "experiments": "آزمایش",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "پاک کردن فایل باینری سفارشی IPFS",
     "message": "فایل باینری سفارشی IPFS پاک شد. برای شروع استفاده از نسخه پکیج شده IPFS ، ابتدا باید IPFS دوباره راه اندازی شود."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }

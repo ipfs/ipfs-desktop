@@ -47,6 +47,7 @@
   "customIpfsBinary": "Saját IPFS bináris",
   "setCustomIpfsBinary": "Állíts be saját IPFS binárist",
   "clearCustomIpfsBinary": "A saját IPFS bináris törlése",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "A Poolkit nem található",
     "message": "Az IPFS nem adható hozzá a /usr/local/bin/ ügynök nélkül."
@@ -149,10 +150,6 @@
     "title": "A tároló áthelyezve",
     "message": "Nem sikerült áthelyezni a repositoryt \"{ currDir }\" -ról \"{ newDir }\" -re."
   },
-  "cantAddIpfsToPath": {
-    "title": "Az IPFS a PATH-ban van.",
-    "message": "Az IPFS-t nem tudtuk a PATH-hoz hozzáadni."
-  },
   "runGarbageCollectorErrored": {
     "title": "Szemetes",
     "message": "A hulladékgyűjtőt nem sikerült sikeresen befejezni."
@@ -187,16 +184,6 @@
     "title": "Hiba",
     "message": "A bejelentkezéskor történő indítást nem lehetett engedélyezni a számítógépen."
   },
-  "enableIpfsOnPath": {
-    "title": "Az IPSF enegdélyezése a PATH-ban.",
-    "message": "Ha engedélyezed ezt az opciót, akkor az IPFS elérhető lesz a parancssorból, mint \"ipfs\". Ez a beállítás visszavonható.",
-    "action": "Engedélyezés"
-  },
-  "disableIpfsOnPath": {
-    "title": "Letiltottuk az IPFS-t a PATH-ban.",
-    "message": "Ha kikapcsolod ezt az opciót, akkor az IPFS többé nem lesz elérhető a parancssorból, mint \"ipfs\".",
-    "action": "Letiltás"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "A képernyőmentés parancs engedélyezve",
     "message": "Ennek a parancsikonnak az engedélyezésével a \"{ accelerator }\" parancsikon elérhető lesz képernyőképeket készíteni mindaddig, amíg az IPFS Desktop fut."
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "A letöltési parancs engedélyezve",
     "message": "Ennek engedélyezésével a \"{ accelerator }\" parancsikon elérhető lesz a fájlok letöltésére mindaddig, amíg az IPFS Desktop fut."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "Az npm telepítése az IPFS-re",
-    "message": "Ez a kísérleti szolgáltatás telepíti az \"ipfs-npm\" csomagot a rendszerére. A Node.js telepítéséhez szükség van!",
-    "action": "Telepítés"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "Hiba",
-    "message": "Nem lehetett telepíteni az \"ipfs-npm\" csomagot a rendszerére. Kérjük, ellenőrizze a naplókat további információkért, vagy próbálja meg manuálisan telepíteni, futtatva a \"npm install -g ipfs-npm\" parancsot."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "Hiba",
-    "message": "Nem lehet eltávolítani az \"ipfs-npm\" csomagot a rendszeren. További információkért ellenőrizze a naplókat, vagy próbálja meg manuálisan eltávolítani, futtatva a \"npm uninstall -g ipfs-npm\" parancsot."
   },
   "settings": {
     "settings": "Beállítások",
@@ -228,7 +202,6 @@
     "pubsub": "Enable PubSub",
     "namesysPubsub": "Enable IPNS over PubSub",
     "automaticGC": "Automatic Garbage Collection",
-    "ipfsCommandLineTools": "Parancssori eszközök",
     "takeScreenshotShortcut": "Központi képernyőmentési parancs",
     "downloadHashShortcut": "Központi letöltési parancs",
     "experiments": "Experiments",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "A saját IPFS bináris törlése",
     "message": "Az egyéni IPFS bináris fájl törlődött. A kötegelt IPFS-verzió használatának megkezdéséhez az IPFS-t először újra kell indítani."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }

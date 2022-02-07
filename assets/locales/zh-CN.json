@@ -47,6 +47,7 @@
   "customIpfsBinary": "自定义IPFS二进制文件",
   "setCustomIpfsBinary": "设置自定义IPFS二进制文件",
   "clearCustomIpfsBinary": "清除自定义IPFS二进制文件",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "Polkit (策略工具包)没有找到",
     "message": "由于缺少 Polkit 代理，无法将 IPFS 添加到 /usr/local/bin/ 目录中。"
@@ -149,10 +150,6 @@
     "title": "移动仓库",
     "message": "未能将仓库从 \"{ currDir }\" 移动到 \"{ newDir }\" 。"
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS 系统路径",
-    "message": "未能将 IPFS 加入系统路径"
-  },
   "runGarbageCollectorErrored": {
     "title": "缓存清理",
     "message": "缓存清理未能完全进行"
@@ -187,16 +184,6 @@
     "title": "错误",
     "message": "无法在您的计算机上启用登录时启动。"
   },
-  "enableIpfsOnPath": {
-    "title": "将IPFS加入命令行搜索路径",
-    "message": "通过启用此选项，IPFS将作为“ipfs”在命令行中可用。本设置可以撤销。",
-    "action": "启用"
-  },
-  "disableIpfsOnPath": {
-    "title": "从命令行搜索路径移除IPFS",
-    "message": "通过禁用此选项，IPFS将不再作为“ipfs”在命令行中可用。",
-    "action": "禁用"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "启用屏幕快照快捷键",
     "message": "启用此选项，在IPFS桌面运行时，可以用快捷键“{ accelerator }”获取屏幕快照。"
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "启用下载快捷键",
     "message": "启用此选项，在IPFS桌面运行时，可以用快捷键“{ accelerator }”下载文件。"
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "在IPFS上安装npm",
-    "message": "此实验性功能将在您的系统上安装“ipfs-npm”包，这个包需要系统上有Node.js。",
-    "action": "安装"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "错误",
-    "message": "无法在您的系统上安装“ipfs-npm”软件包。请检查日志以获取更多信息，或者尝试通过在命令行上运行“npm install -g ipfs-npm”手动安装它。"
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "错误",
-    "message": "无法从您的系统上卸载“ipfs-npm”包。请检查日志以获取更多信息，或者尝试通过在命令行上运行“npm uninstall -g ipfs-npm”手动卸载它。"
   },
   "settings": {
     "settings": "配置",
@@ -228,7 +202,6 @@
     "pubsub": "启用 PubSub",
     "namesysPubsub": "启用基于 PubSub 的 IPNS",
     "automaticGC": "自动缓存清理",
-    "ipfsCommandLineTools": "命令行工具",
     "takeScreenshotShortcut": "全局屏幕截图快捷键",
     "downloadHashShortcut": "全局下载快捷键",
     "experiments": "试验",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "清除自定义IPFS二进制文件",
     "message": "已清除自定义IPFS二进制文件。要开始使用捆绑的IPFS版本，首先要重新启动IPFS。"
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop 未响应",
+    "message": "正在执行的操作所需要的资源超出预期。你希望中止并强制重载界面吗？",
+    "forceReload": "是，重新载入",
+    "doNothing": "否，继续等待"
   }
 }

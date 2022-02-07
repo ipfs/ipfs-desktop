@@ -47,6 +47,7 @@
   "customIpfsBinary": "Vlastní IPFS binárka",
   "setCustomIpfsBinary": "Nastavit vlastní IPFS binárku",
   "clearCustomIpfsBinary": "Nepoužívat vlastní IPFS binárku",
+  "openCliDocumentation": "Otevřít dokumentaci CLI",
   "polkitDialog": {
     "title": "Polkit nebyl nalezen",
     "message": "IPFS nelze přidat do /usr/local/bin/ bez agenta polkit."
@@ -149,101 +150,79 @@
     "title": "Přesunout úložiště",
     "message": "Nelze přesunout úložiště z \"{ currDir }\" do \"{ newDir }\"."
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS na PATH",
-    "message": "Nelze přidat IPFS na PATH."
-  },
   "runGarbageCollectorErrored": {
     "title": "Garbage collector",
-    "message": "The garbage collector run could not be completed successfully."
+    "message": "Spuštění garbage collectoru se nepodařilo úspěšně dokončit."
   },
   "downloadCidContentDialog": {
     "title": "Stáhnout do místního adresáře",
-    "message": "Enter a CID, IPFS path, or IPNS path:",
+    "message": "Zadejte CID, cestu IPFS nebo cestu IPNS:",
     "action": "Další"
   },
   "cantResolveCidDialog": {
     "title": "Chyba",
-    "message": "Unable to resolve \"{ path }\"."
+    "message": "Nelze vyřešit \"{ path }\"."
   },
   "couldNotGetCidDialog": {
     "title": "Chyba",
-    "message": "Unable to fetch \"{ path }\"."
+    "message": "Nelze načíst \"{ path }\"."
   },
   "contentsSavedDialog": {
     "title": "Úspěšný",
-    "message": "The contents of \"{ path }\" were successfully downloaded.",
-    "action": "See Files"
+    "message": "Obsah \"{ path }\" byl úspěšně stažen.",
+    "action": "Viz soubory"
   },
   "couldNotSaveDialog": {
     "title": "Nepodařilo se zapsat na disk",
-    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
+    "message": "Došlo k chybě při zápisu do \"{ dir }\": \"{ error }\". Zkuste to prosím znovu nebo si prohlédněte protokoly, kde najdete další podrobnosti."
   },
   "launchAtLoginNotSupported": {
     "title": "Chyba",
-    "message": "Launch at login is not supported on your platform."
+    "message": "Spuštění při přihlášení není na vaší platformě podporováno."
   },
   "launchAtLoginFailed": {
     "title": "Chyba",
-    "message": "Launch at login could not be enabled on your machine."
-  },
-  "enableIpfsOnPath": {
-    "title": "Enable IPFS on PATH",
-    "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Povolit"
-  },
-  "disableIpfsOnPath": {
-    "title": "Disable IPFS on PATH",
-    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
-    "action": "Disable"
+    "message": "Spuštění při přihlášení se na vašem počítači nepodařilo povolit."
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "Enable screenshot shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+    "title": "Povolit zástupce snímku obrazovky",
+    "message": "Pokud tuto funkci povolíte, bude zástupce \"{ accelerator }\" k dispozici pro pořizování snímků obrazovky, dokud je spuštěn systém IPFS Desktop."
   },
   "enableGlobalDownloadShortcut": {
-    "title": "Enable download shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "Install npm on IPFS",
-    "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
-    "action": "Install"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "Chyba",
-    "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "Chyba",
-    "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
+    "title": "Povolit zástupce pro stahování",
+    "message": "Pokud tuto funkci povolíte, bude zástupce \"{ accelerator }\" k dispozici pro stahování souborů, dokud bude spuštěn systém IPFS Desktop."
   },
   "settings": {
     "settings": "Nastavení",
-    "preferences": "Preferences",
-    "openNodeSettings": "Open Node Settings",
-    "appPreferences": "App Preferences",
-    "launchOnStartup": "Launch at Login",
-    "openWebUIAtLaunch": "Open Web UI at Launch",
-    "pubsub": "Enable PubSub",
-    "namesysPubsub": "Enable IPNS over PubSub",
-    "automaticGC": "Automatic Garbage Collection",
-    "ipfsCommandLineTools": "Command Line Tools",
-    "takeScreenshotShortcut": "Global Screenshot Shortcut",
-    "downloadHashShortcut": "Global Download Shortcut",
+    "preferences": "Předvolby",
+    "openNodeSettings": "Otevřít nastavení uzlu",
+    "appPreferences": "Předvolby aplikace",
+    "launchOnStartup": "Spuštění při přihlášení",
+    "openWebUIAtLaunch": "Otevření webového uživatelského rozhraní při spuštění",
+    "pubsub": "Povolit PubSub",
+    "namesysPubsub": "Povolit IPNS přes PubSub",
+    "automaticGC": "Automatický Garbage Collection",
+    "takeScreenshotShortcut": "Globální zkratka snímku obrazovky",
+    "downloadHashShortcut": "Globální zkratka stahování",
     "experiments": "Experimenty",
-    "npmOnIpfs": "Enable npm on IPFS"
+    "npmOnIpfs": "Povolení npm na IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
-    "title": "Custom IPFS binary",
-    "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
+    "title": "Vlastní binární soubor IPFS",
+    "message": "Nastavením vlastního systému IPFS přestane služba IPFS Desktop používat dodávanou verzi systému IPFS a použije vámi zadanou binární verzi. Chcete pokračovat?"
   },
   "setCustomIpfsBinarySuccess": {
-    "title": "Custom IPFS binary",
-    "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
+    "title": "Vlastní binární soubor IPFS",
+    "message": "IPFS Desktop se spustí pomocí binárního souboru umístěného na { path }. Abyste jej mohli začít používat, je třeba systém IPFS nejprve restartovat."
   },
   "clearCustomIpfsBinarySuccess": {
-    "title": "Clear custom IPFS binary",
-    "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+    "title": "Vymazání vlastních binárních souborů IPFS",
+    "message": "Vlastní binární systém IPFS byl vymazán. Chcete-li začít používat přiloženou verzi systému IPFS, je třeba systém IPFS nejprve restartovat."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop přestal reagovat",
+    "message": "Probíhající operace si vyžádá více prostředků, než se očekávalo. Přejete si přerušit a násilně znovu načíst rozhraní?",
+    "forceReload": "Ano, znovu načíst",
+    "doNothing": "Nedělat nic"
   }
 }

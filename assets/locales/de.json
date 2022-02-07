@@ -47,6 +47,7 @@
   "customIpfsBinary": "Benutzerdefinierte IPFS-Binärdatei",
   "setCustomIpfsBinary": "Benutzerdefinierte IPFS-Binärdatei festlegen",
   "clearCustomIpfsBinary": "Benutzerdefinierte IPFS-Binärdatei löschen",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "Polkit nicht gefunden",
     "message": "IPFS kann ohne den polkit agent nicht zu /usr/local/bin/ hinzugefügt werden."
@@ -149,10 +150,6 @@
     "title": "Speicherort verschieben",
     "message": "Konnte den Speicher nicht von \"{ currDir }\" nach \"{ newDir }\" verschieben."
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS im Pfad",
-    "message": "Konnte IPFS nicht zum Pfad hinzufügen."
-  },
   "runGarbageCollectorErrored": {
     "title": "Automatische Speicherbereinigung",
     "message": "Die Garbage Collection konnte nicht erfolgreich ausgeführt werden."
@@ -187,16 +184,6 @@
     "title": "Fehler",
     "message": "Bei Anmeldung ausführen konnte nicht auf deinem Gerät aktiviert werden."
   },
-  "enableIpfsOnPath": {
-    "title": "IPFS im Pfad aktivieren",
-    "message": "Wenn du diese Option wählst, wird IPFS in deiner Kommandozeile als \"ipfs\" verfügbar sein. Diese Aktion ist umkehrbar.",
-    "action": "Aktivieren"
-  },
-  "disableIpfsOnPath": {
-    "title": "IPFS im Pfad deaktivieren",
-    "message": "Wenn du diese Option wählst, wird IPFS nicht mehr in deiner Kommandozeile als \"ipfs\" verfügbar sein.",
-    "action": "Deaktivieren"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Screenshot-Tastaturkürzel aktivieren",
     "message": "Wenn du dies aktivierst, wird das Tastaturkürzel \"{ accelerator }\" verfügbar sein um Screenshots aufzunehmen, solange IPFS Desktop ausgeführt wird."
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "Download-Tastaturkürzel aktivieren",
     "message": "Wenn du dies aktivierst, wird das Tastaturkürzel \"{ accelerator }\" verfügbar sein um Dateien herunterzuladen, solange IPFS Desktop ausgeführt wird."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "npm auf IPFS installieren",
-    "message": "Diese experimentelle Funktion installiert das Paket \"ipfs-npm\" auf deinem System. Dazu muss Node.js installiert sein.",
-    "action": "Installieren"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "Fehler",
-    "message": "Beim installieren von \"ipfs-npm\" ist ein Fehler aufgetreten. Öffne das Protokoll für mehr Informationen, oder versuche \"ipfs-npm\" mit dem Befehl \"npm install -g ipfs-npm\" manuell zu installieren."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "Fehler",
-    "message": "Beim Deinstallieren von \"ipfs-npm\" ist ein Fehler aufgetreten, Öffne das Protokoll für mehr Informationen, oder versuche \"ipfs-npm\" mit dem Befehl \"npm uninstall -g ipfs-npm\" manuell zu deinstallieren."
   },
   "settings": {
     "settings": "Einstellungen",
@@ -228,7 +202,6 @@
     "pubsub": "PubSub aktivieren",
     "namesysPubsub": "IPNS über PubSub aktivieren",
     "automaticGC": "Automatische Garbage Collection",
-    "ipfsCommandLineTools": "Kommandozeilen Werkzeuge",
     "takeScreenshotShortcut": "Globales Screenshot-Tastaturkürzel",
     "downloadHashShortcut": "Globales Download-Tastaturkürzel",
     "experiments": "Experimente",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "Benutzerdefinierte IPFS-Binärdatei löschen",
     "message": "Die Angabe der eigenen IPFS Binärdatei wurde entfernt. Um die gebündelte IPFS-Version zu nutzen, muss IPFS zuerst neu gestartet werden."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }

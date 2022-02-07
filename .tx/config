@@ -1,10 +1,11 @@
 [main]
-host = https://www.transifex.com
-lang_map = zh_CN: zh-CN, zh_HK: zh-HK, zh_TW: zh-TW, ko_KR: ko-KR, pt_PT: pt-PT, pt_BR: pt-BR, ja_JP: ja-JP, hi_IN: hi-IN, he_IL: he-IL, fa_IR: fa-IR, bn_IN: bn-IN, fil_PH: fil-PH
+host     = https://www.transifex.com
+lang_map = ko_KR: ko-KR, bn_IN: bn-IN, he_IL: he-IL, zh_CN: zh-CN, zh_HK: zh-HK, zh_TW: zh-TW, pt_PT: pt-PT, pt_BR: pt-BR, ja_JP: ja-JP, hi_IN: hi-IN, fa_IR: fa-IR, fil_PH: fil-PH
 
-[ipfs-desktop.ipfs-desktop-json]
-file_filter = assets/locales/<lang>.json
+[o:ipfs:p:ipfs-desktop:r:ipfs-desktop-json]
+file_filter  = assets/locales/<lang>.json
+source_file  = assets/locales/en.json
+source_lang  = en
+type         = KEYVALUEJSON
 minimum_perc = 30
-source_file = assets/locales/en.json
-source_lang = en
-type = KEYVALUEJSON
+

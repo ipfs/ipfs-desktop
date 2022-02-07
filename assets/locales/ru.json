@@ -47,6 +47,7 @@
   "customIpfsBinary": "Пользовательский файл IPFS",
   "setCustomIpfsBinary": "Выбрать пользовательский исполняемый файл IPFS",
   "clearCustomIpfsBinary": "Очистить пользовательский исполняемый файл IPFS",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "Библиотека Polkit не найдена",
     "message": "IPFS нельзя добавить в /usr/local/bin/ без агента Polkit."
@@ -149,10 +150,6 @@
     "title": "Переместить репозиторий",
     "message": "Не могу переместить репозиторий из \"{ currDir }\" в \"{ newDir }\"."
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS в переменной PATH",
-    "message": "Не могу добавить IPFS в переменную PATH"
-  },
   "runGarbageCollectorErrored": {
     "title": "Сборщик мусора",
     "message": "Сборка мусора не может быть успешно завершена."
@@ -187,16 +184,6 @@
     "title": "Ошибка",
     "message": "Запуск при входе не может быть включен на этом компьютере."
   },
-  "enableIpfsOnPath": {
-    "title": "Разрешить IPFS из переменной PATH",
-    "message": "Включив эту опцию, IPFS будет доступен в вашей командной строке как \"ipfs\". Это действие обратимо.",
-    "action": "Разрешить"
-  },
-  "disableIpfsOnPath": {
-    "title": "Запретить IPFS из переменной PATH",
-    "message": "Выключив эту опцию, IPFS не будет доступен в вашей командной строке как \"ipfs\". ",
-    "action": "Запретить"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Разрешить сочетание клавиш для снимка экрана",
     "message": "При включении, расширение \"{ accelerator }\" будет делать скриншоты все время, пока запущен IPFS Desktop."
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "Разрешить сочетание клавиш для загрузки",
     "message": "При включении, расширение \"{ accelerator }\" будет загружать файлы все время, пока запущен IPFS Desktop."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "Установить npm on IPFS",
-    "message": "Экспериментальная функция: пакет \"ipfs-npm\" установится на вашу систему. Для этого требуется установленный Node.js.",
-    "action": "Установить"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "Ошибка",
-    "message": "Невозможно установить пакет \"ipfs-npm\". Проверьте лог-файлы для дополнительной информации или установите пакет вручную, набрав \"npm install -g ipfs-npm\" в командной строке."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "Ошибка",
-    "message": "Невозможно удалить пакет \"ipfs-npm\". Проверьте лог-файлы для дополнительной информации или удалите пакет вручную, набрав \"npm uninstall -g ipfs-npm\" в командной строке."
   },
   "settings": {
     "settings": "Настройки",
@@ -228,7 +202,6 @@
     "pubsub": "Активировать PubSub",
     "namesysPubsub": "Активировать IPNS через PubSub",
     "automaticGC": "Автоматическая сборка мусора",
-    "ipfsCommandLineTools": "Утилиты командной строки",
     "takeScreenshotShortcut": "Сочетание клавиш для скриншотов",
     "downloadHashShortcut": "Сочетание клавиш для загрузок",
     "experiments": "Эксперименты",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "Очистить пользовательский исполняемый файл IPFS",
     "message": "Кастомный исполняемый файл IPFS более не используется. Чтобы начать использовать включенную в состав версию IPFS, IPFS нужно перезапустить."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }

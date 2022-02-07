@@ -47,6 +47,7 @@
   "customIpfsBinary": "Özel IPFS İkilisi",
   "setCustomIpfsBinary": "Özel IPFS İkilisini Ayarla",
   "clearCustomIpfsBinary": "Özel IPFS İkilisini Temizle",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "Polkit bulunamadı",
     "message": "IPFS, polkit aracısı olmadan /usr/local/bin/ dizinine eklenemez."
@@ -149,10 +150,6 @@
     "title": "Depoyu taşı",
     "message": "Kod deposu \"{ currDir }\" konumundan \"{ newDir }\" konumuna taşınamadı."
   },
-  "cantAddIpfsToPath": {
-    "title": "PATH üzerinde IPFS",
-    "message": "PATH'e IPFS eklenemedi."
-  },
   "runGarbageCollectorErrored": {
     "title": "Çöp toplayıcı",
     "message": "Çöp toplayıcı çalıştırması başarıyla tamamlanamadı."
@@ -187,16 +184,6 @@
     "title": "Hata",
     "message": "Makinenizde oturum açma sırasında başlatma etkinleştirilemedi."
   },
-  "enableIpfsOnPath": {
-    "title": "PATH üzerinde IPFS'yi etkinleştir",
-    "message": "Bu seçeneği etkinleştirdiğinizde, IPFS komut satırınızda \"ipfs\" olarak kullanılabilir olacaktır. Bu eylem tersine çevrilebilir.",
-    "action": "Etkinleştir"
-  },
-  "disableIpfsOnPath": {
-    "title": "PATH üzerinde IPFS'yi devre dışı bırak",
-    "message": "Bu seçeneği devre dışı bıraktığınızda, IPFS artık komut satırınızda \"ipfs\" olarak kullanılamayacaktır.",
-    "action": "Devre dışı bırak"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Ekran görüntüsü kısayolunu etkinleştir",
     "message": "Bunu etkinleştirdiğinizde, \"{ accelerator }\" kısayolu, IPFS Masaüstü çalıştığı sürece ekran görüntüsü almak için kullanılabilir olacaktır."
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "İndirme kısayolunu etkinleştir",
     "message": "Bunu etkinleştirdiğinizde, \"{ accelerator }\" kısayolu, IPFS Masaüstü çalıştığı sürece dosyaları indirmek için kullanılabilir olacaktır."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "IPFS'ye npm yükleyin",
-    "message": "Bu deneysel özellik, \"ipfs-npm\" paketini sisteminize yükler. Node.js'nin yüklenmesi gerekmektedir.",
-    "action": "Yükle"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "Hata",
-    "message": "Sisteminize \"ipfs-npm\" paketini kurmak mümkün olmadı. Lütfen daha fazla bilgi için günlükleri kontrol edin veya komut satırınızda \"npm install -g ipfs-npm\" komutunu çalıştırarak manuel olarak yüklemeyi deneyin."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "Hata",
-    "message": "Sisteminizden \"ipfs-npm\" paketini kaldırmak mümkün olmadı. Lütfen daha fazla bilgi için günlükleri kontrol edin veya komut satırınızda \"npm uninstall -g ipfs-npm\" komutunu çalıştırarak manuel olarak kaldırmayı deneyin."
   },
   "settings": {
     "settings": "Ayarlar",
@@ -228,7 +202,6 @@
     "pubsub": "PubSub'ı etkinleştir",
     "namesysPubsub": "PubSub üzerinden IPNS'yi etkinleştirin",
     "automaticGC": "Otomatik Değersiz Veri Toplama",
-    "ipfsCommandLineTools": "Komut Satırı Araçları",
     "takeScreenshotShortcut": "Global Ekran Görüntüsü Kısayolu",
     "downloadHashShortcut": "Global İndirme Kısayolu",
     "experiments": "Deneyler",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "Özel IPFS ikilisini temizle",
     "message": "Özel IPFS ikili dosyası temizlendi. Birlikte verilen IPFS sürümünü kullanmaya başlamak için önce IPFS'nin yeniden başlatılması gerekir."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }

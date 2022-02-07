@@ -47,6 +47,7 @@
   "customIpfsBinary": "Binari d'IPFS personalitzat",
   "setCustomIpfsBinary": "Personalitza el binari d'IPFS",
   "clearCustomIpfsBinary": "Treu el binari d'IPFS personalitzat",
+  "openCliDocumentation": "Open CLI Documentation",
   "polkitDialog": {
     "title": "No s'ha trobat el Polkit",
     "message": "No es pot afegir IPFS a /usr/local/bin/ sense l'agent polkit."
@@ -149,10 +150,6 @@
     "title": "Mou el repositori",
     "message": "No s'ha pogut moure el repositori de \"{ currDir }\" a \"{ newDir }\"."
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS a la RUTA",
-    "message": "No s'ha pogut afegir IPFS a la RUTA."
-  },
   "runGarbageCollectorErrored": {
     "title": "Recollidor de brossa",
     "message": "No s'ha pogut passar el recollidor de brossa de forma satisfactòria."
@@ -187,16 +184,6 @@
     "title": "Error",
     "message": "No s'ha pogut habilitar l'arrencada a l'iniciar sessió al vostre aparell."
   },
-  "enableIpfsOnPath": {
-    "title": "Habilita IPFS a PATH",
-    "message": "Habilitant aquesta opció, IPFS estarà disponible al terminal d'ordres com a \"ipfs\" . Aquesta acció és reversible.",
-    "action": "Activa"
-  },
-  "disableIpfsOnPath": {
-    "title": "Deshabilita IPFS a PATH",
-    "message": "Deshabilitant aquesta opció, IPFS deixarà d'estar disponible al terminal d'ordres com a \"ipfs\".",
-    "action": "Inhabilita"
-  },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Habilita la drecera de teclat per fer captures de pantalla",
     "message": "Habilitant això, la dracera de teclat \"{ accelerator }\" podrà fer captures de pantalla mentre funcioni l'IPFS d'Escriptori."
@@ -204,19 +191,6 @@
   "enableGlobalDownloadShortcut": {
     "title": "Habilita la drecera de teclat per a descarregar",
     "message": "Habilitant això, la dracera de teclat \"{ accelerator }\" podrà descarregar arxius mentre funcioni l'IPFS d'Escriptori."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "Instalar npm a IPFS",
-    "message": "Aquesta opció experimental instal·larà el paquet \"ipfs-npm\" al vostre sistema. És necessari que Node.js estigui instalat.",
-    "action": "Instala"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "Error",
-    "message": "No ha estat possible instalar el paquet \"ipfs-npm\" al vostre sistema. Per més informació, si us plau comproveu el registre o proveu d'instalar-lo manualment executant \"npm install -g ipfs-npm\" al vostre terminal d'ordres."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "Error",
-    "message": "No ha estat possible desinstalar el paquet \"ipfs-npm\" del vostre sistema. Per més informació, si us plau comproveu el registre o proveu de desinstalar-lo manualment executant \"npm uninstall -g ipfs-npm\" al vostre terminal d'ordres."
   },
   "settings": {
     "settings": "Configuració",
@@ -228,7 +202,6 @@
     "pubsub": "Activa PubSub",
     "namesysPubsub": "Activa l'IPNS sobre PubSub",
     "automaticGC": "Recollidor de brossa Automatica",
-    "ipfsCommandLineTools": "Eines del terminal d'ordres",
     "takeScreenshotShortcut": "Drecera de teclat de captura de pantalla general",
     "downloadHashShortcut": "Drecera de teclat de descarrega general",
     "experiments": "Experimental",
@@ -245,5 +218,11 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "Neteja el binari d'IPFS personalitzat",
     "message": "El binari d'IPFS personalitzat ha estat netejat. Per començar a utilitzar la versió d'IPFS vinculada, primer cal que IPFS es reinici."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
   }
 }
