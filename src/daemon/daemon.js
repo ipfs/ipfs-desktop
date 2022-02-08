@@ -72,7 +72,7 @@ module.exports = async function (opts) {
     }
 
     if (!configExists(ipfsd)) {
-      cannotConnectDialog(ipfsd.apiAddr)
+      cannotConnectDialog(ipfsd.apiAddr.toString())
       throw err
     }
 
