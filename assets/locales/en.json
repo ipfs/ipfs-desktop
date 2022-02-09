@@ -243,7 +243,7 @@
   },
   "protocolHandlerDialog": {
     "title": "Opening IPFS address",
-    "message": "How would you like IPFS Desktop to open IPFS URIs?",
+    "message": "How would you like IPFS Desktop to open IPFS addresses?",
     "browserPublicGateway": "In my default browser using a public gateway",
     "browserLocalGateway": "In my default browser using a local gateway",
     "filesScreen": "In the Files screen",
