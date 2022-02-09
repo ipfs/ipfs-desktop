@@ -201,7 +201,7 @@
     "appPreferences": "App Preferences",
     "launchOnStartup": "Launch at Login",
     "openWebUIAtLaunch": "Open Web UI at Launch",
-    "askWhenOpeningIpfsURIs": "Ask When Opening IPFS URIs",
+    "askWhenOpeningIpfsURIs": "Ask How to Open IPFS Address",
     "pubsub": "Enable PubSub",
     "namesysPubsub": "Enable IPNS over PubSub",
     "automaticGC": "Automatic Garbage Collection",
