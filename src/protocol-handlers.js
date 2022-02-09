@@ -11,8 +11,8 @@ const CONFIG_KEY_ACTION = 'openIpfsURIsAction'
 const ACTION_OPTIONS = {
   BROWSER_PUBLIC_GATEWAY: 'browserPublicGateway',
   BROWSER_LOCAL_GATEWAY: 'browserLocalGateway',
-  FILES_SCREEN: 'filesScreen',
-  EXPLORE_SCREEN: 'exploreScreen'
+  FILES_SCREEN: 'filesScreen'
+  // EXPLORE_SCREEN: 'exploreScreen'
 }
 
 const DEFAULT_ACTION = ACTION_OPTIONS.BROWSER_PUBLIC_GATEWAY
@@ -34,8 +34,8 @@ async function getAction () {
         labels: {
           [ACTION_OPTIONS.BROWSER_PUBLIC_GATEWAY]: i18n.t('protocolHandlerDialog.browserPublicGateway'),
           [ACTION_OPTIONS.BROWSER_LOCAL_GATEWAY]: i18n.t('protocolHandlerDialog.browserLocalGateway'),
-          [ACTION_OPTIONS.FILES_SCREEN]: i18n.t('protocolHandlerDialog.filesScreen'),
-          [ACTION_OPTIONS.EXPLORE_SCREEN]: i18n.t('protocolHandlerDialog.exploreScreen')
+          [ACTION_OPTIONS.FILES_SCREEN]: i18n.t('protocolHandlerDialog.filesScreen')
+          // [ACTION_OPTIONS.EXPLORE_SCREEN]: i18n.t('protocolHandlerDialog.exploreScreen')
         }
       },
       {
@@ -51,7 +51,7 @@ async function getAction () {
     ],
     window: {
       width: 500,
-      height: 240
+      height: 210 // Use 240 when adding the explore screen option.
     }
   })
 
@@ -119,14 +119,14 @@ async function parseUrl (url, ctx) {
     case ACTION_OPTIONS.FILES_SCREEN:
       ctx.launchWebUI(`/${protocol}/${part}`, { focus: true })
       break
-    case ACTION_OPTIONS.EXPLORE_SCREEN:
-      if (protocol === 'ipns') {
-        // IPNS is not supported on the explore page yet.
-        ctx.launchWebUI(`/${protocol}/${part}`, { focus: true })
-      } else {
-        ctx.launchWebUI(`/explore/${protocol}/${part}`, { focus: true })
-      }
-      break
+    // case ACTION_OPTIONS.EXPLORE_SCREEN:
+    //   if (protocol === 'ipns') {
+    //     // IPNS is not supported on the explore page yet.
+    //     ctx.launchWebUI(`/${protocol}/${part}`, { focus: true })
+    //   } else {
+    //     ctx.launchWebUI(`/explore/${protocol}/${part}`, { focus: true })
+    //   }
+    //   break
     default:
       return false
   }
@@ -147,7 +147,7 @@ async function argvHandler (argv, ctx) {
   return handled
 }
 
-module.exports = function (ctx) {
+module.exports = async function (ctx) {
   // By default, ask. We need to change this to ensure the
   // tray option shows a 'tick'.
   if (store.get(CONFIG_KEY, null) === null) {

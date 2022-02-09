@@ -46,8 +46,10 @@ if (!app.requestSingleInstanceLock()) {
 
 const ctx = {}
 
-app.on('will-finish-launching', () => {
-  setupProtocolHandlers(ctx)
+app.on('will-finish-launching', async () => {
+  await app.whenReady()
+  await setupI18n(ctx) // Ensure i18n is ready for the dialog.
+  await setupProtocolHandlers(ctx)
 })
 
 function handleError (err) {

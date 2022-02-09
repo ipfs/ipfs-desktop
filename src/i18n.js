@@ -5,7 +5,7 @@ const ICU = require('i18next-icu')
 const Backend = require('i18next-fs-backend')
 const store = require('./common/store')
 
-module.exports = async function () {
+const setupI18N = async () => {
   await i18n
     .use(ICU)
     .use(Backend)
@@ -33,3 +33,7 @@ module.exports = async function () {
     ipcMain.emit('languageUpdated', lang)
   })
 }
+
+const promise = setupI18N()
+
+module.exports = async () => promise
