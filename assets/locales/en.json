@@ -248,6 +248,6 @@
     "browserLocalGateway": "In my default browser using a local gateway",
     "filesScreen": "In the Files screen",
     "exploreScreen": "In the Explore screen",
-    "rememberThisChoice": "Remember this choice for all IPFS URIs"
+    "rememberThisChoice": "Remember this choice for all IPFS addresses"
   }
 }
