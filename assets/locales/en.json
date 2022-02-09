@@ -242,7 +242,7 @@
     "message": "IPFS has encountered an error and migration could not be completed:"
   },
   "protocolHandlerDialog": {
-    "title": "Opening IPFS URIs",
+    "title": "Opening IPFS address",
     "message": "How would you like IPFS Desktop to open IPFS URIs?",
     "browserPublicGateway": "In my default browser using a public gateway",
     "browserLocalGateway": "In my default browser using a local gateway",
