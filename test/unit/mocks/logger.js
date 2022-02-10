@@ -1,6 +1,9 @@
 module.exports = function () {
   return {
-    start: () => {},
+    start: () => ({
+      fail: () => {},
+      end: () => {}
+    }),
     info: () => {},
     error: () => {}
   }
