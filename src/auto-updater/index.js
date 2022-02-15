@@ -1,9 +1,8 @@
-const { shell, app, BrowserWindow } = require('electron')
+const { shell, app, BrowserWindow, Notification } = require('electron')
 const { autoUpdater } = require('electron-updater')
 const i18n = require('i18next')
 const { ipcMain } = require('electron')
 const logger = require('../common/logger')
-const { notify } = require('../common/notify')
 const { showDialog } = require('../dialogs')
 const { IS_MAC, IS_WIN, IS_APPIMAGE } = require('../common/consts')
 
@@ -13,6 +12,7 @@ function isAutoUpdateSupported () {
   return IS_MAC || IS_WIN || IS_APPIMAGE
 }
 
+let updateNotification = null // must be a global to avoid gc
 let feedback = false
 
 function setup (ctx) {
@@ -90,29 +90,35 @@ function setup (ctx) {
   autoUpdater.on('update-downloaded', ({ version }) => {
     logger.info(`[updater] update to ${version} downloaded`)
 
-    if (!feedback) {
-      notify({
+    const feedbackDialog = () => {
+      const opt = showDialog({
+        title: i18n.t('updateDownloadedDialog.title'),
+        message: i18n.t('updateDownloadedDialog.message', { version }),
+        type: 'info',
+        buttons: [
+          i18n.t('updateDownloadedDialog.later'),
+          i18n.t('updateDownloadedDialog.now')
+        ]
+      })
+      if (opt === 1) { // now
+        setImmediate(async () => {
+          await beforeQuitCleanup() // just to be sure (we had regressions before)
+          autoUpdater.quitAndInstall()
+        })
+      }
+    }
+    if (feedback) {
+      feedback = false
+      // when in instant feedback mode, show dialog immediatelly
+      feedbackDialog()
+    } else {
+      // show unobtrusive notification + dialog on click
+      updateNotification = new Notification({
         title: i18n.t('updateDownloadedNotification.title'),
         body: i18n.t('updateDownloadedNotification.message', { version })
       })
-    }
-
-    feedback = false
-
-    const opt = showDialog({
-      title: i18n.t('updateDownloadedDialog.title'),
-      message: i18n.t('updateDownloadedDialog.message', { version }),
-      type: 'info',
-      buttons: [
-        i18n.t('updateDownloadedDialog.later'),
-        i18n.t('updateDownloadedDialog.now')
-      ]
-    })
-    if (opt === 1) { // now
-      setImmediate(async () => {
-        await beforeQuitCleanup() // just to be sure (we had regressions before)
-        autoUpdater.quitAndInstall()
-      })
+      updateNotification.on('click', feedbackDialog)
+      updateNotification.show()
     }
   })
 
