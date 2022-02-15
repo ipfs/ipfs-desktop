@@ -130,12 +130,13 @@
   },
   "updateDownloadedDialog": {
     "title": "Update downloaded",
-    "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
-    "action": "Restart"
+    "message": "Update to IPFS Desktop { version } is ready. When do you want to install it?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
     "title": "Update downloaded",
-    "message": "Update for version { version } of IPFS Desktop downloaded. Click this notification to install."
+    "message": "Update for version { version } of IPFS Desktop downloaded."
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
