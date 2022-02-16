@@ -239,9 +239,14 @@ function icon (color) {
   return path.join(dir, `${color}-22Template.png`)
 }
 
+// Ok this one is pretty ridiculous:
+// Tray must be global or it will break due to GC:
+// https://www.electronjs.org/docs/faq#my-apps-tray-disappeared-after-a-few-minutes
+let tray = null
+
 module.exports = function (ctx) {
   logger.info('[tray] starting')
-  const tray = new Tray(icon(off))
+  tray = new Tray(icon(off))
   let menu = null
 
   const state = {
