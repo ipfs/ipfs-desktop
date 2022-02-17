@@ -57,9 +57,41 @@ async function spawn ({ flags, path }) {
   return { ipfsd, isRemote: false }
 }
 
+function getIpfsLogs (ipfsd, callback) {
+  let stdout, stderr
+
+  const listener = data => {
+    callback(data.toString())
+  }
+
+  const interval = setInterval(() => {
+    if (!ipfsd.subprocess) {
+      return
+    }
+
+    stdout = ipfsd.subprocess.stdout
+    stderr = ipfsd.subprocess.stderr
+
+    stdout.on('data', listener)
+    stderr.on('data', listener)
+
+    clearInterval(interval)
+  }, 100)
+
+  const stop = () => {
+    stdout.removeListener('data', listener)
+    stderr.removeListener('data', listener)
+  }
+
+  return stop
+}
+
 module.exports = async function (opts) {
   const { ipfsd, isRemote } = await spawn(opts)
   if (!isRemote) await checkPorts(ipfsd)
+
+  const stopListening = getIpfsLogs(ipfsd, console.log)
+  setTimeout(stopListening, 2000)
 
   try {
     await ipfsd.start()
