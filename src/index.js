@@ -48,7 +48,7 @@ const ctx = {}
 
 app.on('will-finish-launching', async () => {
   await app.whenReady()
-  await setupI18n(ctx) // Ensure i18n is ready for the dialog.
+  await setupI18n // Ensure i18n is ready for the dialog.
   await setupProtocolHandlers(ctx)
 })
 
@@ -75,8 +75,8 @@ async function run () {
   }
 
   try {
+    await setupI18n
     await setupAnalytics(ctx) // ctx.countlyDeviceId
-    await setupI18n(ctx)
     await setupAppMenu(ctx)
 
     await setupWebUI(ctx) // ctx.webui, launchWebUI

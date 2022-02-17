@@ -5,7 +5,7 @@ const ICU = require('i18next-icu')
 const Backend = require('i18next-fs-backend')
 const store = require('./common/store')
 
-const setupI18N = async () => {
+const setupI18n = async () => {
   await i18n
     .use(ICU)
     .use(Backend)
@@ -34,6 +34,4 @@ const setupI18N = async () => {
   })
 }
 
-const promise = setupI18N()
-
-module.exports = async () => promise
+module.exports = setupI18n()
