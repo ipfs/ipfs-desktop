@@ -1,11 +1,18 @@
 const { styles } = require('./styles')
 
+const fs = require('fs-extra')
+const path = require('path')
+
+const ipfsLogoPath = path.join(__dirname, '../../../assets/icons/ipfs.svg')
+const ipfsLogo = 'data:image/svg+xml;base64,' + fs.readFileSync(ipfsLogoPath).toString('base64')
+
 module.exports = ({ message, inputs, buttons, id }) => (`<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" /> 
+    <meta charset="utf-8" />
   </head>
   <body>
+    <img src="${ipfsLogo}" id="logo">
     <p>${message}</p>
     <form>
       ${inputs}

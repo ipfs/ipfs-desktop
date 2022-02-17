@@ -51,7 +51,7 @@ async function getAction () {
     ],
     window: {
       width: 500,
-      height: 210 // Use 240 when adding the explore screen option.
+      height: 245
     }
   })
 

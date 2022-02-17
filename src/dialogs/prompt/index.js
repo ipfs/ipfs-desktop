@@ -65,6 +65,7 @@ module.exports = async function showPrompt (options) {
     show: false,
     width: 350,
     height: 330,
+    useContentSize: true,
     resizable: false,
     autoHideMenuBar: true,
     fullscreenable: false,

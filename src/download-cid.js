@@ -67,7 +67,7 @@ async function getCID () {
     ],
     window: {
       width: 500,
-      height: 120
+      height: 159
     }
   })
 
