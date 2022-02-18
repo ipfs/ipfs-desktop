@@ -17,6 +17,8 @@ const ACTION_OPTIONS = {
 
 const DEFAULT_ACTION = ACTION_OPTIONS.BROWSER_PUBLIC_GATEWAY
 
+const DEFAULT_GATEWAY = 'https://dweb.link'
+
 async function getAction () {
   const ask = store.get(CONFIG_KEY, true)
   if (!ask) {
@@ -78,6 +80,18 @@ function parseAddr (addr) {
   return toUri(addr.toString().includes('/http') ? addr : addr.encapsulate('/http'))
 }
 
+async function getPublicGateway (ctx) {
+  if (!ctx.webui) {
+    // Best effort. If the Web UI window wasn't created yet, we just return the default
+    // gateway.
+    return DEFAULT_GATEWAY
+  }
+
+  return await ctx.webui
+    .webContents
+    .executeJavaScript('JSON.parse(localStorage.getItem("ipfsPublicGateway")) || "https://dweb.link"', true)
+}
+
 async function parseUrl (url, ctx) {
   let protocol = ''
   let part = ''
@@ -99,26 +113,28 @@ async function parseUrl (url, ctx) {
   }
 
   const action = await getAction()
-  let base = 'https://dweb.link'
-  let ipfsd
+  let gateway, ipfsd
 
   switch (action) {
     case ACTION_OPTIONS.BROWSER_PUBLIC_GATEWAY:
-      openLink(protocol, part, base)
-      break
+      gateway = await getPublicGateway(ctx)
+      openLink(protocol, part, gateway)
+      return true
     case ACTION_OPTIONS.BROWSER_LOCAL_GATEWAY:
       ipfsd = ctx.getIpfsd ? await ctx.getIpfsd(true) : null
 
       // Best effort. Defaults to public gateway if not available.
       if (ipfsd && ipfsd.gatewayAddr) {
-        base = parseAddr(ipfsd.gatewayAddr)
+        gateway = parseAddr(ipfsd.gatewayAddr)
+      } else {
+        gateway = DEFAULT_GATEWAY
       }
 
-      openLink(protocol, part, base)
-      break
+      openLink(protocol, part, gateway)
+      return true
     case ACTION_OPTIONS.FILES_SCREEN:
       ctx.launchWebUI(`/${protocol}/${part}`, { focus: true })
-      break
+      return true
     // case ACTION_OPTIONS.EXPLORE_SCREEN:
     //   if (protocol === 'ipns') {
     //     // IPNS is not supported on the explore page yet.
@@ -130,9 +146,6 @@ async function parseUrl (url, ctx) {
     default:
       return false
   }
-
-  openLink(protocol, part, base)
-  return true
 }
 
 async function argvHandler (argv, ctx) {
