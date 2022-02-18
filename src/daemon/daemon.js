@@ -5,6 +5,8 @@ const logger = require('../common/logger')
 const { applyDefaults, migrateConfig, checkCorsConfig, checkPorts, configExists, rmApiFile, apiFileExists } = require('./config')
 const { getCustomBinary } = require('../custom-ipfs-binary')
 
+const showMigrationPrompt = require('./migration-prompt')
+
 function cannotConnectDialog (addr) {
   showDialog({
     title: i18n.t('cannotConnectToApiDialog.title'),
@@ -89,15 +91,20 @@ function listenToIpfsLogs (ipfsd, callback) {
 }
 
 async function startIpfsWithLogs (ipfsd) {
-  let err, id
+  let err, id, updateLogs
   let logs = ''
 
   const stopListening = listenToIpfsLogs(ipfsd, data => {
     logs += data.toString()
 
+    if (updateLogs) {
+      updateLogs(logs)
+      return
+    }
+
     if (logs.includes('migration')) {
-      console.log('MIGRATION HAPPENING')
-      // TODO: show dialog about migration
+      logger.info('[daemon] ipfs data store is migrating')
+      updateLogs = showMigrationPrompt(logs)
     }
   })
 
