@@ -57,7 +57,7 @@ async function spawn ({ flags, path }) {
   return { ipfsd, isRemote: false }
 }
 
-function getIpfsLogs (ipfsd, callback) {
+function listenToIpfsLogs (ipfsd, callback) {
   let stdout, stderr
 
   const listener = data => {
@@ -79,39 +79,65 @@ function getIpfsLogs (ipfsd, callback) {
   }, 100)
 
   const stop = () => {
-    stdout.removeListener('data', listener)
-    stderr.removeListener('data', listener)
+    clearInterval(interval)
+
+    if (stdout) stdout.removeListener('data', listener)
+    if (stderr) stderr.removeListener('data', listener)
   }
 
   return stop
 }
 
-module.exports = async function (opts) {
-  const { ipfsd, isRemote } = await spawn(opts)
-  if (!isRemote) await checkPorts(ipfsd)
+async function startIpfsWithLogs (ipfsd) {
+  let err, id
+  let logs = ''
 
-  const stopListening = getIpfsLogs(ipfsd, console.log)
-  setTimeout(stopListening, 2000)
+  const stopListening = listenToIpfsLogs(ipfsd, data => {
+    logs += data.toString()
+
+    if (logs.includes('migration')) {
+      console.log('MIGRATION HAPPENING')
+      // TODO: show dialog about migration
+    }
+  })
 
   try {
     await ipfsd.start()
-    const { id } = await ipfsd.api.id()
-    logger.info(`[daemon] PeerID is ${id}`)
-    logger.info(`[daemon] Repo is at ${ipfsd.path}`)
-  } catch (err) {
-    if (!err.message.includes('ECONNREFUSED') && !err.message.includes('ERR_CONNECTION_REFUSED')) {
-      throw err
+    await ipfsd.api.id()
+  } catch (e) {
+    err = e
+  }
+
+  stopListening()
+
+  return {
+    err, id, logs
+  }
+}
+
+module.exports = async function (opts) {
+  const { ipfsd, isRemote } = await spawn(opts)
+  if (!isRemote) {
+    await checkPorts(ipfsd)
+  }
+
+  let errLogs = await startIpfsWithLogs(ipfsd)
+
+  if (errLogs.err) {
+    if (!errLogs.err.message.includes('ECONNREFUSED') && !errLogs.err.message.includes('ERR_CONNECTION_REFUSED')) {
+      return { ipfsd, err: errLogs.err, logs: errLogs.logs }
     }
 
     if (!configExists(ipfsd)) {
       cannotConnectDialog(ipfsd.apiAddr.toString())
-      throw err
+      return { ipfsd, err: errLogs.err, logs: errLogs.logs }
     }
 
     logger.info('[daemon] removing api file')
     rmApiFile(ipfsd)
-    await ipfsd.start()
+
+    errLogs = await startIpfsWithLogs(ipfsd)
   }
 
-  return ipfsd
+  return { ipfsd, err: errLogs.err, logs: errLogs.logs }
 }
