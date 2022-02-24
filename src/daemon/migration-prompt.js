@@ -1,3 +1,4 @@
+const i18n = require('i18next')
 const { BrowserWindow, nativeTheme } = require('electron')
 const dock = require('../utils/dock')
 
@@ -22,10 +23,10 @@ const template = (logs) => (`<!DOCTYPE html>
     <meta charset="utf-8" /> 
   </head>
   <body>
-    <p>One moment! IPFS Desktop needs to run the latest data store migrations:</p>
+    <p>${i18n.t('migrationDialog.message')}</p>
     <pre id="logs">${logs}</pre>
     <div id="buttons">
-      <button class="default" onclick="javascript:window.close()">Close and continue in background</button>
+      <button class="default" onclick="javascript:window.close()">${i18n.t('migrationDialog.closeAndContinue')}</button>
     </div>
   </body>
   <style>
@@ -92,34 +93,38 @@ const template = (logs) => (`<!DOCTYPE html>
       --default-background: ${pallette.dark.defaultBackground};
     }
   }
-
   #buttons {
     text-align: center;
   }
-
   pre {
     height: 350px;
     background: black;
     color: white;
     overflow-y: auto;
     overflow-x: hidden;
+    overflow-anchor: none;
     white-space: break-spaces;
     padding: 10px;
   }
-  
   </style>
   <script>
     const { ipcRenderer } = require('electron')
 
+    function scrollToBottom (id) {
+      const el = document.getElementById(id);
+      el.scrollTop = el.scrollHeight - el.clientHeight;
+    }
+
     ipcRenderer.on('logs', (event, logs) => {
       document.getElementById('logs').innerText = logs
+      scrollToBottom('logs')
     })
   </script>
 </html>`)
 
 module.exports = (logs) => {
   let window = new BrowserWindow({
-    title: 'Migration Prompt',
+    title: i18n.t('migrationDialog.title'),
     show: false,
     width: 800,
     height: 438,

@@ -2,9 +2,8 @@ const Ctl = require('ipfsd-ctl')
 const i18n = require('i18next')
 const { showDialog } = require('../dialogs')
 const logger = require('../common/logger')
-const { applyDefaults, migrateConfig, checkCorsConfig, checkPorts, configExists, rmApiFile, apiFileExists } = require('./config')
 const { getCustomBinary } = require('../custom-ipfs-binary')
-
+const { applyDefaults, migrateConfig, checkCorsConfig, checkPorts, configExists, rmApiFile, apiFileExists } = require('./config')
 const showMigrationPrompt = require('./migration-prompt')
 
 function cannotConnectDialog (addr) {
