@@ -43,7 +43,7 @@ jobs:
         run: npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
 
       - name: Download .exe, update version, URL and hash
-        run: node pkgs\chocolatey\update.js ${{ env.release_name }}
+        run: node pkgs\chocolatey\update.mjs ${{ env.release_name }}
 
       - name: Create .nupkg
         run: cd pkgs\chocolatey && choco pack

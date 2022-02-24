@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 
-const fs = require('fs-extra')
-const { join } = require('path')
-const semverRegex = require('semver-regex')
-const got = require('got')
-const crypto = require('crypto')
+import fs from 'fs-extra'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
+import semverRegex from 'semver-regex'
+import got from 'got'
+import crypto from 'crypto'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 function hashStream (stream) {
   return new Promise((resolve, reject) => {
