@@ -3,24 +3,29 @@ const i18n = require('i18next')
 const crypto = require('crypto')
 const dock = require('../utils/dock')
 const { styles, getBackgroundColor } = require('../dialogs/prompt/styles')
+const { generateErrorIssueUrl } = require('../dialogs/errors')
+const { IS_MAC } = require('../common/consts')
 
-const template = (logs, id, message, buttons) => `<!DOCTYPE html>
+const template = (logs, script, title, message, buttons) => {
+  if (IS_MAC) {
+    buttons.reverse()
+  }
+
+  return `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" /> 
+    <title>${title}</title>
   </head>
   <body>
     <p>${message}</p>
     <pre id="logs">${logs}</pre>
     <div id="buttons">
-      ${buttons}
+      ${buttons.join('\n')}
     </div>
   </body>
   <style>
   ${styles}
-  #buttons {
-    text-align: center;
-  }
   pre {
     height: 350px;
     background: black;
@@ -33,38 +38,51 @@ const template = (logs, id, message, buttons) => `<!DOCTYPE html>
   }
   </style>
   <script>
-    const { ipcRenderer } = require('electron')
-
     function scrollToBottom (id) {
       const el = document.getElementById(id);
       el.scrollTop = el.scrollHeight - el.clientHeight;
     }
 
-    ${id && `ipcRenderer.on(${id}, (event, logs) => {
-      document.getElementById('logs').innerText = logs
-      scrollToBottom('logs')
-    })`}
+    scrollToBottom('logs')
+
+    ${script}
   </script>
 </html>`
+}
 
 const inProgressTemplate = (logs, id) => {
+  const title = i18n.t('migrationDialog.title')
   const message = i18n.t('migrationDialog.message')
-  const buttons = `<button class="default" onclick="javascript:window.close()">${i18n.t('migrationDialog.closeAndContinue')}</button>`
-  return template(logs, id, message, buttons)
+  const buttons = [`<button class="default" onclick="javascript:window.close()">${i18n.t('migrationDialog.closeAndContinue')}</button>`]
+  const script = `const { ipcRenderer } = require('electron')
+
+  ipcRenderer.on('${id}', (event, logs) => {
+    document.getElementById('logs').innerText = logs
+    scrollToBottom('logs')
+  })`
+  return template(logs, script, title, message, buttons)
 }
 
 const errorTemplate = (logs) => {
+  const title = i18n.t('migrationFailedDialog.title')
   const message = i18n.t('migrationFailedDialog.message')
-  const buttons = `
-    <button class="default" onclick="javascript:window.alert('report')">${i18n.t('reportTheError')}</button>
-    <button class="default" onclick="javascript:window.close()">${i18n.t('close')}</button>
+  const buttons = [
+    `<button class="default" onclick="javascript:window.close()">${i18n.t('close')}</button>`,
+    `<button onclick="javascript:openIssue()">${i18n.t('reportTheError')}</button>`
+  ]
+
+  const script = `
+  const { shell } = require('electron')
+
+  function openIssue () {
+    shell.openExternal('${generateErrorIssueUrl(new Error(logs))}')
+  }
   `
-  return template(logs, null, message, buttons)
+  return template(logs, script, title, message, buttons)
 }
 
 module.exports = (logs, error = false) => {
   let window = new BrowserWindow({
-    title: i18n.t('migrationDialog.title'),
     show: false,
     width: 800,
     height: 438,

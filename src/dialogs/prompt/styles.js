@@ -84,7 +84,7 @@ button.default {
 }
 `
 
-const getBackgroundColor = nativeTheme.shouldUseDarkColors
+const getBackgroundColor = () => nativeTheme.shouldUseDarkColors
   ? pallette.dark.background
   : pallette.default.background
 
