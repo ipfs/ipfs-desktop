@@ -43,39 +43,29 @@ module.exports = async function (ctx) {
     const config = store.get('ipfsConfig')
     updateStatus(STATUS.STARTING_STARTED)
 
-    let logs = ''
+    const res = await createDaemon(config)
 
-    try {
-      const res = await createDaemon(config)
-      logs = res.logs
-
-      if (res.err) {
-        throw res.err
-      } else {
-        ipfsd = res.ipfsd
-      }
-
-      const { id } = await ipfsd.api.id()
-
-      logger.info(`[daemon] PeerID is ${id}`)
-      logger.info(`[daemon] Repo is at ${ipfsd.path}`)
-
-      // Update the path if it was blank previously.
-      // This way we use the default path when it is
-      // not set.
-      if (!config.path || typeof config.path !== 'string') {
-        config.path = ipfsd.path
-        store.set('ipfsConfig', config)
-      }
-
-      log.end()
-      updateStatus(STATUS.STARTING_FINISHED, id)
-    } catch (err) {
-      // TODO: do something with the logs.
-      console.log(logs)
-      log.fail(err)
+    if (res.err) {
+      log.fail(res.err)
       updateStatus(STATUS.STARTING_FAILED)
+      return
     }
+
+    ipfsd = res.ipfsd
+
+    logger.info(`[daemon] PeerID is ${res.id}`)
+    logger.info(`[daemon] Repo is at ${ipfsd.path}`)
+
+    // Update the path if it was blank previously.
+    // This way we use the default path when it is
+    // not set.
+    if (!config.path || typeof config.path !== 'string') {
+      config.path = ipfsd.path
+      store.set('ipfsConfig', config)
+    }
+
+    log.end()
+    updateStatus(STATUS.STARTING_FINISHED, res.id)
   }
 
   const stopIpfs = async () => {

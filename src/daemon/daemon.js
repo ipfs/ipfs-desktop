@@ -90,26 +90,37 @@ function listenToIpfsLogs (ipfsd, callback) {
 }
 
 async function startIpfsWithLogs (ipfsd) {
-  let err, id, updateLogs
+  let err, id, migrationPrompt
+  let isMigrating, isErrored
   let logs = ''
 
   const stopListening = listenToIpfsLogs(ipfsd, data => {
     logs += data.toString()
 
-    if (updateLogs) {
-      updateLogs(logs)
+    isMigrating = isMigrating || logs.toLowerCase().includes('migration')
+    isErrored = isErrored || logs.toLowerCase().includes('error')
+
+    if (!isMigrating) {
       return
     }
 
-    if (logs.includes('migration')) {
+    if (!migrationPrompt) {
       logger.info('[daemon] ipfs data store is migrating')
-      updateLogs = showMigrationPrompt(logs)
+      migrationPrompt = showMigrationPrompt(logs, isErrored)
+      return
+    }
+
+    if (isErrored) {
+      migrationPrompt.updateShow(logs, true)
+    } else {
+      migrationPrompt.update(logs)
     }
   })
 
   try {
     await ipfsd.start()
-    await ipfsd.api.id()
+    const idRes = await ipfsd.api.id()
+    id = idRes.id
   } catch (e) {
     err = e
   }
@@ -145,5 +156,5 @@ module.exports = async function (opts) {
     errLogs = await startIpfsWithLogs(ipfsd)
   }
 
-  return { ipfsd, err: errLogs.err, logs: errLogs.logs }
+  return { ipfsd, err: errLogs.err, logs: errLogs.logs, id: errLogs.id }
 }
