@@ -21,7 +21,7 @@ ${e.stack}
 
 let hasErrored = false
 
-const newIssueUrl = (e) => `https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?labels=need%2Ftriage&template=bug_report.md&title=[gui%20error%20report]&body=${encodeURI(issueTemplate(e))}`.substring(0, 1999)
+const generateErrorIssueUrl = (e) => `https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?labels=need%2Ftriage&template=bug_report.md&title=[gui%20error%20report]&body=${encodeURI(issueTemplate(e))}`.substring(0, 1999)
 
 function criticalErrorDialog (e) {
   if (hasErrored) return
@@ -41,7 +41,7 @@ function criticalErrorDialog (e) {
   if (option === 0) {
     app.relaunch()
   } else if (option === 2) {
-    shell.openExternal(newIssueUrl(e))
+    shell.openExternal(generateErrorIssueUrl(e))
   }
 
   app.exit(1)
@@ -75,7 +75,7 @@ function recoverableErrorDialog (e, options) {
   const option = dialog(cfg)
 
   if (option === 1) {
-    shell.openExternal(newIssueUrl(e))
+    shell.openExternal(generateErrorIssueUrl(e))
   } else if (option === 2) {
     shell.openPath(path.join(app.getPath('userData'), 'combined.log'))
   }
@@ -83,5 +83,6 @@ function recoverableErrorDialog (e, options) {
 
 module.exports = Object.freeze({
   criticalErrorDialog,
-  recoverableErrorDialog
+  recoverableErrorDialog,
+  generateErrorIssueUrl
 })

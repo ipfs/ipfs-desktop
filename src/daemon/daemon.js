@@ -2,8 +2,9 @@ const Ctl = require('ipfsd-ctl')
 const i18n = require('i18next')
 const { showDialog } = require('../dialogs')
 const logger = require('../common/logger')
-const { applyDefaults, migrateConfig, checkCorsConfig, checkPorts, configExists, rmApiFile, apiFileExists } = require('./config')
 const { getCustomBinary } = require('../custom-ipfs-binary')
+const { applyDefaults, migrateConfig, checkCorsConfig, checkPorts, configExists, rmApiFile, apiFileExists } = require('./config')
+const showMigrationPrompt = require('./migration-prompt')
 
 function cannotConnectDialog (addr) {
   showDialog({
@@ -57,29 +58,110 @@ async function spawn ({ flags, path }) {
   return { ipfsd, isRemote: false }
 }
 
-module.exports = async function (opts) {
-  const { ipfsd, isRemote } = await spawn(opts)
-  if (!isRemote) await checkPorts(ipfsd)
+function listenToIpfsLogs (ipfsd, callback) {
+  let stdout, stderr
+
+  const listener = data => {
+    callback(data.toString())
+  }
+
+  const interval = setInterval(() => {
+    if (!ipfsd.subprocess) {
+      return
+    }
+
+    stdout = ipfsd.subprocess.stdout
+    stderr = ipfsd.subprocess.stderr
+
+    stdout.on('data', listener)
+    stderr.on('data', listener)
+
+    clearInterval(interval)
+  }, 20)
+
+  const stop = () => {
+    clearInterval(interval)
+
+    if (stdout) stdout.removeListener('data', listener)
+    if (stderr) stderr.removeListener('data', listener)
+  }
+
+  return stop
+}
+
+async function startIpfsWithLogs (ipfsd) {
+  let err, id, migrationPrompt
+  let isMigrating, isErrored, isFinished
+  let logs = ''
+
+  const stopListening = listenToIpfsLogs(ipfsd, data => {
+    logs += data.toString()
+
+    isMigrating = isMigrating || logs.toLowerCase().includes('migration')
+    isErrored = isErrored || logs.toLowerCase().includes('error')
+    isFinished = isFinished || logs.toLowerCase().includes('daemon is ready')
+
+    if (!isMigrating) {
+      return
+    }
+
+    if (!migrationPrompt) {
+      logger.info('[daemon] ipfs data store is migrating')
+      migrationPrompt = showMigrationPrompt(logs, isErrored, isFinished)
+      return
+    }
+
+    if (isErrored || isFinished) {
+      // forced show on error or when finished,
+      // because user could close it to run in background
+      migrationPrompt.loadWindow(logs, isErrored, isFinished)
+    } else { // update progress if the window is still around
+      migrationPrompt.update(logs)
+    }
+  })
 
   try {
     await ipfsd.start()
-    const { id } = await ipfsd.api.id()
-    logger.info(`[daemon] PeerID is ${id}`)
-    logger.info(`[daemon] Repo is at ${ipfsd.path}`)
-  } catch (err) {
-    if (!err.message.includes('ECONNREFUSED') && !err.message.includes('ERR_CONNECTION_REFUSED')) {
-      throw err
+    const idRes = await ipfsd.api.id()
+    id = idRes.id
+  } catch (e) {
+    err = e
+  } finally {
+    // stop monitoring daemon output - we only care about migration phase
+    stopListening()
+    if (isErrored) { // save daemon output to error.log
+      logger.error(logs)
+    }
+  }
+
+  return {
+    err, id, logs
+  }
+}
+
+module.exports = async function (opts) {
+  const { ipfsd, isRemote } = await spawn(opts)
+  if (!isRemote) {
+    await checkPorts(ipfsd)
+  }
+
+  let errLogs = await startIpfsWithLogs(ipfsd)
+
+  if (errLogs.err) {
+    if (!errLogs.err.message.includes('ECONNREFUSED') && !errLogs.err.message.includes('ERR_CONNECTION_REFUSED')) {
+      return { ipfsd, err: errLogs.err, logs: errLogs.logs }
     }
 
     if (!configExists(ipfsd)) {
       cannotConnectDialog(ipfsd.apiAddr.toString())
-      throw err
+      return { ipfsd, err: errLogs.err, logs: errLogs.logs }
     }
 
     logger.info('[daemon] removing api file')
     rmApiFile(ipfsd)
-    await ipfsd.start()
+
+    errLogs = await startIpfsWithLogs(ipfsd)
   }
 
-  return ipfsd
+  return { ipfsd, err: errLogs.err, logs: errLogs.logs, id: errLogs.id }
 }
