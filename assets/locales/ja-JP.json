@@ -129,13 +129,14 @@
     "message": "更新に失敗しました。インターネット接続を確認して、もう一度お試しください。"
   },
   "updateDownloadedDialog": {
-    "title": "更新のダウンロード完了",
-    "message": "バージョン{ version }更新のダウンロード完了。インストールするのに、IPFSデスクトップを再起動して下さい。",
-    "action": "再開"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "更新のダウンロード完了",
-    "message": "バージョン{ version }更新のダウンロード完了。インストールするのに、この通知をクリックして下さい。"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "ゴミコレクター",

@@ -129,13 +129,14 @@
     "message": "No ha estat possible descarregar l'actualització. Si us plau, comproveu la connexió a internet i proveu-ho de nou."
   },
   "updateDownloadedDialog": {
-    "title": "Actualització descarregada",
-    "message": "S'ha descarregat l'actualització de la versió { version }. Per instal·lar-la, si us plau reinicieu l'IPFS d'Escriptori.",
-    "action": "Reiniciar"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "Actualització descarregada",
-    "message": "S'ha descarregat l'actualització de la versió { version }de l'IPFS d'Escriptori. Cliqui aquesta notificació per instal·lar-la."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Recollidor de brossa",

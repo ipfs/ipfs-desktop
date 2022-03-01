@@ -129,13 +129,14 @@
     "message": "بارگیری بروزرسانی امکان پذیر نیست.\nلطفاً اتصال اینترنت خود را بررسی کرده و دوباره امتحان کنید."
   },
   "updateDownloadedDialog": {
-    "title": "بروزرسانی بارگیری شد",
-    "message": "بارگیری نسخه { version } انجام شده. \n برای نصب  بروزرسانی ، لطفاً IPFS Desktop را مجدداً راه اندازی کنید.",
-    "action": "ری استارت"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "بروزرسانی بارگیری شد",
-    "message": "به روزرسانی نسخه { version } IPFS Desktop بارگیری شده. برای نصب روی این اعلان کلیک کنید."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "بازیابی حافظه",

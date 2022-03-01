@@ -129,13 +129,14 @@
     "message": "Nem tudtuk letölteni a frissítést. Kérlek ellenőrizd az internet hozzáférésed és próbáld meg újra."
   },
   "updateDownloadedDialog": {
-    "title": "Frissítés letöltve",
-    "message": "A frissítés a { version }verzióhoz letöltve. A telepítéshez kérlek indítsd újra az IPFS Desktop-ot.",
-    "action": "Újraindítás"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "Frissítés letöltve",
-    "message": "Frissítés a { version } letöltött IPFS Desktop verzióhoz. Kattintson erre az értesítésre a telepítéshez."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Szemetes",

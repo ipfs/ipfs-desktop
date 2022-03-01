@@ -129,13 +129,14 @@
     "message": "Tidak mungkin unduh pembaruan. Silakan periksa koneksi internet Anda dan coba lagi."
   },
   "updateDownloadedDialog": {
-    "title": "Perbarui diunduh",
-    "message": "Perbarui untuk versi { version } yang diunduh. Untuk menginstal pembaruan, silakan mulai ulang Desktop IPFS.",
-    "action": "Memulai ulang"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "Perbarui diunduh",
-    "message": "Pembaruan untuk versi { version } Desktop IPFS yang diunduh. Klik pemberitahuan ini untuk menginstal."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Pengumpul sampah",

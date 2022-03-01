@@ -47,7 +47,7 @@
   "customIpfsBinary": "自定义IPFS二进制文件",
   "setCustomIpfsBinary": "设置自定义IPFS二进制文件",
   "clearCustomIpfsBinary": "清除自定义IPFS二进制文件",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "打开命令行文档",
   "polkitDialog": {
     "title": "Polkit (策略工具包)没有找到",
     "message": "由于缺少 Polkit 代理，无法将 IPFS 添加到 /usr/local/bin/ 目录中。"
@@ -129,13 +129,14 @@
     "message": "无法下载更新，请检查您的网络连接并重试。"
   },
   "updateDownloadedDialog": {
-    "title": "更新已下载",
-    "message": "版本 { version } 更新已下载，请重启 IPFS 桌面以安装更新。",
-    "action": "重启"
+    "title": "IPFS 桌面 更新",
+    "message": "现在可以更新至IPFS 桌面 { version }，你希望现在更新吗？",
+    "later": "稍后",
+    "now": "现在更新"
   },
   "updateDownloadedNotification": {
-    "title": "更新已下载",
-    "message": "IPFS 桌面版本 { version } 更新已下载，点击此处以安装。"
+    "title": "IPFS 桌面 更新",
+    "message": "新版本IPFS 桌面 { version }更新目前已准备就绪。"
   },
   "runGarbageCollectorWarning": {
     "title": "缓存清理",
@@ -220,7 +221,7 @@
     "message": "已清除自定义IPFS二进制文件。要开始使用捆绑的IPFS版本，首先要重新启动IPFS。"
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop 未响应",
+    "title": "IPFS 桌面 未响应",
     "message": "正在执行的操作所需要的资源超出预期。你希望中止并强制重载界面吗？",
     "forceReload": "是，重新载入",
     "doNothing": "否，继续等待"

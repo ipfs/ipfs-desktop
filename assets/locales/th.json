@@ -129,13 +129,14 @@
     "message": "ไม่สามารถดาวน์โหลดอัพเดทได้. โปรดตรวจสอบการเชื่อมต่อของคุณและลองใหม่อีกครั้ง."
   },
   "updateDownloadedDialog": {
-    "title": "ดาวน์โหลดอัพเดทแล้ว",
-    "message": "ดาวน์โหลดอัพเดทเวอร์ชั่น { version } แล้ว. โปรดรีสตาร์ท IPFS Desktop เพื่อทำการติดตั้ง.",
-    "action": "รีสตาร์ท"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "ดาวน์โหลดอัพเดทแล้ว",
-    "message": "ดาวน์โหลดอัพเดทเวอร์ชั่น { version } แล้ว. คลิ๊กที่การแจ้งเตือนนี้เพื่อทำการติดตั้ง."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "ตัวลบขยะ",

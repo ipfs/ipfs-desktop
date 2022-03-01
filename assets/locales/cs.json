@@ -129,13 +129,14 @@
     "message": "Aktualizaci nebylo možné stáhnout. Zkontrolujte připojení k internetu a akci opakujte."
   },
   "updateDownloadedDialog": {
-    "title": "Aktualizace stažena",
-    "message": "Aktualizace verze { version } stažena. Chcete-li nainstalovat aktualizaci, restartujte prosím IPFS.",
-    "action": "Restartovat"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "Aktualizace stažena",
-    "message": "Aktualizace IPFS verze { version } stažena. Klepnutím na toto oznámení ji nainstalujte."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",

@@ -129,13 +129,14 @@
     "message": "Non è stato possibile scaricare l'aggiornamento. Per favore, controlla la tua connessione internet e riprova."
   },
   "updateDownloadedDialog": {
-    "title": "Aggiornamento scaricato",
-    "message": "Aggiornamento per la versione { version } scaricato. Per installare l'aggiornamento, per favore, riavvia IPFS Desktop.",
-    "action": "Riavvia"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "Aggiornamento scaricato",
-    "message": "Aggiornamento per la versione { version } di IPFS Desktop scaricato. Clicca su questa notifica per installarlo."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",

@@ -129,13 +129,14 @@
     "message": "Pobranie aktualizacji nie było możliwe. Proszę sprawdzić połączenie internetowe i spróbować ponownie."
   },
   "updateDownloadedDialog": {
-    "title": "Aktualizacja pobrana",
-    "message": "Pobrano aktualizację do wersji { version }. Aby zainstalować aktualizację, proszę zrestartować IPFS Desktop.",
-    "action": "Restart"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "Aktualizacja pobrana",
-    "message": "Pobrano aktualizację do wersji { version } IPFS Desktop. Kliknij to powiadomienie, aby zainstalować."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",

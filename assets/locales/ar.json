@@ -129,13 +129,14 @@
     "message": "تعذر تنزيل التحديث. يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى."
   },
   "updateDownloadedDialog": {
-    "title": "تم تنزيل التحديث",
-    "message": " تحديث الإصدار { version } تم تنزيله . لتثبيت التحديث ، يرجى إعادة تشغيل IPFS لسطح المكتب.",
-    "action": "أعاد التشغيل"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "تم تنزيل التحديث",
-    "message": "تم تنزيل تحديث إصدار { version }  IPFS لسطح المكتب. انقر فوق هذا الإشعار للتثبيت."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "جامع القمامة",

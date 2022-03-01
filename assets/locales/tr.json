@@ -129,13 +129,14 @@
     "message": "Güncellemeyi indirmek mümkün olmadı. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
   },
   "updateDownloadedDialog": {
-    "title": "Güncelleme indirildi",
-    "message": "{ version } sürümü için güncelleme indirildi. Güncellemeyi yüklemek için lütfen IPFS Masaüstü'nü yeniden başlatın.",
-    "action": "Tekrar başlat"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "Güncelleme indirildi",
-    "message": "IPFS Masaüstü'nün { version } sürümü için güncelleme indirildi. Yüklemek için bu bildirime tıklayın."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Çöp toplayıcı",
