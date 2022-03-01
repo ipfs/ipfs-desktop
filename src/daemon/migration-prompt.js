@@ -110,13 +110,13 @@ module.exports = (logs, error = false) => {
   // Generate random id
   const id = crypto.randomBytes(16).toString('hex')
 
-  const loadWindow = (error, logs) => {
+  const loadWindow = (logs, error) => {
     const page = error ? errorTemplate(logs) : inProgressTemplate(logs, id)
     const data = `data:text/html;base64,${Buffer.from(page, 'utf8').toString('base64')}`
     window.loadURL(data)
   }
 
-  loadWindow(error, logs)
+  loadWindow(logs, error)
 
   return {
     update: logs => {
