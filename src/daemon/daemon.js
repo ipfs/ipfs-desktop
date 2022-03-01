@@ -91,7 +91,7 @@ function listenToIpfsLogs (ipfsd, callback) {
 
 async function startIpfsWithLogs (ipfsd) {
   let err, id, migrationPrompt
-  let isMigrating, isErrored
+  let isMigrating, isErrored, isFinished
   let logs = ''
 
   const stopListening = listenToIpfsLogs(ipfsd, data => {
@@ -99,6 +99,7 @@ async function startIpfsWithLogs (ipfsd) {
 
     isMigrating = isMigrating || logs.toLowerCase().includes('migration')
     isErrored = isErrored || logs.toLowerCase().includes('error')
+    isFinished = isFinished || logs.toLowerCase().includes('daemon is ready')
 
     if (!isMigrating) {
       return
@@ -106,12 +107,14 @@ async function startIpfsWithLogs (ipfsd) {
 
     if (!migrationPrompt) {
       logger.info('[daemon] ipfs data store is migrating')
-      migrationPrompt = showMigrationPrompt(logs, isErrored)
+      migrationPrompt = showMigrationPrompt(logs, isErrored, isFinished)
       return
     }
 
-    if (isErrored) { // forced show on error (even if user closed window to run in background)
-      migrationPrompt.updateShow(logs, isErrored)
+    if (isErrored || isFinished) {
+      // forced show on error or when finished,
+      // because user could close it to run in background
+      migrationPrompt.loadWindow(logs, isErrored, isFinished)
     } else { // update progress if the window is still around
       migrationPrompt.update(logs)
     }
@@ -123,12 +126,12 @@ async function startIpfsWithLogs (ipfsd) {
     id = idRes.id
   } catch (e) {
     err = e
-  }
-
-  stopListening()
-
-  if (isErrored) { // save daemon output to error.log
-    logger.error(logs)
+  } finally {
+    // stop monitoring daemon output - we only care about migration phase
+    stopListening()
+    if (isErrored) { // save daemon output to error.log
+      logger.error(logs)
+    }
   }
 
   return {

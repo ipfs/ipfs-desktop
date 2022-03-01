@@ -227,12 +227,12 @@
     "doNothing": "Do nothing"
   },
   "migrationDialog": {
-    "title": "Migration In Progress",
+    "title": "IPFS Desktop Migration",
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Close and continue in background"
+    "closeAndContinue": "Continue in the background"
   },
   "migrationFailedDialog": {
-    "title": "Migration Has Failed",
+    "title": "IPFS Desktop Migration Has Failed",
     "message": "IPFS has encountered an error and migration could not be completed:"
   }
 }

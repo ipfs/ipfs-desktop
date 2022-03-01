@@ -50,10 +50,10 @@ const template = (logs, script, title, message, buttons) => {
 </html>`
 }
 
-const inProgressTemplate = (logs, id) => {
+const inProgressTemplate = (logs, id, done) => {
   const title = i18n.t('migrationDialog.title')
-  const message = i18n.t('migrationDialog.message')
-  const buttons = [`<button class="default" onclick="javascript:window.close()">${i18n.t('migrationDialog.closeAndContinue')}</button>`]
+  const message = done ? i18n.t('ipfsIsRunning') : i18n.t('migrationDialog.message')
+  const buttons = [`<button class="default" onclick="javascript:window.close()">${done ? i18n.t('close') : i18n.t('migrationDialog.closeAndContinue')}</button>`]
   const script = `const { ipcRenderer } = require('electron')
 
   ipcRenderer.on('${id}', (event, logs) => {
@@ -81,42 +81,43 @@ const errorTemplate = (logs) => {
   return template(logs, script, title, message, buttons)
 }
 
-module.exports = (logs, error = false) => {
-  let window = new BrowserWindow({
-    show: false,
-    width: 800,
-    height: 438,
-    useContentSize: true,
-    resizable: false,
-    autoHideMenuBar: true,
-    fullscreenable: false,
-    backgroundColor: getBackgroundColor(),
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
-    }
-  })
+let window
 
-  window.on('close', () => {
-    dock.hide()
-    window = null
-  })
-
-  window.once('ready-to-show', () => {
-    dock.show()
-    window.show()
-  })
-
+module.exports = (logs, error = false, done = false) => {
   // Generate random id
   const id = crypto.randomBytes(16).toString('hex')
 
-  const loadWindow = (logs, error) => {
-    const page = error ? errorTemplate(logs) : inProgressTemplate(logs, id)
+  const loadWindow = (logs, error = false, done = false) => {
+    if (!window) {
+      window = new BrowserWindow({
+        show: false,
+        width: 800,
+        height: 438,
+        useContentSize: true,
+        resizable: false,
+        autoHideMenuBar: true,
+        fullscreenable: false,
+        backgroundColor: getBackgroundColor(),
+        webPreferences: {
+          nodeIntegration: true,
+          contextIsolation: false
+        }
+      })
+      window.on('close', () => {
+        dock.hide()
+        window = null
+      })
+      window.once('ready-to-show', () => {
+        dock.show()
+        window.show()
+      })
+    }
+    const page = error ? errorTemplate(logs) : inProgressTemplate(logs, id, done)
     const data = `data:text/html;base64,${Buffer.from(page, 'utf8').toString('base64')}`
     window.loadURL(data)
   }
 
-  loadWindow(logs, error)
+  loadWindow(logs, error, done)
 
   return {
     update: logs => {
@@ -124,11 +125,8 @@ module.exports = (logs, error = false) => {
         window.webContents.send(id, logs)
         return true
       }
-
       return false
     },
-    updateShow: (logs, error = false) => {
-      loadWindow(logs, error)
-    }
+    loadWindow
   }
 }
