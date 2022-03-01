@@ -77,7 +77,7 @@ function listenToIpfsLogs (ipfsd, callback) {
     stderr.on('data', listener)
 
     clearInterval(interval)
-  }, 100)
+  }, 20)
 
   const stop = () => {
     clearInterval(interval)
@@ -110,9 +110,9 @@ async function startIpfsWithLogs (ipfsd) {
       return
     }
 
-    if (isErrored) {
-      migrationPrompt.updateShow(logs, true)
-    } else {
+    if (isErrored) { // forced show on error (even if user closed window to run in background)
+      migrationPrompt.updateShow(logs, isErrored)
+    } else { // update progress if the window is still around
       migrationPrompt.update(logs)
     }
   })
@@ -126,6 +126,10 @@ async function startIpfsWithLogs (ipfsd) {
   }
 
   stopListening()
+
+  if (isErrored) { // save daemon output to error.log
+    logger.error(logs)
+  }
 
   return {
     err, id, logs
