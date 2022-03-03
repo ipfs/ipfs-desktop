@@ -18,7 +18,7 @@ chai.use(dirtyChai)
 const getFixtures = (...files) => files.map(f => path.join(__dirname, 'fixtures', f))
 
 describe('Add To Ipfs', function () {
-  this.timeout(5000)
+  this.timeout(60000)
 
   let electron, notify, addToIpfs, ipfsd, ctx
 
@@ -31,8 +31,8 @@ describe('Add To Ipfs', function () {
     }
   })
 
-  after(() => {
-    if (ipfsd) ipfsd.stop()
+  after(async () => {
+    if (ipfsd) await ipfsd.stop()
   })
 
   beforeEach(async () => {
