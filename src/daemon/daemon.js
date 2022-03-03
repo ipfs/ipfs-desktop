@@ -96,13 +96,20 @@ async function startIpfsWithLogs (ipfsd) {
 
   const stopListening = listenToIpfsLogs(ipfsd, data => {
     logs += data.toString()
-
-    isMigrating = isMigrating || logs.toLowerCase().includes('migration')
-    isErrored = isErrored || logs.toLowerCase().includes('error')
-    isFinished = isFinished || logs.toLowerCase().includes('daemon is ready')
+    const line = data.toLowerCase()
+    isMigrating = isMigrating || line.includes('migration')
+    isErrored = isErrored || line.includes('error')
+    isFinished = isFinished || line.includes('daemon is ready')
 
     if (!isMigrating) {
       return
+    }
+
+    // Undo error state if retrying after HTTP failure
+    // https://github.com/ipfs/ipfs-desktop/issues/2003
+    if (isErrored && line.includes('fetching with ipfs') && !line.includes('error')) {
+      isErrored = false
+      if (migrationPrompt) migrationPrompt.loadWindow(logs, isErrored, isFinished)
     }
 
     if (!migrationPrompt) {
