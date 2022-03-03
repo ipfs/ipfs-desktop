@@ -225,5 +225,14 @@
     "message": "A operação em andamento está levando mais recursos do que o esperado. Você deseja abortar e forçar a reinicialização da interface?",
     "forceReload": "Sim, recarregar",
     "doNothing": "Ignorar"
+  },
+  "migrationDialog": {
+    "title": "IPFS Desktop Migration",
+    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "closeAndContinue": "Continue in the background"
+  },
+  "migrationFailedDialog": {
+    "title": "IPFS Desktop Migration Has Failed",
+    "message": "IPFS has encountered an error and migration could not be completed:"
   }
 }

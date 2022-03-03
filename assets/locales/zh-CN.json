@@ -225,5 +225,14 @@
     "message": "正在执行的操作所需要的资源超出预期。你希望中止并强制重载界面吗？",
     "forceReload": "是，重新载入",
     "doNothing": "否，继续等待"
+  },
+  "migrationDialog": {
+    "title": "IPFS Desktop Migration",
+    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "closeAndContinue": "Continue in the background"
+  },
+  "migrationFailedDialog": {
+    "title": "IPFS Desktop Migration Has Failed",
+    "message": "IPFS has encountered an error and migration could not be completed:"
   }
 }

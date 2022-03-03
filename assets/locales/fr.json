@@ -225,5 +225,14 @@
     "message": "L'opération en cours consomme plus de ressources que prévu. Voulez-vous l'interrompre et recharger l'interface ?",
     "forceReload": "Oui, recharger",
     "doNothing": "Ne rien faire"
+  },
+  "migrationDialog": {
+    "title": "Migration d'IPFS Desktop",
+    "message": "Juste un instant ! IPFS Desktop a besoin d'exécuter la migration du data store la plus récente:",
+    "closeAndContinue": "Continuer en arrière-plan"
+  },
+  "migrationFailedDialog": {
+    "title": "La migration d'IPFS Desktop a échoué",
+    "message": "IPFS a rencontré une erreur et la migration n'a pas pu être effectuée."
   }
 }

@@ -129,14 +129,14 @@
     "message": "Aktualizaci nebylo možné stáhnout. Zkontrolujte připojení k internetu a akci opakujte."
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "Aktualizace IPFS Desktop",
+    "message": "K dispozici je aktualizace IPFS Desktop { version }. Chcete ji nainstalovat nyní?",
+    "later": "Později",
+    "now": "Nainstalovat nyní"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "Aktualizace IPFS Desktop",
+    "message": "K dispozici je aktualizace IPFS Desktop { version }."
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
@@ -225,5 +225,14 @@
     "message": "Probíhající operace si vyžádá více prostředků, než se očekávalo. Přejete si přerušit a násilně znovu načíst rozhraní?",
     "forceReload": "Ano, znovu načíst",
     "doNothing": "Nedělat nic"
+  },
+  "migrationDialog": {
+    "title": "Migrace IPFS Desktop",
+    "message": "Okamžik! IPFS Desktop potřebuje spustit nejnovější migrace datových úložišť:",
+    "closeAndContinue": "Pokračovat na pozadí"
+  },
+  "migrationFailedDialog": {
+    "title": "Migrace IPFS Desktop se nezdařila",
+    "message": "IPFS narazil na chybu a migraci nebylo možné dokončit:"
   }
 }
