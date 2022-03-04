@@ -11,6 +11,8 @@ const { makeRepository } = require('./../e2e/utils/ipfsd')
 
 const getFixtures = (...files) => files.map(f => path.join(__dirname, 'fixtures', f))
 
+if (process.env.CI === 'true') test.setTimeout(120000) // slow ci
+
 test.describe('Add To Ipfs', function () {
   let electron, notify, addToIpfs, ipfsd, ctx
 

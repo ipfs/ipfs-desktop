@@ -11,6 +11,8 @@ async function getPort () {
   return portfinder.getPortPromise()
 }
 
+if (process.env.CI === 'true') test.setTimeout(120000) // slow ci
+
 test.describe.serial('Application launch', async () => {
   let app = null
 
