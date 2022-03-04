@@ -1,21 +1,15 @@
-/* eslint-env mocha */
-
 const sinon = require('sinon')
-const chai = require('chai')
-const { expect } = chai
-const dirtyChai = require('dirty-chai')
 const mockElectron = require('./mocks/electron')
 const mockStore = require('./mocks/store')
 const mockLogger = require('./mocks/logger')
-
 const proxyquire = require('proxyquire').noCallThru()
-chai.use(dirtyChai)
+const { test, expect } = require('@playwright/test')
 
-describe('Create toggler', () => {
+test.describe('Create toggler', () => {
   const option = 'OPT'
   let electron, store, createToggler, logger
 
-  beforeEach(() => {
+  test.beforeEach(() => {
     electron = mockElectron()
     store = mockStore()
     logger = mockLogger()
@@ -26,93 +20,78 @@ describe('Create toggler', () => {
     })
   })
 
-  it('activate option with success', (done) => {
+  test('activate option with success', async () => {
     const spy = sinon.spy()
     const activate = sinon.stub().returns(true)
     createToggler(option, activate)
 
     electron.ipcMain.on('configUpdated', spy)
-    electron.ipcMain.emit(`toggle_${option}`)
+    await electron.ipcMain.emit(`toggle_${option}`)
 
-    setImmediate(() => {
-      expect(store.get.callCount).to.equal(1)
-      expect(activate.callCount).to.equal(1)
-      expect(store.set.callCount).to.equal(1)
-      expect(spy.calledOnce).to.equal(true)
-      expect(store.get(option)).to.equal(true)
-      done()
-    })
+    expect(store.get.callCount).toEqual(1)
+    expect(activate.callCount).toEqual(1)
+    expect(store.set.callCount).toEqual(1)
+    expect(spy.calledOnce).toBeTruthy()
+    expect(store.get(option)).toBeTruthy()
   })
 
-  it('activate option with error', (done) => {
+  test('activate option with error', async () => {
     const spy = sinon.spy()
     store.set(option, false)
     const activate = sinon.stub().returns(false)
     createToggler(option, activate)
 
     electron.ipcMain.on('configUpdated', spy)
-    electron.ipcMain.emit(`toggle_${option}`)
+    await electron.ipcMain.emit(`toggle_${option}`)
 
-    setImmediate(() => {
-      expect(store.get.callCount).to.equal(1)
-      expect(activate.callCount).to.equal(1)
-      expect(store.set.callCount).to.equal(1)
-      expect(spy.calledOnce).to.equal(true)
-      expect(store.get(option)).to.equal(false)
-      done()
-    })
+    expect(store.get.callCount).toEqual(1)
+    expect(activate.callCount).toEqual(1)
+    expect(store.set.callCount).toEqual(1)
+    expect(spy.calledOnce).toBeTruthy()
+    expect(store.get(option)).toEqual(false)
   })
 
-  it('disable option with success', (done) => {
+  test('disable option with success', async () => {
     store.set(option, true)
     const spy = sinon.spy()
     const activate = sinon.stub().returns(true)
     createToggler(option, activate)
 
     electron.ipcMain.on('configUpdated', spy)
-    electron.ipcMain.emit(`toggle_${option}`)
+    await electron.ipcMain.emit(`toggle_${option}`)
 
-    setImmediate(() => {
-      expect(store.get.callCount).to.equal(1)
-      expect(activate.callCount).to.equal(1)
-      expect(store.set.callCount).to.equal(2)
-      expect(spy.calledOnce).to.equal(true)
-      expect(store.get(option)).to.equal(false)
-      done()
-    })
+    expect(store.get.callCount).toEqual(1)
+    expect(activate.callCount).toEqual(1)
+    expect(store.set.callCount).toEqual(2)
+    expect(spy.calledOnce).toBeTruthy()
+    expect(store.get(option)).toEqual(false)
   })
 
-  it('disable option with error', (done) => {
+  test('disable option with error', async () => {
     store.set(option, true)
     const spy = sinon.spy()
     const activate = sinon.stub().returns(false)
     createToggler(option, activate)
 
     electron.ipcMain.on('configUpdated', spy)
-    electron.ipcMain.emit(`toggle_${option}`)
+    await electron.ipcMain.emit(`toggle_${option}`)
 
-    setImmediate(() => {
-      expect(store.get.callCount).to.equal(1)
-      expect(activate.callCount).to.equal(1)
-      expect(store.set.callCount).to.equal(1)
-      expect(spy.calledOnce).to.equal(true)
-      expect(store.get(option)).to.equal(true)
-      done()
-    })
+    expect(store.get.callCount).toEqual(1)
+    expect(activate.callCount).toEqual(1)
+    expect(store.set.callCount).toEqual(1)
+    expect(spy.calledOnce).toBeTruthy()
+    expect(store.get(option)).toBeTruthy()
   })
 
-  it('enable and disable option with success', (done) => {
+  test('enable and disable option with success', async () => {
     const activate = sinon.stub().returns(true)
 
     createToggler(option, activate)
     electron.ipcMain.emit(`toggle_${option}`)
-    electron.ipcMain.emit(`toggle_${option}`)
+    await electron.ipcMain.emit(`toggle_${option}`)
 
-    setImmediate(() => {
-      expect(store.get.callCount).to.equal(2)
-      expect(activate.callCount).to.equal(2)
-      expect(store.set.callCount).to.equal(2)
-      done()
-    })
+    expect(store.get.callCount).toEqual(2)
+    expect(activate.callCount).toEqual(2)
+    expect(store.set.callCount).toEqual(2)
   })
 })
