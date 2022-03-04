@@ -106,6 +106,10 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Stop any ipfs daemon before tests
+        run: ipfs shutdown || true
+        shell: bash
+
       - name: Test
         run: npm run test
 
