@@ -150,7 +150,7 @@ async function checkForUpdates () {
 }
 
 module.exports = async function (ctx) {
-  if (process.env.NODE_ENV === 'development') {
+  if (['test', 'development'].includes(process.env.NODE_ENV)) {
     ctx.manualCheckForUpdates = () => {
       showDialog({
         title: 'Not available in development',

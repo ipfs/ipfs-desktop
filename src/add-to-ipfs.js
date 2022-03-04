@@ -47,8 +47,7 @@ async function getShareableCid (ipfs, files) {
 
   const stat = await ipfs.files.stat(dirpath)
 
-  // Do not wait for this
-  ipfs.files.rm(dirpath, { recursive: true })
+  await ipfs.files.rm(dirpath, { recursive: true })
 
   return { cid: stat.cid, filename: '' }
 }

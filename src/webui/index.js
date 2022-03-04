@@ -137,7 +137,7 @@ module.exports = async function (ctx) {
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       apiAddress = ipfsd.apiAddr
-      url.searchParams.set('api', apiAddress)
+      url.searchParams.set('api', apiAddress.toString())
       updateLanguage()
       window.loadURL(url.toString())
     }

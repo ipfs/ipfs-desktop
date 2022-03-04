@@ -16,7 +16,12 @@ test.describe.serial('Application launch', async () => {
 
   test.afterEach(async () => {
     if (app) {
-      await app.close()
+      try {
+        await app.close()
+      } catch (e) {
+        if (e.message.includes('has been closed')) return
+        throw e
+      }
     }
   })
 

@@ -1,9 +1,5 @@
-/* eslint-env mocha */
-
-const chai = require('chai')
 const path = require('path')
-const { expect } = chai
-const dirtyChai = require('dirty-chai')
+const { test, expect } = require('@playwright/test')
 
 const mockElectron = require('./mocks/electron')
 const mockLogger = require('./mocks/logger')
@@ -13,16 +9,12 @@ const proxyquire = require('proxyquire').noCallThru()
 
 const { makeRepository } = require('./../e2e/utils/ipfsd')
 
-chai.use(dirtyChai)
-
 const getFixtures = (...files) => files.map(f => path.join(__dirname, 'fixtures', f))
 
-describe('Add To Ipfs', function () {
-  this.timeout(5000)
-
+test.describe('Add To Ipfs', function () {
   let electron, notify, addToIpfs, ipfsd, ctx
 
-  before(async () => {
+  test.beforeAll(async () => {
     const repo = await makeRepository({ start: true })
     ipfsd = repo.ipfsd
     ctx = {
@@ -31,11 +23,11 @@ describe('Add To Ipfs', function () {
     }
   })
 
-  after(() => {
-    if (ipfsd) ipfsd.stop()
+  test.afterAll(async () => {
+    if (ipfsd) await ipfsd.stop()
   })
 
-  beforeEach(async () => {
+  test.beforeEach(async () => {
     electron = mockElectron()
     notify = mockNotify()
     addToIpfs = proxyquire('../../src/add-to-ipfs', {
@@ -45,27 +37,27 @@ describe('Add To Ipfs', function () {
     })
   })
 
-  it('add to ipfs single file', async () => {
+  test('add to ipfs single file', async () => {
     const cid = await addToIpfs(ctx, getFixtures('hello-world.txt'))
-    expect(electron.clipboard.writeText.callCount).to.equal(1)
-    expect(notify.notifyError.callCount).to.equal(0)
-    expect(notify.notify.callCount).to.equal(1)
-    expect(cid.toString()).to.equal('QmWGeRAEgtsHW3ec7U4qW2CyVy7eA2mFRVbk1nb24jFyks')
+    expect(electron.clipboard.writeText.callCount).toEqual(1)
+    expect(notify.notifyError.callCount).toEqual(0)
+    expect(notify.notify.callCount).toEqual(1)
+    expect(cid.toString()).toEqual('QmWGeRAEgtsHW3ec7U4qW2CyVy7eA2mFRVbk1nb24jFyks')
   })
 
-  it('add to ipfs single directory', async () => {
+  test('add to ipfs single directory', async () => {
     const cid = await addToIpfs(ctx, getFixtures('dir'))
-    expect(electron.clipboard.writeText.callCount).to.equal(1)
-    expect(notify.notifyError.callCount).to.equal(0)
-    expect(notify.notify.callCount).to.equal(1)
-    expect(cid.toString()).to.equal('QmVuxXkWEyCKvQiMqVnDiwyJUUyDQZ7VsKhQDCZzPj1Yq8')
+    expect(electron.clipboard.writeText.callCount).toEqual(1)
+    expect(notify.notifyError.callCount).toEqual(0)
+    expect(notify.notify.callCount).toEqual(1)
+    expect(cid.toString()).toEqual('QmVuxXkWEyCKvQiMqVnDiwyJUUyDQZ7VsKhQDCZzPj1Yq8')
   })
 
-  it('add to ipfs multiple files', async () => {
+  test('add to ipfs multiple files', async () => {
     const cid = await addToIpfs(ctx, getFixtures('dir', 'hello-world.txt'))
-    expect(electron.clipboard.writeText.callCount).to.equal(1)
-    expect(notify.notifyError.callCount).to.equal(0)
-    expect(notify.notify.callCount).to.equal(1)
-    expect(cid.toString()).to.equal('QmdYASNGKMVK4HL1uzi3VCZyjQGg3M6VuLsgX5xTKL1gvH')
+    expect(electron.clipboard.writeText.callCount).toEqual(1)
+    expect(notify.notifyError.callCount).toEqual(0)
+    expect(notify.notify.callCount).toEqual(1)
+    expect(cid.toString()).toEqual('QmdYASNGKMVK4HL1uzi3VCZyjQGg3M6VuLsgX5xTKL1gvH')
   })
 })
