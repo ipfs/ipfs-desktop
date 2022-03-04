@@ -106,11 +106,11 @@
   },
   "itemsAddedNotification": {
     "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "Failed to add items",
