@@ -5,7 +5,7 @@
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 [![](https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/ipfs-desktop)
 [![total download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/total.svg?style=flat-square&label=all%20downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
-[![latest release download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.19.3/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.19.3)
+[![latest release download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.1/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.20.1)
 
 **IPFS Desktop gives you all the power of [IPFS](https://ipfs.io) in a convenient desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
 
@@ -21,9 +21,9 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the termin
 
 When in doubt, pick one of package formats with built-in automatic update mechanism:
 
-- **Mac:** [IPFS-Desktop-0.19.3.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/IPFS-Desktop-0.19.3.dmg)
-- **Windows:** [IPFS-Desktop-Setup-0.19.3.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/IPFS-Desktop-Setup-0.19.3.exe)
-- **Linux:**  [ipfs-desktop-0.19.3-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/ipfs-desktop-0.19.3-linux-x86_64.AppImage)
+- **Mac:** [IPFS-Desktop-0.20.1.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/IPFS-Desktop-0.20.1.dmg)
+- **Windows:** [IPFS-Desktop-Setup-0.20.1.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/IPFS-Desktop-Setup-0.20.1.exe)
+- **Linux:**  [ipfs-desktop-0.20.1-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/ipfs-desktop-0.20.1-linux-x86_64.AppImage)
   - If you prefer to manage updates on your own, see [other package formats](#install) below.
 
 ## Table of Contents
@@ -90,28 +90,28 @@ Release notes and older versions of IPFS Desktop can be found on the [releases p
 Don't see your favorite package manager? Visit our [package managers page](https://github.com/ipfs-shipyard/ipfs-desktop/issues/691) and help us add support for it!
 
 ### Mac
-- **Installer:** [IPFS-Desktop-0.19.3.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/IPFS-Desktop-0.19.3.dmg)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.19.3/IPFS-Desktop-0.19.3.dmg.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/IPFS-Desktop-0.19.3.dmg)
+- **Installer:** [IPFS-Desktop-0.20.1.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/IPFS-Desktop-0.20.1.dmg)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.1/IPFS-Desktop-0.20.1.dmg.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/IPFS-Desktop-0.20.1.dmg)
 - **Homebrew** (community-maintained): `brew install --cask ipfs`
 
 ### Windows
-- **Installer:** [IPFS-Desktop-Setup-0.19.3.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/IPFS-Desktop-Setup-0.19.3.exe)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.19.3/IPFS-Desktop-Setup-0.19.3.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/IPFS-Desktop-Setup-0.19.3.exe)
+- **Installer:** [IPFS-Desktop-Setup-0.20.1.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/IPFS-Desktop-Setup-0.20.1.exe)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.1/IPFS-Desktop-Setup-0.20.1.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/IPFS-Desktop-Setup-0.20.1.exe)
 - **Chocolatey** (community-maintained): `choco install ipfs-desktop`
 - **Scoop** (community-maintained): `scoop bucket add extras; scoop install extras/ipfs-desktop`
 - **WinGet** (community-maintained): `winget install IPFS.IPFS-Desktop`
 
 ### Linux/FreeBSD
-- **AppImage**: [ipfs-desktop-0.19.3-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/ipfs-desktop-0.19.3-linux-x86_64.AppImage)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.19.3/ipfs-desktop-0.19.3-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/ipfs-desktop-0.19.3-linux-x86_64.AppImage)
-- **Tarball** (experimental): [ipfs-desktop-0.19.3-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/ipfs-desktop-0.19.3-linux-x64.tar.xz)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.19.3/ipfs-desktop-0.19.3-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/ipfs-desktop-0.19.3-linux-x64.tar.xz)
-- **Debian** (experimental): [ipfs-desktop-0.19.3-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/ipfs-desktop-0.19.3-linux-amd64.deb)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.19.3/ipfs-desktop-0.19.3-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/ipfs-desktop-0.19.3-linux-amd64.deb)
-- **Red Hat** (experimental): [ipfs-desktop-0.19.3-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/ipfs-desktop-0.19.3-linux-x86_64.rpm)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.19.3/ipfs-desktop-0.19.3-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/ipfs-desktop-0.19.3-linux-x86_64.rpm)
-- **FreeBSD** (experimental): [ipfs-desktop-0.19.3-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/ipfs-desktop-0.19.3-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.19.3/ipfs-desktop-0.19.3-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.19.3/ipfs-desktop-0.19.3-linux-x64.freebsd)
+- **AppImage**: [ipfs-desktop-0.20.1-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/ipfs-desktop-0.20.1-linux-x86_64.AppImage)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.1/ipfs-desktop-0.20.1-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/ipfs-desktop-0.20.1-linux-x86_64.AppImage)
+- **Tarball** (experimental): [ipfs-desktop-0.20.1-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/ipfs-desktop-0.20.1-linux-x64.tar.xz)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.1/ipfs-desktop-0.20.1-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/ipfs-desktop-0.20.1-linux-x64.tar.xz)
+- **Debian** (experimental): [ipfs-desktop-0.20.1-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/ipfs-desktop-0.20.1-linux-amd64.deb)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.1/ipfs-desktop-0.20.1-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/ipfs-desktop-0.20.1-linux-amd64.deb)
+- **Red Hat** (experimental): [ipfs-desktop-0.20.1-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/ipfs-desktop-0.20.1-linux-x86_64.rpm)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.1/ipfs-desktop-0.20.1-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/ipfs-desktop-0.20.1-linux-x86_64.rpm)
+- **FreeBSD** (experimental): [ipfs-desktop-0.20.1-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/ipfs-desktop-0.20.1-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.1/ipfs-desktop-0.20.1-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.1/ipfs-desktop-0.20.1-linux-x64.freebsd)
 - **Snapcraft** (community-maintained, YMMV): `snap install ipfs-desktop`
 - **AUR** (maintained by [@RubenKelevra](https://github.com/RubenKelevra)) Use the [`ipfs-desktop` package](https://aur.archlinux.org/packages/ipfs-desktop/) 
 
