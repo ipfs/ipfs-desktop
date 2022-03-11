@@ -60,8 +60,26 @@ input {
   padding: 0.15rem;
   outline: 0;
 }
+div.group {
+  margin: 0.5rem 0;
+}
+div.inline input,
+div.inline label {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+input[type=radio],
+input[type=checkbox] {
+  margin-right: 0.25rem;
+}
 #buttons {
   text-align: right;
+}
+#logo {
+  width: 4rem;
+  margin: 0 auto .5rem;
+  display: block;
 }
 button {
   margin-left: 0.5rem;
