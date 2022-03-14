@@ -167,9 +167,9 @@ If you've noticed that the old system tray is back in IPFS Desktop v0.13, this i
 
 ### Why can't I install IPFS Desktop under Debian 11?
 
-Debian package depends on `libappindicator3-1` which does not exist in Debian anymore. 
+Debian package depends on `libappindicator3-1` which does not exist in Debian 11 anymore. 
 
-Use [this workaround](https://github.com/Clansty/Icalingua/issues/162#issuecomment-899255738) for now.
+You need to install this missing dependency [on your own](https://gist.github.com/keyle/b4536dc922bb13d7b5dce16a7db7e328), or use `.AppImage` instead.
 
 ### Why can't I start IPFS Desktop under Debian 10?
 
