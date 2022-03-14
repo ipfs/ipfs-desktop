@@ -53,8 +53,8 @@ module.exports = async function (ctx) {
 
     ipfsd = res.ipfsd
 
-    logger.info(`[daemon] PeerID is ${res.id}`)
-    logger.info(`[daemon] Repo is at ${ipfsd.path}`)
+    logger.info(`[daemon] IPFS_PATH: ${ipfsd.path}`)
+    logger.info(`[daemon] PeerID:    ${res.id}`)
 
     // Update the path if it was blank previously.
     // This way we use the default path when it is

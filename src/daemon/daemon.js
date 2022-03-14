@@ -93,22 +93,32 @@ async function startIpfsWithLogs (ipfsd) {
   let isMigrating, isErrored, isFinished
   let logs = ''
 
+  const isSpawnedDaemonDead = (ipfsd) => {
+    if (typeof ipfsd.subprocess === 'undefined') throw new Error('undefined ipfsd.subprocess, unable to reason about startup errors')
+    if (ipfsd.subprocess === null) return false // not spawned yet or remote
+    if (ipfsd.subprocess?.failed) return true // explicit failure
+
+    // detect when spawned ipfsd process is gone/dead
+    // by inspecting its pid - it should be alive
+    const { pid } = ipfsd.subprocess
+    try {
+      // signal 0 throws if process is missing, noop otherwise
+      process.kill(pid, 0)
+      return false
+    } catch (e) {
+      return true
+    }
+  }
+
   const stopListening = listenToIpfsLogs(ipfsd, data => {
     logs += data.toString()
     const line = data.toLowerCase()
     isMigrating = isMigrating || line.includes('migration')
-    isErrored = isErrored || line.includes('error')
+    isErrored = isErrored || isSpawnedDaemonDead(ipfsd)
     isFinished = isFinished || line.includes('daemon is ready')
 
-    if (!isMigrating) {
+    if (!isMigrating && !isErrored) {
       return
-    }
-
-    // Undo error state if retrying after HTTP failure
-    // https://github.com/ipfs/ipfs-desktop/issues/2003
-    if (isErrored && line.includes('fetching with ipfs') && !line.includes('error')) {
-      isErrored = false
-      if (migrationPrompt) migrationPrompt.loadWindow(logs, isErrored, isFinished)
     }
 
     if (!migrationPrompt) {
@@ -133,10 +143,20 @@ async function startIpfsWithLogs (ipfsd) {
   } catch (e) {
     err = e
   } finally {
-    // stop monitoring daemon output - we only care about migration phase
+    // stop monitoring daemon output - we only care about startup phase
     stopListening()
+
+    // Show startup error using the same UI as migrations.
+    // This is catch-all that will show stdout/stderr of ipfs daemon
+    // that failed to start, allowing user to self-diagnose or report issue.
+    isErrored = isErrored || isSpawnedDaemonDead(ipfsd)
     if (isErrored) { // save daemon output to error.log
       logger.error(logs)
+      if (migrationPrompt) {
+        migrationPrompt.loadWindow(logs, isErrored, isFinished)
+      } else {
+        showMigrationPrompt(logs, isErrored, isFinished)
+      }
     }
   }
 
