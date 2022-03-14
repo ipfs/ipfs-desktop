@@ -47,7 +47,7 @@
   "customIpfsBinary": "ثنائي مخصص IPFS",
   "setCustomIpfsBinary": "تعيين ثنائي مخصص IPFS",
   "clearCustomIpfsBinary": "مسح ثنائي مخصص IPFS",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "افتح وثائق CLI",
   "polkitDialog": {
     "title": "لم يتم العثور على Polkit",
     "message": "لا يمكن إضافة IPFS إلى / usr / local / bin / بدون وكيل polkit."
@@ -129,13 +129,14 @@
     "message": "تعذر تنزيل التحديث. يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى."
   },
   "updateDownloadedDialog": {
-    "title": "تم تنزيل التحديث",
-    "message": " تحديث الإصدار { version } تم تنزيله . لتثبيت التحديث ، يرجى إعادة تشغيل IPFS لسطح المكتب.",
-    "action": "أعاد التشغيل"
+    "title": "تحديث IPFS Desktop",
+    "message": "تحديث ل IPFS Desktop { version } متاح. هل ترغب في تثبيته حاليا?",
+    "later": "لاحقا",
+    "now": "تثبيت الآن"
   },
   "updateDownloadedNotification": {
-    "title": "تم تنزيل التحديث",
-    "message": "تم تنزيل تحديث إصدار { version }  IPFS لسطح المكتب. انقر فوق هذا الإشعار للتثبيت."
+    "title": "تحديث IPFS Desktop",
+    "message": "تحديث ل IPFS Desktop { version } متاح."
   },
   "runGarbageCollectorWarning": {
     "title": "جامع القمامة",
@@ -220,9 +221,18 @@
     "message": "تم محو ثنائي IPFS المخصص. لبدء استخدام إصدار IPFS المرفق ، يجب إعادة تشغيل IPFS أولاً."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "IPFS Desktop أصبح غير مستجيب",
+    "message": "تتطلب العملية الجارية موارد أكثر مما كان متوقعًا. هل ترغب في إجهاض, وإعادة تحميل الواجهة بقوة؟",
+    "forceReload": "نعم، أعد التحميل",
+    "doNothing": "لا تفعل شيئا"
+  },
+  "migrationDialog": {
+    "title": "IPFS Desktop ترحيل",
+    "message": "لحظة واحدة! IPFS Desktop يحتاج إلى تشغيل أحدث عمليات ترحيل مخزن البيانات:",
+    "closeAndContinue": "تواصل في الخلفية"
+  },
+  "migrationFailedDialog": {
+    "title": "IPFS Desktop فشل الترحيل",
+    "message": "IPFS واجه خطأ وتعذر إكمال الترحيل:"
   }
 }

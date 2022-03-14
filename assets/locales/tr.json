@@ -129,13 +129,14 @@
     "message": "Güncellemeyi indirmek mümkün olmadı. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
   },
   "updateDownloadedDialog": {
-    "title": "Güncelleme indirildi",
-    "message": "{ version } sürümü için güncelleme indirildi. Güncellemeyi yüklemek için lütfen IPFS Masaüstü'nü yeniden başlatın.",
-    "action": "Tekrar başlat"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "Güncelleme indirildi",
-    "message": "IPFS Masaüstü'nün { version } sürümü için güncelleme indirildi. Yüklemek için bu bildirime tıklayın."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Çöp toplayıcı",
@@ -224,5 +225,14 @@
     "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
     "forceReload": "Yes, reload",
     "doNothing": "Do nothing"
+  },
+  "migrationDialog": {
+    "title": "IPFS Desktop Migration",
+    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "closeAndContinue": "Continue in the background"
+  },
+  "migrationFailedDialog": {
+    "title": "IPFS Desktop Migration Has Failed",
+    "message": "IPFS has encountered an error and migration could not be completed:"
   }
 }

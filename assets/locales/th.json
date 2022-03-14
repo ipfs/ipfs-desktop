@@ -129,13 +129,14 @@
     "message": "ไม่สามารถดาวน์โหลดอัพเดทได้. โปรดตรวจสอบการเชื่อมต่อของคุณและลองใหม่อีกครั้ง."
   },
   "updateDownloadedDialog": {
-    "title": "ดาวน์โหลดอัพเดทแล้ว",
-    "message": "ดาวน์โหลดอัพเดทเวอร์ชั่น { version } แล้ว. โปรดรีสตาร์ท IPFS Desktop เพื่อทำการติดตั้ง.",
-    "action": "รีสตาร์ท"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "ดาวน์โหลดอัพเดทแล้ว",
-    "message": "ดาวน์โหลดอัพเดทเวอร์ชั่น { version } แล้ว. คลิ๊กที่การแจ้งเตือนนี้เพื่อทำการติดตั้ง."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "ตัวลบขยะ",
@@ -224,5 +225,14 @@
     "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
     "forceReload": "Yes, reload",
     "doNothing": "Do nothing"
+  },
+  "migrationDialog": {
+    "title": "IPFS Desktop Migration",
+    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "closeAndContinue": "Continue in the background"
+  },
+  "migrationFailedDialog": {
+    "title": "IPFS Desktop Migration Has Failed",
+    "message": "IPFS has encountered an error and migration could not be completed:"
   }
 }

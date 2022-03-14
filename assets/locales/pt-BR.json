@@ -47,7 +47,7 @@
   "customIpfsBinary": "Binário IPFS Personalizado",
   "setCustomIpfsBinary": "Definir Binário IPFS Personalizado",
   "clearCustomIpfsBinary": "Desmarcar Binário IPFS Personalizado",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "Abrir documentação da linha de comando",
   "polkitDialog": {
     "title": "Polkit não encontrado",
     "message": "IPFS não pode ser adicionado a /usr/local/bin sem polkit"
@@ -129,13 +129,14 @@
     "message": "Não foi possível baixar atualização. Por favor verifique sua conexão e tente novamente"
   },
   "updateDownloadedDialog": {
-    "title": "Atualização baixada",
-    "message": "Atualização para versão { version }baixada. Para instalar atualização, por favor reinicie IPFS Desktop.",
-    "action": "Reiniciar"
+    "title": "Atualizações do IPFS Desktop",
+    "message": "Uma atualização para o IPFS Desktop { version } está disponível. Deseja instalá-la agora?",
+    "later": "Depois",
+    "now": "Instalar agora"
   },
   "updateDownloadedNotification": {
-    "title": "Atualização baixada",
-    "message": "Atualização para versão { version }do IPFS Desktop baixada. Clique nesta notificação para instalar"
+    "title": "Atualizações do IPFS Desktop",
+    "message": "Uma atualização para o IPFS Desktop { version } está disponível."
   },
   "runGarbageCollectorWarning": {
     "title": "Limpeza",
@@ -220,9 +221,18 @@
     "message": "O binário IPFS personalizado foi limpo. Para começar a usar a versão IPFS integrada, o IPFS precisa ser reiniciado primeiro."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "O IPFS Desktop ficou inoperante",
+    "message": "A operação em andamento está levando mais recursos do que o esperado. Você deseja abortar e forçar a reinicialização da interface?",
+    "forceReload": "Sim, recarregar",
+    "doNothing": "Ignorar"
+  },
+  "migrationDialog": {
+    "title": "IPFS Desktop Migration",
+    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "closeAndContinue": "Continue in the background"
+  },
+  "migrationFailedDialog": {
+    "title": "IPFS Desktop Migration Has Failed",
+    "message": "IPFS has encountered an error and migration could not be completed:"
   }
 }

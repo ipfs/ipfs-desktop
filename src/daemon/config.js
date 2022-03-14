@@ -126,6 +126,11 @@ async function checkIfAddrIsDaemon (addr) {
   })
 }
 
+const findFreePort = async (port) => {
+  port = Math.max(port, 1024)
+  return portfinder.getPortPromise({ port })
+}
+
 async function checkPortsArray (ipfsd, addrs) {
   addrs = addrs.filter(Boolean)
 
@@ -143,7 +148,7 @@ async function checkPortsArray (ipfsd, addrs) {
       continue
     }
 
-    const freePort = await portfinder.getPortPromise({ port: port, stopPort: port + 100 })
+    const freePort = await findFreePort(port)
 
     if (port !== freePort) {
       const opt = showDialog({
@@ -190,13 +195,13 @@ async function checkPorts (ipfsd) {
   const apiPort = parseInt(configApiMa.nodeAddress().port, 10)
   const gatewayPort = parseInt(configGatewayMa.nodeAddress().port, 10)
 
-  const findFreePort = async (port, from) => {
-    port = Math.max(port, from, 1024)
-    return portfinder.getPortPromise({ port, stopPort: port + 100 })
-  }
+  const freeGatewayPort = await findFreePort(gatewayPort)
+  let freeApiPort = await findFreePort(apiPort)
 
-  const freeGatewayPort = await findFreePort(gatewayPort, 8080)
-  const freeApiPort = await findFreePort(apiPort, 5001)
+  // ensure the picked ports are different
+  while (freeApiPort === freeGatewayPort) {
+    freeApiPort = await findFreePort(freeApiPort + 1)
+  }
 
   const busyApiPort = apiPort !== freeApiPort
   const busyGatewayPort = gatewayPort !== freeGatewayPort
