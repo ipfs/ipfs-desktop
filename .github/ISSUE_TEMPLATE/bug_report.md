@@ -2,13 +2,13 @@
 name: Bug report
 about: Create a bug report
 title: ''
-labels: need/triage
+labels: kind/bug, need/triage
 assignees: ''
 
 ---
 
 - OS: [e.g. macOS, Windows, Linux]
- - Version of IPFS Desktop [e.g. 0.11.1]
+ - Version of IPFS Desktop [e.g. 0.20.0]
 
 **Describe the bug**
 A clear and concise description of what the bug is.

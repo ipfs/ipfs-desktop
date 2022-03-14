@@ -129,13 +129,14 @@
     "message": "Nem tudtuk letölteni a frissítést. Kérlek ellenőrizd az internet hozzáférésed és próbáld meg újra."
   },
   "updateDownloadedDialog": {
-    "title": "Frissítés letöltve",
-    "message": "A frissítés a { version }verzióhoz letöltve. A telepítéshez kérlek indítsd újra az IPFS Desktop-ot.",
-    "action": "Újraindítás"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "Frissítés letöltve",
-    "message": "Frissítés a { version } letöltött IPFS Desktop verzióhoz. Kattintson erre az értesítésre a telepítéshez."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Szemetes",
@@ -224,5 +225,14 @@
     "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
     "forceReload": "Yes, reload",
     "doNothing": "Do nothing"
+  },
+  "migrationDialog": {
+    "title": "IPFS Desktop Migration",
+    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "closeAndContinue": "Continue in the background"
+  },
+  "migrationFailedDialog": {
+    "title": "IPFS Desktop Migration Has Failed",
+    "message": "IPFS has encountered an error and migration could not be completed:"
   }
 }

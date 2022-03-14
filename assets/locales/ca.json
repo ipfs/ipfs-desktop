@@ -129,13 +129,14 @@
     "message": "No ha estat possible descarregar l'actualització. Si us plau, comproveu la connexió a internet i proveu-ho de nou."
   },
   "updateDownloadedDialog": {
-    "title": "Actualització descarregada",
-    "message": "S'ha descarregat l'actualització de la versió { version }. Per instal·lar-la, si us plau reinicieu l'IPFS d'Escriptori.",
-    "action": "Reiniciar"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "Actualització descarregada",
-    "message": "S'ha descarregat l'actualització de la versió { version }de l'IPFS d'Escriptori. Cliqui aquesta notificació per instal·lar-la."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Recollidor de brossa",
@@ -224,5 +225,14 @@
     "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
     "forceReload": "Yes, reload",
     "doNothing": "Do nothing"
+  },
+  "migrationDialog": {
+    "title": "IPFS Desktop Migration",
+    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "closeAndContinue": "Continue in the background"
+  },
+  "migrationFailedDialog": {
+    "title": "IPFS Desktop Migration Has Failed",
+    "message": "IPFS has encountered an error and migration could not be completed:"
   }
 }

@@ -7,16 +7,23 @@ const tmp = require('tmp')
 const { makeRepository } = require('./utils/ipfsd')
 const portfinder = require('portfinder')
 
-async function getPort () {
-  return portfinder.getPortPromise()
+async function getPort (port) {
+  return portfinder.getPortPromise({ port })
 }
+
+if (process.env.CI === 'true') test.setTimeout(120000) // slow ci
 
 test.describe.serial('Application launch', async () => {
   let app = null
 
   test.afterEach(async () => {
     if (app) {
-      await app.close()
+      try {
+        await app.close()
+      } catch (e) {
+        if (e.message.includes('has been closed')) return
+        throw e
+      }
     }
   })
 
@@ -99,7 +106,7 @@ test.describe.serial('Application launch', async () => {
     expect(config.Discovery.MDNS.Enabled).toBeTruthy()
   })
 
-  test('applies config migration (Web UI CORS 1)', async function () {
+  test('applies config migration (Web UI CORS 1)', async () => {
     // create preexisting, initialized repo and config
     const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
 
@@ -120,7 +127,7 @@ test.describe.serial('Application launch', async () => {
     ])
   })
 
-  test('applies config migration (Web UI CORS 2)', async function () {
+  test('applies config migration (Web UI CORS 2)', async () => {
     // create preexisting, initialized repo and config
     const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
 
@@ -140,7 +147,7 @@ test.describe.serial('Application launch', async () => {
     ])
   })
 
-  test('applies config migration (Web UI CORS 3)', async function () {
+  test('applies config migration (Web UI CORS 3)', async () => {
     // create preexisting, initialized repo and config
     const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
 

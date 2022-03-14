@@ -22,7 +22,7 @@ Manually test a few things that don't transfer well to automated testing:
 4. **Mac/Windows:** Confirm that OS-wide protocol handler was registered by opening <a href="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi">`ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi`</a> in a user agent _without_ IPFS Companion
      
 ### Main release process
-1. Fetch new translations from Transifex: `tx pull -af`.
+1. Fetch new translations from Transifex: `tx pull -a` (https://github.com/transifex/cli)
 2. Commit the changes.
 3. Update the version using `npm version [major|minor|patch]` (it will create a new tag `vA.B.C`, note it down)
 6. Publish local changes and the tag to the GitHub repo: `git push && git push origin vA.B.C`.

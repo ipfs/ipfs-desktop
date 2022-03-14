@@ -129,13 +129,14 @@
     "message": "Невозможно загрузить обновление. Проверьте соединение с интернетом и попробуйте еще раз."
   },
   "updateDownloadedDialog": {
-    "title": "Обновление загружено",
-    "message": "Обновление до версии { version }загружено. Для установки обновления перезапустите IPFS Desktop.",
-    "action": "Перезапуск"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Later",
+    "now": "Install now"
   },
   "updateDownloadedNotification": {
-    "title": "Обновление загружено",
-    "message": "Обновление версии { version } IPFS Desktop загружено. Нажмите на уведомление для установки."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Сборщик мусора",
@@ -224,5 +225,14 @@
     "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
     "forceReload": "Yes, reload",
     "doNothing": "Do nothing"
+  },
+  "migrationDialog": {
+    "title": "IPFS Desktop Migration",
+    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "closeAndContinue": "Continue in the background"
+  },
+  "migrationFailedDialog": {
+    "title": "IPFS Desktop Migration Has Failed",
+    "message": "IPFS has encountered an error and migration could not be completed:"
   }
 }
