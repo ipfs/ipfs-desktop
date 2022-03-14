@@ -64,8 +64,8 @@ const inProgressTemplate = (logs, id, done) => {
 }
 
 const errorTemplate = (logs) => {
-  const title = i18n.t('migrationFailedDialog.title')
-  const message = i18n.t('migrationFailedDialog.message')
+  const title = i18n.t('startupFailedDialog.title')
+  const message = i18n.t('startupFailedDialog.message')
   const buttons = [
     `<button class="default" onclick="javascript:window.close()">${i18n.t('close')}</button>`,
     `<button onclick="javascript:openIssue()">${i18n.t('reportTheError')}</button>`
