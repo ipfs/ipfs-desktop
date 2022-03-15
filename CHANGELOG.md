@@ -3,6 +3,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.20.2] - 2021-03-15
+
+- IPFS: [`go-ipfs v0.12.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.12.0)
+- UI: [`v2.15.0`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.15.0)
+
+* docs: 0.20.x by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2012
+* fix: ux of notification after file import by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2013
+* refactor: remove checkCorsConfig  by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/1955
+* docs: debian 11 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2033
+* feat: add known webui addresses to CORS conf by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/1956
+* fix: pass ipfs config show error by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2032
+* fix: proper catch-all daemon startup errors by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2030
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.20.1...v0.20.2
+
 ## [v0.20.1] - 2021-03-07
 
 - IPFS: [`go-ipfs v0.12.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.12.0)
