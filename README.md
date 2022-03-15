@@ -104,7 +104,7 @@ Don't see your favorite package manager? Visit our [package managers page](https
 ### Linux/FreeBSD
 - **AppImage**: [ipfs-desktop-0.20.2-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.2/ipfs-desktop-0.20.2-linux-x86_64.AppImage)\
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.2/ipfs-desktop-0.20.2-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.2/ipfs-desktop-0.20.2-linux-x86_64.AppImage)
-- **Tarball** (experimental): [ipfs-desktop-0.20.2-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.2/ipfs-desktop-0.20.2-linux-x64.tar.xz)\
+- **Tarball** (use this for building packages for distros): [ipfs-desktop-0.20.2-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.2/ipfs-desktop-0.20.2-linux-x64.tar.xz)\
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.2/ipfs-desktop-0.20.2-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.2/ipfs-desktop-0.20.2-linux-x64.tar.xz)
 - **Debian** (experimental): [ipfs-desktop-0.20.2-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.2/ipfs-desktop-0.20.2-linux-amd64.deb)\
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.2/ipfs-desktop-0.20.2-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.2/ipfs-desktop-0.20.2-linux-amd64.deb)
@@ -112,7 +112,7 @@ Don't see your favorite package manager? Visit our [package managers page](https
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.2/ipfs-desktop-0.20.2-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.2/ipfs-desktop-0.20.2-linux-x86_64.rpm)
 - **FreeBSD** (experimental): [ipfs-desktop-0.20.2-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.2/ipfs-desktop-0.20.2-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.20.2/ipfs-desktop-0.20.2-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.20.2/ipfs-desktop-0.20.2-linux-x64.freebsd)
-- **Snapcraft** (community-maintained, YMMV): `snap install ipfs-desktop`
+- **Snapcraft** is discouraged due to [confinement issues](https://github.com/ipfs/ipfs-desktop/issues/2031), use `.AppImage` instead
 - **AUR** (maintained by [@RubenKelevra](https://github.com/RubenKelevra)) Use the [`ipfs-desktop` package](https://aur.archlinux.org/packages/ipfs-desktop/) 
 
 ### Install from source
