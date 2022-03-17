@@ -94,6 +94,8 @@
     "it-last": "^1.0.6",
     "multiaddr": "10.0.1",
     "multiaddr-to-uri": "8.0.0",
+    "multiformats": "^9.6.4",
+    "node-fetch": "^2.6.7",
     "portfinder": "^1.0.28",
     "recursive-readdir": "^2.2.2",
     "stream-to-pull-stream": "^1.7.3",

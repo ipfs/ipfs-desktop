@@ -244,10 +244,8 @@
   "protocolHandlerDialog": {
     "title": "Opening IPFS address",
     "message": "How would you like IPFS Desktop to open IPFS addresses?",
-    "browserPublicGateway": "In my default browser using a public gateway",
-    "browserLocalGateway": "In my default browser using a local gateway",
-    "filesScreen": "In the Files screen",
-    "exploreScreen": "In the Explore screen",
+    "openInBrowser": "Open in my default browser",
+    "openInIpfsDesktop": "Open in IPFS Desktop",
     "rememberThisChoice": "Remember this choice for all IPFS addresses"
   }
 }

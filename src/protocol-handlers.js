@@ -1,6 +1,8 @@
 const { app, shell, ipcMain } = require('electron')
 const toUri = require('multiaddr-to-uri')
+const { CID } = require('multiformats/cid')
 const i18n = require('i18next')
+const fetch = require('node-fetch')
 const createToggler = require('./utils/create-toggler')
 const store = require('./common/store')
 const { showPrompt } = require('./dialogs')
@@ -9,15 +11,18 @@ const CONFIG_KEY = 'askWhenOpeningIpfsURIs'
 const CONFIG_KEY_ACTION = 'openIpfsURIsAction'
 
 const ACTION_OPTIONS = {
-  BROWSER_PUBLIC_GATEWAY: 'browserPublicGateway',
-  BROWSER_LOCAL_GATEWAY: 'browserLocalGateway',
-  FILES_SCREEN: 'filesScreen'
+  OPEN_IN_BROWSER: 'openInBrowser',
+  OPEN_IN_IPFS_DESKTOP: 'openInIpfsDesktop'
+  // BROWSER_PUBLIC_GATEWAY: 'browserPublicGateway',
+  // BROWSER_LOCAL_GATEWAY: 'browserLocalGateway',
+  // FILES_SCREEN: 'filesScreen'
   // EXPLORE_SCREEN: 'exploreScreen'
 }
 
-const DEFAULT_ACTION = ACTION_OPTIONS.BROWSER_PUBLIC_GATEWAY
-
+const DEFAULT_ACTION = ACTION_OPTIONS.OPEN_IN_BROWSER
 const DEFAULT_GATEWAY = 'https://dweb.link'
+
+const LOCAL_HOSTNAMES = ['127.0.0.1', '[::1]', '0.0.0.0', '[::]']
 
 async function getAction () {
   const ask = store.get(CONFIG_KEY, true)
@@ -34,9 +39,11 @@ async function getAction () {
         name: 'action',
         defaultValue: DEFAULT_ACTION,
         labels: {
-          [ACTION_OPTIONS.BROWSER_PUBLIC_GATEWAY]: i18n.t('protocolHandlerDialog.browserPublicGateway'),
-          [ACTION_OPTIONS.BROWSER_LOCAL_GATEWAY]: i18n.t('protocolHandlerDialog.browserLocalGateway'),
-          [ACTION_OPTIONS.FILES_SCREEN]: i18n.t('protocolHandlerDialog.filesScreen')
+          [ACTION_OPTIONS.OPEN_IN_BROWSER]: i18n.t('protocolHandlerDialog.openInBrowser'),
+          [ACTION_OPTIONS.OPEN_IN_IPFS_DESKTOP]: i18n.t('protocolHandlerDialog.openInIpfsDesktop')
+          // [ACTION_OPTIONS.BROWSER_PUBLIC_GATEWAY]: i18n.t('protocolHandlerDialog.browserPublicGateway'),
+          // [ACTION_OPTIONS.BROWSER_LOCAL_GATEWAY]: i18n.t('protocolHandlerDialog.browserLocalGateway'),
+          // [ACTION_OPTIONS.FILES_SCREEN]: i18n.t('protocolHandlerDialog.filesScreen')
           // [ACTION_OPTIONS.EXPLORE_SCREEN]: i18n.t('protocolHandlerDialog.exploreScreen')
         }
       },
@@ -53,7 +60,7 @@ async function getAction () {
     ],
     window: {
       width: 500,
-      height: 245
+      height: 218
     }
   })
 
@@ -72,14 +79,6 @@ async function getAction () {
   return action
 }
 
-function openLink (protocol, part, base) {
-  shell.openExternal(`${base}/${protocol}/${part}`)
-}
-
-function parseAddr (addr) {
-  return toUri(addr.toString().includes('/http') ? addr : addr.encapsulate('/http'))
-}
-
 async function getPublicGateway (ctx) {
   if (!ctx.webui) {
     // Best effort. If the Web UI window wasn't created yet, we just return the default
@@ -92,60 +91,128 @@ async function getPublicGateway (ctx) {
     .executeJavaScript('JSON.parse(localStorage.getItem("ipfsPublicGateway")) || "https://dweb.link"', true)
 }
 
-async function parseUrl (url, ctx) {
-  let protocol = ''
-  let part = ''
+async function getPrivateGateway (ctx) {
+  const ipfsd = ctx.getIpfsd ? await ctx.getIpfsd(true) : null
+  if (!ipfsd || !ipfsd.api) {
+    return DEFAULT_GATEWAY
+  }
+
+  let gateway = await ipfsd.api.config.get('Addresses.Gateway')
+  if (Array.isArray(gateway)) {
+    if (gateway.length >= 1) {
+      gateway = gateway[0]
+    } else {
+      return DEFAULT_GATEWAY
+    }
+  }
+
+  return toUri(gateway)
+}
+
+const checkIfGatewayUrlIsAccessible = async (url) => {
+  try {
+    const { status } = await fetch(
+    `${url}/ipfs/bafkqae2xmvwgg33nmuqhi3zajfiemuzahiwss`
+    )
+    return status === 200
+  } catch (e) {
+    return false
+  }
+}
+
+// Separate test is necessary to see if subdomain mode is possible,
+// because some browser+OS combinations won't resolve them:
+// https://github.com/ipfs/go-ipfs/issues/7527
+const checkIfSubdomainGatewayUrlIsAccessible = async (url) => {
+  try {
+    url = new URL(url)
+    url.hostname = `bafkqae2xmvwgg33nmuqhi3zajfiemuzahiwss.ipfs.${url.hostname}`
+    const { status } = await fetch(url.toString())
+    return status === 200
+  } catch (e) {
+    return false
+  }
+}
+
+function getPathAndProtocol (url) {
+  let protocol = null
+  let hostname = null
+  let path = '/'
 
   if (url.startsWith('ipfs://')) {
     protocol = 'ipfs'
-    part = url.slice(7)
+    hostname = url.slice(7)
   } else if (url.startsWith('ipns://')) {
     protocol = 'ipns'
-    part = url.slice(7)
+    hostname = url.slice(7)
   } else if (url.startsWith('dweb:/ipfs/')) {
     protocol = 'ipfs'
-    part = url.slice(11)
+    hostname = url.slice(11)
   } else if (url.startsWith('dweb:/ipns/')) {
     protocol = 'ipns'
-    part = url.slice(11)
+    hostname = url.slice(11)
   } else {
+    return null
+  }
+
+  if (hostname.includes('/')) {
+    const [first, ...rest] = hostname.split('/')
+    hostname = first
+    path = '/' + rest.join('/')
+  }
+
+  return { protocol, hostname, path }
+}
+
+async function getGatewayUrl (ctx, { protocol, hostname, path }) {
+  const publicGateway = await getPublicGateway(ctx)
+  const privateGateway = await getPrivateGateway(ctx)
+
+  const gw = new URL(privateGateway)
+  if (LOCAL_HOSTNAMES.includes(gw.hostname)) {
+    gw.hostname = 'localhost'
+    const localUrl = gw.toString().replace(/\/+$/, '') // no trailing slashes
+    if (await checkIfSubdomainGatewayUrlIsAccessible(localUrl)) {
+      if (protocol === 'ipns') {
+        hostname = hostname.replaceAll('.', '-')
+        gw.hostname = `${hostname}.ipns.localhost`
+      } else {
+        const cid = CID.parse(hostname)
+        gw.hostname = `${cid.toV1().toString()}.ipfs.localhost`
+      }
+
+      gw.pathname = path
+      return gw.toString().replace(/\/+$/, '')
+    }
+  }
+
+  if (await checkIfGatewayUrlIsAccessible(privateGateway)) {
+    return `${privateGateway}/${protocol}/${hostname}${path}`
+  }
+
+  return `${publicGateway}/${protocol}/${hostname}${path}`
+}
+
+async function parseUrl (url, ctx) {
+  const parsed = getPathAndProtocol(url)
+  if (!parsed) {
     return false
   }
 
   const action = await getAction()
-  let gateway, ipfsd
 
-  switch (action) {
-    case ACTION_OPTIONS.BROWSER_PUBLIC_GATEWAY:
-      gateway = await getPublicGateway(ctx)
-      openLink(protocol, part, gateway)
-      return true
-    case ACTION_OPTIONS.BROWSER_LOCAL_GATEWAY:
-      ipfsd = ctx.getIpfsd ? await ctx.getIpfsd(true) : null
-
-      // Best effort. Defaults to public gateway if not available.
-      if (ipfsd && ipfsd.gatewayAddr) {
-        gateway = parseAddr(ipfsd.gatewayAddr)
-      } else {
-        gateway = DEFAULT_GATEWAY
-      }
-
-      openLink(protocol, part, gateway)
-      return true
-    case ACTION_OPTIONS.FILES_SCREEN:
-      ctx.launchWebUI(`/${protocol}/${part}`, { focus: true })
-      return true
-    // case ACTION_OPTIONS.EXPLORE_SCREEN:
-    //   if (protocol === 'ipns') {
-    //     // IPNS is not supported on the explore page yet.
-    //     ctx.launchWebUI(`/${protocol}/${part}`, { focus: true })
-    //   } else {
-    //     ctx.launchWebUI(`/explore/${protocol}/${part}`, { focus: true })
-    //   }
-    //   break
-    default:
-      return false
+  if (action === ACTION_OPTIONS.OPEN_IN_BROWSER) {
+    const url = await getGatewayUrl(ctx, parsed)
+    shell.openExternal(url)
+    return true
   }
+
+  if (action === ACTION_OPTIONS.OPEN_IN_IPFS_DESKTOP) {
+    ctx.launchWebUI(`/${parsed.protocol}/${parsed.hostname}${parsed.path}`, { focus: true })
+    return true
+  }
+
+  return false
 }
 
 async function argvHandler (argv, ctx) {
