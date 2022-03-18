@@ -164,10 +164,6 @@
     "title": "Error",
     "message": "Unable to resolve \"{ path }\"."
   },
-  "couldNotGetCidDialog": {
-    "title": "Error",
-    "message": "Unable to fetch \"{ path }\"."
-  },
   "contentsSavedDialog": {
     "title": "Success",
     "message": "The contents of \"{ path }\" were successfully downloaded.",

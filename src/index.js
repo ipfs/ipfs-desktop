@@ -20,7 +20,7 @@ const setupAutoLaunch = require('./auto-launch')
 const setupAutoGc = require('./automatic-gc')
 const setupPubsub = require('./enable-pubsub')
 const setupNamesysPubsub = require('./enable-namesys-pubsub')
-const setupDownloadCid = require('./download-cid')
+const setupDownloadToFs = require('./download-to-fs')
 const setupTakeScreenshot = require('./take-screenshot')
 const setupAppMenu = require('./app-menu')
 const setupArgvFilesHandler = require('./argv-files-handler')
@@ -90,7 +90,7 @@ async function run () {
       setupNamesysPubsub(ctx),
       setupSecondInstance(ctx),
       // Setup global shortcuts
-      setupDownloadCid(ctx),
+      setupDownloadToFs(ctx),
       setupTakeScreenshot(ctx),
       // Setup PATH-related features
       setupNpmOnIpfs(ctx),

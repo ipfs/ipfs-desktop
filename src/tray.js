@@ -11,7 +11,7 @@ const { STATUS } = require('./daemon')
 const { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } = require('./common/consts')
 
 const { CONFIG_KEY: SCREENSHOT_KEY, SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
-const { CONFIG_KEY: DOWNLOAD_KEY, SHORTCUT: DOWNLOAD_SHORTCUT, downloadCid } = require('./download-cid')
+const { CONFIG_KEY: DOWNLOAD_KEY, SHORTCUT: DOWNLOAD_SHORTCUT, downloadToFs } = require('./download-to-fs')
 const { CONFIG_KEY: AUTO_LAUNCH_KEY, isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const { CONFIG_KEY: PUBSUB_KEY } = require('./enable-pubsub')
 const { CONFIG_KEY: NAMESYS_PUBSUB_KEY } = require('./enable-namesys-pubsub')
@@ -105,7 +105,7 @@ function buildMenu (ctx) {
     {
       id: 'downloadCid',
       label: i18n.t('downloadCid'),
-      click: () => { downloadCid(ctx) },
+      click: () => { downloadToFs(ctx) },
       accelerator: IS_MAC ? DOWNLOAD_SHORTCUT : null,
       enabled: false
     },
