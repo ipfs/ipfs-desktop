@@ -84,12 +84,9 @@ async function downloadToFs ({ getIpfsd }) {
   } catch (err) {
     logger.error(`[download] ${err.stack}`)
 
-    const errMsg = err.toString()
-    logger.error(`[download] ${errMsg}`)
-
     showDialog({
       title: i18n.t('couldNotSaveDialog.title'),
-      message: i18n.t('couldNotSaveDialog.message', { dir, error: errMsg }),
+      message: i18n.t('couldNotSaveDialog.message', { dir, error: err.toString() }),
       buttons: [i18n.t('close')]
     })
   }
