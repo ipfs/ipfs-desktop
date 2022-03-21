@@ -123,7 +123,8 @@ test.describe.serial('Application launch', async () => {
     expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).toEqual([
       'https://127.0.0.1:4040',
       'https://webui.ipfs.io',
-      'http://webui.ipfs.io.ipns.localhost:0' // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
+      'http://webui.ipfs.io.ipns.localhost:0', // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
+      'http://127.0.0.1:0' // // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
     ])
   })
 
@@ -143,7 +144,8 @@ test.describe.serial('Application launch', async () => {
     // ensure app has migrated config
     expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).toEqual([
       'https://webui.ipfs.io',
-      'http://webui.ipfs.io.ipns.localhost:0' // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
+      'http://webui.ipfs.io.ipns.localhost:0', // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
+      'http://127.0.0.1:0' // // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
     ])
   })
 
@@ -163,7 +165,8 @@ test.describe.serial('Application launch', async () => {
     // ensure app has migrated config
     expect(config.API.HTTPHeaders['Access-Control-Allow-Origin']).toEqual([
       'https://webui.ipfs.io',
-      'http://webui.ipfs.io.ipns.localhost:0' // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
+      'http://webui.ipfs.io.ipns.localhost:0', // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
+      'http://127.0.0.1:0' // // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
     ])
   })
 
