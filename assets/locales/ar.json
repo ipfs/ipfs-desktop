@@ -106,11 +106,11 @@
   },
   "itemsAddedNotification": {
     "title": "تمت إضافة عناصر",
-    "message": " { count } العناصر المضافة إلى العقدة الخاصة بك. تم نسخ رابط قابل للمشاركة إلى الحافظة الخاصة بك. انقر هنا لرؤية ملفاتك."
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "تمت إضافة العنصر",
-    "message": "تمت إضافة العنصر إلى العقدة الخاصة بك. تم نسخ رابط قابل للمشاركة إلى الحافظة الخاصة بك. انقر هنا لرؤية ملفك."
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "فشل في إضافة عناصر",
@@ -231,8 +231,8 @@
     "message": "لحظة واحدة! IPFS Desktop يحتاج إلى تشغيل أحدث عمليات ترحيل مخزن البيانات:",
     "closeAndContinue": "تواصل في الخلفية"
   },
-  "migrationFailedDialog": {
-    "title": "IPFS Desktop فشل الترحيل",
-    "message": "IPFS واجه خطأ وتعذر إكمال الترحيل:"
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
   }
 }

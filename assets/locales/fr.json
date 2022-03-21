@@ -106,11 +106,11 @@
   },
   "itemsAddedNotification": {
     "title": "Eléments ajoutés",
-    "message": "{ count } éléments ajoutés à votre nœud. Un lien partageable a été copié dans votre presse-papier. Cliquez ici pour voir vos fichiers."
+    "message": "{ count }éléments ajoutés à votre nœud IPFS. Un lien partageable a été copié dans votre presse-papier."
   },
   "itemAddedNotification": {
     "title": "Elément ajouté",
-    "message": "Elément ajouté à votre nœud. Un lien partageable a été copié dans votre presse-papier. Cliquez ici pour voir votre fichier."
+    "message": "Élément ajouté à votre nœud IPFS. Un lien partageable a été copié dans votre presse-papier."
   },
   "itemsFailedNotification": {
     "title": "Echec de l'ajout des éléments",
@@ -231,8 +231,8 @@
     "message": "Juste un instant ! IPFS Desktop a besoin d'exécuter la migration du data store la plus récente:",
     "closeAndContinue": "Continuer en arrière-plan"
   },
-  "migrationFailedDialog": {
-    "title": "La migration d'IPFS Desktop a échoué",
-    "message": "IPFS a rencontré une erreur et la migration n'a pas pu être effectuée."
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
   }
 }

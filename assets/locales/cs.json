@@ -106,11 +106,11 @@
   },
   "itemsAddedNotification": {
     "title": "Položky přidány",
-    "message": "{ count } položky přidané do vašeho uzlu. Do vaší schránky byl zkopírován odkaz, který lze sdílet. Kliknutím sem zobrazíte své soubory."
+    "message": "{ count } položek přidaných do uzlu IPFS. Do schránky byl zkopírován sdílený odkaz."
   },
   "itemAddedNotification": {
     "title": "Položka přidána",
-    "message": "Položka byla přidána do vašeho uzlu. Do vaší schránky byl zkopírován odkaz, který lze sdílet. Kliknutím sem zobrazíte svůj soubor."
+    "message": "Položka přidaná do uzlu IPFS. Do schránky byl zkopírován sdílený odkaz."
   },
   "itemsFailedNotification": {
     "title": "Nepodařilo se přidat položky",
@@ -231,8 +231,8 @@
     "message": "Okamžik! IPFS Desktop potřebuje spustit nejnovější migrace datových úložišť:",
     "closeAndContinue": "Pokračovat na pozadí"
   },
-  "migrationFailedDialog": {
-    "title": "Migrace IPFS Desktop se nezdařila",
-    "message": "IPFS narazil na chybu a migraci nebylo možné dokončit:"
+  "startupFailedDialog": {
+    "title": "Spuštění IPFS Desktop selhalo",
+    "message": "Uzel IPFS narazil na chybu a spuštění nebylo možné dokončit:"
   }
 }
