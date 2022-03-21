@@ -57,16 +57,18 @@ function applyDefaults (ipfsd) {
   writeConfigFile(ipfsd, config)
 }
 
-function getGatewayPort (config) {
-  let gatewayUrl = null
+const getRpcApiPort = (config) => getHttpPort(config.Addresses.API)
+const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
+function getHttpPort (addrs) {
+  let httpUrl = null
 
-  if (Array.isArray(config.Addresses.Gateway)) {
-    gatewayUrl = config.Addresses.Gateway.find(v => v.includes('127.0.0.1'))
+  if (Array.isArray(addrs)) {
+    httpUrl = addrs.find(v => v.includes('127.0.0.1'))
   } else {
-    gatewayUrl = config.Addresses.Gateway
+    httpUrl = addrs
   }
 
-  const gw = parseCfgMultiaddr(gatewayUrl)
+  const gw = parseCfgMultiaddr(httpUrl)
   return gw.nodeAddress().port
 }
 
@@ -74,7 +76,7 @@ function getGatewayPort (config) {
 // This is the place where we execute fixes and performance tweaks for existing users.
 function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
-  const REVISION = 2
+  const REVISION = 3
   const REVISION_KEY = 'daemonConfigRevision'
   const CURRENT_REVISION = store.get(REVISION_KEY, 0)
 
@@ -92,7 +94,7 @@ function migrateConfig (ipfsd) {
     return
   }
 
-  if (CURRENT_REVISION <= 0) {
+  if (CURRENT_REVISION < 1) {
     // Cleanup https://github.com/ipfs-shipyard/ipfs-desktop/issues/1631
     if (config.Discovery && config.Discovery.MDNS && config.Discovery.MDNS.enabled) {
       config.Discovery.MDNS.Enabled = config.Discovery.MDNS.Enabled || true
@@ -101,7 +103,7 @@ function migrateConfig (ipfsd) {
     }
   }
 
-  if (CURRENT_REVISION <= 1) {
+  if (CURRENT_REVISION < 3) {
     const api = config.API || {}
     const httpHeaders = api.HTTPHeaders || {}
     const accessControlAllowOrigin = httpHeaders['Access-Control-Allow-Origin'] || []
@@ -117,7 +119,11 @@ function migrateConfig (ipfsd) {
     const addedWebUI = addURL('https://webui.ipfs.io')
     const addedGw = addURL(`http://webui.ipfs.io.ipns.localhost:${getGatewayPort(config)}`)
 
-    if (addedWebUI || addedGw) {
+    // https://github.com/ipfs/ipfs-companion/issues/1068 in go-ipfs <0.13
+    // TODO: remove addedApiPort after go-ipfs 0.13 ships
+    const addedApiPort = addURL(`http://127.0.0.1:${getRpcApiPort(config)}`)
+
+    if (addedWebUI || addedGw || addedApiPort) {
       httpHeaders['Access-Control-Allow-Origin'] = accessControlAllowOrigin
       api.HTTPHeaders = httpHeaders
       config.API = api
