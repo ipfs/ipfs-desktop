@@ -47,7 +47,7 @@
   "customIpfsBinary": "File Binario IPFS Personalizzato",
   "setCustomIpfsBinary": "Imposta un File Binario IPFS Personalizzato",
   "clearCustomIpfsBinary": "Cancella il file binario IPFS personalizzato",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "Apri documentazione CLI",
   "polkitDialog": {
     "title": "Polkit non trovato",
     "message": "IPFS non può essere aggiunto in /usr/local/bin/ senza polkit agent."
@@ -106,11 +106,11 @@
   },
   "itemsAddedNotification": {
     "title": "Oggetti aggiunti",
-    "message": "{ count } oggetti aggiunti al tuo nodo. Un collegamento condivisibile è stato copiato alla tua clipboard. Clicca qui per vedere i tuoi file."
+    "message": "{ count } oggetti aggiunti al tuo nodo IPFS. Un collegamento condivisibile è stato copiato nei tuoi appunti."
   },
   "itemAddedNotification": {
     "title": "Oggetto aggiunto",
-    "message": "Oggetto aggiunto al tuo nodo. Un collegamento condivisibile è stato copiato alla tua clipboard. Clicca qui per vedere il tuo file."
+    "message": "Oggetto aggiunto al tuo nodo IPFS. Un collegamento condivisibile è stato copiato nei tuoi appunti."
   },
   "itemsFailedNotification": {
     "title": "Aggiunta oggetti fallita",
@@ -129,14 +129,14 @@
     "message": "Non è stato possibile scaricare l'aggiornamento. Per favore, controlla la tua connessione internet e riprova."
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "Aggiornamento IPFS Desktop",
+    "message": "Un aggiornamento ad IPFS Desktop { version } è disponibile. Vorresti installarlo ora?",
+    "later": "Dopo",
+    "now": "Installa ora"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "Aggiornamento IPFS Desktop",
+    "message": "Un aggiornamento ad IPFS Desktop { version } è disponibile."
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
@@ -221,18 +221,18 @@
     "message": "Il file binario IPFS personalizzato è stato cancellato. Per iniziare a utilizzare la versione nel bundle IPFS, è necessario prima riavviare IPFS."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "IPFS Desktop non risponde",
+    "message": "L'operazione in corso sta impiegando più risorse del previsto. Vorresti interromperla e forzare la ricarica dell'interfaccia?",
+    "forceReload": "Sì, ricarica",
+    "doNothing": "Ignora"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "Migrazione IPFS Desktop",
+    "message": "Aspetta! IPFS Desktop deve avviare le ultime migrazioni dell'archivio dati:",
+    "closeAndContinue": "Continua in background"
   },
-  "migrationFailedDialog": {
-    "title": "IPFS Desktop Migration Has Failed",
-    "message": "IPFS has encountered an error and migration could not be completed:"
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
   }
 }

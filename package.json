@@ -1,7 +1,7 @@
 {
   "name": "ipfs-desktop",
   "private": true,
-  "version": "0.20.2",
+  "version": "0.20.3",
   "productName": "IPFS Desktop",
   "description": "IPFS Native Application",
   "main": "src/index.js",
@@ -83,9 +83,6 @@
     "intl-messageformat": "^9.11.4",
     "ipfs-http-client": "55.0.0",
     "ipfsd-ctl": "10.0.6",
-    "is-ipfs": "6.0.2",
-    "it-all": "^1.0.6",
-    "it-concat": "^2.0.0",
     "it-last": "^1.0.6",
     "multiaddr": "10.0.1",
     "multiaddr-to-uri": "8.0.0",
