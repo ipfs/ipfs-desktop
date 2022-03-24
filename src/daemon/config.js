@@ -1,3 +1,4 @@
+const { app } = require('electron')
 const { join } = require('path')
 const fs = require('fs-extra')
 const { multiaddr } = require('multiaddr')
@@ -315,6 +316,29 @@ async function checkPorts (ipfsd) {
   logger.info('[daemon] ports updated')
 }
 
+function checkValidConfig (ipfsd) {
+  if (!fs.pathExistsSync(ipfsd.path)) {
+    // If the repository doesn't exist, skip verification.
+    return true
+  }
+
+  try {
+    // This should catch errors such having no configuration file,
+    // IPFS_DIR not being a directory, or the configuration file
+    // being corrupted.
+    readConfigFile(ipfsd)
+    return true
+  } catch (e) {
+    showDialog({
+      title: i18n.t('invalidRepositoryDialog.title'),
+      message: i18n.t('invalidRepositoryDialog.message', { path: ipfsd.path }),
+      buttons: [i18n.t('quit')]
+    })
+
+    app.quit()
+  }
+}
+
 module.exports = Object.freeze({
   configPath,
   configExists,
@@ -322,5 +346,6 @@ module.exports = Object.freeze({
   rmApiFile,
   applyDefaults,
   migrateConfig,
-  checkPorts
+  checkPorts,
+  checkValidConfig
 })

@@ -1,12 +1,10 @@
 const Ctl = require('ipfsd-ctl')
 const i18n = require('i18next')
-const fs = require('fs-extra')
 const { showDialog } = require('../dialogs')
 const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
-const { applyDefaults, migrateConfig, checkPorts, configExists, readConfigFile, rmApiFile, apiFileExists } = require('./config')
+const { applyDefaults, migrateConfig, checkPorts, configExists, checkValidConfig, rmApiFile, apiFileExists } = require('./config')
 const showMigrationPrompt = require('./migration-prompt')
-const { app } = require('electron')
 
 function cannotConnectDialog (addr) {
   showDialog({
@@ -164,29 +162,6 @@ async function startIpfsWithLogs (ipfsd) {
 
   return {
     err, id, logs
-  }
-}
-
-function checkValidConfig (ipfsd) {
-  if (!fs.pathExistsSync(ipfsd.path)) {
-    // If the repository doesn't exist, skip verification.
-    return true
-  }
-
-  try {
-    // This should catch errors such having no configuration file,
-    // IPFS_DIR not being a directory, or the configuration file
-    // being corrupted.
-    readConfigFile(ipfsd)
-    return true
-  } catch (e) {
-    showDialog({
-      title: i18n.t('invalidRepositoryDialog.title'),
-      message: i18n.t('invalidRepositoryDialog.message', { path: ipfsd.path }),
-      buttons: [i18n.t('quit')]
-    })
-
-    app.quit()
   }
 }
 
