@@ -323,6 +323,16 @@ function checkValidConfig (ipfsd) {
   }
 
   try {
+    const stats = fs.statSync(ipfsd.path)
+    if (!stats.isDirectory()) {
+      throw new Error('IPFS_PATH must be a directory')
+    }
+
+    if (!configExists(ipfsd)) {
+      // Config is generated automatically if it doesn't exist.
+      return true
+    }
+
     // This should catch errors such having no configuration file,
     // IPFS_DIR not being a directory, or the configuration file
     // being corrupted.

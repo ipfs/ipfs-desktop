@@ -40,6 +40,10 @@ async function spawn ({ flags, path }) {
     args: flags
   })
 
+  if (!checkValidConfig(ipfsd)) {
+    throw new Error(`repository at ${ipfsd.path} is invalid`)
+  }
+
   if (configExists(ipfsd)) {
     migrateConfig(ipfsd)
     return { ipfsd, isRemote: false }
@@ -166,12 +170,17 @@ async function startIpfsWithLogs (ipfsd) {
 }
 
 module.exports = async function (opts) {
-  const { ipfsd, isRemote } = await spawn(opts)
-  if (!isRemote) {
-    if (!checkValidConfig(ipfsd)) {
-      return { err: 'Invalid or corrupted IPFS repository or configuration' }
-    }
+  let ipfsd, isRemote
 
+  try {
+    const res = await spawn(opts)
+    ipfsd = res.ipfsd
+    isRemote = res.isRemote
+  } catch (err) {
+    return { err: err.toString() }
+  }
+
+  if (!isRemote) {
     await checkPorts(ipfsd)
   }
 
