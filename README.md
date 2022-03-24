@@ -61,10 +61,6 @@ IPFS Desktop's `Files` screen gives you an easy, familiar interface for working 
 - Copy a file/folder's IPFS [content ID (CID)](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) or a shareable link to your clipboard
 - ["Pin"](https://docs.ipfs.io/concepts/persistence/) files to your IPFS node or (coming soon!) to a third-party pinning service
 
-### Quick download for CIDs, IPFS paths, and IPNS paths
-
-Just want to download an IPFS content ID or IPFS/IPNS content path? Choose `Download...` from the IPFS logo menu, paste it in, and you're good to go.
-
 ### Visualize your IPFS peers worldwide
 
 Visit the `Peers` screen to see what nodes you're connected to, where they are, the connections they're using, and more.
