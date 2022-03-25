@@ -1,4 +1,4 @@
-const { app } = require('electron')
+const { app, BrowserWindow } = require('electron')
 const { join } = require('path')
 const fs = require('fs-extra')
 const { multiaddr } = require('multiaddr')
@@ -339,12 +339,20 @@ function checkValidConfig (ipfsd) {
     readConfigFile(ipfsd)
     return true
   } catch (e) {
+    // Save to error.log
+    logger.error(e)
+
+    // Hide other windows so the user focus in on the dialog
+    BrowserWindow.getAllWindows().forEach(w => w.hide())
+
+    // Show blocking dialog
     showDialog({
       title: i18n.t('invalidRepositoryDialog.title'),
       message: i18n.t('invalidRepositoryDialog.message', { path: ipfsd.path }),
       buttons: [i18n.t('quit')]
     })
 
+    // Only option is to quit
     app.quit()
   }
 }
