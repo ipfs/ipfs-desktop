@@ -206,5 +206,9 @@
   "startupFailedDialog": {
     "title": "IPFS Desktop Startup Has Failed",
     "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }
