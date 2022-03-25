@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "أعد تشغيل سطح مكتب IPFS",
   "openLogs": "فتح السجلات",
   "takeScreenshot": "خد لقطة للشاشة",
-  "downloadCid": "تحميل…",
   "moveRepositoryLocation": "نقل موقع المستودع",
   "runGarbageCollector": "تشغيل جامع القمامة",
   "selectDirectory": "حدد الدليل",
@@ -106,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "تمت إضافة عناصر",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "{ count } العناصر المضافة إلى عقدة IPFS الخاصة بك. تم نسخ ارتباط قابل للمشاركة إلى الحافظة الخاصة بك."
   },
   "itemAddedNotification": {
     "title": "تمت إضافة العنصر",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "تمت إضافة العنصر إلى عقدة IPFS الخاصة بك. تم نسخ ارتباط قابل للمشاركة إلى الحافظة الخاصة بك."
   },
   "itemsFailedNotification": {
     "title": "فشل في إضافة عناصر",
@@ -155,28 +154,6 @@
     "title": "جامع القمامة",
     "message": "تعذر إكمال تشغيل جامع البيانات المهملة بنجاح."
   },
-  "downloadCidContentDialog": {
-    "title": "تنزيل إلى دليل محلي",
-    "message": "أدخل CID أو مسار IPFS أو مسار IPNS:",
-    "action": "التالى"
-  },
-  "cantResolveCidDialog": {
-    "title": "خطأ",
-    "message": "غير قادر على حل \"{ path }\"."
-  },
-  "couldNotGetCidDialog": {
-    "title": "خطأ",
-    "message": "تعذر إحضار \"{ path }\"."
-  },
-  "contentsSavedDialog": {
-    "title": "ناجح",
-    "message": "تم تنزيل محتويات \"{ path }\" بنجاح.",
-    "action": "انظر الملفات"
-  },
-  "couldNotSaveDialog": {
-    "title": "لا يمكن الكتابة على القرص",
-    "message": "حدث خطأ في الكتابة إلى \"{ dir }\": \"{ error }\". يرجى المحاولة مرة أخرى أو فحص السجلات لمزيد من التفاصيل."
-  },
   "launchAtLoginNotSupported": {
     "title": "خطأ",
     "message": "التشغيل عند تسجيل الدخول غير مدعوم على النظام الأساسي الخاص بك."
@@ -189,10 +166,6 @@
     "title": "تمكين اختصار لقطة الشاشة",
     "message": "من خلال تمكين ذلك ، سيكون الاختصار \"{ accelerator }\" متاحًا لالتقاط لقطات الشاشة طالما أن IPFS لسطح المكتب قيد التشغيل."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "تمكين اختصار التنزيل",
-    "message": "من خلال تمكين ذلك ، سيكون الاختصار \"{ accelerator }\" متاحًا لتنزيل الملفات طالما أن IPFS لسطح المكتب قيد التشغيل."
-  },
   "settings": {
     "settings": "الإعدادات",
     "preferences": "التفضيلات",
@@ -204,7 +177,6 @@
     "namesysPubsub": "قم بتمكين IPNS عبر PubSub",
     "automaticGC": "جمع القمامة التلقائي",
     "takeScreenshotShortcut": "اختصار لقطة الشاشة العامة",
-    "downloadHashShortcut": "اختصار التنزيل العالمي",
     "experiments": "التجارب",
     "npmOnIpfs": "تفعيل مدير حزمة العقد على IPFS"
   },
@@ -232,7 +204,11 @@
     "closeAndContinue": "تواصل في الخلفية"
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "فشل بدء تشغيل Desktop IPFS",
+    "message": "واجهت عقدة IPFS خطأ وتعذر إكمال بدء التشغيل:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

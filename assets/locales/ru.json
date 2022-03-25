@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "Перезапустить IPFS Desktop",
   "openLogs": "Открыть логи",
   "takeScreenshot": "Сделать Скриншот",
-  "downloadCid": "Загрузить...",
   "moveRepositoryLocation": "Переместить хранилище",
   "runGarbageCollector": "Запустить сборщик мусора",
   "selectDirectory": "Выбрать папку",
@@ -106,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "Добавленные элементы",
-    "message": "{ count } элементы добавлены в ваш узел. Общая ссылка была скопирована в буфер обмена. Нажмите здесь, чтобы просмотреть ваши файлы."
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "Элемент добавлен",
-    "message": "Элемент добавлен в ваш узел. Общая ссылка была скопирована в буфер обмена. Нажмите здесь, чтобы просмотреть ваш файл."
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "Не удалось добавить элементы",
@@ -155,28 +154,6 @@
     "title": "Сборщик мусора",
     "message": "Сборка мусора не может быть успешно завершена."
   },
-  "downloadCidContentDialog": {
-    "title": "Загрузить в локальную папку",
-    "message": "Введите CID, путь IPFS, или путь IPNS:",
-    "action": "Далее"
-  },
-  "cantResolveCidDialog": {
-    "title": "Ошибка",
-    "message": "Невозможно найти \"{ path }\""
-  },
-  "couldNotGetCidDialog": {
-    "title": "Ошибка",
-    "message": "Невозможно загрузить \"{ path }\""
-  },
-  "contentsSavedDialog": {
-    "title": "Успешно",
-    "message": "Содержимое из \"{ path }\" успешно загружено",
-    "action": "Просмотр файлов"
-  },
-  "couldNotSaveDialog": {
-    "title": "Не могу записать на диск",
-    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
-  },
   "launchAtLoginNotSupported": {
     "title": "Ошибка",
     "message": "Запуск при входе не поддерживается на этой платформе."
@@ -189,10 +166,6 @@
     "title": "Разрешить сочетание клавиш для снимка экрана",
     "message": "При включении, расширение \"{ accelerator }\" будет делать скриншоты все время, пока запущен IPFS Desktop."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "Разрешить сочетание клавиш для загрузки",
-    "message": "При включении, расширение \"{ accelerator }\" будет загружать файлы все время, пока запущен IPFS Desktop."
-  },
   "settings": {
     "settings": "Настройки",
     "preferences": "Предпочтения",
@@ -204,7 +177,6 @@
     "namesysPubsub": "Активировать IPNS через PubSub",
     "automaticGC": "Автоматическая сборка мусора",
     "takeScreenshotShortcut": "Сочетание клавиш для скриншотов",
-    "downloadHashShortcut": "Сочетание клавиш для загрузок",
     "experiments": "Эксперименты",
     "npmOnIpfs": "Активировать npm на IPFS"
   },
@@ -231,8 +203,12 @@
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
     "closeAndContinue": "Continue in the background"
   },
-  "migrationFailedDialog": {
-    "title": "IPFS Desktop Migration Has Failed",
-    "message": "IPFS has encountered an error and migration could not be completed:"
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

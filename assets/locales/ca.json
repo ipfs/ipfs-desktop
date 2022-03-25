@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "Reiniciar IPFS d'Escriptori",
   "openLogs": "Obrir el registre",
   "takeScreenshot": "Fes una captura de pantalla",
-  "downloadCid": "Descarrega...",
   "moveRepositoryLocation": "Moure l'emplaçament del repositori",
   "runGarbageCollector": "Inicia el recollidor de brossa",
   "selectDirectory": "Selecciona un directori",
@@ -106,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "Elements afegits",
-    "message": "{ count } elements afegits al vostre node. S'ha copiat un enllaç compartible al vostre porta-retalls. Clica aquí per veure els vostres arxius."
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "Element afegit",
-    "message": "Element afegit al vostre node. S'ha copiat un enllaç compartible al vostre porta-retalls. Clica aquí per veure l'arxiu."
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "No s'han pogut afegir els elements",
@@ -155,28 +154,6 @@
     "title": "Recollidor de brossa",
     "message": "No s'ha pogut passar el recollidor de brossa de forma satisfactòria."
   },
-  "downloadCidContentDialog": {
-    "title": "Descarrega a un directori local",
-    "message": "Introdueixi un CID, un camí IPFS, o un camí IPNS:",
-    "action": "Següent"
-  },
-  "cantResolveCidDialog": {
-    "title": "Error",
-    "message": "No s'ha pogut resoldre \"{ path }\"."
-  },
-  "couldNotGetCidDialog": {
-    "title": "Error",
-    "message": "No s'ha pogut portar \"{ path }\"."
-  },
-  "contentsSavedDialog": {
-    "title": "Completat",
-    "message": "Els continguts de \"{ path }\" han sigut descarregats satisfactòriament.",
-    "action": "Mostra els fitxers"
-  },
-  "couldNotSaveDialog": {
-    "title": "No s'ha pogut escriure al disc",
-    "message": "Hi ha hagut un error a \"  { dir }\":\" { error }\". Si us plau, torneu-ho a provar o reviseu els registres per més informació."
-  },
   "launchAtLoginNotSupported": {
     "title": "Error",
     "message": "La vostra plataforma no permet arrencar a l'inici de sessió."
@@ -189,10 +166,6 @@
     "title": "Habilita la drecera de teclat per fer captures de pantalla",
     "message": "Habilitant això, la dracera de teclat \"{ accelerator }\" podrà fer captures de pantalla mentre funcioni l'IPFS d'Escriptori."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "Habilita la drecera de teclat per a descarregar",
-    "message": "Habilitant això, la dracera de teclat \"{ accelerator }\" podrà descarregar arxius mentre funcioni l'IPFS d'Escriptori."
-  },
   "settings": {
     "settings": "Configuració",
     "preferences": "Preferències",
@@ -204,7 +177,6 @@
     "namesysPubsub": "Activa l'IPNS sobre PubSub",
     "automaticGC": "Recollidor de brossa Automatica",
     "takeScreenshotShortcut": "Drecera de teclat de captura de pantalla general",
-    "downloadHashShortcut": "Drecera de teclat de descarrega general",
     "experiments": "Experimental",
     "npmOnIpfs": "Activa npm a IPFS"
   },
@@ -231,8 +203,12 @@
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
     "closeAndContinue": "Continue in the background"
   },
-  "migrationFailedDialog": {
-    "title": "IPFS Desktop Migration Has Failed",
-    "message": "IPFS has encountered an error and migration could not be completed:"
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

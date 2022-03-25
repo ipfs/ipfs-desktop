@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "รีสตาร์ท IPFS",
   "openLogs": "เปิดบันทึกกิจกรรม",
   "takeScreenshot": "ถ่ายภาพหน้าจอ",
-  "downloadCid": "ดาวน์โหลด...",
   "moveRepositoryLocation": "ย้ายสถานที่โฟลเดอร์",
   "runGarbageCollector": "เปิดใช้การลบขยะ",
   "selectDirectory": "เลือกโฟลเดอร์",
@@ -106,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "เพิ่มไอเทมแล้ว",
-    "message": "{ count } ไอเทมถูกเพิ่มไปยังโหนดของคุณแล้ว. ลิ้งค์ถูกก๊อปปี้ไปยังคลิปบอร์ดของคุณแล้ว. คลิ๊ก ที่นี่ เพื่อดูไฟล์ของคุณ."
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "เพิ่มไอเทมแล้ว",
-    "message": "ไอเทมถูกเพิ่มไปยังโหนดของคุณแล้ว. ลิ้งค์ถูกก๊อปปี้ไปยังคลิปบอร์ดของคุณแล้ว. คลิ๊ก ที่นี่ เพื่อดูไฟล์ของคุณ."
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "มีปัญหาระหว่างเพิ่มไอเทม",
@@ -155,28 +154,6 @@
     "title": "ตัวลบขยะ",
     "message": "ตัวลบขยะ ไม่สามารถดำเนินการได้."
   },
-  "downloadCidContentDialog": {
-    "title": "ดาวน์โหลดไปยังที่จัดเก็บของคุณ",
-    "message": "โปรดใส่ CID, IPFS path, หรือ IPNS path:",
-    "action": "ถัดไป"
-  },
-  "cantResolveCidDialog": {
-    "title": "มีปัญหา",
-    "message": "ไม่สามารถดำเนินการกับ \"{ path }\"."
-  },
-  "couldNotGetCidDialog": {
-    "title": "มีปัญหา",
-    "message": "ไม่สามารถดึงข้อมูลจาก \"{ path }\"."
-  },
-  "contentsSavedDialog": {
-    "title": "สำเร็จ",
-    "message": "คอนเทนต์ของ \"{ path }\" ถูกดาวน์โหลดเสร็จสิ้น.",
-    "action": "ดูไฟล์"
-  },
-  "couldNotSaveDialog": {
-    "title": "ไม่สามารถเขียนไปยังดิสก์ได้",
-    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
-  },
   "launchAtLoginNotSupported": {
     "title": "มีปัญหา",
     "message": "ฟังก์ชั่นนี้ไม่สามารถใช้งานได้ในแพลตฟอร์มนี้."
@@ -189,10 +166,6 @@
     "title": "เปิดใช้งานคีย์ลัดในการถ่ายภาพหน้าจอ",
     "message": "ในการเปิดคีย์ลัดนี้, \"{ accelerator }\" จะสามารถใช้ในการถ่ายรูปหน้าจอของคุณได้ ตราบใดที่ IPFS Desktop ยังทำงานอยู่."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "เปิดใช้งานคีย์ลัดในการดาวน์โหลด",
-    "message": "ในการเปิดใช้งานคีย์ลัดนี้, \"{ accelerator }\" จะสามารถดาวน์โหลดไฟล์ได้ หาก IPFS Desktop ยังทำงานอยู่."
-  },
   "settings": {
     "settings": "การตั้งค่า",
     "preferences": "ตั้งค่าสไตล์",
@@ -204,7 +177,6 @@
     "namesysPubsub": "เปิดใช้งาน IPNS บน PubSub",
     "automaticGC": "การล้างขยะอัตโนมัติ",
     "takeScreenshotShortcut": "คีย์ลัดในการถ่ายภาพหน้าจอ",
-    "downloadHashShortcut": "คีย์ลัดในการดาวน์โหลด",
     "experiments": "ฟังก์ชั่นทดลอง",
     "npmOnIpfs": "เปิดใช้งาน npm บน IPFS"
   },
@@ -231,8 +203,12 @@
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
     "closeAndContinue": "Continue in the background"
   },
-  "migrationFailedDialog": {
-    "title": "IPFS Desktop Migration Has Failed",
-    "message": "IPFS has encountered an error and migration could not be completed:"
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

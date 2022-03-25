@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "Restartovat IPFS Desktop",
   "openLogs": "Otevřít logy",
   "takeScreenshot": "Udělat snímek obrazovky",
-  "downloadCid": "Stáhnout...",
   "moveRepositoryLocation": "Přesunout umístění repozitáře",
   "runGarbageCollector": "Spustit sběr odpadu",
   "selectDirectory": "Vyberat adresář",
@@ -155,28 +154,6 @@
     "title": "Garbage collector",
     "message": "Spuštění garbage collectoru se nepodařilo úspěšně dokončit."
   },
-  "downloadCidContentDialog": {
-    "title": "Stáhnout do místního adresáře",
-    "message": "Zadejte CID, cestu IPFS nebo cestu IPNS:",
-    "action": "Další"
-  },
-  "cantResolveCidDialog": {
-    "title": "Chyba",
-    "message": "Nelze vyřešit \"{ path }\"."
-  },
-  "couldNotGetCidDialog": {
-    "title": "Chyba",
-    "message": "Nelze načíst \"{ path }\"."
-  },
-  "contentsSavedDialog": {
-    "title": "Úspěšný",
-    "message": "Obsah \"{ path }\" byl úspěšně stažen.",
-    "action": "Viz soubory"
-  },
-  "couldNotSaveDialog": {
-    "title": "Nepodařilo se zapsat na disk",
-    "message": "Došlo k chybě při zápisu do \"{ dir }\": \"{ error }\". Zkuste to prosím znovu nebo si prohlédněte protokoly, kde najdete další podrobnosti."
-  },
   "launchAtLoginNotSupported": {
     "title": "Chyba",
     "message": "Spuštění při přihlášení není na vaší platformě podporováno."
@@ -189,10 +166,6 @@
     "title": "Povolit zástupce snímku obrazovky",
     "message": "Pokud tuto funkci povolíte, bude zástupce \"{ accelerator }\" k dispozici pro pořizování snímků obrazovky, dokud je spuštěn systém IPFS Desktop."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "Povolit zástupce pro stahování",
-    "message": "Pokud tuto funkci povolíte, bude zástupce \"{ accelerator }\" k dispozici pro stahování souborů, dokud bude spuštěn systém IPFS Desktop."
-  },
   "settings": {
     "settings": "Nastavení",
     "preferences": "Předvolby",
@@ -204,7 +177,6 @@
     "namesysPubsub": "Povolit IPNS přes PubSub",
     "automaticGC": "Automatický Garbage Collection",
     "takeScreenshotShortcut": "Globální zkratka snímku obrazovky",
-    "downloadHashShortcut": "Globální zkratka stahování",
     "experiments": "Experimenty",
     "npmOnIpfs": "Povolení npm na IPFS"
   },
@@ -234,5 +206,9 @@
   "startupFailedDialog": {
     "title": "Spuštění IPFS Desktop selhalo",
     "message": "Uzel IPFS narazil na chybu a spuštění nebylo možné dokončit:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

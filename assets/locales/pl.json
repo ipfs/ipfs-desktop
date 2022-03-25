@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "Uruchom ponownie IPFS Desktop",
   "openLogs": "Otwórz logi",
   "takeScreenshot": "Zrób zrzut ekranu",
-  "downloadCid": "Pobieranie...",
   "moveRepositoryLocation": "Przenieś lokalizację repozytorium",
   "runGarbageCollector": "Uruchom Garbage Collector",
   "selectDirectory": "Wybierz katalog",
@@ -106,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "Pozycje dodane",
-    "message": "{ count } elementy dodane do węzła. Link do udostępniania został skopiowany do schowka. Kliknij tutaj, aby zobaczyć swoje pliki."
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "Pozycja dodana",
-    "message": "Element dodany do twojego węzła. Link do udostępnienia został skopiowany do schowka. Kliknij tutaj, aby zobaczyć swój plik. "
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "Nie udało się dodać elementów",
@@ -155,28 +154,6 @@
     "title": "Garbage collector",
     "message": "Uruchomienie garbage collectora nie mogło zostać zakończone pomyślnie."
   },
-  "downloadCidContentDialog": {
-    "title": "Pobierz do lokalnego katalogu",
-    "message": "Wprowadź CID, ścieżkę IPFS lub ścieżkę IPNS:",
-    "action": "Następny"
-  },
-  "cantResolveCidDialog": {
-    "title": "Błąd",
-    "message": "Nie można rozwiązać \"{ path }\"."
-  },
-  "couldNotGetCidDialog": {
-    "title": "Błąd",
-    "message": "Nie można pobrać \"{ path }\"."
-  },
-  "contentsSavedDialog": {
-    "title": "Sukces",
-    "message": "Zawartość \"{ path }\" została pomyślnie pobrana.",
-    "action": "Zobacz pliki"
-  },
-  "couldNotSaveDialog": {
-    "title": "Nie można zapisać na dysku",
-    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
-  },
   "launchAtLoginNotSupported": {
     "title": "Błąd",
     "message": "Uruchamianie przy logowaniu nie jest obsługiwane na Twojej platformie."
@@ -189,10 +166,6 @@
     "title": "Włącz skrót do zrzutu ekranu",
     "message": "Po włączeniu tej opcji, skrót \"{ accelerator }\" będzie dostępny do robienia zrzutów i będzie działać tak długo jak IPFS Desktop."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "Włącz skrót do pobierania",
-    "message": "Po włączeniu tej opcji, skrót \"{ accelerator }\" będzie dostępny do pobierania plików tak długo, jak długo działa IPFS Desktop."
-  },
   "settings": {
     "settings": "Ustawienia",
     "preferences": "Ustawienia",
@@ -204,7 +177,6 @@
     "namesysPubsub": "Włącz IPFS nad PubSub",
     "automaticGC": "Automatyczne Garbage Collection",
     "takeScreenshotShortcut": "Globalny skrót do zrzutu ekranu",
-    "downloadHashShortcut": "Globalny skrót do pobierania",
     "experiments": "Eksperymenty",
     "npmOnIpfs": "Włącz npm na IPFS"
   },
@@ -231,8 +203,12 @@
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
     "closeAndContinue": "Continue in the background"
   },
-  "migrationFailedDialog": {
-    "title": "IPFS Desktop Migration Has Failed",
-    "message": "IPFS has encountered an error and migration could not be completed:"
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

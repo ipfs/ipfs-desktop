@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "IPFS Desktop neu starten",
   "openLogs": "Protokolle öffnen",
   "takeScreenshot": "Bildschirmfoto aufnehmen",
-  "downloadCid": "Herunterladen...",
   "moveRepositoryLocation": "Speicherort verschieben",
   "runGarbageCollector": "Speicherbereinigung ausführen",
   "selectDirectory": "Verzeichnis Auswählen",
@@ -155,28 +154,6 @@
     "title": "Automatische Speicherbereinigung",
     "message": "Die Garbage Collection konnte nicht erfolgreich ausgeführt werden."
   },
-  "downloadCidContentDialog": {
-    "title": "In ein lokales Verzeichnis herunterladen",
-    "message": "Gib eine CID, einen IPFS-Pfad oder einen IPNS-Pfad an:",
-    "action": "Weiter"
-  },
-  "cantResolveCidDialog": {
-    "title": "Fehler",
-    "message": "Kann \"{ path }\" nicht auflösen."
-  },
-  "couldNotGetCidDialog": {
-    "title": "Fehler",
-    "message": "Kann \"{ path }\" nicht laden."
-  },
-  "contentsSavedDialog": {
-    "title": "Erfolg",
-    "message": "Die Inhalte von \"{ path }\" wurden erfolgreich heruntergeladen.",
-    "action": "Dateien ansehen"
-  },
-  "couldNotSaveDialog": {
-    "title": "Konnte nicht auf die Festplatte schreiben",
-    "message": "Beim Schreiben in \"{ dir }\" ist ein Fehler aufgetreten: \"{ error }\". Bitte versuche es erneut oder überprüfe die Protokolle, um weitere Informationen zu erhalten."
-  },
   "launchAtLoginNotSupported": {
     "title": "Fehler",
     "message": "Bei Anmeldung ausführen wird auf deiner Plattform nicht unterstützt."
@@ -189,10 +166,6 @@
     "title": "Screenshot-Tastaturkürzel aktivieren",
     "message": "Wenn du dies aktivierst, wird das Tastaturkürzel \"{ accelerator }\" verfügbar sein um Screenshots aufzunehmen, solange IPFS Desktop ausgeführt wird."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "Download-Tastaturkürzel aktivieren",
-    "message": "Wenn du dies aktivierst, wird das Tastaturkürzel \"{ accelerator }\" verfügbar sein um Dateien herunterzuladen, solange IPFS Desktop ausgeführt wird."
-  },
   "settings": {
     "settings": "Einstellungen",
     "preferences": "Einstellungen",
@@ -204,7 +177,6 @@
     "namesysPubsub": "IPNS über PubSub aktivieren",
     "automaticGC": "Automatische Garbage Collection",
     "takeScreenshotShortcut": "Globales Screenshot-Tastaturkürzel",
-    "downloadHashShortcut": "Globales Download-Tastaturkürzel",
     "experiments": "Experimente",
     "npmOnIpfs": "npm in IPFS aktivieren"
   },
@@ -234,5 +206,9 @@
   "startupFailedDialog": {
     "title": "Der IPFS Desktop Start ist fehlgeschlagen",
     "message": "Der IPFS Knoten hat einen Fehler festgestellt und der Start konnte nicht abgeschlossen werden:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

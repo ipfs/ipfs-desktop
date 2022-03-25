@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "Redémarrer IPFS Desktop",
   "openLogs": "Ouvrir les logs",
   "takeScreenshot": "Prendre une capture d'écran",
-  "downloadCid": "Télécharger...",
   "moveRepositoryLocation": "Déplacer le répertoire",
   "runGarbageCollector": "Lancer le Ramasse-Miettes",
   "selectDirectory": "Sélectionner le dossier",
@@ -155,28 +154,6 @@
     "title": "Ramasse-miettes",
     "message": "Le ramasse-miettes n'a pas pu s'exécuter correctement jusqu'au bout."
   },
-  "downloadCidContentDialog": {
-    "title": "Télécharger vers un dossier local",
-    "message": "Entrez un CID, un chemin IPFS, ou un chemin IPNS:",
-    "action": "Suivant"
-  },
-  "cantResolveCidDialog": {
-    "title": "Erreur",
-    "message": "Impossible de résoudre \"{ path }\"."
-  },
-  "couldNotGetCidDialog": {
-    "title": "Erreur",
-    "message": "Impossible de récupérer \"{ path }\"."
-  },
-  "contentsSavedDialog": {
-    "title": "Terminé",
-    "message": "Le contenu de \"{ path }\" a été téléchargé avec succès.",
-    "action": "Voir les fichiers"
-  },
-  "couldNotSaveDialog": {
-    "title": "Impossible d'écrire sur le disque",
-    "message": "Une erreur est survenue lors de l'écriture dans \"{ dir }\" : \"{ error }\". Merci de réessayer ou d'inspecter le journal des évènements pour plus de détails."
-  },
   "launchAtLoginNotSupported": {
     "title": "Erreur",
     "message": "Le lancement au démarrage n'est pas supporté sur votre plateforme."
@@ -189,10 +166,6 @@
     "title": "Activer le raccourci pour les captures d'écran",
     "message": "En activant cette option, le raccourci \"{ accelerator }\" pourra prendre une capture d'écran tant que IPFS Desktop fonctionne."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "Activer le raccourci de capture d'écran",
-    "message": "En activant cette option, le raccourci \"{ accelerator }\" pourra télécharger des fichiers tant que IPFS Desktop fonctionne."
-  },
   "settings": {
     "settings": "Paramètres",
     "preferences": "Préférences",
@@ -204,7 +177,6 @@
     "namesysPubsub": "Activer IPNS via PubSub",
     "automaticGC": "Ramasse-miettes automatique",
     "takeScreenshotShortcut": "Raccourci de capture d'écran global",
-    "downloadHashShortcut": "Raccourci de téléchargement global",
     "experiments": "Fonctionnalités expérimentales",
     "npmOnIpfs": "Activer npm sur IPFS"
   },
@@ -228,11 +200,15 @@
   },
   "migrationDialog": {
     "title": "Migration d'IPFS Desktop",
-    "message": "Juste un instant ! IPFS Desktop a besoin d'exécuter la migration du data store la plus récente:",
+    "message": "Un instant, IPFS Desktop a besoin d'exécuter la migration du data store la plus récente:",
     "closeAndContinue": "Continuer en arrière-plan"
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "Le démarrage d'IPFS Desktop a échoué",
+    "message": "Le nœud IPFS a rencontré une erreur et il n'a pas pu finir de démarrer :"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

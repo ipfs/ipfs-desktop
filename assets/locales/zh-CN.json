@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "重启 IPFS 桌面",
   "openLogs": "打开日志",
   "takeScreenshot": "截屏",
-  "downloadCid": "下载…",
   "moveRepositoryLocation": "移动仓库目录",
   "runGarbageCollector": "进行缓存清理",
   "selectDirectory": "选择目录",
@@ -106,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "项目已添加",
-    "message": "{ count } 个项目已添加到你的节点。一条可共享的链接拷贝到了你的剪贴板。单击此处查看你的文件。"
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "项目已添加",
-    "message": "项目已添加到你的节点。一条可共享的链接拷贝到了你的剪贴板。单击此处查看你的文件。"
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "项目添加失败",
@@ -155,28 +154,6 @@
     "title": "缓存清理",
     "message": "缓存清理未能完全进行"
   },
-  "downloadCidContentDialog": {
-    "title": "下载到本地目录",
-    "message": "输入CID、IPFS路径或IPNS路径：",
-    "action": "下一步"
-  },
-  "cantResolveCidDialog": {
-    "title": "错误",
-    "message": "找不到“{ path }”。"
-  },
-  "couldNotGetCidDialog": {
-    "title": "错误",
-    "message": "无法获取“{ path }”。"
-  },
-  "contentsSavedDialog": {
-    "title": "成功",
-    "message": "已成功下载“{ path }”的内容。",
-    "action": "查看文件"
-  },
-  "couldNotSaveDialog": {
-    "title": "无法写入磁盘",
-    "message": "写入\"{ dir }\": \"{ error }\"时发生错误，请重试或通过查询日志来获取详细信息。"
-  },
   "launchAtLoginNotSupported": {
     "title": "错误",
     "message": "您的平台不支持在登录时启动。"
@@ -189,10 +166,6 @@
     "title": "启用屏幕快照快捷键",
     "message": "启用此选项，在IPFS桌面运行时，可以用快捷键“{ accelerator }”获取屏幕快照。"
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "启用下载快捷键",
-    "message": "启用此选项，在IPFS桌面运行时，可以用快捷键“{ accelerator }”下载文件。"
-  },
   "settings": {
     "settings": "配置",
     "preferences": "首选项",
@@ -204,7 +177,6 @@
     "namesysPubsub": "启用基于 PubSub 的 IPNS",
     "automaticGC": "自动缓存清理",
     "takeScreenshotShortcut": "全局屏幕截图快捷键",
-    "downloadHashShortcut": "全局下载快捷键",
     "experiments": "试验",
     "npmOnIpfs": "启用 IPFS 上的 npm"
   },
@@ -231,8 +203,12 @@
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
     "closeAndContinue": "Continue in the background"
   },
-  "migrationFailedDialog": {
-    "title": "IPFS Desktop Migration Has Failed",
-    "message": "IPFS has encountered an error and migration could not be completed:"
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }
