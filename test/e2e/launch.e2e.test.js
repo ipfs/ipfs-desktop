@@ -170,6 +170,27 @@ test.describe.serial('Application launch', async () => {
     ])
   })
 
+  test('applies config migration (ConnMgr)', async () => {
+    // create preexisting, initialized repo and config
+    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
+
+    const initConfig = fs.readJsonSync(configPath)
+    initConfig.Swarm.ConnMgr.GracePeriod = '300s'
+    initConfig.Swarm.ConnMgr.LowWater = 50
+    initConfig.Swarm.ConnMgr.HighWater = 300
+    fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
+
+    const { app } = await startApp({ repoPath })
+    const { peerId } = await daemonReady(app)
+    expect(peerId).toBe(expectedId)
+
+    const config = fs.readJsonSync(configPath)
+    // ensure app has migrated config
+    expect(config.Swarm.ConnMgr.GracePeriod).toEqual('1m')
+    expect(config.Swarm.ConnMgr.LowWater).toEqual(20)
+    expect(config.Swarm.ConnMgr.HighWater).toEqual(40)
+  })
+
   test('starts with repository with "IPFS_PATH/api" file and no daemon running', async () => {
     // create "remote" repo
     const { ipfsd } = await makeRepository({ start: true })
