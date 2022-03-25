@@ -168,7 +168,11 @@ async function startIpfsWithLogs (ipfsd) {
 module.exports = async function (opts) {
   const { ipfsd, isRemote } = await spawn(opts)
   if (!isRemote) {
-    await checkPorts(ipfsd)
+    try {
+      await checkPorts(ipfsd)
+    } catch (err) {
+      return { err }
+    }
   }
 
   let errLogs = await startIpfsWithLogs(ipfsd)
