@@ -151,6 +151,9 @@ async function startIpfsWithLogs (ipfsd) {
     // that failed to start, allowing user to self-diagnose or report issue.
     isErrored = isErrored || isSpawnedDaemonDead(ipfsd)
     if (isErrored) { // save daemon output to error.log
+      if (logs.trim().length === 0) {
+        logs = 'ipfs daemon failed to start and produced no output (see error.log for details)'
+      }
       logger.error(logs)
       if (migrationPrompt) {
         migrationPrompt.loadWindow(logs, isErrored, isFinished)
