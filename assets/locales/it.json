@@ -40,14 +40,13 @@
   "restartIpfsDesktop": "Riavvia IPFS Desktop",
   "openLogs": "Apri i log",
   "takeScreenshot": "Screenshot eseguito",
-  "downloadCid": "Scarica...",
   "moveRepositoryLocation": "Sposta Luogo Repository",
   "runGarbageCollector": "Avvia Garbage Collector",
   "selectDirectory": "Seleziona Cartella",
   "customIpfsBinary": "File Binario IPFS Personalizzato",
   "setCustomIpfsBinary": "Imposta un File Binario IPFS Personalizzato",
   "clearCustomIpfsBinary": "Cancella il file binario IPFS personalizzato",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "Apri documentazione CLI",
   "polkitDialog": {
     "title": "Polkit non trovato",
     "message": "IPFS non può essere aggiunto in /usr/local/bin/ senza polkit agent."
@@ -106,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "Oggetti aggiunti",
-    "message": "{ count } oggetti aggiunti al tuo nodo. Un collegamento condivisibile è stato copiato alla tua clipboard. Clicca qui per vedere i tuoi file."
+    "message": "{ count } oggetti aggiunti al tuo nodo IPFS. Un collegamento condivisibile è stato copiato nei tuoi appunti."
   },
   "itemAddedNotification": {
     "title": "Oggetto aggiunto",
-    "message": "Oggetto aggiunto al tuo nodo. Un collegamento condivisibile è stato copiato alla tua clipboard. Clicca qui per vedere il tuo file."
+    "message": "Oggetto aggiunto al tuo nodo IPFS. Un collegamento condivisibile è stato copiato nei tuoi appunti."
   },
   "itemsFailedNotification": {
     "title": "Aggiunta oggetti fallita",
@@ -129,14 +128,14 @@
     "message": "Non è stato possibile scaricare l'aggiornamento. Per favore, controlla la tua connessione internet e riprova."
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "Aggiornamento IPFS Desktop",
+    "message": "Un aggiornamento ad IPFS Desktop { version } è disponibile. Vorresti installarlo ora?",
+    "later": "Dopo",
+    "now": "Installa ora"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "Aggiornamento IPFS Desktop",
+    "message": "Un aggiornamento ad IPFS Desktop { version } è disponibile."
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
@@ -155,28 +154,6 @@
     "title": "Garbage collector",
     "message": "Non è stato possibile completare il lavoro del garbage collector con successo."
   },
-  "downloadCidContentDialog": {
-    "title": "Scarica in una cartella locale.",
-    "message": "Inserisci un CID, un percorso IPFS od un percorso IPNS:",
-    "action": "Avanti"
-  },
-  "cantResolveCidDialog": {
-    "title": "Errore",
-    "message": "Impossibile trovare \"{ path }\"."
-  },
-  "couldNotGetCidDialog": {
-    "title": "Errore",
-    "message": "Impossibile recuperare \"{ path }\"."
-  },
-  "contentsSavedDialog": {
-    "title": "Successo",
-    "message": "I contenuti di \"{ path }\" sono stati scaricati con successo.",
-    "action": "Vedi File"
-  },
-  "couldNotSaveDialog": {
-    "title": "Non è stato possibile scrivere sul disco",
-    "message": "C'è stato un errore durante la scrittura su \"{ dir }\": \"{ error }\". Per favore, riprova o ispeziona i log per ulteriori dettagli."
-  },
   "launchAtLoginNotSupported": {
     "title": "Errore",
     "message": "L'avvio al login non è supportato sulla tua piattaforma."
@@ -189,10 +166,6 @@
     "title": "Abilita scorciatoia screenshot",
     "message": "Abilitando ciò, la scorciatoia \"{ accelerator }\" sarà disponibile per scattare screenshot finché IPFS Desktop rimarrà in esecuzione."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "Abilita scorciatoia download",
-    "message": "Abilitando ciò, la scorciatoia \"{ accelerator }\" sarà disponibile per scaricare file finché IPFS Desktop rimarrà in esecuzione."
-  },
   "settings": {
     "settings": "Impostazioni",
     "preferences": "Preferenze",
@@ -204,7 +177,6 @@
     "namesysPubsub": "Abilita IPNS su PubSub",
     "automaticGC": "Garbage Collection automatica",
     "takeScreenshotShortcut": "Scorciatoia Screenshot Globale",
-    "downloadHashShortcut": "Scorciatoia Download Globale",
     "experiments": "Esperimenti",
     "npmOnIpfs": "Abilita npm su IPFS"
   },
@@ -221,18 +193,22 @@
     "message": "Il file binario IPFS personalizzato è stato cancellato. Per iniziare a utilizzare la versione nel bundle IPFS, è necessario prima riavviare IPFS."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "IPFS Desktop non risponde",
+    "message": "L'operazione in corso sta impiegando più risorse del previsto. Vorresti interromperla e forzare la ricarica dell'interfaccia?",
+    "forceReload": "Sì, ricarica",
+    "doNothing": "Ignora"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "Migrazione IPFS Desktop",
+    "message": "Aspetta! IPFS Desktop deve avviare le ultime migrazioni dell'archivio dati:",
+    "closeAndContinue": "Continua in background"
   },
-  "migrationFailedDialog": {
-    "title": "IPFS Desktop Migration Has Failed",
-    "message": "IPFS has encountered an error and migration could not be completed:"
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

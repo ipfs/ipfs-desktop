@@ -11,7 +11,6 @@ const { STATUS } = require('./daemon')
 const { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } = require('./common/consts')
 
 const { CONFIG_KEY: SCREENSHOT_KEY, SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
-const { CONFIG_KEY: DOWNLOAD_KEY, SHORTCUT: DOWNLOAD_SHORTCUT, downloadCid } = require('./download-cid')
 const { CONFIG_KEY: AUTO_LAUNCH_KEY, isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const { CONFIG_KEY: PUBSUB_KEY } = require('./enable-pubsub')
 const { CONFIG_KEY: NAMESYS_PUBSUB_KEY } = require('./enable-namesys-pubsub')
@@ -24,7 +23,6 @@ const CONFIG_KEYS = [
   AUTO_LAUNCH_WEBUI_KEY,
   AUTO_GC_KEY,
   SCREENSHOT_KEY,
-  DOWNLOAD_KEY,
   PUBSUB_KEY,
   NAMESYS_PUBSUB_KEY,
   ASK_OPENING_IPFS_URIS
@@ -104,13 +102,6 @@ function buildMenu (ctx) {
       accelerator: IS_MAC ? SCREENSHOT_SHORTCUT : null,
       enabled: false
     },
-    {
-      id: 'downloadCid',
-      label: i18n.t('downloadCid'),
-      click: () => { downloadCid(ctx) },
-      accelerator: IS_MAC ? DOWNLOAD_SHORTCUT : null,
-      enabled: false
-    },
     { type: 'separator' },
     {
       label: IS_MAC ? i18n.t('settings.preferences') : i18n.t('settings.settings'),
@@ -130,7 +121,6 @@ function buildMenu (ctx) {
         buildCheckbox(ASK_OPENING_IPFS_URIS, 'settings.askWhenOpeningIpfsURIs'),
         buildCheckbox(AUTO_GC_KEY, 'settings.automaticGC'),
         buildCheckbox(SCREENSHOT_KEY, 'settings.takeScreenshotShortcut'),
-        buildCheckbox(DOWNLOAD_KEY, 'settings.downloadHashShortcut'),
         { type: 'separator' },
         {
           label: i18n.t('settings.experiments'),
@@ -318,7 +308,6 @@ module.exports = function (ctx) {
 
     menu.getMenuItemById(AUTO_LAUNCH_KEY).enabled = supportsLaunchAtLogin()
     menu.getMenuItemById('takeScreenshot').enabled = status === STATUS.STARTING_FINISHED
-    menu.getMenuItemById('downloadCid').enabled = status === STATUS.STARTING_FINISHED
 
     menu.getMenuItemById('moveRepositoryLocation').enabled = !gcRunning && status !== STATUS.STOPPING_STARTED
     menu.getMenuItemById('runGarbageCollector').enabled = menu.getMenuItemById('ipfsIsRunning').visible && !gcRunning

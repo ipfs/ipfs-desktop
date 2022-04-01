@@ -3,6 +3,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.20.4] - 2021-03-28
+
+- IPFS: [`go-ipfs v0.12.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.12.0)
+- UI: [`v2.15.0`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.15.0)
+
+* fix: migrating to less expensive config in `Swarm.ConnMgr` by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2055
+* fix: detect invalid or corrupted repository by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2067
+* fix: static message when ipfs daemon dies on start by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2078
+* refactor: remove 'download' functionality by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2061
+* chore: remove unused and update dependencies by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2047
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.20.3...v0.20.4
+
+## [v0.20.3] - 2021-03-21
+
+- IPFS: [`go-ipfs v0.12.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.12.0)
+- UI: [`v2.15.0`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.15.0)
+
+* fix: ipfs-companion rpc api in go-ipfs <0.13 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2054
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.20.2...v0.20.3
+
 ## [v0.20.2] - 2021-03-15
 
 - IPFS: [`go-ipfs v0.12.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.12.0)

@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "Mulai ulang Desktop IPFS",
   "openLogs": "Buka catatan",
   "takeScreenshot": "Ambil Tangkapan Layar",
-  "downloadCid": "Unduh...",
   "moveRepositoryLocation": "Pindahkan Lokasi Repositori",
   "runGarbageCollector": "Jalankan Pengumpul Sampah",
   "selectDirectory": "Pilih Direktori",
@@ -106,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "Item ditambahkan",
-    "message": "{ count } item ditambahkan ke node Anda. Tautan yang dapat dibagikan telah disalin ke papan klip Anda. Klik di sini untuk melihat berkas Anda."
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "Item ditambahkan",
-    "message": "Item ditambahkan ke node Anda. Tautan yang dapat dibagikan telah disalin ke papan klip Anda. Klik di sini untuk melihat berkas Anda."
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "Gagal menambahkan item",
@@ -155,28 +154,6 @@
     "title": "Pengumpul sampah",
     "message": "Proses pengumpul sampah tidak dapat diselesaikan dengan sukses."
   },
-  "downloadCidContentDialog": {
-    "title": "Unduh ke direktori lokal",
-    "message": "Masukkan sebuah CID, jalur IPFS, atau jalur IPNS:",
-    "action": "Lanjut"
-  },
-  "cantResolveCidDialog": {
-    "title": "Kesalahan",
-    "message": "Tidak dapat menyelesaikan \"{ path }\"."
-  },
-  "couldNotGetCidDialog": {
-    "title": "Kesalahan",
-    "message": "Tidak dapat mengambil \"{ path }\"."
-  },
-  "contentsSavedDialog": {
-    "title": "Sukses",
-    "message": "Konten \"{ path }\" berhasil diunduh.",
-    "action": "Lihat Berkas"
-  },
-  "couldNotSaveDialog": {
-    "title": "Tidak dapat menulis ke disk",
-    "message": "Terjadi kesalahan saat menulis ke \"{ dir }\": \"{ error }\". Harap coba lagi atau periksa catatan untuk detail selengkapnya."
-  },
   "launchAtLoginNotSupported": {
     "title": "Kesalahan",
     "message": "Peluncuran saat login tidak didukung di platform Anda."
@@ -189,10 +166,6 @@
     "title": "Aktifkan pintasan tangkapan layar",
     "message": "Dengan mengaktifkan ini, pintasan \"{ accelerator }\" akan tersedia untuk mengambil tangkapan layar selama IPFS Desktop berjalan."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "Aktifkan pintasan unduh",
-    "message": "Dengan mengaktifkan ini, pintasan \"{ accelerator }\" akan tersedia untuk unduh berkas selama IPFS Desktop berjalan."
-  },
   "settings": {
     "settings": "Pengaturan",
     "preferences": "Preferensi",
@@ -204,7 +177,6 @@
     "namesysPubsub": "Aktifkan IPNS melalui PubSub",
     "automaticGC": "Pengumpulan Sampah Otomatis",
     "takeScreenshotShortcut": "Pintasan Tangkapan Layar Global",
-    "downloadHashShortcut": "Pintasan Unduh Global",
     "experiments": "Eksperimen",
     "npmOnIpfs": "Aktifkan npm di IPFS"
   },
@@ -231,8 +203,12 @@
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
     "closeAndContinue": "Continue in the background"
   },
-  "migrationFailedDialog": {
-    "title": "IPFS Desktop Migration Has Failed",
-    "message": "IPFS has encountered an error and migration could not be completed:"
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

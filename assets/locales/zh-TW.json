@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "重新啟動 IPFS 桌面版",
   "openLogs": "開啟記錄檔",
   "takeScreenshot": "擷取螢幕畫面",
-  "downloadCid": "正在下載…",
   "moveRepositoryLocation": "移動存放庫位置",
   "runGarbageCollector": "執行記憶體回收行程",
   "selectDirectory": "選取目錄",
@@ -106,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "項目已新增",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "項目已新增",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "新增項目失敗",
@@ -155,28 +154,6 @@
     "title": "記憶體回收行程",
     "message": "The garbage collector run could not be completed successfully."
   },
-  "downloadCidContentDialog": {
-    "title": "下載至本機目錄",
-    "message": "Enter a CID, IPFS path, or IPNS path:",
-    "action": "下一步"
-  },
-  "cantResolveCidDialog": {
-    "title": "錯誤",
-    "message": "無法解析 \"{ path }\"。"
-  },
-  "couldNotGetCidDialog": {
-    "title": "錯誤",
-    "message": "無法擷取 \"{ path }\"。"
-  },
-  "contentsSavedDialog": {
-    "title": "成功",
-    "message": "\"{ path }\" 的內容已成功下載。",
-    "action": "查看檔案"
-  },
-  "couldNotSaveDialog": {
-    "title": "無法寫入磁碟",
-    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
-  },
   "launchAtLoginNotSupported": {
     "title": "錯誤",
     "message": "你的平台不支援在登入時啟動。"
@@ -189,10 +166,6 @@
     "title": "啟用螢幕擷取畫面快速鍵",
     "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "啟用下載快速鍵",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
-  },
   "settings": {
     "settings": "設定",
     "preferences": "喜好設定",
@@ -204,7 +177,6 @@
     "namesysPubsub": "Enable IPNS over PubSub",
     "automaticGC": "自動化記憶體回收行程",
     "takeScreenshotShortcut": "全域螢幕擷取畫面快速鍵",
-    "downloadHashShortcut": "全域下載快速鍵",
     "experiments": "實驗",
     "npmOnIpfs": "Enable npm on IPFS"
   },
@@ -231,8 +203,12 @@
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
     "closeAndContinue": "Continue in the background"
   },
-  "migrationFailedDialog": {
-    "title": "IPFS Desktop Migration Has Failed",
-    "message": "IPFS has encountered an error and migration could not be completed:"
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

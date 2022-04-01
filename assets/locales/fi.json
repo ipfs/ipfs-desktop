@@ -40,7 +40,6 @@
   "restartIpfsDesktop": "Käynnistä 'IPFS Desktop' uudelleen",
   "openLogs": "Avaa loki",
   "takeScreenshot": "Ota kuvakaappaus",
-  "downloadCid": "Lataa...",
   "moveRepositoryLocation": "Siirrä säilöpaikan sijaintia",
   "runGarbageCollector": "Suorita roskankerääjä",
   "selectDirectory": "Valitse hakemisto",
@@ -106,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "Epäonnistuttiin lisäämään kohteita",
@@ -155,28 +154,6 @@
     "title": "Roskankerääjä",
     "message": "Roskankerääjää ei voitu suorittaa onnistuneesti."
   },
-  "downloadCidContentDialog": {
-    "title": "Lataa paikalliseen hakemistoon",
-    "message": "Anna CID, IPFS-polku tai IPNS-polku:",
-    "action": "Seuraava"
-  },
-  "cantResolveCidDialog": {
-    "title": "Virhe",
-    "message": "Ei pystytty selvittämään polkua \"{ path }\"."
-  },
-  "couldNotGetCidDialog": {
-    "title": "Virhe",
-    "message": "Ei pystytty hakemaan polkua \"{ path }\"."
-  },
-  "contentsSavedDialog": {
-    "title": "Onnistuminen",
-    "message": "Polun \"{ path }\" sisältö ladattiin onnistuneesti.",
-    "action": "Katso tiedostot"
-  },
-  "couldNotSaveDialog": {
-    "title": "Ei voitu kirjoittaa kovalevylle",
-    "message": "There was an error writing to \"{ dir }\": \"{ error }\". Please try again or inspect logs for more details."
-  },
   "launchAtLoginNotSupported": {
     "title": "Virhe",
     "message": "'Käynnistä sisäänkirjautumisen yhteydessä' ei ole tuettu alustallasi."
@@ -189,10 +166,6 @@
     "title": "Enable screenshot shortcut",
     "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "Enable download shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
-  },
   "settings": {
     "settings": "Asetukset",
     "preferences": "Preferences",
@@ -204,7 +177,6 @@
     "namesysPubsub": "Enable IPNS over PubSub",
     "automaticGC": "Automatic Garbage Collection",
     "takeScreenshotShortcut": "Globaali kuvakaappaus oikotie",
-    "downloadHashShortcut": "Globaali lataus oikotie",
     "experiments": "Kokeilut",
     "npmOnIpfs": "Enable npm on IPFS"
   },
@@ -231,8 +203,12 @@
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
     "closeAndContinue": "Continue in the background"
   },
-  "migrationFailedDialog": {
-    "title": "IPFS Desktop Migration Has Failed",
-    "message": "IPFS has encountered an error and migration could not be completed:"
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

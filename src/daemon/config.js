@@ -1,3 +1,4 @@
+const { app, BrowserWindow } = require('electron')
 const { join } = require('path')
 const fs = require('fs-extra')
 const { multiaddr } = require('multiaddr')
@@ -46,9 +47,9 @@ function applyDefaults (ipfsd) {
   config.Swarm = config.Swarm || {}
   config.Swarm.DisableNatPortMap = false
   config.Swarm.ConnMgr = config.Swarm.ConnMgr || {}
-  config.Swarm.ConnMgr.GracePeriod = '300s'
-  config.Swarm.ConnMgr.LowWater = 50
-  config.Swarm.ConnMgr.HighWater = 300
+  config.Swarm.ConnMgr.GracePeriod = '1m'
+  config.Swarm.ConnMgr.LowWater = 20
+  config.Swarm.ConnMgr.HighWater = 40
 
   config.Discovery = config.Discovery || {}
   config.Discovery.MDNS = config.Discovery.MDNS || {}
@@ -57,16 +58,18 @@ function applyDefaults (ipfsd) {
   writeConfigFile(ipfsd, config)
 }
 
-function getGatewayPort (config) {
-  let gatewayUrl = null
+const getRpcApiPort = (config) => getHttpPort(config.Addresses.API)
+const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
+function getHttpPort (addrs) {
+  let httpUrl = null
 
-  if (Array.isArray(config.Addresses.Gateway)) {
-    gatewayUrl = config.Addresses.Gateway.find(v => v.includes('127.0.0.1'))
+  if (Array.isArray(addrs)) {
+    httpUrl = addrs.find(v => v.includes('127.0.0.1'))
   } else {
-    gatewayUrl = config.Addresses.Gateway
+    httpUrl = addrs
   }
 
-  const gw = parseCfgMultiaddr(gatewayUrl)
+  const gw = parseCfgMultiaddr(httpUrl)
   return gw.nodeAddress().port
 }
 
@@ -74,7 +77,7 @@ function getGatewayPort (config) {
 // This is the place where we execute fixes and performance tweaks for existing users.
 function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
-  const REVISION = 2
+  const REVISION = 4
   const REVISION_KEY = 'daemonConfigRevision'
   const CURRENT_REVISION = store.get(REVISION_KEY, 0)
 
@@ -92,7 +95,7 @@ function migrateConfig (ipfsd) {
     return
   }
 
-  if (CURRENT_REVISION <= 0) {
+  if (CURRENT_REVISION < 1) {
     // Cleanup https://github.com/ipfs-shipyard/ipfs-desktop/issues/1631
     if (config.Discovery && config.Discovery.MDNS && config.Discovery.MDNS.enabled) {
       config.Discovery.MDNS.Enabled = config.Discovery.MDNS.Enabled || true
@@ -101,7 +104,7 @@ function migrateConfig (ipfsd) {
     }
   }
 
-  if (CURRENT_REVISION <= 1) {
+  if (CURRENT_REVISION < 3) {
     const api = config.API || {}
     const httpHeaders = api.HTTPHeaders || {}
     const accessControlAllowOrigin = httpHeaders['Access-Control-Allow-Origin'] || []
@@ -117,7 +120,11 @@ function migrateConfig (ipfsd) {
     const addedWebUI = addURL('https://webui.ipfs.io')
     const addedGw = addURL(`http://webui.ipfs.io.ipns.localhost:${getGatewayPort(config)}`)
 
-    if (addedWebUI || addedGw) {
+    // https://github.com/ipfs/ipfs-companion/issues/1068 in go-ipfs <0.13
+    // TODO: remove addedApiPort after go-ipfs 0.13 ships
+    const addedApiPort = addURL(`http://127.0.0.1:${getRpcApiPort(config)}`)
+
+    if (addedWebUI || addedGw || addedApiPort) {
       httpHeaders['Access-Control-Allow-Origin'] = accessControlAllowOrigin
       api.HTTPHeaders = httpHeaders
       config.API = api
@@ -125,7 +132,22 @@ function migrateConfig (ipfsd) {
     }
   }
 
-  // TODO: update config.Swarm.ConnMgr.*
+  if (CURRENT_REVISION < 4) {
+    // lower ConnMgr https://github.com/ipfs/ipfs-desktop/issues/2039
+    const { GracePeriod, LowWater, HighWater } = config.Swarm.ConnMgr
+    if (GracePeriod === '300s') {
+      config.Swarm.ConnMgr.GracePeriod = '1m'
+      changed = true
+    }
+    if (LowWater > 20) {
+      config.Swarm.ConnMgr.LowWater = 20
+      changed = true
+    }
+    if (HighWater > 40) {
+      config.Swarm.ConnMgr.HighWater = 40
+      changed = true
+    }
+  }
 
   if (changed) {
     try {
@@ -309,6 +331,47 @@ async function checkPorts (ipfsd) {
   logger.info('[daemon] ports updated')
 }
 
+function checkValidConfig (ipfsd) {
+  if (!fs.pathExistsSync(ipfsd.path)) {
+    // If the repository doesn't exist, skip verification.
+    return true
+  }
+
+  try {
+    const stats = fs.statSync(ipfsd.path)
+    if (!stats.isDirectory()) {
+      throw new Error('IPFS_PATH must be a directory')
+    }
+
+    if (!configExists(ipfsd)) {
+      // Config is generated automatically if it doesn't exist.
+      return true
+    }
+
+    // This should catch errors such having no configuration file,
+    // IPFS_DIR not being a directory, or the configuration file
+    // being corrupted.
+    readConfigFile(ipfsd)
+    return true
+  } catch (e) {
+    // Save to error.log
+    logger.error(e)
+
+    // Hide other windows so the user focus in on the dialog
+    BrowserWindow.getAllWindows().forEach(w => w.hide())
+
+    // Show blocking dialog
+    showDialog({
+      title: i18n.t('invalidRepositoryDialog.title'),
+      message: i18n.t('invalidRepositoryDialog.message', { path: ipfsd.path }),
+      buttons: [i18n.t('quit')]
+    })
+
+    // Only option is to quit
+    app.quit()
+  }
+}
+
 module.exports = Object.freeze({
   configPath,
   configExists,
@@ -316,5 +379,6 @@ module.exports = Object.freeze({
   rmApiFile,
   applyDefaults,
   migrateConfig,
-  checkPorts
+  checkPorts,
+  checkValidConfig
 })

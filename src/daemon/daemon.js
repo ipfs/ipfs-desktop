@@ -3,7 +3,7 @@ const i18n = require('i18next')
 const { showDialog } = require('../dialogs')
 const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
-const { applyDefaults, migrateConfig, checkPorts, configExists, rmApiFile, apiFileExists } = require('./config')
+const { applyDefaults, migrateConfig, checkPorts, configExists, checkValidConfig, rmApiFile, apiFileExists } = require('./config')
 const showMigrationPrompt = require('./migration-prompt')
 
 function cannotConnectDialog (addr) {
@@ -39,6 +39,10 @@ async function spawn ({ flags, path }) {
     test: false,
     args: flags
   })
+
+  if (!checkValidConfig(ipfsd)) {
+    throw new Error(`repository at ${ipfsd.path} is invalid`)
+  }
 
   if (configExists(ipfsd)) {
     migrateConfig(ipfsd)
@@ -151,6 +155,9 @@ async function startIpfsWithLogs (ipfsd) {
     // that failed to start, allowing user to self-diagnose or report issue.
     isErrored = isErrored || isSpawnedDaemonDead(ipfsd)
     if (isErrored) { // save daemon output to error.log
+      if (logs.trim().length === 0) {
+        logs = 'ipfs daemon failed to start and produced no output (see error.log for details)'
+      }
       logger.error(logs)
       if (migrationPrompt) {
         migrationPrompt.loadWindow(logs, isErrored, isFinished)
@@ -166,7 +173,16 @@ async function startIpfsWithLogs (ipfsd) {
 }
 
 module.exports = async function (opts) {
-  const { ipfsd, isRemote } = await spawn(opts)
+  let ipfsd, isRemote
+
+  try {
+    const res = await spawn(opts)
+    ipfsd = res.ipfsd
+    isRemote = res.isRemote
+  } catch (err) {
+    return { err: err.toString() }
+  }
+
   if (!isRemote) {
     await checkPorts(ipfsd)
   }
