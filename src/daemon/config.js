@@ -47,7 +47,7 @@ function applyDefaults (ipfsd) {
   config.Swarm = config.Swarm || {}
   config.Swarm.DisableNatPortMap = false
   config.Swarm.ConnMgr = config.Swarm.ConnMgr || {}
-  config.Swarm.ConnMgr.GracePeriod = '1m'
+  config.Swarm.ConnMgr.GracePeriod = '3m'
   config.Swarm.ConnMgr.LowWater = 20
   config.Swarm.ConnMgr.HighWater = 40
 
@@ -77,7 +77,7 @@ function getHttpPort (addrs) {
 // This is the place where we execute fixes and performance tweaks for existing users.
 function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
-  const REVISION = 4
+  const REVISION = 5
   const REVISION_KEY = 'daemonConfigRevision'
   const CURRENT_REVISION = store.get(REVISION_KEY, 0)
 
@@ -145,6 +145,16 @@ function migrateConfig (ipfsd) {
     }
     if (HighWater > 40) {
       config.Swarm.ConnMgr.HighWater = 40
+      changed = true
+    }
+  }
+
+  if (CURRENT_REVISION < 5) {
+    // expand pretection interval for new connections.
+    // Rationale: https://github.com/ipfs/ipfs-desktop/pull/2055#issuecomment-1090327377
+    const { GracePeriod, LowWater, HighWater } = config.Swarm.ConnMgr
+    if (GracePeriod === '1m') {
+      config.Swarm.ConnMgr.GracePeriod = '3m'
       changed = true
     }
   }

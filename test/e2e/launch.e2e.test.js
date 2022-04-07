@@ -186,7 +186,7 @@ test.describe.serial('Application launch', async () => {
 
     const config = fs.readJsonSync(configPath)
     // ensure app has migrated config
-    expect(config.Swarm.ConnMgr.GracePeriod).toEqual('1m')
+    expect(config.Swarm.ConnMgr.GracePeriod).toEqual('3m')
     expect(config.Swarm.ConnMgr.LowWater).toEqual(20)
     expect(config.Swarm.ConnMgr.HighWater).toEqual(40)
   })
