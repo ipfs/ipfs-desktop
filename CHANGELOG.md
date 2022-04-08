@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.20.5] - 2021-04-09
+
+- IPFS: [`go-ipfs v0.12.2`](https://github.com/ipfs/go-ipfs/releases/tag/v0.12.2)
+- UI: [`v2.15.0`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.15.0)
+
+* chore: electron 18  and go-ipfs 0.12.2 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2098
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.20.4...v0.20.5
+
 ## [v0.20.4] - 2021-03-28
 
 - IPFS: [`go-ipfs v0.12.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.12.0)
