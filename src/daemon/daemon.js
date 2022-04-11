@@ -184,7 +184,11 @@ module.exports = async function (opts) {
   }
 
   if (!isRemote) {
-    await checkPorts(ipfsd)
+    try {
+      await checkPorts(ipfsd)
+    } catch (err) {
+      return { err }
+    }
   }
 
   let errLogs = await startIpfsWithLogs(ipfsd)
