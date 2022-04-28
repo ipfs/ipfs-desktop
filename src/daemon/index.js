@@ -7,7 +7,11 @@ const logger = require('../common/logger')
 const { STATUS } = require('./consts')
 const createDaemon = require('./daemon')
 
-module.exports = async function (ctx = require('../context')) {
+/**
+ *
+ * @param {Awaited<import('../context')>} ctx
+ */
+module.exports = async function (ctx) {
   let ipfsd = null
   let status = null
   let wasOnline = null
@@ -23,7 +27,7 @@ module.exports = async function (ctx = require('../context')) {
     }
 
     if (!ipfsd) {
-      await ipfsNotRunningDialog(ctx = require('../context'))
+      await ipfsNotRunningDialog(ctx)
     }
 
     return ipfsd

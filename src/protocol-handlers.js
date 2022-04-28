@@ -10,6 +10,10 @@ function parseAddr (addr) {
   return toUri(addr.toString().includes('/http') ? addr : addr.encapsulate('/http'))
 }
 
+/**
+ *
+ * @param {Awaited<import('./context')>} ctx
+ */
 async function parseUrl (url, ctx) {
   const ipfsd = ctx.getIpfsd ? await ctx.getIpfsd(true) : null
   let base = 'https://ipfs.io'
@@ -43,7 +47,11 @@ async function argvHandler (argv, ctx) {
   return handled
 }
 
-module.exports = function (ctx = require('./context')) {
+/**
+ *
+ * @param {Awaited<import('./context')>} ctx
+ */
+module.exports = function (ctx) {
   // Handle if the app started running now, and a link
   // was sent to be handled.
   argvHandler(process.argv, ctx)

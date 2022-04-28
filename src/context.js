@@ -1,4 +1,12 @@
 // @ts-check
+const setupI18n = require('./i18n')
+const setupDaemon = require('./daemon')
+const setupWebUI = require('./webui')
+const setupAppMenu = require('./app-menu')
+const setupAutoUpdater = require('./auto-updater')
+const setupTray = require('./tray')
+const setupAnalytics = require('./analytics')
+const handleError = require('./handleError')
 
 /**
  * @typedef createDaemonResponse
@@ -38,21 +46,26 @@ const context = {
 }
 
 /**
- * @type {ProxyHandler<AppContext>}
- * @function
- * @param {AppContext} target
- * @param {string|symbol} property
- * @param {any} value
- * @param {any} receiver
- *
- * This is only temporary, in order to catch any unnecessary setting of properties, and also to document the order of them.
+ * @type {Promise<AppContext>}
  */
-const contextSetterProxyHandler = {
-    set (target, property, value, receiver) {
-        console.log(`property: `, property);
+const ctx = (async () => {
+  try {
+    await setupAnalytics(context) // ctx.countlyDeviceId
+    await setupI18n()
+    await setupAppMenu()
 
-        return true
-    }
-}
+    await setupWebUI(context) // ctx.webui, launchWebUI
+    await setupAutoUpdater(context) // ctx.manualCheckForUpdates
+    await setupTray(context) // ctx.tray
+    await setupDaemon(context) // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
+  } catch (err) {
+    handleError(err)
+  }
 
-module.exports = new Proxy(context, contextSetterProxyHandler)
+  return context
+})()
+
+/**
+ * @type {Promise<AppContext>}
+ */
+module.exports = ctx

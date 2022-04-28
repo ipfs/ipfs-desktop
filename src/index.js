@@ -9,26 +9,18 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 const fixPath = require('fix-path')
-const { criticalErrorDialog } = require('./dialogs')
-const logger = require('./common/logger')
 const setupProtocolHandlers = require('./protocol-handlers')
-const setupI18n = require('./i18n')
 const setupNpmOnIpfs = require('./npm-on-ipfs')
-const setupDaemon = require('./daemon')
-const setupWebUI = require('./webui')
 const setupAutoLaunch = require('./auto-launch')
 const setupAutoGc = require('./automatic-gc')
 const setupPubsub = require('./enable-pubsub')
 const setupNamesysPubsub = require('./enable-namesys-pubsub')
 const setupTakeScreenshot = require('./take-screenshot')
-const setupAppMenu = require('./app-menu')
 const setupArgvFilesHandler = require('./argv-files-handler')
-const setupAutoUpdater = require('./auto-updater')
-const setupTray = require('./tray')
 const setupIpfsOnPath = require('./ipfs-on-path')
-const setupAnalytics = require('./analytics')
 const setupSecondInstance = require('./second-instance')
-const ctx = require('./context')
+const appContext = require('./context')
+const handleError = require('./handleError')
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -43,21 +35,9 @@ fixPath()
 if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
-
-app.on('will-finish-launching', () => {
-  setupProtocolHandlers(ctx)
+app.on('will-finish-launching', async () => {
+  setupProtocolHandlers(await appContext)
 })
-
-function handleError (err) {
-  // Ignore network errors that might happen during the
-  // execution.
-  if (err.stack.includes('net::')) {
-    return
-  }
-
-  logger.error(err)
-  criticalErrorDialog(err)
-}
 
 process.on('uncaughtException', handleError)
 process.on('unhandledRejection', handleError)
@@ -71,14 +51,7 @@ async function run () {
   }
 
   try {
-    await setupAnalytics(ctx) // ctx.countlyDeviceId
-    await setupI18n(ctx)
-    await setupAppMenu(ctx)
-
-    await setupWebUI(ctx) // ctx.webui, launchWebUI
-    await setupAutoUpdater(ctx) // ctx.manualCheckForUpdates
-    await setupTray(ctx) // ctx.tray
-    await setupDaemon(ctx) // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
+    const ctx = await appContext
 
     await Promise.all([
       setupArgvFilesHandler(ctx),

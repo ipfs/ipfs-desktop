@@ -7,3 +7,6 @@ assets/webui
 *.nupkg
 *.bak
 assets/build/snap-hooks
+.envrc
+.tool-versions
+.vscode

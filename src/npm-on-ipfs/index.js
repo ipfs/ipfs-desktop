@@ -12,8 +12,13 @@ const npmBin = IS_WIN ? 'npm.cmd' : 'npm'
 
 const CONFIG_KEY = 'experiments.npmOnIpfs'
 
-// Deprecated in February 2021. Remove soon.
-module.exports = function (ctx = require('../context')) {
+/**
+ * Deprecated in February 2021. Remove soon.
+ *
+ * @deprecated
+ * @param {Awaited<import('../context')>} ctx
+ */
+module.exports = function (ctx) {
   if (store.get(CONFIG_KEY, null) === true) {
     logger.info('[npm on ipfs] deprecated, removing')
     store.delete(CONFIG_KEY)

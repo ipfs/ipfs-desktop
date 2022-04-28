@@ -1,6 +1,10 @@
 const fs = require('fs-extra')
 const addToIpfs = require('./add-to-ipfs')
 
+/**
+ *
+ * @param {Awaited<import('./context')>} ctx
+ */
 async function argvHandler (argv, ctx) {
   let handled = false
 
@@ -25,7 +29,11 @@ async function argvHandler (argv, ctx) {
   return handled
 }
 
-module.exports = async function (ctx = require('./context')) {
+/**
+ *
+ * @param {Awaited<import('./context')>} ctx
+ */
+module.exports = async function (ctx) {
   // Checks current proccess
   await argvHandler(process.argv, ctx)
 }

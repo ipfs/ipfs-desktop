@@ -15,7 +15,11 @@ function isAutoUpdateSupported () {
 let updateNotification = null // must be a global to avoid gc
 let feedback = false
 
-function setup (ctx = require('../context')) {
+/**
+ *
+ * @param {Awaited<import('../context')>} ctx
+ */
+function setup (ctx) {
   // we download manually in 'update-available'
   autoUpdater.autoDownload = false
   autoUpdater.autoInstallOnAppQuit = true
@@ -149,7 +153,11 @@ async function checkForUpdates () {
   ipcMain.emit('updatingEnded')
 }
 
-module.exports = async function (ctx = require('../context')) {
+/**
+ *
+ * @param {Awaited<import('../context')>} ctx
+ */
+module.exports = async function (ctx) {
   if (['test', 'development'].includes(process.env.NODE_ENV)) {
     ctx.manualCheckForUpdates = () => {
       showDialog({
@@ -167,7 +175,7 @@ module.exports = async function (ctx = require('../context')) {
     return
   }
 
-  setup(ctx = require('../context'))
+  setup(ctx)
 
   checkForUpdates() // background check
 

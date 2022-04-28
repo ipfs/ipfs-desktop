@@ -42,11 +42,11 @@ function buildCheckbox (key, label) {
  * or other OSes and must be registered globally. They still collide with global
  * accelerator. Please see ../utils/setup-global-shortcut.js for more info.
  *
- * @param {import('./context')} ctx
+ * @param {Awaited<import('./context')>} ctx
  *
  * @returns {import('electron').Menu} Electron.CrossProcessExports.Menu
  */
-function buildMenu (ctx = require('./context')) {
+function buildMenu (ctx) {
   return Menu.buildFromTemplate([
     ...[
       ['ipfsIsStarting', 'yellow'],
@@ -240,7 +240,11 @@ function icon (color) {
 // https://www.electronjs.org/docs/faq#my-apps-tray-disappeared-after-a-few-minutes
 let tray = null
 
-module.exports = function (ctx = require('./context')) {
+/**
+ *
+ * @param {Awaited<import('./context')>} ctx
+ */
+module.exports = async function (ctx) {
   logger.info('[tray] starting')
   tray = new Tray(icon(off))
   let menu = null
