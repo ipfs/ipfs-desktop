@@ -25,7 +25,7 @@ async function argvHandler (argv, ctx) {
   return handled
 }
 
-module.exports = async function (ctx) {
+module.exports = async function (ctx = require('./context')) {
   // Checks current proccess
   await argvHandler(process.argv, ctx)
 }

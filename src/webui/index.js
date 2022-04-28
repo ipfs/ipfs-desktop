@@ -84,7 +84,7 @@ const createWindow = () => {
   return window
 }
 
-module.exports = async function (ctx) {
+module.exports = async function (ctx = require('../context')) {
   if (store.get(CONFIG_KEY, null) === null) {
     // First time running this. Enable opening ipfs-webui at app launch.
     // This accounts for users on OSes who may have extensions for
@@ -101,7 +101,7 @@ module.exports = async function (ctx) {
 
   openExternal()
 
-  const window = createWindow(ctx)
+  const window = createWindow()
   let apiAddress = null
 
   ctx.webui = window
@@ -110,7 +110,7 @@ module.exports = async function (ctx) {
   url.hash = '/blank'
   url.searchParams.set('deviceId', ctx.countlyDeviceId)
 
-  ctx.launchWebUI = (path, { focus = true, forceRefresh = false } = {}) => {
+  ctx.launchWebUI = async (path, { focus = true, forceRefresh = false }) => {
     if (forceRefresh) window.webContents.reload()
     if (!path) {
       logger.info('[web ui] launching web ui')

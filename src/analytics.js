@@ -5,7 +5,7 @@ const { join } = require('path')
 const { app } = require('electron')
 const { existsSync, mkdirSync } = require('fs')
 
-module.exports = async function (ctx) {
+module.exports = async function (ctx = require('./context')) {
   // workaround: recursive mkdir https://github.com/Countly/countly-sdk-nodejs/pull/14
   const countlyDataDir = join(app.getPath('userData'), 'countly-data')
   if (!existsSync(countlyDataDir)) {

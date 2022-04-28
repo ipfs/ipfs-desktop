@@ -7,7 +7,7 @@ const dock = require('./utils/dock')
 
 const SETTINGS_KEY = 'binaryPath'
 
-async function setCustomBinary (ctx) {
+async function setCustomBinary (ctx = require('./context')) {
   await dock.run(async () => {
     logger.info('[custom binary] request to change')
     let opt = showDialog({
@@ -57,7 +57,7 @@ async function setCustomBinary (ctx) {
   })
 }
 
-function clearCustomBinary (ctx) {
+function clearCustomBinary (ctx = require('./context')) {
   store.delete(SETTINGS_KEY)
   logger.info('[custom binary] cleared')
 

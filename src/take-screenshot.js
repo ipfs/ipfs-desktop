@@ -47,7 +47,7 @@ function onError (e) {
   })
 }
 
-function handleScreenshot (ctx) {
+function handleScreenshot (ctx = require('./context')) {
   const { getIpfsd, launchWebUI } = ctx
 
   return async (_, output) => {
@@ -99,13 +99,13 @@ function handleScreenshot (ctx) {
   }
 }
 
-function takeScreenshot (ctx) {
+function takeScreenshot (ctx = require('./context')) {
   const { webui } = ctx
   logger.info('[screenshot] taking screenshot')
   webui.webContents.send('screenshot')
 }
 
-module.exports = function (ctx) {
+module.exports = function (ctx = require('./context')) {
   setupGlobalShortcut({
     confirmationDialog: {
       title: i18n.t('enableGlobalTakeScreenshotShortcut.title'),

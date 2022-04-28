@@ -28,6 +28,7 @@ const setupTray = require('./tray')
 const setupIpfsOnPath = require('./ipfs-on-path')
 const setupAnalytics = require('./analytics')
 const setupSecondInstance = require('./second-instance')
+const ctx = require('./context')
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -42,8 +43,6 @@ fixPath()
 if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
-
-const ctx = {}
 
 app.on('will-finish-launching', () => {
   setupProtocolHandlers(ctx)

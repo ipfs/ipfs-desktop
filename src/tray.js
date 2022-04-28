@@ -36,11 +36,17 @@ function buildCheckbox (key, label) {
   }
 }
 
-// Notes on this: we are only supporting accelerators on macOS for now because
-// they natively work as soon as the menu opens. They don't work like that on Windows
-// or other OSes and must be registered globally. They still collide with global
-// accelerator. Please see ../utils/setup-global-shortcut.js for more info.
-function buildMenu (ctx) {
+/**
+ * Notes on this: we are only supporting accelerators on macOS for now because
+ * they natively work as soon as the menu opens. They don't work like that on Windows
+ * or other OSes and must be registered globally. They still collide with global
+ * accelerator. Please see ../utils/setup-global-shortcut.js for more info.
+ *
+ * @param {import('./context')} ctx
+ *
+ * @returns {import('electron').Menu} Electron.CrossProcessExports.Menu
+ */
+function buildMenu (ctx = require('./context')) {
   return Menu.buildFromTemplate([
     ...[
       ['ipfsIsStarting', 'yellow'],
@@ -234,7 +240,7 @@ function icon (color) {
 // https://www.electronjs.org/docs/faq#my-apps-tray-disappeared-after-a-few-minutes
 let tray = null
 
-module.exports = function (ctx) {
+module.exports = function (ctx = require('./context')) {
   logger.info('[tray] starting')
   tray = new Tray(icon(off))
   let menu = null

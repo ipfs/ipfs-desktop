@@ -43,7 +43,7 @@ async function argvHandler (argv, ctx) {
   return handled
 }
 
-module.exports = function (ctx) {
+module.exports = function (ctx = require('./context')) {
   // Handle if the app started running now, and a link
   // was sent to be handled.
   argvHandler(process.argv, ctx)
