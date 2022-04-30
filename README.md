@@ -120,7 +120,7 @@ To install and run IPFS Desktop from source, you'll also need:
 Then, follow the steps below to clone the source code, install dependencies, and run the app.
 
 ```bash
-git clone https://github.com/ipfs-shipyard/ipfs-desktop.git
+git clone https://github.com/ipfs/ipfs-desktop.git
 cd ipfs-desktop
 npm ci
 npm run build
