@@ -1,5 +1,5 @@
 require('v8-compile-cache')
-const { app, dialog } = require('electron')
+const { app } = require('electron')
 
 if (process.env.NODE_ENV === 'test') {
   const path = require('path')
@@ -21,6 +21,8 @@ const setupIpfsOnPath = require('./ipfs-on-path')
 const setupSecondInstance = require('./second-instance')
 const appContext = require('./context')
 const handleError = require('./handleError')
+const logger = require('./common/logger')
+const electronAppReady = require('./electronAppReady')
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -44,9 +46,11 @@ process.on('unhandledRejection', handleError)
 
 async function run () {
   try {
-    await app.whenReady()
+    await electronAppReady
   } catch (e) {
-    dialog.showErrorBox('Electron could not start', e.stack)
+    // We cannot show a dialog box using electron if electron does not start.
+    // dialog.showErrorBox('Electron could not start', e.stack)
+    logger.error('Electron could not start')
     app.exit(1)
   }
 

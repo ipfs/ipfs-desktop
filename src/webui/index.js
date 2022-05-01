@@ -11,12 +11,14 @@ const dock = require('../utils/dock')
 const { VERSION, ELECTRON_VERSION } = require('../common/consts')
 const createToggler = require('../utils/create-toggler')
 const { showDialog } = require('../dialogs')
+const electronAppReady = require('../electronAppReady')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
 const CONFIG_KEY = 'openWebUIAtLaunch'
 
-const createWindow = () => {
+const createWindow = async () => {
+  await electronAppReady()
   const dimensions = screen.getPrimaryDisplay()
 
   const window = new BrowserWindow({
@@ -47,18 +49,22 @@ const createWindow = () => {
   window.webContents.on('unresponsive', async () => {
     logger.error('[web ui] the webui became unresponsive')
 
-    const opt = showDialog({
-      title: i18n.t('unresponsiveWindowDialog.title'),
-      message: i18n.t('unresponsiveWindowDialog.message'),
-      buttons: [
-        i18n.t('unresponsiveWindowDialog.forceReload'),
-        i18n.t('unresponsiveWindowDialog.doNothing')
-      ]
-    })
+    try {
+      const opt = await showDialog({
+        title: i18n.t('unresponsiveWindowDialog.title'),
+        message: i18n.t('unresponsiveWindowDialog.message'),
+        buttons: [
+          i18n.t('unresponsiveWindowDialog.forceReload'),
+          i18n.t('unresponsiveWindowDialog.doNothing')
+        ]
+      })
 
-    if (opt === 0) {
-      window.webContents.forcefullyCrashRenderer()
-      window.webContents.reload()
+      if (opt === 0) {
+        window.webContents.forcefullyCrashRenderer()
+        window.webContents.reload()
+      }
+    } catch (err) {
+
     }
   })
 
@@ -105,7 +111,7 @@ module.exports = async function (ctx) {
 
   openExternal()
 
-  const window = createWindow()
+  const window = await createWindow()
   let apiAddress = null
 
   ctx.webui = window

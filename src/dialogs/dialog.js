@@ -1,4 +1,5 @@
-const { dialog } = require('electron')
+
+const electronReadyModules = require('./electronModulesAfterAppReady')
 const i18n = require('i18next')
 const { IS_MAC } = require('../common/consts')
 const dock = require('../utils/dock')
@@ -6,7 +7,7 @@ const dock = require('../utils/dock')
 // NOTE: always send the buttons in the order [OK, Cancel, ...Actions].
 // See this post for more interesting information about the topic:
 // https://medium.muz.li/ok-key-and-cancel-key-which-one-should-be-set-up-on-the-left-4780e86c16eb
-module.exports = function ({
+module.exports = async function ({
   title, message, type = 'info', showDock = true, buttons = [
     i18n.t('ok'),
     i18n.t('cancel')
@@ -39,6 +40,8 @@ module.exports = function ({
   }
 
   if (showDock) dock.show()
+
+  const { dialog } = await electronReadyModules
   const selected = dialog.showMessageBoxSync(options)
   if (showDock) dock.hide()
 

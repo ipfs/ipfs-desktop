@@ -33,7 +33,7 @@ function criticalErrorDialog (e) {
   if (hasErrored) return
   hasErrored = true
 
-  const option = dialog({
+  dialog({
     title: i18n.t('ipfsDesktopHasShutdownDialog.title'),
     message: i18n.t('ipfsDesktopHasShutdownDialog.message'),
     type: 'error',
@@ -42,15 +42,15 @@ function criticalErrorDialog (e) {
       i18n.t('close'),
       i18n.t('reportTheError')
     ]
+  }).then((option) => {
+    if (option === 0) {
+      app.relaunch()
+    } else if (option === 2) {
+      shell.openExternal(generateErrorIssueUrl(e))
+    }
+
+    app.exit(1)
   })
-
-  if (option === 0) {
-    app.relaunch()
-  } else if (option === 2) {
-    shell.openExternal(generateErrorIssueUrl(e))
-  }
-
-  app.exit(1)
 }
 
 // Shows a recoverable error dialog with the default title and message.

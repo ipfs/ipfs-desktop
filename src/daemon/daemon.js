@@ -5,6 +5,7 @@ const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
 const { applyDefaults, migrateConfig, checkPorts, configExists, checkValidConfig, rmApiFile, apiFileExists } = require('./config')
 const showMigrationPrompt = require('./migration-prompt')
+const handleError = require('./handleError')
 
 function cannotConnectDialog (addr) {
   showDialog({
@@ -14,6 +15,9 @@ function cannotConnectDialog (addr) {
     buttons: [
       i18n.t('close')
     ]
+  }).catch((err) => {
+    logger.error('Could not display updateNotAvailableDialog')
+    handleError(err)
   })
 }
 

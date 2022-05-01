@@ -3,25 +3,31 @@ const { ipcMain } = require('electron')
 const logger = require('./common/logger')
 const { showDialog, recoverableErrorDialog } = require('./dialogs')
 const dock = require('./utils/dock')
+const handleError = require('./handleError')
 
 module.exports = function runGarbageCollector ({ getIpfsd }) {
   dock.run(async () => {
     logger.info('[run gc] alerting user for effects')
 
-    const opt = showDialog({
-      title: i18n.t('runGarbageCollectorWarning.title'),
-      message: i18n.t('runGarbageCollectorWarning.message'),
-      type: 'warning',
-      buttons: [
-        i18n.t('runGarbageCollectorWarning.action'),
-        i18n.t('cancel')
-      ],
-      showDock: false
-    })
+    try {
+      const opt = await showDialog({
+        title: i18n.t('runGarbageCollectorWarning.title'),
+        message: i18n.t('runGarbageCollectorWarning.message'),
+        type: 'warning',
+        buttons: [
+          i18n.t('runGarbageCollectorWarning.action'),
+          i18n.t('cancel')
+        ],
+        showDock: false
+      })
 
-    if (opt !== 0) {
-      logger.info('[run gc] user canceled')
-      return
+      if (opt !== 0) {
+        logger.info('[run gc] user canceled')
+        return
+      }
+    } catch (err) {
+      logger.error('Could not display runGarbageCollectorWarning dialog')
+      handleError(err)
     }
 
     const ipfsd = await getIpfsd()
@@ -45,7 +51,7 @@ module.exports = function runGarbageCollector ({ getIpfsd }) {
         throw errors
       }
 
-      showDialog({
+      await showDialog({
         title: i18n.t('runGarbageCollectorDone.title'),
         message: i18n.t('runGarbageCollectorDone.message'),
         type: 'info',

@@ -1,7 +1,7 @@
 const i18n = require('i18next')
 const util = require('util')
 const sudo = require('sudo-prompt')
-const { dialog, app } = require('electron')
+const electronReadyModules = require('./electronModulesAfterAppReady')
 const childProcess = require('child_process')
 const { recoverableErrorDialog } = require('../dialogs')
 const logger = require('../common/logger')
@@ -33,9 +33,9 @@ const getResult = (err, stdout, stderr, scope, failSilently, errorOptions) => {
 
   if (process.env.NODE_ENV !== 'test' && !failSilently) {
     if (str.includes('No polkit authentication agent found')) {
-      dialog.showErrorBox(i18n.t('polkitDialog.title'), i18n.t('polkitDialog.message'))
+      electronReadyModules.then(({ dialog }) => dialog.showErrorBox(i18n.t('polkitDialog.title'), i18n.t('polkitDialog.message')))
     } else if (str.includes('User did not grant permission')) {
-      dialog.showErrorBox(i18n.t('noPermissionDialog.title'), i18n.t('noPermissionDialog.message'))
+      electronReadyModules.then(({ dialog }) => dialog.showErrorBox(i18n.t('noPermissionDialog.title'), i18n.t('noPermissionDialog.message')))
     } else {
       recoverableErrorDialog(err, errorOptions)
     }
@@ -45,6 +45,7 @@ const getResult = (err, stdout, stderr, scope, failSilently, errorOptions) => {
 }
 
 module.exports = async function ({ script, scope, failSilently, trySudo = true, errorOptions }) {
+  const { app } = await electronReadyModules
   const dataArg = `--data="${app.getPath('userData')}"`
   let err = null
 

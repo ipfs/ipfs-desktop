@@ -9,6 +9,7 @@ const i18n = require('i18next')
 const { showDialog } = require('../dialogs')
 const store = require('../common/store')
 const logger = require('../common/logger')
+const handleError = require('./handleError')
 
 function configExists (ipfsd) {
   return fs.pathExistsSync(join(ipfsd.path, 'config'))
@@ -213,18 +214,23 @@ async function checkPortsArray (ipfsd, addrs) {
     const freePort = await findFreePort(port)
 
     if (port !== freePort) {
-      const opt = showDialog({
-        title: i18n.t('multipleBusyPortsDialog.title'),
-        message: i18n.t('multipleBusyPortsDialog.message'),
-        type: 'error',
-        buttons: [
-          i18n.t('multipleBusyPortsDialog.action'),
-          i18n.t('close')
-        ]
-      })
+      try {
+        const opt = await showDialog({
+          title: i18n.t('multipleBusyPortsDialog.title'),
+          message: i18n.t('multipleBusyPortsDialog.message'),
+          type: 'error',
+          buttons: [
+            i18n.t('multipleBusyPortsDialog.action'),
+            i18n.t('close')
+          ]
+        })
 
-      if (opt === 0) {
-        shell.openPath(join(ipfsd.path, 'config'))
+        if (opt === 0) {
+          shell.openPath(join(ipfsd.path, 'config'))
+        }
+      } catch (err) {
+        logger.error('Could not display multipleBusyPortsDialog dialog')
+        handleError(err)
       }
 
       throw new Error('ports already being used')
@@ -304,7 +310,7 @@ async function checkPorts (ipfsd) {
       }
     }
 
-    const opt = showDialog({
+    showDialog({
       title: i18n.t(`${message}.title`),
       message: i18n.t(`${message}.message`, options),
       type: 'error',
@@ -312,11 +318,14 @@ async function checkPorts (ipfsd) {
         i18n.t(`${message}.action`, options),
         i18n.t('close')
       ]
+    }).then((opt) => {
+      if (opt !== 0) {
+        throw new Error('ports already being used')
+      }
+    }).catch((err) => {
+      logger.error('Could not display updateNotAvailableDialog')
+      handleError(err)
     })
-
-    if (opt !== 0) {
-      throw new Error('ports already being used')
-    }
   }
 
   if (busyApiPort) {
@@ -365,10 +374,13 @@ function checkValidConfig (ipfsd) {
       title: i18n.t('invalidRepositoryDialog.title'),
       message: i18n.t('invalidRepositoryDialog.message', { path: ipfsd.path }),
       buttons: [i18n.t('quit')]
+    }).catch((err) => {
+      logger.error('Could not display updateNotAvailableDialog')
+      handleError(err)
+    }).finally(() => {
+      // Only option is to quit
+      app.quit()
     })
-
-    // Only option is to quit
-    app.quit()
   }
 }
 

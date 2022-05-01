@@ -5,6 +5,7 @@ const { ipcMain } = require('electron')
 const logger = require('../common/logger')
 const { showDialog } = require('../dialogs')
 const { IS_MAC, IS_WIN, IS_APPIMAGE } = require('../common/consts')
+const handleError = require('../handleError')
 
 function isAutoUpdateSupported () {
   // atm only macOS, windows and AppImage builds support autoupdate mechanism,
@@ -39,6 +40,9 @@ function setup (ctx) {
       buttons: [
         i18n.t('close')
       ]
+    }).catch((err) => {
+      logger.error('Could not display updateErrorDialog')
+      handleError(err)
     })
   })
 
@@ -58,7 +62,7 @@ function setup (ctx) {
     // do not toggle feedback off here so we can show a dialog once the download
     // is finished.
 
-    const opt = showDialog({
+    const opt = await showDialog({
       title: i18n.t('updateAvailableDialog.title'),
       message: i18n.t('updateAvailableDialog.message', { version, releaseNotes }),
       type: 'info',
@@ -88,6 +92,9 @@ function setup (ctx) {
       buttons: [
         i18n.t('close')
       ]
+    }).catch((err) => {
+      logger.error('Could not display updateNotAvailableDialog')
+      handleError(err)
     })
   })
 
@@ -95,7 +102,7 @@ function setup (ctx) {
     logger.info(`[updater] update to ${version} downloaded`)
 
     const feedbackDialog = () => {
-      const opt = showDialog({
+      showDialog({
         title: i18n.t('updateDownloadedDialog.title'),
         message: i18n.t('updateDownloadedDialog.message', { version }),
         type: 'info',
@@ -103,13 +110,17 @@ function setup (ctx) {
           i18n.t('updateDownloadedDialog.later'),
           i18n.t('updateDownloadedDialog.now')
         ]
+      }).then((opt) => {
+        if (opt === 1) { // now
+          setImmediate(async () => {
+            await beforeQuitCleanup() // just to be sure (we had regressions before)
+            autoUpdater.quitAndInstall()
+          })
+        }
+      }).catch((err) => {
+        logger.error('Could not display updateNotAvailableDialog')
+        handleError(err)
       })
-      if (opt === 1) { // now
-        setImmediate(async () => {
-          await beforeQuitCleanup() // just to be sure (we had regressions before)
-          autoUpdater.quitAndInstall()
-        })
-      }
     }
     if (feedback) {
       feedback = false
@@ -164,6 +175,9 @@ module.exports = async function (ctx) {
         title: 'Not available in development',
         message: 'Yes, you called this function successfully.',
         buttons: [i18n.t('close')]
+      }).catch((err) => {
+        logger.error('Could not display updateNotAvailableDialog')
+        handleError(err)
       })
     }
     return

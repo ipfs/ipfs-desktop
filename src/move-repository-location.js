@@ -10,7 +10,7 @@ module.exports = function ({ stopIpfs, startIpfs }) {
   dock.run(async () => {
     logger.info('[move repository] user prompted about effects')
 
-    const opt = showDialog({
+    const opt = await showDialog({
       title: i18n.t('moveRepositoryWarnDialog.title'),
       message: i18n.t('moveRepositoryWarnDialog.message'),
       type: 'warning',
@@ -43,7 +43,7 @@ module.exports = function ({ stopIpfs, startIpfs }) {
     if (currDir === newDir) {
       logger.info('[move repository] new dir is the same as old dir')
 
-      return showDialog({
+      return await showDialog({
         title: i18n.t('moveRepositorySameDirDialog.title'),
         message: i18n.t('moveRepositorySameDirDialog.message', { location: newDir }),
         type: 'warning',
@@ -54,7 +54,7 @@ module.exports = function ({ stopIpfs, startIpfs }) {
     if (fs.existsSync(newDir)) {
       logger.info('[move repository] new dir already exists')
 
-      return showDialog({
+      return await showDialog({
         title: i18n.t('moveRepositoryDirExists.title'),
         message: i18n.t('moveRepositoryDirExists.message', { location: newDir }),
         type: 'warning',
@@ -79,7 +79,7 @@ module.exports = function ({ stopIpfs, startIpfs }) {
     store.set('ipfsConfig', config)
     logger.info('[move repository] configuration updated', { withAnalytics: 'MOVE_REPOSITORY' })
 
-    showDialog({
+    await showDialog({
       title: i18n.t('moveRepositorySuccessDialog.title'),
       message: i18n.t('moveRepositorySuccessDialog.message', { location: newDir }),
       showDock: false

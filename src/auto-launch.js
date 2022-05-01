@@ -55,7 +55,7 @@ module.exports = async function () {
       logger.info('[launch on startup] unavailable during development')
 
       if (feedback) {
-        showDialog({
+        await showDialog({
           title: 'Launch at Login',
           message: 'Not available during development.',
           buttons: [i18n.t('close')]
@@ -69,7 +69,7 @@ module.exports = async function () {
       logger.info('[launch on startup] not supported on this platform')
 
       if (feedback) {
-        showDialog({
+        await showDialog({
           title: i18n.t('launchAtLoginNotSupported.title'),
           message: i18n.t('launchAtLoginNotSupported.message'),
           buttons: [i18n.t('close')]
