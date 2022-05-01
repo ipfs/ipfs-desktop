@@ -49,6 +49,7 @@
   "homepage": "https://github.com/ipfs-shipyard/ipfs-desktop",
   "devDependencies": {
     "@playwright/test": "^1.20.2",
+    "aegir": "^37.0.15",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
     "electron": "^18.0.3",
