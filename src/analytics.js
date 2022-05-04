@@ -5,6 +5,7 @@ const Countly = require('countly-sdk-nodejs')
 const { app, ipcMain } = require('electron')
 
 const { COUNTLY_KEY } = require('./common/consts')
+const handleError = require('./handleError')
 
 /**
  * This function may fail with permissions/access errors to countlyDataDir. Node best practices are to avoid calls to
@@ -41,11 +42,12 @@ module.exports = async function (ctx) {
   }
   ctx.countlyDeviceId = Countly.device_id
 
-  // Countly.begin_session()
-  // Countly.track_errors()
-  // if (process.env.DEBUG_COUNTLY === 'true') {
-  //   Countly.setLoggingEnabled(true)
-  // }
+  try {
+    Countly.begin_session()
+    Countly.track_errors()
+  } catch (err) {
+    handleError(err)
+  }
 
   ipcMain.on('countly.addConsent', (_, consent) => {
     Countly.add_consent(consent)

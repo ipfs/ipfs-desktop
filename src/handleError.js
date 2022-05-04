@@ -14,7 +14,9 @@ function handleError (err) {
   }
 
   logger.error(err)
-  criticalErrorDialog(err)
+  criticalErrorDialog(err).catch((err) => {
+    logger.error(err)
+  })
 }
 
 module.exports = handleError

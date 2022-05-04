@@ -1,8 +1,5 @@
-// const Countly = require('countly-sdk-nodejs')
-// console.log('Object.keys(Countly): ', Object.keys(Countly))
-// Countly.start_event('APP_START')
-// const logger = require('./common/logger')
-// const appStart = logger.start('[App start timing]', { withAnalytics: 'APP_STARTUP_TIME' })
+const { registerAppStartTime } = require('./metrics/registerAppStartTime')
+registerAppStartTime()
 require('v8-compile-cache')
 
 const { app } = require('electron')

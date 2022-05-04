@@ -62,12 +62,67 @@ declare module 'countly-sdk-nodejs' {
       device_id?: string,
 
       // @see https://support.count.ly/hc/en-us/articles/360037442892-NodeJS-SDK#sdk-internal-limits
-      max_key_length?: number, // default = 500,
-      max_value_size?: number, // default = 12,
-      max_segmentation_values?: number, // default = 23,
-      max_breadcrumb_count?: number, // default = 80,
-      max_stack_trace_lines_per_thread?: number, // default = 50,
-      max_stack_trace_line_length?: number, // default = 300,
+      /**
+       * @description
+       * This is used for setting the maximum size of all string keys including:
+       * - event names
+       * - view names
+       * - custom trace key name (APM)
+       * - custom metric key (apm)
+       * - segmentation key (for all features)
+       * - custom user property
+       * - custom user property keys that are used for property modifiers (mul, push, pull, set, increment, etc)
+       *
+       * @default 128 chars. Keys that exceed this limit will be truncated.
+       */
+      max_key_length?: number,
+
+      /**
+       * @description
+       * This is used for setting the maximum size of all values in key-value pairs including:
+       * - segmentation value in case of strings (for all features)
+       * - custom user property string value
+       * - user profile named key (username, email, etc) string values. Except "picture" field, that has a limit of 4096 chars
+       * - custom user property modifier string values. For example, for modifiers like "push", "pull", "setOnce", etc.
+       * - breadcrumb text
+       * - manual feedback widget reporting fields (reported as event)
+       * - rating widget response (reported as event)
+       *
+       * @default 256 chars. Values that exceed this limit will be truncated.
+       */
+      max_value_size?: number,
+
+      /**
+       * @description
+       * To set the maximum amount of custom segmentation that can be recorded in one event
+       *
+       * @default 30 dev entries. Entries that exceed this limit will be removed.
+       */
+      max_segmentation_values?: number,
+
+      /**
+       * @description
+       * To limit the amount of breadcrumbs that can be recorded before the oldest one is deleted from the logs.
+       *
+       * @default 100 entries. If the limit is exceeded, the oldest entry will be removed.
+       */
+      max_breadcrumb_count?: number,
+
+      /**
+       * @description
+       * Sets the maximum number of stack trace lines that can be recorded per thread.
+       *
+       * @default 30 lines. Lines that exceed this entry will be removed.
+       */
+      max_stack_trace_lines_per_thread?: number,
+
+      /**
+       * @description
+       * This can set the maximum number of characters that is allowed per stack trace line. This also limits the crash message length.
+       *
+       * @defualt 200 chars. Lines that exceed this limit will be truncated.
+       */
+      max_stack_trace_line_length?: number,
     ): void;
     Bulk: unknown
     features: unknown
@@ -99,14 +154,7 @@ declare module 'countly-sdk-nodejs' {
     report_trace: unknown
     report_app_start: unknown
     request: unknown
-    setLoggingEnabled(toggle: boolean): void
   }
-  export default Countly
 
-  export function enableLogging(): void;
-  export function enableParameterTamperingProtection(salt: string): void;
-  export function start(): void;
-  export function sendEvent({ eventName, eventCount, eventSum }: EventData): void;
-  export function recordView(view: string): void;
-  export function isInitialized(): Promise<boolean>;
+  export default Countly
 }

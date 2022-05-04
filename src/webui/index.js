@@ -9,13 +9,19 @@ const openExternal = require('./open-external')
 const logger = require('../common/logger')
 const store = require('../common/store')
 const dock = require('../utils/dock')
-const { VERSION, ELECTRON_VERSION } = require('../common/consts')
+const { VERSION, ELECTRON_VERSION, IS_WIN, IPFS_DEBUG } = require('../common/consts')
 const createToggler = require('../utils/create-toggler')
 const { showDialog } = require('../dialogs')
 const electronAppReady = require('../electronAppReady')
 const handleError = require('../handleError')
+const { getAppStartTime } = require('../metrics/registerAppStartTime')
+const { performance } = require('perf_hooks')
 
-serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
+const loadURL = serve({
+  scheme: 'webui',
+  directory: join(__dirname, '../../assets/webui'),
+  isCorsEnabled: !IPFS_DEBUG
+})
 
 const CONFIG_KEY = 'openWebUIAtLaunch'
 
@@ -39,9 +45,96 @@ const createWindow = async () => {
     }
   })
 
-  // open devtools with: DEBUG=ipfs-desktop ipfs-desktop
-  if (process.env.DEBUG && process.env.DEBUG.match(/ipfs-desktop/)) {
+  window.webContents.once('did-start-loading', (event) => {
+    console.log('event: ', event)
+    const title = event?.sender?.getTitle()
+    const url = event?.sender?.getURL()
+    const loggerId = `[web ui] loading - ${title} @ ${url}`
+    const webContentLoad = logger.start(loggerId, { withAnalytics: 'WEB_CONTENT_LOAD_TIME' })
+    window.webContents.once('did-finish-load', (event, input) => {
+      webContentLoad.end()
+    })
+    window.webContents.once('did-fail-load', (_, errorCode, errorDescription) => {
+      webContentLoad.fail(`${loggerId}: ${errorDescription}, code: ${errorCode}`)
+    })
+  })
+  window.webContents.once('dom-ready', (event) => {
+    const endTime = performance.now()
+    const dur = (endTime - getAppStartTime()) / 1000
+    logger.info(`[App] startup time - ${dur} seconds`)
+    require('countly-sdk-nodejs').add_event({
+      key: 'APP_STARTUP_TIME',
+      count: 1,
+      dur
+    })
+  })
+
+  // open devtools with: DEBUG=ipfs-desktop
+  if (IPFS_DEBUG) {
     window.webContents.openDevTools()
+    const events = [
+      'responsive',
+      'did-finish-load',
+      'before-input-event',
+      'blur',
+      'certificate-error',
+      'console-message',
+      'context-menu',
+      'crashed',
+      'cursor-changed',
+      'destroyed',
+      'devtools-closed',
+      'devtools-focused',
+      'devtools-opened',
+      'devtools-reload-page',
+      'did-attach-webview',
+      'did-change-theme-color',
+      'did-create-window',
+      'did-fail-load',
+      'did-fail-provisional-load',
+      'did-frame-finish-load',
+      'did-frame-navigate',
+      'did-navigate',
+      'did-navigate-in-page',
+      'did-redirect-navigation',
+      'did-start-loading',
+      'did-start-navigation',
+      'did-stop-loading',
+      'dom-ready',
+      'enter-html-full-screen',
+      'focus',
+      'found-in-page',
+      'frame-created',
+      'ipc-message',
+      'ipc-message-sync',
+      'leave-html-full-screen',
+      'login',
+      'media-paused',
+      'media-started-playing',
+      'new-window',
+      'page-favicon-updated',
+      'page-title-updated',
+      'paint',
+      'plugin-crashed',
+      'preferred-size-changed',
+      'preload-error',
+      'render-process-gone',
+      'responsive',
+      'select-bluetooth-device',
+      'select-client-certificate',
+      'unresponsive',
+      'update-target-url',
+      'will-attach-webview',
+      'will-navigate',
+      'will-prevent-unload',
+      'will-redirect',
+      'zoom-changed'
+    ]
+    events.forEach((eventName) => {
+      window.webContents.on(eventName, (event, input) => {
+        console.log(`webcontent '${eventName}' event:`, input)
+      })
+    })
   }
 
   window.webContents.on('render-process-gone', (_, { reason, exitCode }) => {
@@ -125,11 +218,19 @@ module.exports = async function (ctx) {
   ctx.launchWebUI = async (path, { focus = true, forceRefresh = false } = {}) => {
     if (forceRefresh) window.webContents.reload()
     if (!path) {
-      logger.info('[web ui] launching web ui')
+      logger.info('[web ui] launching web ui', { withAnalytics: 'LAUNCH_WEBUI_CALL' })
     } else {
-      logger.info(`[web ui] navigate to ${path}`)
+      logger.info(`[web ui] navigate to ${path}`, { withAnalytics: 'LAUNCH_WEBUI_CALL_NAVIGATE' })
+      console.log('path: ', path)
       url.hash = path
-      window.webContents.loadURL(url.toString())
+      try {
+        await loadURL(window)
+        // window.webContents.loa
+        // await window.webContents.loadURL(url.toString())
+      } catch (err) {
+        logger.error(err)
+        logger.error(err.stack)
+      }
     }
     if (focus) {
       window.show()
@@ -137,7 +238,7 @@ module.exports = async function (ctx) {
       dock.show()
     }
     // load again: minimize visual jitter on windows
-    if (path) window.webContents.loadURL(url.toString())
+    if (path && IS_WIN) await loadURL(window) // await window.webContents.loadURL(url.toString())
   }
 
   function updateLanguage () {
@@ -151,7 +252,8 @@ module.exports = async function (ctx) {
       apiAddress = ipfsd.apiAddr
       url.searchParams.set('api', apiAddress.toString())
       updateLanguage()
-      window.loadURL(url.toString())
+      // window.loadURL(url.toString())
+      // await loadURL(window)
     }
   })
 
