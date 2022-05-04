@@ -1,3 +1,4 @@
+// @ts-check
 const { screen, BrowserWindow, ipcMain, app, session } = require('electron')
 const { join } = require('path')
 const { URL } = require('url')
@@ -12,6 +13,7 @@ const { VERSION, ELECTRON_VERSION } = require('../common/consts')
 const createToggler = require('../utils/create-toggler')
 const { showDialog } = require('../dialogs')
 const electronAppReady = require('../electronAppReady')
+const handleError = require('../handleError')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
@@ -64,7 +66,7 @@ const createWindow = async () => {
         window.webContents.reload()
       }
     } catch (err) {
-
+      handleError(err)
     }
   })
 

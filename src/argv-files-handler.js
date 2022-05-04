@@ -3,6 +3,7 @@ const addToIpfs = require('./add-to-ipfs')
 
 /**
  *
+ * @param {string[]} argv
  * @param {Awaited<import('./context')>} ctx
  */
 async function argvHandler (argv, ctx) {

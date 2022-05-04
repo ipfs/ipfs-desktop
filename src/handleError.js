@@ -1,10 +1,10 @@
 const logger = require('./common/logger')
-const { criticalErrorDialog } = require('./dialogs')
+const criticalErrorDialog = require('./dialogs/errors/criticalErrorDialog')
 
 /**
  *
  * @param {Error} err
- * @returns
+ * @returns {void}
  */
 function handleError (err) {
   // Ignore network errors that might happen during the

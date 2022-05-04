@@ -117,7 +117,7 @@ function takeScreenshot (ctx) {
  *
  * @param {Awaited<import('./context')>} ctx
  */
-module.exports = function (ctx) {
+module.exports = async function (ctx) {
   setupGlobalShortcut({
     confirmationDialog: {
       title: i18n.t('enableGlobalTakeScreenshotShortcut.title'),

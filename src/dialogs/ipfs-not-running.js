@@ -1,5 +1,5 @@
 const i18n = require('i18next')
-const dialog = require('./dialog')
+const { dialog } = require('./dialog')
 const { STATUS } = require('../daemon/consts')
 const logger = require('../common/logger')
 const handleError = require('../handleError')

@@ -33,7 +33,7 @@ test.describe('Add To Ipfs', function () {
     electron = mockElectron()
     notify = mockNotify()
     addToIpfs = proxyquire('../../src/add-to-ipfs', {
-      electron: electron,
+      electron,
       './common/notify': notify,
       './common/logger': mockLogger()
     })

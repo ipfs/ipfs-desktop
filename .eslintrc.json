@@ -1,0 +1,58 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "standard"
+    // "plugin:import/recommended",
+    // "plugin:n/recommended",
+    // "plugin:promise/recommended"
+  ],
+  "plugins": [
+    "import",
+    "n",
+    "promise"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "root": true,
+  "globals": {},
+  "ignorePatterns": "./types",
+  "rules": {
+    "no-duplicate-imports":"error",
+    "import/no-cycle": "error",
+    "n/no-unpublished-require": ["error", {
+      "allowModules": ["electron", "@playwright/test", "tmp", "playwright", "proxyquire", "sinon"],
+      // "convertPath": null,
+      "tryExtensions": [".js", ".json", ".node"]
+    }],
+    "n/no-unsupported-features/node-builtins": ["error", {
+        "version": ">=16.0.0",
+        "ignores": []
+    }],
+    "no-continue": "off",
+    "complexity": "off",
+    "no-warning-comments": "off",
+    "no-console": "off"
+  },
+  "overrides": [
+    {
+      "files": ["./src/**/*.ts", "./types/*.ts"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": [
+        "import",
+        "n",
+        "promise",
+        "@typescript-eslint"
+      ],
+      "extends": [
+        "standard",
+        "plugin:@typescript-eslint/recommended"
+      ]
+    }
+  ]
+}

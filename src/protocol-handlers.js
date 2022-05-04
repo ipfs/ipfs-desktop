@@ -12,6 +12,7 @@ function parseAddr (addr) {
 
 /**
  *
+ * @param {string} url
  * @param {Awaited<import('./context')>} ctx
  */
 async function parseUrl (url, ctx) {

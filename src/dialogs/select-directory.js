@@ -1,6 +1,6 @@
 const i18n = require('i18next')
 
-const electronReadyModules = require('./electronModulesAfterAppReady')
+const electronReadyModules = require('../electronModulesAfterAppReady')
 
 module.exports = async function selectDirectory (options = {}) {
   const { app, dialog } = await electronReadyModules

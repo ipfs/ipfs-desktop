@@ -1,11 +1,12 @@
-const showDialog = require('./dialog')
+const { dialog } = require('./dialog')
 const showPrompt = require('./prompt')
-const { criticalErrorDialog, recoverableErrorDialog } = require('./errors')
+const { recoverableErrorDialog } = require('./errors')
 const ipfsNotRunningDialog = require('./ipfs-not-running')
 const selectDirectory = require('./select-directory')
+const criticalErrorDialog = require('./errors/criticalErrorDialog')
 
 module.exports = Object.freeze({
-  showDialog,
+  showDialog: dialog,
   showPrompt,
   criticalErrorDialog,
   recoverableErrorDialog,

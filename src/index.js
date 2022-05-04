@@ -1,4 +1,10 @@
+// const Countly = require('countly-sdk-nodejs')
+// console.log('Object.keys(Countly): ', Object.keys(Countly))
+// Countly.start_event('APP_START')
+// const logger = require('./common/logger')
+// const appStart = logger.start('[App start timing]', { withAnalytics: 'APP_STARTUP_TIME' })
 require('v8-compile-cache')
+
 const { app } = require('electron')
 
 if (process.env.NODE_ENV === 'test') {
@@ -23,6 +29,7 @@ const appContext = require('./context')
 const handleError = require('./handleError')
 const logger = require('./common/logger')
 const electronAppReady = require('./electronAppReady')
+const { IS_MAC } = require('./common/consts')
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -31,14 +38,18 @@ if (app.dock) app.dock.hide()
 app.setAppUserModelId('io.ipfs.desktop')
 
 // Fixes $PATH on macOS
-fixPath()
+if (IS_MAC) {
+  fixPath()
+}
 
 // Only one instance can run at a time
 if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
 app.on('will-finish-launching', async () => {
-  setupProtocolHandlers(await appContext)
+  appContext.then((ctx) => setupProtocolHandlers(ctx)).catch((e) => {
+    handleError(e)
+  })
 })
 
 process.on('uncaughtException', handleError)
@@ -56,23 +67,43 @@ async function run () {
 
   try {
     const ctx = await appContext
-
-    await Promise.all([
-      setupArgvFilesHandler(ctx),
-      setupAutoLaunch(ctx),
-      setupAutoGc(ctx),
-      setupPubsub(ctx),
-      setupNamesysPubsub(ctx),
-      setupSecondInstance(ctx),
-      // Setup global shortcuts
-      setupTakeScreenshot(ctx),
-      // Setup PATH-related features
-      setupNpmOnIpfs(ctx),
-      setupIpfsOnPath(ctx)
-    ])
-  } catch (e) {
-    handleError(e)
+    const functions = [setupArgvFilesHandler, setupAutoLaunch, setupAutoGc, setupPubsub, setupNamesysPubsub, setupSecondInstance, setupTakeScreenshot, setupNpmOnIpfs, setupIpfsOnPath]
+    for await (const fn of functions) {
+      // try {
+      if (fn.length > 0) {
+        await fn(ctx).catch(handleError)
+      } else {
+        await fn().catch(handleError)
+      }
+      // } catch (err) {
+      //   handleError(err)
+      // }
+    }
+  } catch (err) {
+    handleError(err)
   }
+
+  // try {
+  //   const ctx = await appContext
+  //   await setupArgvFilesHandler(ctx).catch(handleError)
+  //   await setupAutoLaunch(ctx).catch(handleError)
+  //   await setupAutoGc(ctx).catch(handleError)
+  //   await setupPubsub().catch(handleError)
+  //   await setupNamesysPubsub().catch(handleError)
+  //   await setupSecondInstance(ctx).catch(handleError)
+  //   // Setup global shortcuts
+  //   await setupTakeScreenshot(ctx).catch(handleError)
+  //   // Setup PATH-related features
+  //   await setupNpmOnIpfs(ctx).catch(handleError)
+  //   await setupIpfsOnPath().catch(handleError)
+  //   // const appStartTime = Date.now() - appStart
+  //   // console.log('App start time is:', appStartTime)
+  //   // appStart.end()
+  // } catch (e) {
+  //   handleError(e)
+  //   // appStart.fail(e)
+  // }
+  // Countly.end_event('APP_START')
 }
 
 run()

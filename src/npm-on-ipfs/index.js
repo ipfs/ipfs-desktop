@@ -18,11 +18,11 @@ const CONFIG_KEY = 'experiments.npmOnIpfs'
  * @deprecated
  * @param {Awaited<import('../context')>} ctx
  */
-module.exports = function (ctx) {
+module.exports = async function (ctx) {
   if (store.get(CONFIG_KEY, null) === true) {
     logger.info('[npm on ipfs] deprecated, removing')
     store.delete(CONFIG_KEY)
-    uninstall()
+    await uninstall()
 
     showDialog({
       title: 'NPM on IPFS Uninstalled',
@@ -34,12 +34,13 @@ module.exports = function (ctx) {
 
 module.exports.CONFIG_KEY = CONFIG_KEY
 
-function isPkgInstalled () {
-  return !!which.sync('ipfs-npm', { nothrow: true })
+async function isPkgInstalled () {
+  const ifpsNpmCmdPath = await which('ipfs-npm', { nothrow: true })
+  return ifpsNpmCmdPath === true
 }
 
 async function uninstall () {
-  if (isPkgInstalled() === false) {
+  if (await isPkgInstalled()) {
     return
   }
 

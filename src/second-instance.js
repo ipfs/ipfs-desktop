@@ -1,12 +1,9 @@
 const { app } = require('electron')
 const { argvHandler: protocolHandler } = require('./protocol-handlers')
 const { argvHandler: filesHandler } = require('./argv-files-handler')
+const ctx = require('./context')
 
-/**
- *
- * @param {Awaited<import('./context')>} ctx
- */
-module.exports = async function (ctx) {
+module.exports = async function () {
   app.on('second-instance', async (_, argv) => {
     if (await protocolHandler(argv, ctx)) {
       return
@@ -15,7 +12,6 @@ module.exports = async function (ctx) {
     if (await filesHandler(argv, ctx)) {
       return
     }
-
-    ctx.launchWebUI()
+    (await ctx).launchWebUI()
   })
 }

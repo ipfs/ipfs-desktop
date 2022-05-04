@@ -1,7 +1,7 @@
 const i18n = require('i18next')
 const util = require('util')
 const sudo = require('sudo-prompt')
-const electronReadyModules = require('./electronModulesAfterAppReady')
+const electronReadyModules = require('../electronModulesAfterAppReady')
 const childProcess = require('child_process')
 const { recoverableErrorDialog } = require('../dialogs')
 const logger = require('../common/logger')

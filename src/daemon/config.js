@@ -9,7 +9,7 @@ const i18n = require('i18next')
 const { showDialog } = require('../dialogs')
 const store = require('../common/store')
 const logger = require('../common/logger')
-const handleError = require('./handleError')
+const handleError = require('../handleError')
 
 function configExists (ipfsd) {
   return fs.pathExistsSync(join(ipfsd.path, 'config'))

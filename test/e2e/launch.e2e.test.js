@@ -6,6 +6,7 @@ const fs = require('fs-extra')
 const tmp = require('tmp')
 const { makeRepository } = require('./utils/ipfsd')
 const portfinder = require('portfinder')
+const logger = require('../unit/mocks/logger')
 
 async function getPort (port) {
   return portfinder.getPortPromise({ port })
@@ -56,6 +57,8 @@ test.describe.serial('Application launch', async () => {
           case 2:
             resolve(peerId)
             break
+          default:
+            logger.error(`Unrecognized ics status code: '${status}`)
         }
       })
     }))
