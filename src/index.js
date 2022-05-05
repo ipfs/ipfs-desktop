@@ -1,4 +1,8 @@
+// @ts-check
+const { registerAppStartTime, getSecondsSinceAppStart } = require('./metrics/appStart')
+registerAppStartTime()
 require('v8-compile-cache')
+
 const { app, dialog } = require('electron')
 
 if (process.env.NODE_ENV === 'test') {
@@ -94,6 +98,14 @@ async function run () {
       setupNpmOnIpfs(ctx),
       setupIpfsOnPath(ctx)
     ])
+    const submitAppReady = () => {
+      logger.addAnalyticsEvent({ withAnalytics: 'APP_READY', dur: getSecondsSinceAppStart() })
+    }
+    if (ctx.webui.webContents.isLoading()) {
+      ctx.webui.webContents.once('dom-ready', submitAppReady)
+    } else {
+      submitAppReady()
+    }
   } catch (e) {
     handleError(e)
   }
