@@ -212,7 +212,7 @@ By default, IPFS Desktop starts the IPFS daemon with the flags `--migrate=true -
 
 You can change this in the IPFS Desktop config file by selecting `Open Configuration File` from the `Advanced` submenu.
 
-### I got a repo.lock error. How do I resolve this?
+### I got a `repo.lock` error. How do I resolve this?
 
 In general, this means that a previous process was unable to remove the repo lock (indicator that file is in use) from the repo file. This is supposed to be handled automatically, but sometimes it isn't. If you get this error, you can generally safely delete this file after shutting down any running ipfs daemon's or applications. Simple process is as follows:
 
