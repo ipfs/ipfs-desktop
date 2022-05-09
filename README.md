@@ -218,7 +218,7 @@ In general, this means that a previous process was unable to remove the reposito
 
 1. Stop ipfs processes
 2. Manually delete lock file, located within the [repository](#how-does-ipfs-desktop-select-the-ipfs-repo-location)
-3. Attempt to start ipfs desktop (or other process that received the repo.lock error) again.
+3. Attempt to start ipfs desktop (or other process that received the `repo.lock` error) again.
 
 ### I need more help!
 
