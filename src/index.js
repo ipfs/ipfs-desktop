@@ -11,8 +11,8 @@ if (process.env.NODE_ENV === 'test') {
 const fixPath = require('fix-path')
 const { criticalErrorDialog } = require('./dialogs')
 const logger = require('./common/logger')
-const setupI18n = require('./i18n')
 const setupProtocolHandlers = require('./protocol-handlers')
+const setupI18n = require('./i18n')
 const setupNpmOnIpfs = require('./npm-on-ipfs')
 const setupDaemon = require('./daemon')
 const setupWebUI = require('./webui')
@@ -45,8 +45,8 @@ if (!app.requestSingleInstanceLock()) {
 
 const ctx = {}
 
-app.on('will-finish-launching', async () => {
-  await setupProtocolHandlers(ctx)
+app.on('will-finish-launching', () => {
+  setupProtocolHandlers(ctx)
 })
 
 function handleError (err) {
