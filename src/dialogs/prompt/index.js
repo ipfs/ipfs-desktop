@@ -5,7 +5,7 @@ const dock = require('../../utils/dock')
 const makePage = require('./template')
 const { getBackgroundColor } = require('./styles')
 
-function makeButtons (buttons) {
+function getButtonComponentsHtml (buttons) {
   buttons = buttons.map((txt, i) => `<button ${i === 0 ? 'class="default"' : ''} id="${i}">${txt}</button>`)
 
   if (IS_MAC) {
@@ -15,7 +15,7 @@ function makeButtons (buttons) {
   return buttons.join('\n')
 }
 
-function makeInputs (inputs) {
+function getInputComponentsHtml (inputs) {
   return inputs.map(({ type, name, label, defaultValue, labels = {} }) => {
     let str = '<div>'
 
@@ -47,8 +47,8 @@ function makeInputs (inputs) {
 }
 
 function generatePage ({ message, inputs, defaultValue = '', buttons }, id) {
-  buttons = makeButtons(buttons)
-  inputs = makeInputs(inputs)
+  buttons = getButtonComponentsHtml(buttons)
+  inputs = getInputComponentsHtml(inputs)
 
   const page = makePage({ message, inputs, defaultValue, buttons, id })
   return `data:text/html;base64,${Buffer.from(page, 'utf8').toString('base64')}`
