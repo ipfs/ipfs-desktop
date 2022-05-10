@@ -37,6 +37,10 @@ Manually test a few things that don't transfer well to automated testing:
    - Update the [Homebrew cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
 12. To start work on the next version, bump the version in `package.json`.
 
+### Manually sign `.dmg` for running locally
+
+TBD
+
 ### Manually notarize `.dmg` with Apple
 
 These steps are only needed as a fallback if CI is not correctly notarizing the `.dmg` file. For context, see [#1365](https://github.com/ipfs-shipyard/ipfs-desktop/issues/1211).
