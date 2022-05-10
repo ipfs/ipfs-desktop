@@ -1,3 +1,4 @@
+// @ts-check
 const { screen, BrowserWindow, ipcMain, app, session } = require('electron')
 const { join } = require('path')
 const { URL } = require('url')
@@ -11,7 +12,9 @@ const dock = require('../utils/dock')
 const { VERSION, ELECTRON_VERSION } = require('../common/consts')
 const createToggler = require('../utils/create-toggler')
 const { showDialog } = require('../dialogs')
-
+const { getSecondsSinceAppStart } = require('../metrics/appStart')
+const { performance } = require('perf_hooks')
+const Countly = require('countly-sdk-nodejs')
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
 const CONFIG_KEY = 'openWebUIAtLaunch'
@@ -35,7 +38,32 @@ const createWindow = () => {
     }
   })
 
-  // open devtools with: DEBUG=ipfs-desktop ipfs-desktop
+  window.webContents.once('did-start-loading', (event) => {
+    const msg = '[web ui] loading'
+    const webContentLoad = logger.start(msg, { withAnalytics: 'WEB_UI_READY' })
+    window.webContents.once('did-finish-load', () => {
+      webContentLoad.end()
+    })
+    window.webContents.once('did-fail-load', (_, errorCode, errorDescription) => {
+      webContentLoad.fail(`${msg}: ${errorDescription}, code: ${errorCode}`)
+    })
+  })
+  window.webContents.once('dom-ready', async (event) => {
+    const endTime = performance.now()
+    try {
+      const dur = getSecondsSinceAppStart(endTime)
+      logger.info(`[App] startup time - ${dur} seconds`)
+      Countly.add_event({
+        key: 'APP_START_TO_DOM_READY',
+        count: 1,
+        dur
+      })
+    } catch (err) {
+      logger.error(err)
+    }
+  })
+
+  // open devtools with: DEBUG=ipfs-desktop
   if (process.env.DEBUG && process.env.DEBUG.match(/ipfs-desktop/)) {
     window.webContents.openDevTools()
   }
@@ -113,9 +141,9 @@ module.exports = async function (ctx) {
   ctx.launchWebUI = (path, { focus = true, forceRefresh = false } = {}) => {
     if (forceRefresh) window.webContents.reload()
     if (!path) {
-      logger.info('[web ui] launching web ui')
+      logger.info('[web ui] launching web ui', { withAnalytics: 'FN_LAUNCH_WEB_UI_FOO' })
     } else {
-      logger.info(`[web ui] navigate to ${path}`)
+      logger.info(`[web ui] navigate to ${path}`, { withAnalytics: 'FN_LAUNCH_WEB_UI_WITH_PATH' })
       url.hash = path
       window.webContents.loadURL(url.toString())
     }

@@ -7,7 +7,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron .",
-    "lint": "standard",
+    "lint": "ts-standard && standard",
     "test": "cross-env NODE_ENV=test playwright test 'test/unit/.*.spec.js'",
     "test:e2e": "xvfb-maybe cross-env NODE_ENV=test playwright test test/e2e/launch.e2e.test.js",
     "postinstall": "run-s install-app-deps patch-deps",
@@ -67,6 +67,7 @@
     "sinon": "^13.0.1",
     "standard": "16.0.4",
     "tmp": "0.2.1",
+    "ts-standard": "^11.0.0",
     "xvfb-maybe": "^0.2.1"
   },
   "dependencies": {
@@ -93,5 +94,19 @@
     "which": "^2.0.2",
     "winston": "^3.7.2",
     "yargs": "^17.4.0"
+  },
+  "standard": {
+    "ignore": [
+      "**/*.ts"
+    ]
+  },
+  "ts-standard": {
+    "project": "tsconfig.json",
+    "files": [
+      "types/*.ts"
+    ],
+    "ignore": [
+      "**/*.js"
+    ]
   }
 }
