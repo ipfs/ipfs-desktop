@@ -34,4 +34,10 @@ const setupI18n = async () => {
   })
 }
 
-module.exports = setupI18n()
+let result = null
+
+module.exports = async () => {
+  if (result) return result
+  result = await setupI18n()
+  return result
+}

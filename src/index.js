@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'test') {
 const fixPath = require('fix-path')
 const { criticalErrorDialog } = require('./dialogs')
 const logger = require('./common/logger')
-const i18nReady = require('./i18n')
+const setupI18n = require('./i18n')
 const setupProtocolHandlers = require('./protocol-handlers')
 const setupNpmOnIpfs = require('./npm-on-ipfs')
 const setupDaemon = require('./daemon')
@@ -46,8 +46,6 @@ if (!app.requestSingleInstanceLock()) {
 const ctx = {}
 
 app.on('will-finish-launching', async () => {
-  await app.whenReady()
-  await i18nReady // Ensure i18n is ready for the dialog.
   await setupProtocolHandlers(ctx)
 })
 
@@ -74,8 +72,8 @@ async function run () {
   }
 
   try {
-    await i18nReady
     await setupAnalytics(ctx) // ctx.countlyDeviceId
+    await setupI18n(ctx)
     await setupAppMenu(ctx)
 
     await setupWebUI(ctx) // ctx.webui, launchWebUI

@@ -3,6 +3,7 @@ const i18n = require('i18next')
 const createToggler = require('../utils/create-toggler')
 const store = require('../common/store')
 const { showPrompt } = require('../dialogs')
+const setupI18n = require('../i18n')
 const { parseUrl, getGatewayUrl } = require('./urls')
 
 const CONFIG_KEY = 'askWhenOpeningIpfsURIs'
@@ -109,6 +110,9 @@ async function argvHandler (argv, ctx) {
 }
 
 module.exports = async function (ctx) {
+  await app.whenReady()
+  await setupI18n(ctx) // Ensure i18n is ready for the dialog.
+
   // By default, ask. We need to change this to ensure the
   // tray option shows a 'tick'.
   if (store.get(CONFIG_KEY, null) === null) {
