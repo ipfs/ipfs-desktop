@@ -212,6 +212,14 @@ By default, IPFS Desktop starts the IPFS daemon with the flags `--migrate=true -
 
 You can change this in the IPFS Desktop config file by selecting `Open Configuration File` from the `Advanced` submenu.
 
+### I got a `repo.lock` error. How do I resolve this?
+
+In general, this means that a previous process was unable to remove the repository lock (indicator that file is in use) from the repository directory. This is supposed to be handled automatically, but sometimes it isn't. If you get this error, you can generally safely delete this file after shutting down any running IPFS daemon's or applications. Simple process is as follows:
+
+1. Stop ipfs processes
+2. Manually delete lock file, located within the [repository](#how-does-ipfs-desktop-select-the-ipfs-repo-location)
+3. Attempt to start ipfs desktop (or other process that received the `repo.lock` error) again.
+
 ### I need more help!
 
 If you need help with using IPFS Desktop, the quickest way to get answers is to post them in the [official IPFS forums](https://discuss.ipfs.io). 
