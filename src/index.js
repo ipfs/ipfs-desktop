@@ -17,7 +17,6 @@ const { criticalErrorDialog } = require('./dialogs')
 const logger = require('./common/logger')
 const setupProtocolHandlers = require('./protocol-handlers')
 const setupI18n = require('./i18n')
-const setupNpmOnIpfs = require('./npm-on-ipfs')
 const setupDaemon = require('./daemon')
 const setupWebUI = require('./webui')
 const setupAutoLaunch = require('./auto-launch')
@@ -29,7 +28,6 @@ const setupAppMenu = require('./app-menu')
 const setupArgvFilesHandler = require('./argv-files-handler')
 const setupAutoUpdater = require('./auto-updater')
 const setupTray = require('./tray')
-const setupIpfsOnPath = require('./ipfs-on-path')
 const setupAnalytics = require('./analytics')
 const setupSecondInstance = require('./second-instance')
 
@@ -93,10 +91,7 @@ async function run () {
       setupNamesysPubsub(ctx),
       setupSecondInstance(ctx),
       // Setup global shortcuts
-      setupTakeScreenshot(ctx),
-      // Setup PATH-related features
-      setupNpmOnIpfs(ctx),
-      setupIpfsOnPath(ctx)
+      setupTakeScreenshot(ctx)
     ])
     const submitAppReady = () => {
       logger.addAnalyticsEvent({ withAnalytics: 'APP_READY', dur: getSecondsSinceAppStart() })
