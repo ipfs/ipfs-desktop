@@ -1,7 +1,7 @@
 const createToggler = require('./utils/create-toggler')
 const logger = require('./common/logger')
 const store = require('./common/store')
-const { PUBSUB_NAMESYS: CONFIG_KEY } = require('./common/config-keys')
+const { EXPERIMENT_PUBSUB_NAMESYS: CONFIG_KEY } = require('./common/config-keys')
 const { ipcMain } = require('electron')
 
 const namesysPubsubFlag = '--enable-namesys-pubsub'

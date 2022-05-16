@@ -112,8 +112,8 @@ function buildMenu (ctx) {
           label: i18n.t('settings.experiments'),
           enabled: false
         },
-        buildCheckbox(CONFIG_KEYS.PUBSUB, 'settings.pubsub'),
-        buildCheckbox(CONFIG_KEYS.PUBSUB_NAMESYS, 'settings.namesysPubsub')
+        buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB, 'settings.pubsub'),
+        buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB_NAMESYS, 'settings.namesysPubsub')
       ]
     },
     {

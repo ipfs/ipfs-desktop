@@ -1,7 +1,7 @@
 const createToggler = require('./utils/create-toggler')
 const logger = require('./common/logger')
 const store = require('./common/store')
-const { PUBSUB: CONFIG_KEY } = require('./common/config-keys')
+const { EXPERIMENT_PUBSUB: CONFIG_KEY } = require('./common/config-keys')
 const { ipcMain } = require('electron')
 
 const pubsubFlag = '--enable-pubsub-experiment'
