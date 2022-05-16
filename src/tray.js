@@ -312,7 +312,7 @@ module.exports = function (ctx) {
     }
 
     // Update configuration checkboxes.
-    for (const key of CONFIG_KEYS) {
+    for (const key of Object.values(CONFIG_KEYS)) {
       const enabled = store.get(key, false)
       menu.getMenuItemById(key).checked = enabled
     }
