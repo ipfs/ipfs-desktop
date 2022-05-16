@@ -1,9 +1,9 @@
 const createToggler = require('./utils/create-toggler')
 const logger = require('./common/logger')
 const store = require('./common/store')
+const { PUBSUB: CONFIG_KEY } = require('./common/config-keys')
 const { ipcMain } = require('electron')
 
-const CONFIG_KEY = 'experiments.pubsub'
 const pubsubFlag = '--enable-pubsub-experiment'
 const isEnabled = flags => flags.some(f => f === pubsubFlag)
 
@@ -50,5 +50,3 @@ module.exports = async function () {
   createToggler(CONFIG_KEY, activate)
   logger.info(`[pubsub] ${store.get(CONFIG_KEY, false) ? 'enabled' : 'disabled'}`)
 }
-
-module.exports.CONFIG_KEY = CONFIG_KEY
