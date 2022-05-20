@@ -51,6 +51,16 @@ const migrations = {
       flags.push('--routing=dhtclient')
       store.set('ipfsConfig.flags', flags)
     }
+  },
+  '>=0.20.6': store => {
+    let flags = store.get('ipfsConfig.flags', [])
+
+    // use default instead of hard-coded dhtclient
+    const dhtClientFlag = '--routing=dhtclient'
+    if (flags.includes(dhtClientFlag)) {
+      flags = flags.filter(f => f !== dhtClientFlag)
+      store.set('ipfsConfig.flags', flags)
+    }
   }
 }
 
