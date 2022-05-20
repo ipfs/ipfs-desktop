@@ -8,8 +8,7 @@ const defaults = {
     flags: [
       '--agent-version-suffix=desktop',
       '--migrate',
-      '--enable-gc',
-      '--routing=dhtclient'
+      '--enable-gc'
     ]
   },
   language: (electron.app || electron.remote.app).getLocale(),
