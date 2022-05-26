@@ -88,12 +88,9 @@
     "multiaddr": "10.0.1",
     "multiaddr-to-uri": "8.0.0",
     "portfinder": "^1.0.28",
-    "sudo-prompt": "^9.2.1",
     "untildify": "^4.0.0",
     "v8-compile-cache": "^2.3.0",
-    "which": "^2.0.2",
-    "winston": "^3.7.2",
-    "yargs": "^17.4.0"
+    "winston": "^3.7.2"
   },
   "standard": {
     "ignore": [
