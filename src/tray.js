@@ -1,4 +1,4 @@
-const { Menu, Tray, shell, app, ipcMain } = require('electron')
+const { Menu, Tray, shell, app, ipcMain, nativeTheme } = require('electron')
 const i18n = require('i18next')
 const path = require('path')
 const addToIpfs = require('./add-to-ipfs')
@@ -209,14 +209,15 @@ function buildMenu (ctx) {
 const on = 'on'
 const off = 'off'
 
-function icon (color) {
+function icon (status) {
   const dir = path.resolve(path.join(__dirname, '../assets/icons/tray'))
 
-  if (!IS_MAC) {
-    return path.join(dir, `${color}-big.png`)
+  if (IS_MAC) {
+    return path.join(dir, 'macos', `${status}-22Template.png`)
   }
 
-  return path.join(dir, `${color}-22Template.png`)
+  const theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light'
+  return path.join(dir, 'others', `${status}-32-${theme}.png`)
 }
 
 // Ok this one is pretty ridiculous:
@@ -352,6 +353,10 @@ module.exports = function (ctx) {
 
   ipcMain.on('configUpdated', () => { updateMenu() })
   ipcMain.on('languageUpdated', () => { setupMenu() })
+
+  nativeTheme.on('updated', () => {
+    updateMenu()
+  })
 
   setupMenu()
 
