@@ -1,3 +1,4 @@
+// @ts-check
 const { ipcRenderer, contextBridge } = require('electron')
 const screenshotHook = require('./screenshot')
 const connectionHook = require('./connection-status')
@@ -51,10 +52,18 @@ contextBridge.exposeInMainWorld('ipfsDesktop', {
 
   version: VERSION,
 
+  /**
+   *
+   * @param {import('countly-sdk-nodejs').ConsentFeatures} consent
+   */
   removeConsent: (consent) => {
     ipcRenderer.send('countly.removeConsent', consent)
   },
 
+  /**
+   *
+   * @param {import('countly-sdk-nodejs').ConsentFeatures} consent
+   */
   addConsent: (consent) => {
     ipcRenderer.send('countly.addConsent', consent)
   },
