@@ -5,6 +5,7 @@ env:
   XDG_CACHE_HOME: ${{ github.workspace }}/.cache
   ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
   ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
+  LIBP2P_RCMGR: 0 # fix for https://github.com/ipfs/go-ipfs/issues/8949 until final 0.13 ships
 
 jobs:
 
