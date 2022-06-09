@@ -8,6 +8,7 @@ const i18n = require('i18next')
 const openExternal = require('./open-external')
 const logger = require('../common/logger')
 const store = require('../common/store')
+const { OPEN_WEBUI_LAUNCH: CONFIG_KEY } = require('../common/config-keys')
 const dock = require('../utils/dock')
 const { VERSION, ELECTRON_VERSION } = require('../common/consts')
 const createToggler = require('../utils/create-toggler')
@@ -16,8 +17,6 @@ const { getSecondsSinceAppStart } = require('../metrics/appStart')
 const { performance } = require('perf_hooks')
 const Countly = require('countly-sdk-nodejs')
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
-
-const CONFIG_KEY = 'openWebUIAtLaunch'
 
 const createWindow = () => {
   const dimensions = screen.getPrimaryDisplay()
@@ -199,5 +198,3 @@ module.exports = async function (ctx) {
     window.loadURL(url.toString())
   })
 }
-
-module.exports.CONFIG_KEY = CONFIG_KEY
