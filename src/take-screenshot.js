@@ -3,9 +3,8 @@ const { clipboard, nativeImage, ipcMain } = require('electron')
 const logger = require('./common/logger')
 const { IS_MAC } = require('./common/consts')
 const { notify, notifyError } = require('./common/notify')
+const { SCREENSHOT_SHORTCUT: CONFIG_KEY } = require('./common/config-keys')
 const setupGlobalShortcut = require('./utils/setup-global-shortcut')
-
-const CONFIG_KEY = 'screenshotShortcut'
 
 const SHORTCUT = IS_MAC
   ? 'Command+Control+S'
@@ -123,4 +122,3 @@ module.exports = function (ctx) {
 
 module.exports.takeScreenshot = takeScreenshot
 module.exports.SHORTCUT = SHORTCUT
-module.exports.CONFIG_KEY = CONFIG_KEY
