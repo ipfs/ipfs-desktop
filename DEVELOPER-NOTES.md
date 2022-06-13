@@ -10,16 +10,22 @@ Before cutting a new release of IPFS Desktop, please go through the following pr
 
 Manually test a few things that don't transfer well to automated testing:
 
-1. **Mac/Windows/Linux:** Confirm that "Take Screenshot" under the menubar/system tray menu works as expected for both single- and multi-monitor setups:
+
+1. **Mac & Windows (both must to be checked):** Confirm that drag-and-drop file import works:
+   - Open _Files_ screen
+   - Drag file(s) into it (PDF, images, or videos)
+   - Confirm file(s) import was succesful by clicking on newly imported file to preview
+2. **Mac & Windows (one check is sufficient):** Confirm that import via _Import_ button works:
+   - Open _Files_ screen
+   - Click on _Import_ button and select files(s) (directory, or standalone PDF, images, or videos)
+   - Confirm file(s) import was succesful by clicking on newly imported file to preview
+3. **Mac only:** Drag/drop onto menubar icon behaves as expected when dragging one file, several files, and a combination of files/folders:
    - File(s) import correctly
    - Correct link is copied to clipboard
-2. **Mac only:** Drag/drop onto menubar icon behaves as expected when dragging one file, several files, and a combination of files/folders:
+4. **Windows only:** Right-click on a file and "Add to IPFS" from context menu works as expected:
    - File(s) import correctly
    - Correct link is copied to clipboard
-3. **Windows only:** Right-click on a file and "Add to IPFS" from context menu works as expected:
-   - File(s) import correctly
-   - Correct link is copied to clipboard
-4. **Mac/Windows:** Confirm that OS-wide protocol handler was registered by opening <a href="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi">`ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi`</a> in a user agent _without_ IPFS Companion
+5. **Mac & Windows (both must to be checked):** Confirm that OS-wide protocol handler was registered by opening <a href="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi">`ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi`</a> in a stock web browser (Edge, Safari, Google Chrome) _without_ IPFS Companion
      
 ### Main release process
 1. Fetch new translations from Transifex: `tx pull -a` (https://github.com/transifex/cli)
