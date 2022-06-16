@@ -56,6 +56,7 @@ When in doubt, pick one of package formats with built-in automatic update mechan
     - [Which version of IPFS does IPFS Desktop use?](#which-version-of-ipfs-does-ipfs-desktop-use)
     - [Which flags does IPFS Desktop boot with?](#which-flags-does-ipfs-desktop-boot-with)
     - [I got a `repo.lock` error. How do I resolve this?](#i-got-a-repolock-error-how-do-i-resolve-this)
+    - [I got a network error (e.g. `Error fetching`). What should I do?](#i-got-a-network-error-eg-error-fetching-what-should-i-do)
     - [I need more help!](#i-need-more-help)
   - [License](#license)
 
