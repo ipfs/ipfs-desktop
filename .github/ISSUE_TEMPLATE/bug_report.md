@@ -7,8 +7,13 @@ assignees: ''
 
 ---
 
+<!--
+Please make sure this issue is not covered in our FAQ/Troubleshoot section:
+https://github.com/ipfs/ipfs-desktop#faq--troubleshooting
+-->
+
 - OS: [e.g. macOS, Windows, Linux]
- - Version of IPFS Desktop [e.g. 0.20.0]
+- Version of IPFS Desktop [e.g. 0.20.0]
 
 **Describe the bug**
 A clear and concise description of what the bug is.

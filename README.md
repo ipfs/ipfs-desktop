@@ -56,6 +56,7 @@ When in doubt, pick one of package formats with built-in automatic update mechan
     - [Which version of IPFS does IPFS Desktop use?](#which-version-of-ipfs-does-ipfs-desktop-use)
     - [Which flags does IPFS Desktop boot with?](#which-flags-does-ipfs-desktop-boot-with)
     - [I got a `repo.lock` error. How do I resolve this?](#i-got-a-repolock-error-how-do-i-resolve-this)
+    - [I got a network error (e.g. `Error fetching`). What should I do?](#i-got-a-network-error-eg-error-fetching-what-should-i-do)
     - [I need more help!](#i-need-more-help)
   - [License](#license)
 
@@ -242,9 +243,17 @@ You can change this in the IPFS Desktop config file by selecting `Open Configura
 
 In general, this means that a previous process was unable to remove the repository lock (indicator that file is in use) from the repository directory. This is supposed to be handled automatically, but sometimes it isn't. If you get this error, you can generally safely delete this file after shutting down any running IPFS daemon's or applications. Simple process is as follows:
 
-1. Stop ipfs processes
-2. Manually delete lock file, located within the [repository](#how-does-ipfs-desktop-select-the-ipfs-repo-location)
+1. Stop ipfs processes;
+2. Manually delete lock file, located within the [repository](#how-does-ipfs-desktop-select-the-ipfs-repo-location);
 3. Attempt to start ipfs desktop (or other process that received the `repo.lock` error) again.
+
+### I got a network error (e.g. `Error fetching`). What should I do?
+
+When upgrading, IPFS may need to perform migrations and for that we need a stable connection to download the required information for the migrations. Sometimes, the Internet connection may fail or be blocked by firewalls or antiviruses, and then you will run into a network error. Before submitting an issue, please try the following:
+
+1. Check if you are connected to the Internet;
+2. Make sure your firewall or antivirus is not blocking requests, such as P2P traffic;
+3. Try again, by restarting IPFS Desktop.
 
 ### I need more help!
 
