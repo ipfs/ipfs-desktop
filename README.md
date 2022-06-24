@@ -249,7 +249,7 @@ In general, this means that a previous process was unable to remove the reposito
 
 ### I got a network error (e.g. `Error fetching`). What should I do?
 
-When upgrading, IPFS may need to perform migrations and for that we need a stable connection to download the required information for the migrations. Sometimes, the Internet connection may fail or be blocked by firewalls or antivureses and then you will run into a network error. Before submitting an issue, please try the following:
+When upgrading, IPFS may need to perform migrations and for that we need a stable connection to download the required information for the migrations. Sometimes, the Internet connection may fail or be blocked by firewalls or antiviruses, and then you will run into a network error. Before submitting an issue, please try the following:
 
 1. Check if you are connected to the Internet;
 2. Make sure your firewall or antivirus is not blocking requests, such as P2P traffic;
