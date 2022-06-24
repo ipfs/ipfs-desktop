@@ -6,6 +6,7 @@ const store = require('../common/store')
 const logger = require('../common/logger')
 const { STATUS } = require('./consts')
 const createDaemon = require('./daemon')
+const ipcMainEvents = require('../utils/ipc-main-events')
 
 module.exports = async function (ctx) {
   let ipfsd = null
@@ -14,7 +15,7 @@ module.exports = async function (ctx) {
 
   const updateStatus = (stat, id = null) => {
     status = stat
-    ipcMain.emit('ipfsd', status, id)
+    ipcMain.emit(ipcMainEvents.IPFSD, status, id)
   }
 
   const getIpfsd = async (optional = false) => {

@@ -3,6 +3,7 @@ const logger = require('./common/logger')
 const store = require('./common/store')
 const { EXPERIMENT_PUBSUB: CONFIG_KEY } = require('./common/config-keys')
 const { ipcMain } = require('electron')
+const ipcMainEvents = require('./utils/ipc-main-events')
 
 const pubsubFlag = '--enable-pubsub-experiment'
 const isEnabled = flags => flags.some(f => f === pubsubFlag)
@@ -25,7 +26,7 @@ function disable () {
 
 function applyConfig (newFlags) {
   store.set('ipfsConfig.flags', newFlags)
-  ipcMain.emit('ipfsConfigChanged') // trigger node restart
+  ipcMain.emit(ipcMainEvents.IPFS_CONFIG_CHANGED) // trigger node restart
 }
 
 module.exports = async function () {
