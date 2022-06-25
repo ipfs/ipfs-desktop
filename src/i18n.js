@@ -4,7 +4,7 @@ const i18n = require('i18next')
 const ICU = require('i18next-icu')
 const Backend = require('i18next-fs-backend')
 const store = require('./common/store')
-const ipcMainEvents = require('./utils/ipc-main-events')
+const ipcMainEvents = require('./utils/ipcMainEvents')
 
 module.exports = async function () {
   await i18n
