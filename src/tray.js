@@ -262,8 +262,8 @@ module.exports = function (ctx) {
     tray.setContextMenu(menu)
     tray.setToolTip('IPFS Desktop')
 
-    menu.on('menu-will-show', () => ipcMain.emit(ipcMainEvents.MENUBAR_OPEN))
-    menu.on('menu-will-close', () => ipcMain.emit(ipcMainEvents.MENUBAR_CLOSE))
+    menu.on('menu-will-show', () => { ipcMain.emit(ipcMainEvents.MENUBAR_OPEN) })
+    menu.on('menu-will-close', () => { ipcMain.emit(ipcMainEvents.MENUBAR_CLOSE) })
 
     updateMenu()
   }
