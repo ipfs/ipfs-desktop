@@ -17,7 +17,7 @@ const LOCAL_HOSTNAMES = ['127.0.0.1', '[::1]', '0.0.0.0', '[::]']
  * Parses an IPFS/IPNS/dWeb URL to be handled by IPFS Desktop.
  *
  * @param {string} url
- * @returns {ParsedUrl}
+ * @returns {ParsedUrl|null}
  */
 function parseUrl (url) {
   let protocol = null
