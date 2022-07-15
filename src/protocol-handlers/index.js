@@ -57,9 +57,8 @@ async function getAction () {
     return
   }
 
-  const action = input.action || DEFAULT_ACTION
-
-  if (input.remember === 'on') {
+  const { remember, action } = input
+  if (remember === 'on') {
     store.set(CONFIG_KEY, false)
     store.set(CONFIG_KEY_ACTION, action)
     ipcMain.emit('configUpdated')
@@ -68,6 +67,9 @@ async function getAction () {
   return action
 }
 
+/**
+ * @returns {Promise<boolean>} whether or not the URL was handled.
+ */
 async function handleUrl (url, ctx) {
   const parsed = parseUrl(url)
   if (!parsed) {
