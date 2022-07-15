@@ -17,8 +17,8 @@ const ACTION_OPTIONS = {
 const DEFAULT_ACTION = ACTION_OPTIONS.OPEN_IN_BROWSER
 
 async function getAction () {
-  const ask = store.get(CONFIG_KEY, true)
-  if (!ask) {
+  const askWhenOpeningUri = store.get(CONFIG_KEY, true)
+  if (!askWhenOpeningUri) {
     return store.get(CONFIG_KEY_ACTION, DEFAULT_ACTION)
   }
 
