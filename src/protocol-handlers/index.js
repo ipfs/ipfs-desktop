@@ -52,7 +52,8 @@ async function getAction () {
     }
   })
 
-  if (button !== 0) {
+  if (button === 1) {
+    // User canceled.
     return
   }
 
