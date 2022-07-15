@@ -12,10 +12,6 @@ const CONFIG_KEY_ACTION = 'openIpfsURIsAction'
 const ACTION_OPTIONS = {
   OPEN_IN_BROWSER: 'openInBrowser',
   OPEN_IN_IPFS_DESKTOP: 'openInIpfsDesktop'
-  // BROWSER_PUBLIC_GATEWAY: 'browserPublicGateway',
-  // BROWSER_LOCAL_GATEWAY: 'browserLocalGateway',
-  // FILES_SCREEN: 'filesScreen'
-  // EXPLORE_SCREEN: 'exploreScreen'
 }
 
 const DEFAULT_ACTION = ACTION_OPTIONS.OPEN_IN_BROWSER
@@ -37,10 +33,6 @@ async function getAction () {
         labels: {
           [ACTION_OPTIONS.OPEN_IN_BROWSER]: i18n.t('protocolHandlerDialog.openInBrowser'),
           [ACTION_OPTIONS.OPEN_IN_IPFS_DESKTOP]: i18n.t('protocolHandlerDialog.openInIpfsDesktop')
-          // [ACTION_OPTIONS.BROWSER_PUBLIC_GATEWAY]: i18n.t('protocolHandlerDialog.browserPublicGateway'),
-          // [ACTION_OPTIONS.BROWSER_LOCAL_GATEWAY]: i18n.t('protocolHandlerDialog.browserLocalGateway'),
-          // [ACTION_OPTIONS.FILES_SCREEN]: i18n.t('protocolHandlerDialog.filesScreen')
-          // [ACTION_OPTIONS.EXPLORE_SCREEN]: i18n.t('protocolHandlerDialog.exploreScreen')
         }
       },
       {
