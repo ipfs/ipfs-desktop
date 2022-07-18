@@ -4,7 +4,7 @@ const logger = require('../common/logger')
 const ipcMainEvents = require('./ipcMainEvents')
 
 module.exports = function (settingsOption, activate) {
-  ipcMain.on(`toggle_${settingsOption}`, async () => {
+  ipcMain.on(ipcMainEvents.TOGGLE(settingsOption), async () => {
     const oldValue = store.get(settingsOption, null)
     const newValue = !oldValue
 
