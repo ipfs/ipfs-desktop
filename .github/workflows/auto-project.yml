@@ -5,8 +5,6 @@ on:
     types: [opened]
   pull_request:
     types: [opened]
-env:
-  MY_GITHUB_TOKEN: ${{ secrets.AUTO_PROJECT_PAT }}
 
 jobs:
   assign_one_project:
@@ -14,7 +12,7 @@ jobs:
     name: Assign to IPFS-GUI Project
     steps:
     - name: Assign NEW issues and NEW pull requests to the IPFS-GUI project
-      uses: srggrs/assign-one-project-github-action@65a8ddab497df42ef268001e67bbf976f8fd39e1
+      uses: actions/add-to-project@v0.1
       with:
-        project: 'https://github.com/orgs/ipfs/projects/17'
-        # column_name: 'Intake' # default is 'To do' for issues and 'In progress' for PRs
+        project-url: 'https://github.com/orgs/ipfs/projects/17'
+        github-token: ${{ secrets.AUTO_PROJECT_PAT }}
