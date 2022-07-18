@@ -20,4 +20,4 @@ jobs:
       if: github.event.action == 'opened'
       with:
         project: 'https://github.com/orgs/ipfs/projects/17'
-        column_name: 'Intake'
+        # column_name: 'Intake' # default is 'To do' for issues and 'In progress' for PRs
