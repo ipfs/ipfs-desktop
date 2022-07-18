@@ -1,4 +1,3 @@
-const { ipcMain } = require('electron')
 
 const ipcMainEvents = Object.freeze({
   CONFIG_UPDATED: 'configUpdated',
@@ -11,9 +10,7 @@ const ipcMainEvents = Object.freeze({
   MENUBAR_OPEN: 'menubar-will-open',
   UPDATING: 'updating',
   UPDATING_ENDED: 'updatingEnded',
-  TOGGLE: function (key) {
-    ipcMain.emit(`toggle_${key}`)
-  }
+  TOGGLE: (key) => `toggle_${key}`
 })
 
 module.exports = ipcMainEvents
