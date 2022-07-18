@@ -20,7 +20,7 @@ function buildCheckbox (key, label) {
   return {
     id: key,
     label: i18n.t(label),
-    click: () => { ipcMainEvents.TOGGLE(key) },
+    click: () => { ipcMain.emit(ipcMainEvents.TOGGLE(key)) },
     type: 'checkbox',
     checked: false
   }
