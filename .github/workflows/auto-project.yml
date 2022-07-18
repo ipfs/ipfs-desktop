@@ -1,0 +1,23 @@
+name: Auto Assign to IPFS-GUI Project
+
+on:
+  issues:
+    types: [opened, labeled]
+  pull_request:
+    types: [opened, labeled]
+  issue_comment:
+    types: [created]
+env:
+  MY_GITHUB_TOKEN: ${{ secrets.AUTO_PROJECT_PAT }}
+
+jobs:
+  assign_one_project:
+    runs-on: ubuntu-latest
+    name: Assign to IPFS-GUI Project
+    steps:
+    - name: Assign NEW issues and NEW pull requests to the IPFS-GUI project
+      uses: srggrs/assign-one-project-github-action@65a8ddab497df42ef268001e67bbf976f8fd39e1
+      if: github.event.action == 'opened'
+      with:
+        project: 'https://github.com/orgs/ipfs/projects/17'
+        column_name: 'Intake'
