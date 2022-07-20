@@ -8,9 +8,8 @@ const createToggler = require('./utils/create-toggler')
 const logger = require('./common/logger')
 const store = require('./common/store')
 const { IS_MAC, IS_WIN } = require('./common/consts')
+const { AUTO_LAUNCH: CONFIG_KEY } = require('./common/config-keys')
 const { showDialog, recoverableErrorDialog } = require('./dialogs')
-
-const CONFIG_KEY = 'autoLaunch'
 
 function isSupported () {
   const plat = os.platform()
@@ -109,5 +108,4 @@ module.exports = async function () {
   createToggler(CONFIG_KEY, activate)
 }
 
-module.exports.CONFIG_KEY = CONFIG_KEY
 module.exports.isSupported = isSupported

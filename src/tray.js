@@ -10,23 +10,10 @@ const { setCustomBinary, clearCustomBinary, hasCustomBinary } = require('./custo
 const { STATUS } = require('./daemon')
 const { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } = require('./common/consts')
 
-const { CONFIG_KEY: SCREENSHOT_KEY, SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
-const { CONFIG_KEY: AUTO_LAUNCH_KEY, isSupported: supportsLaunchAtLogin } = require('./auto-launch')
-const { CONFIG_KEY: PUBSUB_KEY } = require('./enable-pubsub')
-const { CONFIG_KEY: NAMESYS_PUBSUB_KEY } = require('./enable-namesys-pubsub')
-const { CONFIG_KEY: AUTO_GC_KEY } = require('./automatic-gc')
-const { CONFIG_KEY: AUTO_LAUNCH_WEBUI_KEY } = require('./webui')
-const { CONFIG_KEY: ASK_OPENING_IPFS_URIS } = require('./protocol-handlers')
+const CONFIG_KEYS = require('./common/config-keys')
 
-const CONFIG_KEYS = [
-  AUTO_LAUNCH_KEY,
-  AUTO_LAUNCH_WEBUI_KEY,
-  AUTO_GC_KEY,
-  SCREENSHOT_KEY,
-  PUBSUB_KEY,
-  NAMESYS_PUBSUB_KEY,
-  ASK_OPENING_IPFS_URIS
-]
+const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
+const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 
 function buildCheckbox (key, label) {
   return {
@@ -116,18 +103,18 @@ function buildMenu (ctx) {
           label: i18n.t('settings.appPreferences'),
           enabled: false
         },
-        buildCheckbox(AUTO_LAUNCH_KEY, 'settings.launchOnStartup'),
-        buildCheckbox(AUTO_LAUNCH_WEBUI_KEY, 'settings.openWebUIAtLaunch'),
-        buildCheckbox(ASK_OPENING_IPFS_URIS, 'settings.askWhenOpeningIpfsURIs'),
-        buildCheckbox(AUTO_GC_KEY, 'settings.automaticGC'),
-        buildCheckbox(SCREENSHOT_KEY, 'settings.takeScreenshotShortcut'),
+        buildCheckbox(CONFIG_KEYS.AUTO_LAUNCH, 'settings.launchOnStartup'),
+        buildCheckbox(CONFIG_KEYS.OPEN_WEBUI_LAUNCH, 'settings.openWebUIAtLaunch'),
+        buildCheckbox(CONFIG_KEYS.ASK_OPENING_IPFS_URIS, 'settings.askWhenOpeningIpfsURIs'),
+        buildCheckbox(CONFIG_KEYS.AUTO_GARBAGE_COLLECTOR, 'settings.automaticGC'),
+        buildCheckbox(CONFIG_KEYS.SCREENSHOT_SHORTCUT, 'settings.takeScreenshotShortcut'),
         { type: 'separator' },
         {
           label: i18n.t('settings.experiments'),
           enabled: false
         },
-        buildCheckbox(PUBSUB_KEY, 'settings.pubsub'),
-        buildCheckbox(NAMESYS_PUBSUB_KEY, 'settings.namesysPubsub')
+        buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB, 'settings.pubsub'),
+        buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB_NAMESYS, 'settings.namesysPubsub')
       ]
     },
     {
@@ -306,7 +293,7 @@ module.exports = function (ctx) {
     menu.getMenuItemById('stopIpfs').enabled = !gcRunning
     menu.getMenuItemById('restartIpfs').enabled = !gcRunning
 
-    menu.getMenuItemById(AUTO_LAUNCH_KEY).enabled = supportsLaunchAtLogin()
+    menu.getMenuItemById(CONFIG_KEYS.AUTO_LAUNCH).enabled = supportsLaunchAtLogin()
     menu.getMenuItemById('takeScreenshot').enabled = status === STATUS.STARTING_FINISHED
 
     menu.getMenuItemById('moveRepositoryLocation').enabled = !gcRunning && status !== STATUS.STOPPING_STARTED
@@ -326,7 +313,7 @@ module.exports = function (ctx) {
     }
 
     // Update configuration checkboxes.
-    for (const key of CONFIG_KEYS) {
+    for (const key of Object.values(CONFIG_KEYS)) {
       const enabled = store.get(key, false)
       menu.getMenuItemById(key).checked = enabled
     }

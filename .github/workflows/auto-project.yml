@@ -1,0 +1,18 @@
+name: Auto Assign to IPFS-GUI Project
+
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+
+jobs:
+  assign_one_project:
+    runs-on: ubuntu-latest
+    name: Assign to IPFS-GUI Project
+    steps:
+    - name: Assign NEW issues and NEW pull requests to the IPFS-GUI project
+      uses: actions/add-to-project@v0.1.0
+      with:
+        project-url: 'https://github.com/orgs/ipfs/projects/17'
+        github-token: ${{ secrets.AUTO_PROJECT_PAT }}

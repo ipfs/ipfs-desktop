@@ -5,8 +5,8 @@ const store = require('../common/store')
 const { showPrompt } = require('../dialogs')
 const setupI18n = require('../i18n')
 const { parseUrl, getGatewayUrl } = require('./urls')
+const { ASK_OPENING_IPFS_URIS: CONFIG_KEY } = require('../common/config-keys')
 
-const CONFIG_KEY = 'askWhenOpeningIpfsURIs'
 const CONFIG_KEY_ACTION = 'openIpfsURIsAction'
 
 const ACTION_OPTIONS = {
