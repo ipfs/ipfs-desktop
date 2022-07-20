@@ -3,7 +3,7 @@ const { ipcMain } = require('electron')
 const logger = require('./common/logger')
 const { showDialog, recoverableErrorDialog } = require('./dialogs')
 const dock = require('./utils/dock')
-const ipcMainEvents = require('./utils/ipcMainEvents')
+const ipcMainEvents = require('./common/ipc-main-events')
 
 module.exports = function runGarbageCollector ({ getIpfsd }) {
   dock.run(async () => {

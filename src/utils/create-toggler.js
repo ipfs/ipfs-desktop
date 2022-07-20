@@ -1,7 +1,7 @@
 const { ipcMain } = require('electron')
 const store = require('../common/store')
 const logger = require('../common/logger')
-const ipcMainEvents = require('./ipcMainEvents')
+const ipcMainEvents = require('../common/ipc-main-events')
 
 module.exports = function (settingsOption, activate) {
   ipcMain.on(ipcMainEvents.TOGGLE(settingsOption), async () => {

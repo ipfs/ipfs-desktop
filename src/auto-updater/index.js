@@ -5,7 +5,7 @@ const { ipcMain } = require('electron')
 const logger = require('../common/logger')
 const { showDialog } = require('../dialogs')
 const { IS_MAC, IS_WIN, IS_APPIMAGE } = require('../common/consts')
-const ipcMainEvents = require('../utils/ipcMainEvents')
+const ipcMainEvents = require('../common/ipc-main-events')
 
 function isAutoUpdateSupported () {
   // atm only macOS, windows and AppImage builds support autoupdate mechanism,

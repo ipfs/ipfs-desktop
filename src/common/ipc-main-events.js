@@ -1,4 +1,3 @@
-
 const ipcMainEvents = Object.freeze({
   CONFIG_UPDATED: 'configUpdated',
   GC_ENDED: 'gcEnded',
