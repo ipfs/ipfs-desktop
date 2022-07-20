@@ -56,9 +56,17 @@ async function getPublicGatewayUrl (ctx) {
     return DEFAULT_GATEWAY
   }
 
-  return await ctx.webui
-    .webContents
-    .executeJavaScript('JSON.parse(localStorage.getItem("ipfsPublicGateway")) || "https://dweb.link"', true)
+  /** @type {string|null} */
+  let publicGatewayUrl
+
+  try {
+    publicGatewayUrl = await ctx.webui.webContents
+      .executeJavaScript('JSON.parse(localStorage.getItem("ipfsPublicGateway"))') || 'https://dweb.link'
+  } catch (_) {
+    publicGatewayUrl = 'https://dweb.link'
+  }
+
+  return publicGatewayUrl
 }
 
 async function getPrivateGatewayUrl (ctx) {
