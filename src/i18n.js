@@ -4,6 +4,7 @@ const i18n = require('i18next')
 const ICU = require('i18next-icu')
 const Backend = require('i18next-fs-backend')
 const store = require('./common/store')
+const ipcMainEvents = require('./common/ipc-main-events')
 
 module.exports = async function () {
   await i18n
@@ -30,6 +31,6 @@ module.exports = async function () {
     store.set('language', lang)
 
     await i18n.changeLanguage(lang)
-    ipcMain.emit('languageUpdated', lang)
+    ipcMain.emit(ipcMainEvents.LANG_UPDATED, lang)
   })
 }

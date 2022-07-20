@@ -6,6 +6,7 @@ const logger = require('./common/logger')
 const store = require('./common/store')
 const moveRepositoryLocation = require('./move-repository-location')
 const runGarbageCollector = require('./run-gc')
+const ipcMainEvents = require('./common/ipc-main-events')
 const { setCustomBinary, clearCustomBinary, hasCustomBinary } = require('./custom-ipfs-binary')
 const { STATUS } = require('./daemon')
 const { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } = require('./common/consts')
@@ -19,7 +20,7 @@ function buildCheckbox (key, label) {
   return {
     id: key,
     label: i18n.t(label),
-    click: () => { ipcMain.emit(`toggle_${key}`) },
+    click: () => { ipcMain.emit(ipcMainEvents.TOGGLE(key)) },
     type: 'checkbox',
     checked: false
   }
@@ -261,8 +262,8 @@ module.exports = function (ctx) {
     tray.setContextMenu(menu)
     tray.setToolTip('IPFS Desktop')
 
-    menu.on('menu-will-show', () => { ipcMain.emit('menubar-will-open') })
-    menu.on('menu-will-close', () => { ipcMain.emit('menubar-will-close') })
+    menu.on('menu-will-show', () => { ipcMain.emit(ipcMainEvents.MENUBAR_OPEN) })
+    menu.on('menu-will-close', () => { ipcMain.emit(ipcMainEvents.MENUBAR_CLOSE) })
 
     updateMenu()
   }

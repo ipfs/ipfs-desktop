@@ -5,6 +5,7 @@ const { ipcMain } = require('electron')
 const logger = require('../common/logger')
 const { showDialog } = require('../dialogs')
 const { IS_MAC, IS_WIN, IS_APPIMAGE } = require('../common/consts')
+const ipcMainEvents = require('../common/ipc-main-events')
 
 function isAutoUpdateSupported () {
   // atm only macOS, windows and AppImage builds support autoupdate mechanism,
@@ -140,13 +141,13 @@ function setup (ctx) {
 }
 
 async function checkForUpdates () {
-  ipcMain.emit('updating')
+  ipcMain.emit(ipcMainEvents.UPDATING)
   try {
     await autoUpdater.checkForUpdates()
   } catch (_) {
     // Ignore. The errors are already handled on 'error' event.
   }
-  ipcMain.emit('updatingEnded')
+  ipcMain.emit(ipcMainEvents.UPDATING_ENDED)
 }
 
 module.exports = async function (ctx) {
