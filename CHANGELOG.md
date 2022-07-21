@@ -3,6 +3,31 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.22.0] - 2022-07-21
+
+- IPFS: [`kubo v0.14.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.14.0) :sparkles:
+- UI: [`v2.15.1`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.15.1) :sparkles:
+
+* feat: ipfs-webui v2.15.1 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2190
+* feat: kubo 0.14 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2210
+* docs: update manual QA script by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2176
+* docs: add network error troubleshoot by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2178
+* chore: remove unused auto-project triggers by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2207
+* chore: use official github action in auto-project by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2208
+* chore: create enum for ipcMain eventNames by @noliveira95 in https://github.com/ipfs/ipfs-desktop/pull/2189
+
+## [v0.21.0] - 2022-06-13
+
+- IPFS: [`go-ipfs v0.13.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.13.0) :sparkles:
+- UI: [`v2.15.0`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.15.0)
+
+* docs: v0.20.6 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2137
+* Remove hardcoded DHT client routing by @2color in https://github.com/ipfs/ipfs-desktop/pull/2152
+* chore: remove deprecated ipfs-on-path, npm-on-ipfs by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2140
+* chore(maintenance): move config keys to separate file by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2143
+* go-ipfs v0.13.0 by @guseggert in https://github.com/ipfs/ipfs-desktop/pull/2166
+* chore: electron build updates by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2172
+
 ## [v0.20.6] - 2021-05-12
 
 * fix: return error instead of throw by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2074
