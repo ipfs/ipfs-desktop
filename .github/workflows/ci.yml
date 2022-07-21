@@ -40,9 +40,10 @@ jobs:
       - uses: ipfs/download-ipfs-distribution-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
-          name: go-ipfs
-      - uses: ipfs/start-ipfs-daemon-action@v1
-        if: steps.webui-cache.outputs.cache-hit != 'true'
+          name: kubo
+      # TODO: uncomment after https://github.com/ipfs-shipyard/ipfs-or-gateway/issues/37 is resolved
+      #- uses: ipfs/start-ipfs-daemon-action@v1
+      #  if: steps.webui-cache.outputs.cache-hit != 'true'
 
 
       - name: Install dependencies and fetch ipfs-webui
@@ -96,7 +97,7 @@ jobs:
       - uses: ipfs/download-ipfs-distribution-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
-          name: go-ipfs
+          name: kubo
       - uses: ipfs/start-ipfs-daemon-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
 
@@ -159,7 +160,7 @@ jobs:
       - uses: ipfs/download-ipfs-distribution-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
-          name: go-ipfs
+          name: kubo
       - uses: ipfs/start-ipfs-daemon-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
 
