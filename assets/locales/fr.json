@@ -208,7 +208,7 @@
     "message": "Le nœud IPFS a rencontré une erreur et il n'a pas pu finir de démarrer :"
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
+    "title": "Dépot IPFS ou Fichier de configuration invalide",
+    "message": "Le dépôt \"{path}\" est invalide. Le fichier de \"configuration' doit être un JSON valide. Avant de démarré IPFS desktop again, S'il vous plaît résolver le fichier de configuration ou renommer l'ancien dépôt en \".ipfs.backup\". "
   }
 }

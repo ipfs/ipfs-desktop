@@ -3,53 +3,53 @@
   "ipfsIsStopping": "IPFS se oprește",
   "ipfsIsStarting": "IPFS pornește",
   "ipfsIsNotRunning": "IPFS nu rulează",
-  "ipfsHasErrored": "IPFS a dat eroare",
+  "ipfsHasErrored": "Eroare IPFS",
   "runningWithGC": "Rulează (GC în progres)",
   "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
   "start": "Start",
   "stop": "Stop",
-  "restart": "Repornește",
+  "restart": "Restart",
   "about": "Despre",
   "advanced": "Avansat",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
+  "openRepoDir": "Deschide directorul repo-ului",
+  "openLogsDir": "Deschide directorul cu jurnalele",
+  "openConfigFile": "Deschide fișierul de configurare",
+  "viewOnGitHub": "Vezi pe GitHub",
+  "helpUsTranslate": "Ajută la traducerea aplicației",
   "readReleaseNotes": "Read Release Notes",
   "status": "Stare",
   "files": "Fișiere",
   "peers": "Noduri partenere",
-  "quit": "Quit",
+  "quit": "Ieși",
   "versions": "Versions",
-  "screenshotTaken": "Screenshot taken",
-  "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
-  "couldNotTakeScreenshot": "Could not take screenshot",
-  "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "clickToOpenLogs": "Click here to open the logs.",
+  "screenshotTaken": "Captură de ecran făcută",
+  "shareableLinkCopied": "Linkul a fost copiat în clipboard. Fă clic aici pentru a vedea captura de ecran.",
+  "couldNotTakeScreenshot": "Nu am putut face o captură de ecran",
+  "errorwhileTakingScreenshot": "A apărut o eroare la facerea capturii de ecran.",
+  "clickToOpenLogs": "Fă clic aici pentru a deschide jurnalele.",
   "ipfsNotRunning": "IPFS nu rulează",
-  "checkForUpdates": "Check for Updates…",
+  "checkForUpdates": "Verifică actualizările",
   "checkingForUpdates": "Checking for Updates",
-  "yes": "Yes",
-  "no": "No",
+  "yes": "Da",
+  "no": "Nu",
   "close": "Închide",
-  "ok": "OK",
-  "cancel": "Cancel",
-  "enable": "Enable",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadCid": "Download…",
+  "ok": "Ok",
+  "cancel": "Anulează",
+  "enable": "Activează",
+  "reportTheError": "Reportează această eroare",
+  "restartIpfsDesktop": "Repornește IPFS Desktop",
+  "openLogs": "Deschide jurnalele",
+  "takeScreenshot": "Fă o captură de ecran",
   "moveRepositoryLocation": "Move Repository Location",
   "runGarbageCollector": "Run Garbage Collector",
-  "selectDirectory": "Select Directory",
+  "selectDirectory": "Selectează directorul",
   "customIpfsBinary": "Custom IPFS Binary",
   "setCustomIpfsBinary": "Set Custom IPFS Binary",
   "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
+  "openCliDocumentation": "Deschide documentația CLI",
   "polkitDialog": {
     "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "message": "IPFS nu poate fi adăugat la directorul /usr/local/bin/ fără un client polkit."
   },
   "noPermissionDialog": {
     "title": "No permission",
@@ -60,7 +60,7 @@
     "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
+    "title": "A apărut o eroare",
     "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
   },
   "cannotConnectToApiDialog": {
@@ -105,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "Failed to add items",
@@ -128,13 +128,14 @@
     "message": "It was not possible to download the update. Please check your Internet connection and try again."
   },
   "updateDownloadedDialog": {
-    "title": "Update downloaded",
-    "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
-    "action": "Repornește"
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "later": "Mai târziu",
+    "now": "Instalează acum"
   },
   "updateDownloadedNotification": {
-    "title": "Update downloaded",
-    "message": "Update for version { version } of IPFS Desktop downloaded. Click this notification to install."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
@@ -149,90 +150,35 @@
     "title": "Move repository",
     "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS on PATH",
-    "message": "Could not add IPFS to the PATH."
-  },
   "runGarbageCollectorErrored": {
     "title": "Garbage collector",
     "message": "The garbage collector run could not be completed successfully."
   },
-  "downloadCidContentDialog": {
-    "title": "Download to a local directory",
-    "message": "Enter a CID, IPFS path, or IPNS path:",
-    "action": "Next"
-  },
-  "cantResolveCidDialog": {
-    "title": "Error",
-    "message": "Unable to resolve \"{ path }\"."
-  },
-  "couldNotGetCidDialog": {
-    "title": "Error",
-    "message": "Unable to fetch \"{ path }\"."
-  },
-  "contentsSavedDialog": {
-    "title": "Success",
-    "message": "The contents of \"{ path }\" were successfully downloaded.",
-    "action": "See Files"
-  },
-  "couldNotSaveDialog": {
-    "title": "Could not write to disk",
-    "message": "There was an error writing to the disk. Please try again."
-  },
   "launchAtLoginNotSupported": {
-    "title": "Error",
+    "title": "Eroare",
     "message": "Launch at login is not supported on your platform."
   },
   "launchAtLoginFailed": {
-    "title": "Error",
+    "title": "Eroare",
     "message": "Launch at login could not be enabled on your machine."
-  },
-  "enableIpfsOnPath": {
-    "title": "Enable IPFS on PATH",
-    "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
-  },
-  "disableIpfsOnPath": {
-    "title": "Disable IPFS on PATH",
-    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
-    "action": "Disable"
   },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Enable screenshot shortcut",
     "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "Enable download shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "Install npm on IPFS",
-    "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
-    "action": "Install"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "Error",
-    "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "Error",
-    "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
-  },
   "settings": {
-    "settings": "Settings",
-    "preferences": "Preferences",
-    "openNodeSettings": "Open Node Settings",
-    "appPreferences": "App Preferences",
+    "settings": "Setări",
+    "preferences": "Setări",
+    "openNodeSettings": "Deschide setările nodului",
+    "appPreferences": "Setările aplicației",
     "launchOnStartup": "Launch at Login",
     "openWebUIAtLaunch": "Open Web UI at Launch",
-    "pubsub": "Enable PubSub",
-    "namesysPubsub": "Enable IPNS over PubSub",
+    "pubsub": "Activează PubSub",
+    "namesysPubsub": "Activează IPNS prin PubSub",
     "automaticGC": "Automatic Garbage Collection",
-    "ipfsCommandLineTools": "Command Line Tools",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
-    "downloadHashShortcut": "Global Download Shortcut",
-    "experiments": "Experiments",
-    "npmOnIpfs": "Enable npm on IPFS"
+    "experiments": "Experimente",
+    "npmOnIpfs": "Activează NPM pe IPFS"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",
@@ -245,5 +191,24 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "Clear custom IPFS binary",
     "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop nu răspunde",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Da, reîmprospătează",
+    "doNothing": "Nu face nimic"
+  },
+  "migrationDialog": {
+    "title": "Migrație IPFS Desktop",
+    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "closeAndContinue": "Continuă în fundal"
+  },
+  "startupFailedDialog": {
+    "title": "Pornirea IPFS Desktop a eșuat",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }

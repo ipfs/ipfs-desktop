@@ -105,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "项目已添加",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "{ count }个项目已添加到您的节点。一条分享链接已复制到您的剪贴板。"
   },
   "itemAddedNotification": {
     "title": "项目已添加",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "项目已添加到您的IPFS 节点。一条分享链接已复制到您的剪贴板。"
   },
   "itemsFailedNotification": {
     "title": "项目添加失败",
@@ -199,16 +199,16 @@
     "doNothing": "否，继续等待"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "IPFS 桌面 迁移",
+    "message": "再等一会! IPFS 桌面需要运行最新的数据储存迁移:",
+    "closeAndContinue": "在后台继续执行"
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "IPFS 桌面 启动失败",
+    "message": "IPFS 节点遇到错误且启动可能没有成功"
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
+    "title": "无效的IPFS库或者配置文件",
+    "message": "位于{ path }中的库是无效的。配置文件必须是有效的JSON格式\n\n再重新启动IPFS 桌面之前, 请修复配置文件或将旧有的库重命名为 “.ipfs.backup”。"
   }
 }

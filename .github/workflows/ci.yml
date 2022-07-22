@@ -41,10 +41,8 @@ jobs:
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
           name: kubo
-      # TODO: uncomment after https://github.com/ipfs-shipyard/ipfs-or-gateway/issues/37 is resolved
-      #- uses: ipfs/start-ipfs-daemon-action@v1
-      #  if: steps.webui-cache.outputs.cache-hit != 'true'
-
+      - uses: ipfs/start-ipfs-daemon-action@v1
+        if: steps.webui-cache.outputs.cache-hit != 'true'
 
       - name: Install dependencies and fetch ipfs-webui
         if: steps.webui-cache.outputs.cache-hit != 'true'

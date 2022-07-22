@@ -46,7 +46,7 @@
   "customIpfsBinary": "Biner IPFS Kustom",
   "setCustomIpfsBinary": "Setel Biner IPFS Kustom",
   "clearCustomIpfsBinary": "Hapus Biner IPFS Kustom",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "Buka Dokumentasi CLI",
   "polkitDialog": {
     "title": "Polkit tidak ditemukan",
     "message": "IPFS tidak dapat ditambahkan ke /usr/local/bin/ tanpa agen polkit."
@@ -105,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "Item ditambahkan",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "{ count } item ditambahkan ke node IPFS Anda. Tautan yang dapat dibagikan telah disalin ke papan klip Anda."
   },
   "itemAddedNotification": {
     "title": "Item ditambahkan",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "Item ditambahkan ke node IPFS Anda. Tautan yang dapat dibagikan telah disalin ke papan klip Anda."
   },
   "itemsFailedNotification": {
     "title": "Gagal menambahkan item",
@@ -128,14 +128,14 @@
     "message": "Tidak mungkin unduh pembaruan. Silakan periksa koneksi internet Anda dan coba lagi."
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "Pembaruan Desktop IPFS",
+    "message": "Pembaruan untuk IPFS Desktop { version } tersedia. Apakah Anda ingin menginstalnya sekarang?",
+    "later": "Nanti",
+    "now": "Pasang sekarang"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "Pembaruan Desktop IPFS",
+    "message": "Pembaruan untuk IPFS Desktop { version } tersedia."
   },
   "runGarbageCollectorWarning": {
     "title": "Pengumpul sampah",
@@ -193,22 +193,22 @@
     "message": "Biner IPFS kustom telah dihapus. Untuk mulai menggunakan versi paket IPFS, IPFS harus dimulai ulang terlebih dahulu."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "Desktop IPFS menjadi tidak responsif",
+    "message": "Operasi yang sedang berlangsung membutuhkan lebih banyak sumber daya daripada yang diharapkan. Apakah Anda ingin membatalkan, dan memuat ulang antarmuka secara paksa?",
+    "forceReload": "Ya, muat ulang",
+    "doNothing": "Tidak melakukan apapun"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "Migrasi Desktop IPFS",
+    "message": "Sebentar! IPFS Desktop perlu menjalankan migrasi penyimpanan data terbaru:",
+    "closeAndContinue": "Lanjutkan di latar belakang"
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "Startup Desktop IPFS Gagal",
+    "message": "Node IPFS mengalami kesalahan dan startup tidak dapat diselesaikan:"
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
+    "title": "Repositori IPFS atau Berkas Konfigurasi tidak valid",
+    "message": "Repositori di “{ path }” tidak valid. Berkas \"config\" harus berupa JSON yang valid. \n\nSebelum memulai kembali IPFS Desktop, harap perbaiki berkas konfigurasi atau ganti nama repositori lama menjadi “.ipfs.backup”."
   }
 }
