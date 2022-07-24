@@ -208,7 +208,7 @@
     "message": "Uzel IPFS narazil na chybu a spuštění nebylo možné dokončit:"
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
+    "title": "Neplatné úložiště IPFS nebo konfigurační soubor",
+    "message": "Úložiště na adrese \"{ path }\" je neplatné. Soubor \"config\" musí být platný JSON.\n\nPřed opětovným spuštěním systému IPFS Desktop opravte konfigurační soubor nebo přejmenujte staré úložiště na \".ipfs.backup\"."
   }
 }
