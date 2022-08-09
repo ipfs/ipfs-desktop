@@ -372,6 +372,28 @@ function checkValidConfig (ipfsd) {
   }
 }
 
+function checkPublicNetwork (ipfsd) {
+  const swarmKeyPath = join(ipfsd.path, 'swarm.key')
+  const swarmKeyExists = fs.pathExistsSync(swarmKeyPath)
+
+  if (!swarmKeyExists) {
+    return true
+  }
+
+  // Hide other windows so the user focus in on the dialog
+  BrowserWindow.getAllWindows().forEach(w => w.hide())
+
+  // Show blocking dialog
+  showDialog({
+    title: i18n.t('privateNetworkDialog.title'),
+    message: i18n.t('privateNetworkDialog.message', { path: ipfsd.path }),
+    buttons: [i18n.t('quit')]
+  })
+
+  // Only option is to quit
+  app.quit()
+}
+
 module.exports = Object.freeze({
   configPath,
   configExists,
@@ -380,5 +402,6 @@ module.exports = Object.freeze({
   applyDefaults,
   migrateConfig,
   checkPorts,
-  checkValidConfig
+  checkValidConfig,
+  checkPublicNetwork
 })
