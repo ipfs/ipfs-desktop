@@ -3,7 +3,7 @@ const i18n = require('i18next')
 const { showDialog } = require('../dialogs')
 const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
-const { applyDefaults, migrateConfig, checkPorts, configExists, checkValidConfig, rmApiFile, apiFileExists } = require('./config')
+const { applyDefaults, migrateConfig, checkPorts, configExists, checkValidConfig, checkPublicNetwork, rmApiFile, apiFileExists } = require('./config')
 const showMigrationPrompt = require('./migration-prompt')
 
 function cannotConnectDialog (addr) {
@@ -42,6 +42,10 @@ async function spawn ({ flags, path }) {
 
   if (!checkValidConfig(ipfsd)) {
     throw new Error(`repository at ${ipfsd.path} is invalid`)
+  }
+
+  if (!checkPublicNetwork(ipfsd)) {
+    throw new Error(`repository at ${ipfsd.path} is part of private network`)
   }
 
   if (configExists(ipfsd)) {
