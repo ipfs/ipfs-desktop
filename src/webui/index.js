@@ -16,6 +16,7 @@ const { showDialog } = require('../dialogs')
 const { getSecondsSinceAppStart } = require('../metrics/appStart')
 const { performance } = require('perf_hooks')
 const Countly = require('countly-sdk-nodejs')
+const { analyticsKeys } = require('../analytics/keys')
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
 const createWindow = () => {
@@ -39,7 +40,7 @@ const createWindow = () => {
 
   window.webContents.once('did-start-loading', (event) => {
     const msg = '[web ui] loading'
-    const webContentLoad = logger.start(msg, { withAnalytics: 'WEB_UI_READY' })
+    const webContentLoad = logger.start(msg, { withAnalytics: analyticsKeys.WEB_UI_READY })
     window.webContents.once('did-finish-load', () => {
       webContentLoad.end()
     })
@@ -140,9 +141,9 @@ module.exports = async function (ctx) {
   ctx.launchWebUI = (path, { focus = true, forceRefresh = false } = {}) => {
     if (forceRefresh) window.webContents.reload()
     if (!path) {
-      logger.info('[web ui] launching web ui', { withAnalytics: 'FN_LAUNCH_WEB_UI_FOO' })
+      logger.info('[web ui] launching web ui', { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI })
     } else {
-      logger.info(`[web ui] navigate to ${path}`, { withAnalytics: 'FN_LAUNCH_WEB_UI_WITH_PATH' })
+      logger.info(`[web ui] navigate to ${path}`, { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI_WITH_PATH })
       url.hash = path
       window.webContents.loadURL(url.toString())
     }
