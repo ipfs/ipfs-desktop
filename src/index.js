@@ -30,6 +30,7 @@ const setupAutoUpdater = require('./auto-updater')
 const setupTray = require('./tray')
 const setupAnalytics = require('./analytics')
 const setupSecondInstance = require('./second-instance')
+const { analyticsKeys } = require('./analytics/keys')
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -94,7 +95,7 @@ async function run () {
       setupTakeScreenshot(ctx)
     ])
     const submitAppReady = () => {
-      logger.addAnalyticsEvent({ withAnalytics: 'APP_READY', dur: getSecondsSinceAppStart() })
+      logger.addAnalyticsEvent({ withAnalytics: analyticsKeys.APP_READY, dur: getSecondsSinceAppStart() })
     }
     if (ctx.webui.webContents.isLoading()) {
       ctx.webui.webContents.once('dom-ready', submitAppReady)
