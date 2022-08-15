@@ -184,7 +184,7 @@ module.exports = async function (opts) {
     ipfsd = res.ipfsd
     isRemote = res.isRemote
   } catch (err) {
-    return { err: err.toString() }
+    return { err }
   }
 
   if (!isRemote) {
