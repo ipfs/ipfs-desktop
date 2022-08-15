@@ -58,7 +58,6 @@ function applyDefaults (ipfsd) {
   writeConfigFile(ipfsd, config)
 }
 
-const getRpcApiPort = (config) => getHttpPort(config.Addresses.API)
 const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
 function getHttpPort (addrs) {
   let httpUrl = null
@@ -120,11 +119,7 @@ function migrateConfig (ipfsd) {
     const addedWebUI = addURL('https://webui.ipfs.io')
     const addedGw = addURL(`http://webui.ipfs.io.ipns.localhost:${getGatewayPort(config)}`)
 
-    // https://github.com/ipfs/ipfs-companion/issues/1068 in go-ipfs <0.13
-    // TODO: remove addedApiPort after go-ipfs 0.13 ships
-    const addedApiPort = addURL(`http://127.0.0.1:${getRpcApiPort(config)}`)
-
-    if (addedWebUI || addedGw || addedApiPort) {
+    if (addedWebUI || addedGw) {
       httpHeaders['Access-Control-Allow-Origin'] = accessControlAllowOrigin
       api.HTTPHeaders = httpHeaders
       config.API = api
