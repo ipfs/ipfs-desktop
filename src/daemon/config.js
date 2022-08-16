@@ -413,17 +413,19 @@ function checkRepositoryAndConfiguration (ipfsd) {
       return false
     }
 
-    if (!configExists(ipfsd)) {
-      // Config is generated automatically if it doesn't exist.
-      logger.error(`configuration does not exist at ${ipfsd.path}`)
-      dialogs.repositoryConfigurationIsMissingDialog(ipfsd.path)
-      return true
-    }
+    if (!apiFileExists(ipfsd)) {
+      if (!configExists(ipfsd)) {
+        // Config is generated automatically if it doesn't exist.
+        logger.error(`configuration does not exist at ${ipfsd.path}`)
+        dialogs.repositoryConfigurationIsMissingDialog(ipfsd.path)
+        return true
+      }
 
-    // This should catch errors such having no configuration file,
-    // IPFS_DIR not being a directory, or the configuration file
-    // being corrupted.
-    readConfigFile(ipfsd)
+      // This should catch errors such having no configuration file,
+      // IPFS_DIR not being a directory, or the configuration file
+      // being corrupted.
+      readConfigFile(ipfsd)
+    }
 
     const swarmKeyPath = join(ipfsd.path, 'swarm.key')
     if (fs.pathExistsSync(swarmKeyPath)) {
