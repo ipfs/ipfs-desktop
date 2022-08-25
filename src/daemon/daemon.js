@@ -43,8 +43,8 @@ async function getIpfsd (flags, path) {
     args: flags
   })
 
-  // Checks if the repository is valid to use with IPFS Desktop.
-  // If not, we quit the app. We assume that isRepositoryValid
+  // Checks if the repository is valid to use with IPFS Desktop. If not,
+  // we quit the app. We assume that checkRepositoryAndConfiguration
   // presents any dialog explaining the situation.
   if (!checkRepositoryAndConfiguration(ipfsd)) {
     return null
