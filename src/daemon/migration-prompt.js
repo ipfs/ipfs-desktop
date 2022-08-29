@@ -83,7 +83,21 @@ const errorTemplate = (logs) => {
 
 let window
 
-module.exports = (logs, error = false, done = false) => {
+/**
+ * @typedef {object} MigrationPrompt
+ * @property {(logs: string) => boolean} update
+ * @property {(logs: string, error: boolean, done: boolean) => void} loadWindow
+ */
+
+/**
+ * Show migration prompt.
+ *
+ * @param {string} logs
+ * @param {boolean} error
+ * @param {boolean} done
+ * @returns {MigrationPrompt}
+ */
+function showMigrationPrompt (logs, error = false, done = false) {
   // Generate random id
   const id = crypto.randomBytes(16).toString('hex')
 
@@ -130,3 +144,5 @@ module.exports = (logs, error = false, done = false) => {
     loadWindow
   }
 }
+
+module.exports = showMigrationPrompt

@@ -1,22 +1,16 @@
 const Ctl = require('ipfsd-ctl')
-const i18n = require('i18next')
-const { showDialog } = require('../dialogs')
 const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
-const { applyDefaults, migrateConfig, checkPorts, configExists, checkValidConfig, checkPublicNetwork, rmApiFile, apiFileExists } = require('./config')
+const { applyDefaults, migrateConfig, checkPorts, configExists, checkRepositoryAndConfiguration, removeApiFile, apiFileExists } = require('./config')
 const showMigrationPrompt = require('./migration-prompt')
+const dialogs = require('./dialogs')
+const { app } = require('electron')
 
-function cannotConnectDialog (addr) {
-  showDialog({
-    title: i18n.t('cannotConnectToApiDialog.title'),
-    message: i18n.t('cannotConnectToApiDialog.message', { addr }),
-    type: 'error',
-    buttons: [
-      i18n.t('close')
-    ]
-  })
-}
-
+/**
+ * Get the IPFS binary file path.
+ *
+ * @returns {string}
+ */
 function getIpfsBinPath () {
   return process.env.IPFS_GO_EXEC ||
     getCustomBinary() ||
@@ -25,7 +19,16 @@ function getIpfsBinPath () {
       .replace('app.asar', 'app.asar.unpacked')
 }
 
-async function spawn ({ flags, path }) {
+/**
+ * Gets the IPFS daemon controller. If null is returned,
+ * it means that the repository or some configuration is wrong
+ * and IPFS Desktop should quit.
+ *
+ * @param {string[]} flags
+ * @param {string} path
+ * @returns {Promise<import('ipfsd-ctl').Controller|null>}
+ */
+async function getIpfsd (flags, path) {
   const ipfsBin = getIpfsBinPath()
 
   const ipfsd = await Ctl.createController({
@@ -40,29 +43,37 @@ async function spawn ({ flags, path }) {
     args: flags
   })
 
-  if (!checkValidConfig(ipfsd)) {
-    throw new Error(`repository at ${ipfsd.path} is invalid`)
+  // Checks if the repository is valid to use with IPFS Desktop. If not,
+  // we quit the app. We assume that checkRepositoryAndConfiguration
+  // presents any dialog explaining the situation.
+  if (!checkRepositoryAndConfiguration(ipfsd)) {
+    return null
   }
 
-  if (!checkPublicNetwork(ipfsd)) {
-    throw new Error(`repository at ${ipfsd.path} is part of private network`)
-  }
+  let isRemote = false
 
   if (configExists(ipfsd)) {
     migrateConfig(ipfsd)
-    return { ipfsd, isRemote: false }
+  } else {
+    // If config does not exist, but $IPFS_PATH/api exists
+    // then it is a remote repository.
+    isRemote = apiFileExists(ipfsd)
+    if (!isRemote) {
+      // It's a new repository!
+      await ipfsd.init()
+      applyDefaults(ipfsd)
+    }
   }
 
-  // If config does not exist, but $IPFS_PATH/api exists, then
-  // it is a remote repository.
-  if (apiFileExists(ipfsd)) {
-    return { ipfsd, isRemote: true }
+  if (!isRemote) {
+    // Check if ports are free and we're clear to start IPFS.
+    // If not, we return null.
+    if (!await checkPorts(ipfsd)) {
+      return null
+    }
   }
 
-  await ipfsd.init()
-
-  applyDefaults(ipfsd)
-  return { ipfsd, isRemote: false }
+  return ipfsd
 }
 
 function listenToIpfsLogs (ipfsd, callback) {
@@ -96,6 +107,19 @@ function listenToIpfsLogs (ipfsd, callback) {
   return stop
 }
 
+/**
+ * @typedef {object} IpfsLogs
+ * @property {string} logs
+ * @property {string|undefined} id
+ * @property {any} err
+ */
+
+/**
+ * Start IPFS, collects the logs, detects errors and migrations.
+ *
+ * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @returns {Promise<IpfsLogs>}
+ */
 async function startIpfsWithLogs (ipfsd) {
   let err, id, migrationPrompt
   let isMigrating, isErrored, isFinished
@@ -176,42 +200,41 @@ async function startIpfsWithLogs (ipfsd) {
   }
 }
 
-module.exports = async function (opts) {
-  let ipfsd, isRemote
-
-  try {
-    const res = await spawn(opts)
-    ipfsd = res.ipfsd
-    isRemote = res.isRemote
-  } catch (err) {
-    return { err }
+/**
+ * Start the IPFS daemon.
+ *
+ * @param {any} opts
+ * @returns {Promise<{ ipfsd: import('ipfsd-ctl').Controller|undefined } & IpfsLogs>}
+ */
+async function startDaemon (opts) {
+  const ipfsd = await getIpfsd(opts.flags, opts.path)
+  if (ipfsd === null) {
+    app.quit()
+    return { ipfsd: undefined, err: new Error('get ipfsd failed'), id: undefined, logs: '' }
   }
 
-  if (!isRemote) {
-    try {
-      await checkPorts(ipfsd)
-    } catch (err) {
-      return { err }
-    }
-  }
-
-  let errLogs = await startIpfsWithLogs(ipfsd)
-
-  if (errLogs.err) {
-    if (!errLogs.err.message.includes('ECONNREFUSED') && !errLogs.err.message.includes('ERR_CONNECTION_REFUSED')) {
-      return { ipfsd, err: errLogs.err, logs: errLogs.logs }
+  let { err, logs, id } = await startIpfsWithLogs(ipfsd)
+  if (err) {
+    if (!err.message.includes('ECONNREFUSED') && !err.message.includes('ERR_CONNECTION_REFUSED')) {
+      return { ipfsd, err, logs, id }
     }
 
     if (!configExists(ipfsd)) {
-      cannotConnectDialog(ipfsd.apiAddr.toString())
-      return { ipfsd, err: errLogs.err, logs: errLogs.logs }
+      dialogs.cannotConnectToApiDialog(ipfsd.apiAddr.toString())
+      return { ipfsd, err, logs, id }
     }
 
     logger.info('[daemon] removing api file')
-    rmApiFile(ipfsd)
+    removeApiFile(ipfsd)
 
-    errLogs = await startIpfsWithLogs(ipfsd)
+    const errLogs = await startIpfsWithLogs(ipfsd)
+    err = errLogs.err
+    logs = errLogs.logs
+    id = errLogs.id
   }
 
-  return { ipfsd, err: errLogs.err, logs: errLogs.logs, id: errLogs.id }
+  // If we have an error here, it should have been handled by startIpfsWithLogs.
+  return { ipfsd, err, logs, id }
 }
+
+module.exports = startDaemon

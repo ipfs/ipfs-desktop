@@ -9,7 +9,7 @@ const createDaemon = require('./daemon')
 const ipcMainEvents = require('../common/ipc-main-events')
 const { analyticsKeys } = require('../analytics/keys')
 
-module.exports = async function (ctx) {
+async function setupDaemon (ctx) {
   let ipfsd = null
   let status = null
   let wasOnline = null
@@ -124,4 +124,5 @@ module.exports = async function (ctx) {
   })
 }
 
+module.exports = setupDaemon
 module.exports.STATUS = STATUS
