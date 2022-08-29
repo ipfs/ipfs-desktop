@@ -173,8 +173,8 @@ function buildMenu (ctx) {
         {
           label: hasCustomBinary()
             ? i18n.t('customIpfsBinary')
-            : `go-ipfs ${GO_IPFS_VERSION}`,
-          click: () => { shell.openExternal(`https://github.com/ipfs/go-ipfs/releases/v${GO_IPFS_VERSION}`) }
+            : `kubo ${GO_IPFS_VERSION}`,
+          click: () => { shell.openExternal(`https://github.com/ipfs/kubo/releases/v${GO_IPFS_VERSION}`) }
         },
         { type: 'separator' },
         {
