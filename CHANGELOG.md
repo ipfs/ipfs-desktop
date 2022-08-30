@@ -3,6 +3,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.23.0] - 2022-08-30
+
+## What's Changed
+* chore: i18n, CI, and dep updates by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2214
+* fix: quit if repository is part of private network by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2223
+* chore(maintenance): remove addedApiPort after go-ipfs 0.13 by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2226
+* fix: log correct error on spawn by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2225
+* fix: use constants for withAnalytics keys by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2224
+* Change 'Go-ipfs' to 'Kubo' in tray menu by @bertrandfalguiere in https://github.com/ipfs/ipfs-desktop/pull/2246
+* feat: jsdoc and improvements to daemon logic by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2227
+* feat: Kubo 0.15.0 by @ajnavarro in https://github.com/ipfs/ipfs-desktop/pull/2240
+
+## New Contributors
+* @bertrandfalguiere made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2246
+* @ajnavarro made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2240
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.22.0...v0.23.0
+
 ## [v0.22.0] - 2022-07-21
 
 - IPFS: [`kubo v0.14.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.14.0) :sparkles:
