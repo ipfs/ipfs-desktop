@@ -178,7 +178,8 @@
     "automaticGC": "Automatic Garbage Collection",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "experiments": "Experiments",
-    "npmOnIpfs": "Enable npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS",
+    "monochromeTrayIcon": "Use Monochrome Tray Icon"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",
