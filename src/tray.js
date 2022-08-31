@@ -1,4 +1,4 @@
-const { Menu, Tray, shell, app, ipcMain } = require('electron')
+const { Menu, Tray, shell, app, ipcMain, nativeTheme } = require('electron')
 const i18n = require('i18next')
 const path = require('path')
 const addToIpfs = require('./add-to-ipfs')
@@ -15,6 +15,7 @@ const CONFIG_KEYS = require('./common/config-keys')
 
 const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
 const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
+const createToggler = require('./utils/create-toggler')
 
 function buildCheckbox (key, label) {
   return {
@@ -108,6 +109,7 @@ function buildMenu (ctx) {
         buildCheckbox(CONFIG_KEYS.OPEN_WEBUI_LAUNCH, 'settings.openWebUIAtLaunch'),
         buildCheckbox(CONFIG_KEYS.AUTO_GARBAGE_COLLECTOR, 'settings.automaticGC'),
         buildCheckbox(CONFIG_KEYS.SCREENSHOT_SHORTCUT, 'settings.takeScreenshotShortcut'),
+        ...(IS_MAC ? [] : [buildCheckbox(CONFIG_KEYS.MONOCHROME_TRAY_ICON, 'settings.monochromeTrayIcon')]),
         { type: 'separator' },
         {
           label: i18n.t('settings.experiments'),
@@ -209,14 +211,20 @@ function buildMenu (ctx) {
 const on = 'on'
 const off = 'off'
 
-function icon (color) {
+function icon (status) {
   const dir = path.resolve(path.join(__dirname, '../assets/icons/tray'))
 
-  if (!IS_MAC) {
-    return path.join(dir, `${color}-big.png`)
+  if (IS_MAC) {
+    return path.join(dir, 'macos', `${status}-22Template.png`)
   }
 
-  return path.join(dir, `${color}-22Template.png`)
+  const bw = store.get(CONFIG_KEYS.MONOCHROME_TRAY_ICON, false)
+  if (bw) {
+    const theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light'
+    return path.join(dir, 'others', `${status}-32-${theme}.png`)
+  } else {
+    return path.join(dir, 'others', `${status}-large.png`)
+  }
 }
 
 // Ok this one is pretty ridiculous:
@@ -315,7 +323,11 @@ module.exports = function (ctx) {
     // Update configuration checkboxes.
     for (const key of Object.values(CONFIG_KEYS)) {
       const enabled = store.get(key, false)
-      menu.getMenuItemById(key).checked = enabled
+      const item = menu.getMenuItemById(key)
+      if (item) {
+        // Not all items are present in all platforms.
+        item.checked = enabled
+      }
     }
 
     if (!IS_MAC && !IS_WIN) {
@@ -353,7 +365,16 @@ module.exports = function (ctx) {
   ipcMain.on('configUpdated', () => { updateMenu() })
   ipcMain.on('languageUpdated', () => { setupMenu() })
 
+  nativeTheme.on('updated', () => {
+    updateMenu()
+  })
+
   setupMenu()
+
+  createToggler(CONFIG_KEYS.MONOCHROME_TRAY_ICON, async ({ newValue }) => {
+    store.set(CONFIG_KEYS.MONOCHROME_TRAY_ICON, newValue)
+    return true
+  })
 
   ctx.tray = tray
   logger.info('[tray] started')
