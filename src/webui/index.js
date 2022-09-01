@@ -3,7 +3,6 @@ const { screen, BrowserWindow, ipcMain, app, session } = require('electron')
 const { join } = require('path')
 const { URL } = require('url')
 const serve = require('electron-serve')
-const os = require('os')
 const i18n = require('i18next')
 const openExternal = require('./open-external')
 const logger = require('../common/logger')
@@ -17,6 +16,7 @@ const { getSecondsSinceAppStart } = require('../metrics/appStart')
 const { performance } = require('perf_hooks')
 const Countly = require('countly-sdk-nodejs')
 const { analyticsKeys } = require('../analytics/keys')
+const ipcMainEvents = require('../common/ipc-main-events')
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
 const createWindow = () => {
@@ -160,7 +160,7 @@ module.exports = async function (ctx) {
     url.searchParams.set('lng', store.get('language'))
   }
 
-  ipcMain.on('ipfsd', async () => {
+  ipcMain.on(ipcMainEvents.IPFSD, async () => {
     const ipfsd = await ctx.getIpfsd(true)
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {

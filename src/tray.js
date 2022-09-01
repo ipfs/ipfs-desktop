@@ -337,33 +337,33 @@ module.exports = function (ctx) {
     }
   }
 
-  ipcMain.on('ipfsd', status => {
+  ipcMain.on(ipcMainEvents.IPFSD, status => {
     state.status = status
     updateMenu()
   })
 
-  ipcMain.on('gcRunning', () => {
+  ipcMain.on(ipcMainEvents.GC_RUNNING, () => {
     state.gcRunning = true
     updateMenu()
   })
 
-  ipcMain.on('gcEnded', () => {
+  ipcMain.on(ipcMainEvents.GC_ENDED, () => {
     state.gcRunning = false
     updateMenu()
   })
 
-  ipcMain.on('updating', () => {
+  ipcMain.on(ipcMainEvents.UPDATING, () => {
     state.isUpdating = true
     updateMenu()
   })
 
-  ipcMain.on('updatingEnded', () => {
+  ipcMain.on(ipcMainEvents.UPDATING_ENDED, () => {
     state.isUpdating = false
     updateMenu()
   })
 
-  ipcMain.on('configUpdated', () => { updateMenu() })
-  ipcMain.on('languageUpdated', () => { setupMenu() })
+  ipcMain.on(ipcMainEvents.CONFIG_UPDATED, () => { updateMenu() })
+  ipcMain.on(ipcMainEvents.LANG_UPDATED, () => { setupMenu() })
 
   nativeTheme.on('updated', () => {
     updateMenu()

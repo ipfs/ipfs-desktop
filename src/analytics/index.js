@@ -5,6 +5,7 @@ const { COUNTLY_KEY } = require('../common/consts')
 const { join } = require('path')
 const { app } = require('electron')
 const { existsSync, mkdirSync } = require('fs')
+const ipcMainEvents = require('../common/ipc-main-events')
 
 module.exports = async function (ctx) {
   // workaround: recursive mkdir https://github.com/Countly/countly-sdk-nodejs/pull/14
@@ -24,11 +25,11 @@ module.exports = async function (ctx) {
 
   ctx.countlyDeviceId = Countly.device_id
 
-  ipcMain.on('countly.addConsent', (_, consent) => {
+  ipcMain.on(ipcMainEvents.COUNTLY_ADD_CONSENT, (_, consent) => {
     Countly.add_consent(consent)
   })
 
-  ipcMain.on('countly.removeConsent', (_, consent) => {
+  ipcMain.on(ipcMainEvents.COUNTLY_REMOVE_CONSENT, (_, consent) => {
     Countly.remove_consent(consent)
   })
 }
