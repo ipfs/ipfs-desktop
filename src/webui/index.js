@@ -171,13 +171,6 @@ module.exports = async function (ctx) {
     }
   })
 
-  ipcMain.on('config.get', () => {
-    window.webContents.send('config.changed', {
-      platform: os.platform(),
-      config: store.store
-    })
-  })
-
   // Set user agent
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
     details.requestHeaders['User-Agent'] = `ipfs-desktop/${VERSION} (Electron ${ELECTRON_VERSION})`
