@@ -1,5 +1,14 @@
 name: ci
-on: [push, pull_request]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - main
 
 env:
   XDG_CACHE_HOME: ${{ github.workspace }}/.cache
@@ -19,15 +28,22 @@ jobs:
         with:
           node-version: 'lts/*'
 
+      - name: Read ipfs-webui CID from package.json
+        id: read-webui-version
+        run: |
+          echo '::echo::on'
+          echo "::set-output name=cid::$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")"
+          echo '::echo::off'
+        shell: bash
       - name: Cache webui
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: webui-cache
         with:
           path: assets/webui
-          key: ${{ hashFiles('package.json') }} # webui CID is defined in this file
+          key: ${{ steps.read-webui-version.outputs.cid }}
 
       - name: Cache bigger downloads
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
@@ -40,10 +56,9 @@ jobs:
       - uses: ipfs/download-ipfs-distribution-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
-          name: go-ipfs
+          name: kubo
       - uses: ipfs/start-ipfs-daemon-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
-
 
       - name: Install dependencies and fetch ipfs-webui
         if: steps.webui-cache.outputs.cache-hit != 'true'
@@ -76,15 +91,19 @@ jobs:
         with:
           node-version: 'lts/*'
 
+      - name: Read ipfs-webui CID from package.json
+        id: read-webui-version
+        run: echo "::set-output name=cid::$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")"
+        shell: bash
       - name: Cache webui
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: webui-cache
         with:
           path: assets/webui
-          key: ${{ hashFiles('package.json') }}
+          key: ${{ steps.read-webui-version.outputs.cid }}
 
       - name: Cache bigger downloads
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache
         with:
           path: ${{ github.workspace }}/.cache
@@ -96,7 +115,7 @@ jobs:
       - uses: ipfs/download-ipfs-distribution-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
-          name: go-ipfs
+          name: kubo
       - uses: ipfs/start-ipfs-daemon-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
 
@@ -139,15 +158,19 @@ jobs:
         with:
           node-version: 'lts/*'
 
+      - name: Read ipfs-webui CID from package.json
+        id: read-webui-version
+        run: echo "::set-output name=cid::$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")"
+        shell: bash
       - name: Cache webui
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: webui-cache
         with:
           path: assets/webui
-          key: ${{ hashFiles('package.json') }}
+          key: ${{ steps.read-webui-version.outputs.cid }}
 
       - name: Cache bigger downloads
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache
         with:
           path: ${{ github.workspace }}/.cache
@@ -159,7 +182,7 @@ jobs:
       - uses: ipfs/download-ipfs-distribution-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
-          name: go-ipfs
+          name: kubo
       - uses: ipfs/start-ipfs-daemon-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
 

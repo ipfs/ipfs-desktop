@@ -5,6 +5,7 @@ const store = require('./common/store')
 const logger = require('./common/logger')
 const { showDialog, recoverableErrorDialog, selectDirectory } = require('./dialogs')
 const dock = require('./utils/dock')
+const { analyticsKeys } = require('./analytics/keys')
 
 module.exports = function ({ stopIpfs, startIpfs }) {
   dock.run(async () => {
@@ -77,7 +78,7 @@ module.exports = function ({ stopIpfs, startIpfs }) {
 
     config.path = newDir
     store.set('ipfsConfig', config)
-    logger.info('[move repository] configuration updated', { withAnalytics: 'MOVE_REPOSITORY' })
+    logger.info('[move repository] configuration updated', { withAnalytics: analyticsKeys.MOVE_REPOSITORY })
 
     showDialog({
       title: i18n.t('moveRepositorySuccessDialog.title'),

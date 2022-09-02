@@ -208,7 +208,7 @@
     "message": "Der IPFS Knoten hat einen Fehler festgestellt und der Start konnte nicht abgeschlossen werden:"
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
+    "title": "Ungültiger IPFS Speicher oder Konfigurationsdatei",
+    "message": "Der Speicher unter „{ path }“ ist ungültig. Die Konfigurationsdatei muss gültiges JSON enthalten.\n\nBevor Du IPFS Desktop erneut startest, repariere bitte die Konfigurationsdatei oder benenne den alten Speicher in „.ipfs.backup“ um."
   }
 }

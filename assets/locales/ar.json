@@ -208,7 +208,7 @@
     "message": "واجهت عقدة IPFS خطأ وتعذر إكمال بدء التشغيل:"
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
+    "title": "مستودع IPFS أو ملف التكوين غير صالح",
+    "message": "المستودع في “{ path }” غير صالح. يجب أن يكون ملف \"config\" بتنسيق JSON صالحًا.\n\nقبل بدء تشغيل IPFS Desktop مرة أخرى، يرجى إصلاح ملف التكوين أو إعادة تسمية المستودع القديم إلى “.ipfs.backup”."
   }
 }

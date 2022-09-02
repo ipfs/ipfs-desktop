@@ -12,7 +12,7 @@
   "about": "درباره",
   "advanced": "پیشرفته",
   "openRepoDir": "بازکردن دایرکتوری مخزن",
-  "openLogsDir": "بازکردن لاگ های دایرکتوری",
+  "openLogsDir": "بازکردن دایرکتوری لاگ ها",
   "openConfigFile": "بازکردن فایل پیکربندی",
   "viewOnGitHub": "مشاهده در GitHub",
   "helpUsTranslate": "به ترجمه ی این برنامه کمک کنید...",
@@ -46,7 +46,7 @@
   "customIpfsBinary": "باینری IPFS سفارشی",
   "setCustomIpfsBinary": "تنظیم باینری IPFS سفارشی",
   "clearCustomIpfsBinary": "پاک کردن باینری IPFS سفارشی",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "داکیومنت CLI را باز کنید",
   "polkitDialog": {
     "title": "Polkit یافت نشد",
     "message": "IPFS بدون عامل Polkit  نمیتواند به /usr/local/bin/ اضافه شود."
@@ -105,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "ایتم ها اضافه شد",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "{ count }ایتم اضافه شده به گره IPFS شما. لینک قابل اشتراک گذاری در کلیپ بورد شما کپی شد."
   },
   "itemAddedNotification": {
     "title": "ایتم اضافه شد",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "ایتم به گره IPFS شما اضافه شد. پیوند قابل اشتراک گذاری در کلیپ بورد شما کپی شد."
   },
   "itemsFailedNotification": {
     "title": "آیتم اضافه نشد",
@@ -128,14 +128,14 @@
     "message": "بارگیری بروزرسانی امکان پذیر نیست.\nلطفاً اتصال اینترنت خود را بررسی کرده و دوباره امتحان کنید."
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "به روز رسانی IPFS Desktop",
+    "message": "به روز رسانی IPFS Desktop { version }در دسترس است. آیا مایل هستید آن را همین الان نصب کنید؟",
+    "later": "الان نه",
+    "now": "حالا نصب کن"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "به روز رسانی IPFS Desktop",
+    "message": "به روز رسانی { version } IPFS Desktop در دسترس است."
   },
   "runGarbageCollectorWarning": {
     "title": "بازیابی حافظه",
@@ -193,22 +193,22 @@
     "message": "فایل باینری سفارشی IPFS پاک شد. برای شروع استفاده از نسخه پکیج شده IPFS ، ابتدا باید IPFS دوباره راه اندازی شود."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "IPFS Desktop پاسخگو نیست",
+    "message": "عملیات جاری منابع بیشتری از حد انتظار مصرف میکند. آیا می خواهید رابط را لغو کنید و به اجبار مجدداً بارگیری کنید؟",
+    "forceReload": "بله، دوباره بارگیری کنید",
+    "doNothing": "نخیر ، هیچ کاری نکن"
   },
   "migrationDialog": {
     "title": "IPFS Desktop Migration",
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "closeAndContinue": "در پس زمینه ادامه دهید"
   },
   "startupFailedDialog": {
     "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "message": "گره IPFS با خطا مواجه شده است و راه اندازی کامل نمی شود:"
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
+    "title": "مخزن IPFS یا فایل پیکربندی نامعتبر است",
     "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
   }
 }
