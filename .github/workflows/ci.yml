@@ -136,7 +136,7 @@ jobs:
         uses: GabrielBB/xvfb-action@86d97bde4a65fe9b290c0b3fb92c2c4ed0e5302d # v1.6
         with:
           working-directory: ${{ github.workspace }}
-          run: npm run test:e2e
+          run: npm run test:e2e -- --workers 4
 
       - name: Lint
         run: npm run lint
