@@ -13,26 +13,15 @@ async function getPort (port) {
 
 if (process.env.CI === 'true') test.setTimeout(120000) // slow ci
 
-test.describe.serial('Application launch', async () => {
-  let app = null
+test.describe.configure({ mode: 'parallel' })
 
-  test.afterEach(async () => {
-    if (app) {
-      try {
-        await app.close()
-      } catch (e) {
-        if (e.message.includes('has been closed')) return
-        throw e
-      }
-    }
-  })
-
+test.describe('Application launch', async () => {
   async function startApp ({ repoPath } = {}) {
     const home = tmp.dirSync({ prefix: 'tmp_home_', unsafeCleanup: true }).name
     if (!repoPath) {
       repoPath = path.join(home, '.ipfs')
     }
-    app = await electron.launch({
+    const app = await electron.launch({
       args: [path.join(__dirname, '../../src/index.js')],
       env: Object.assign({}, process.env, {
         NODE_ENV: 'test',
@@ -41,6 +30,17 @@ test.describe.serial('Application launch', async () => {
       })
     })
     return { app, repoPath, home }
+  }
+
+  async function stopApp (app) {
+    if (app) {
+      try {
+        await app.close()
+      } catch (e) {
+        if (e.message.includes('has been closed')) return
+        throw e
+      }
+    }
   }
 
   async function daemonReady (app) {
@@ -75,6 +75,7 @@ test.describe.serial('Application launch', async () => {
     // ensure strict CORS checking is enabled
     expect(config.API.HTTPHeaders).toEqual({})
     expect(config.Discovery.MDNS.Enabled).toBeTruthy()
+    await stopApp(app)
   })
 
   test('starts fine when node is already running', async () => {
@@ -83,6 +84,7 @@ test.describe.serial('Application launch', async () => {
     const { peerId } = await daemonReady(app)
     const { id: expectedId } = await ipfsd.api.id()
     expect(peerId).toBe(expectedId)
+    await stopApp(app)
   })
 
   test('applies config migration (MDNS.enabled)', async () => {
@@ -104,6 +106,8 @@ test.describe.serial('Application launch', async () => {
     // ensure app has migrated config
     expect(config.Discovery.MDNS.enabled).toBeUndefined()
     expect(config.Discovery.MDNS.Enabled).toBeTruthy()
+
+    await stopApp(app)
   })
 
   test('applies config migration (Web UI CORS 1)', async () => {
@@ -125,6 +129,8 @@ test.describe.serial('Application launch', async () => {
       'https://webui.ipfs.io',
       'http://webui.ipfs.io.ipns.localhost:0' // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
     ])
+
+    await stopApp(app)
   })
 
   test('applies config migration (Web UI CORS 2)', async () => {
@@ -145,6 +151,8 @@ test.describe.serial('Application launch', async () => {
       'https://webui.ipfs.io',
       'http://webui.ipfs.io.ipns.localhost:0' // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
     ])
+
+    await stopApp(app)
   })
 
   test('applies config migration (Web UI CORS 3)', async () => {
@@ -165,6 +173,8 @@ test.describe.serial('Application launch', async () => {
       'https://webui.ipfs.io',
       'http://webui.ipfs.io.ipns.localhost:0' // ipfsd 'test' profile uses '/ip4/127.0.0.1/tcp/0'
     ])
+
+    await stopApp(app)
   })
 
   test('applies config migration (ConnMgr)', async () => {
@@ -186,6 +196,8 @@ test.describe.serial('Application launch', async () => {
     expect(config.Swarm.ConnMgr.GracePeriod).toEqual('1m')
     expect(config.Swarm.ConnMgr.LowWater).toEqual(20)
     expect(config.Swarm.ConnMgr.HighWater).toEqual(40)
+
+    await stopApp(app)
   })
 
   test('starts with repository with "IPFS_PATH/api" file and no daemon running', async () => {
@@ -202,6 +214,7 @@ test.describe.serial('Application launch', async () => {
 
     const { app } = await startApp({ repoPath })
     await daemonReady(app)
+    await stopApp(app)
   })
 
   test('starts with multiple api addresses', async () => {
@@ -214,6 +227,7 @@ test.describe.serial('Application launch', async () => {
     fs.writeJsonSync(configPath, config, { spaces: 2 })
     const { app } = await startApp({ repoPath })
     await daemonReady(app)
+    await stopApp(app)
   })
 
   test('starts with multiple gateway addresses', async () => {
@@ -226,5 +240,6 @@ test.describe.serial('Application launch', async () => {
     fs.writeJsonSync(configPath, config, { spaces: 2 })
     const { app } = await startApp({ repoPath })
     await daemonReady(app)
+    await stopApp(app)
   })
 })
