@@ -224,7 +224,7 @@ function migrateConfig (ipfsd) {
   if (CURRENT_REVISION < 5) {
     // expand pretection interval for new connections.
     // Rationale: https://github.com/ipfs/ipfs-desktop/pull/2055#issuecomment-1090327377
-    const { GracePeriod, LowWater, HighWater } = config.Swarm.ConnMgr
+    const { GracePeriod } = config.Swarm.ConnMgr
     if (GracePeriod === '1m') {
       config.Swarm.ConnMgr.GracePeriod = '3m'
       changed = true
