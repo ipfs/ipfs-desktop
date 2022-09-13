@@ -5,7 +5,7 @@
   "ipfsIsNotRunning": "Az IPFS nem fut",
   "ipfsHasErrored": "Az IPFS-ben hiba történt",
   "runningWithGC": "Futtatás (GC folyamatban)",
-  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "runningWhileCheckingForUpdate": "Futtatás (Frissítések keresése)",
   "start": "Indítás",
   "stop": "Leállítás",
   "restart": "Újraindítás",
@@ -22,14 +22,14 @@
   "peers": "Ügyfelek",
   "quit": "Kilépés",
   "versions": "Verziók",
-  "screenshotTaken": "Képernyőfotó készítése",
+  "screenshotTaken": "Képernyőkép elkészítve",
   "shareableLinkCopied": "Megosztható link a vágólapra került. Kattints ide a képernyőfotó megtekintéséhez.",
   "couldNotTakeScreenshot": "Nem tudok képernyőképet készíteni",
   "errorwhileTakingScreenshot": "Hiba történt a képernyőkép készítése során",
   "clickToOpenLogs": "Kattints ide a naplófájlok eléréséhez.",
   "ipfsNotRunning": "Az IPFS nem fut",
   "checkForUpdates": "Nézd meg a frissítéseket!",
-  "checkingForUpdates": "Checking for Updates",
+  "checkingForUpdates": "Frissítések keresése",
   "yes": "Igen",
   "no": "Nem",
   "close": "Bezárás",
@@ -41,12 +41,12 @@
   "openLogs": "A logok megnyitása",
   "takeScreenshot": "Készíts képernyőképet",
   "moveRepositoryLocation": "A tároló helyének áthelyezése",
-  "runGarbageCollector": "Futtasd a lomtárat",
+  "runGarbageCollector": "Futtasd a szemétgyűjtőt",
   "selectDirectory": "Válassz könyvtárat",
   "customIpfsBinary": "Saját IPFS bináris",
   "setCustomIpfsBinary": "Állíts be saját IPFS binárist",
   "clearCustomIpfsBinary": "A saját IPFS bináris törlése",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "CLI dokumentáció megnyitása",
   "polkitDialog": {
     "title": "A Poolkit nem található",
     "message": "Az IPFS nem adható hozzá a /usr/local/bin/ ügynök nélkül."
@@ -105,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "Elemek hozzáadva",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "{ count } tétel hozzáadva az IPFS csomópontodhoz. Egy megosztható link a vágólapodra lett másolva."
   },
   "itemAddedNotification": {
     "title": "Elem hozzáadva",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "Tétel hozzáadva az IPFS csomópontodhoz. Egy megosztható link a vágólapodra lett másolva."
   },
   "itemsFailedNotification": {
     "title": "Hibásak a hozzáadott tételek",
@@ -128,14 +128,14 @@
     "message": "Nem tudtuk letölteni a frissítést. Kérlek ellenőrizd az internet hozzáférésed és próbáld meg újra."
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "IPFS Desktop Frissítés",
+    "message": "Egy frissítés elérhető az IPFS Desktop { version }-as/-es verziójára. Szeretnéd ezt telepíteni most?",
+    "later": "Később",
+    "now": "Telepítés most"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "IPFS Desktop Frissítés",
+    "message": "Egy frissítés elérhető az IPFS Desktop { version }-as/-es verziójára."
   },
   "runGarbageCollectorWarning": {
     "title": "Szemetes",
@@ -173,12 +173,12 @@
     "appPreferences": "Program beállítások",
     "launchOnStartup": "Futtatás bejelentkezéskor",
     "openWebUIAtLaunch": "A webes interfész megnyitása futtatásra",
-    "pubsub": "Enable PubSub",
-    "namesysPubsub": "Enable IPNS over PubSub",
-    "automaticGC": "Automatic Garbage Collection",
+    "pubsub": "PubSub engedélyezése",
+    "namesysPubsub": "IPNS engedélyezése a PubSub-on",
+    "automaticGC": "Automatikus Szemétgyűjtés",
     "takeScreenshotShortcut": "Központi képernyőmentési parancs",
     "experiments": "Experiments",
-    "npmOnIpfs": "Enable npm on IPFS"
+    "npmOnIpfs": "npm engedélyezése az IPFS-en"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Saját IPFS bináris",
@@ -193,22 +193,22 @@
     "message": "Az egyéni IPFS bináris fájl törlődött. A kötegelt IPFS-verzió használatának megkezdéséhez az IPFS-t először újra kell indítani."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "IPFS Desktop nem válaszol",
+    "message": "A folyamatban lévő művelet több erőforrást vesz igénybe, mint amennyi el volt várva. Meg akarod szakítani és erőszakkal újratölteni a felületet?",
+    "forceReload": "Igen, újratölteni",
+    "doNothing": "Semmit sem csinálni"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "IPFS Desktop migráció",
+    "message": "Egy pillanat! Az IPFS Desktop-nak futtatia kell a legutóbbi adat eltárolási migrációkat:",
+    "closeAndContinue": "Háttérben folytatni"
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "Az IPFS Desktop elindítása nem sikerült",
+    "message": "Az IPFS csomópont hibába ütközött és az indítást nem sikerült befejezni:"
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
+    "title": "Helytelen IPFS adattár vagy konfigurációs fájl",
+    "message": "Az adattár a “{ path }”-nál/-nél helytelen. A “config” fájlnak egy érvényes JSON-nak kell lennie.\n\nAz IPFS Desktop újraindítása előtt, kérlek javítsd meg a konfigurációs fájlt, vagy nevezd át a régi adattárat “.ipfs.backup”-ra/-re."
   }
 }

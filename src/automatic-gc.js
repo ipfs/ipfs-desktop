@@ -1,9 +1,10 @@
 const createToggler = require('./utils/create-toggler')
 const logger = require('./common/logger')
 const store = require('./common/store')
+const { AUTO_GARBAGE_COLLECTOR: CONFIG_KEY } = require('./common/config-keys')
 const { ipcMain } = require('electron')
+const ipcMainEvents = require('./common/ipc-main-events')
 
-const CONFIG_KEY = 'automaticGC'
 const gcFlag = '--enable-gc'
 const isEnabled = flags => flags.some(f => f === gcFlag)
 
@@ -25,7 +26,7 @@ function disable () {
 
 function applyConfig (newFlags) {
   store.set('ipfsConfig.flags', newFlags)
-  ipcMain.emit('ipfsConfigChanged') // trigger node restart
+  ipcMain.emit(ipcMainEvents.IPFS_CONFIG_CHANGED) // trigger node restart
 }
 
 module.exports = async function () {
@@ -50,5 +51,3 @@ module.exports = async function () {
   createToggler(CONFIG_KEY, activate)
   logger.info(`[automatic gc] ${store.get(CONFIG_KEY, true) ? 'enabled' : 'disabled'}`)
 }
-
-module.exports.CONFIG_KEY = CONFIG_KEY

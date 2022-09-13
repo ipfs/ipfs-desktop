@@ -1,7 +1,7 @@
 {
   "ipfsIsRunning": "IPFS jest uruchomiony",
   "ipfsIsStopping": "IPFS zatrzymuje się",
-  "ipfsIsStarting": "IPFS startuje",
+  "ipfsIsStarting": "IPFS się uruchamia",
   "ipfsIsNotRunning": "IPFS jest wyłączony",
   "ipfsHasErrored": "Błąd IPFS",
   "runningWithGC": "Uruchamianie (GC w toku)",
@@ -14,7 +14,7 @@
   "openRepoDir": "Otwórz katalog repozytorium",
   "openLogsDir": "Otwórz katalog logów",
   "openConfigFile": "Otwórz plik konfiguracyjny",
-  "viewOnGitHub": "Zobacz na GitHub...",
+  "viewOnGitHub": "Zobacz na GitHub",
   "helpUsTranslate": "Pomóż przetłumaczyć tę aplikację",
   "readReleaseNotes": "Przeczytaj informacje o wydaniu",
   "status": "Status",
@@ -46,7 +46,7 @@
   "customIpfsBinary": "Niestandardowe IPFS Binary",
   "setCustomIpfsBinary": "Ustaw niestandardowe IPFS Binary",
   "clearCustomIpfsBinary": "Wyczyść niestandardowe IPFS Binary",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "Otwórz dokumentację CLI",
   "polkitDialog": {
     "title": "Polkit nie został odnaleziony",
     "message": "IPFS nie może być dodany do /usr/local/bin/ bez klienta polkit."
@@ -105,11 +105,11 @@
   },
   "itemsAddedNotification": {
     "title": "Pozycje dodane",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "Dodano { count } elementów do Twojego węzła IPFS. Link do udostępnienia został skopiowany."
   },
   "itemAddedNotification": {
     "title": "Pozycja dodana",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "Element dodany do Twojego węzła IPFS. Link do udostępnienia został skopiowany."
   },
   "itemsFailedNotification": {
     "title": "Nie udało się dodać elementów",
@@ -128,14 +128,14 @@
     "message": "Pobranie aktualizacji nie było możliwe. Proszę sprawdzić połączenie internetowe i spróbować ponownie."
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "Aktualizacja IPFS Desktop",
+    "message": "Jest dostępna aktualizacja na IPFS Desktop { version }. Czy chcesz ją teraz zainstalować?",
+    "later": "Później",
+    "now": "Zainstaluj teraz"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "Aktualizacja IPFS Desktop",
+    "message": "Jest dostępna aktualizacja na IPFS Desktop { version }."
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
@@ -193,22 +193,22 @@
     "message": "Własna wersja binarna IPFS została wyczyszczona. Aby rozpocząć korzystanie z dołączonej wersji IPFS, IPFS musi zostać zrestartowany."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "IPFS Desktop nie odpowiada",
+    "message": "Bieżące działanie zużywa więcej zasobów niż oczekiwano. Czy chcesz przerwać działanie i wymusić ponowne załadowanie interfejsu?",
+    "forceReload": "Tak, odśwież",
+    "doNothing": "Nie rób niczego"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "Migracja IPFS Desktop",
+    "message": "Chwileczkę! Wymagane jest uruchomienie najnowszych migracji magazynu danych:",
+    "closeAndContinue": "Kontynuuj działanie w tle"
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "Uruchomienie IPFS Desktop się nie powiodło",
+    "message": "Uruchomienie nie powiodło się ponieważ wystąpił błąd w węźle IPFS:"
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
+    "title": "Nieprawidłowy plik konfiguracji lub repozytorium IPFS",
+    "message": "Repozytorium znajdujące się przy ścieżce “{ path }” jest nieprawidłowe. Plik “config” musi być poprawnym plikiem konfiguracyjnym formatu JSON.\n\nZanim ponownie uruchomisz IPFS Desktop, upewnij się, że plik konfiguracyjny jest prawidłowy lub zmień nazwę starego repozytorium na “.ipfs.backup”.   "
   }
 }

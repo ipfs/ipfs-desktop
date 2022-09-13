@@ -46,7 +46,7 @@
   "customIpfsBinary": "Пользовательский файл IPFS",
   "setCustomIpfsBinary": "Выбрать пользовательский исполняемый файл IPFS",
   "clearCustomIpfsBinary": "Очистить пользовательский исполняемый файл IPFS",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "Открыть документацию по CLI",
   "polkitDialog": {
     "title": "Библиотека Polkit не найдена",
     "message": "IPFS нельзя добавить в /usr/local/bin/ без агента Polkit."
@@ -105,7 +105,7 @@
   },
   "itemsAddedNotification": {
     "title": "Добавленные элементы",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "{ count } элементов добавлено в вашу IPFS Узел. Ссылка скопирована в буфер."
   },
   "itemAddedNotification": {
     "title": "Элемент добавлен",
@@ -129,13 +129,13 @@
   },
   "updateDownloadedDialog": {
     "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "message": "Доступно обновление IPFS { version }, хотите установить сейчас?",
+    "later": "Позже",
+    "now": "Установить сейчас"
   },
   "updateDownloadedNotification": {
     "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "message": "Доступно обновление [version]"
   },
   "runGarbageCollectorWarning": {
     "title": "Сборщик мусора",
@@ -195,13 +195,13 @@
   "unresponsiveWindowDialog": {
     "title": "IPFS Desktop became unresponsive",
     "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "forceReload": "Да, перезагрузить",
+    "doNothing": "Ничего не делать"
   },
   "migrationDialog": {
     "title": "IPFS Desktop Migration",
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "closeAndContinue": "Продолжить в фоне"
   },
   "startupFailedDialog": {
     "title": "IPFS Desktop Startup Has Failed",

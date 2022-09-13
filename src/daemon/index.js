@@ -6,15 +6,17 @@ const store = require('../common/store')
 const logger = require('../common/logger')
 const { STATUS } = require('./consts')
 const createDaemon = require('./daemon')
+const ipcMainEvents = require('../common/ipc-main-events')
+const { analyticsKeys } = require('../analytics/keys')
 
-module.exports = async function (ctx) {
+async function setupDaemon (ctx) {
   let ipfsd = null
   let status = null
   let wasOnline = null
 
   const updateStatus = (stat, id = null) => {
     status = stat
-    ipcMain.emit('ipfsd', status, id)
+    ipcMain.emit(ipcMainEvents.IPFSD, status, id)
   }
 
   const getIpfsd = async (optional = false) => {
@@ -39,7 +41,7 @@ module.exports = async function (ctx) {
       return
     }
 
-    const log = logger.start('[ipfsd] start daemon', { withAnalytics: 'DAEMON_START' })
+    const log = logger.start('[ipfsd] start daemon', { withAnalytics: analyticsKeys.DAEMON_START })
     const config = store.get('ipfsConfig')
     updateStatus(STATUS.STARTING_STARTED)
 
@@ -73,7 +75,7 @@ module.exports = async function (ctx) {
       return
     }
 
-    const log = logger.start('[ipfsd] stop daemon', { withAnalytics: 'DAEMON_STOP' })
+    const log = logger.start('[ipfsd] stop daemon', { withAnalytics: analyticsKeys.DAEMON_STOP })
     updateStatus(STATUS.STOPPING_STARTED)
 
     if (!fs.pathExistsSync(join(ipfsd.path, 'config'))) {
@@ -122,4 +124,5 @@ module.exports = async function (ctx) {
   })
 }
 
+module.exports = setupDaemon
 module.exports.STATUS = STATUS

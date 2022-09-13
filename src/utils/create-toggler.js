@@ -1,9 +1,10 @@
 const { ipcMain } = require('electron')
 const store = require('../common/store')
 const logger = require('../common/logger')
+const ipcMainEvents = require('../common/ipc-main-events')
 
 module.exports = function (settingsOption, activate) {
-  ipcMain.on(`toggle_${settingsOption}`, async () => {
+  ipcMain.on(ipcMainEvents.TOGGLE(settingsOption), async () => {
     const oldValue = store.get(settingsOption, null)
     const newValue = !oldValue
 
@@ -17,6 +18,6 @@ module.exports = function (settingsOption, activate) {
     // We always emit the event so any handlers for it can act upon
     // the current configuration, whether it was successfully
     // updated or not.
-    ipcMain.emit('configUpdated')
+    ipcMain.emit(ipcMainEvents.CONFIG_UPDATED)
   })
 }

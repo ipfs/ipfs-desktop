@@ -8,8 +8,7 @@ const defaults = {
     flags: [
       '--agent-version-suffix=desktop',
       '--migrate',
-      '--enable-gc',
-      '--routing=dhtclient'
+      '--enable-gc'
     ]
   },
   language: (electron.app || electron.remote.app).getLocale(),
@@ -50,6 +49,16 @@ const migrations = {
     if (flags.includes('--routing') && flags.includes('dhtclient')) {
       flags = flags.filter(f => f !== '--routing').filter(f => f !== 'dhtclient')
       flags.push('--routing=dhtclient')
+      store.set('ipfsConfig.flags', flags)
+    }
+  },
+  '>=0.20.6': store => {
+    let flags = store.get('ipfsConfig.flags', [])
+
+    // use default instead of hard-coded dhtclient
+    const dhtClientFlag = '--routing=dhtclient'
+    if (flags.includes(dhtClientFlag)) {
+      flags = flags.filter(f => f !== dhtClientFlag)
       store.set('ipfsConfig.flags', flags)
     }
   }

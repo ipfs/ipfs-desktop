@@ -1,5 +1,6 @@
 const { app, shell } = require('electron')
 const path = require('path')
+const os = require('os')
 const i18n = require('i18next')
 const dialog = require('./dialog')
 
@@ -13,7 +14,7 @@ const issueTemplate = (e) => `👉️ Please describe what you were doing when t
 
 **Specifications**
 
-- **OS**: ${process.platform}
+- **OS**: ${os.platform()} ${os.release()}
 - **IPFS Desktop Version**: ${app.getVersion()}
 - **Electron Version**: ${process.versions.electron}
 - **Chrome Version**: ${process.versions.chrome}

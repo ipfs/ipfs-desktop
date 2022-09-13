@@ -6,6 +6,7 @@ const last = require('it-last')
 const fs = require('fs-extra')
 const logger = require('./common/logger')
 const { notify, notifyError } = require('./common/notify')
+const { analyticsKeys } = require('./analytics/keys')
 
 async function copyFileToMfs (ipfs, cid, filename) {
   let i = 0
@@ -110,7 +111,7 @@ module.exports = async function ({ getIpfsd, launchWebUI }, files) {
   const successes = []
   const failures = []
 
-  const log = logger.start('[add to ipfs] started', { withAnalytics: 'ADD_VIA_DESKTOP' })
+  const log = logger.start('[add to ipfs] started', { withAnalytics: analyticsKeys.ADD_VIA_DESKTOP })
 
   await Promise.all(files.map(async file => {
     try {
