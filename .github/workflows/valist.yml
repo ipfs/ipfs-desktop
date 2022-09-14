@@ -1,0 +1,30 @@
+name: Valist Publish
+on:
+  release:
+    types: [published]
+jobs:
+  valist-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: robinraju/release-downloader@v1.4
+        with:
+          repository: "ipfs/ipfs-desktop"
+          latest: true
+          tarBall: true
+          zipBall: true
+          fileName: "*"
+      - uses: valist-io/valist-github-action@v2.5.6
+        env:
+          RELEASE_NAME: ${{ github.event.release.name }}
+        with:
+          private-key: ${{ secrets.VALIST_SIGNER }}
+          account: ipfs
+          project: ipfs-desktop
+          release: ${{ env.RELEASE_NAME }}
+          path: '.' # upload all files in release
+
+          # configures installer support for mac and linux
+          install-name: ipfs-desktop
+          install-darwin-amd64: IPFS-Desktop-${{ env.RELEASE_NAME }}-mac.zip
+          install-darwin-arm64: IPFS-Desktop-${{ env.RELEASE_NAME }}-mac.zip
+          install-linux-amd64: ipfs-desktop-${{ env.RELEASE_NAME }}-linux-x86_64.AppImage
