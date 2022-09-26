@@ -205,19 +205,21 @@ function migrateConfig (ipfsd) {
   }
 
   if (CURRENT_REVISION < 4) {
-    // lower ConnMgr https://github.com/ipfs/ipfs-desktop/issues/2039
-    const { GracePeriod, LowWater, HighWater } = config.Swarm.ConnMgr
-    if (GracePeriod === '300s') {
-      config.Swarm.ConnMgr.GracePeriod = '1m'
-      changed = true
-    }
-    if (LowWater > 20) {
-      config.Swarm.ConnMgr.LowWater = 20
-      changed = true
-    }
-    if (HighWater > 40) {
-      config.Swarm.ConnMgr.HighWater = 40
-      changed = true
+    if (config.Swarm && config.Swarm.ConnMgr) {
+      // lower ConnMgr https://github.com/ipfs/ipfs-desktop/issues/2039
+      const { GracePeriod, LowWater, HighWater } = config.Swarm.ConnMgr
+      if (GracePeriod === '300s') {
+        config.Swarm.ConnMgr.GracePeriod = '1m'
+        changed = true
+      }
+      if (LowWater > 20) {
+        config.Swarm.ConnMgr.LowWater = 20
+        changed = true
+      }
+      if (HighWater > 40) {
+        config.Swarm.ConnMgr.HighWater = 40
+        changed = true
+      }
     }
   }
 
