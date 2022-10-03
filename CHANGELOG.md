@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.24.0] - 2022-10-03
+
+## What's Changed
+* feat: monochrome tray icon on Windows & Linux by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2159
+* chore(deps): webui v2.18.0 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2263
+* feat: Create CODEOWNERS by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2239
+* feat: include platform version in error report by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2256
+* fix: ensure .Swarm.ConnMgr exists before accessing by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2255
+* feat: ipfs-webui v2.18.1 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2267
+* refactor: use ipcMainEvents constant  by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2250
+* chore: webui@v2.19.0 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2286
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.23.0...v0.24.0
+
 ## [v0.23.0] - 2022-08-30
 
 ## What's Changed
@@ -266,7 +281,7 @@ This is the same as [0.18.0](https://github.com/ipfs/ipfs-desktop/releases/tag/v
 ## [v0.15.0] - 2021-05-04
 
 - IPFS: [`go-ipfs v0.8.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.8.0)
-- UI: [`v2.12.2`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.12.2) 
+- UI: [`v2.12.2`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.12.2)
 
 ### ✨ Features
 
@@ -277,9 +292,9 @@ This is the same as [0.18.0](https://github.com/ipfs/ipfs-desktop/releases/tag/v
 ### 🛠 Fixes and Maintenance
 
 - fix: ipfs-on-path should never fail on boot (#1769)
-- docs(readme): fix scoop install steps (#1808) 
-- docs: promote AppImage for Linux (#1776) 
-- chore: switch actions to v2 (#1708) 
+- docs(readme): fix scoop install steps (#1808)
+- docs: promote AppImage for Linux (#1776)
+- chore: switch actions to v2 (#1708)
 - chore(i18n): i18next update and locale sync
 
 
@@ -292,7 +307,7 @@ This is the same as [0.18.0](https://github.com/ipfs/ipfs-desktop/releases/tag/v
 
 - go-ipfs 0.8.0 (#1715 +  [RELEASE NOTES](https://github.com/ipfs/go-ipfs/releases/tag/v0.8.0))
 - electron 11.x (#1715)
-- improve updating ux (#1758) 
+- improve updating ux (#1758)
 - enable ipns over pubsub via settings menu (#1739)
 - disable/enable gc via settings menu (#1740)
 - enable pubsub via settings menu (#1735)
@@ -300,17 +315,17 @@ This is the same as [0.18.0](https://github.com/ipfs/ipfs-desktop/releases/tag/v
 ### 🛠 Fixes and Maintenance
 
 - fix: timeout during checkIfAddrIsDaemon (#1750)
-- fix: default Open WebUI at Launch to true (#1757) 
-- fix: autoupdate only on supported platforms (#1698) 
+- fix: default Open WebUI at Launch to true (#1757)
+- fix: autoupdate only on supported platforms (#1698)
 - fix:  specify content-type in prompt template (#1729)
-- fix: use correct config path during development (#1690) 
+- fix: use correct config path during development (#1690)
 - fix(mac): refresh file list after import (#1767)
 - refactor: tray click events (#1766)
 - chore: deprecate ipfs-on-path (#1768) and npm-on-ipfs (17578745addb6c665b0c3a3e50499d3967c8efb5)
 - docs: rework readme (#1703)
 - chore: automated Chocolatey publishing (#1697)
-- docs: Homebrew instructions (#1727) 
-- docs: brew cask has been deprecated (#1732) 
+- docs: Homebrew instructions (#1727)
+- docs: brew cask has been deprecated (#1732)
 - chore(i18n): locale sync (https://github.com/ipfs-shipyard/ipfs-desktop/commit/2f1631d2a1f83b98a2ef79bd2a8b37f9696b5a46)
 
 
@@ -334,8 +349,8 @@ This is the same as [0.18.0](https://github.com/ipfs/ipfs-desktop/releases/tag/v
 
 Below PRs fixed autoupdate issues on Windows platform, however older versions may still struggle to update.
 
--  fix: windows auto-update (#1679) 
--  fix(windows): autoInstallOnAppQuit (#1682) 
+-  fix: windows auto-update (#1679)
+-  fix(windows): autoInstallOnAppQuit (#1682)
 
 **If your node is unable to apply update to this version, please install [IPFS-Desktop-Setup-0.13.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.13.2/IPFS-Desktop-Setup-0.13.2.exe) manually.**
 From now on, Windows updates should work as expected.
@@ -405,14 +420,14 @@ We are working on a fix.
 - chore: update dependencies
 ## [v0.11.2] - 2020-04-30
 - Web UI: [`v2.8.0`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.8.0) ✨
-- IPFS: [`go-ipfs v0.5.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.5.0) ✨ 
+- IPFS: [`go-ipfs v0.5.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.5.0) ✨
 
 ### 🛠 Fixes and Maintenance
 
 - fix: open directory from webui (https://github.com/ipfs-shipyard/ipfs-desktop/pull/1472)
 ## [v0.11.1] - 2020-04-29
 - Web UI: [`v2.8.0`](https://github.com/ipfs-shipyard/ipfs-webui/releases/v2.8.0) ✨
-- IPFS: [`go-ipfs v0.5.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.5.0) ✨ 
+- IPFS: [`go-ipfs v0.5.0`](https://github.com/ipfs/go-ipfs/releases/tag/v0.5.0) ✨
 
 ### 🚨 Breaking Changes
 
@@ -421,7 +436,7 @@ We are working on a fix.
 
 ### ✨  Features
 
-- feat: support for go-ipfs 0.5 (#1392) 
+- feat: support for go-ipfs 0.5 (#1392)
 - feat: run garbage collector (#1407)
 - feat: update ipfsd-ctl to 4.x (#1411)
 - feat: improved update experience (#1414)
@@ -429,7 +444,7 @@ We are working on a fix.
 - feat(ux): improve gc (#1420)
 - feat(ux): better error messages (#1421)
 - feat(ux): separate open from other actions (#1424)
-- feat(ux): move preferences to menubar (#1425) 
+- feat(ux): move preferences to menubar (#1425)
 - feat: allow custom ipfs binary (#1427)
 - feat(ux): open web ui at login (#1429)
 - feat: add "Help Translation" under "About" (#1447)
