@@ -9,6 +9,10 @@ const ipcMainEvents = Object.freeze({
   MENUBAR_OPEN: 'menubar-will-open',
   UPDATING: 'updating',
   UPDATING_ENDED: 'updatingEnded',
+  SCREENSHOT: 'screenshot',
+  COUNTLY_ADD_CONSENT: 'countly.addConsent',
+  COUNTLY_REMOVE_CONSENT: 'countly.removeConsent',
+  ONLINE_STATUS_CHANGED: 'online-status-changed',
   TOGGLE: (key) => `toggle_${key}`
 })
 
