@@ -23,7 +23,7 @@ module.exports = async function () {
       }
     })
 
-  ipcMain.on('updateLanguage', async (_, lang) => {
+  ipcMain.on(ipcMainEvents.LANG_UPDATED, async (_, lang) => {
     if (lang === store.get('language')) {
       return
     }

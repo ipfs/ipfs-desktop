@@ -107,7 +107,7 @@ async function setupDaemon (ctx) {
   ctx.restartIpfs = runAndStatus(restartIpfs)
   ctx.getIpfsd = getIpfsd
 
-  ipcMain.on('ipfsConfigChanged', restartIpfs)
+  ipcMain.on(ipcMainEvents.IPFS_CONFIG_CHANGED, restartIpfs)
 
   app.on('before-quit', async () => {
     if (ipfsd) await stopIpfs()
@@ -115,7 +115,7 @@ async function setupDaemon (ctx) {
 
   await startIpfs()
 
-  ipcMain.on('online-status-changed', (_, isOnline) => {
+  ipcMain.on(ipcMainEvents.ONLINE_STATUS_CHANGED, (_, isOnline) => {
     if (wasOnline === false && isOnline && ipfsd) {
       restartIpfs()
     }

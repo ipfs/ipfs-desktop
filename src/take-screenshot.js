@@ -6,6 +6,7 @@ const { notify, notifyError } = require('./common/notify')
 const { SCREENSHOT_SHORTCUT: CONFIG_KEY } = require('./common/config-keys')
 const setupGlobalShortcut = require('./utils/setup-global-shortcut')
 const { analyticsKeys } = require('./analytics/keys')
+const ipcMainEvents = require('./common/ipc-main-events')
 
 const SHORTCUT = IS_MAC
   ? 'Command+Control+S'
@@ -118,7 +119,7 @@ module.exports = function (ctx) {
     }
   })
 
-  ipcMain.on('screenshot', handleScreenshot(ctx))
+  ipcMain.on(ipcMainEvents.SCREENSHOT, handleScreenshot(ctx))
 }
 
 module.exports.takeScreenshot = takeScreenshot

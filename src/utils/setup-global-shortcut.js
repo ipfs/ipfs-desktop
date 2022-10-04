@@ -4,6 +4,7 @@ const createToggler = require('./create-toggler')
 const store = require('../common/store')
 const { IS_MAC } = require('../common/consts')
 const { showDialog } = require('../dialogs')
+const ipcMainEvents = require('../common/ipc-main-events')
 
 // This function registers a global shortcut/accelerator with a certain action
 // and (de)activates it according to its 'settingsOption' value on settings.
@@ -43,13 +44,13 @@ module.exports = function ({ settingsOption, accelerator, action, confirmationDi
   // On macOS, when registering accelerators in the menubar, we need to
   // unregister them globally before the menubar is open. Otherwise they
   // won't work unless the user closes the menubar.
-  ipcMain.on('menubar-will-open', () => {
+  ipcMain.on(ipcMainEvents.MENUBAR_OPEN, () => {
     if (store.get(settingsOption, false)) {
       globalShortcut.unregister(accelerator)
     }
   })
 
-  ipcMain.on('menubar-will-close', () => {
+  ipcMain.on(ipcMainEvents.MENUBAR_CLOSE, () => {
     if (store.get(settingsOption, false)) {
       globalShortcut.register(accelerator, action)
     }
