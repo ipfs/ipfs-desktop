@@ -68,7 +68,7 @@ If you already have an IPFS node on your computer, IPFS Desktop will act as a co
 
 ### Start your node at system startup and control it from your OS
 
-IPFS Desktop enables you to stop or restart your node straight from the IPFS logo menu in your OS menubar/system tray. For Mac and Windows users, IPFS Desktop can be also be set to launch at system startup, ensuring that your node is running whenever your computer is on.
+IPFS Desktop enables you to stop or restart your node straight from the IPFS logo menu in your OS menubar/system tray. For Mac and Windows users, IPFS Desktop can also be set to launch at system startup, ensuring that your node is running whenever your computer is on.
 
 ### Quickly import files, folders, and screenshots to IPFS
 
