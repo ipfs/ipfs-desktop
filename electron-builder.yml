@@ -16,6 +16,7 @@ asarUnpack: 'src/**/scripts/**/*'
 afterSign: './pkgs/macos/notarize-build.js'
 
 mac:
+  artifactName: ${name}-${version}-mac.${ext}
   category: public.app-category.utilities
   darkModeSupport: true
   hardenedRuntime: true
