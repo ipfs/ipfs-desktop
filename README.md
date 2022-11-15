@@ -21,7 +21,7 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the termin
 
 When in doubt, pick one of package formats with built-in automatic update mechanism:
 
-- **Mac:** [IPFS-Desktop-0.24.1.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-mac.dmg)
+- **Mac:** [ipfs-desktop-0.24.1-mac.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-mac.dmg)
 - **Windows:** [IPFS-Desktop-Setup-0.24.1.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/IPFS-Desktop-Setup-0.24.1.exe)
 - **Linux:**  [ipfs-desktop-0.24.1-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x86_64.AppImage)
   - If you prefer to manage updates on your own, see [other package formats](#install) below.
