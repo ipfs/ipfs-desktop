@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.24.1] - 2022-11-10
+## What's Changed
+* Update README.md by @michael-spengler in https://github.com/ipfs/ipfs-desktop/pull/2289
+* chore: bump go-ipfs version to 0.16.0 by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2280
+* fix: adjust mac and dmg artifactName by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2296
+* chore(readme): 0.24.0 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2298
+* feat: Updating ipfs-webui CID to v2.20.0 by @whizzzkid in https://github.com/ipfs/ipfs-desktop/pull/2331
+
+## New Contributors
+* @michael-spengler made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2289
+* @whizzzkid made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2331
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.24.0...v0.24.1
+
 ## [v0.24.0] - 2022-10-03
 
 ## What's Changed
