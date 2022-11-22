@@ -178,7 +178,8 @@
     "automaticGC": "Pengumpulan Sampah Otomatis",
     "takeScreenshotShortcut": "Pintasan Tangkapan Layar Global",
     "experiments": "Eksperimen",
-    "npmOnIpfs": "Aktifkan npm di IPFS"
+    "npmOnIpfs": "Aktifkan npm di IPFS",
+    "monochromeTrayIcon": "Gunakan Ikon Baki Monokrom"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Biner IPFS Kustom",
@@ -207,8 +208,20 @@
     "title": "Startup Desktop IPFS Gagal",
     "message": "Node IPFS mengalami kesalahan dan startup tidak dapat diselesaikan:"
   },
+  "repositoryMustBeDirectoryDialog": {
+    "title": "Repositori IPFS Harus Direktori",
+    "message": "Repositori di “{ path }” tidak valid, karena ini bukan direktori.\n\nSebelum memulai kembali IPFS Desktop, harap ganti nama repositori lama menjadi “.ipfs.backup”. Harap dicatat bahwa ini akan membuat Desktop IPFS menghasilkan repositori baru."
+  },
+  "repositoryConfigurationIsMissingDialog": {
+    "title": "Konfigurasi Repositori IPFS Tidak Ada",
+    "message": "Repositori di “{ path }” tidak memiliki berkas “config”. Berkas \"config\" harus berupa berkas JSON yang valid.\n\nSebelum memulai kembali IPFS Desktop, harap perbaiki berkas konfigurasi atau ganti nama repositori lama menjadi “.ipfs.backup”. Harap dicatat bahwa dengan mengganti nama repositori lama, Desktop IPFS akan menghasilkan repositori baru."
+  },
+  "privateNetworkDialog": {
+    "title": "Repositori IPFS Jaringan Pribadi",
+    "message": "Repositori di “{ path }” adalah bagian dari jaringan pribadi, yang tidak didukung oleh IPFS Desktop."
+  },
   "invalidRepositoryDialog": {
     "title": "Repositori IPFS atau Berkas Konfigurasi tidak valid",
-    "message": "Repositori di “{ path }” tidak valid. Berkas \"config\" harus berupa JSON yang valid. \n\nSebelum memulai kembali IPFS Desktop, harap perbaiki berkas konfigurasi atau ganti nama repositori lama menjadi “.ipfs.backup”."
+    "message": "Repositori di “{ path }” atau konfigurasi tidak valid. Berkas \"config\" harus berupa JSON yang valid.\n\nSebelum memulai kembali IPFS Desktop, harap perbaiki berkas konfigurasi atau ganti nama repositori lama menjadi “.ipfs.backup”. Harap dicatat bahwa dengan mengganti nama repositori lama, IPFS Desktop akan menghasilkan repositori baru"
   }
 }

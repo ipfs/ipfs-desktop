@@ -178,7 +178,8 @@
     "automaticGC": "Ramasse-miettes automatique",
     "takeScreenshotShortcut": "Raccourci de capture d'écran global",
     "experiments": "Fonctionnalités expérimentales",
-    "npmOnIpfs": "Activer npm sur IPFS"
+    "npmOnIpfs": "Activer npm sur IPFS",
+    "monochromeTrayIcon": "Utiliser un icône monochrome dans la barre des tâches"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binaire IPFS personnalisé",
@@ -207,8 +208,20 @@
     "title": "Le démarrage d'IPFS Desktop a échoué",
     "message": "Le nœud IPFS a rencontré une erreur et il n'a pas pu finir de démarrer :"
   },
+  "repositoryMustBeDirectoryDialog": {
+    "title": "Le répertoire d'IPFS doit être un dossier",
+    "message": "Le répertoire situé à \"{ path }\" est invalide, car ce n'est pas un dossier. \n\nAvant de relancer IPFS Desktop, merci de renommer l'ancien répertoire \".ipfs.backup\". Notez que cela poussera IPFS Desktop à générer un nouveau répertoire."
+  },
+  "repositoryConfigurationIsMissingDialog": {
+    "title": "Le répertoire de configuration d'IPFS est manquant",
+    "message": "Le répertoire situé à \"{ path }\" n'a pas de fichier \"config\". Le fichier \"config\" doit être un fichier JSON valide.\n\nAvant de relancer IPFS Desktop, merci de corriger le fichier de configuration ou de renommer l'ancien répertoire \".ipfs.backup\". Notez qu'en renommant l'ancien répertoire, cela poussera IPFS Desktop à générer un nouveau répertoire."
+  },
+  "privateNetworkDialog": {
+    "title": "Répertoire IPFS dans un réseau privé",
+    "message": "Le répertoire dans \"{ path }\" fait partie d'un réseau privé, ce qui n'est pas supporté par IPFS Desktop."
+  },
   "invalidRepositoryDialog": {
     "title": "Dépot IPFS ou Fichier de configuration invalide",
-    "message": "Le dépôt \"{path}\" est invalide. Le fichier de \"configuration' doit être un JSON valide. Avant de démarré IPFS desktop again, S'il vous plaît résolver le fichier de configuration ou renommer l'ancien dépôt en \".ipfs.backup\". "
+    "message": "Le répertoire situé à \"{ path }\" ou sa configuration est invalide. Le fichier \"config\" doit être un fichier JSON valide.\n\nAvant de relancer IPFS Desktop, merci de corriger le fichier de configuration ou de renommer l'ancien répertoire \".ipfs.backup\". Notez qu'en renommant l'ancien répertoire, cela poussera IPFS Desktop à générer un nouveau répertoire."
   }
 }

@@ -178,7 +178,8 @@
     "automaticGC": "自动缓存清理",
     "takeScreenshotShortcut": "全局屏幕截图快捷键",
     "experiments": "试验",
-    "npmOnIpfs": "启用 IPFS 上的 npm"
+    "npmOnIpfs": "启用 IPFS 上的 npm",
+    "monochromeTrayIcon": "使用黑白托盘图标"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "自定义IPFS二进制文件",
@@ -207,8 +208,20 @@
     "title": "IPFS 桌面 启动失败",
     "message": "IPFS 节点遇到错误且启动可能没有成功"
   },
+  "repositoryMustBeDirectoryDialog": {
+    "title": "IPFS仓库必须是一个目录",
+    "message": "这个仓库的路径“{ path }”是无效的，它不是一个目录\n\n再重新启动IPFS 桌面之前，请重命名旧有的仓库为“.ipfs.backup”，请注意这会使得IPFS 桌面重新生成一个新的仓库"
+  },
+  "repositoryConfigurationIsMissingDialog": {
+    "title": "IPFS 仓库配置丢失",
+    "message": "这个仓库的路径“{ path }”没有包含一个“config”文件，此文件必须是一个有效的JSON文件。\n\n再重新启动IPFS 桌面之前，请修复配置文件或者将旧有的仓库命名为“.ipfs.backup”。请注意这会使得IPFS 桌面重新生成一个新的仓库"
+  },
+  "privateNetworkDialog": {
+    "title": "私有网络IPFS仓库",
+    "message": "这个仓库的路径“{ path }”属于一个私有网络，它不被IPFS 桌面所支持"
+  },
   "invalidRepositoryDialog": {
     "title": "无效的IPFS库或者配置文件",
-    "message": "位于{ path }中的库是无效的。配置文件必须是有效的JSON格式\n\n再重新启动IPFS 桌面之前, 请修复配置文件或将旧有的库重命名为 “.ipfs.backup”。"
+    "message": "这个仓库的路径“{ path }”或它的配置是无效的。“config”文件必须是一个有效的JSON文件。\n\n再重新启动IPFS 桌面之前，请修复配置文件或者将旧有的仓库命名为“.ipfs.backup”。请注意这会使得IPFS 桌面重新生成一个新的仓库"
   }
 }

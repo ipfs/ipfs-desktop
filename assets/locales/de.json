@@ -178,7 +178,8 @@
     "automaticGC": "Automatische Garbage Collection",
     "takeScreenshotShortcut": "Globales Screenshot-Tastaturkürzel",
     "experiments": "Experimente",
-    "npmOnIpfs": "npm in IPFS aktivieren"
+    "npmOnIpfs": "npm in IPFS aktivieren",
+    "monochromeTrayIcon": "Einfarbiges Tray-Icon benutzen"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Benutzerdefinierte IPFS-Binärdatei",
@@ -207,8 +208,20 @@
     "title": "Der IPFS Desktop Start ist fehlgeschlagen",
     "message": "Der IPFS Knoten hat einen Fehler festgestellt und der Start konnte nicht abgeschlossen werden:"
   },
+  "repositoryMustBeDirectoryDialog": {
+    "title": "Der IPFS Speicher muss ein Verzeichnis sein",
+    "message": "Der Speicher in „{ path }“ ist ungültig, da er kein Verzeichnis ist.\n\nBevor Du IPFS Desktop erneut startest, benenne bitte den alten Speicher in „.ipfs.backup“ um. Bitte beachte, dass IPFS Desktop dadurch einen neuen Speicher generiert."
+  },
+  "repositoryConfigurationIsMissingDialog": {
+    "title": "IPFS Speicher-Konfiguration fehlt",
+    "message": "Der Speicher unter „{ path }“ hat keine „config“-Datei. Die „config“-Datei muss eine gültige JSON-Datei sein.\n\nBevor Du IPFS Desktop erneut startest, repariere bitte die Konfigurationsdatei oder benenne den alten Speicher in „.ipfs.backup“ um. Bitte beachte, dass IPFS Desktop durch das Umbenennen des alten Speichers einen neuen Speicher generiert."
+  },
+  "privateNetworkDialog": {
+    "title": "IPFS Speicher für privates Netzwerk",
+    "message": "Der Speicher unter „{ path }“ gehört zu einem privaten Netzwerk, das von IPFS Desktop nicht unterstützt wird."
+  },
   "invalidRepositoryDialog": {
     "title": "Ungültiger IPFS Speicher oder Konfigurationsdatei",
-    "message": "Der Speicher unter „{ path }“ ist ungültig. Die Konfigurationsdatei muss gültiges JSON enthalten.\n\nBevor Du IPFS Desktop erneut startest, repariere bitte die Konfigurationsdatei oder benenne den alten Speicher in „.ipfs.backup“ um."
+    "message": "Der Speicher unter „{ path }“ oder seine Konfiguration ist ungültig. Die „config“-Datei muss eine gültige JSON Datei sein.\n\nBevor Du IPFS Desktop erneut startest, repariere bitte die Konfigurationsdatei oder benenne den alten Speicher in „.ipfs.backup“ um. Bitte beachte, dass IPFS Desktop durch das Umbenennen des alten Speichers einen neuen Speicher generiert."
   }
 }
