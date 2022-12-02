@@ -135,8 +135,12 @@ Don't see your favorite package manager? Visit our [package managers page](https
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.24.1/ipfs-desktop-0.24.1-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x86_64.rpm)
 - **FreeBSD** (experimental): [ipfs-desktop-0.24.1-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
 [![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.24.1/ipfs-desktop-0.24.1-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x64.freebsd)
-- **Snapcraft** is discouraged due to [confinement issues](https://github.com/ipfs/ipfs-desktop/issues/2031), use `.AppImage` instead
-- **AUR** (maintained by [@RubenKelevra](https://github.com/RubenKelevra)) Use the [`ipfs-desktop` package](https://aur.archlinux.org/packages/ipfs-desktop/)
+- **Snapcraft** support is deprecated and discouraged due to [confinement issues](https://github.com/ipfs/ipfs-desktop/issues/2031), use `.AppImage` instead
+
+Additional third-party packages exist, but have the built-in auto-update mechanism disabled.
+Instead, update cycle is maintained by respective communities:
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/ipfs-desktop.svg)](https://repology.org/project/ipfs-desktop/versions)
 
 ### Install from source
 
