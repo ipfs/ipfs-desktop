@@ -1,0 +1,61 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+  }
+  "ghcr.io/devcontainers/features/azure-cli:1": {
+  }
+  "ghcr.io/stuartleeks/dev-container-features/azure-cli-persistence:0": {
+  }  
+  "ghcr.io/jlaundry/devcontainer-features/azure-functions-core-tools:1": {
+  }
+  "ghcr.io/devcontainers/features/dotnet:1": {
+  }
+  "ghcr.io/rjfmachado/devcontainer-features/cloud-native:1": {
+  }
+  "ghcr.io/devcontainers/features/git:1": {
+  }
+  "ghcr.io/devcontainers-contrib/features/pipenv:1": {
+  }
+  "ghcr.io/devcontainers-contrib/features/haskell:2": {
+  }
+  "ghcr.io/devcontainers-contrib/features/digitalocean-cli:1": {
+  }
+  "ghcr.io/devcontainers/features/docker-from-docker:1": {
+  }
+  "ghcr.io/devcontainers/features/docker-in-docker:2": {
+  }
+  "ghcr.io/devcontainers/features/dotnet:1": {
+  }
+  "ghcr.io/devcontainers/features/github-cli:1": {
+  }
+  "ghcr.io/dhoeric/features/google-cloud-cli:1": {
+  }
+  "ghcr.io/devcontainers-contrib/features/localstack:1": {
+  }
+  "ghcr.io/devcontainers/features/go:1": {
+  }
+  "ghcr.io/devcontainers-contrib/features/nestjs-cli:1": {
+  }
+  "ghcr.io/devcontainers/features/node:1": {
+  }
+  "ghcr.io/devcontainers/features/powershell:1": {
+  }
+  "ghcr.io/devcontainers-contrib/features/pre-commit:1": {
+  }
+  "ghcr.io/natescherer/devcontainers-custom-features/powershell-resources:1": {
+  }
+  "ghcr.io/devcontainers/features/python:1": {
+  }
+  "ghcr.io/devcontainers-contrib/features/serverless:1": {
+  }
+  "ghcr.io/devcontainers/features/sshd:1": {
+  }
+  "ghcr.io/devcontainers-contrib/features/mitmproxy:1": {
+  }
+  "ghcr.io/lukewiwa/features/wait-for-it:0": {
+  }
+  "ghcr.io/devcontainers-contrib/features/renovate-cli:1": {
+  }
+  "ghcr.io/devcontainers-contrib/features/tox:1": {
+  }
+}
