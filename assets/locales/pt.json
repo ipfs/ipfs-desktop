@@ -28,8 +28,8 @@
   "errorwhileTakingScreenshot": "Ocorreu um erro ao capturar a tela.",
   "clickToOpenLogs": "Clique para abrir os registos.",
   "ipfsNotRunning": "O IPFS não está a ser executado",
-  "checkForUpdates": "Check for Updates…",
-  "checkingForUpdates": "Checking for Updates",
+  "checkForUpdates": "Verifique por Atualizações",
+  "checkingForUpdates": "Verificando por Atualizações",
   "yes": "Sim",
   "no": "Não",
   "close": "Fechar",
@@ -40,13 +40,13 @@
   "restartIpfsDesktop": "Reiniciar o IPFS Desktop",
   "openLogs": "Abrir logs",
   "takeScreenshot": "Tirar uma captura de ecrã",
-  "moveRepositoryLocation": "Move Repository Location",
-  "runGarbageCollector": "Run Garbage Collector",
-  "selectDirectory": "Select Directory",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
-  "openCliDocumentation": "Open CLI Documentation",
+  "moveRepositoryLocation": "Mover Localização do Repositório",
+  "runGarbageCollector": "Executar Limpeza",
+  "selectDirectory": "Selecionar diretório",
+  "customIpfsBinary": "Binário IPFS personalizado",
+  "setCustomIpfsBinary": "Definir Binário IPFS Personalizado",
+  "clearCustomIpfsBinary": "Limpar binário IPFS Personalizado",
+  "openCliDocumentation": "Abrir documentação da linha de comando",
   "polkitDialog": {
     "title": "Polkit não encontrado",
     "message": "O IPFS não pode ser adicionado a /usr/local/bin/ sem o agente polkit."
@@ -77,7 +77,7 @@
     "action": "Move and restart node"
   },
   "moveRepositorySuccessDialog": {
-    "title": "repositório movido com sucesso",
+    "title": "Repositório movido com sucesso",
     "message": "Seu repositório foi movido para{ location } com sucesso e sua configuração foi atualizada.  O processo será reiniciado."
   },
   "moveRepositorySameDirDialog": {
@@ -178,7 +178,8 @@
     "automaticGC": "Automatic Garbage Collection",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
     "experiments": "Experimentos",
-    "npmOnIpfs": "Enable npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS",
+    "monochromeTrayIcon": "Use Monochrome Tray Icon"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binário IPFS personalizado",
@@ -207,8 +208,20 @@
     "title": "A inicialização do IPFS Desktop falhou",
     "message": "O nó IPFS encontrou um erro, e a inicialização não pode ser completada:"
   },
+  "repositoryMustBeDirectoryDialog": {
+    "title": "IPFS Repository Must Be a Directory",
+    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+  },
+  "repositoryConfigurationIsMissingDialog": {
+    "title": "IPFS Repository Configuration Is Missing",
+    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+  },
+  "privateNetworkDialog": {
+    "title": "Private Network IPFS Repository",
+    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+  },
   "invalidRepositoryDialog": {
     "title": "Repositório IPFS ou arquivo de Configuração inválido",
-    "message": "O repositório em \"{ path }\" é inválido. O arquivo \"config\" deve ser um JSON válido.\n\nAntes de iniciar o IPFS Desktop novamente, por favor resolva o arquivo de configuração ou renomeie o repositório antigo para “.ipfs.backup”."
+    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
   }
 }

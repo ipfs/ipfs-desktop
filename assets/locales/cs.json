@@ -178,7 +178,8 @@
     "automaticGC": "Automatický Garbage Collection",
     "takeScreenshotShortcut": "Globální zkratka snímku obrazovky",
     "experiments": "Experimenty",
-    "npmOnIpfs": "Povolení npm na IPFS"
+    "npmOnIpfs": "Povolení npm na IPFS",
+    "monochromeTrayIcon": "Use Monochrome Tray Icon"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Vlastní binární soubor IPFS",
@@ -207,8 +208,20 @@
     "title": "Spuštění IPFS Desktop selhalo",
     "message": "Uzel IPFS narazil na chybu a spuštění nebylo možné dokončit:"
   },
+  "repositoryMustBeDirectoryDialog": {
+    "title": "IPFS Repository Must Be a Directory",
+    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+  },
+  "repositoryConfigurationIsMissingDialog": {
+    "title": "IPFS Repository Configuration Is Missing",
+    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+  },
+  "privateNetworkDialog": {
+    "title": "Private Network IPFS Repository",
+    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+  },
   "invalidRepositoryDialog": {
     "title": "Neplatné úložiště IPFS nebo konfigurační soubor",
-    "message": "Úložiště na adrese \"{ path }\" je neplatné. Soubor \"config\" musí být platný JSON.\n\nPřed opětovným spuštěním systému IPFS Desktop opravte konfigurační soubor nebo přejmenujte staré úložiště na \".ipfs.backup\"."
+    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
   }
 }

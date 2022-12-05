@@ -178,7 +178,8 @@
     "automaticGC": "Otomatik Değersiz Veri Toplama",
     "takeScreenshotShortcut": "Global Ekran Görüntüsü Kısayolu",
     "experiments": "Deneyler",
-    "npmOnIpfs": "IPFS'de npm'yi etkinleştir"
+    "npmOnIpfs": "IPFS'de npm'yi etkinleştir",
+    "monochromeTrayIcon": "Use Monochrome Tray Icon"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Özel IPFS ikilisi",
@@ -207,8 +208,20 @@
     "title": "IPFS Masaüstü Başlatması Başarısız Oldu",
     "message": "IPFS düğümü bir hatayla karşılaştı ve başlatma tamamlanamadı:"
   },
+  "repositoryMustBeDirectoryDialog": {
+    "title": "IPFS Repository Must Be a Directory",
+    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+  },
+  "repositoryConfigurationIsMissingDialog": {
+    "title": "IPFS Repository Configuration Is Missing",
+    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+  },
+  "privateNetworkDialog": {
+    "title": "Private Network IPFS Repository",
+    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+  },
   "invalidRepositoryDialog": {
     "title": "Geçersiz IPFS Deposu veya Yapılandırma Dosyası",
-    "message": "The repository at “{ path }” yolundaki depo geçersizdir. “config” dosyası geçerli bir JSON formatında olmalıdır.\n\nBefore starting IPFS Masaüstü'nü tekrar başlatmadan önce, lütfen yapılandırma dosyasını düzeltin veya eski depoyu \".ipfs.backup\" olarak yeniden adlandırın."
+    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
   }
 }

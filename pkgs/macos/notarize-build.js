@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { notarize } = require('electron-notarize')
+const { notarize } = require('@electron/notarize')
 
 const isSet = (value) => value && value !== 'false'
 

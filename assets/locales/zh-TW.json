@@ -46,7 +46,7 @@
   "customIpfsBinary": "自訂 IPFS 二進位檔",
   "setCustomIpfsBinary": "設定自訂 IPFS 二進位檔",
   "clearCustomIpfsBinary": "清除自訂 IPFS 二進位檔",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "開啟命令列介面文件",
   "polkitDialog": {
     "title": "Polkit not found",
     "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
@@ -128,13 +128,13 @@
     "message": "It was not possible to download the update. Please check your Internet connection and try again."
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
+    "title": "IPFS 桌面版更新",
     "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "later": "稍後",
+    "now": "立即安裝"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
+    "title": "IPFS 桌面版更新",
     "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
@@ -178,7 +178,8 @@
     "automaticGC": "自動化記憶體回收行程",
     "takeScreenshotShortcut": "全域螢幕擷取畫面快速鍵",
     "experiments": "實驗",
-    "npmOnIpfs": "Enable npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS",
+    "monochromeTrayIcon": "Use Monochrome Tray Icon"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "自訂 IPFS 二進位檔",
@@ -195,11 +196,11 @@
   "unresponsiveWindowDialog": {
     "title": "IPFS Desktop became unresponsive",
     "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "forceReload": "是，重新载入",
+    "doNothing": "什麼都不做"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
+    "title": "IPFS 桌面版移轉",
     "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
     "closeAndContinue": "Continue in the background"
   },
@@ -207,8 +208,20 @@
     "title": "IPFS Desktop Startup Has Failed",
     "message": "IPFS node has encountered an error and startup could not be completed:"
   },
+  "repositoryMustBeDirectoryDialog": {
+    "title": "IPFS Repository Must Be a Directory",
+    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+  },
+  "repositoryConfigurationIsMissingDialog": {
+    "title": "IPFS Repository Configuration Is Missing",
+    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+  },
+  "privateNetworkDialog": {
+    "title": "Private Network IPFS Repository",
+    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+  },
   "invalidRepositoryDialog": {
     "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
+    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
   }
 }

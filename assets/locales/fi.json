@@ -4,8 +4,8 @@
   "ipfsIsStarting": "IPFS Käynnistyy",
   "ipfsIsNotRunning": "IPFS ei ole Käynnissä",
   "ipfsHasErrored": "Virhe IPFS:ssä",
-  "runningWithGC": "Käynnissä (suoritetaan RK)",
-  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "runningWithGC": "Käynnissä (vapautetaan muistia käyttämättömästä datasta)",
+  "runningWhileCheckingForUpdate": "Käynnissä (tarkastetaan päivityksiä)",
   "start": "Käynnistä",
   "stop": "Pysäytä",
   "restart": "Käynnistä uudelleen",
@@ -19,7 +19,7 @@
   "readReleaseNotes": "Lue julkaisutiedot",
   "status": "Tila",
   "files": "Tiedostot",
-  "peers": "Vertaisia",
+  "peers": "Toverit",
   "quit": "Lopeta",
   "versions": "Versiot",
   "screenshotTaken": "Kuvakaappaus otettu",
@@ -29,7 +29,7 @@
   "clickToOpenLogs": "Klikkaa tästä avaaksesi lokin.",
   "ipfsNotRunning": "IPFS ei ole käynnissä",
   "checkForUpdates": "Hae päivityksiä...",
-  "checkingForUpdates": "Checking for Updates",
+  "checkingForUpdates": "Tarkastetaan päivityksiä",
   "yes": "Kyllä",
   "no": "Ei",
   "close": "Sulje",
@@ -41,12 +41,12 @@
   "openLogs": "Avaa loki",
   "takeScreenshot": "Ota kuvakaappaus",
   "moveRepositoryLocation": "Siirrä säilöpaikan sijaintia",
-  "runGarbageCollector": "Suorita roskankerääjä",
+  "runGarbageCollector": "Vapauta käyttämätön muisti",
   "selectDirectory": "Valitse hakemisto",
   "customIpfsBinary": "Muokattu IPFS-binääri",
   "setCustomIpfsBinary": "Aseta muokattu IPFS-binääri",
   "clearCustomIpfsBinary": "Tyhjennä muokattu IPFS-binääri",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "Avaa CLI-dokumentaatio",
   "polkitDialog": {
     "title": "'Polkit' ei löydettävissä",
     "message": "IPFS:ää ei voida lisätä kansioon /usr/local/bin/ ilman 'polkit'-agenttia"
@@ -74,10 +74,10 @@
   "moveRepositoryWarnDialog": {
     "title": "Siirrä säilöpaikka",
     "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "action": "Siirrä ja käynnistä solmu uudelleen"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
+    "title": "Säilö siirretty onnistuneesti",
     "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
   },
   "moveRepositorySameDirDialog": {
@@ -138,21 +138,21 @@
     "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
-    "title": "Roskankerääjä",
+    "title": "Muistin vapauttaja",
     "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
     "action": "Suorita"
   },
   "runGarbageCollectorDone": {
-    "title": "Roskankerääjä",
-    "message": "Roskankerääjä suoritettiin onnistuneesti."
+    "title": "Muistin vapauttaja",
+    "message": "Käyttämätön muisti vapautettiin onnistuneesti."
   },
   "moveRepositoryFailed": {
     "title": "Siirrä säilöpaikka",
     "message": "Säilöpaikkaa ei voitu siirtää sijainnista \"{ currDir }\" sijaintiin \"{ newDir }\"."
   },
   "runGarbageCollectorErrored": {
-    "title": "Roskankerääjä",
-    "message": "Roskankerääjää ei voitu suorittaa onnistuneesti."
+    "title": "Muistin vapauttaja",
+    "message": "Käyttämätöntä muistia ei voitu vapauttaa."
   },
   "launchAtLoginNotSupported": {
     "title": "Virhe",
@@ -178,7 +178,8 @@
     "automaticGC": "Automatic Garbage Collection",
     "takeScreenshotShortcut": "Globaali kuvakaappaus oikotie",
     "experiments": "Kokeilut",
-    "npmOnIpfs": "Enable npm on IPFS"
+    "npmOnIpfs": "Enable npm on IPFS",
+    "monochromeTrayIcon": "Use Monochrome Tray Icon"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",
@@ -207,8 +208,20 @@
     "title": "IPFS Desktop Startup Has Failed",
     "message": "IPFS node has encountered an error and startup could not be completed:"
   },
+  "repositoryMustBeDirectoryDialog": {
+    "title": "IPFS Repository Must Be a Directory",
+    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+  },
+  "repositoryConfigurationIsMissingDialog": {
+    "title": "IPFS Repository Configuration Is Missing",
+    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+  },
+  "privateNetworkDialog": {
+    "title": "Private Network IPFS Repository",
+    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+  },
   "invalidRepositoryDialog": {
     "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”."
+    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
   }
 }
