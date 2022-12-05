@@ -213,6 +213,9 @@ jobs:
           mac_certs_password: ${{ secrets.mac_certs_password }}
         env:
           CI_BUILD_TAG: ${{steps.tag.outputs.tag}} # used by --publish onTag
+          # Force signing on PR IFF secrets are around
+          PUBLISH_FOR_PULL_REQUEST: ${{ secrets.PUBLISH_FOR_PULL_REQUEST }}
+          CSC_FOR_PULL_REQUEST: ${{ secrets.CSC_FOR_PULL_REQUEST }}
           # Apple notarization
           APPLEID: ${{ secrets.apple_id }}
           APPLEIDPASS: ${{ secrets.apple_id_pass }}
