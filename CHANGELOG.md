@@ -3,7 +3,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.25.0] - 2022-12-11
+
+## What's Changed
+
+* feat: kubo v0.17.0 by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2338
+* fix: support `/quic-v1` on Peers page by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2356
+* docs(readme): add repology badge by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2352
+* chore: release prep by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2344
+* chore(readme): 0.24.0 -> 0.24.1 by @whizzzkid in https://github.com/ipfs/ipfs-desktop/pull/2333
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.24.1...v0.25.0
+
+
 ## [v0.24.1] - 2022-11-10
+
 ## What's Changed
 * Update README.md by @michael-spengler in https://github.com/ipfs/ipfs-desktop/pull/2289
 * chore: bump go-ipfs version to 0.16.0 by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2280
@@ -17,6 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 **Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.24.0...v0.24.1
 
+
 ## [v0.24.0] - 2022-10-03
 
 ## What's Changed
@@ -29,8 +44,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * refactor: use ipcMainEvents constant  by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2250
 * chore: webui@v2.19.0 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2286
 
-
 **Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.23.0...v0.24.0
+
 
 ## [v0.23.0] - 2022-08-30
 
@@ -49,6 +64,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * @ajnavarro made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2240
 
 **Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.22.0...v0.23.0
+
 
 ## [v0.22.0] - 2022-07-21
 

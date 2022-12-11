@@ -1,11 +1,9 @@
 # IPFS Desktop
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
-[![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
-[![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
-[![](https://david-dm.org/ipfs-shipyard/ipfs-desktop.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/ipfs-desktop)
+[![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](https://ipfs.tech/)
 [![total download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/total.svg?style=flat-square&label=all%20downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
-[![latest release download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.24.1/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.24.1)
+[![latest release download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.25.0/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.25.0)
 
 **IPFS Desktop gives you all the power of [IPFS](https://ipfs.io) in a convenient desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
 
@@ -21,9 +19,9 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the termin
 
 When in doubt, pick one of package formats with built-in automatic update mechanism:
 
-- **Mac:** [ipfs-desktop-0.24.1-mac.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-mac.dmg)
-- **Windows:** [IPFS-Desktop-Setup-0.24.1.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/IPFS-Desktop-Setup-0.24.1.exe)
-- **Linux:**  [ipfs-desktop-0.24.1-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x86_64.AppImage)
+- **Mac:** [ipfs-desktop-0.25.0-mac.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-mac.dmg)
+- **Windows:** [IPFS-Desktop-Setup-0.25.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/IPFS-Desktop-Setup-0.25.0.exe)
+- **Linux:**  [ipfs-desktop-0.25.0-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-linux-x86_64.AppImage)
   - If you prefer to manage updates on your own, see [other package formats](#install) below.
 
 ### Table of Contents
@@ -74,7 +72,7 @@ IPFS Desktop enables you to stop or restart your node straight from the IPFS log
 
 Import files and folders to your IPFS node in a variety of convenient ways:
 - Drag and drop items onto IPFS Desktop's `Files` screen
-- Click the `Import` button on the `Files` screen to add items from your computer or an IPFS [content ID (CID)](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats)
+- Click the `Import` button on the `Files` screen to add items from your computer or an IPFS [content ID (CID)](https://docs.ipfs.tech/concepts/content-addressing/#identifier-formats)
 - (Windows) Right-click a file/folder's icon to add it to IPFS from the pop-up menu
 - (Mac) Drag and drop a file/folder onto the IPFS logo in your menubar
 
@@ -85,8 +83,8 @@ Plus, you can use the `Take Screenshot` command under the IPFS logo menu to take
 IPFS Desktop's `Files` screen gives you an easy, familiar interface for working with the contents of your node:
 - Easily rename, move, or remove files and folders
 - Preview many common file formats directly in IPFS Desktop
-- Copy a file/folder's IPFS [content ID (CID)](https://docs.ipfs.io/concepts/content-addressing/#identifier-formats) or a shareable link to your clipboard
-- ["Pin"](https://docs.ipfs.io/concepts/persistence/) files to your IPFS node or (coming soon!) to a third-party pinning service
+- Copy a file/folder's IPFS [content ID (CID)](https://docs.ipfs.tech/concepts/content-addressing/#identifier-formats) or a shareable link to your clipboard
+- ["Pin"](https://docs.ipfs.tech/concepts/persistence/) files to your IPFS node or (coming soon!) to a third-party pinning service
 
 ### Visualize your IPFS peers worldwide
 
@@ -113,28 +111,28 @@ Release notes and older versions of IPFS Desktop can be found on the [releases p
 Don't see your favorite package manager? Visit our [package managers page](https://github.com/ipfs-shipyard/ipfs-desktop/issues/691) and help us add support for it!
 
 ### Mac
-- **Installer:** [ipfs-desktop-0.24.1-mac.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-mac.dmg)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.24.1/ipfs-desktop-0.24.1-mac.dmg.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-mac.dmg)
+- **Installer:** [ipfs-desktop-0.25.0-mac.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-mac.dmg)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.25.0/ipfs-desktop-0.25.0-mac.dmg.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-mac.dmg)
 - **Homebrew** (community-maintained): `brew install --cask ipfs`
 
 ### Windows
-- **Installer:** [IPFS-Desktop-Setup-0.24.1.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/IPFS-Desktop-Setup-0.24.1.exe)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.24.1/IPFS-Desktop-Setup-0.24.1.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/IPFS-Desktop-Setup-0.24.1.exe)
+- **Installer:** [IPFS-Desktop-Setup-0.25.0.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/IPFS-Desktop-Setup-0.25.0.exe)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.25.0/IPFS-Desktop-Setup-0.25.0.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/IPFS-Desktop-Setup-0.25.0.exe)
 - **Chocolatey** (community-maintained): `choco install ipfs-desktop`
 - **Scoop** (community-maintained): `scoop bucket add extras; scoop install extras/ipfs-desktop`
 - **WinGet** (community-maintained): `winget install IPFS.IPFS-Desktop`
 
 ### Linux/FreeBSD
-- **AppImage**: [ipfs-desktop-0.24.1-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x86_64.AppImage)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.24.1/ipfs-desktop-0.24.1-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x86_64.AppImage)
-- **Tarball** (use this for building packages for distros): [ipfs-desktop-0.24.1-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x64.tar.xz)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.24.1/ipfs-desktop-0.24.1-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x64.tar.xz)
-- **Debian** (experimental): [ipfs-desktop-0.24.1-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-amd64.deb)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.24.1/ipfs-desktop-0.24.1-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-amd64.deb)
-- **Red Hat** (experimental): [ipfs-desktop-0.24.1-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x86_64.rpm)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.24.1/ipfs-desktop-0.24.1-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x86_64.rpm)
-- **FreeBSD** (experimental): [ipfs-desktop-0.24.1-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.24.1/ipfs-desktop-0.24.1-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.24.1/ipfs-desktop-0.24.1-linux-x64.freebsd)
+- **AppImage**: [ipfs-desktop-0.25.0-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-linux-x86_64.AppImage)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.25.0/ipfs-desktop-0.25.0-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-linux-x86_64.AppImage)
+- **Tarball** (use this for building packages for distros): [ipfs-desktop-0.25.0-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-linux-x64.tar.xz)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.25.0/ipfs-desktop-0.25.0-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-linux-x64.tar.xz)
+- **Debian** (experimental): [ipfs-desktop-0.25.0-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-linux-amd64.deb)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.25.0/ipfs-desktop-0.25.0-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-linux-amd64.deb)
+- **Red Hat** (experimental): [ipfs-desktop-0.25.0-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-linux-x86_64.rpm)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.25.0/ipfs-desktop-0.25.0-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-linux-x86_64.rpm)
+- **FreeBSD** (experimental): [ipfs-desktop-0.25.0-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.25.0/ipfs-desktop-0.25.0-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.25.0/ipfs-desktop-0.25.0-linux-x64.freebsd)
 - **Snapcraft** support is deprecated and discouraged due to [confinement issues](https://github.com/ipfs/ipfs-desktop/issues/2031), use `.AppImage` instead
 
 Additional third-party packages exist, but have the built-in auto-update mechanism disabled.
@@ -233,13 +231,13 @@ To open your repo directory from the IPFS logo menu, select `Open Repository Dir
 
 ### Which version of IPFS does IPFS Desktop use?
 
-IPFS Desktop includes its own embedded binary (with version defined in `package.json`); this is the latest version of [go-ipfs](https://github.com/ipfs/go-ipfs) that has passed QA for IPFS Desktop use.
+IPFS Desktop includes its own embedded binary of Kubo (`go-ipfs` version defined in `package.json`); this is the latest version of [Kubo](https://github.com/ipfs/kubo) that has passed QA for IPFS Desktop use.
 
 You can check which version of IPFS you're running from the IPFS logo menu by looking in the `About` submenu.
 
 ### Which flags does IPFS Desktop boot with?
 
-By default, IPFS Desktop starts the IPFS daemon with the flags `--migrate=true --routing=dhtclient ----enable-gc=true`.
+By default, IPFS Desktop starts the IPFS daemon with the flags `--migrate=true --enable-gc=true`.
 
 You can change this in the IPFS Desktop config file by selecting `Open Configuration File` from the `Advanced` submenu.
 
@@ -261,7 +259,7 @@ When upgrading, IPFS may need to perform migrations and for that we need a stabl
 
 ### I need more help!
 
-If you need help with using IPFS Desktop, the quickest way to get answers is to post them in the [official IPFS forums](https://discuss.ipfs.io).
+If you need help with using IPFS Desktop, the quickest way to get answers is to post them in the [official IPFS forums](https://discuss.ipfs.tech).
 
 If you think you've found a bug or other issue with IPFS Desktop itself, please [open an issue](https://github.com/ipfs-shipyard/ipfs-desktop/issues/new/choose).
 
