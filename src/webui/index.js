@@ -117,6 +117,7 @@ const createWindow = () => {
 
 module.exports = async function () {
   logger.info('[webui] init...')
+  const ctx = getCtx()
 
   if (store.get(CONFIG_KEY, null) === null) {
     // First time running this. Enable opening ipfs-webui at app launch.
@@ -137,13 +138,11 @@ module.exports = async function () {
   const window = createWindow()
   let apiAddress = null
 
-  getCtx().setProp('webui', window)
-
   const url = new URL('/', 'webui://-')
   url.hash = '/blank'
-  url.searchParams.set('deviceId', await getCtx().getProp('countlyDeviceId'))
+  url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
 
-  getCtx().setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
+  ctx.setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
     if (forceRefresh) window.webContents.reload()
     if (!path) {
       logger.info('[web ui] launching web ui', { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI })
@@ -171,8 +170,9 @@ module.exports = async function () {
     url.searchParams.set('lng', store.get('language'))
   }
 
+  const getIpfsd = ctx.getProp('getIpfsd')
   ipcMain.on(ipcMainEvents.IPFSD, async () => {
-    const ipfsd = (await getCtx().getProp('getIpfsd'))(true)
+    const ipfsd = await (await getIpfsd)(true)
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       apiAddress = ipfsd.apiAddr
@@ -188,12 +188,16 @@ module.exports = async function () {
     callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
   })
 
+  ctx.setProp('webui', window)
+  const launchWebUI = ctx.getProp('launchWebUI')
+
   return /** @type {Promise<void>} */(new Promise(resolve => {
     window.once('ready-to-show', async () => {
+      // const ctx = getCtx()
       logger.info('[web ui] window ready')
 
       if (store.get(CONFIG_KEY)) {
-        (await getCtx().getProp('launchWebUI'))('/')
+        (await launchWebUI)('/')
       }
 
       resolve()

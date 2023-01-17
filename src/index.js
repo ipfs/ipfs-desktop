@@ -68,15 +68,6 @@ async function run () {
   }
 
   try {
-    // await setupAnalytics() // ctx.countlyDeviceId
-    // await setupI18n()
-    // await setupAppMenu()
-
-    // await setupWebUI() // ctx.webui, launchWebUI
-    // await setupAutoUpdater() // ctx.manualCheckForUpdates
-    // await setupTray() // ctx.tray
-    // await setupDaemon() // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
-
     await Promise.all([
       setupAnalytics(), // ctx.countlyDeviceId
       setupI18n(),
