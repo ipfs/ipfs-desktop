@@ -64,6 +64,22 @@ class Context {
   }
 
   /**
+   * A simple helper to improve DX and UX when calling functions.
+   *
+   * This function allows you to request a function from AppContext without blocking until you actually need to call it.
+   * @param {string|symbol} propertyName
+   * @returns {(...args: unknown[]) => Promise<unknown>}
+   */
+  getFn (propertyName) {
+    const originalFnPromise = this.getProp(propertyName)
+
+    return async (...args) => {
+      const originalFn = await originalFnPromise
+      return originalFn(...args)
+    }
+  }
+
+  /**
    * Gets existing promise and resolves it with the given value.
    * If no promise exists, it creates one and calls itself again. (this shouldn't be necessary but is a fallback for a gotcha)
    * @template T

@@ -34,11 +34,11 @@ function buildCheckbox (key, label) {
 // accelerator. Please see ../utils/setup-global-shortcut.js for more info.
 async function buildMenu () {
   const ctx = getCtx()
-  const restartIpfs = await ctx.getProp('restartIpfs')
-  const startIpfs = await ctx.getProp('startIpfs')
-  const stopIpfs = await ctx.getProp('stopIpfs')
-  const launchWebUI = await ctx.getProp('launchWebUI')
-  const manualCheckForUpdates = await ctx.getProp('manualCheckForUpdates')
+  const restartIpfs = ctx.getFn('restartIpfs')
+  const startIpfs = ctx.getFn('startIpfs')
+  const stopIpfs = ctx.getFn('stopIpfs')
+  const launchWebUI = ctx.getFn('launchWebUI')
+  const manualCheckForUpdates = ctx.getFn('manualCheckForUpdates')
 
   return Menu.buildFromTemplate([
     // @ts-ignore
@@ -337,6 +337,8 @@ module.exports = async function () {
   const ctx = getCtx()
   logger.info('[tray] starting')
   tray = new Tray(icon(off))
+  const launchWebUI = ctx.getFn('launchWebUI')
+
   // const menu = ctx.getProp()
 
   const state = {
@@ -349,7 +351,6 @@ module.exports = async function () {
   // macOS tray drop files
   tray.on('drop-files', async (_, files) => {
     await addToIpfs(files)
-    const launchWebUI = await ctx.getProp('launchWebUI')
 
     launchWebUI('/files', { focus: false })
   })
@@ -368,8 +369,6 @@ module.exports = async function () {
   }
   tray.on('right-click', popupMenu)
   tray.on('double-click', async () => {
-    const launchWebUI = await ctx.getProp('launchWebUI')
-
     launchWebUI('/')
   })
 

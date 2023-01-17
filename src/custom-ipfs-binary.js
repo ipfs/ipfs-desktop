@@ -9,6 +9,8 @@ const getCtx = require('./context')
 const SETTINGS_KEY = 'binaryPath'
 
 async function setCustomBinary () {
+  const ctx = getCtx()
+  const restartIpfs = ctx.getFn('restartIpfs')
   await dock.run(async () => {
     logger.info('[custom binary] request to change')
     let opt = showDialog({
@@ -53,13 +55,14 @@ async function setCustomBinary () {
     logger.info(`[custom binary] updated to ${filePaths[0]}`)
 
     if (opt === 0) {
-      const restartIpfs = await getCtx().getProp('restartIpfs')
       restartIpfs()
     }
   })
 }
 
 function clearCustomBinary () {
+  const ctx = getCtx()
+  const restartIpfs = ctx.getFn('restartIpfs')
   store.delete(SETTINGS_KEY)
   logger.info('[custom binary] cleared')
 
@@ -73,11 +76,7 @@ function clearCustomBinary () {
   })
 
   if (opt === 0) {
-    getCtx().getProp('restartIpfs').then((restartIpfs) => {
-      restartIpfs()
-    }).catch(() => {
-      logger.error('problem getting restartIpfs in clearCustomBinary')
-    })
+    restartIpfs()
   }
 }
 

@@ -170,9 +170,9 @@ module.exports = async function () {
     url.searchParams.set('lng', store.get('language'))
   }
 
-  const getIpfsd = ctx.getProp('getIpfsd')
+  const getIpfsd = ctx.getFn('getIpfsd')
   ipcMain.on(ipcMainEvents.IPFSD, async () => {
-    const ipfsd = await (await getIpfsd)(true)
+    const ipfsd = await getIpfsd(true)
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       apiAddress = ipfsd.apiAddr
@@ -189,7 +189,7 @@ module.exports = async function () {
   })
 
   ctx.setProp('webui', window)
-  const launchWebUI = ctx.getProp('launchWebUI')
+  const launchWebUI = ctx.getFn('launchWebUI')
 
   return /** @type {Promise<void>} */(new Promise(resolve => {
     window.once('ready-to-show', async () => {
@@ -197,7 +197,7 @@ module.exports = async function () {
       logger.info('[web ui] window ready')
 
       if (store.get(CONFIG_KEY)) {
-        (await launchWebUI)('/')
+        await launchWebUI('/')
       }
 
       resolve()

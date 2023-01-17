@@ -133,7 +133,7 @@ module.exports = async function (files) {
   }
 
   const { cid, filename } = await getShareableCid(ipfsd.api, successes)
-  const launchWebUI = await ctx.getProp('launchWebUI')
+  const launchWebUI = ctx.getFn('launchWebUI')
   sendNotification(launchWebUI, failures.length !== 0, successes.length, filename)
 
   const query = filename ? `?filename=${encodeURIComponent(filename)}` : ''

@@ -4,6 +4,7 @@ const { argvHandler: filesHandler } = require('./argv-files-handler')
 const getCtx = require('./context')
 
 module.exports = async function () {
+  const ctx = getCtx()
   app.on('second-instance', async (_, argv) => {
     if (await protocolHandler(argv)) {
       return
@@ -13,8 +14,6 @@ module.exports = async function () {
       return
     }
 
-    const launchWebUI = await getCtx().getProp('launchWebUI')
-
-    await launchWebUI()
+    await ctx.getFn('launchWebUI')()
   })
 }

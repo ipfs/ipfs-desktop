@@ -18,6 +18,7 @@ let updateNotification = null // must be a global to avoid gc
 let feedback = false
 
 function setup () {
+  const ctx = getCtx()
   // we download manually in 'update-available'
   autoUpdater.autoDownload = false
   autoUpdater.autoInstallOnAppQuit = true
@@ -123,6 +124,7 @@ function setup () {
       updateNotification.show()
     }
   })
+  const stopIpfs = ctx.getFn('stopIpfs')
 
   // In some cases before-quit event is not emitted before all windows are closed,
   // and we need to do cleanup here
@@ -130,7 +132,6 @@ function setup () {
     BrowserWindow.getAllWindows().forEach(w => w.removeAllListeners('close'))
     app.removeAllListeners('window-all-closed')
     try {
-      const stopIpfs = await getCtx().getProp('stopIpfs')
       const s = await stopIpfs()
       logger.info(`[beforeQuitCleanup] stopIpfs had finished with status: ${s}`)
     } catch (err) {

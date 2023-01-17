@@ -70,4 +70,23 @@ test.describe('App Context', () => {
     await pendingValue
     expect(isPending).toBe(false)
   })
+
+  test('can get and call a function before its set', async () => {
+    let isPending = true
+    const spy = sinon.spy()
+    const actualLazyFn = (...args) => {
+      isPending = false
+      spy(...args)
+    }
+    const lazyFn = ctx.getFn('lazyFn')
+    const lazyFnCallPromise = lazyFn(123)
+    expect(isPending).toBe(true)
+    expect(spy.callCount).toBe(0)
+    expect(ctx.getProp('lazyFn')).resolves.toBe(actualLazyFn)
+    ctx.setProp('lazyFn', actualLazyFn)
+    await lazyFnCallPromise
+    expect(isPending).toBe(false)
+    expect(spy.callCount).toBe(1)
+    expect(spy.getCall(0).args).toEqual([123])
+  })
 })
