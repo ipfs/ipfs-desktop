@@ -1,3 +1,4 @@
+// @ts-check
 const { app } = require('electron')
 const i18n = require('i18next')
 const os = require('os')

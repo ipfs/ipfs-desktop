@@ -17,9 +17,12 @@ const { performance } = require('perf_hooks')
 const Countly = require('countly-sdk-nodejs')
 const { analyticsKeys } = require('../analytics/keys')
 const ipcMainEvents = require('../common/ipc-main-events')
+const getCtx = require('../context')
+
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
 const createWindow = () => {
+  logger.info('[webui] creating window')
   const dimensions = screen.getPrimaryDisplay()
 
   const window = new BrowserWindow({
@@ -112,7 +115,9 @@ const createWindow = () => {
   return window
 }
 
-module.exports = async function (ctx) {
+module.exports = async function () {
+  logger.info('[webui] init...')
+
   if (store.get(CONFIG_KEY, null) === null) {
     // First time running this. Enable opening ipfs-webui at app launch.
     // This accounts for users on OSes who may have extensions for
@@ -128,24 +133,26 @@ module.exports = async function (ctx) {
   })
 
   openExternal()
-
-  const window = createWindow(ctx)
+  await app.whenReady()
+  const window = createWindow()
   let apiAddress = null
 
-  ctx.webui = window
+  getCtx().setProp('webui', window)
 
   const url = new URL('/', 'webui://-')
   url.hash = '/blank'
-  url.searchParams.set('deviceId', ctx.countlyDeviceId)
+  url.searchParams.set('deviceId', await getCtx().getProp('countlyDeviceId'))
 
-  ctx.launchWebUI = (path, { focus = true, forceRefresh = false } = {}) => {
+  getCtx().setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
     if (forceRefresh) window.webContents.reload()
     if (!path) {
       logger.info('[web ui] launching web ui', { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI })
     } else {
       logger.info(`[web ui] navigate to ${path}`, { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI_WITH_PATH })
       url.hash = path
-      window.webContents.loadURL(url.toString())
+      try {
+        await window.webContents.loadURL(url.toString())
+      } catch {}
     }
     if (focus) {
       window.show()
@@ -153,15 +160,19 @@ module.exports = async function (ctx) {
       dock.show()
     }
     // load again: minimize visual jitter on windows
-    if (path) window.webContents.loadURL(url.toString())
-  }
+    if (path) {
+      try {
+        await window.webContents.loadURL(url.toString())
+      } catch {}
+    }
+  })
 
   function updateLanguage () {
     url.searchParams.set('lng', store.get('language'))
   }
 
   ipcMain.on(ipcMainEvents.IPFSD, async () => {
-    const ipfsd = await ctx.getIpfsd(true)
+    const ipfsd = (await getCtx().getProp('getIpfsd'))(true)
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       apiAddress = ipfsd.apiAddr
@@ -177,12 +188,12 @@ module.exports = async function (ctx) {
     callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
   })
 
-  return new Promise(resolve => {
-    window.once('ready-to-show', () => {
+  return /** @type {Promise<void>} */(new Promise(resolve => {
+    window.once('ready-to-show', async () => {
       logger.info('[web ui] window ready')
 
       if (store.get(CONFIG_KEY)) {
-        ctx.launchWebUI('/')
+        (await getCtx().getProp('launchWebUI'))('/')
       }
 
       resolve()
@@ -190,5 +201,5 @@ module.exports = async function (ctx) {
 
     updateLanguage()
     window.loadURL(url.toString())
-  })
+  }))
 }

@@ -22,7 +22,7 @@ const { analyticsKeys } = require('../analytics/keys')
  * @property {(err: Error) => void} fail
  */
 
-const { combine, splat, timestamp, printf } = format
+const { combine, splat, timestamp, printf, errors } = format
 const logsPath = app.getPath('userData')
 
 const errorFile = new transports.File({
@@ -36,6 +36,7 @@ errorFile.on('finish', () => {
 
 const logger = createLogger({
   format: combine(
+    errors({ stack: true }),
     timestamp(),
     splat(),
     printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
@@ -57,7 +58,7 @@ logger.info(`[meta] logs can be found on ${logsPath}`)
 
 /**
  *
- * @param {AnalyticsTimeOptions & import('countly-sdk-nodejs').CountlyAddEventOptions}
+ * @param {AnalyticsTimeOptions & import('countly-sdk-nodejs').CountlyAddEventOptions} args
  *
  * @returns {void} void
  */

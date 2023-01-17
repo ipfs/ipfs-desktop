@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const addToIpfs = require('./add-to-ipfs')
 
-async function argvHandler (argv, ctx) {
+async function argvHandler (argv) {
   let handled = false
 
   const files = []
@@ -18,16 +18,16 @@ async function argvHandler (argv, ctx) {
   }
 
   if (files.length > 0) {
-    await addToIpfs(ctx, files)
+    await addToIpfs(files)
     handled = true
   }
 
   return handled
 }
 
-module.exports = async function (ctx) {
+module.exports = async function () {
   // Checks current proccess
-  await argvHandler(process.argv, ctx)
+  await argvHandler(process.argv)
 }
 
 module.exports.argvHandler = argvHandler

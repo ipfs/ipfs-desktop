@@ -16,6 +16,7 @@ const CONFIG_KEYS = require('./common/config-keys')
 const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
 const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const createToggler = require('./utils/create-toggler')
+const getCtx = require('./context')
 
 function buildCheckbox (key, label) {
   return {
@@ -31,7 +32,13 @@ function buildCheckbox (key, label) {
 // they natively work as soon as the menu opens. They don't work like that on Windows
 // or other OSes and must be registered globally. They still collide with global
 // accelerator. Please see ../utils/setup-global-shortcut.js for more info.
-function buildMenu (ctx) {
+async function buildMenu () {
+  const restartIpfs = await getCtx().getProp('restartIpfs')
+  const startIpfs = await getCtx().getProp('startIpfs')
+  const stopIpfs = await getCtx().getProp('stopIpfs')
+  const launchWebUI = await getCtx().getProp('launchWebUI')
+  const manualCheckForUpdates = await getCtx().getProp('manualCheckForUpdates')
+
   return Menu.buildFromTemplate([
     ...[
       ['ipfsIsStarting', 'yellow'],
@@ -51,43 +58,43 @@ function buildMenu (ctx) {
     {
       id: 'restartIpfs',
       label: i18n.t('restart'),
-      click: () => { ctx.restartIpfs() },
+      click: () => { restartIpfs() },
       visible: false,
       accelerator: IS_MAC ? 'Command+R' : null
     },
     {
       id: 'startIpfs',
       label: i18n.t('start'),
-      click: () => { ctx.startIpfs() },
+      click: () => { startIpfs() },
       visible: false
     },
     {
       id: 'stopIpfs',
       label: i18n.t('stop'),
-      click: () => { ctx.stopIpfs() },
+      click: () => { stopIpfs() },
       visible: false
     },
     { type: 'separator' },
     {
       id: 'webuiStatus',
       label: i18n.t('status'),
-      click: () => { ctx.launchWebUI('/') }
+      click: () => { launchWebUI('/') }
     },
     {
       id: 'webuiFiles',
       label: i18n.t('files'),
-      click: () => { ctx.launchWebUI('/files') }
+      click: () => { launchWebUI('/files') }
     },
     {
       id: 'webuiPeers',
       label: i18n.t('peers'),
-      click: () => { ctx.launchWebUI('/peers') }
+      click: () => { launchWebUI('/peers') }
     },
     { type: 'separator' },
     {
       id: 'takeScreenshot',
       label: i18n.t('takeScreenshot'),
-      click: () => { takeScreenshot(ctx) },
+      click: () => { takeScreenshot() },
       accelerator: IS_MAC ? SCREENSHOT_SHORTCUT : null,
       enabled: false
     },
@@ -98,7 +105,7 @@ function buildMenu (ctx) {
         {
           id: 'webuiNodeSettings',
           label: i18n.t('settings.openNodeSettings'),
-          click: () => { ctx.launchWebUI('/settings') }
+          click: () => { launchWebUI('/settings') }
         },
         { type: 'separator' },
         {
@@ -138,25 +145,25 @@ function buildMenu (ctx) {
         {
           id: 'runGarbageCollector',
           label: i18n.t('runGarbageCollector'),
-          click: () => { runGarbageCollector(ctx) },
+          click: () => { runGarbageCollector() },
           enabled: false
         },
         { type: 'separator' },
         {
           id: 'moveRepositoryLocation',
           label: i18n.t('moveRepositoryLocation'),
-          click: () => { moveRepositoryLocation(ctx) }
+          click: () => { moveRepositoryLocation() }
         },
         {
           id: 'setCustomBinary',
           label: i18n.t('setCustomIpfsBinary'),
-          click: () => { setCustomBinary(ctx) },
+          click: () => { setCustomBinary() },
           visible: false
         },
         {
           id: 'clearCustomBinary',
           label: i18n.t('clearCustomIpfsBinary'),
-          click: () => { clearCustomBinary(ctx) },
+          click: () => { clearCustomBinary() },
           visible: false
         }
       ]
@@ -182,7 +189,7 @@ function buildMenu (ctx) {
         {
           id: 'checkForUpdates',
           label: i18n.t('checkForUpdates'),
-          click: () => { ctx.manualCheckForUpdates() }
+          click: () => { manualCheckForUpdates() }
         },
         {
           id: 'checkingForUpdates',
@@ -203,7 +210,7 @@ function buildMenu (ctx) {
     {
       label: i18n.t('quit'),
       click: () => { app.quit() },
-      accelerator: IS_MAC ? 'Command+Q' : null
+      accelerator: IS_MAC ? 'Command+Q' : 'null'
     }
   ])
 }
@@ -232,7 +239,7 @@ function icon (status) {
 // https://www.electronjs.org/docs/faq#my-apps-tray-disappeared-after-a-few-minutes
 let tray = null
 
-module.exports = function (ctx) {
+module.exports = async function () {
   logger.info('[tray] starting')
   tray = new Tray(icon(off))
   let menu = null
@@ -245,8 +252,10 @@ module.exports = function (ctx) {
 
   // macOS tray drop files
   tray.on('drop-files', async (_, files) => {
-    await addToIpfs(ctx, files)
-    ctx.launchWebUI('/files', { focus: false })
+    await addToIpfs(files)
+    const launchWebUI = await getCtx().getProp('launchWebUI')
+
+    launchWebUI('/files', { focus: false })
   })
 
   const popupMenu = (event) => {
@@ -262,10 +271,14 @@ module.exports = function (ctx) {
     tray.on('click', popupMenu)
   }
   tray.on('right-click', popupMenu)
-  tray.on('double-click', () => ctx.launchWebUI('/'))
+  tray.on('double-click', async () => {
+    const launchWebUI = await getCtx().getProp('launchWebUI')
 
-  const setupMenu = () => {
-    menu = buildMenu(ctx)
+    launchWebUI('/')
+  })
+
+  const setupMenu = async () => {
+    menu = await buildMenu()
 
     tray.setContextMenu(menu)
     tray.setToolTip('IPFS Desktop')
@@ -363,19 +376,19 @@ module.exports = function (ctx) {
   })
 
   ipcMain.on(ipcMainEvents.CONFIG_UPDATED, () => { updateMenu() })
-  ipcMain.on(ipcMainEvents.LANG_UPDATED, () => { setupMenu() })
+  ipcMain.on(ipcMainEvents.LANG_UPDATED, async () => { await setupMenu() })
 
   nativeTheme.on('updated', () => {
     updateMenu()
   })
 
-  setupMenu()
+  await setupMenu()
 
   createToggler(CONFIG_KEYS.MONOCHROME_TRAY_ICON, async ({ newValue }) => {
     store.set(CONFIG_KEYS.MONOCHROME_TRAY_ICON, newValue)
     return true
   })
 
-  ctx.tray = tray
+  getCtx().setProp('tray', tray)
   logger.info('[tray] started')
 }

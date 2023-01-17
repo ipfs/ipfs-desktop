@@ -7,6 +7,7 @@ const fs = require('fs-extra')
 const logger = require('./common/logger')
 const { notify, notifyError } = require('./common/notify')
 const { analyticsKeys } = require('./analytics/keys')
+const getCtx = require('./context')
 
 async function copyFileToMfs (ipfs, cid, filename) {
   let i = 0
@@ -102,7 +103,9 @@ async function addFileOrDirectory (ipfs, filepath) {
   return { cid, filename }
 }
 
-module.exports = async function ({ getIpfsd, launchWebUI }, files) {
+module.exports = async function (files) {
+  const getIpfsd = await getCtx().getProp('getIpfsd')
+  const launchWebUI = await getCtx().getProp('launchWebUI')
   const ipfsd = await getIpfsd()
   if (!ipfsd) {
     return
