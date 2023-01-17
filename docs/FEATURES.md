@@ -19,7 +19,7 @@ This document is intended to capture the list of features offered by IPFS-Deskto
 | [System-wide protocol handler](https://github.com/ipfs-shipyard/ipfs-desktop/issues/807)  | 🥚   | 🐓   | 🐓  |
 | [Dropbox-like mounting of MFS](https://github.com/ipfs-shipyard/ipfs-desktop/issues/618) | 🐣    | 🐣   | 🐣  |
 | ["Add to IPFS" from Native File Manager](https://github.com/ipfs-shipyard/ipfs-desktop/issues/678)  |  :grey_question:    |  :grey_question:    | 🐓 |
-| [Add 'ipfs' to PATH](https://github.com/ipfs-shipyard/ipfs-desktop/issues/727) | 🐓 | 🐓 | 🐓 |
+| [Add 'ipfs' to PATH](https://github.com/ipfs-shipyard/ipfs-desktop/issues/727) | 🥚  | 🥚 | 🥚 |
 
 ## Kubo related features
 
