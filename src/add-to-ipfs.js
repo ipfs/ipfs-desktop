@@ -77,6 +77,7 @@ function sendNotification (launchWebUI, hasFailures, successCount, filename) {
     body = i18n.t('itemsFailedNotification.message')
   }
 
+  // @ts-expect-error
   fn({ title, body }, () => {
     // force refresh for Files screen to pick up newly added items
     // https://github.com/ipfs/ipfs-desktop/issues/1763
@@ -104,8 +105,8 @@ async function addFileOrDirectory (ipfs, filepath) {
 }
 
 module.exports = async function (files) {
-  const getIpfsd = await getCtx().getProp('getIpfsd')
-  const launchWebUI = await getCtx().getProp('launchWebUI')
+  const ctx = getCtx()
+  const getIpfsd = await ctx.getProp('getIpfsd')
   const ipfsd = await getIpfsd()
   if (!ipfsd) {
     return
@@ -132,6 +133,7 @@ module.exports = async function (files) {
   }
 
   const { cid, filename } = await getShareableCid(ipfsd.api, successes)
+  const launchWebUI = await ctx.getProp('launchWebUI')
   sendNotification(launchWebUI, failures.length !== 0, successes.length, filename)
 
   const query = filename ? `?filename=${encodeURIComponent(filename)}` : ''

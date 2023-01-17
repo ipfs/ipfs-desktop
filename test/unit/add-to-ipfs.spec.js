@@ -15,14 +15,19 @@ if (process.env.CI === 'true') test.setTimeout(120000) // slow ci
 
 test.describe('Add To Ipfs', function () {
   let electron, notify, addToIpfs, ipfsd, ctx
+  // const ctx = getCtx()
 
   test.beforeAll(async () => {
     const repo = await makeRepository({ start: true })
     ipfsd = repo.ipfsd
-    ctx = {
-      getIpfsd: () => ipfsd,
-      launchWebUI: () => {}
-    }
+    const getCtx = proxyquire('../../src/context', {
+      electron: mockElectron(),
+      './common/notify': mockNotify(),
+      './common/logger': mockLogger()
+    })
+    ctx = getCtx()
+    ctx.setProp('getIpfsd', () => ipfsd)
+    ctx.setProp('launchWebUI', () => {})
   })
 
   test.afterAll(async () => {
@@ -35,12 +40,13 @@ test.describe('Add To Ipfs', function () {
     addToIpfs = proxyquire('../../src/add-to-ipfs', {
       electron: electron,
       './common/notify': notify,
-      './common/logger': mockLogger()
+      './common/logger': mockLogger(),
+      './context': () => ctx
     })
   })
 
   test('add to ipfs single file', async () => {
-    const cid = await addToIpfs(ctx, getFixtures('hello-world.txt'))
+    const cid = await addToIpfs(getFixtures('hello-world.txt'))
     expect(electron.clipboard.writeText.callCount).toEqual(1)
     expect(notify.notifyError.callCount).toEqual(0)
     expect(notify.notify.callCount).toEqual(1)
@@ -48,7 +54,7 @@ test.describe('Add To Ipfs', function () {
   })
 
   test('add to ipfs single directory', async () => {
-    const cid = await addToIpfs(ctx, getFixtures('dir'))
+    const cid = await addToIpfs(getFixtures('dir'))
     expect(electron.clipboard.writeText.callCount).toEqual(1)
     expect(notify.notifyError.callCount).toEqual(0)
     expect(notify.notify.callCount).toEqual(1)
@@ -56,7 +62,7 @@ test.describe('Add To Ipfs', function () {
   })
 
   test('add to ipfs multiple files', async () => {
-    const cid = await addToIpfs(ctx, getFixtures('dir', 'hello-world.txt'))
+    const cid = await addToIpfs(getFixtures('dir', 'hello-world.txt'))
     expect(electron.clipboard.writeText.callCount).toEqual(1)
     expect(notify.notifyError.callCount).toEqual(0)
     expect(notify.notify.callCount).toEqual(1)
