@@ -14,7 +14,6 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 const getCtx = require('./context')
-
 const fixPath = require('fix-path')
 const logger = require('./common/logger')
 const setupProtocolHandlers = require('./protocol-handlers')
@@ -49,9 +48,7 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
 
-// const ctx = {}
-
-app.on('will-finish-launching', async () => {
+app.on('will-finish-launching', () => {
   setupProtocolHandlers()
 })
 
@@ -60,7 +57,6 @@ process.on('unhandledRejection', handleError)
 
 async function run () {
   try {
-    // await Promise.allSettled([app.whenReady(), getCtx().waitForSetup()])
     await app.whenReady()
   } catch (e) {
     dialog.showErrorBox('Electron could not start', e.stack)

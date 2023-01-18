@@ -134,7 +134,6 @@ module.exports = async function () {
   })
 
   openExternal()
-  await app.whenReady()
   const window = createWindow()
   let apiAddress = null
 
@@ -149,9 +148,7 @@ module.exports = async function () {
     } else {
       logger.info(`[web ui] navigate to ${path}`, { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI_WITH_PATH })
       url.hash = path
-      try {
-        await window.webContents.loadURL(url.toString())
-      } catch {}
+      window.webContents.loadURL(url.toString())
     }
     if (focus) {
       window.show()
@@ -159,11 +156,7 @@ module.exports = async function () {
       dock.show()
     }
     // load again: minimize visual jitter on windows
-    if (path) {
-      try {
-        await window.webContents.loadURL(url.toString())
-      } catch {}
-    }
+    if (path) window.webContents.loadURL(url.toString())
   })
 
   function updateLanguage () {
@@ -193,7 +186,6 @@ module.exports = async function () {
 
   return /** @type {Promise<void>} */(new Promise(resolve => {
     window.once('ready-to-show', async () => {
-      // const ctx = getCtx()
       logger.info('[web ui] window ready')
 
       if (store.get(CONFIG_KEY)) {

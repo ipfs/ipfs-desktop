@@ -50,9 +50,10 @@ function onError (e) {
 }
 
 function handleScreenshot () {
+  const ctx = getCtx()
+  const launchWebUI = ctx.getFn('launchWebUI')
+  const getIpfsd = ctx.getFn('getIpfsd')
   return async (_, output) => {
-    const launchWebUI = await getCtx().getProp('launchWebUI')
-    const getIpfsd = await getCtx().getProp('getIpfsd')
     const ipfsd = await getIpfsd()
 
     if (!ipfsd) {

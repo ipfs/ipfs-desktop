@@ -15,7 +15,6 @@ if (process.env.CI === 'true') test.setTimeout(120000) // slow ci
 
 test.describe('Add To Ipfs', function () {
   let electron, notify, addToIpfs, ipfsd, ctx
-  // const ctx = getCtx()
 
   test.beforeAll(async () => {
     const repo = await makeRepository({ start: true })

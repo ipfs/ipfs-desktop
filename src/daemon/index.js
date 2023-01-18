@@ -103,13 +103,9 @@ async function setupDaemon () {
     await startIpfs()
   }
   getCtx().setProp('startIpfs', runAndStatus(startIpfs))
-  // getCtx().startIpfs = runAndStatus(startIpfs)
   getCtx().setProp('stopIpfs', runAndStatus(stopIpfs))
-  // getCtx().stopIpfs = runAndStatus(stopIpfs)
   getCtx().setProp('restartIpfs', runAndStatus(restartIpfs))
-  // getCtx().restartIpfs = runAndStatus(restartIpfs)
   getCtx().setProp('getIpfsd', getIpfsd)
-  // getCtx().getIpfsd = getIpfsd
 
   ipcMain.on(ipcMainEvents.IPFS_CONFIG_CHANGED, restartIpfs)
 

@@ -36,8 +36,8 @@ class Context {
     try {
       this._properties.set(propertyName, value)
       this._resolvePropForValue(propertyName, value)
-    } catch {
-      // deferred.reject()
+    } catch (e) {
+      logger.error(e)
     }
   }
 

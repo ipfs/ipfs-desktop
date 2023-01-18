@@ -226,7 +226,7 @@ async function buildMenu () {
     {
       label: i18n.t('quit'),
       click: () => { app.quit() },
-      accelerator: IS_MAC ? 'Command+Q' : 'null'
+      accelerator: IS_MAC ? 'Command+Q' : null
     }
   ])
 }
@@ -257,7 +257,6 @@ let tray = null
 
 const updateMenu = async () => {
   const ctx = getCtx()
-  // const { status, gcRunning, isUpdating } = state
   const { status, gcRunning, isUpdating } = await ctx.getProp('tray-menu-state')
   const errored = status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
   const menu = await ctx.getProp('tray-menu')
@@ -338,8 +337,6 @@ module.exports = async function () {
   logger.info('[tray] starting')
   tray = new Tray(icon(off))
   const launchWebUI = ctx.getFn('launchWebUI')
-
-  // const menu = ctx.getProp()
 
   const state = {
     status: null,
