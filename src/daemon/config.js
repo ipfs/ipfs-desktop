@@ -95,9 +95,6 @@ function applyDefaults (ipfsd) {
   config.Swarm = config.Swarm ?? {}
   config.Swarm.DisableNatPortMap = false
   config.Swarm.ConnMgr = config.Swarm.ConnMgr ?? {}
-  config.Swarm.ConnMgr.GracePeriod = '1m'
-  config.Swarm.ConnMgr.LowWater = 20
-  config.Swarm.ConnMgr.HighWater = 40
 
   config.Discovery = config.Discovery ?? {}
   config.Discovery.MDNS = config.Discovery.MDNS ?? {}
@@ -153,7 +150,7 @@ const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
  */
 function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
-  const REVISION = 4
+  const REVISION = 5
   const REVISION_KEY = 'daemonConfigRevision'
   const CURRENT_REVISION = store.get(REVISION_KEY, 0)
 
@@ -218,6 +215,17 @@ function migrateConfig (ipfsd) {
       }
       if (HighWater > 40) {
         config.Swarm.ConnMgr.HighWater = 40
+        changed = true
+      }
+    }
+  }
+
+  if (CURRENT_REVISION < 5) {
+    if (config.Swarm && config.Swarm.ConnMgr) {
+      const { GracePeriod, LowWater, HighWater } = config.Swarm.ConnMgr
+      // Only touch config if user runs old defaults hardcoded in ipfs-desktop
+      if (GracePeriod === '1m' && LowWater === 20 && HighWater === 40) {
+        config.Swarm.ConnMgr = {} // remove overrides, use defaults from Kubo https://github.com/ipfs/kubo/pull/9483
         changed = true
       }
     }
