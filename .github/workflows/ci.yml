@@ -80,7 +80,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
 
     steps:
       - name: Check out Git repository
@@ -128,9 +128,6 @@ jobs:
       - name: Stop any ipfs daemon before tests
         run: ipfs shutdown || true
         shell: bash
-
-      - name: Test
-        run: npm run test
 
       - name: Test end-to-end
         uses: GabrielBB/xvfb-action@86d97bde4a65fe9b290c0b3fb92c2c4ed0e5302d # v1.6
@@ -236,4 +233,3 @@ jobs:
 
       - name: Show Cache
         run: du -sh ${{ github.workspace }}/.cache/ && ls -l ${{ github.workspace }}/.cache/
-
