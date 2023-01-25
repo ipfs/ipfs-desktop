@@ -5,19 +5,27 @@ const Ctl = require('ipfsd-ctl')
 
 const { join } = require('path')
 
-const factory = Ctl.createFactory({
-  type: 'go',
-  ipfsHttpModule: require('ipfs-http-client'),
-  ipfsBin: require('go-ipfs').path(),
-  remote: false,
-  disposable: true,
-  test: true // run on random ports
-})
+let factory
+async function getFactory () {
+  if (factory === undefined) {
+    const ipfsHttpModule = await import('ipfs-http-client')
+    factory = Ctl.createFactory({
+      type: 'go',
+      ipfsHttpModule,
+      ipfsBin: require('go-ipfs').path(),
+      remote: false,
+      disposable: true,
+      test: true // run on random ports
+    })
+  }
+  return factory
+}
 
 async function makeRepository ({ start = false }) {
   const { name: repoPath } = tmp.dirSync({ prefix: 'tmp_IPFS_PATH_', unsafeCleanup: true })
   const configPath = join(repoPath, 'config')
 
+  const factory = await getFactory()
   const ipfsd = await factory.spawn({
     ipfsOptions: { repo: repoPath },
     init: false,
