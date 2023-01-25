@@ -42,8 +42,8 @@ test.describe('Add To Ipfs', function () {
   test('add to ipfs single file', async () => {
     const cid = await addToIpfs(ctx, getFixtures('hello-world.txt'))
     expect(electron.clipboard.writeText.callCount).toEqual(1)
-    expect(notify.notifyError.callCount).toEqual(0, `Got: ${notify.notifyError.getCalls()}`)
-    expect(notify.notify.callCount).toEqual(1, `Got: ${notify.notify.getCalls()}`)
+    expect(notify.notifyError.callCount, `Got: ${notify.notifyError.getCalls()}`).toEqual(0)
+    expect(notify.notify.callCount, `Got: ${notify.notify.getCalls()}`).toEqual(1)
     expect(cid.toString()).toEqual('QmWGeRAEgtsHW3ec7U4qW2CyVy7eA2mFRVbk1nb24jFyks')
   })
 
