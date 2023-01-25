@@ -33,9 +33,11 @@ async function getIpfsd (flags, path) {
   logger.info(`[daemon] IPFS binary path: ${ipfsBin}`)
 
   const ipfsHttpModule = await import('ipfs-http-client')
-  logger.info('[daemon] got ipfs http module: ', ipfsHttpModule)
+  logger.info('[daemon] got ipfs http module')
 
   const { createController } = await import('ipfsd-ctl')
+  logger.info('[daemon] got ipfsd-ctl')
+
   const ipfsd = await createController({
     ipfsHttpModule,
     ipfsBin,
@@ -47,6 +49,7 @@ async function getIpfsd (flags, path) {
     test: false,
     args: flags
   })
+  logger.info(`[daemon] got ipfs daemon ${ipfsd}`)
 
   // Checks if the repository is valid to use with IPFS Desktop. If not,
   // we quit the app. We assume that checkRepositoryAndConfiguration
