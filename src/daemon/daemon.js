@@ -1,4 +1,3 @@
-const Ctl = require('ipfsd-ctl')
 const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
 const { applyDefaults, migrateConfig, checkPorts, configExists, checkRepositoryAndConfiguration, removeApiFile, apiFileExists } = require('./config')
@@ -29,10 +28,15 @@ function getIpfsBinPath () {
  * @returns {Promise<import('ipfsd-ctl').Controller|null>}
  */
 async function getIpfsd (flags, path) {
+  logger.info('[daemon] getting ipfs daemon')
   const ipfsBin = getIpfsBinPath()
+  logger.info(`[daemon] IPFS binary path: ${ipfsBin}`)
 
   const ipfsHttpModule = await import('ipfs-http-client')
-  const ipfsd = await Ctl.createController({
+  logger.info('[daemon] got ipfs http module: ', ipfsHttpModule)
+
+  const { createController } = await import('ipfsd-ctl')
+  const ipfsd = await createController({
     ipfsHttpModule,
     ipfsBin,
     ipfsOptions: {
@@ -43,8 +47,6 @@ async function getIpfsd (flags, path) {
     test: false,
     args: flags
   })
-
-  console.log(ipfsd)
 
   // Checks if the repository is valid to use with IPFS Desktop. If not,
   // we quit the app. We assume that checkRepositoryAndConfiguration
@@ -210,7 +212,9 @@ async function startIpfsWithLogs (ipfsd) {
  * @returns {Promise<{ ipfsd: import('ipfsd-ctl').Controller|undefined } & IpfsLogs>}
  */
 async function startDaemon (opts) {
+  logger.info('[daemon] starting')
   const ipfsd = await getIpfsd(opts.flags, opts.path)
+  logger.info('[daemon] got ipfsd', ipfsd)
   if (ipfsd === null) {
     app.quit()
     return { ipfsd: undefined, err: new Error('get ipfsd failed'), id: undefined, logs: '' }

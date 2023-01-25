@@ -1,7 +1,6 @@
 /* eslint-env mocha */
 
 const tmp = require('tmp')
-const Ctl = require('ipfsd-ctl')
 
 const { join } = require('path')
 
@@ -9,7 +8,8 @@ let factory
 async function getFactory () {
   if (factory === undefined) {
     const ipfsHttpModule = await import('ipfs-http-client')
-    factory = Ctl.createFactory({
+    const { createFactory } = await import('ipfsd-ctl')
+    factory = createFactory({
       type: 'go',
       ipfsHttpModule,
       ipfsBin: require('go-ipfs').path(),
