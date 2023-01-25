@@ -14,6 +14,7 @@ env:
   XDG_CACHE_HOME: ${{ github.workspace }}/.cache
   ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
   ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
+  PWDEBUG: console
 
 jobs:
 
