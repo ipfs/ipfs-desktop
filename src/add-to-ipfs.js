@@ -1,5 +1,6 @@
 const { extname, basename } = require('path')
 const { clipboard } = require('electron')
+const { globSource } = require('ipfs-http-client')
 const i18n = require('i18next')
 const last = require('it-last')
 const fs = require('fs-extra')
@@ -87,7 +88,6 @@ async function addFileOrDirectory (ipfs, filepath) {
   let cid = null
 
   if (stat.isDirectory()) {
-    const { globSource } = await import('ipfs-http-client')
     const files = globSource(filepath, '**/*', { recursive: true })
     const res = await last(ipfs.addAll(files, { pin: false, wrapWithDirectory: true }))
     cid = res.cid

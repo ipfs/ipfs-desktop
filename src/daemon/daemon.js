@@ -31,9 +31,8 @@ function getIpfsBinPath () {
 async function getIpfsd (flags, path) {
   const ipfsBin = getIpfsBinPath()
 
-  const ipfsHttpModule = await import('ipfs-http-client')
   const ipfsd = await Ctl.createController({
-    ipfsHttpModule,
+    ipfsHttpModule: require('ipfs-http-client'),
     ipfsBin,
     ipfsOptions: {
       repo: path

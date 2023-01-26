@@ -7,6 +7,8 @@ const mockNotify = require('./mocks/notify')
 
 const proxyquire = require('proxyquire').noCallThru()
 
+const { makeRepository } = require('./../e2e/utils/ipfsd')
+
 const getFixtures = (...files) => files.map(f => path.join(__dirname, 'fixtures', f))
 
 if (process.env.CI === 'true') test.setTimeout(120000) // slow ci
@@ -15,7 +17,6 @@ test.describe('Add To Ipfs', function () {
   let electron, notify, addToIpfs, ipfsd, ctx
 
   test.beforeAll(async () => {
-    const { makeRepository } = require('./../e2e/utils/ipfsd')
     const repo = await makeRepository({ start: true })
     ipfsd = repo.ipfsd
     ctx = {
