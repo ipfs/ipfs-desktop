@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.25.0] - 2023-01-27
+
+## What's Changed
+* feat: kubo 0.18 with /quic-v1 and /webtransport by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2363
+* feat: Updating ipfs-webui CID to v2.22.0 by @djmcquillan in https://github.com/ipfs/ipfs-desktop/pull/2387
+
+## New Contributors
+* @djmcquillan made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2387
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.25.0...v0.26.0
+
 ## [v0.25.0] - 2022-12-11
 
 ## What's Changed
