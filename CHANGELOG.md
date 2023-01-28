@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [v0.25.0] - 2023-01-27
 
+## Important changes in this release
+
+This release includes changing our metrics collection policy to opt-out instead of opt-in. This means app data (non-user data), or telemetry, is gathered by default when running the application. Note that you can still disable the collection of telemetry in the settings page. For more information, see the following:
+
+1. https://github.com/ipfs-shipyard/ignite-metrics/blob/main/docs/telemetry/COLLECTION_POLICY.md
+2. https://github.com/ipfs-shipyard/ignite-metrics/pull/76
+3. https://github.com/ipfs/ipfs-gui/issues/117
+
 ## What's Changed
 * feat: kubo 0.18 with /quic-v1 and /webtransport by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2363
 * feat: Updating ipfs-webui CID to v2.22.0 by @djmcquillan in https://github.com/ipfs/ipfs-desktop/pull/2387
