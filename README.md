@@ -263,6 +263,11 @@ If you need help with using IPFS Desktop, the quickest way to get answers is to 
 
 If you think you've found a bug or other issue with IPFS Desktop itself, please [open an issue](https://github.com/ipfs-shipyard/ipfs-desktop/issues/new/choose).
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ipfs/ipfs-desktop&type=Date)](https://star-history.com/#ipfs/ipfs-desktop&Date)
+
+
 ## License
 
 [MIT — Protocol Labs, Inc.](./LICENSE)
