@@ -32,7 +32,7 @@ jobs:
         id: read-webui-version
         run: |
           echo '::echo::on'
-          echo "::set-output name=cid::$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")"
+          echo "cid=$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")" >> $GITHUB_OUTPUT
           echo '::echo::off'
         shell: bash
       - name: Cache webui
@@ -93,7 +93,7 @@ jobs:
 
       - name: Read ipfs-webui CID from package.json
         id: read-webui-version
-        run: echo "::set-output name=cid::$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")"
+        run: echo "cid=$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")" >> $GITHUB_OUTPUT
         shell: bash
       - name: Cache webui
         uses: actions/cache@v3
@@ -160,7 +160,7 @@ jobs:
 
       - name: Read ipfs-webui CID from package.json
         id: read-webui-version
-        run: echo "::set-output name=cid::$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")"
+        run: echo "cid=$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")" >> $GITHUB_OUTPUT
         shell: bash
       - name: Cache webui
         uses: actions/cache@v3
