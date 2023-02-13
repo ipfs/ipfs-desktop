@@ -167,7 +167,7 @@ test.describe.serial('Application launch', async () => {
     ])
   })
 
-  test('applies config migration (ConnMgr)', async () => {
+  test('applies config migration v4 (old custom ConnMgr)', async () => {
     // create preexisting, initialized repo and config
     const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
 
@@ -182,10 +182,31 @@ test.describe.serial('Application launch', async () => {
     expect(peerId).toBe(expectedId)
 
     const config = fs.readJsonSync(configPath)
+    // ensure app has migrated config to v5 instead of v4
+    expect(config.Swarm.ConnMgr.GracePeriod).toEqual(undefined)
+    expect(config.Swarm.ConnMgr.LowWater).toEqual(undefined)
+    expect(config.Swarm.ConnMgr.HighWater).toEqual(undefined)
+  })
+
+  test('applies config migration v5 (switch to implicit defaults from Kubo 0.18)', async () => {
+    // create preexisting, initialized repo and config
+    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
+
+    const initConfig = fs.readJsonSync(configPath)
+    initConfig.Swarm.ConnMgr.GracePeriod = '1m'
+    initConfig.Swarm.ConnMgr.LowWater = 20
+    initConfig.Swarm.ConnMgr.HighWater = 40
+    fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
+
+    const { app } = await startApp({ repoPath })
+    const { peerId } = await daemonReady(app)
+    expect(peerId).toBe(expectedId)
+
+    const config = fs.readJsonSync(configPath)
     // ensure app has migrated config
-    expect(config.Swarm.ConnMgr.GracePeriod).toEqual('1m')
-    expect(config.Swarm.ConnMgr.LowWater).toEqual(20)
-    expect(config.Swarm.ConnMgr.HighWater).toEqual(40)
+    expect(config.Swarm.ConnMgr.GracePeriod).toEqual(undefined)
+    expect(config.Swarm.ConnMgr.LowWater).toEqual(undefined)
+    expect(config.Swarm.ConnMgr.HighWater).toEqual(undefined)
   })
 
   test('starts with repository with "IPFS_PATH/api" file and no daemon running', async () => {
