@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.27.0] - 2023-03-20
+
+## What's Changed
+* Use CIDv1 by default by @davidd8 in https://github.com/ipfs/ipfs-desktop/pull/2402
+* docs: add features doc by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2377
+* Update Kubo: v0.19.0 by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2435
+
+## New Contributors
+* @davidd8 made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2402
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.26.1...v0.27.0
+
 ## [v0.26.1] - 2023-02-10
 
 ## What's Changed
