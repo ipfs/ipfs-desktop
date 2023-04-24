@@ -3,7 +3,61 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.27.0] - 2023-03-20
+
+## What's Changed
+* Use CIDv1 by default by @davidd8 in https://github.com/ipfs/ipfs-desktop/pull/2402
+* docs: add features doc by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2377
+* Update Kubo: v0.19.0 by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2435
+
+## New Contributors
+* @davidd8 made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2402
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.26.1...v0.27.0
+
+## [v0.26.1] - 2023-02-10
+
+## What's Changed
+* chore(docs): v0.26.0 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2389
+* Update Kubo: v0.18.1 by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2396
+* Update ci.yml by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2413
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.26.0...v0.26.1
+
+## [v0.26.0] - 2023-01-27
+
+## Important changes in this release
+
+This release includes changing our metrics collection policy to opt-out instead of opt-in. This means app data (non-user data), or telemetry, is gathered by default when running the application. Note that you can still disable the collection of telemetry in the settings page. For more information, see the following:
+
+1. https://github.com/ipfs-shipyard/ignite-metrics/blob/main/docs/telemetry/COLLECTION_POLICY.md
+2. https://github.com/ipfs-shipyard/ignite-metrics/pull/76
+3. https://github.com/ipfs/ipfs-gui/issues/117
+
+## What's Changed
+* feat: kubo 0.18 with /quic-v1 and /webtransport by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2363
+* feat: Updating ipfs-webui CID to v2.22.0 by @djmcquillan in https://github.com/ipfs/ipfs-desktop/pull/2387
+
+## New Contributors
+* @djmcquillan made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2387
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.25.0...v0.26.0
+
+## [v0.25.0] - 2022-12-11
+
+## What's Changed
+
+* feat: kubo v0.17.0 by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2338
+* fix: support `/quic-v1` on Peers page by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2356
+* docs(readme): add repology badge by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2352
+* chore: release prep by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2344
+* chore(readme): 0.24.0 -> 0.24.1 by @whizzzkid in https://github.com/ipfs/ipfs-desktop/pull/2333
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.24.1...v0.25.0
+
+
 ## [v0.24.1] - 2022-11-10
+
 ## What's Changed
 * Update README.md by @michael-spengler in https://github.com/ipfs/ipfs-desktop/pull/2289
 * chore: bump go-ipfs version to 0.16.0 by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2280
@@ -17,6 +71,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 **Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.24.0...v0.24.1
 
+
 ## [v0.24.0] - 2022-10-03
 
 ## What's Changed
@@ -29,8 +84,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * refactor: use ipcMainEvents constant  by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2250
 * chore: webui@v2.19.0 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2286
 
-
 **Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.23.0...v0.24.0
+
 
 ## [v0.23.0] - 2022-08-30
 
@@ -49,6 +104,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * @ajnavarro made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2240
 
 **Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.22.0...v0.23.0
+
 
 ## [v0.22.0] - 2022-07-21
 

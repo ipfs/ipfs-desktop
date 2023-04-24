@@ -40,7 +40,7 @@ async function getShareableCid (ipfs, files) {
   // because it handles HAMT-sharding of big directories automatically
   // See: https://github.com/ipfs/go-ipfs/issues/8106
   const dirpath = `/zzzz_${Date.now()}`
-  await ipfs.files.mkdir(dirpath, {})
+  await ipfs.files.mkdir(dirpath, { cidVersion: 1 })
 
   for (const { cid, filename } of files) {
     await ipfs.files.cp(`/ipfs/${cid}`, `${dirpath}/${filename}`)
@@ -88,12 +88,19 @@ async function addFileOrDirectory (ipfs, filepath) {
   let cid = null
 
   if (stat.isDirectory()) {
-    const files = globSource(filepath, '**/*', { recursive: true })
-    const res = await last(ipfs.addAll(files, { pin: false, wrapWithDirectory: true }))
+    const files = globSource(filepath, '**/*', { recursive: true, cidVersion: 1 })
+    const res = await last(ipfs.addAll(files, {
+      pin: false,
+      wrapWithDirectory: true,
+      cidVersion: 1
+    }))
     cid = res.cid
   } else {
     const readStream = fs.createReadStream(filepath)
-    const res = await ipfs.add(readStream, { pin: false })
+    const res = await ipfs.add(readStream, {
+      pin: false,
+      cidVersion: 1
+    })
     cid = res.cid
   }
 
