@@ -20,7 +20,8 @@
     "build:webui:download": "npx ipfs-or-gateway -c bafybeic4gops3d3lyrisqku37uio33nvt6fqxvkxihrwlqsuvf76yln4fm -p assets/webui/ -t 360000 --verbose -g \"https://dweb.link\" ",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
     "package": "shx rm -rf dist/ && run-s build && electron-builder --publish onTag",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s -r 0"
   },
   "pre-commit": [
     "lint"
@@ -84,6 +85,7 @@
       [
         "@semantic-release/release-notes-generator",
         {
+          "preset": "conventionalcommits",
           "presetConfig": {
             "types": [
               {
@@ -92,25 +94,60 @@
               },
               {
                 "type": "fix",
-                "section": "Bug Fixes"
+                "section": "Bug Fixes",
+                "hidden": "false"
               },
               {
                 "type": "chore",
-                "section": "Trivial Changes"
+                "section": "Trivial Changes",
+                "hidden": "false"
               },
               {
                 "type": "docs",
-                "section": "Trivial Changes"
+                "section": "Trivial Changes",
+                "hidden": "false"
               },
               {
                 "type": "test",
-                "section": "Tests"
+                "section": "Tests",
+                "hidden": "false"
               }
             ]
           }
         }
       ],
-      "@semantic-release/changelog",
+      ["@semantic-release/changelog",
+        {
+          "preset": "conventionalcommits",
+          "presetConfig": {
+            "types": [
+              {
+                "type": "feat",
+                "section": "Features"
+              },
+              {
+                "type": "fix",
+                "section": "Bug Fixes",
+                "hidden": "false"
+              },
+              {
+                "type": "chore",
+                "section": "Trivial Changes",
+                "hidden": "false"
+              },
+              {
+                "type": "docs",
+                "section": "Trivial Changes",
+                "hidden": "false"
+              },
+              {
+                "type": "test",
+                "section": "Tests",
+                "hidden": "false"
+              }
+            ]
+          }
+      }],
       [
         "@semantic-release/npm",
         {
@@ -137,6 +174,7 @@
     "@playwright/test": "^1.24.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^9.0.2",
+    "conventional-changelog-cli": "^2.2.2",
     "conventional-changelog-conventionalcommits": "^5.0.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
