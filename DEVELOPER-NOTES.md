@@ -29,19 +29,19 @@ Manually test a few things that don't transfer well to automated testing:
 
 ### Main release process
 1. Update the version using `npm version [major|minor|patch]` (it will create a new tag `vA.B.C`, note it down)
+1. Update all links and badges in `README.md` to point to the new version (`A.B.C`).
+   - You may use `ts-node scripts/release/updateReadme.ts <oldVersion> <newVersion>` to update the readme. e.g. `ts-node scripts/release/updateReadme.ts 0.26.0 0.26.1`
+      - If you do, confirm everything is updated properly.
+1. Update the latest version commit `git add README.md && git commit --amend --no-edit`
 1. Publish local changes and the tag to the GitHub repo: `git push && git push origin vA.B.C`.
 1. Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
 1. Publish a release draft.
    - Once a release is published, users should receive the app update (see https://www.electron.build/auto-update for details).
    - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available.
-1. Update all links and badges in `README.md` to point to the new version (`A.B.C`).
-   - You may use `ts-node scripts/release/updateReadme.ts <oldVersion> <newVersion>` to update the readme. e.g. `ts-node scripts/release/updateReadme.ts 0.26.0 0.26.1`
-      - If you do, confirm everything is updated properly.
 1. Update `CHANGELOG.md` with details from release/release draft.
 1. Update selected package managers:
    - Wait for CI to finish and confirm that it updated [Snap](https://snapcraft.io/ipfs-desktop), and is at least pending review on [Chocolatey](https://chocolatey.org/packages/ipfs-desktop#versionhistory).
    - Update the [Homebrew cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
-1. To start work on the next version, bump the version in `package.json`.
 
 ### Manually notarize `.dmg` with Apple
 
