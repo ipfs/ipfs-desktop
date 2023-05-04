@@ -198,7 +198,7 @@ async function buildMenu () {
           label: hasCustomBinary()
             ? i18n.t('customIpfsBinary')
             : `kubo ${GO_IPFS_VERSION}`,
-          click: () => { shell.openExternal(`https://github.com/ipfs/kubo/releases/v${GO_IPFS_VERSION}`) }
+          click: () => { shell.openExternal(`https://github.com/ipfs/kubo/releases/v${GO_IPFS_VERSION.replace(/^\^/, '')}`) }
         },
         { type: 'separator' },
         {

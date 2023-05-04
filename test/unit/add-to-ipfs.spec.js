@@ -49,7 +49,7 @@ test.describe('Add To Ipfs', function () {
     expect(electron.clipboard.writeText.callCount).toEqual(1)
     expect(notify.notifyError.callCount).toEqual(0)
     expect(notify.notify.callCount).toEqual(1)
-    expect(cid.toString()).toEqual('QmWGeRAEgtsHW3ec7U4qW2CyVy7eA2mFRVbk1nb24jFyks')
+    expect(cid.toString()).toEqual('bafkreibrl5n5w5wqpdcdxcwaazheualemevr7ttxzbutiw74stdvrfhn2m')
   })
 
   test('add to ipfs single directory', async () => {
@@ -57,7 +57,7 @@ test.describe('Add To Ipfs', function () {
     expect(electron.clipboard.writeText.callCount).toEqual(1)
     expect(notify.notifyError.callCount).toEqual(0)
     expect(notify.notify.callCount).toEqual(1)
-    expect(cid.toString()).toEqual('QmVuxXkWEyCKvQiMqVnDiwyJUUyDQZ7VsKhQDCZzPj1Yq8')
+    expect(cid.toString()).toEqual('bafybeieyzpi3qdqtj7b7hfzdpt2mnmaiicvtrj7ngmf2fc76byecj62gea')
   })
 
   test('add to ipfs multiple files', async () => {
@@ -65,6 +65,6 @@ test.describe('Add To Ipfs', function () {
     expect(electron.clipboard.writeText.callCount).toEqual(1)
     expect(notify.notifyError.callCount).toEqual(0)
     expect(notify.notify.callCount).toEqual(1)
-    expect(cid.toString()).toEqual('QmdYASNGKMVK4HL1uzi3VCZyjQGg3M6VuLsgX5xTKL1gvH')
+    expect(cid.toString()).toEqual('bafybeiaqy3wawya5ryds5zs4nsxv7ulptbdtgfngipqin7ee65azaxs2uq')
   })
 })
