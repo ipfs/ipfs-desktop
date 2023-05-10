@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.27.3] - 2023-05-10
+
+## What's Changed
+* fix: Fix incorrect link for Kubo version in tray icon by @is-this-echo in https://github.com/ipfs/ipfs-desktop/pull/2473
+* chore: remove workflows/auto-project.yml by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2477
+* Update Kubo: v0.19.2 by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2474
+
+## New Contributors
+* @is-this-echo made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2473
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.27.2...v0.27.3
+
 ## [v0.27.2] - 2023-03-20
 
 ## What's Changed
