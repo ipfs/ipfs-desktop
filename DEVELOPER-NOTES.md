@@ -32,7 +32,7 @@ Manually test a few things that don't transfer well to automated testing:
 1. Update all links and badges in `README.md` to point to the new version (`A.B.C`).
    - You may use `ts-node scripts/release/updateReadme.ts <oldVersion> <newVersion>` to update the readme. e.g. `ts-node scripts/release/updateReadme.ts 0.26.0 0.26.1`
       - If you do, confirm everything is updated properly.
-1. Update the latest version commit `git add README.md && git commit --amend --no-edit`
+1. Update the latest version commit `git tag -d vA.B.C && git add README.md && git commit --amend --no-edit && git tag vA.B.C`
 1. Publish local changes and the tag to the GitHub repo: `git push && git push origin vA.B.C`.
 1. Wait for the CI to upload the binaries to the draft release (a new one will be created if you haven't drafted one).
 1. Publish a release draft.
