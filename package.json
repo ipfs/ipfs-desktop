@@ -1,7 +1,7 @@
 {
   "name": "ipfs-desktop",
   "private": true,
-  "version": "0.27.2",
+  "version": "0.28.0",
   "productName": "IPFS Desktop",
   "description": "IPFS Native Application",
   "main": "src/index.js",
@@ -76,7 +76,7 @@
     "electron-updater": "^5.3.0",
     "fix-path": "3.0.0",
     "fs-extra": "^10.0.1",
-    "go-ipfs": "^0.19.1",
+    "go-ipfs": "^0.20.0",
     "i18next": "^21.8.14",
     "i18next-fs-backend": "1.1.4",
     "i18next-icu": "^2.0.3",
