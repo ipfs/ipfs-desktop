@@ -24,7 +24,7 @@ jobs:
           file: ipfs-desktop-${{ env.SNAP_RELEASE_NAME }}-linux-amd64.snap
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish to Snapcraft
-        uses: snapcore/action-publish@f1879414dc5500e02a36f3d715bca6ddd438c913 # 1.0.2
+        uses: snapcore/action-publish@0a8d537ae06f4a292e8b4ef1084cd5631b3c6871 # 1.1.1
         with:
           store_login: ${{ secrets.SNAP_STORE_LOGIN }}
           snap: ipfs-desktop-${{ env.SNAP_RELEASE_NAME }}-linux-amd64.snap
