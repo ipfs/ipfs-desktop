@@ -68,7 +68,7 @@ jobs:
           npm run force-webui-download
 
       - name: Attach cached ipfs-webui to Github Action
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ipfs-webui
           path: assets/webui
@@ -228,7 +228,7 @@ jobs:
       # - action artifacts can be downloaded for 90 days, then are removed by github
       # - binaries in PRs from forks won't be signed
       - name: Attach produced packages to Github Action
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: dist-${{ matrix.os }}
           path: dist/*esktop*.*
