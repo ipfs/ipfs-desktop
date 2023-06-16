@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Node.js
         uses: actions/setup-node@v3
@@ -84,7 +84,7 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Node.js
         uses: actions/setup-node@v3
@@ -133,7 +133,7 @@ jobs:
         run: npm run test
 
       - name: Test end-to-end
-        uses: GabrielBB/xvfb-action@86d97bde4a65fe9b290c0b3fb92c2c4ed0e5302d # v1.6
+        uses: coactions/setup-xvfb@b6b4fcfb9f5a895edadc3bc76318fae0ac17c8b3 # v1.0.1
         with:
           working-directory: ${{ github.workspace }}
           run: npm run test:e2e
@@ -151,7 +151,7 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Node.js
         uses: actions/setup-node@v3
@@ -194,12 +194,18 @@ jobs:
 
       - name: Get tag
         id: tag
-        uses: dawidd6/action-get-tag@12319896edaa290b27558e34a177804e9b8d077b # v1
+        run: |
+          if [[ "$GITHUB_REF" == "refs/tags/"* ]]; then
+            echo "tag=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
         continue-on-error: true # empty steps.tag.outputs.tag will inform the next step
 
       - name: Build binaries with electron-builder
-        uses: samuelmeuli/action-electron-builder@92327c67bc45ff7c38bf55d8aa8c4d75b7ea38e7 # v1.6.0 but safer than a tag that can be changed
+        uses: paneron/action-electron-builder@14b133702d1b2e9749912051c43ed62b4afe56c8 # v1.8.1
         with:
+          package_manager: npm
+          skip_package_manager_install: true
           args: --publish onTag # attach signed binaries to a release draft only when building a tag
           release: false # keep github release as draft for manual inspection
           max_attempts: 2
@@ -236,4 +242,3 @@ jobs:
 
       - name: Show Cache
         run: du -sh ${{ github.workspace }}/.cache/ && ls -l ${{ github.workspace }}/.cache/
-
