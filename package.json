@@ -17,7 +17,7 @@
     "force-webui-download": "shx rm -rf assets/webui && run-s build:webui",
     "build": "run-s clean build:webui",
     "build:webui": "run-s build:webui:*",
-    "build:webui:download": "npx ipfs-or-gateway -c bafybeifu32oukwmh5674fbjyvn7nkobfxyrnr4hq5gl46yv7jkvai2ze7q -p assets/webui/ -t 360000 --verbose -g \"https://dweb.link\" ",
+    "build:webui:download": "npx ipfs-or-gateway -c bafybeicyp7ssbnj3hdzehcibmapmpuc3atrsc4ch3q6acldfh4ojjdbcxe -p assets/webui/ -t 360000 --verbose -g \"https://dweb.link\" ",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
     "package": "shx rm -rf dist/ && run-s build && electron-builder --publish onTag"
   },
