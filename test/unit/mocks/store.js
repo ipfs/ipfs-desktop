@@ -1,20 +1,11 @@
-const sinon = require('sinon')
+const mockElectron = require('./electron')
+const mockLogger = require('./logger')
+const proxyquire = require('proxyquire').noCallThru()
 
 module.exports = function mockStore () {
-  let store = {}
-
-  return {
-    get: sinon.stub().callsFake((key, def) => {
-      return typeof store[key] !== 'undefined' ? store[key] : def
-    }),
-    set: sinon.stub().callsFake((key, val) => {
-      store[key] = val
-    }),
-    clear: () => {
-      store = {}
-    },
-    get store () {
-      return store
-    }
-  }
+  // use the real store object, but mock the logger and electron
+  return proxyquire('../../../src/common/store', {
+    electron: mockElectron(),
+    './logger': mockLogger()
+  })
 }
