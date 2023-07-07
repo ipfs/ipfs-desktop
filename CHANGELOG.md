@@ -3,6 +3,43 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.29.0] - 2023-07-04
+
+## What's Changed
+* chore(deps): bump json5 from 1.0.1 to 1.0.2 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2371
+* chore(deps): bump minimatch and electron-builder by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2436
+* feat: webui@4.0.0 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2510
+* chore(deps): bump actions/upload-artifact from 2 to 3 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2516
+* chore(deps): bump actions/cache from 2 to 3 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2515
+* chore(deps): bump actions/setup-node from 2 to 3 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2514
+* chore(deps): bump snapcore/action-publish from 1.0.2 to 1.1.1 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2513
+* chore: update github actions by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2520
+* chore(deps): bump actions/checkout from 1 to 3 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2523
+* feat: webui@4.0.2 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2538
+* Update Kubo: v0.21.0 by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2539
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.28.0...v0.29.0
+
+## [v0.28.0] - 2023-05-10
+
+## What's Changed
+* Update Kubo: v0.20.0 by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2481
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.27.3...v0.28.0
+
+## [v0.27.3] - 2023-05-10
+
+## What's Changed
+* fix: Fix incorrect link for Kubo version in tray icon by @is-this-echo in https://github.com/ipfs/ipfs-desktop/pull/2473
+* chore: remove workflows/auto-project.yml by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2477
+* Update Kubo: v0.19.2 by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2474
+
+## New Contributors
+* @is-this-echo made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2473
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.27.2...v0.27.3
+
 ## [v0.27.2] - 2023-03-20
 
 ## What's Changed
