@@ -8,6 +8,7 @@ const { STATUS } = require('./consts')
 const createDaemon = require('./daemon')
 const ipcMainEvents = require('../common/ipc-main-events')
 const { analyticsKeys } = require('../analytics/keys')
+const safeStoreSet = require('../utils/safe-store-set')
 
 async function setupDaemon (ctx) {
   let ipfsd = null
@@ -63,7 +64,7 @@ async function setupDaemon (ctx) {
     // not set.
     if (!config.path || typeof config.path !== 'string') {
       config.path = ipfsd.path
-      store.set('ipfsConfig', config)
+      safeStoreSet('ipfsConfig', config)
     }
 
     log.end()

@@ -1,9 +1,13 @@
-const electron = require('electron')
+const { app } = require('electron')
 const Store = require('electron-store')
 
+const { fileLogger } = require('./logger')
+
+/**
+ * @type {import('./types').DesktopPersistentStore}
+ */
 const defaults = {
   ipfsConfig: {
-    type: 'go',
     path: '',
     flags: [
       '--agent-version-suffix=desktop',
@@ -11,12 +15,14 @@ const defaults = {
       '--enable-gc'
     ]
   },
-  language: (electron.app || electron.remote.app).getLocale(),
-  experiments: {}
+  language: app.getLocale(),
+  experiments: {},
+  binaryPath: ''
 }
 
 const migrations = {
   '>=0.11.0': store => {
+    fileLogger.info('Running migration: >=0.11.0')
     store.delete('version')
 
     const flags = store.get('ipfsConfig.flags', [])
@@ -26,6 +32,7 @@ const migrations = {
     }
   },
   '>0.13.2': store => {
+    fileLogger.info('Running migration: >0.13.2')
     const flags = store.get('ipfsConfig.flags', [])
     const automaticGC = store.get('automaticGC', false)
     // ensure checkbox follows cli flag config
@@ -34,6 +41,7 @@ const migrations = {
     }
   },
   '>=0.17.0': store => {
+    fileLogger.info('Running migration: >=0.17.0')
     let flags = store.get('ipfsConfig.flags', [])
 
     // make sure version suffix is always present and normalized
@@ -53,6 +61,7 @@ const migrations = {
     }
   },
   '>=0.20.6': store => {
+    fileLogger.info('Running migration: >=0.20.6')
     let flags = store.get('ipfsConfig.flags', [])
 
     // use default instead of hard-coded dhtclient

@@ -4,6 +4,7 @@ const store = require('./common/store')
 const { EXPERIMENT_PUBSUB_NAMESYS: CONFIG_KEY } = require('./common/config-keys')
 const { ipcMain } = require('electron')
 const ipcMainEvents = require('./common/ipc-main-events')
+const safeStoreSet = require('./utils/safe-store-set')
 
 const namesysPubsubFlag = '--enable-namesys-pubsub'
 const isEnabled = flags => flags.some(f => f === namesysPubsubFlag)
@@ -25,12 +26,13 @@ function disable () {
 }
 
 function applyConfig (newFlags) {
-  store.set('ipfsConfig.flags', newFlags)
-  ipcMain.emit(ipcMainEvents.IPFS_CONFIG_CHANGED) // trigger node restart
+  safeStoreSet('ipfsConfig.flags', newFlags, () => {
+    ipcMain.emit(ipcMainEvents.IPFS_CONFIG_CHANGED) // trigger node restart
+  })
 }
 
 module.exports = async function () {
-  const activate = ({ newValue, oldValue }) => {
+  const activate = ({ newValue, oldValue = null }) => {
     if (newValue === oldValue) return
 
     try {

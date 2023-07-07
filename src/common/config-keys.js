@@ -1,7 +1,6 @@
 /**
  * Configuration key constants for the features in IPFS Desktop.
- *
- * @type {Object.<string, string>}
+ * @constant
  */
 const CONFIG_KEYS = {
   AUTO_LAUNCH: 'autoLaunch',
