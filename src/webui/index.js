@@ -18,6 +18,8 @@ const Countly = require('countly-sdk-nodejs')
 const { analyticsKeys } = require('../analytics/keys')
 const ipcMainEvents = require('../common/ipc-main-events')
 const getCtx = require('../context')
+const createSplashScreen = require('../splash/create-splash-screen')
+const { STATUS } = require('../daemon/consts')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
@@ -117,6 +119,7 @@ const createWindow = () => {
 
 module.exports = async function () {
   logger.info('[webui] init...')
+  createSplashScreen()
   const ctx = getCtx()
 
   if (store.get(CONFIG_KEY, null) === null) {
@@ -165,8 +168,11 @@ module.exports = async function () {
   }
 
   const getIpfsd = ctx.getFn('getIpfsd')
-  ipcMain.on(ipcMainEvents.IPFSD, async () => {
+  let ipfsdStatus = null
+  ipcMain.on(ipcMainEvents.IPFSD, async (status, id) => {
     const ipfsd = await getIpfsd(true)
+    ipfsdStatus = status
+    logger.info(`[web ui] ipfsd status: ${ipfsdStatus}`)
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       apiAddress = ipfsd.apiAddr
@@ -183,17 +189,32 @@ module.exports = async function () {
   })
 
   const launchWebUI = ctx.getFn('launchWebUI')
+  const splashScreenPromise = ctx.getProp('splashScreen')
+  if (store.get(CONFIG_KEY)) {
+    // we're supposed to show the window on startup, display the splash screen
+    (await splashScreenPromise).show()
+  } else {
+    // we don't need the splash screen, ignore it.
+    (await splashScreenPromise).destroy()
+  }
 
   return /** @type {Promise<void>} */(new Promise(resolve => {
-    window.once('ready-to-show', async () => {
-      logger.info('[web ui] window ready')
+    if (store.get(CONFIG_KEY)) {
+      logger.info('[web ui] waiting for ipfsd to start')
+      window.once('ready-to-show', async () => {
+        logger.info('[web ui] window ready')
 
-      if (store.get(CONFIG_KEY)) {
-        await launchWebUI('/')
-      }
+        const interval = setInterval(async () => {
+          if (![null, STATUS.STARTING_STARTED].includes(ipfsdStatus)) {
+            clearInterval(interval);
+            (await splashScreenPromise).destroy()
+            await launchWebUI('/')
+          }
+        }, 500)
 
-      resolve()
-    })
+        resolve()
+      })
+    }
 
     updateLanguage()
     window.loadURL(url.toString())

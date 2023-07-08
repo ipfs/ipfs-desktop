@@ -1,0 +1,82 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      background-color: #f9f9fa;
+      border-radius: 5vh;
+      /* background-image: url('../../assets/icons/tray/others/on-large.png'); */
+    }
+
+    .flex {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto
+    }
+
+    .loader {
+      background-image: url('../../assets/icons/tray/others/on-large.png');
+
+      width: 40vw;
+      height: 40vw;
+      -webkit-animation: spin 5s linear infinite;
+      animation: spin 5s linear infinite;
+      margin: auto;
+      left: 0;
+      right: 0;
+      top: 0px;
+      bottom: 0;
+      position: fixed;
+      background-size: cover;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .center {
+      border: none !important;
+      text-align: center;
+    }
+    .title {
+      margin: auto;
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h3 class="title">IPFS Desktop is loading...</h3>
+  <div class="loader"></div>
+  <script>
+    const $title = document.querySelector('h3.title')
+    /**
+     * This function should be called by src/splash/create-splash-screen.js
+     * in order to set the title to some translated text
+     */
+    function setHeading(heading) {
+      $title.innerText = heading
+    }
+  </script>
+</body>
+
+</html>
