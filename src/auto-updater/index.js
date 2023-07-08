@@ -154,7 +154,6 @@ async function checkForUpdates () {
 }
 
 module.exports = async function () {
-  console.log(getCtx()._properties)
   if (['test', 'development'].includes(process.env.NODE_ENV)) {
     getCtx().setProp('manualCheckForUpdates', () => {
       showDialog({

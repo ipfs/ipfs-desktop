@@ -65,6 +65,7 @@ async function run () {
 
   try {
     await Promise.all([
+      setupDaemon(), // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
       setupAnalytics(), // ctx.countlyDeviceId
       setupI18n(),
       setupAppMenu(),
@@ -72,7 +73,6 @@ async function run () {
       setupWebUI(), // ctx.webui, launchWebUI
       setupAutoUpdater(), // ctx.manualCheckForUpdates
       setupTray(), // ctx.tray
-      setupDaemon(), // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
       setupArgvFilesHandler(),
       setupAutoLaunch(),
       setupAutoGc(),

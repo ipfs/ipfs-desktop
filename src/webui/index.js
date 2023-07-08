@@ -135,10 +135,11 @@ module.exports = async function () {
 
   openExternal()
   const window = createWindow()
+  ctx.setProp('webui', window)
   let apiAddress = null
 
   const url = new URL('/', 'webui://-')
-  url.hash = '/blank'
+  url.hash = '/'
   url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
 
   ctx.setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
@@ -181,7 +182,6 @@ module.exports = async function () {
     callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
   })
 
-  ctx.setProp('webui', window)
   const launchWebUI = ctx.getFn('launchWebUI')
 
   return /** @type {Promise<void>} */(new Promise(resolve => {

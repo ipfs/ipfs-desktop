@@ -3,6 +3,18 @@ const pDefer = require('p-defer')
 const logger = require('./common/logger')
 
 /**
+ * @typedef {'tray-menu' | 'tray' | 'countlyDeviceId' | 'manualCheckForUpdates' | 'startIpfs' | 'stopIpfs' | 'restartIpfs' | 'getIpfsd' | 'launchWebUI' | 'webui'} ContextProperties
+ */
+
+/**
+ * Context helps the app do many different things without explicitly depending on each other. Instead, each module
+ * can set a property on the context and other modules can get that property from the context when they need it.
+ *
+ * Benefits:
+ * * Avoid passing the same object to many different modules.
+ * * Avoid circular dependencies and makes it easier to test modules in isolation.
+ * * Speed up startup time by only loading what we need when we need it.
+ *
  * @extends {Record<string, unknown>}
  * @property {function} launchWebUI
  */
@@ -26,7 +38,7 @@ class Context {
    * This method supports overwriting values.
    *
    * @template T
-   * @param {string|symbol} propertyName
+   * @param {ContextProperties} propertyName
    * @param {T} value
    *
    * @returns {void}
@@ -44,7 +56,7 @@ class Context {
   /**
    * Get the value of a property wrapped in a promise.
    * @template T
-   * @param {string|symbol} propertyName
+   * @param {ContextProperties} propertyName
    * @returns {Promise<T>}
    */
   async getProp (propertyName) {
@@ -67,7 +79,7 @@ class Context {
    * A simple helper to improve DX and UX when calling functions.
    *
    * This function allows you to request a function from AppContext without blocking until you actually need to call it.
-   * @param {string|symbol} propertyName
+   * @param {ContextProperties} propertyName
    * @returns {(...args: unknown[]) => Promise<unknown>}
    */
   getFn (propertyName) {
@@ -83,16 +95,15 @@ class Context {
    * Gets existing promise and resolves it with the given value.
    * If no promise exists, it creates one and calls itself again. (this shouldn't be necessary but is a fallback for a gotcha)
    * @template T
-   * @param {string|symbol} propertyName
+   * @param {ContextProperties} propertyName
    * @param {T} value
    * @returns {void}
    */
   _resolvePropForValue (propertyName, value) {
-    if (this._promiseMap.has(propertyName)) {
+    const deferred = this._promiseMap.get(propertyName)
+    if (deferred != null) {
       logger.info(`[ctx] Resolving promise for ${String(propertyName)}`)
       // we have a value and there is an unresolved deferred promise
-      const deferred = this._promiseMap.get(propertyName)
-      // @ts-ignore
       deferred.resolve(value)
     } else {
       logger.info(`[ctx] No promise found for ${String(propertyName)}`)
@@ -105,18 +116,19 @@ class Context {
    *
    * Returns the existing promise for a property if it exists. If not, one is created and set in the `_promiseMap`, then returned
    * @template T
-   * @param {string|symbol} propertyName
+   * @param {ContextProperties} propertyName
    * @returns {Promise<T>}
    */
   _createDeferredForProp (propertyName) {
-    if (!this._promiseMap.has(propertyName)) {
+    const promiseVal = this._promiseMap.get(propertyName)
+    if (promiseVal == null) {
       const deferred = pDefer()
       this._promiseMap.set(propertyName, deferred)
       return deferred.promise
     }
 
-    // @ts-ignore
-    return this._promiseMap.get(propertyName).promise
+    // @ts-expect-error - Need to fix generics
+    return promiseVal.promise
   }
 }
 
