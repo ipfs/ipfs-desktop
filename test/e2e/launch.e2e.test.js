@@ -44,27 +44,21 @@ test.describe.serial('Application launch', async () => {
   }
 
   async function daemonReady (app) {
-    const window = await app.firstWindow()
-    const peerId = await new Promise((resolve, reject) => {
-      let _peerId = ''
-      let intervalActive = false
-      const interval = setInterval(async () => {
-        if (intervalActive) return
-        intervalActive = true
-        try {
-          // make sure window is still available
-          await window.title()
-          _peerId = await window.locator(':text("PEER ID") + *').innerText()
-        } catch {
-          clearInterval(interval)
+    const peerId = await app.evaluate(async ({ ipcMain }) => new Promise((resolve, reject) => {
+      ipcMain.on('ipfsd', (status, peerId) => {
+        switch (status) {
+          // NOTE: this code runs inside the main process of electron, so we cannot use
+          // things we've imported outside of this function. The hard coded values can be
+          // found in src/daemon/consts.js.
+          case 3:
+            reject(new Error('starting daemon failed'))
+            break
+          case 2:
+            resolve(peerId)
+            break
         }
-        if (_peerId !== '') {
-          clearInterval(interval)
-          resolve(_peerId)
-        }
-        intervalActive = false
-      }, 500)
-    })
+      })
+    }))
 
     return { peerId }
   }
