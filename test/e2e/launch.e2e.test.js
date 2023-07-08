@@ -47,10 +47,6 @@ test.describe.serial('Application launch', async () => {
         IPFS_PATH: repoPath
       })
     })
-    // } catch (e) {
-    //   console.error(e)
-    //   throw e
-    // }
     return { app, repoPath, home }
   }
 
