@@ -7,10 +7,13 @@
 const { BrowserWindow } = require('electron')
 const getCtx = require('../context')
 const i18n = require('i18next')
+const logger = require('../common/logger')
+const path = require('node:path')
 
-module.exports = function createSplashScreen () {
+module.exports = async function createSplashScreen () {
   const ctx = getCtx()
   const splashScreen = new BrowserWindow({
+    title: 'IPFS Desktop splash screen',
     width: 500,
     height: 300,
     transparent: true,
@@ -18,12 +21,17 @@ module.exports = function createSplashScreen () {
     alwaysOnTop: true,
     show: false
   })
-  splashScreen.loadFile('src/splash/splash.html')
+  await splashScreen.loadFile(path.join(__dirname, './splash.html'))
   splashScreen.center()
 
-  splashScreen.webContents.executeJavaScript(
-    `setHeading("${i18n.t('ipfsIsStarting')}")`
-  )
+  try {
+    await splashScreen.webContents.executeJavaScript(
+      `setHeading("${i18n.t('ipfsIsStarting')}")`
+    )
+  } catch (e) {
+    logger.error(e)
+    logger.info('splashScreen.webContents.executeJavaScript failed')
+  }
 
   ctx.setProp('splashScreen', splashScreen)
 }

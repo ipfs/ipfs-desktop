@@ -18,7 +18,6 @@ const Countly = require('countly-sdk-nodejs')
 const { analyticsKeys } = require('../analytics/keys')
 const ipcMainEvents = require('../common/ipc-main-events')
 const getCtx = require('../context')
-const createSplashScreen = require('../splash/create-splash-screen')
 const { STATUS } = require('../daemon/consts')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
@@ -119,7 +118,6 @@ const createWindow = () => {
 
 module.exports = async function () {
   logger.info('[webui] init...')
-  createSplashScreen()
   const ctx = getCtx()
 
   if (store.get(CONFIG_KEY, null) === null) {
@@ -190,7 +188,7 @@ module.exports = async function () {
 
   const launchWebUI = ctx.getFn('launchWebUI')
   const splashScreenPromise = ctx.getProp('splashScreen')
-  if (store.get(CONFIG_KEY)) {
+  if (store.get(CONFIG_KEY) && process.env.NODE_ENV !== 'test') {
     // we're supposed to show the window on startup, display the splash screen
     (await splashScreenPromise).show()
   } else {
@@ -206,8 +204,10 @@ module.exports = async function () {
 
         const interval = setInterval(async () => {
           if (![null, STATUS.STARTING_STARTED].includes(ipfsdStatus)) {
-            clearInterval(interval);
-            (await splashScreenPromise).destroy()
+            clearInterval(interval)
+            if (process.env.NODE_ENV !== 'test') {
+              (await splashScreenPromise).destroy()
+            }
             await launchWebUI('/')
           }
         }, 500)

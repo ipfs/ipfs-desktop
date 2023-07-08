@@ -6,6 +6,8 @@ const fs = require('fs-extra')
 const tmp = require('tmp')
 const { makeRepository } = require('./utils/ipfsd')
 const portfinder = require('portfinder')
+// const getCtx = require('../../src/context')
+const logger = require('../../src/common/logger')
 
 async function getPort (port) {
   return portfinder.getPortPromise({ port })
@@ -15,6 +17,7 @@ if (process.env.CI === 'true') test.setTimeout(120000) // slow ci
 
 test.describe.serial('Application launch', async () => {
   let app = null
+  // let ctx = getCtx()
 
   test.afterEach(async () => {
     if (app) {
@@ -27,11 +30,18 @@ test.describe.serial('Application launch', async () => {
     }
   })
 
+  /**
+   *
+   * @param {Object} [param0]
+   * @param {string} param0.repoPath
+   * @returns {Promise<{ app: Awaited<ReturnType<import('playwright')._electron['launch']>>, repoPath: string, home: string }>
+   */
   async function startApp ({ repoPath } = {}) {
     const home = tmp.dirSync({ prefix: 'tmp_home_', unsafeCleanup: true }).name
     if (!repoPath) {
       repoPath = path.join(home, '.ipfs')
     }
+    // try {
     app = await electron.launch({
       args: [path.join(__dirname, '../../src/index.js')],
       env: Object.assign({}, process.env, {
@@ -40,27 +50,50 @@ test.describe.serial('Application launch', async () => {
         IPFS_PATH: repoPath
       })
     })
+    // } catch (e) {
+    //   console.error(e)
+    //   throw e
+    // }
     return { app, repoPath, home }
   }
 
+  /**
+   *
+   * @param {Awaited<ReturnType<import('playwright')._electron['launch']>>} app
+   * @returns {Promise<{ peerId: string }>
+   */
   async function daemonReady (app) {
-    const window = await app.firstWindow()
+    let window = await app.firstWindow()
+    // console.log(`window: `, window);
+    logger.info(`Window title is ${await window.title()}`)
     const peerId = await new Promise((resolve, reject) => {
       let _peerId = ''
       let intervalActive = false
       const interval = setInterval(async () => {
         if (intervalActive) return
+        logger.info(`app.windows().length: ${app.windows().length}`)
         intervalActive = true
+        let isSplashScreen = false
+
         try {
-          // make sure window is still available
-          await window.title()
-          _peerId = await window.locator(':text("PEER ID") + *').innerText()
+          isSplashScreen = await window.locator('#e2e-splashScreen').isVisible()
         } catch {
-          clearInterval(interval)
+          isSplashScreen = false
         }
-        if (_peerId !== '') {
-          clearInterval(interval)
-          resolve(_peerId)
+        if (isSplashScreen) {
+          logger.info('Splash screen is visible')
+        } else {
+          logger.info('Splash screen is not visible')
+          window = app.windows()[0]
+          try {
+            _peerId = await window.locator(':text("PEER ID") + *').innerText()
+          } catch {
+            clearInterval(interval)
+          }
+          if (_peerId !== '') {
+            clearInterval(interval)
+            resolve(_peerId)
+          }
         }
         intervalActive = false
       }, 500)
@@ -76,7 +109,7 @@ test.describe.serial('Application launch', async () => {
     const configPath = path.join(repoPath, 'config')
     const config = fs.readJsonSync(configPath)
     expect(config).toBeDefined()
-    // confirm PeerID is matching one from repoPath/config
+    // confirm PeerID is matching one from repoPath/configrc/
     expect(config.Identity.PeerID).toBe(peerId)
     // ensure strict CORS checking is enabled
     expect(config.API.HTTPHeaders).toEqual({})
