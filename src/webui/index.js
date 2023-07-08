@@ -170,7 +170,6 @@ module.exports = async function () {
   ipcMain.on(ipcMainEvents.IPFSD, async (status, id) => {
     const ipfsd = await getIpfsd(true)
     ipfsdStatus = status
-    logger.info(`[web ui] ipfsd status: ${ipfsdStatus}`)
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       apiAddress = ipfsd.apiAddr
