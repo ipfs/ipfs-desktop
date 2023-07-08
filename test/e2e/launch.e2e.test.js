@@ -82,7 +82,7 @@ test.describe.serial('Application launch', async () => {
     const configPath = path.join(repoPath, 'config')
     const config = fs.readJsonSync(configPath)
     expect(config).toBeDefined()
-    // confirm PeerID is matching one from repoPath/configrc/
+    // confirm PeerID is matching one from repoPath/config
     expect(config.Identity.PeerID).toBe(peerId)
     // ensure strict CORS checking is enabled
     expect(config.API.HTTPHeaders).toEqual({})
