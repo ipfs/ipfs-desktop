@@ -6,7 +6,6 @@ const fs = require('fs-extra')
 const tmp = require('tmp')
 const { makeRepository } = require('./utils/ipfsd')
 const portfinder = require('portfinder')
-// const getCtx = require('../../src/context')
 const logger = require('../../src/common/logger')
 
 async function getPort (port) {
