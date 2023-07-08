@@ -39,7 +39,6 @@ test.describe.serial('Application launch', async () => {
     if (!repoPath) {
       repoPath = path.join(home, '.ipfs')
     }
-    // try {
     app = await electron.launch({
       args: [path.join(__dirname, '../../src/index.js')],
       env: Object.assign({}, process.env, {
