@@ -8,7 +8,6 @@ const { STATUS } = require('./consts')
 const createDaemon = require('./daemon')
 const ipcMainEvents = require('../common/ipc-main-events')
 const { analyticsKeys } = require('../analytics/keys')
-const os = require('node:os')
 
 async function setupDaemon (ctx) {
   let ipfsd = null
@@ -44,12 +43,6 @@ async function setupDaemon (ctx) {
 
     const log = logger.start('[ipfsd] start daemon', { withAnalytics: analyticsKeys.DAEMON_START })
     const config = store.get('ipfsConfig')
-
-    if (process.env.NODE_ENV !== 'production') {
-      // temporarily creating a new IPFS_PATH on every start
-      config.path = join(os.tmpdir(), Math.random().toString(36).slice(2))
-    }
-
     updateStatus(STATUS.STARTING_STARTED)
 
     const res = await createDaemon(config)

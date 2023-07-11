@@ -20,7 +20,6 @@ function setup (ctx) {
   // we download manually in 'update-available'
   autoUpdater.autoDownload = false
   autoUpdater.autoInstallOnAppQuit = true
-  autoUpdater.forceDevUpdateConfig = true
   autoUpdater.logger = logger
 
   autoUpdater.on('error', err => {
