@@ -46,7 +46,8 @@ async function setupDaemon (ctx) {
     const config = store.get('ipfsConfig')
 
     if (process.env.NODE_ENV !== 'production') {
-      config.path = os.tmpdir()
+      // temporarily creating a new IPFS_PATH on every start
+      config.path = join(os.tmpdir(), Math.random().toString(36).slice(2))
     }
 
     updateStatus(STATUS.STARTING_STARTED)
