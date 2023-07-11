@@ -20,6 +20,8 @@ function setup (ctx) {
   // we download manually in 'update-available'
   autoUpdater.autoDownload = false
   autoUpdater.autoInstallOnAppQuit = true
+  autoUpdater.forceDevUpdateConfig = true
+  autoUpdater.logger = logger
 
   autoUpdater.on('error', err => {
     logger.error(`[updater] ${err.toString()}`)
@@ -88,6 +90,16 @@ function setup (ctx) {
     })
   })
 
+  let progressPercentTimeout = null
+  autoUpdater.on('download-progress', ({ percent, bytesPerSecond }) => {
+    // log the percent, but not too often to avoid spamming the logs, but we should
+    // be sure we're logging at what percent the hiccup is occurring.
+    clearTimeout(progressPercentTimeout)
+    progressPercentTimeout = setTimeout(() => {
+      logger.info(`[updater] download progress is ${percent}% at ${bytesPerSecond} bps.`)
+    }, 1000)
+  })
+
   autoUpdater.on('update-downloaded', ({ version }) => {
     logger.info(`[updater] update to ${version} downloaded`)
 
@@ -151,16 +163,16 @@ async function checkForUpdates () {
 }
 
 module.exports = async function (ctx) {
-  if (['test', 'development'].includes(process.env.NODE_ENV)) {
-    ctx.manualCheckForUpdates = () => {
-      showDialog({
-        title: 'Not available in development',
-        message: 'Yes, you called this function successfully.',
-        buttons: [i18n.t('close')]
-      })
-    }
-    return
-  }
+  // if (['test', 'development'].includes(process.env.NODE_ENV)) {
+  //   ctx.manualCheckForUpdates = () => {
+  //     showDialog({
+  //       title: 'Not available in development',
+  //       message: 'Yes, you called this function successfully.',
+  //       buttons: [i18n.t('close')]
+  //     })
+  //   }
+  //   return
+  // }
   if (!isAutoUpdateSupported()) {
     ctx.manualCheckForUpdates = () => {
       shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest')
