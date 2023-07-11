@@ -1,5 +1,5 @@
 const { shell, app, BrowserWindow, Notification } = require('electron')
-const { autoUpdater } = require('electron-updater')
+const { autoUpdater, CancellationToken } = require('electron-updater')
 const i18n = require('i18next')
 const { ipcMain } = require('electron')
 const logger = require('../common/logger')
@@ -15,6 +15,14 @@ function isAutoUpdateSupported () {
 
 let updateNotification = null // must be a global to avoid gc
 let feedback = false
+let cancellationToken = null
+
+function disposeCancellationToken (token) {
+  if (token != null) {
+    token.cancel()
+    token.dispose()
+  }
+}
 
 function setup (ctx) {
   // we download manually in 'update-available'
@@ -25,6 +33,8 @@ function setup (ctx) {
 
   autoUpdater.on('error', err => {
     logger.error(`[updater] ${err.toString()}`)
+    logger.info(`[updater] token is cancelled: ${cancellationToken.cancelled}`)
+    disposeCancellationToken(cancellationToken)
 
     if (!feedback) {
       return
@@ -43,10 +53,11 @@ function setup (ctx) {
 
   autoUpdater.on('update-available', async ({ version, releaseNotes }) => {
     logger.info(`[updater] update to ${version} available, download will start`)
+    disposeCancellationToken(cancellationToken)
+    cancellationToken = new CancellationToken()
 
     try {
-      const res = await autoUpdater.downloadUpdate()
-      console.log('autoUpdater.downloadUpdate', res)
+      await autoUpdater.downloadUpdate(cancellationToken)
     } catch (err) {
       logger.error(`[updater] ${err.toString()}`)
     }
@@ -94,7 +105,7 @@ function setup (ctx) {
   let progressPercentTimeout = null
   autoUpdater.on('download-progress', ({ percent, bytesPerSecond }) => {
     const logDownloadProgress = () => {
-      logger.info(`[updater] download progress is ${percent}% at ${bytesPerSecond} bps.`)
+      logger.info(`[updater] download progress is ${percent.toFixed(2)}% at ${bytesPerSecond} bps.`)
     }
     // log the percent, but not too often to avoid spamming the logs, but we should
     // be sure we're logging at what percent any hiccup is occurring.
@@ -103,7 +114,7 @@ function setup (ctx) {
       logDownloadProgress()
       return
     }
-    progressPercentTimeout = setTimeout(logDownloadProgress, 1000)
+    progressPercentTimeout = setTimeout(logDownloadProgress, 2000)
   })
 
   autoUpdater.on('update-downloaded', ({ version }) => {
@@ -161,8 +172,7 @@ function setup (ctx) {
 async function checkForUpdates () {
   ipcMain.emit(ipcMainEvents.UPDATING)
   try {
-    const res = await autoUpdater.checkForUpdates()
-    console.log('autoUpdater.checkForUpdates', res)
+    await autoUpdater.checkForUpdates()
   } catch (_) {
     // Ignore. The errors are already handled on 'error' event.
   }
