@@ -1,5 +1,5 @@
 const { shell, app, BrowserWindow, Notification } = require('electron')
-const { autoUpdater, CancellationToken } = require('electron-updater')
+const { autoUpdater } = require('electron-updater')
 const i18n = require('i18next')
 const { ipcMain } = require('electron')
 const logger = require('../common/logger')
@@ -15,14 +15,6 @@ function isAutoUpdateSupported () {
 
 let updateNotification = null // must be a global to avoid gc
 let feedback = false
-let cancellationToken = null
-
-function disposeCancellationToken (token) {
-  if (token != null) {
-    token.cancel()
-    token.dispose()
-  }
-}
 
 function setup (ctx) {
   // we download manually in 'update-available'
@@ -33,8 +25,6 @@ function setup (ctx) {
 
   autoUpdater.on('error', err => {
     logger.error(`[updater] ${err.toString()}`)
-    logger.info(`[updater] token is cancelled: ${cancellationToken.cancelled}`)
-    disposeCancellationToken(cancellationToken)
 
     if (!feedback) {
       return
@@ -53,11 +43,9 @@ function setup (ctx) {
 
   autoUpdater.on('update-available', async ({ version, releaseNotes }) => {
     logger.info(`[updater] update to ${version} available, download will start`)
-    disposeCancellationToken(cancellationToken)
-    cancellationToken = new CancellationToken()
 
     try {
-      await autoUpdater.downloadUpdate(cancellationToken)
+      await autoUpdater.downloadUpdate()
     } catch (err) {
       logger.error(`[updater] ${err.toString()}`)
     }
@@ -180,16 +168,16 @@ async function checkForUpdates () {
 }
 
 module.exports = async function (ctx) {
-  // if (['test', 'development'].includes(process.env.NODE_ENV)) {
-  //   ctx.manualCheckForUpdates = () => {
-  //     showDialog({
-  //       title: 'Not available in development',
-  //       message: 'Yes, you called this function successfully.',
-  //       buttons: [i18n.t('close')]
-  //     })
-  //   }
-  //   return
-  // }
+  if (['test', 'development'].includes(process.env.NODE_ENV ?? '')) {
+    ctx.manualCheckForUpdates = () => {
+      showDialog({
+        title: 'Not available in development',
+        message: 'Yes, you called this function successfully.',
+        buttons: [i18n.t('close')]
+      })
+    }
+    return
+  }
   if (!isAutoUpdateSupported()) {
     ctx.manualCheckForUpdates = () => {
       shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest')
