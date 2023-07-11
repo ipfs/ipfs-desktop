@@ -45,7 +45,8 @@ function setup (ctx) {
     logger.info(`[updater] update to ${version} available, download will start`)
 
     try {
-      await autoUpdater.downloadUpdate()
+      const res = await autoUpdater.downloadUpdate()
+      console.log('autoUpdater.downloadUpdate', res)
     } catch (err) {
       logger.error(`[updater] ${err.toString()}`)
     }
@@ -92,12 +93,17 @@ function setup (ctx) {
 
   let progressPercentTimeout = null
   autoUpdater.on('download-progress', ({ percent, bytesPerSecond }) => {
-    // log the percent, but not too often to avoid spamming the logs, but we should
-    // be sure we're logging at what percent the hiccup is occurring.
-    clearTimeout(progressPercentTimeout)
-    progressPercentTimeout = setTimeout(() => {
+    const logDownloadProgress = () => {
       logger.info(`[updater] download progress is ${percent}% at ${bytesPerSecond} bps.`)
-    }, 1000)
+    }
+    // log the percent, but not too often to avoid spamming the logs, but we should
+    // be sure we're logging at what percent any hiccup is occurring.
+    clearTimeout(progressPercentTimeout)
+    if (percent === 100) {
+      logDownloadProgress()
+      return
+    }
+    progressPercentTimeout = setTimeout(logDownloadProgress, 1000)
   })
 
   autoUpdater.on('update-downloaded', ({ version }) => {
@@ -155,7 +161,8 @@ function setup (ctx) {
 async function checkForUpdates () {
   ipcMain.emit(ipcMainEvents.UPDATING)
   try {
-    await autoUpdater.checkForUpdates()
+    const res = await autoUpdater.checkForUpdates()
+    console.log('autoUpdater.checkForUpdates', res)
   } catch (_) {
     // Ignore. The errors are already handled on 'error' event.
   }
