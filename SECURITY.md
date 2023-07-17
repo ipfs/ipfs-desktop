@@ -1,21 +1,20 @@
 # Security Policy
 
-## Supported Versions
-
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+The IPFS protocol and its implementations are still in heavy development. This
+means that there may be problems in our protocols, or there may be mistakes in
+our implementations. We take security
+vulnerabilities very seriously. If you discover a security issue, please immediately bring
+it to our attention!
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+If you find a vulnerability that may affect live deployments -- for example, by
+exposing a remote execution exploit -- please **send your report privately** to
+security@ipfs.io. Please **DO NOT file a public issue**.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+If the issue is a protocol weakness that cannot be immediately exploited or
+something not yet deployed, discuss it openly.
+
+## Reporting a non-security bug
+
+For non-security bugs, please file a GitHub [issue](https://github.com/ipfs/ipfs-desktop/issues/new/choose).
