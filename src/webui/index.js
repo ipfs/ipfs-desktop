@@ -139,7 +139,7 @@ module.exports = async function () {
   let apiAddress = null
 
   const url = new URL('/', 'webui://-')
-  url.hash = '/'
+  url.hash = '/blank'
   url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
 
   ctx.setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
@@ -187,6 +187,7 @@ module.exports = async function () {
   return /** @type {Promise<void>} */(new Promise(resolve => {
     window.once('ready-to-show', async () => {
       logger.info('[web ui] window ready')
+      // the electron window is ready, but the webui may not have successfully attempted to connect to the daemon yet.
 
       if (store.get(CONFIG_KEY)) {
         await launchWebUI('/')
