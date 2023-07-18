@@ -1,4 +1,5 @@
 const { app, Menu, shell } = require('electron')
+const logger = require('./common/logger')
 
 const template = [
   {
@@ -88,6 +89,8 @@ if (process.platform === 'darwin') {
 }
 
 module.exports = function () {
+  logger.info('[appMenu] init...')
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
+  logger.info('[appMenu] init done...')
 }

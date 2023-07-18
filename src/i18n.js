@@ -6,9 +6,12 @@ const Backend = require('i18next-fs-backend')
 const store = require('./common/store')
 const ipcMainEvents = require('./common/ipc-main-events')
 const safeStoreSet = require('./utils/safe-store-set')
+const logger = require('./common/logger')
 
 module.exports = async function () {
+  logger.info('[i18n] init...')
   await i18n
+    // @ts-expect-error
     .use(ICU)
     .use(Backend)
     .init({
@@ -23,6 +26,7 @@ module.exports = async function () {
         loadPath: join(__dirname, '../assets/locales/{{lng}}.json')
       }
     })
+  logger.info('[i18n] init done')
 
   ipcMain.on(ipcMainEvents.LANG_UPDATED, async (_, lang) => {
     if (lang === store.get('language')) {

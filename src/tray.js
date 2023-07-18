@@ -17,6 +17,7 @@ const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screen
 const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const createToggler = require('./utils/create-toggler')
 const safeStoreSet = require('./utils/safe-store-set')
+const getCtx = require('./context')
 
 function buildCheckbox (key, label) {
   return {
@@ -32,8 +33,16 @@ function buildCheckbox (key, label) {
 // they natively work as soon as the menu opens. They don't work like that on Windows
 // or other OSes and must be registered globally. They still collide with global
 // accelerator. Please see ../utils/setup-global-shortcut.js for more info.
-function buildMenu (ctx) {
+async function buildMenu () {
+  const ctx = getCtx()
+  const restartIpfs = ctx.getFn('restartIpfs')
+  const startIpfs = ctx.getFn('startIpfs')
+  const stopIpfs = ctx.getFn('stopIpfs')
+  const launchWebUI = ctx.getFn('launchWebUI')
+  const manualCheckForUpdates = ctx.getFn('manualCheckForUpdates')
+
   return Menu.buildFromTemplate([
+    // @ts-ignore
     ...[
       ['ipfsIsStarting', 'yellow'],
       ['ipfsIsRunning', 'green'],
@@ -49,57 +58,68 @@ function buildMenu (ctx) {
       enabled: false,
       icon: path.resolve(path.join(__dirname, `../assets/icons/status/${color}.png`))
     })),
+    // @ts-ignore
     {
       id: 'restartIpfs',
       label: i18n.t('restart'),
-      click: () => { ctx.restartIpfs() },
+      click: () => { restartIpfs() },
       visible: false,
       accelerator: IS_MAC ? 'Command+R' : null
     },
+    // @ts-ignore
     {
       id: 'startIpfs',
       label: i18n.t('start'),
-      click: () => { ctx.startIpfs() },
+      click: () => { startIpfs() },
       visible: false
     },
+    // @ts-ignore
     {
       id: 'stopIpfs',
       label: i18n.t('stop'),
-      click: () => { ctx.stopIpfs() },
+      click: () => { stopIpfs() },
       visible: false
     },
+    // @ts-ignore
     { type: 'separator' },
+    // @ts-ignore
     {
       id: 'webuiStatus',
       label: i18n.t('status'),
-      click: () => { ctx.launchWebUI('/') }
+      click: () => { launchWebUI('/') }
     },
+    // @ts-ignore
     {
       id: 'webuiFiles',
       label: i18n.t('files'),
-      click: () => { ctx.launchWebUI('/files') }
+      click: () => { launchWebUI('/files') }
     },
+    // @ts-ignore
     {
       id: 'webuiPeers',
       label: i18n.t('peers'),
-      click: () => { ctx.launchWebUI('/peers') }
+      click: () => { launchWebUI('/peers') }
     },
+    // @ts-ignore
     { type: 'separator' },
+    // @ts-ignore
     {
       id: 'takeScreenshot',
       label: i18n.t('takeScreenshot'),
-      click: () => { takeScreenshot(ctx) },
+      click: () => { takeScreenshot() },
       accelerator: IS_MAC ? SCREENSHOT_SHORTCUT : null,
       enabled: false
     },
+    // @ts-ignore
     { type: 'separator' },
+    // @ts-ignore
     {
       label: IS_MAC ? i18n.t('settings.preferences') : i18n.t('settings.settings'),
       submenu: [
         {
           id: 'webuiNodeSettings',
           label: i18n.t('settings.openNodeSettings'),
-          click: () => { ctx.launchWebUI('/settings') }
+          click: () => { launchWebUI('/settings') }
         },
         { type: 'separator' },
         {
@@ -120,6 +140,7 @@ function buildMenu (ctx) {
         buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB_NAMESYS, 'settings.namesysPubsub')
       ]
     },
+    // @ts-ignore
     {
       label: i18n.t('advanced'),
       submenu: [
@@ -139,29 +160,30 @@ function buildMenu (ctx) {
         {
           id: 'runGarbageCollector',
           label: i18n.t('runGarbageCollector'),
-          click: () => { runGarbageCollector(ctx) },
+          click: () => { runGarbageCollector() },
           enabled: false
         },
         { type: 'separator' },
         {
           id: 'moveRepositoryLocation',
           label: i18n.t('moveRepositoryLocation'),
-          click: () => { moveRepositoryLocation(ctx) }
+          click: () => { moveRepositoryLocation() }
         },
         {
           id: 'setCustomBinary',
           label: i18n.t('setCustomIpfsBinary'),
-          click: () => { setCustomBinary(ctx) },
+          click: () => { setCustomBinary() },
           visible: false
         },
         {
           id: 'clearCustomBinary',
           label: i18n.t('clearCustomIpfsBinary'),
-          click: () => { clearCustomBinary(ctx) },
+          click: () => { clearCustomBinary() },
           visible: false
         }
       ]
     },
+    // @ts-ignore
     {
       label: i18n.t('about'),
       submenu: [
@@ -183,7 +205,7 @@ function buildMenu (ctx) {
         {
           id: 'checkForUpdates',
           label: i18n.t('checkForUpdates'),
-          click: () => { ctx.manualCheckForUpdates() }
+          click: () => { manualCheckForUpdates() }
         },
         {
           id: 'checkingForUpdates',
@@ -201,6 +223,7 @@ function buildMenu (ctx) {
         }
       ]
     },
+    // @ts-ignore
     {
       label: i18n.t('quit'),
       click: () => { app.quit() },
@@ -233,21 +256,39 @@ function icon (status) {
 // https://www.electronjs.org/docs/faq#my-apps-tray-disappeared-after-a-few-minutes
 let tray = null
 
-module.exports = function (ctx) {
+const setupMenu = async () => {
+  const ctx = getCtx()
+  const updateMenu = ctx.getFn('tray.update-menu')
+  const menu = await buildMenu()
+  ctx.setProp('tray-menu', menu)
+
+  tray.setContextMenu(menu)
+  tray.setToolTip('IPFS Desktop')
+
+  menu.on('menu-will-show', () => { ipcMain.emit(ipcMainEvents.MENUBAR_OPEN) })
+  menu.on('menu-will-close', () => { ipcMain.emit(ipcMainEvents.MENUBAR_CLOSE) })
+
+  updateMenu()
+}
+
+module.exports = async function () {
+  const ctx = getCtx()
   logger.info('[tray] starting')
   tray = new Tray(icon(off))
-  let menu = null
+  const launchWebUI = ctx.getFn('launchWebUI')
 
   const state = {
     status: null,
     gcRunning: false,
     isUpdating: false
   }
+  ctx.setProp('tray-menu-state', state)
 
   // macOS tray drop files
   tray.on('drop-files', async (_, files) => {
-    await addToIpfs(ctx, files)
-    ctx.launchWebUI('/files', { focus: false })
+    await addToIpfs(files)
+
+    launchWebUI('/files', { focus: false })
   })
 
   const popupMenu = (event) => {
@@ -263,23 +304,13 @@ module.exports = function (ctx) {
     tray.on('click', popupMenu)
   }
   tray.on('right-click', popupMenu)
-  tray.on('double-click', () => ctx.launchWebUI('/'))
+  tray.on('double-click', async () => launchWebUI('/'))
 
-  const setupMenu = () => {
-    menu = buildMenu(ctx)
-
-    tray.setContextMenu(menu)
-    tray.setToolTip('IPFS Desktop')
-
-    menu.on('menu-will-show', () => { ipcMain.emit(ipcMainEvents.MENUBAR_OPEN) })
-    menu.on('menu-will-close', () => { ipcMain.emit(ipcMainEvents.MENUBAR_CLOSE) })
-
-    updateMenu()
-  }
-
-  const updateMenu = () => {
-    const { status, gcRunning, isUpdating } = state
+  ctx.setProp('tray.update-menu', async () => {
+    const ctx = getCtx()
+    const { status, gcRunning, isUpdating } = await ctx.getProp('tray-menu-state')
     const errored = status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
+    const menu = await ctx.getProp('tray-menu')
 
     menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED && !gcRunning && !isUpdating
     menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED && !gcRunning && !isUpdating
@@ -336,9 +367,11 @@ module.exports = function (ctx) {
       // you have to call setContextMenu again - https://electronjs.org/docs/api/tray
       tray.setContextMenu(menu)
     }
-  }
+  })
+  const updateMenu = ctx.getFn('tray.update-menu')
 
   ipcMain.on(ipcMainEvents.IPFSD, status => {
+    // @ts-ignore
     state.status = status
     updateMenu()
   })
@@ -364,18 +397,18 @@ module.exports = function (ctx) {
   })
 
   ipcMain.on(ipcMainEvents.CONFIG_UPDATED, () => { updateMenu() })
-  ipcMain.on(ipcMainEvents.LANG_UPDATED, () => { setupMenu() })
+  ipcMain.on(ipcMainEvents.LANG_UPDATED, async () => { await setupMenu() })
 
   nativeTheme.on('updated', () => {
     updateMenu()
   })
 
-  setupMenu()
+  await setupMenu()
 
   createToggler(CONFIG_KEYS.MONOCHROME_TRAY_ICON, async ({ newValue }) => {
     return safeStoreSet(CONFIG_KEYS.MONOCHROME_TRAY_ICON, newValue, () => true)
   })
 
-  ctx.tray = tray
+  ctx.setProp('tray', tray)
   logger.info('[tray] started')
 }

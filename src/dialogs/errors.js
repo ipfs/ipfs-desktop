@@ -30,6 +30,11 @@ let hasErrored = false
 
 const generateErrorIssueUrl = (e) => `https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?labels=kind%2Fbug%2C+need%2Ftriage&template=bug_report.md&title=${encodeURI(issueTitle(e))}&body=${encodeURI(issueTemplate(e))}`.substring(0, 1999)
 
+/**
+ * This will fail and throw another application error if electron hasn't booted up properly.
+ * @param {Error} e
+ * @returns
+ */
 function criticalErrorDialog (e) {
   if (hasErrored) return
   hasErrored = true
