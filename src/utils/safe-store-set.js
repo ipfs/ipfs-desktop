@@ -11,7 +11,9 @@ const store = require('../common/store')
 module.exports = async function (key, value, onSuccessFn) {
   try {
     store.set(key, value)
-    return onSuccessFn?.()
+    if (typeof onSuccessFn === 'function') {
+      return onSuccessFn()
+    }
   } catch (err) {
     logger.error(`Could not set store key '${key}' to '${value}'`, /** @type {Error} */(err))
   }
