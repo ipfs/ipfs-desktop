@@ -137,6 +137,10 @@ module.exports = Object.freeze({
     }
   },
 
+  warn: (msg, meta) => {
+    logger.warn(msg, meta)
+  },
+
   logsPath,
   addAnalyticsEvent,
   /**
