@@ -8,6 +8,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development electron .",
     "lint": "ts-standard && standard",
+    "lint:fix": "ts-standard --fix && standard --fix",
     "test": "cross-env NODE_ENV=test playwright test 'test/unit/.*.spec.js'",
     "test:e2e": "xvfb-maybe cross-env NODE_ENV=test playwright test -c test/e2e/playwright.config.js",
     "postinstall": "run-s install-app-deps patch-deps",
