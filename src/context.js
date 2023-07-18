@@ -15,6 +15,16 @@ const logger = require('./common/logger')
  * * Avoid circular dependencies and makes it easier to test modules in isolation.
  * * Speed up startup time by only loading what we need when we need it.
  *
+ *
+ * | Context property exists? | Is the backing promise fulfilled? | Method called | Is a deferred promise created? | Returned Value                                                                                           |
+ * |--------------------------|-----------------------------------|---------------|--------------------------------|----------------------------------------------------------------------------------------------------------|
+ * | No                       | N/A                               | GetProp       | Yes                            | A newly created deferred promise(unfulfilled)                                                            |
+ * | No                       | N/A                               | SetProp       | Yes                            | void                                                                                                     |
+ * | Yes                      | No                                | GetProp       | No                             | The found deferred promise (unfulfilled)                                                                 |
+ * | Yes                      | No                                | SetProp       | No                             | void                                                                                                     |
+ * | Yes                      | Yes                               | GetProp       | No                             | The found deferred promise (fulfilled)                                                                   |
+ * | Yes                      | Yes                               | SetProp       | No                             | We throw an error here. Any getProps called for the property prior to this would have a hanging promise. |
+ *
  * @extends {Record<string, unknown>}
  * @property {function} launchWebUI
  */
@@ -44,10 +54,14 @@ class Context {
    * @returns {void}
    */
   setProp (propertyName, value) {
+    if (this._properties.has(propertyName)) {
+      logger.error('[ctx] Property already exists')
+      throw new Error(`[ctx] Property ${String(propertyName)} already exists`)
+    }
     logger.info(`[ctx] setting ${String(propertyName)}`)
     try {
       this._properties.set(propertyName, value)
-      this._resolvePropForValue(propertyName, value)
+      this._resolvePropToValue(propertyName, value)
     } catch (e) {
       logger.error(e)
     }
@@ -62,17 +76,17 @@ class Context {
   async getProp (propertyName) {
     logger.info(`[ctx] getting ${String(propertyName)}`)
 
-    if (this._properties.has(propertyName)) {
+    const value = this._properties.get(propertyName)
+    if (value != null) {
       logger.info(`[ctx] Found existing property ${String(propertyName)}`)
-      const value = this._properties.get(propertyName)
-      this._resolvePropForValue(propertyName, value)
+      this._resolvePropToValue(propertyName, value)
       // @ts-ignore
       return value
     } else {
       logger.info(`[ctx] Could not find property ${String(propertyName)}`)
     }
     // no value exists, create deferred promise and return the promise
-    return this._createDeferredForProp(propertyName)
+    return this._createDeferredForProp(propertyName).promise
   }
 
   /**
@@ -93,42 +107,41 @@ class Context {
 
   /**
    * Gets existing promise and resolves it with the given value.
-   * If no promise exists, it creates one and calls itself again. (this shouldn't be necessary but is a fallback for a gotcha)
+   *
+   * @private
    * @template T
    * @param {ContextProperties} propertyName
    * @param {T} value
    * @returns {void}
    */
-  _resolvePropForValue (propertyName, value) {
-    const deferred = this._promiseMap.get(propertyName)
-    if (deferred != null) {
-      logger.info(`[ctx] Resolving promise for ${String(propertyName)}`)
-      // we have a value and there is an unresolved deferred promise
-      deferred.resolve(value)
-    } else {
+  _resolvePropToValue (propertyName, value) {
+    let deferred = this._promiseMap.get(propertyName)
+    if (deferred == null) {
       logger.info(`[ctx] No promise found for ${String(propertyName)}`)
-      this._createDeferredForProp(propertyName)
-      this._resolvePropForValue(propertyName, value)
+      deferred = this._createDeferredForProp(propertyName)
     }
+    logger.info(`[ctx] Resolving promise for ${String(propertyName)}`)
+    deferred.resolve(value)
   }
 
   /**
+   * Returns the existing promise for a property if it exists.
+   * If not, one is created and set in the `_promiseMap`, then returned
    *
-   * Returns the existing promise for a property if it exists. If not, one is created and set in the `_promiseMap`, then returned
+   * @private
    * @template T
    * @param {ContextProperties} propertyName
-   * @returns {Promise<T>}
+   * @returns {pDefer.DeferredPromise<T>}
    */
   _createDeferredForProp (propertyName) {
-    const promiseVal = this._promiseMap.get(propertyName)
-    if (promiseVal == null) {
-      const deferred = pDefer()
+    let deferred = this._promiseMap.get(propertyName)
+    if (deferred == null) {
+      deferred = pDefer()
       this._promiseMap.set(propertyName, deferred)
-      return deferred.promise
     }
 
     // @ts-expect-error - Need to fix generics
-    return promiseVal.promise
+    return deferred
   }
 }
 
