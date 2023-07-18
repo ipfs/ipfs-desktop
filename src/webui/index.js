@@ -17,9 +17,12 @@ const { performance } = require('perf_hooks')
 const Countly = require('countly-sdk-nodejs')
 const { analyticsKeys } = require('../analytics/keys')
 const ipcMainEvents = require('../common/ipc-main-events')
+const getCtx = require('../context')
+
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
 const createWindow = () => {
+  logger.info('[webui] creating window')
   const dimensions = screen.getPrimaryDisplay()
 
   const window = new BrowserWindow({
@@ -112,7 +115,10 @@ const createWindow = () => {
   return window
 }
 
-module.exports = async function (ctx) {
+module.exports = async function () {
+  logger.info('[webui] init...')
+  const ctx = getCtx()
+
   if (store.get(CONFIG_KEY, null) === null) {
     // First time running this. Enable opening ipfs-webui at app launch.
     // This accounts for users on OSes who may have extensions for
@@ -128,17 +134,15 @@ module.exports = async function (ctx) {
   })
 
   openExternal()
-
-  const window = createWindow(ctx)
+  const window = createWindow()
+  ctx.setProp('webui', window)
   let apiAddress = null
-
-  ctx.webui = window
 
   const url = new URL('/', 'webui://-')
   url.hash = '/blank'
-  url.searchParams.set('deviceId', ctx.countlyDeviceId)
+  url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
 
-  ctx.launchWebUI = (path, { focus = true, forceRefresh = false } = {}) => {
+  ctx.setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
     if (forceRefresh) window.webContents.reload()
     if (!path) {
       logger.info('[web ui] launching web ui', { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI })
@@ -154,14 +158,15 @@ module.exports = async function (ctx) {
     }
     // load again: minimize visual jitter on windows
     if (path) window.webContents.loadURL(url.toString())
-  }
+  })
 
   function updateLanguage () {
     url.searchParams.set('lng', store.get('language'))
   }
 
+  const getIpfsd = ctx.getFn('getIpfsd')
   ipcMain.on(ipcMainEvents.IPFSD, async () => {
-    const ipfsd = await ctx.getIpfsd(true)
+    const ipfsd = await getIpfsd(true)
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       apiAddress = ipfsd.apiAddr
@@ -177,12 +182,15 @@ module.exports = async function (ctx) {
     callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
   })
 
-  return new Promise(resolve => {
-    window.once('ready-to-show', () => {
+  const launchWebUI = ctx.getFn('launchWebUI')
+
+  return /** @type {Promise<void>} */(new Promise(resolve => {
+    window.once('ready-to-show', async () => {
       logger.info('[web ui] window ready')
+      // the electron window is ready, but the webui may not have successfully attempted to connect to the daemon yet.
 
       if (store.get(CONFIG_KEY)) {
-        ctx.launchWebUI('/')
+        await launchWebUI('/')
       }
 
       resolve()
@@ -190,5 +198,5 @@ module.exports = async function (ctx) {
 
     updateLanguage()
     window.loadURL(url.toString())
-  })
+  }))
 }

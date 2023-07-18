@@ -78,8 +78,8 @@ test.describe.serial('Application launch', async () => {
   })
 
   test('starts fine when node is already running', async () => {
-    const { ipfsd } = await makeRepository({ start: true })
-    const { app } = await startApp({ repoPath: ipfsd.path })
+    const { ipfsd, repoPath } = await makeRepository({ start: true })
+    const { app } = await startApp({ repoPath })
     const { peerId } = await daemonReady(app)
     const { id: expectedId } = await ipfsd.api.id()
     expect(peerId).toBe(expectedId)

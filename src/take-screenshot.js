@@ -7,6 +7,7 @@ const { SCREENSHOT_SHORTCUT: CONFIG_KEY } = require('./common/config-keys')
 const setupGlobalShortcut = require('./utils/setup-global-shortcut')
 const { analyticsKeys } = require('./analytics/keys')
 const ipcMainEvents = require('./common/ipc-main-events')
+const getCtx = require('./context')
 
 const SHORTCUT = IS_MAC
   ? 'Command+Control+S'
@@ -48,9 +49,10 @@ function onError (e) {
   })
 }
 
-function handleScreenshot (ctx) {
-  const { getIpfsd, launchWebUI } = ctx
-
+function handleScreenshot () {
+  const ctx = getCtx()
+  const launchWebUI = ctx.getFn('launchWebUI')
+  const getIpfsd = ctx.getFn('getIpfsd')
   return async (_, output) => {
     const ipfsd = await getIpfsd()
 
@@ -100,13 +102,13 @@ function handleScreenshot (ctx) {
   }
 }
 
-function takeScreenshot (ctx) {
-  const { webui } = ctx
+async function takeScreenshot () {
+  const webui = await getCtx().getProp('webui')
   logger.info('[screenshot] taking screenshot')
   webui.webContents.send('screenshot')
 }
 
-module.exports = function (ctx) {
+module.exports = function () {
   setupGlobalShortcut({
     confirmationDialog: {
       title: i18n.t('enableGlobalTakeScreenshotShortcut.title'),
@@ -115,11 +117,11 @@ module.exports = function (ctx) {
     settingsOption: CONFIG_KEY,
     accelerator: SHORTCUT,
     action: () => {
-      takeScreenshot(ctx)
+      takeScreenshot()
     }
   })
 
-  ipcMain.on(ipcMainEvents.SCREENSHOT, handleScreenshot(ctx))
+  ipcMain.on(ipcMainEvents.SCREENSHOT, handleScreenshot())
 }
 
 module.exports.takeScreenshot = takeScreenshot

@@ -1,7 +1,7 @@
 /**
  * Configuration key constants for the features in IPFS Desktop.
  *
- * @type {Object.<string, string>}
+ * @type {Record<import('../types').CONFIG_KEYS, string>}
  */
 const CONFIG_KEYS = {
   AUTO_LAUNCH: 'autoLaunch',

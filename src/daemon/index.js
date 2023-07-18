@@ -8,8 +8,9 @@ const { STATUS } = require('./consts')
 const createDaemon = require('./daemon')
 const ipcMainEvents = require('../common/ipc-main-events')
 const { analyticsKeys } = require('../analytics/keys')
+const getCtx = require('../context')
 
-async function setupDaemon (ctx) {
+async function setupDaemon () {
   let ipfsd = null
   let status = null
   let wasOnline = null
@@ -25,7 +26,7 @@ async function setupDaemon (ctx) {
     }
 
     if (!ipfsd) {
-      await ipfsNotRunningDialog(ctx)
+      await ipfsNotRunningDialog()
     }
 
     return ipfsd
@@ -101,11 +102,10 @@ async function setupDaemon (ctx) {
     await stopIpfs()
     await startIpfs()
   }
-
-  ctx.startIpfs = runAndStatus(startIpfs)
-  ctx.stopIpfs = runAndStatus(stopIpfs)
-  ctx.restartIpfs = runAndStatus(restartIpfs)
-  ctx.getIpfsd = getIpfsd
+  getCtx().setProp('startIpfs', runAndStatus(startIpfs))
+  getCtx().setProp('stopIpfs', runAndStatus(stopIpfs))
+  getCtx().setProp('restartIpfs', runAndStatus(restartIpfs))
+  getCtx().setProp('getIpfsd', getIpfsd)
 
   ipcMain.on(ipcMainEvents.IPFS_CONFIG_CHANGED, restartIpfs)
 

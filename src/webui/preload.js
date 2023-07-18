@@ -75,4 +75,7 @@ contextBridge.exposeInMainWorld('ipfsDesktop', {
 })
 
 // Inject api address
-window.localStorage.setItem('ipfsApi', urlParams.get('api'))
+const apiAddress = urlParams.get('api')
+if (apiAddress != null) {
+  window.localStorage.setItem('ipfsApi', apiAddress)
+}
