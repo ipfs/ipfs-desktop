@@ -12,9 +12,13 @@ module.exports = async function (key, value, onSuccessFn) {
   try {
     store.set(key, value)
     if (typeof onSuccessFn === 'function') {
-      return onSuccessFn()
+      try {
+        return await onSuccessFn()
+      } catch (err) {
+        logger.error(`[safe-store-set] Error calling onSuccessFn for '${key}'`, /** @type {Error} */(err))
+      }
     }
   } catch (err) {
-    logger.error(`Could not set store key '${key}' to '${value}'`, /** @type {Error} */(err))
+    logger.error(`[safe-store-set] Could not set store key '${key}' to '${value}'`, /** @type {Error} */(err))
   }
 }
