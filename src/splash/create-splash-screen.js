@@ -21,7 +21,15 @@ module.exports = async function createSplashScreen () {
     alwaysOnTop: true,
     show: false
   })
-  await splashScreen.loadFile(path.join(__dirname, './splash.html'))
+
+  try {
+    await splashScreen.loadFile(path.join(__dirname, '../../assets/pages/splash.html'))
+  } catch (err) {
+    logger.error('[splashScreen] loadFile failed')
+    logger.error(err)
+    return
+  }
+
   splashScreen.center()
 
   try {
@@ -30,7 +38,7 @@ module.exports = async function createSplashScreen () {
     )
   } catch (e) {
     logger.error(e)
-    logger.info('splashScreen.webContents.executeJavaScript failed')
+    logger.info('[splashScreen] webContents.executeJavaScript failed')
   }
 
   ctx.setProp('splashScreen', splashScreen)

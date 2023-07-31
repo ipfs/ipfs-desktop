@@ -22,6 +22,10 @@ const { STATUS } = require('../daemon/consts')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
+/**
+ *
+ * @returns {BrowserWindow}
+ */
 const createWindow = () => {
   logger.info('[webui] creating window')
   const dimensions = screen.getPrimaryDisplay()
@@ -108,6 +112,7 @@ const createWindow = () => {
   })
 
   app.on('before-quit', () => {
+    logger.info('[web ui] app-quit requested')
     // Makes sure the app quits even though we prevent
     // the closing of this window.
     window.removeAllListeners('close')
@@ -144,6 +149,10 @@ module.exports = async function () {
   url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
 
   ctx.setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
+    if (window.isDestroyed()) {
+      logger.error(`[web ui] window is destroyed, not launching web ui with ${path}`)
+      return
+    }
     if (forceRefresh) window.webContents.reload()
     if (!path) {
       logger.info('[web ui] launching web ui', { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI })
@@ -187,12 +196,33 @@ module.exports = async function () {
 
   const launchWebUI = ctx.getFn('launchWebUI')
   const splashScreenPromise = ctx.getProp('splashScreen')
-  if (store.get(CONFIG_KEY) && process.env.NODE_ENV !== 'test') {
+  if (store.get(CONFIG_KEY)) {
     // we're supposed to show the window on startup, display the splash screen
     (await splashScreenPromise).show()
   } else {
     // we don't need the splash screen, ignore it.
     (await splashScreenPromise).destroy()
+  }
+  let splashScreenTimeoutId = null
+  window.on('close', () => {
+    if (splashScreenTimeoutId) {
+      clearTimeout(splashScreenTimeoutId)
+      splashScreenTimeoutId = null
+    }
+  })
+  const handleSplashScreen = async () => {
+    if ([null, STATUS.STARTING_STARTED].includes(ipfsdStatus)) {
+      splashScreenTimeoutId = setTimeout(handleSplashScreen, 500)
+      return
+    }
+
+    await launchWebUI('/')
+    try {
+      (await splashScreenPromise).destroy()
+    } catch (err) {
+      logger.error('[web ui] failed to hide splash screen')
+      logger.error(err)
+    }
   }
 
   return /** @type {Promise<void>} */(new Promise(resolve => {
@@ -201,15 +231,7 @@ module.exports = async function () {
       window.once('ready-to-show', async () => {
         logger.info('[web ui] window ready')
 
-        const interval = setInterval(async () => {
-          if (![null, STATUS.STARTING_STARTED].includes(ipfsdStatus)) {
-            clearInterval(interval)
-            if (process.env.NODE_ENV !== 'test') {
-              (await splashScreenPromise).destroy()
-            }
-            await launchWebUI('/')
-          }
-        }, 500)
+        handleSplashScreen()
 
         resolve()
       })

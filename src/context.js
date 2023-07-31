@@ -101,7 +101,13 @@ class Context {
 
     return async (...args) => {
       const originalFn = await originalFnPromise
-      return originalFn(...args)
+      try {
+        return await originalFn(...args)
+      } catch (err) {
+        logger.error(`[ctx] Error calling ${String(propertyName)}`)
+        logger.error(err)
+        throw err
+      }
     }
   }
 
