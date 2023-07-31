@@ -14,8 +14,8 @@ module.exports = async function createSplashScreen () {
   const ctx = getCtx()
   const splashScreen = new BrowserWindow({
     title: 'IPFS Desktop splash screen',
-    width: 500,
-    height: 300,
+    width: 250,
+    height: 275,
     transparent: true,
     frame: false,
     alwaysOnTop: true,
@@ -31,15 +31,6 @@ module.exports = async function createSplashScreen () {
   }
 
   splashScreen.center()
-
-  try {
-    await splashScreen.webContents.executeJavaScript(
-      `setHeading("${i18n.t('ipfsIsStarting')}")`
-    )
-  } catch (e) {
-    logger.error(e)
-    logger.info('[splashScreen] webContents.executeJavaScript failed')
-  }
 
   ctx.setProp('splashScreen', splashScreen)
 }
