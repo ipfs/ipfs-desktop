@@ -369,7 +369,12 @@ async function checkPorts (ipfsd) {
   }
 
   // two "0" in config mean "pick free ports without any prompt"
-  const promptUser = (apiPort !== 0 || gatewayPort !== 0)
+  let promptUser = (apiPort !== 0 || gatewayPort !== 0)
+
+  if (process.env.NODE_ENV === 'test' || process.env.CI != null) {
+    logger.info('[daemon] CI or TEST mode, skipping busyPortDialog')
+    promptUser = false
+  }
 
   if (promptUser) {
     let useAlternativePorts = null

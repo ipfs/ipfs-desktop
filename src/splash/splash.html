@@ -13,8 +13,10 @@
       background-image: url('../../assets/icons/tray/others/on-large.png');
       width: 40vw;
       height: 40vw;
-      -webkit-animation: spin 5s linear infinite;
-      animation: spin 5s linear infinite;
+      -webkit-animation: heartbeat 1.5s ease-in-out 0s infinite reverse backwards;
+      animation: heartbeat 1.5s ease-in-out 0s infinite reverse backwards;
+      -webkit-transform-origin: center center;
+      transform-origin: center center;
       margin: auto;
       left: 0;
       right: 0;
@@ -24,24 +26,72 @@
       background-size: cover;
     }
 
+    /* #9ad4db */
+    /* #378085 */
     /* Safari */
-    @-webkit-keyframes spin {
+    @-webkit-keyframes heartbeat {
       0% {
-        -webkit-transform: rotate(0deg);
+        animation-timing-function: ease-out;
+        transform: scale(1);
+        transform-origin: center center;
+        filter: drop-shadow(0 0 0 #378085);
       }
 
-      100% {
-        -webkit-transform: rotate(360deg);
+      10% {
+        animation-timing-function: ease-in;
+        transform: scale(1.09);
+        filter: drop-shadow(0 0 0.5rem #378085);
+      }
+
+      17% {
+        animation-timing-function: ease-out;
+        transform: scale(1.02);
+        filter: drop-shadow(0 0 1rem #378085);
+      }
+
+      33% {
+        animation-timing-function: ease-in;
+        transform: scale(1.13);
+        filter: drop-shadow(0 0 0.5rem #378085);
+      }
+
+      45% {
+        animation-timing-function: ease-out;
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 #378085)
       }
     }
 
-    @keyframes spin {
+    @keyframes heartbeat {
       0% {
-        transform: rotate(0deg);
+        animation-timing-function: ease-out;
+        transform: scale(1);
+        transform-origin: center center;
+        filter: drop-shadow(0 0 0 #378085);
       }
 
-      100% {
-        transform: rotate(360deg);
+      10% {
+        animation-timing-function: ease-in;
+        transform: scale(1.09);
+        filter: drop-shadow(0 0 0.5rem #378085);
+      }
+
+      17% {
+        animation-timing-function: ease-out;
+        transform: scale(1.02);
+        filter: drop-shadow(0 0 1rem #378085);
+      }
+
+      33% {
+        animation-timing-function: ease-in;
+        transform: scale(1.13);
+        filter: drop-shadow(0 0 0.5rem #378085);
+      }
+
+      45% {
+        animation-timing-function: ease-out;
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 #378085)
       }
     }
 
