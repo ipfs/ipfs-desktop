@@ -140,7 +140,7 @@ module.exports = async function () {
   let apiAddress = null
 
   const url = new URL('/', 'webui://-')
-  url.hash = '/'
+  url.hash = '/blank'
   url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
 
   ctx.setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
@@ -167,7 +167,7 @@ module.exports = async function () {
 
   const getIpfsd = ctx.getFn('getIpfsd')
   let ipfsdStatus = null
-  ipcMain.on(ipcMainEvents.IPFSD, async (status, id) => {
+  ipcMain.on(ipcMainEvents.IPFSD, async (status) => {
     const ipfsd = await getIpfsd(true)
     ipfsdStatus = status
 

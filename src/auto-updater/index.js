@@ -22,6 +22,7 @@ function setup () {
   // we download manually in 'update-available'
   autoUpdater.autoDownload = false
   autoUpdater.autoInstallOnAppQuit = true
+  autoUpdater.logger = logger
 
   autoUpdater.on('error', err => {
     logger.error(`[updater] ${err.toString()}`)
@@ -90,6 +91,21 @@ function setup () {
     })
   })
 
+  let progressPercentTimeout = null
+  autoUpdater.on('download-progress', ({ percent, bytesPerSecond }) => {
+    const logDownloadProgress = () => {
+      logger.info(`[updater] download progress is ${percent.toFixed(2)}% at ${bytesPerSecond} bps.`)
+    }
+    // log the percent, but not too often to avoid spamming the logs, but we should
+    // be sure we're logging at what percent any hiccup is occurring.
+    clearTimeout(progressPercentTimeout)
+    if (percent === 100) {
+      logDownloadProgress()
+      return
+    }
+    progressPercentTimeout = setTimeout(logDownloadProgress, 2000)
+  })
+
   autoUpdater.on('update-downloaded', ({ version }) => {
     logger.info(`[updater] update to ${version} downloaded`)
 
@@ -154,7 +170,7 @@ async function checkForUpdates () {
 }
 
 module.exports = async function () {
-  if (['test', 'development'].includes(process.env.NODE_ENV)) {
+  if (['test', 'development'].includes(process.env.NODE_ENV ?? '')) {
     getCtx().setProp('manualCheckForUpdates', () => {
       showDialog({
         title: 'Not available in development',

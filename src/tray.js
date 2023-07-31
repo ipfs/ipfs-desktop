@@ -255,71 +255,9 @@ function icon (status) {
 // https://www.electronjs.org/docs/faq#my-apps-tray-disappeared-after-a-few-minutes
 let tray = null
 
-const updateMenu = async () => {
-  const ctx = getCtx()
-  const { status, gcRunning, isUpdating } = await ctx.getProp('tray-menu-state')
-  const errored = status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
-  const menu = await ctx.getProp('tray-menu')
-
-  menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED && !gcRunning && !isUpdating
-  menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED && !gcRunning && !isUpdating
-  menu.getMenuItemById('ipfsIsStopping').visible = status === STATUS.STOPPING_STARTED && !gcRunning && !isUpdating
-  menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED && !gcRunning && !isUpdating
-  menu.getMenuItemById('ipfsHasErrored').visible = errored && !gcRunning && !isUpdating
-  menu.getMenuItemById('runningWithGC').visible = gcRunning
-  menu.getMenuItemById('runningWhileCheckingForUpdate').visible = isUpdating
-
-  menu.getMenuItemById('startIpfs').visible = status === STATUS.STOPPING_FINISHED
-  menu.getMenuItemById('stopIpfs').visible = status === STATUS.STARTING_FINISHED
-  menu.getMenuItemById('restartIpfs').visible = (status === STATUS.STARTING_FINISHED || errored)
-
-  menu.getMenuItemById('webuiStatus').enabled = status === STATUS.STARTING_FINISHED
-  menu.getMenuItemById('webuiFiles').enabled = status === STATUS.STARTING_FINISHED
-  menu.getMenuItemById('webuiPeers').enabled = status === STATUS.STARTING_FINISHED
-  menu.getMenuItemById('webuiNodeSettings').enabled = status === STATUS.STARTING_FINISHED
-
-  menu.getMenuItemById('startIpfs').enabled = !gcRunning
-  menu.getMenuItemById('stopIpfs').enabled = !gcRunning
-  menu.getMenuItemById('restartIpfs').enabled = !gcRunning
-
-  menu.getMenuItemById(CONFIG_KEYS.AUTO_LAUNCH).enabled = supportsLaunchAtLogin()
-  menu.getMenuItemById('takeScreenshot').enabled = status === STATUS.STARTING_FINISHED
-
-  menu.getMenuItemById('moveRepositoryLocation').enabled = !gcRunning && status !== STATUS.STOPPING_STARTED
-  menu.getMenuItemById('runGarbageCollector').enabled = menu.getMenuItemById('ipfsIsRunning').visible && !gcRunning
-
-  menu.getMenuItemById('setCustomBinary').visible = !hasCustomBinary()
-  menu.getMenuItemById('clearCustomBinary').visible = hasCustomBinary()
-
-  menu.getMenuItemById('checkForUpdates').enabled = !isUpdating
-  menu.getMenuItemById('checkForUpdates').visible = !isUpdating
-  menu.getMenuItemById('checkingForUpdates').visible = isUpdating
-
-  if (status === STATUS.STARTING_FINISHED) {
-    tray.setImage(icon(on))
-  } else {
-    tray.setImage(icon(off))
-  }
-
-  // Update configuration checkboxes.
-  for (const key of Object.values(CONFIG_KEYS)) {
-    const enabled = store.get(key, false)
-    const item = menu.getMenuItemById(key)
-    if (item) {
-      // Not all items are present in all platforms.
-      item.checked = enabled
-    }
-  }
-
-  if (!IS_MAC && !IS_WIN) {
-    // On Linux, in order for changes made to individual MenuItems to take effect,
-    // you have to call setContextMenu again - https://electronjs.org/docs/api/tray
-    tray.setContextMenu(menu)
-  }
-}
-
 const setupMenu = async () => {
   const ctx = getCtx()
+  const updateMenu = ctx.getFn('tray.update-menu')
   const menu = await buildMenu()
   ctx.setProp('tray-menu', menu)
 
@@ -365,9 +303,71 @@ module.exports = async function () {
     tray.on('click', popupMenu)
   }
   tray.on('right-click', popupMenu)
-  tray.on('double-click', async () => {
-    launchWebUI('/')
+  tray.on('double-click', async () => launchWebUI('/'))
+
+  ctx.setProp('tray.update-menu', async () => {
+    const ctx = getCtx()
+    const { status, gcRunning, isUpdating } = await ctx.getProp('tray-menu-state')
+    const errored = status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
+    const menu = await ctx.getProp('tray-menu')
+
+    menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsIsStopping').visible = status === STATUS.STOPPING_STARTED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsHasErrored').visible = errored && !gcRunning && !isUpdating
+    menu.getMenuItemById('runningWithGC').visible = gcRunning
+    menu.getMenuItemById('runningWhileCheckingForUpdate').visible = isUpdating
+
+    menu.getMenuItemById('startIpfs').visible = status === STATUS.STOPPING_FINISHED
+    menu.getMenuItemById('stopIpfs').visible = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('restartIpfs').visible = (status === STATUS.STARTING_FINISHED || errored)
+
+    menu.getMenuItemById('webuiStatus').enabled = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('webuiFiles').enabled = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('webuiPeers').enabled = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('webuiNodeSettings').enabled = status === STATUS.STARTING_FINISHED
+
+    menu.getMenuItemById('startIpfs').enabled = !gcRunning
+    menu.getMenuItemById('stopIpfs').enabled = !gcRunning
+    menu.getMenuItemById('restartIpfs').enabled = !gcRunning
+
+    menu.getMenuItemById(CONFIG_KEYS.AUTO_LAUNCH).enabled = supportsLaunchAtLogin()
+    menu.getMenuItemById('takeScreenshot').enabled = status === STATUS.STARTING_FINISHED
+
+    menu.getMenuItemById('moveRepositoryLocation').enabled = !gcRunning && status !== STATUS.STOPPING_STARTED
+    menu.getMenuItemById('runGarbageCollector').enabled = menu.getMenuItemById('ipfsIsRunning').visible && !gcRunning
+
+    menu.getMenuItemById('setCustomBinary').visible = !hasCustomBinary()
+    menu.getMenuItemById('clearCustomBinary').visible = hasCustomBinary()
+
+    menu.getMenuItemById('checkForUpdates').enabled = !isUpdating
+    menu.getMenuItemById('checkForUpdates').visible = !isUpdating
+    menu.getMenuItemById('checkingForUpdates').visible = isUpdating
+
+    if (status === STATUS.STARTING_FINISHED) {
+      tray.setImage(icon(on))
+    } else {
+      tray.setImage(icon(off))
+    }
+
+    // Update configuration checkboxes.
+    for (const key of Object.values(CONFIG_KEYS)) {
+      const enabled = store.get(key, false)
+      const item = menu.getMenuItemById(key)
+      if (item) {
+        // Not all items are present in all platforms.
+        item.checked = enabled
+      }
+    }
+
+    if (!IS_MAC && !IS_WIN) {
+      // On Linux, in order for changes made to individual MenuItems to take effect,
+      // you have to call setContextMenu again - https://electronjs.org/docs/api/tray
+      tray.setContextMenu(menu)
+    }
   })
+  const updateMenu = ctx.getFn('tray.update-menu')
 
   ipcMain.on(ipcMainEvents.IPFSD, status => {
     // @ts-ignore

@@ -14,7 +14,7 @@ const testGetAndSet = async (ctx, propertyName, value) => {
 
 test.describe('App Context', () => {
   let ctx, getCtx
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     getCtx = proxyquire('../../src/context', {
       electron: mockElectron(),
       './common/notify': mockNotify(),
@@ -34,13 +34,13 @@ test.describe('App Context', () => {
 
   test('Can set and get a number', async () => {
     await testGetAndSet(ctx, 'num', 4)
-    await testGetAndSet(ctx, 'num', -1)
+    await testGetAndSet(ctx, 'num2', -1)
     await testGetAndSet(ctx, Symbol('numSymbol'), Infinity)
   })
 
   test('Can set and get a boolean', async () => {
     await testGetAndSet(ctx, 'bool', true)
-    await testGetAndSet(ctx, 'bool', false)
+    await testGetAndSet(ctx, 'bool2', false)
     await testGetAndSet(ctx, Symbol('boolSymbol'), Infinity)
   })
 
@@ -50,7 +50,7 @@ test.describe('App Context', () => {
       4: 'four',
       apple: () => 'shenanigans'
     })
-    await testGetAndSet(ctx, 'obj', { bar: 'foo', four: 4, shenanigans: () => 'apple' })
+    await testGetAndSet(ctx, 'obj2', { bar: 'foo', four: 4, shenanigans: () => 'apple' })
     await testGetAndSet(ctx, Symbol('objSymbol'), { bar: 'foo2', four: 42, shenanigans: () => 'apple2' })
   })
 
@@ -88,5 +88,10 @@ test.describe('App Context', () => {
     expect(isPending).toBe(false)
     expect(spy.callCount).toBe(1)
     expect(spy.getCall(0).args).toEqual([123])
+  })
+
+  test('throws when trying to overwrite already set value', async () => {
+    await testGetAndSet(ctx, 'num', 4)
+    expect(() => ctx.setProp('num', 5)).toThrowError('[ctx] Property num already exists')
   })
 })
