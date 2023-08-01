@@ -6,7 +6,6 @@
  */
 const { BrowserWindow } = require('electron')
 const getCtx = require('../context')
-const i18n = require('i18next')
 const logger = require('../common/logger')
 const path = require('node:path')
 
