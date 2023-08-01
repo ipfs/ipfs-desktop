@@ -195,13 +195,13 @@ module.exports = async function () {
   })
 
   const launchWebUI = ctx.getFn('launchWebUI')
-  const splashScreenPromise = ctx.getProp('splashScreen')
+  const splashScreen = await ctx.getProp('splashScreen')
   if (store.get(CONFIG_KEY)) {
     // we're supposed to show the window on startup, display the splash screen
-    (await splashScreenPromise).show()
+    splashScreen.show()
   } else {
     // we don't need the splash screen, ignore it.
-    (await splashScreenPromise).destroy()
+    splashScreen.destroy()
   }
   let splashScreenTimeoutId = null
   window.on('close', () => {
