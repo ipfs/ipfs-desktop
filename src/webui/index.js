@@ -218,7 +218,7 @@ module.exports = async function () {
 
     await launchWebUI('/')
     try {
-      (await splashScreenPromise).destroy()
+      splashScreen.destroy()
     } catch (err) {
       logger.error('[web ui] failed to hide splash screen')
       logger.error(err)
