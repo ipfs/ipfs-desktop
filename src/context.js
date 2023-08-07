@@ -3,7 +3,7 @@ const pDefer = require('p-defer')
 const logger = require('./common/logger')
 
 /**
- * @typedef {'tray-menu' | 'tray' | 'tray-menu-state' | 'tray.update-menu' | 'countlyDeviceId' | 'manualCheckForUpdates' | 'startIpfs' | 'stopIpfs' | 'restartIpfs' | 'getIpfsd' | 'launchWebUI' | 'webui'} ContextProperties
+ * @typedef {'tray-menu' | 'tray' | 'tray-menu-state' | 'tray.update-menu' | 'countlyDeviceId' | 'manualCheckForUpdates' | 'startIpfs' | 'stopIpfs' | 'restartIpfs' | 'getIpfsd' | 'launchWebUI' | 'webui' | 'splashScreen'} ContextProperties
  */
 
 /**
@@ -101,7 +101,13 @@ class Context {
 
     return async (...args) => {
       const originalFn = await originalFnPromise
-      return originalFn(...args)
+      try {
+        return await originalFn(...args)
+      } catch (err) {
+        logger.error(`[ctx] Error calling ${String(propertyName)}`)
+        logger.error(err)
+        throw err
+      }
     }
   }
 

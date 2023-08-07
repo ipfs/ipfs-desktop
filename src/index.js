@@ -33,6 +33,7 @@ const setupAnalytics = require('./analytics')
 const setupSecondInstance = require('./second-instance')
 const { analyticsKeys } = require('./analytics/keys')
 const handleError = require('./handleError')
+const createSplashScreen = require('./splash/create-splash-screen')
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -65,6 +66,7 @@ async function run () {
 
   try {
     await Promise.all([
+      createSplashScreen(),
       setupDaemon(), // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
       setupAnalytics(), // ctx.countlyDeviceId
       setupI18n(),
