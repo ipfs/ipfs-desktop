@@ -90,7 +90,6 @@ class StoreWrapper extends Store {
      * @returns {Promise<R|void>}
      */
     this.safeSet = async function (key, value, onSuccessFn) {
-      // throw new Error('testing')
       try {
         this.set(key, value)
         if (typeof onSuccessFn === 'function') {
@@ -101,7 +100,6 @@ class StoreWrapper extends Store {
           }
         }
       } catch (err) {
-        // throw new Error('loggggggger')
         logger.error(`[safe-store-set] Could not set store key '${key}' to '${value}'`, /** @type {Error} */(err))
       }
     }
