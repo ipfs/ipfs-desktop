@@ -9,10 +9,10 @@ module.exports = function (settingsOption, activate) {
     const newValue = !oldValue
 
     if (await activate({ newValue, oldValue, feedback: true })) {
-      store.set(settingsOption, newValue)
-
-      const action = newValue ? 'enabled' : 'disabled'
-      logger.info(`[${settingsOption}] ${action}`)
+      store.safeSet(settingsOption, newValue, () => {
+        const action = newValue ? 'enabled' : 'disabled'
+        logger.info(`[${settingsOption}] ${action}`)
+      })
     }
 
     // We always emit the event so any handlers for it can act upon

@@ -234,13 +234,13 @@ function migrateConfig (ipfsd) {
   if (changed) {
     try {
       writeConfigFile(ipfsd, config)
-      store.set(REVISION_KEY, REVISION)
+      store.safeSet(REVISION_KEY, REVISION)
     } catch (err) {
       logger.error(`[daemon] migrateConfig: error writing config file: ${err.message || err}`)
       return
     }
   }
-  store.set(REVISION_KEY, REVISION)
+  store.safeSet(REVISION_KEY, REVISION)
 }
 
 /**

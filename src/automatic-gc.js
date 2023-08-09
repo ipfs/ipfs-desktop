@@ -24,9 +24,14 @@ function disable () {
   }
 }
 
+/**
+ *
+ * @param {string[]} newFlags
+ */
 function applyConfig (newFlags) {
-  store.set('ipfsConfig.flags', newFlags)
-  ipcMain.emit(ipcMainEvents.IPFS_CONFIG_CHANGED) // trigger node restart
+  store.safeSet('ipfsConfig.flags', newFlags, () => {
+    ipcMain.emit(ipcMainEvents.IPFS_CONFIG_CHANGED) // trigger node restart
+  })
 }
 
 module.exports = async function () {

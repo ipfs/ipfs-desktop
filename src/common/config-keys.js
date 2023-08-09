@@ -1,6 +1,6 @@
 /**
  * Configuration key constants for the features in IPFS Desktop.
- *
+ * @constant
  * @type {Record<import('../types').CONFIG_KEYS, string>}
  */
 const CONFIG_KEYS = {

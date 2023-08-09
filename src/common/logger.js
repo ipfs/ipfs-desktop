@@ -58,7 +58,7 @@ logger.info(`[meta] logs can be found on ${logsPath}`)
 
 /**
  *
- * @param {AnalyticsTimeOptions & import('countly-sdk-nodejs').CountlyAddEventOptions} args
+ * @param {AnalyticsTimeOptions & Omit<import('countly-sdk-nodejs').CountlyAddEventOptions, 'key'>} opts
  *
  * @returns {void} void
  */
@@ -79,11 +79,11 @@ module.exports = Object.freeze({
   /**
    *
    * @param {string} msg
-   * @param {AnalyticsTimeOptions} opts
+   * @param {AnalyticsTimeOptions & Omit<import('countly-sdk-nodejs').CountlyAddEventOptions, 'key'>} opts
    *
    * @returns {AnalyticsTimeReturnValue} AnalyticsTimeReturnValue
    */
-  start: (msg, opts = {}) => {
+  start: (msg, opts) => {
     const start = performance.now()
     logger.info(`${msg} STARTED`)
 
@@ -107,19 +107,35 @@ module.exports = Object.freeze({
   /**
    *
    * @param {string} msg
-   * @param {AnalyticsTimeOptions & import('countly-sdk-nodejs').CountlyAddEventOptions} opts
+   * @param {AnalyticsTimeOptions & Omit<import('countly-sdk-nodejs').CountlyAddEventOptions, 'key'>} [opts]
    *
    * @returns {void} void
    */
-  info: (msg, opts = {}) => {
-    addAnalyticsEvent({ count: 1, ...opts })
+  info: (msg, opts) => {
+    if (opts) {
+      addAnalyticsEvent({ count: 1, ...opts })
+    }
 
     logger.info(msg)
   },
 
-  error: (err) => {
-    Countly.log_error(err)
-    logger.error(err)
+  /**
+   *
+   * @param {Error|string} errMsg
+   * @param {Error|unknown} [error]
+   */
+  error: (errMsg, error) => {
+    if (errMsg instanceof Error) {
+      Countly.log_error(errMsg)
+      logger.error(errMsg)
+    } else if (error != null && error instanceof Error) {
+      // errorMessage is not an instance of an error, but error is
+      Countly.log_error(error)
+      logger.error(errMsg, error)
+    } else {
+      Countly.log_error(new Error(errMsg))
+      logger.error(errMsg, error)
+    }
   },
 
   warn: (msg, meta) => {
@@ -131,5 +147,9 @@ module.exports = Object.freeze({
   },
 
   logsPath,
-  addAnalyticsEvent
+  addAnalyticsEvent,
+  /**
+   * For when you want to log something without potentially emitting it to countly
+   */
+  fileLogger: logger
 })

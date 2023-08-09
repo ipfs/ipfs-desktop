@@ -40,23 +40,23 @@ async function setCustomBinary () {
       return
     }
 
-    store.set(SETTINGS_KEY, filePaths[0])
+    store.safeSet(SETTINGS_KEY, filePaths[0], () => {
+      opt = showDialog({
+        showDock: false,
+        title: i18n.t('setCustomIpfsBinarySuccess.title'),
+        message: i18n.t('setCustomIpfsBinarySuccess.message', { path: filePaths[0] }),
+        buttons: [
+          i18n.t('restart'),
+          i18n.t('close')
+        ]
+      })
 
-    opt = showDialog({
-      showDock: false,
-      title: i18n.t('setCustomIpfsBinarySuccess.title'),
-      message: i18n.t('setCustomIpfsBinarySuccess.message', { path: filePaths[0] }),
-      buttons: [
-        i18n.t('restart'),
-        i18n.t('close')
-      ]
+      logger.info(`[custom binary] updated to ${filePaths[0]}`)
+
+      if (opt === 0) {
+        restartIpfs()
+      }
     })
-
-    logger.info(`[custom binary] updated to ${filePaths[0]}`)
-
-    if (opt === 0) {
-      restartIpfs()
-    }
   })
 }
 

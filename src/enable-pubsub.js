@@ -25,12 +25,13 @@ function disable () {
 }
 
 function applyConfig (newFlags) {
-  store.set('ipfsConfig.flags', newFlags)
-  ipcMain.emit(ipcMainEvents.IPFS_CONFIG_CHANGED) // trigger node restart
+  store.safeSet('ipfsConfig.flags', newFlags, () => {
+    ipcMain.emit(ipcMainEvents.IPFS_CONFIG_CHANGED) // trigger node restart
+  })
 }
 
 module.exports = async function () {
-  const activate = ({ newValue, oldValue }) => {
+  const activate = ({ newValue, oldValue = null }) => {
     if (newValue === oldValue) return
 
     try {

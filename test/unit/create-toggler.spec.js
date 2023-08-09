@@ -17,8 +17,11 @@ test.describe('Create toggler', () => {
     createToggler = proxyquire('../../src/utils/create-toggler', {
       electron: electron,
       '../common/logger': logger,
-      '../common/store': store
+      '../common/store': store,
+      './safe-store-set': (key, val, onSuccess) => { store.set(key, val); onSuccess() }
     })
+    sinon.spy(store, 'get')
+    sinon.spy(store, 'set')
   })
 
   test('activate option with success', async () => {

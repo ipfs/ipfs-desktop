@@ -64,7 +64,7 @@ async function setupDaemon () {
     // not set.
     if (!config.path || typeof config.path !== 'string') {
       config.path = ipfsd.path
-      store.set('ipfsConfig', config)
+      store.safeSet('ipfsConfig', config)
     }
 
     log.end()

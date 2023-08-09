@@ -405,8 +405,7 @@ module.exports = async function () {
   await setupMenu()
 
   createToggler(CONFIG_KEYS.MONOCHROME_TRAY_ICON, async ({ newValue }) => {
-    store.set(CONFIG_KEYS.MONOCHROME_TRAY_ICON, newValue)
-    return true
+    return store.safeSet(CONFIG_KEYS.MONOCHROME_TRAY_ICON, newValue, () => true)
   })
 
   ctx.setProp('tray', tray)

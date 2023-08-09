@@ -100,8 +100,8 @@ const createWindow = () => {
 
   window.on('resize', () => {
     const dim = window.getSize()
-    store.set('window.width', dim[0])
-    store.set('window.height', dim[1])
+    store.safeSet('window.width', dim[0])
+    store.safeSet('window.height', dim[1])
   })
 
   window.on('close', (event) => {
@@ -131,11 +131,11 @@ module.exports = async function () {
     // decluttering system menus/trays, and thus have no initial "way in" to
     // Desktop upon install:
     // https://github.com/ipfs-shipyard/ipfs-desktop/issues/1741
-    store.set(CONFIG_KEY, true)
+    store.safeSet(CONFIG_KEY, true)
   }
 
   createToggler(CONFIG_KEY, async ({ newValue }) => {
-    store.set(CONFIG_KEY, newValue)
+    store.safeSet(CONFIG_KEY, newValue)
     return true
   })
 
