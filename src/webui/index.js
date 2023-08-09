@@ -17,7 +17,6 @@ const { performance } = require('perf_hooks')
 const Countly = require('countly-sdk-nodejs')
 const { analyticsKeys } = require('../analytics/keys')
 const ipcMainEvents = require('../common/ipc-main-events')
-const safeStoreSet = require('../utils/safe-store-set')
 const getCtx = require('../context')
 const { STATUS } = require('../daemon/consts')
 
@@ -101,8 +100,8 @@ const createWindow = () => {
 
   window.on('resize', () => {
     const dim = window.getSize()
-    safeStoreSet('window.width', dim[0])
-    safeStoreSet('window.height', dim[1])
+    store.safeSet('window.width', dim[0])
+    store.safeSet('window.height', dim[1])
   })
 
   window.on('close', (event) => {
@@ -132,11 +131,11 @@ module.exports = async function () {
     // decluttering system menus/trays, and thus have no initial "way in" to
     // Desktop upon install:
     // https://github.com/ipfs-shipyard/ipfs-desktop/issues/1741
-    safeStoreSet(CONFIG_KEY, true)
+    store.safeSet(CONFIG_KEY, true)
   }
 
   createToggler(CONFIG_KEY, async ({ newValue }) => {
-    safeStoreSet(CONFIG_KEY, newValue)
+    store.safeSet(CONFIG_KEY, newValue)
     return true
   })
 

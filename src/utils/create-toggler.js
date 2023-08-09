@@ -2,7 +2,6 @@ const { ipcMain } = require('electron')
 const store = require('../common/store')
 const logger = require('../common/logger')
 const ipcMainEvents = require('../common/ipc-main-events')
-const safeStoreSet = require('./safe-store-set')
 
 module.exports = function (settingsOption, activate) {
   ipcMain.on(ipcMainEvents.TOGGLE(settingsOption), async () => {
@@ -10,7 +9,7 @@ module.exports = function (settingsOption, activate) {
     const newValue = !oldValue
 
     if (await activate({ newValue, oldValue, feedback: true })) {
-      safeStoreSet(settingsOption, newValue, () => {
+      store.safeSet(settingsOption, newValue, () => {
         const action = newValue ? 'enabled' : 'disabled'
         logger.info(`[${settingsOption}] ${action}`)
       })

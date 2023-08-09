@@ -4,7 +4,6 @@ const { showDialog } = require('./dialogs')
 const logger = require('./common/logger')
 const store = require('./common/store')
 const dock = require('./utils/dock')
-const safeStoreSet = require('./utils/safe-store-set')
 const getCtx = require('./context')
 
 const SETTINGS_KEY = 'binaryPath'
@@ -41,7 +40,7 @@ async function setCustomBinary () {
       return
     }
 
-    safeStoreSet(SETTINGS_KEY, filePaths[0], () => {
+    store.safeSet(SETTINGS_KEY, filePaths[0], () => {
       opt = showDialog({
         showDock: false,
         title: i18n.t('setCustomIpfsBinarySuccess.title'),

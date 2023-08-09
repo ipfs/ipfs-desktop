@@ -1,7 +1,9 @@
 const { app } = require('electron')
 const Store = require('electron-store')
 
-const { fileLogger } = require('./logger')
+const logger = require('./logger')
+
+const { fileLogger } = logger
 
 /**
  * @type {import('./types').DesktopPersistentStore}
@@ -73,7 +75,40 @@ const migrations = {
   }
 }
 
-const store = new Store({
+/**
+ * @extends {Store<import('./types').DesktopPersistentStore>}
+ */
+class StoreWrapper extends Store {
+  constructor (options) {
+    super(options)
+
+    /**
+     * @template {unknown} R
+     * @param {string} key
+     * @param {unknown} value
+     * @param {() => Promise<R>|R|void} [onSuccessFn]
+     * @returns {Promise<R|void>}
+     */
+    this.safeSet = async function (key, value, onSuccessFn) {
+      // throw new Error('testing')
+      try {
+        this.set(key, value)
+        if (typeof onSuccessFn === 'function') {
+          try {
+            return await onSuccessFn()
+          } catch (err) {
+            logger.error(`[safe-store-set] Error calling onSuccessFn for '${key}'`, /** @type {Error} */(err))
+          }
+        }
+      } catch (err) {
+        // throw new Error('loggggggger')
+        logger.error(`[safe-store-set] Could not set store key '${key}' to '${value}'`, /** @type {Error} */(err))
+      }
+    }
+  }
+}
+
+const store = new StoreWrapper({
   defaults,
   migrations
 })

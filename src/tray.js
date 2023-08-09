@@ -16,7 +16,6 @@ const CONFIG_KEYS = require('./common/config-keys')
 const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
 const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const createToggler = require('./utils/create-toggler')
-const safeStoreSet = require('./utils/safe-store-set')
 const getCtx = require('./context')
 
 function buildCheckbox (key, label) {
@@ -406,7 +405,7 @@ module.exports = async function () {
   await setupMenu()
 
   createToggler(CONFIG_KEYS.MONOCHROME_TRAY_ICON, async ({ newValue }) => {
-    return safeStoreSet(CONFIG_KEYS.MONOCHROME_TRAY_ICON, newValue, () => true)
+    return store.safeSet(CONFIG_KEYS.MONOCHROME_TRAY_ICON, newValue, () => true)
   })
 
   ctx.setProp('tray', tray)

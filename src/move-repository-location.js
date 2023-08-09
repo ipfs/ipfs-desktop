@@ -6,7 +6,6 @@ const logger = require('./common/logger')
 const { showDialog, recoverableErrorDialog, selectDirectory } = require('./dialogs')
 const dock = require('./utils/dock')
 const { analyticsKeys } = require('./analytics/keys')
-const safeStoreSet = require('./utils/safe-store-set')
 
 module.exports = function ({ stopIpfs, startIpfs }) {
   dock.run(async () => {
@@ -79,7 +78,7 @@ module.exports = function ({ stopIpfs, startIpfs }) {
 
     config.path = newDir
 
-    await safeStoreSet('ipfsConfig', config, async () => {
+    await store.safeSet('ipfsConfig', config, async () => {
       logger.info('[move repository] configuration updated', { withAnalytics: analyticsKeys.MOVE_REPOSITORY })
 
       showDialog({

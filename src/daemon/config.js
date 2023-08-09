@@ -7,7 +7,6 @@ const { shell } = require('electron')
 const store = require('../common/store')
 const logger = require('../common/logger')
 const dialogs = require('./dialogs')
-const safeStoreSet = require('../utils/safe-store-set')
 
 /**
  * Get repository configuration file path.
@@ -235,13 +234,13 @@ function migrateConfig (ipfsd) {
   if (changed) {
     try {
       writeConfigFile(ipfsd, config)
-      safeStoreSet(REVISION_KEY, REVISION)
+      store.safeSet(REVISION_KEY, REVISION)
     } catch (err) {
       logger.error(`[daemon] migrateConfig: error writing config file: ${err.message || err}`)
       return
     }
   }
-  safeStoreSet(REVISION_KEY, REVISION)
+  store.safeSet(REVISION_KEY, REVISION)
 }
 
 /**

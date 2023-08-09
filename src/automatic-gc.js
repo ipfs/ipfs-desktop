@@ -4,7 +4,6 @@ const store = require('./common/store')
 const { AUTO_GARBAGE_COLLECTOR: CONFIG_KEY } = require('./common/config-keys')
 const { ipcMain } = require('electron')
 const ipcMainEvents = require('./common/ipc-main-events')
-const safeStoreSet = require('./utils/safe-store-set')
 
 const gcFlag = '--enable-gc'
 const isEnabled = flags => flags.some(f => f === gcFlag)
@@ -30,7 +29,7 @@ function disable () {
  * @param {string[]} newFlags
  */
 function applyConfig (newFlags) {
-  safeStoreSet('ipfsConfig.flags', newFlags, () => {
+  store.safeSet('ipfsConfig.flags', newFlags, () => {
     ipcMain.emit(ipcMainEvents.IPFS_CONFIG_CHANGED) // trigger node restart
   })
 }
