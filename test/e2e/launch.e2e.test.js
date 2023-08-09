@@ -27,6 +27,12 @@ test.describe.serial('Application launch', async () => {
     }
   })
 
+  /**
+   *
+   * @param {Object} [param0]
+   * @param {string} param0.repoPath
+   * @returns {Promise<{ app: Awaited<ReturnType<import('playwright')._electron['launch']>>, repoPath: string, home: string }>
+   */
   async function startApp ({ repoPath } = {}) {
     const home = tmp.dirSync({ prefix: 'tmp_home_', unsafeCleanup: true }).name
     if (!repoPath) {
@@ -43,6 +49,11 @@ test.describe.serial('Application launch', async () => {
     return { app, repoPath, home }
   }
 
+  /**
+   *
+   * @param {Awaited<ReturnType<import('playwright')._electron['launch']>>} app
+   * @returns {Promise<{ peerId: string }>
+   */
   async function daemonReady (app) {
     const peerId = await app.evaluate(async ({ ipcMain }) => new Promise((resolve, reject) => {
       ipcMain.on('ipfsd', (status, peerId) => {

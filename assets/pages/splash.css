@@ -1,0 +1,67 @@
+body {
+  border-radius: 5vh;
+}
+
+.loader {
+  background-image: url('../../assets/icons/tray/others/on-large.png');
+  width: 200px;
+  height: 200px;
+  -webkit-animation: heartbeat 1.5s ease-in-out 0s infinite normal both;
+  animation: heartbeat 1.5s ease-in-out 0s infinite normal both;
+  -webkit-transform-origin: center center;
+  transform-origin: center center;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0px;
+  bottom: 0;
+  position: fixed;
+  background-size: cover;
+  filter: drop-shadow(0 0 0 #378085);
+}
+
+@keyframes heartbeat {
+  0% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+    transform-origin: center center;
+    filter: drop-shadow(0 0 0 #378085);
+  }
+
+  45% {
+    animation-timing-function: ease-in;
+    transform: scale(1);
+    filter: drop-shadow(0 0 0rem #378085);
+  }
+
+  50% {
+    animation-timing-function: ease-in;
+    transform: scale(1);
+    filter: drop-shadow(0 0 0.5rem #378085);
+  }
+
+  55% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+    /* Size should be increased on drop-shadow so when scaling down, drop-shadow compensates for size reduction, and we don't get any visual artifacts */
+    filter: drop-shadow(0 0 1rem #378085);
+  }
+
+  67% {
+    animation-timing-function: ease-in;
+    transform: scale(1.13);
+    filter: drop-shadow(0 0 0.75rem #378085);
+  }
+
+  83% {
+    animation-timing-function: ease-out;
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 0.50rem #378085);
+  }
+
+  90% {
+    animation-timing-function: ease-in;
+    transform: scale(1.09);
+    filter: drop-shadow(0 0 0.75rem #378085);
+  }
+}
