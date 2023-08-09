@@ -96,11 +96,11 @@ class StoreWrapper extends Store {
           try {
             return await onSuccessFn()
           } catch (err) {
-            logger.error(`[safe-store-set] Error calling onSuccessFn for '${key}'`, /** @type {Error} */(err))
+            logger.error(`[store.safeSet] Error calling onSuccessFn for '${key}'`, /** @type {Error} */(err))
           }
         }
       } catch (err) {
-        logger.error(`[safe-store-set] Could not set store key '${key}' to '${value}'`, /** @type {Error} */(err))
+        logger.error(`[store.safeSet] Could not set store key '${key}' to '${value}'`, /** @type {Error} */(err))
       }
     }
   }
