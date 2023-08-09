@@ -5,7 +5,7 @@ const proxyquire = require('proxyquire').noCallThru()
 
 module.exports = function mockStore () {
   function MockElectronStoreConstructor ({ ...options }) {
-    return new Store({ ...options, migrations: undefined })
+    return new Store({ ...options, migrations: {} })
   }
   // use the real store object, but mock the logger and electron
   return proxyquire('../../../src/common/store', {
