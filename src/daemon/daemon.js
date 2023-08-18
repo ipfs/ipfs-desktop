@@ -14,7 +14,7 @@ const { app } = require('electron')
 function getIpfsBinPath () {
   return process.env.IPFS_GO_EXEC ||
     getCustomBinary() ||
-    require('go-ipfs')
+    require('kubo')
       .path()
       .replace('app.asar', 'app.asar.unpacked')
 }

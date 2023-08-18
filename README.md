@@ -60,7 +60,7 @@ When in doubt, pick one of package formats with built-in automatic update mechan
 
 ## Features
 
-IPFS Desktop combines a complete IPFS node (running [go-ipfs](https://github.com/ipfs/go-ipfs)) and the [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) into a single, convenient desktop app — plus adds a menu to your OS menubar/system tray for easy access to a variety of common IPFS tasks.
+IPFS Desktop combines a complete IPFS node (running [kubo](https://github.com/ipfs/kubo)) and the [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) into a single, convenient desktop app — plus adds a menu to your OS menubar/system tray for easy access to a variety of common IPFS tasks.
 
 If you already have an IPFS node on your computer, IPFS Desktop will act as a control panel and file browser for that node. If you don't have a node, it'll install one for you. And either way, IPFS Desktop will automatically check for updates.
 
@@ -231,7 +231,7 @@ To open your repo directory from the IPFS logo menu, select `Open Repository Dir
 
 ### Which version of IPFS does IPFS Desktop use?
 
-IPFS Desktop includes its own embedded binary of Kubo (`go-ipfs` version defined in `package.json`); this is the latest version of [Kubo](https://github.com/ipfs/kubo) that has passed QA for IPFS Desktop use.
+IPFS Desktop includes its own embedded binary of Kubo (`kubo` version defined in `package.json`); this is the latest version of [Kubo](https://github.com/ipfs/kubo) that has passed QA for IPFS Desktop use.
 
 You can check which version of IPFS you're running from the IPFS logo menu by looking in the `About` submenu.
 
