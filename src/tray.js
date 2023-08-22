@@ -44,7 +44,7 @@ async function buildMenu () {
   const launchWebUI = ctx.getFn('launchWebUI')
   const manualCheckForUpdates = ctx.getFn('manualCheckForUpdates')
 
-  // @ts-ignore
+  // @ts-expect-error
   return Menu.buildFromTemplate([
     // @ts-ignore
     ...[
