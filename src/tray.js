@@ -32,6 +32,10 @@ function buildCheckbox (key, label) {
 // they natively work as soon as the menu opens. They don't work like that on Windows
 // or other OSes and must be registered globally. They still collide with global
 // accelerator. Please see ../utils/setup-global-shortcut.js for more info.
+/**
+ *
+ * @returns {Promise<Omit<Electron.Menu, 'getMenuItemById'> & {getMenuItemById: (id: string) => Electron.MenuItem}>}
+ */
 async function buildMenu () {
   const ctx = getCtx()
   const restartIpfs = ctx.getFn('restartIpfs')
@@ -40,6 +44,7 @@ async function buildMenu () {
   const launchWebUI = ctx.getFn('launchWebUI')
   const manualCheckForUpdates = ctx.getFn('manualCheckForUpdates')
 
+  // @ts-expect-error
   return Menu.buildFromTemplate([
     // @ts-ignore
     ...[
@@ -259,7 +264,6 @@ const setupMenu = async () => {
   const ctx = getCtx()
   const updateMenu = ctx.getFn('tray.update-menu')
   const menu = await buildMenu()
-  ctx.setProp('tray-menu', menu)
 
   tray.setContextMenu(menu)
   tray.setToolTip('IPFS Desktop')
@@ -309,7 +313,7 @@ module.exports = async function () {
     const ctx = getCtx()
     const { status, gcRunning, isUpdating } = await ctx.getProp('tray-menu-state')
     const errored = status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
-    const menu = await ctx.getProp('tray-menu')
+    const menu = await buildMenu()
 
     menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED && !gcRunning && !isUpdating
     menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED && !gcRunning && !isUpdating
@@ -396,7 +400,7 @@ module.exports = async function () {
   })
 
   ipcMain.on(ipcMainEvents.CONFIG_UPDATED, () => { updateMenu() })
-  ipcMain.on(ipcMainEvents.LANG_UPDATED, async () => { await setupMenu() })
+  ipcMain.on(ipcMainEvents.LANG_UPDATED, () => { updateMenu() })
 
   nativeTheme.on('updated', () => {
     updateMenu()

@@ -35,6 +35,5 @@ module.exports = async function () {
     store.safeSet('language', lang)
 
     await i18n.changeLanguage(lang)
-    ipcMain.emit(ipcMainEvents.LANG_UPDATED, lang)
   })
 }
