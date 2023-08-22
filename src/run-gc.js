@@ -4,10 +4,13 @@ const logger = require('./common/logger')
 const { showDialog, recoverableErrorDialog } = require('./dialogs')
 const dock = require('./utils/dock')
 const ipcMainEvents = require('./common/ipc-main-events')
+const getCtx = require('./context')
 
 module.exports = function runGarbageCollector ({ getIpfsd }) {
   dock.run(async () => {
     logger.info('[run gc] alerting user for effects')
+    const ctx = getCtx()
+    const getIpfsd = ctx.getFn('getIpfsd')
 
     const opt = showDialog({
       title: i18n.t('runGarbageCollectorWarning.title'),

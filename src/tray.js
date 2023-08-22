@@ -160,7 +160,7 @@ async function buildMenu () {
           id: 'runGarbageCollector',
           label: i18n.t('runGarbageCollector'),
           // @ts-ignore
-          click: () => { runGarbageCollector(ctx) },
+          click: () => { runGarbageCollector() },
           enabled: false
         },
         { type: 'separator' },
@@ -168,7 +168,7 @@ async function buildMenu () {
           id: 'moveRepositoryLocation',
           label: i18n.t('moveRepositoryLocation'),
           // @ts-ignore
-          click: () => { moveRepositoryLocation(ctx) }
+          click: () => { moveRepositoryLocation() }
         },
         {
           id: 'setCustomBinary',

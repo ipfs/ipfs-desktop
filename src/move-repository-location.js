@@ -6,10 +6,14 @@ const logger = require('./common/logger')
 const { showDialog, recoverableErrorDialog, selectDirectory } = require('./dialogs')
 const dock = require('./utils/dock')
 const { analyticsKeys } = require('./analytics/keys')
+const getCtx = require('./context')
 
-module.exports = function ({ stopIpfs, startIpfs }) {
+module.exports = function () {
   dock.run(async () => {
     logger.info('[move repository] user prompted about effects')
+    const ctx = getCtx()
+    const stopIpfs = ctx.getFn('stopIpfs')
+    const startIpfs = ctx.getFn('startIpfs')
 
     const opt = showDialog({
       title: i18n.t('moveRepositoryWarnDialog.title'),
