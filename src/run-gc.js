@@ -6,7 +6,7 @@ const dock = require('./utils/dock')
 const ipcMainEvents = require('./common/ipc-main-events')
 const getCtx = require('./context')
 
-module.exports = function runGarbageCollector ({ getIpfsd }) {
+module.exports = function runGarbageCollector () {
   dock.run(async () => {
     logger.info('[run gc] alerting user for effects')
     const ctx = getCtx()
@@ -28,7 +28,7 @@ module.exports = function runGarbageCollector ({ getIpfsd }) {
       return
     }
 
-    const ipfsd = await getIpfsd()
+    const ipfsd = /** @type {(optional?: boolean) => Promise<any>} */(await getIpfsd())
 
     if (!ipfsd) {
       return
