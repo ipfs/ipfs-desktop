@@ -396,7 +396,7 @@ module.exports = async function () {
   })
 
   ipcMain.on(ipcMainEvents.CONFIG_UPDATED, () => { updateMenu() })
-  ipcMain.on(ipcMainEvents.LANG_UPDATED, async () => { await setupMenu() })
+  ipcMain.on(ipcMainEvents.LANG_UPDATED, () => { updateMenu() })
 
   nativeTheme.on('updated', () => {
     updateMenu()
