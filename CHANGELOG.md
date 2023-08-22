@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.30.1] - 2023-08-22
+
+## What's Changed
+* chore(deps): bump protobufjs from 6.11.3 to 6.11.4 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2583
+* refactor: switch npm to kubo by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2590
+* fix(tray): :adhesive_bandage: Fixes the context loaded async in the tray. by @whizzzkid in https://github.com/ipfs/ipfs-desktop/pull/2593
+* chore(deps-dev): bump semver from 5.7.1 to 5.7.2 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2557
+* chore(deps-dev): bump word-wrap from 1.2.3 to 1.2.4 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2556
+* fix(tray): :wrench: Fix setter for tray-menu by @whizzzkid in https://github.com/ipfs/ipfs-desktop/pull/2594
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.30.0...v0.30.1
+
 ## [v0.30.0] - 2023-08-09
 
 ## What's Changed
