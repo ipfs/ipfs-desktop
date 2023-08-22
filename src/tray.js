@@ -159,14 +159,16 @@ async function buildMenu () {
         {
           id: 'runGarbageCollector',
           label: i18n.t('runGarbageCollector'),
-          click: () => { runGarbageCollector() },
+          // @ts-ignore
+          click: () => { runGarbageCollector(ctx) },
           enabled: false
         },
         { type: 'separator' },
         {
           id: 'moveRepositoryLocation',
           label: i18n.t('moveRepositoryLocation'),
-          click: () => { moveRepositoryLocation() }
+          // @ts-ignore
+          click: () => { moveRepositoryLocation(ctx) }
         },
         {
           id: 'setCustomBinary',
