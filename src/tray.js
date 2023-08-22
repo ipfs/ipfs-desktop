@@ -159,7 +159,6 @@ async function buildMenu () {
         {
           id: 'runGarbageCollector',
           label: i18n.t('runGarbageCollector'),
-          // @ts-ignore
           click: () => { runGarbageCollector() },
           enabled: false
         },
@@ -167,7 +166,6 @@ async function buildMenu () {
         {
           id: 'moveRepositoryLocation',
           label: i18n.t('moveRepositoryLocation'),
-          // @ts-ignore
           click: () => { moveRepositoryLocation() }
         },
         {
