@@ -9,7 +9,7 @@ const runGarbageCollector = require('./run-gc')
 const ipcMainEvents = require('./common/ipc-main-events')
 const { setCustomBinary, clearCustomBinary, hasCustomBinary } = require('./custom-ipfs-binary')
 const { STATUS } = require('./daemon')
-const { IS_MAC, IS_WIN, VERSION, GO_IPFS_VERSION } = require('./common/consts')
+const { IS_MAC, IS_WIN, VERSION, KUBO_VERSION } = require('./common/consts')
 
 const CONFIG_KEYS = require('./common/config-keys')
 
@@ -197,8 +197,8 @@ async function buildMenu () {
         {
           label: hasCustomBinary()
             ? i18n.t('customIpfsBinary')
-            : `kubo ${GO_IPFS_VERSION}`,
-          click: () => { shell.openExternal(`https://github.com/ipfs/kubo/releases/v${GO_IPFS_VERSION.replace(/^\^/, '')}`) }
+            : `kubo ${KUBO_VERSION}`,
+          click: () => { shell.openExternal(`https://github.com/ipfs/kubo/releases/v${KUBO_VERSION.replace(/^\^/, '')}`) }
         },
         { type: 'separator' },
         {

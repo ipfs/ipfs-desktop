@@ -8,7 +8,7 @@ const { join } = require('path')
 const factory = Ctl.createFactory({
   type: 'go',
   ipfsHttpModule: require('ipfs-http-client'),
-  ipfsBin: require('go-ipfs').path(),
+  ipfsBin: require('kubo').path(),
   remote: false,
   disposable: true,
   test: true // run on random ports

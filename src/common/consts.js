@@ -7,7 +7,7 @@ module.exports = Object.freeze({
   IS_APPIMAGE: typeof process.env.APPIMAGE !== 'undefined',
   VERSION: packageJson.version,
   ELECTRON_VERSION: process.versions.electron,
-  GO_IPFS_VERSION: packageJson.dependencies['go-ipfs'],
+  KUBO_VERSION: packageJson.dependencies.kubo,
   COUNTLY_KEY: process.env.NODE_ENV === 'development'
     ? '6b00e04fa5370b1ce361d2f24a09c74254eee382'
     : '47fbb3db3426d2ae32b3b65fe40c564063d8b55d'
