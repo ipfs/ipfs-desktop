@@ -43,6 +43,11 @@ async function buildMenu () {
   const stopIpfs = ctx.getFn('stopIpfs')
   const launchWebUI = ctx.getFn('launchWebUI')
   const manualCheckForUpdates = ctx.getFn('manualCheckForUpdates')
+  /**
+   * we need to wait for i18n to be ready before we translate the tray menu
+   * @type {boolean}
+   */
+  await ctx.getProp('i18n_init_done')
 
   // @ts-expect-error
   return Menu.buildFromTemplate([

@@ -6,8 +6,10 @@ const Backend = require('i18next-fs-backend')
 const store = require('./common/store')
 const ipcMainEvents = require('./common/ipc-main-events')
 const logger = require('./common/logger')
+const getCtx = require('./context')
 
 module.exports = async function () {
+  const ctx = getCtx()
   logger.info('[i18n] init...')
   await i18n
     // @ts-expect-error
@@ -26,6 +28,7 @@ module.exports = async function () {
       }
     })
   logger.info('[i18n] init done')
+  ctx.setProp('i18n_init_done', true)
 
   ipcMain.on(ipcMainEvents.LANG_UPDATED, async (_, lang) => {
     if (lang === store.get('language')) {
