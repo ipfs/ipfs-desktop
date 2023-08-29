@@ -28,7 +28,7 @@ module.exports = async function () {
       }
     })
   logger.info('[i18n] init done')
-  ctx.setProp('i18n_init_done', true)
+  ctx.setProp('i18n.initDone', true)
 
   ipcMain.on(ipcMainEvents.LANG_UPDATED, async (_, lang) => {
     if (lang === store.get('language')) {

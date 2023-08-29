@@ -47,7 +47,7 @@ async function buildMenu () {
    * we need to wait for i18n to be ready before we translate the tray menu
    * @type {boolean}
    */
-  await ctx.getProp('i18n_init_done')
+  await ctx.getProp('i18n.initDone')
 
   // @ts-expect-error
   return Menu.buildFromTemplate([
