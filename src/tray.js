@@ -9,7 +9,7 @@ const runGarbageCollector = require('./run-gc')
 const ipcMainEvents = require('./common/ipc-main-events')
 const { setCustomBinary, clearCustomBinary, hasCustomBinary } = require('./custom-ipfs-binary')
 const { STATUS } = require('./daemon')
-const { IS_MAC, IS_WIN, VERSION, KUBO_VERSION } = require('./common/consts')
+const { IS_MAC, VERSION, KUBO_VERSION } = require('./common/consts')
 
 const CONFIG_KEYS = require('./common/config-keys')
 
@@ -33,7 +33,7 @@ function buildCheckbox (key, label) {
 // or other OSes and must be registered globally. They still collide with global
 // accelerator. Please see ../utils/setup-global-shortcut.js for more info.
 /**
- *
+ * Note: This method needs to be called any time the menu item labels need updated. i.e. when the language changes.
  * @returns {Promise<Omit<Electron.Menu, 'getMenuItemById'> & {getMenuItemById: (id: string) => Electron.MenuItem}>}
  */
 async function buildMenu () {
@@ -265,32 +265,20 @@ function icon (status) {
 // https://www.electronjs.org/docs/faq#my-apps-tray-disappeared-after-a-few-minutes
 let tray = null
 
-const setupMenu = async () => {
-  const ctx = getCtx()
-  const updateMenu = ctx.getFn('tray.update-menu')
-  const menu = await buildMenu()
-
-  tray.setContextMenu(menu)
-  tray.setToolTip('IPFS Desktop')
-
-  menu.on('menu-will-show', () => { ipcMain.emit(ipcMainEvents.MENUBAR_OPEN) })
-  menu.on('menu-will-close', () => { ipcMain.emit(ipcMainEvents.MENUBAR_CLOSE) })
-
-  updateMenu()
-}
-
 module.exports = async function () {
   const ctx = getCtx()
   logger.info('[tray] starting')
   tray = new Tray(icon(off))
+  tray.setToolTip('IPFS Desktop')
+
   const launchWebUI = ctx.getFn('launchWebUI')
 
+  // this state needs to be mutable so menu can update visible/hidden and enabled/disabled menu items
   const state = {
     status: null,
     gcRunning: false,
     isUpdating: false
   }
-  ctx.setProp('tray-menu-state', state)
 
   // macOS tray drop files
   tray.on('drop-files', async (_, files) => {
@@ -315,10 +303,12 @@ module.exports = async function () {
   tray.on('double-click', async () => launchWebUI('/'))
 
   ctx.setProp('tray.update-menu', async () => {
-    const ctx = getCtx()
-    const { status, gcRunning, isUpdating } = await ctx.getProp('tray-menu-state')
+    logger.fileLogger.debug('[tray.update-menu] updating tray menu')
+    const { status, gcRunning, isUpdating } = state
     const errored = status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
-    const menu = await buildMenu()
+    const menu = await buildMenu() // new menu instance every time
+    menu.on('menu-will-show', () => { ipcMain.emit(ipcMainEvents.MENUBAR_OPEN) })
+    menu.on('menu-will-close', () => { ipcMain.emit(ipcMainEvents.MENUBAR_CLOSE) })
 
     menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED && !gcRunning && !isUpdating
     menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED && !gcRunning && !isUpdating
@@ -370,11 +360,7 @@ module.exports = async function () {
       }
     }
 
-    if (!IS_MAC && !IS_WIN) {
-      // On Linux, in order for changes made to individual MenuItems to take effect,
-      // you have to call setContextMenu again - https://electronjs.org/docs/api/tray
-      tray.setContextMenu(menu)
-    }
+    tray.setContextMenu(menu) // this is needed on macOS too, otherwise the menu won't update
   })
   const updateMenu = ctx.getFn('tray.update-menu')
 
@@ -405,13 +391,13 @@ module.exports = async function () {
   })
 
   ipcMain.on(ipcMainEvents.CONFIG_UPDATED, () => { updateMenu() })
-  ipcMain.on(ipcMainEvents.LANG_UPDATED, () => { updateMenu() })
+  ipcMain.on(ipcMainEvents.LANG_UPDATED_SUCCEEDED, () => { updateMenu() })
 
   nativeTheme.on('updated', () => {
     updateMenu()
   })
 
-  await setupMenu()
+  await updateMenu()
 
   createToggler(CONFIG_KEYS.MONOCHROME_TRAY_ICON, async ({ newValue }) => {
     return store.safeSet(CONFIG_KEYS.MONOCHROME_TRAY_ICON, newValue, () => true)
