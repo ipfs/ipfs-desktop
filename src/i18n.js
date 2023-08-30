@@ -29,8 +29,7 @@ module.exports = async function () {
     },
     (err, t) => {
       if (err) {
-        logger.error('[i18n] init failed')
-        logger.error(err)
+        logger.error('[i18n] init failed', err)
         return
       }
       logger.info('[i18n] init done')
