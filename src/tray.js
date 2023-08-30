@@ -33,7 +33,7 @@ function buildCheckbox (key, label) {
 // or other OSes and must be registered globally. They still collide with global
 // accelerator. Please see ../utils/setup-global-shortcut.js for more info.
 /**
- *
+ * Note: This method should only be called once.
  * @returns {Promise<Omit<Electron.Menu, 'getMenuItemById'> & {getMenuItemById: (id: string) => Electron.MenuItem}>}
  */
 async function buildMenu () {
@@ -265,10 +265,15 @@ function icon (status) {
 // https://www.electronjs.org/docs/faq#my-apps-tray-disappeared-after-a-few-minutes
 let tray = null
 
+/**
+ * Note: This method should only be called once.
+ * When you need to update the menu, call `await ctx.getFn('tray.update-menu')()`
+ */
 const setupMenu = async () => {
   const ctx = getCtx()
   const updateMenu = ctx.getFn('tray.update-menu')
   const menu = await buildMenu()
+  ctx.setProp('tray-menu', menu)
 
   tray.setContextMenu(menu)
   tray.setToolTip('IPFS Desktop')
@@ -315,10 +320,11 @@ module.exports = async function () {
   tray.on('double-click', async () => launchWebUI('/'))
 
   ctx.setProp('tray.update-menu', async () => {
+    logger.fileLogger.debug('[tray.update-menu] updating tray menu')
     const ctx = getCtx()
     const { status, gcRunning, isUpdating } = await ctx.getProp('tray-menu-state')
     const errored = status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
-    const menu = await buildMenu()
+    const menu = await ctx.getProp('tray-menu')
 
     menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED && !gcRunning && !isUpdating
     menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED && !gcRunning && !isUpdating
