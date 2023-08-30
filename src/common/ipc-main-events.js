@@ -5,6 +5,7 @@ const ipcMainEvents = Object.freeze({
   IPFSD: 'ipfsd',
   IPFS_CONFIG_CHANGED: 'ipfsConfigChanged',
   LANG_UPDATED: 'languageUpdated',
+  LANG_UPDATED_SUCCEEDED: 'languageUpdatedSucceeded',
   MENUBAR_CLOSE: 'menubar-will-close',
   MENUBAR_OPEN: 'menubar-will-open',
   UPDATING: 'updating',
