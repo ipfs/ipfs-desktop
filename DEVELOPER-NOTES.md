@@ -51,3 +51,13 @@ These steps are only needed as a fallback if CI is not correctly notarizing the 
 2. Ensure `APPLEID` and `APPLEIDPASS` are set either as environment variables or entries in `.env` file. These need to belong to the same org as the certificate used for signing.
 3. Run `node pkgs/macos/notarize-cli.js ./IPFS-Desktop-A.B.C.dmg`.
 4. Debug errors by calling the tool directly: `xcrun altool --notarize-app -f /path/to/IPFS-Desktop-0.X.0.dmg --primary-bundle-id io.ipfs.desktop -u XXX-from-vault-XXX -p XXX-app-specific-password-from-vault-XXX`; also, see the [long list of hoops Apple may ask you to jump through](https://github.com/ipfs-shipyard/ipfs-desktop/pull/1365#issuecomment-598127684).
+
+### Notarization failures
+
+You may get an error when notarizing the .dmg for macOS, something like
+
+> Error: You do not have required contracts to perform an operation. With error code FORBIDDEN_ERROR.CONTRACT_NOT_VALID for id ca5a6ab7-758b-44a7-973e-b59147a573b8 You do not have required contracts to perform an operation (-19208)
+
+Apple requires this every few months: new paperwork, but only Admin can click the Approve button on https://appstoreconnect.apple.com/agreements/#/
+
+Contact the PL Apple Developer account Admin (account holder viewed at https://appstoreconnect.apple.com/access/users) in order to approve new contracts/agreements.
