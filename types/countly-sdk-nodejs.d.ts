@@ -146,7 +146,7 @@ declare module 'countly-sdk-nodejs' {
        * @description
        * This can set the maximum number of characters that is allowed per stack trace line. This also limits the crash message length.
        *
-       * @defualt 200 chars. Lines that exceed this limit will be truncated.
+       * @default 200 chars. Lines that exceed this limit will be truncated.
        */
       max_stack_trace_line_length?: number,
     ) => void
