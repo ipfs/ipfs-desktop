@@ -14,11 +14,11 @@ Manually test a few things that don't transfer well to automated testing:
 1. **Mac & Windows (both must to be checked):** Confirm that drag-and-drop file import works:
    - Open _Files_ screen
    - Drag file(s) into it (PDF, images, or videos)
-   - Confirm file(s) import was succesful by clicking on newly imported file to preview
+   - Confirm file(s) import was successful by clicking on newly imported file to preview
 2. **Mac & Windows (one check is sufficient):** Confirm that import via _Import_ button works:
    - Open _Files_ screen
    - Click on _Import_ button and select files(s) (directory, or standalone PDF, images, or videos)
-   - Confirm file(s) import was succesful by clicking on newly imported file to preview
+   - Confirm file(s) import was successful by clicking on newly imported file to preview
 3. **Mac only:** Drag/drop onto menubar icon behaves as expected when dragging one file, several files, and a combination of files/folders:
    - File(s) import correctly
    - Correct link is copied to clipboard

@@ -128,7 +128,7 @@ function setup () {
     }
     if (feedback) {
       feedback = false
-      // when in instant feedback mode, show dialog immediatelly
+      // when in instant feedback mode, show dialog immediately
       feedbackDialog()
     } else {
       // show unobtrusive notification + dialog on click
