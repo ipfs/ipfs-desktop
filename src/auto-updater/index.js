@@ -25,7 +25,7 @@ function setup () {
   autoUpdater.logger = logger
 
   autoUpdater.on('error', err => {
-    logger.error(`[updater] ${err.toString()}`)
+    logger.error('[updater] on.error:', err)
 
     if (!feedback) {
       return
@@ -48,7 +48,7 @@ function setup () {
     try {
       await autoUpdater.downloadUpdate()
     } catch (err) {
-      logger.error(`[updater] ${err.toString()}`)
+      logger.error('[updater] downloadUpdate error:', err)
     }
 
     if (!feedback) {
@@ -163,8 +163,8 @@ async function checkForUpdates () {
   ipcMain.emit(ipcMainEvents.UPDATING)
   try {
     await autoUpdater.checkForUpdates()
-  } catch (_) {
-    // Ignore. The errors are already handled on 'error' event.
+  } catch (err) {
+    logger.error('[checkForUpdates] error: ', err)
   }
   ipcMain.emit(ipcMainEvents.UPDATING_ENDED)
 }
