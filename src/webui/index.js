@@ -217,11 +217,11 @@ module.exports = async function () {
     }
 
     await launchWebUI('/')
+    await ctx.getProp('tray') // wait for tray promise to be done.
     try {
       splashScreen.destroy()
     } catch (err) {
-      logger.error('[web ui] failed to hide splash screen')
-      logger.error(err)
+      logger.error('[web ui] failed to hide splash screen', err)
     }
   }
 

@@ -43,11 +43,6 @@ async function buildMenu () {
   const stopIpfs = ctx.getFn('stopIpfs')
   const launchWebUI = ctx.getFn('launchWebUI')
   const manualCheckForUpdates = ctx.getFn('manualCheckForUpdates')
-  /**
-   * we need to wait for i18n to be ready before we translate the tray menu
-   * @type {boolean}
-   */
-  await ctx.getProp('i18n.initDone')
 
   // @ts-expect-error
   return Menu.buildFromTemplate([
@@ -270,6 +265,24 @@ module.exports = async function () {
   logger.info('[tray] starting')
   tray = new Tray(icon(off))
   tray.setToolTip('IPFS Desktop')
+  /**
+   * we need to wait for i18n to be ready before we translate the tray menu
+   * @type {boolean}
+   */
+  await ctx.getProp('i18n.initDone')
+  // used to address issues with https://github.com/ipfs/ipfs-desktop/issues/2627
+  // will be set to undefined
+  /**
+   * @type {Electron.Menu  Omit<Electron.Menu, 'getMenuItemById'> & {getMenuItemById: (id: string) => Electron.MenuItem}}
+   */
+  let menu = Menu.buildFromTemplate([
+    {
+      id: 'temporaryTrayWhileLoading',
+      label: i18n.t('sysTrayIsLoading'),
+      visible: true
+    }
+  ])
+  tray.setContextMenu(menu)
 
   const launchWebUI = ctx.getFn('launchWebUI')
 
@@ -291,7 +304,7 @@ module.exports = async function () {
     // https://github.com/ipfs-shipyard/ipfs-desktop/issues/1762 ¯\_(ツ)_/¯
     if (event && typeof event.preventDefault === 'function') event.preventDefault()
 
-    tray.popUpContextMenu()
+    tray.popUpContextMenu(menu)
   }
 
   if (!IS_MAC) {
@@ -306,42 +319,71 @@ module.exports = async function () {
     logger.fileLogger.debug('[tray.update-menu] updating tray menu')
     const { status, gcRunning, isUpdating } = state
     const errored = status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
-    const menu = await buildMenu() // new menu instance every time
+    /**
+     * @type {Omit<Electron.Menu, 'getMenuItemById'> & {getMenuItemById: (id: string) => Electron.MenuItem}}
+     */
+    menu = await buildMenu() // new menu instance every time
     menu.on('menu-will-show', () => { ipcMain.emit(ipcMainEvents.MENUBAR_OPEN) })
     menu.on('menu-will-close', () => { ipcMain.emit(ipcMainEvents.MENUBAR_CLOSE) })
 
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED && !gcRunning && !isUpdating
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED && !gcRunning && !isUpdating
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('ipfsIsStopping').visible = status === STATUS.STOPPING_STARTED && !gcRunning && !isUpdating
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED && !gcRunning && !isUpdating
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('ipfsHasErrored').visible = errored && !gcRunning && !isUpdating
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('runningWithGC').visible = gcRunning
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('runningWhileCheckingForUpdate').visible = isUpdating
 
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('startIpfs').visible = status === STATUS.STOPPING_FINISHED
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('stopIpfs').visible = status === STATUS.STARTING_FINISHED
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('restartIpfs').visible = (status === STATUS.STARTING_FINISHED || errored)
 
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('webuiStatus').enabled = status === STATUS.STARTING_FINISHED
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('webuiFiles').enabled = status === STATUS.STARTING_FINISHED
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('webuiPeers').enabled = status === STATUS.STARTING_FINISHED
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('webuiNodeSettings').enabled = status === STATUS.STARTING_FINISHED
 
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('startIpfs').enabled = !gcRunning
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('stopIpfs').enabled = !gcRunning
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('restartIpfs').enabled = !gcRunning
 
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById(CONFIG_KEYS.AUTO_LAUNCH).enabled = supportsLaunchAtLogin()
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('takeScreenshot').enabled = status === STATUS.STARTING_FINISHED
 
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('moveRepositoryLocation').enabled = !gcRunning && status !== STATUS.STOPPING_STARTED
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('runGarbageCollector').enabled = menu.getMenuItemById('ipfsIsRunning').visible && !gcRunning
 
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('setCustomBinary').visible = !hasCustomBinary()
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('clearCustomBinary').visible = hasCustomBinary()
 
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('checkForUpdates').enabled = !isUpdating
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('checkForUpdates').visible = !isUpdating
+    // @ts-expect-error - need to fix potential null
     menu.getMenuItemById('checkingForUpdates').visible = isUpdating
 
     if (status === STATUS.STARTING_FINISHED) {
@@ -360,7 +402,7 @@ module.exports = async function () {
       }
     }
 
-    tray.setContextMenu(menu) // this is needed on macOS too, otherwise the menu won't update
+    // tray.setContextMenu(menu) // this is needed on macOS too, otherwise the menu won't update
   })
   const updateMenu = ctx.getFn('tray.update-menu')
 
@@ -396,8 +438,6 @@ module.exports = async function () {
   nativeTheme.on('updated', () => {
     updateMenu()
   })
-
-  await updateMenu()
 
   createToggler(CONFIG_KEYS.MONOCHROME_TRAY_ICON, async ({ newValue }) => {
     return store.safeSet(CONFIG_KEYS.MONOCHROME_TRAY_ICON, newValue, () => true)

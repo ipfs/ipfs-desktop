@@ -47,6 +47,7 @@
   "setCustomIpfsBinary": "Set Custom IPFS Binary",
   "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
   "openCliDocumentation": "Open CLI Documentation",
+  "sysTrayIsLoading": "Please wait a few moments for IPFS-Desktop to load",
   "polkitDialog": {
     "title": "Polkit not found",
     "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
