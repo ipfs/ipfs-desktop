@@ -225,7 +225,7 @@ You can open these files from the IPFS logo menu by selecting `Open Logs Directo
 
 ### How does IPFS Desktop select the IPFS repo location?
 
-IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, by default, checks the `IPFS_PATH` environment variable. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeded, repository location info is saved in the configuration file, which becomes the source of truth.
+IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, by default, checks the `IPFS_PATH` environment variable. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeeded, repository location info is saved in the configuration file, which becomes the source of truth.
 
 To open your repo directory from the IPFS logo menu, select `Open Repository Directory` from the `Advanced` submenu.
 
