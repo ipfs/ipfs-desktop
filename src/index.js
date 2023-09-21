@@ -66,15 +66,15 @@ async function run () {
 
   try {
     await Promise.all([
-      createSplashScreen(),
       setupDaemon(), // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
-      setupAnalytics(), // ctx.countlyDeviceId
       setupI18n(),
+      createSplashScreen(),
+      setupTray(), // ctx.tray
+      setupAnalytics(), // ctx.countlyDeviceId
       setupAppMenu(),
 
       setupWebUI(), // ctx.webui, launchWebUI
       setupAutoUpdater(), // ctx.manualCheckForUpdates
-      setupTray(), // ctx.tray
       setupArgvFilesHandler(),
       setupAutoLaunch(),
       setupAutoGc(),
