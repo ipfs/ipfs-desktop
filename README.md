@@ -156,6 +156,17 @@ npm run build
 npm start
 ```
 
+> **Build Note:** `npm ci` will download the webui code to run in electron from the ipfs network using the bitswap protocol.  For details, see the [build process](`.github/workflows/ci.yml`) and the [webui code](https://github.com/ipfs/ipfs-webui).
+
+ipfs-desktop in itself is a simple container that makes sure kubo and webui can work together in a standalone fashion and has access to other os-specfic features like tray and contextual integrations.
+There are multiple ways to access webui:
+ 
+- https://webui.ipfs.io/#/welcome
+- http://127.0.0.1:5001/webui (shipped with kubo)
+- ipfs-desktop itself
+
+All of these instances of webui are the same but shipped slightly differently. The file you're seeing being downloaded is the latest release of webui, i.e. v4.1.1 has content identifiers (CID) `bafybeiamycmd52xvg6k3nzr6z3n33de6a2teyhquhj4kspdtnvetnkrfim` which can be verified on the [webui release page](https://github.com/ipfs/ipfs-webui/releases).
+
 ## Contribute
 
 We welcome all contributions to IPFS Desktop! The best way to get started is to check the current [open issues](https://github.com/ipfs-shipyard/ipfs-desktop/issues) (or drill down specifically for [issues labeled "help wanted"](https://github.com/ipfs-shipyard/ipfs-desktop/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)) and find something interesting. All issues are categorized by the [standard label taxonomy](https://github.com/ipfs/community/blob/master/ISSUE_LABELS.md) used across the IPFS project, so you can also drill by topic (for example, [UX-related issues](https://github.com/ipfs-shipyard/ipfs-desktop/issues?q=is%3Aissue+is%3Aopen+label%3Atopic%2Fdesign-ux)).
