@@ -165,7 +165,7 @@ There are multiple ways to access IPFS Webui:
 - http://127.0.0.1:5001/webui (shipped with kubo)
 - IPFS Desktop itself
 
-All of these instances of webui are the same but shipped slightly differently. The file you're seeing being downloaded is the latest release of webui, i.e. v4.1.1 has content identifiers (CID) `bafybeiamycmd52xvg6k3nzr6z3n33de6a2teyhquhj4kspdtnvetnkrfim` which can be verified on the [webui release page](https://github.com/ipfs/ipfs-webui/releases).
+All of these instances of IPFS Webui are the same but shipped slightly differently. The file you're seeing being downloaded is a specific release of IPFS Webui, i.e. v4.1.1 has content identifiers (CID) `bafybeiamycmd52xvg6k3nzr6z3n33de6a2teyhquhj4kspdtnvetnkrfim` which can be verified on the [IPFS Webui release page](https://github.com/ipfs/ipfs-webui/releases).
 
 ## Contribute
 
