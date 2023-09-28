@@ -156,7 +156,7 @@ npm run build
 npm start
 ```
 
-> **Build Note:** `npm ci` will download the webui code to run in electron from the ipfs network using the bitswap protocol.  For details, see the [build process](`.github/workflows/ci.yml`) and the [webui code](https://github.com/ipfs/ipfs-webui).
+> **Build Note:** `npm ci` will download the webui code to run in electron from IPFS using the [ipfs-or-gateway](https://www.npmjs.com/package/ipfs-or-gateway) npm package.  For details, see the [build process](`.github/workflows/ci.yml`) and the [webui code](https://github.com/ipfs/ipfs-webui).
 
 ipfs-desktop in itself is a simple container that makes sure kubo and webui can work together in a standalone fashion and has access to other os-specfic features like tray and contextual integrations.
 There are multiple ways to access webui:
