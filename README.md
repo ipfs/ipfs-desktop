@@ -257,6 +257,60 @@ When upgrading, IPFS may need to perform migrations and for that we need a stabl
 2. Make sure your firewall or antivirus is not blocking requests, such as P2P traffic;
 3. Try again, by restarting IPFS Desktop.
 
+### Error: Initializing daemon...
+
+These errors pop up from [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl) when the Kubo daemon fails to start up. Below are some scenarios where you may run into this error.
+
+#### Error: Your programs version (N) is lower than your repos (N+x).
+
+This means you are attempting to run an older version of ipfs-desktop or Kubo than you have previously ran on your machine. Each Kubo version (which is included with ipfs-desktop) is tied to a specific IPFS repo version, which you can see at https://github.com/ipfs/fs-repo-migrations#when-should-i-migrate.
+
+The ideal solution is to ensure you're running the latest version of ipfs-desktop, as upward migrations happen automatically. However, if you need to run the older version that is emitting this error, you will need to run a migration in reverse, manually. You can follow the official instructions [here](https://github.com/ipfs/fs-repo-migrations/blob/master/run.md) but with additional parameters: `fs-repo-migrations -revert-ok -to N`. See `fs-repo-migrations --help` for more information.
+
+#### Found outdated fs-repo, migrations need to be run. - Error fetching: context deadline exceeded
+
+This happens when there is a problem with downloading migrations needed by [fs-repo-migrations](https://github.com/ipfs/fs-repo-migrations/blob/master/run.md). The errors usually look something like this:
+
+```bash
+Error: Initializing daemon...
+Kubo version: 0.22.0
+Repo version: 14
+System version: amd64/darwin
+Golang version: go1.19.12
+Found outdated fs-repo, migrations need to be run.
+Looking for suitable migration binaries.
+Need 1 migrations, downloading.
+Downloading migration: fs-repo-13-to-14...
+Fetching with HTTP: "https://ipfs.io/ipfs/QmYerugGRCZWA8yQMKDsd9daEVXUR3C5nuw3VXuX1mggHa/fs-repo-13-to-14/versions"
+Fetching with HTTP: "https://ipfs.io/ipfs/QmYerugGRCZWA8yQMKDsd9daEVXUR3C5nuw3VXuX1mggHa/fs-repo-13-to-14/versions"
+Fetching with HTTP: "https://ipfs.io/ipfs/QmYerugGRCZWA8yQMKDsd9daEVXUR3C5nuw3VXuX1mggHa/fs-repo-13-to-14/versions"
+Error fetching: exceeded number of retries. last error was http.DefaultClient.Do error: Get "https://ipfs.io/ipfs/QmYerugGRCZWA8yQMKDsd9daEVXUR3C5nuw3VXuX1mggHa/fs-repo-13-to-14/versions": dial tcp 199.16.156.40:443: i/o timeout
+Fetching with IPFS: "fs-repo-13-to-14/versions"
+Error fetching: context deadline exceeded
+could not get latest version of migration fs-repo-13-to-14: 2 errors occurred:
+	* exceeded number of retries. last error was http.DefaultClient.Do error: Get "https://ipfs.io/ipfs/QmYerugGRCZWA8yQMKDsd9daEVXUR3C5nuw3VXuX1mggHa/fs-repo-13-to-14/versions": dial tcp 199.16.156.40:443: i/o timeout
+	*
+```
+
+You can update your Kubo config to try different sources of the migration files.
+
+##### With IPFS-Desktop
+
+1. Go to the Settings tab
+2. Find "Migrations" in the config, and update the `DownloadSources` array to be `["IPFS", "https://dweb.link", "https://cloudflare-ipfs.com", "HTTP"]`
+
+##### From the terminal
+
+For this method, you have to have the `ipfs` binary available on your command line:
+
+```bash
+ipfs config --json Migration.DownloadSources '["IPFS", "https://dweb.link", "https://cloudflare-ipfs.com", "HTTP"]'
+```
+
+##### Manually in an editor (not recommended)
+
+You can also edit the config file (`~/.ipfs/config` or `C:\Users\Username\.ipfs\config`) manually. Just make sure the json file is valid when you finish.
+
 ### I need more help!
 
 If you need help with using IPFS Desktop, the quickest way to get answers is to post them in the [official IPFS forums](https://discuss.ipfs.tech).
