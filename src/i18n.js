@@ -11,12 +11,14 @@ const getCtx = require('./context')
 module.exports = async function () {
   const ctx = getCtx()
   logger.info('[i18n] init...')
+  const lng = store.get('language')
+  logger.info(`[i18n] configured language: ${lng}`)
   await i18n
     // @ts-expect-error
     .use(ICU)
     .use(Backend)
     .init({
-      lng: store.get('language'),
+      lng,
       fallbackLng: {
         'zh-Hans': ['zh-CN', 'en'],
         'zh-Hant': ['zh-TW', 'en'],
@@ -29,8 +31,14 @@ module.exports = async function () {
     },
     (err, t) => {
       if (err) {
-        logger.error('[i18n] init failed', err)
-        return
+        /**
+         * even if an error occurs here, i18n still may work properly.
+         * e.g. https://github.com/ipfs/ipfs-desktop/issues/2627
+         * Language's of "en-US" or "zh" may not exist at `join(__dirname, '../assets/locales/{{lng}}.json')` but i18next loads
+         * the appropriate language file with/without the region code. Partially discussed at https://github.com/i18next/i18next/issues/964
+         */
+        logger.error('[i18n] init error')
+        logger.error(err)
       }
       logger.info('[i18n] init done')
       ctx.setProp('i18n.initDone', true)
