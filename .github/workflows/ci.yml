@@ -26,7 +26,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.17.1'
+          node-version: 'lts/*'
 
       - name: Read ipfs-webui CID from package.json
         id: read-webui-version
@@ -120,7 +120,7 @@ jobs:
         if: steps.webui-cache.outputs.cache-hit != 'true'
 
       - name: Install dependencies
-        run: npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
+        run: npm cache clean --force && npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
 
       - name: Build
         run: npm run build
