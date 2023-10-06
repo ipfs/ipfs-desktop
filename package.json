@@ -85,7 +85,7 @@
     "ipfs-utils": "^9.0.10",
     "ipfsd-ctl": "10.0.6",
     "it-last": "^1.0.6",
-    "kubo": "0.23.0",
+    "kubo": "github:ipfs/npm-kubo#ff7fa83f6eb9d5910bbd10e3529ffd6be88bbdd8",
     "multiaddr": "10.0.1",
     "multiaddr-to-uri": "8.0.0",
     "portfinder": "^1.0.28",
