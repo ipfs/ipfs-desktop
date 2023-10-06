@@ -1,0 +1,14 @@
+{
+    "include-component-in-tag": false,
+    "group-pull-request-title-pattern": "chore${scope}: release${component} v${version}",
+    "extra-files": [
+        "README.md"
+    ],
+    "packages": {
+      ".": {
+        "release-type": "node",
+        "plugins": ["node-workspace"],
+        "package-name": "ipfs-desktop"
+      }
+    }
+  }
