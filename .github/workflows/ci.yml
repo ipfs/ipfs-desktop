@@ -11,9 +11,9 @@ on:
       - main
 
 env:
-  XDG_CACHE_HOME: ${{ github.workspace }}\.cache
-  ELECTRON_CACHE: ${{ github.workspace }}\.cache\electron
-  ELECTRON_BUILDER_CACHE: ${{ github.workspace }}\.cache\electron-builder
+  XDG_CACHE_HOME: ${{ github.workspace }}/.cache
+  ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
+  ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
 
 jobs:
 
@@ -120,7 +120,7 @@ jobs:
         if: steps.webui-cache.outputs.cache-hit != 'true'
 
       - name: Install dependencies
-        run: npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}\.cache\npm
+        run: npm ci --cache ${{ github.workspace }}/.cache/npm
 
       - name: Build
         run: npm run build
