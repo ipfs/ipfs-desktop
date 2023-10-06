@@ -120,7 +120,7 @@ jobs:
         if: steps.webui-cache.outputs.cache-hit != 'true'
 
       - name: Install dependencies
-        run: npm cache clean --force && npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
+        run: npm ci --prefer-offline --no-audit --progress=false
 
       - name: Build
         run: npm run build
