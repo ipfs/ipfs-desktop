@@ -6,7 +6,7 @@
 const CONFIG_KEYS = {
   AUTO_LAUNCH: 'autoLaunch',
   AUTO_GARBAGE_COLLECTOR: 'automaticGC',
-  AUTO_UPDATE: 'autoUpdate',
+  DISABLE_AUTO_UPDATE: 'disableAutoUpdate',
   SCREENSHOT_SHORTCUT: 'screenshotShortcut',
   OPEN_WEBUI_LAUNCH: 'openWebUIAtLaunch',
   MONOCHROME_TRAY_ICON: 'monochromeTrayIcon',
