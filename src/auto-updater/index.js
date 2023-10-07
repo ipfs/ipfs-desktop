@@ -11,7 +11,7 @@ const store = require('../common/store')
 const CONFIG_KEYS = require('../common/config-keys')
 
 function isAutoUpdateSupported () {
-  if (!store.get(CONFIG_KEYS.AUTO_UPDATE, true)) {
+  if (store.get(CONFIG_KEYS.DISABLE_AUTO_UPDATE, false)) {
     logger.info('[updater] auto update explicitly disabled, not checking for updates automatically')
     return false
   }
