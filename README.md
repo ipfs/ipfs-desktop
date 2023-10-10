@@ -3,7 +3,7 @@
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
 [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](https://ipfs.tech/)
 [![total download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/total.svg?style=flat-square&label=all%20downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases)
-[![latest release download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.1/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.30.1)
+[![latest release download count](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.2/total.svg?style=flat-square)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/tag/v0.30.2)
 
 **IPFS Desktop gives you all the power of [IPFS](https://ipfs.io) in a convenient desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
 
@@ -19,9 +19,9 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the termin
 
 When in doubt, pick one of package formats with built-in automatic update mechanism:
 
-- **Mac:** [ipfs-desktop-0.30.1-mac.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-mac.dmg)
-- **Windows:** [IPFS-Desktop-Setup-0.30.1.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/IPFS-Desktop-Setup-0.30.1.exe)
-- **Linux:**  [ipfs-desktop-0.30.1-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-linux-x86_64.AppImage)
+- **Mac:** [ipfs-desktop-0.30.2-mac.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-mac.dmg)
+- **Windows:** [IPFS-Desktop-Setup-0.30.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/IPFS-Desktop-Setup-0.30.2.exe)
+- **Linux:**  [ipfs-desktop-0.30.2-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-linux-x86_64.AppImage)
   - If you prefer to manage updates on your own, see [other package formats](#install) below.
 
 ### Table of Contents
@@ -111,28 +111,28 @@ Release notes and older versions of IPFS Desktop can be found on the [releases p
 Don't see your favorite package manager? Visit our [package managers page](https://github.com/ipfs-shipyard/ipfs-desktop/issues/691) and help us add support for it!
 
 ### Mac
-- **Installer:** [ipfs-desktop-0.30.1-mac.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-mac.dmg)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.1/ipfs-desktop-0.30.1-mac.dmg.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-mac.dmg)
+- **Installer:** [ipfs-desktop-0.30.2-mac.dmg](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-mac.dmg)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.2/ipfs-desktop-0.30.2-mac.dmg.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-mac.dmg)
 - **Homebrew** (community-maintained): `brew install --cask ipfs`
 
 ### Windows
-- **Installer:** [IPFS-Desktop-Setup-0.30.1.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/IPFS-Desktop-Setup-0.30.1.exe)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.1/IPFS-Desktop-Setup-0.30.1.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/IPFS-Desktop-Setup-0.30.1.exe)
+- **Installer:** [IPFS-Desktop-Setup-0.30.2.exe](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/IPFS-Desktop-Setup-0.30.2.exe)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.2/IPFS-Desktop-Setup-0.30.2.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/IPFS-Desktop-Setup-0.30.2.exe)
 - **Chocolatey** (community-maintained): `choco install ipfs-desktop`
 - **Scoop** (community-maintained): `scoop bucket add extras; scoop install extras/ipfs-desktop`
 - **WinGet** (community-maintained): `winget install IPFS.IPFS-Desktop`
 
 ### Linux/FreeBSD
-- **AppImage**: [ipfs-desktop-0.30.1-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-linux-x86_64.AppImage)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.1/ipfs-desktop-0.30.1-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-linux-x86_64.AppImage)
-- **Tarball** (use this for building packages for distros): [ipfs-desktop-0.30.1-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-linux-x64.tar.xz)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.1/ipfs-desktop-0.30.1-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-linux-x64.tar.xz)
-- **Debian** (experimental): [ipfs-desktop-0.30.1-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-linux-amd64.deb)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.1/ipfs-desktop-0.30.1-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-linux-amd64.deb)
-- **Red Hat** (experimental): [ipfs-desktop-0.30.1-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-linux-x86_64.rpm)\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.1/ipfs-desktop-0.30.1-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-linux-x86_64.rpm)
-- **FreeBSD** (experimental): [ipfs-desktop-0.30.1-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
-[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.1/ipfs-desktop-0.30.1-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.1/ipfs-desktop-0.30.1-linux-x64.freebsd)
+- **AppImage**: [ipfs-desktop-0.30.2-linux-x86_64.AppImage](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-linux-x86_64.AppImage)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.2/ipfs-desktop-0.30.2-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-linux-x86_64.AppImage)
+- **Tarball** (use this for building packages for distros): [ipfs-desktop-0.30.2-linux-x64.tar.xz](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-linux-x64.tar.xz)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.2/ipfs-desktop-0.30.2-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-linux-x64.tar.xz)
+- **Debian** (experimental): [ipfs-desktop-0.30.2-linux-amd64.deb](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-linux-amd64.deb)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.2/ipfs-desktop-0.30.2-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-linux-amd64.deb)
+- **Red Hat** (experimental): [ipfs-desktop-0.30.2-linux-x86_64.rpm](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-linux-x86_64.rpm)\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.2/ipfs-desktop-0.30.2-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-linux-x86_64.rpm)
+- **FreeBSD** (experimental): [ipfs-desktop-0.30.2-linux-x64.freebsd](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
+[![](https://img.shields.io/github/downloads/ipfs-shipyard/ipfs-desktop/v0.30.2/ipfs-desktop-0.30.2-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v0.30.2/ipfs-desktop-0.30.2-linux-x64.freebsd)
 - **Snapcraft** support is deprecated and discouraged due to [confinement issues](https://github.com/ipfs/ipfs-desktop/issues/2031), use `.AppImage` instead
 
 Additional third-party packages exist, but have the built-in auto-update mechanism disabled.
@@ -155,6 +155,17 @@ npm ci
 npm run build
 npm start
 ```
+
+> **Build Note:** `npm ci` will download the webui code to run in electron from IPFS using the [ipfs-or-gateway](https://www.npmjs.com/package/ipfs-or-gateway) npm package.  For details, see the [build process](`.github/workflows/ci.yml`) and the [webui code](https://github.com/ipfs/ipfs-webui).
+
+IPFS Desktop in itself is a simple container that makes sure Kubo and IPFS Webui can work together in a standalone fashion and has access to other os-specfic features like tray and contextual integrations.
+There are multiple ways to access IPFS Webui:
+ 
+- https://webui.ipfs.io/#/welcome
+- http://127.0.0.1:5001/webui (shipped with kubo)
+- IPFS Desktop itself
+
+All of these instances of IPFS Webui are the same but shipped slightly differently. The file you're seeing being downloaded is a specific release of IPFS Webui, i.e. v4.1.1 has content identifiers (CID) `bafybeiamycmd52xvg6k3nzr6z3n33de6a2teyhquhj4kspdtnvetnkrfim` which can be verified on the [IPFS Webui release page](https://github.com/ipfs/ipfs-webui/releases).
 
 ## Contribute
 
@@ -225,7 +236,7 @@ You can open these files from the IPFS logo menu by selecting `Open Logs Directo
 
 ### How does IPFS Desktop select the IPFS repo location?
 
-IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, by default, checks the `IPFS_PATH` environment variable. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeded, repository location info is saved in the configuration file, which becomes the source of truth.
+IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, by default, checks the `IPFS_PATH` environment variable. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeeded, repository location info is saved in the configuration file, which becomes the source of truth.
 
 To open your repo directory from the IPFS logo menu, select `Open Repository Directory` from the `Advanced` submenu.
 
@@ -256,6 +267,60 @@ When upgrading, IPFS may need to perform migrations and for that we need a stabl
 1. Check if you are connected to the Internet;
 2. Make sure your firewall or antivirus is not blocking requests, such as P2P traffic;
 3. Try again, by restarting IPFS Desktop.
+
+### Error: Initializing daemon...
+
+These errors pop up from [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl) when the Kubo daemon fails to start up. Below are some scenarios where you may run into this error.
+
+#### Error: Your programs version (N) is lower than your repos (N+x).
+
+This means you are attempting to run an older version of ipfs-desktop or Kubo than you have previously ran on your machine. Each Kubo version (which is included with ipfs-desktop) is tied to a specific IPFS repo version, which you can see at https://github.com/ipfs/fs-repo-migrations#when-should-i-migrate.
+
+The ideal solution is to ensure you're running the latest version of ipfs-desktop, as upward migrations happen automatically. However, if you need to run the older version that is emitting this error, you will need to run a migration in reverse, manually. You can follow the official instructions [here](https://github.com/ipfs/fs-repo-migrations/blob/master/run.md) but with additional parameters: `fs-repo-migrations -revert-ok -to N`. See `fs-repo-migrations --help` for more information.
+
+#### Found outdated fs-repo, migrations need to be run. - Error fetching: context deadline exceeded
+
+This happens when there is a problem with downloading migrations needed by [fs-repo-migrations](https://github.com/ipfs/fs-repo-migrations/blob/master/run.md). The errors usually look something like this:
+
+```bash
+Error: Initializing daemon...
+Kubo version: 0.22.0
+Repo version: 14
+System version: amd64/darwin
+Golang version: go1.19.12
+Found outdated fs-repo, migrations need to be run.
+Looking for suitable migration binaries.
+Need 1 migrations, downloading.
+Downloading migration: fs-repo-13-to-14...
+Fetching with HTTP: "https://ipfs.io/ipfs/QmYerugGRCZWA8yQMKDsd9daEVXUR3C5nuw3VXuX1mggHa/fs-repo-13-to-14/versions"
+Fetching with HTTP: "https://ipfs.io/ipfs/QmYerugGRCZWA8yQMKDsd9daEVXUR3C5nuw3VXuX1mggHa/fs-repo-13-to-14/versions"
+Fetching with HTTP: "https://ipfs.io/ipfs/QmYerugGRCZWA8yQMKDsd9daEVXUR3C5nuw3VXuX1mggHa/fs-repo-13-to-14/versions"
+Error fetching: exceeded number of retries. last error was http.DefaultClient.Do error: Get "https://ipfs.io/ipfs/QmYerugGRCZWA8yQMKDsd9daEVXUR3C5nuw3VXuX1mggHa/fs-repo-13-to-14/versions": dial tcp 199.16.156.40:443: i/o timeout
+Fetching with IPFS: "fs-repo-13-to-14/versions"
+Error fetching: context deadline exceeded
+could not get latest version of migration fs-repo-13-to-14: 2 errors occurred:
+	* exceeded number of retries. last error was http.DefaultClient.Do error: Get "https://ipfs.io/ipfs/QmYerugGRCZWA8yQMKDsd9daEVXUR3C5nuw3VXuX1mggHa/fs-repo-13-to-14/versions": dial tcp 199.16.156.40:443: i/o timeout
+	*
+```
+
+You can update your Kubo config to try different sources of the migration files.
+
+##### With IPFS-Desktop
+
+1. Go to the Settings tab
+2. Find "Migrations" in the config, and update the `DownloadSources` array to be `["IPFS", "https://dweb.link", "https://cloudflare-ipfs.com", "HTTP"]`
+
+##### From the terminal
+
+For this method, you have to have the `ipfs` binary available on your command line:
+
+```bash
+ipfs config --json Migration.DownloadSources '["IPFS", "https://dweb.link", "https://cloudflare-ipfs.com", "HTTP"]'
+```
+
+##### Manually in an editor (not recommended)
+
+You can also edit the config file (`~/.ipfs/config` or `C:\Users\Username\.ipfs\config`) manually. Just make sure the json file is valid when you finish.
 
 ### I need more help!
 

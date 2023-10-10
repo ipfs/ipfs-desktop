@@ -26,7 +26,7 @@ async function argvHandler (argv) {
 }
 
 module.exports = async function () {
-  // Checks current proccess
+  // Checks current process
   await argvHandler(process.argv)
 }
 

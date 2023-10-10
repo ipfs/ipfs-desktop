@@ -32,6 +32,8 @@ const { notarize } = require('electron-notarize-dmg')
     dmgPath: artifactPath,
     staple: false,
     appleId: process.env.APPLEID,
-    appleIdPassword: process.env.APPLEIDPASS
+    appleIdPassword: process.env.APPLEIDPASS,
+    tool: 'notarytool',
+    teamId: '7Y229E2YRL'
   })
 })()
