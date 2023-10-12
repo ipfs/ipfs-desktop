@@ -1,4 +1,5 @@
 {
+  "bootstrap-sha": "ef61c998865ee90731e0bd495cc825a43c6fac60",
   "group-pull-request-title-pattern": "chore${scope}: release${component} v${version}",
   "extra-files": [],
   "include-component-in-tag": false,

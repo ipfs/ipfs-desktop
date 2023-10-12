@@ -23,7 +23,7 @@
     "package": "shx rm -rf dist/ && run-s build && electron-builder --publish onTag",
     "pretest-rp": "cd release-please-plugins/test-ipfs-desktop-plugin && npm install && npm run clean && npm run build",
     "test-rp-pr": "release-please release-pr --token=$GH_TOKEN --plugin '@ipfs-shipyard/release-please-ipfs-plugin' --repo-url=ipfs/ipfs-desktop --target-branch=release-please/bootstrap/default --trace --debug --release-as=v0.31.1 --latest-tag-version=v0.28.0 --draft-pull-request",
-    "test-rp-ghrelease": "release-please github-release --token=$GH_TOKEN --plugin '@ipfs-shipyard/release-please-ipfs-plugin' --repo-url=ipfs/ipfs-desktop --target-branch=release-please/bootstrap/default --trace --debug --release-as=v0.31.1 --latest-tag-version=v0.28.0 --draft --dry-run"
+    "test-rp-ghrelease": "release-please github-release --token=$GH_TOKEN --plugin '@ipfs-shipyard/release-please-ipfs-plugin' --repo-url=ipfs/ipfs-desktop --target-branch=release-please/bootstrap/default --trace --debug --draft"
   },
   "pre-commit": [
     "lint"
