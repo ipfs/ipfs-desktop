@@ -16,7 +16,9 @@ export class UpdateVersionsInReadme extends DefaultUpdater {
      * look for a string "like ipfs-desktop-0.31.0-mac.dmg" and get the version(e.g. 0.31.0) from it
      * TODO: We need a better way to get the old version
      */
-    const oldVersion = content.match(/ipfs-desktop-(.+)-mac.dmg/)?.[1];
+
+    const match = content.match(/ipfs\/ipfs-desktop\/releases\/tag\/v(?<version>[^)]+)/)
+    const oldVersion = match?.groups?.version;
     if (!oldVersion) {
       throw new Error(`could not find old version in provided README.md content`);
     }
