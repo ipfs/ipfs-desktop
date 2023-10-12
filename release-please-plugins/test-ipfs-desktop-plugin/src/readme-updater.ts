@@ -11,7 +11,6 @@ export class UpdateVersionsInReadme extends DefaultUpdater {
 
   updateContent(content: string, logger: Logger = defaultLogger): string {
     const newVersion = this.version.toString();
-    logger.info(`this.versionsMap: `, this.versionsMap);
     /**
      * look for a string "like ipfs-desktop-0.31.0-mac.dmg" and get the version(e.g. 0.31.0) from it
      * TODO: We need a better way to get the old version

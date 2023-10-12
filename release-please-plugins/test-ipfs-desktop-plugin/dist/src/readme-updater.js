@@ -13,12 +13,12 @@ class UpdateVersionsInReadme extends default_1.DefaultUpdater {
     updateContent(content, logger = logger_1.logger) {
         var _a;
         const newVersion = this.version.toString();
-        logger.info(`this.versionsMap: `, this.versionsMap);
         /**
          * look for a string "like ipfs-desktop-0.31.0-mac.dmg" and get the version(e.g. 0.31.0) from it
          * TODO: We need a better way to get the old version
          */
-        const oldVersion = (_a = content.match(/ipfs-desktop-(.+)-mac.dmg/)) === null || _a === void 0 ? void 0 : _a[1];
+        const match = content.match(/ipfs\/ipfs-desktop\/releases\/tag\/v(?<version>[^)]+)/);
+        const oldVersion = (_a = match === null || match === void 0 ? void 0 : match.groups) === null || _a === void 0 ? void 0 : _a.version;
         if (!oldVersion) {
             throw new Error(`could not find old version in provided README.md content`);
         }
