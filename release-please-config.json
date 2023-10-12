@@ -1,18 +1,15 @@
 {
-  "packages": {
-    ".": {
-      "changelog-path": "CHANGELOG.md",
-      "release-type": "node",
-      "bump-minor-pre-major": true,
-      "bump-patch-for-minor-pre-major": true,
-      "draft": false,
-      "prerelease": false,
-      "include-component-in-tag": false,
-      "group-pull-request-title-pattern": "chore${scope}: release${component} v${version}",
-      "extra-files": [
-        "README.md"
-      ]
-    }
-  },
+  "group-pull-request-title-pattern": "chore${scope}: release${component} v${version}",
+  "extra-files": [
+    "README.md"
+  ],
+  "include-component-in-tag": false,
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "release-type": "node",
+  "draft": false,
+  "prerelease": false,
+  "plugins": ["node-workspace"],
+  "changelog-type": "github",
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
 }
