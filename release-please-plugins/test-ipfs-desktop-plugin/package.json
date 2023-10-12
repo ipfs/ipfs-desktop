@@ -8,7 +8,7 @@
     "lint": "aegir lint",
     "build": "aegir build"
   },
-  "type": "module",
+  "type": "commonjs",
   "types": "./dist/src/index.d.ts",
   "typesVersions": {
     "*": {
@@ -35,11 +35,10 @@
   "exports": {
     ".": {
       "types": "./dist/src/index.d.ts",
-      "import": "./dist/src/index.js"
-    },
-    "./errors": {
-      "types": "./dist/src/errors.d.ts",
-      "import": "./dist/src/errors.js"
+      "import": "./dist/src/index.esm.js",
+      "require": "./dist/src/index.js",
+      "default": "./dist/src/index.js",
+      "node": "./dist/src/index.js"
     }
   },
   "browser": {
@@ -48,7 +47,6 @@
     "url": false
   },
   "devDependencies": {
-    "aegir": "^41.0.4",
-    "release-please": "^16.0.0"
+    "aegir": "^41.0.4"
   }
 }

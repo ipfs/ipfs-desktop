@@ -20,7 +20,10 @@
     "build:webui": "run-s build:webui:*",
     "build:webui:download": "npx ipfs-or-gateway -c bafybeiamycmd52xvg6k3nzr6z3n33de6a2teyhquhj4kspdtnvetnkrfim -p assets/webui/ -t 360000 --verbose -g \"https://dweb.link\" ",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
-    "package": "shx rm -rf dist/ && run-s build && electron-builder --publish onTag"
+    "package": "shx rm -rf dist/ && run-s build && electron-builder --publish onTag",
+    "pretest-rp": "cd release-please-plugins/test-ipfs-desktop-plugin && npm install && npm run clean && npm run build",
+    "test-rp-pr": "release-please release-pr --token=$GH_TOKEN --plugin 'release-please-test-ipfs-desktop-plugin' --repo-url=ipfs/ipfs-desktop --target-branch=release-please/bootstrap/default --trace --debug --release-as=v0.31.1 --latest-tag-version=v0.28.0 --draft-pull-request",
+    "test-rp-ghrelease": "release-please github-release --token=$GH_TOKEN --plugin 'release-please-test-ipfs-desktop-plugin' --repo-url=ipfs/ipfs-desktop --target-branch=release-please/bootstrap/default --trace --debug --release-as=v0.31.1 --latest-tag-version=v0.28.0 --draft --dry-run"
   },
   "pre-commit": [
     "lint"
@@ -67,6 +70,7 @@
     "shx": "0.3.4",
     "sinon": "^13.0.1",
     "standard": "16.0.4",
+    "test-ipfs-desktop-plugin": "file:release-please-plugins/test-ipfs-desktop-plugin",
     "tmp": "0.2.1",
     "ts-standard": "^11.0.0",
     "xvfb-maybe": "^0.2.1"

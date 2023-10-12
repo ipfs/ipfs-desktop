@@ -1,8 +1,13 @@
 /** @type {import('aegir/types').PartialOptions} */
-export default {
+module.exports = {
   build: {
     config: {
       platform: 'node',
+      format: 'cjs',
+      external: [
+        'esprima',
+        'node-gyp'
+      ]
     }
   }
 }

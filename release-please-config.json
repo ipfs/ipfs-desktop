@@ -1,8 +1,6 @@
 {
   "group-pull-request-title-pattern": "chore${scope}: release${component} v${version}",
-  "extra-files": [
-    "README.md"
-  ],
+  "extra-files": [],
   "include-component-in-tag": false,
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
@@ -12,9 +10,7 @@
   "plugins": ["test-ipfs-desktop-plugin"],
   "changelog-type": "github",
   "packages": {
-    ".": {
-
-    }
+    ".": {}
   },
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
 }

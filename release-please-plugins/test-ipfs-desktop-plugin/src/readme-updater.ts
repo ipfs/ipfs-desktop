@@ -1,18 +1,7 @@
 import { DefaultUpdater, type UpdateOptions } from 'release-please/build/src/updaters/default'
 import { logger as defaultLogger, type Logger } from 'release-please/build/src/util/logger';
 
-// const oldVersion = args[0]
-// const newVersion = args[1]
-
-
-// (async () => {
-//   const data = await readFile(pathToReadme, 'utf8')
-//   const result = data.replace(regExToReplace, `$1${newVersion}`)
-//   await writeFile(pathToReadme, result, 'utf8')
-// })()
-
-
-export class ReadmeUpdater extends DefaultUpdater {
+export class UpdateVersionsInReadme extends DefaultUpdater {
   constructor(options: UpdateOptions) {
     super(options)
   }
@@ -23,7 +12,14 @@ export class ReadmeUpdater extends DefaultUpdater {
   updateContent(content: string, logger: Logger = defaultLogger): string {
     const newVersion = this.version.toString();
     logger.info(`this.versionsMap: `, this.versionsMap);
-    const oldVersion = this.versionsMap?.get('oldVersion')?.toString() ?? '0.0.0';
+    /**
+     * look for a string "like ipfs-desktop-0.31.0-mac.dmg" and get the version(e.g. 0.31.0) from it
+     * TODO: We need a better way to get the old version
+     */
+    const oldVersion = content.match(/ipfs-desktop-(.+)-mac.dmg/)?.[1];
+    if (!oldVersion) {
+      throw new Error(`could not find old version in provided README.md content`);
+    }
 
     const result = content.replace(this.getRegex(oldVersion), `$1${newVersion}`)
     // logger.info(`updating from ${parsed.version} to ${this.version}`);

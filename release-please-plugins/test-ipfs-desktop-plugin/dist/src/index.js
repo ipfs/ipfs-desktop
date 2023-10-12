@@ -1,50 +1,20 @@
-// import { Commit, ConventionalCommit } from 'release-please/build/src/commit';
-import {} from 'release-please/build/src/commit';
-import { GitHub } from 'release-please/build/src/github';
-// import { WorkspacePlugin } from 'release-please/build/src/';
-import {} from 'release-please/build/src/manifest';
-import { ManifestPlugin } from 'release-please/build/src/plugin';
-// import { Release } from 'release-please/build/src/release';
-// import { Strategy } from 'release-please/build/src/strategy';
-export class ReadMePlugin extends ManifestPlugin {
-    constructor(github, targetBranch, repositoryConfig) {
-        super(github, targetBranch, repositoryConfig);
-        // this.specialWords = new Set(
-        //   specialWords ? [...specialWords] : SPECIAL_WORDS
-        // );
-        this.logger.info('ReadMeUpdater initialized.');
-    }
-    /**
-     * called by https://github.com/googleapis/release-please/blob/71dcc7b3b2df4bb3d3e0884b3f0bfb96700cb76a/src/manifest.ts#L680
-     */
-    // preconfigure(strategiesByPath: Record<string, Strategy>, _commitsByPath: Record<string, Commit[]>, _releasesByPath: Record<string, Release>): Promise<Record<string, Strategy>> {
-    // }
-    /**
-     *
-     * called by https://github.com/googleapis/release-please/blob/71dcc7b3b2df4bb3d3e0884b3f0bfb96700cb76a/src/manifest.ts#L703
-     */
-    processCommits(commits) {
-        // for (const commit of commits) {
-        //   // if (commit.message.startsWith('chore:')) {
-        //   //   commit.releaseType = 'none';
-        //   // }
-        // }
-        // find the update to the CHANGELOG.md file and add a README.md update to that commit
-        // const commit = commits.find(commit => {
-        //   const files = commit.files.map(f => f.filename);
-        //   if (files.includes('CHANGELOG.md')) {
-        //     commit.files.push({ filename: 'README.md', patches: [] });
-        //     return true;
-        //   }
-        //   return false;
-        // })
-        return commits;
-    }
-    /**
-     * called by https://github.com/googleapis/release-please/blob/71dcc7b3b2df4bb3d3e0884b3f0bfb96700cb76a/src/manifest.ts#L757
-     */
-    async run(pullRequests) {
-        return pullRequests;
-    }
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.init = void 0;
+/** @type {import('release-please')} */
+// const releasePlease = require('release-please')
+const release_please_1 = require("release-please");
+const plugin_1 = require("./plugin");
+function init(...args) {
+    console.log('init called with args: ', args);
+    // releasePlease.registerPlugin('test-ipfs-desktop-plugin', (options: any) => new CustomPlugin(options.github, options.targetBranch, options.repositoryConfig))
+    (0, release_please_1.registerPlugin)('test-ipfs-desktop-plugin', (options) => new plugin_1.CustomPlugin(options.github, options.targetBranch, options.repositoryConfig));
+    // override require so release-please is importing the same release-please as us
+    // const oldResult = require.resolve('release-please/build/src/factory')
+    // require.cache[oldResult].exports = releasePlease
+    console.log('registered test-ipfs-desktop-plugin as a release-please plugin');
+    console.log('registered plugins: ', (0, release_please_1.getPluginTypes)());
 }
+exports.init = init;
+init();
 //# sourceMappingURL=index.js.map

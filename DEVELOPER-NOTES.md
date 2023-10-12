@@ -28,6 +28,31 @@ Manually test a few things that don't transfer well to automated testing:
 5. **Mac & Windows (both must to be checked):** Confirm that OS-wide protocol handler was registered by opening <a href="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi">`ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi`</a> in a stock web browser (Edge, Safari, Google Chrome) _without_ IPFS Companion
 
 ### Main release process
+
+PRs are created automatically by release-please and the release is created automatically by CI. The following steps are only needed if you want to manually create a release.
+
+```bash
+### Bootstrap release please was used when starting to use release-please, but it's no longer needed (WILL REMOVE)
+release-please bootstrap \
+  --token=$GH_TOKEN \
+  --repo-url=ipfs/ipfs-desktop \
+  --release-type=node \
+  --bump-minor-pre-major=true \
+  --bump-patch-for-minor-pre-major=true \
+  --initial-version=v0.31.0
+# https://github.com/ipfs/ipfs-desktop/pull/2664
+
+### Create release PR
+npm run test-rp-pr
+
+### create github release
+npm run test-rp-ghrelease
+
+### When the above PR is merged and github release is created, bump the brew cask version:
+brew bump --open-pr homebrew/cask/ipfs
+
+```
+<!--
 1. Update the version using `npm version [major|minor|patch]` (it will create a new tag `vA.B.C`, note it down)
 1. Update all links and badges in `README.md` to point to the new version (`A.B.C`).
    - You may use `ts-node scripts/release/updateReadme.ts <oldVersion> <newVersion>` to update the readme. e.g. `ts-node scripts/release/updateReadme.ts 0.26.0 0.26.1`
@@ -42,6 +67,7 @@ Manually test a few things that don't transfer well to automated testing:
 1. Update selected package managers:
    - Wait for CI to finish and confirm that it updated [Snap](https://snapcraft.io/ipfs-desktop), and is at least pending review on [Chocolatey](https://chocolatey.org/packages/ipfs-desktop#versionhistory).
    - Update the [Homebrew cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
+-->
 
 ### Manually notarize `.dmg` with Apple
 

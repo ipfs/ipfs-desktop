@@ -1,23 +1,27 @@
-import { DefaultUpdater } from 'release-please/build/src/updaters/default';
-import { logger as defaultLogger } from 'release-please/build/src/util/logger';
-// const oldVersion = args[0]
-// const newVersion = args[1]
-// (async () => {
-//   const data = await readFile(pathToReadme, 'utf8')
-//   const result = data.replace(regExToReplace, `$1${newVersion}`)
-//   await writeFile(pathToReadme, result, 'utf8')
-// })()
-export class ReadmeUpdater extends DefaultUpdater {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UpdateVersionsInReadme = void 0;
+const default_1 = require("release-please/build/src/updaters/default");
+const logger_1 = require("release-please/build/src/util/logger");
+class UpdateVersionsInReadme extends default_1.DefaultUpdater {
     constructor(options) {
         super(options);
     }
     getRegex(oldVersion) {
         return new RegExp(`((?:ipfs-desktop|IPFS-Desktop-Setup|ipfs-desktop/releases/tag|ipfs-desktop/releases/download)[-/]v?)${oldVersion}`, 'gm');
     }
-    updateContent(content, logger = defaultLogger) {
+    updateContent(content, logger = logger_1.logger) {
+        var _a;
         const newVersion = this.version.toString();
         logger.info(`this.versionsMap: `, this.versionsMap);
-        const oldVersion = this.versionsMap?.get('oldVersion')?.toString() ?? '0.0.0';
+        /**
+         * look for a string "like ipfs-desktop-0.31.0-mac.dmg" and get the version(e.g. 0.31.0) from it
+         * TODO: We need a better way to get the old version
+         */
+        const oldVersion = (_a = content.match(/ipfs-desktop-(.+)-mac.dmg/)) === null || _a === void 0 ? void 0 : _a[1];
+        if (!oldVersion) {
+            throw new Error(`could not find old version in provided README.md content`);
+        }
         const result = content.replace(this.getRegex(oldVersion), `$1${newVersion}`);
         // logger.info(`updating from ${parsed.version} to ${this.version}`);
         // parsed.version = this.version.toString();
@@ -25,4 +29,5 @@ export class ReadmeUpdater extends DefaultUpdater {
         return result;
     }
 }
+exports.UpdateVersionsInReadme = UpdateVersionsInReadme;
 //# sourceMappingURL=readme-updater.js.map
