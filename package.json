@@ -22,8 +22,8 @@
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
     "package": "shx rm -rf dist/ && run-s build && electron-builder --publish onTag",
     "pretest-rp": "cd release-please-plugins/test-ipfs-desktop-plugin && npm install && npm run clean && npm run build",
-    "test-rp-pr": "release-please release-pr --token=$GH_TOKEN --plugin 'release-please-test-ipfs-desktop-plugin' --repo-url=ipfs/ipfs-desktop --target-branch=release-please/bootstrap/default --trace --debug --release-as=v0.31.1 --latest-tag-version=v0.28.0 --draft-pull-request",
-    "test-rp-ghrelease": "release-please github-release --token=$GH_TOKEN --plugin 'release-please-test-ipfs-desktop-plugin' --repo-url=ipfs/ipfs-desktop --target-branch=release-please/bootstrap/default --trace --debug --release-as=v0.31.1 --latest-tag-version=v0.28.0 --draft --dry-run"
+    "test-rp-pr": "release-please release-pr --token=$GH_TOKEN --plugin '@ipfs-shipyard/release-please-ipfs-plugin' --repo-url=ipfs/ipfs-desktop --target-branch=release-please/bootstrap/default --trace --debug --release-as=v0.31.1 --latest-tag-version=v0.28.0 --draft-pull-request",
+    "test-rp-ghrelease": "release-please github-release --token=$GH_TOKEN --plugin '@ipfs-shipyard/release-please-ipfs-plugin' --repo-url=ipfs/ipfs-desktop --target-branch=release-please/bootstrap/default --trace --debug --release-as=v0.31.1 --latest-tag-version=v0.28.0 --draft --dry-run"
   },
   "pre-commit": [
     "lint"
@@ -53,6 +53,7 @@
   "homepage": "https://github.com/ipfs-shipyard/ipfs-desktop",
   "devDependencies": {
     "@electron/notarize": "^1.2.3",
+    "@ipfs-shipyard/release-please-ipfs-plugin": "^1.0.0",
     "@playwright/test": "^1.35.1",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
@@ -65,12 +66,10 @@
     "playwright": "^1.35.1",
     "pre-commit": "^1.2.2",
     "proxyquire": "^2.1.3",
-    "release-please-test-ipfs-desktop-plugin": "file:release-please-plugins/test-ipfs-desktop-plugin",
     "semver-regex": "3.1.4",
     "shx": "0.3.4",
     "sinon": "^13.0.1",
     "standard": "16.0.4",
-    "test-ipfs-desktop-plugin": "file:release-please-plugins/test-ipfs-desktop-plugin",
     "tmp": "0.2.1",
     "ts-standard": "^11.0.0",
     "xvfb-maybe": "^0.2.1"
