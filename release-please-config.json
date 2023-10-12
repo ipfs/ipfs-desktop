@@ -6,7 +6,12 @@
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "draft": false,
-      "prerelease": false
+      "prerelease": false,
+      "include-component-in-tag": false,
+      "group-pull-request-title-pattern": "chore${scope}: release${component} v${version}",
+      "extra-files": [
+        "README.md"
+      ]
     }
   },
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
