@@ -3,6 +3,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.30.2] - 2023-08-11
+
+## What's Changed
+* chore: typo fixes by @criadoperez in https://github.com/ipfs/ipfs-desktop/pull/2633
+* docs(readme): add repo migration FAQ sections by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2634
+* Update README.md by @MichaelJCole in https://github.com/ipfs/ipfs-desktop/pull/2642
+* fix: i18n init done fires even with lang load error by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2650
+* ci: pin node-version to 18.17.1 by @galargh in https://github.com/ipfs/ipfs-desktop/pull/2662
+* kubo: update to v0.23.0 by @Jorropo in https://github.com/ipfs/ipfs-desktop/pull/2654
+* fix: ipfs-desktop config can disable autoUpdate by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2651
+
+## New Contributors
+* @criadoperez made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2633
+* @MichaelJCole made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2642
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.30.2...v0.31.0
+
 ## [v0.30.2] - 2023-09-13
 
 ## What's Changed

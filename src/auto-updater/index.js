@@ -7,8 +7,14 @@ const { showDialog } = require('../dialogs')
 const { IS_MAC, IS_WIN, IS_APPIMAGE } = require('../common/consts')
 const ipcMainEvents = require('../common/ipc-main-events')
 const getCtx = require('../context')
+const store = require('../common/store')
+const CONFIG_KEYS = require('../common/config-keys')
 
 function isAutoUpdateSupported () {
+  if (store.get(CONFIG_KEYS.DISABLE_AUTO_UPDATE, false)) {
+    logger.info('[updater] auto update explicitly disabled, not checking for updates automatically')
+    return false
+  }
   // atm only macOS, windows and AppImage builds support autoupdate mechanism,
   // everything else needs to be updated manually or via a third-party package manager
   return IS_MAC || IS_WIN || IS_APPIMAGE
@@ -128,7 +134,7 @@ function setup () {
     }
     if (feedback) {
       feedback = false
-      // when in instant feedback mode, show dialog immediatelly
+      // when in instant feedback mode, show dialog immediately
       feedbackDialog()
     } else {
       // show unobtrusive notification + dialog on click
@@ -160,6 +166,7 @@ function setup () {
 }
 
 async function checkForUpdates () {
+  logger.info('[updater] checking for updates')
   ipcMain.emit(ipcMainEvents.UPDATING)
   try {
     await autoUpdater.checkForUpdates()
@@ -182,7 +189,7 @@ module.exports = async function () {
   }
   if (!isAutoUpdateSupported()) {
     getCtx().setProp('manualCheckForUpdates', () => {
-      shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/releases/latest')
+      shell.openExternal('https://github.com/ipfs/ipfs-desktop/releases/latest')
     })
     return
   }
