@@ -9,7 +9,7 @@
   "release-type": "node",
   "draft": false,
   "prerelease": false,
-  "plugins": ["node-workspace"],
+  "plugins": ["test-ipfs-desktop-plugin"],
   "changelog-type": "github",
   "packages": {
     ".": {
