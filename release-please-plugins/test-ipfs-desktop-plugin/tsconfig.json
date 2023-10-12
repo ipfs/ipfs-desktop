@@ -1,0 +1,11 @@
+{
+  "extends": "aegir/src/config/tsconfig.aegir.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "ES2022",
+
+  },
+  "include": [
+    "src",
+  ]
+}
