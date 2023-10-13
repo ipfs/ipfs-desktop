@@ -266,5 +266,5 @@ jobs:
           changelog-notes-type: github
           release-type: node
           plugins: |
-            @ipfs-shipyard/release-please-ipfs-plugin@v1.0.0
+            @ipfs-shipyard/release-please-ipfs-plugin
           draft-pull-request: true
