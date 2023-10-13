@@ -270,4 +270,3 @@ jobs:
             @ipfs-shipyard/release-please-ipfs-plugin@v1.0.0
           draft-pull-request: true
           draft: true
-          # --token=$GH_TOKEN --plugin '@ipfs-shipyard/release-please-ipfs-plugin' --repo-url=ipfs/ipfs-desktop --target-branch=release-please/bootstrap/default --trace --debug --release-as=v0.31.1 --latest-tag-version=v0.28.0 --draft-pull-request
