@@ -210,7 +210,6 @@ jobs:
           command: github-release
           release-type: node
           changelog-notes-type: github
-          draft-pull-request: true
           draft: true
 
       - name: Build binaries with electron-builder
@@ -269,4 +268,3 @@ jobs:
           plugins: |
             @ipfs-shipyard/release-please-ipfs-plugin@v1.0.0
           draft-pull-request: true
-          draft: true
