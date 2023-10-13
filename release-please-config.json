@@ -1,0 +1,26 @@
+{
+  "bootstrap-sha": "ef61c998865ee90731e0bd495cc825a43c6fac60",
+  "group-pull-request-title-pattern": "chore${scope}: release${component} v${version}",
+  "extra-files": [],
+  "include-component-in-tag": false,
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "release-type": "node",
+  "draft": true,
+  "draft-pull-request": true,
+  "prerelease": false,
+  "plugins": ["@ipfs-shipyard/release-please-ipfs-plugin"],
+  "changelog-type": "github",
+  "changelog-sections": [
+    { "type": "feat", "section": "Features", "hidden": false },
+    { "type": "fix", "section": "Bug Fixes", "hidden": false },
+    { "type": "chore", "section": "Trivial Changes", "hidden": false },
+    { "type": "docs", "section": "Documentation", "hidden": false },
+    { "type": "deps", "section": "Dependencies", "hidden": false },
+    { "type": "refactor", "section": "Refactors", "hidden": false }
+  ],
+  "packages": {
+    ".": {}
+  },
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
+}

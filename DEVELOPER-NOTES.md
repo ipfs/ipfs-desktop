@@ -28,6 +28,45 @@ Manually test a few things that don't transfer well to automated testing:
 5. **Mac & Windows (both must to be checked):** Confirm that OS-wide protocol handler was registered by opening <a href="ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi">`ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi`</a> in a stock web browser (Edge, Safari, Google Chrome) _without_ IPFS Companion
 
 ### Main release process
+
+Release PRs are created automatically by release-please whenever new changes are merged into the `main` branch. A release is created automatically by CI when that release PR is merged. See the changes made in https://github.com/ipfs/ipfs-desktop/pull/2664 for more information on that process.
+
+So the first step is to merge the release PR. Once that is merged, the release will be created automatically by CI. Once the release is created, the following steps need to be done manually:
+
+#### Mark the latest release as `latest` and publish it.
+
+1. Check out the [releases page](https://github.com/ipfs/ipfs-desktop/releases) and find the latest release.
+1. Click the `Edit` button for the version we want to release
+1. Ensure the release notes are correct and the binaries and other artifacts are attached. (there should be 17 attached assets total)
+    * The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available.
+1. Check the `Set as the latest release` box.
+1. Then click `Publish release`.
+
+#### When the above PR is merged and github release is created, bump the brew cask version
+
+All it takes for this is [a simple command which will open a PR for you](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask):
+
+```bash
+brew bump --open-pr homebrew/cask/ipfs
+```
+
+### Manual release process
+
+Be sure you have an environment variable `GH_TOKEN` set to a valid GitHub token with `repo` scope.
+
+```bash
+### Create release PR
+npm run release-pr
+
+### create github release
+npm run release-gh
+
+### When the above PR is merged and github release is created, bump the brew cask version:
+brew bump --open-pr homebrew/cask/ipfs
+# see https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask if you run into issues.
+```
+
+<!-- OLD RELEASE PROCESS (keep for now, until we're sure the new one works)
 1. Update the version using `npm version [major|minor|patch]` (it will create a new tag `vA.B.C`, note it down)
 1. Update all links and badges in `README.md` to point to the new version (`A.B.C`).
    - You may use `ts-node scripts/release/updateReadme.ts <oldVersion> <newVersion>` to update the readme. e.g. `ts-node scripts/release/updateReadme.ts 0.26.0 0.26.1`
@@ -42,6 +81,7 @@ Manually test a few things that don't transfer well to automated testing:
 1. Update selected package managers:
    - Wait for CI to finish and confirm that it updated [Snap](https://snapcraft.io/ipfs-desktop), and is at least pending review on [Chocolatey](https://chocolatey.org/packages/ipfs-desktop#versionhistory).
    - Update the [Homebrew cask](https://github.com/Homebrew/homebrew-cask/blob/master/CONTRIBUTING.md#updating-a-cask).
+-->
 
 ### Manually notarize `.dmg` with Apple
 
