@@ -203,14 +203,9 @@ jobs:
 
       # This step will only handle the creation of the release draft, the "Build binaries with electron-builder" step
       # will attach binaries to that release draft
-      - name: Run release-please github-release
+      - name: Run release-please github-release # see https://github.com/google-github-actions/release-please-action/issues/841
         if: contains(github.ref, 'refs/tags/') && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-        uses: google-github-actions/release-please-action@v3.7.3
-        with:
-          command: github-release
-          release-type: node
-          changelog-notes-type: github
-          draft: true
+        run: npm run release-gh
 
       - name: Build binaries with electron-builder
         uses: paneron/action-electron-builder@14b133702d1b2e9749912051c43ed62b4afe56c8 # v1.8.1
@@ -260,11 +255,16 @@ jobs:
     needs: [test, build]
     if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     steps:
-      - uses: google-github-actions/release-please-action@v3.7.3
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          command: release-pr
-          changelog-notes-type: github
-          release-type: node
-          plugins: |
-            @ipfs-shipyard/release-please-ipfs-plugin
-          draft-pull-request: true
+          node-version: '18.17.1'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
+
+      - name: Run release-please release-pr # see https://github.com/google-github-actions/release-please-action/issues/841
+        run: npm run release-pr
