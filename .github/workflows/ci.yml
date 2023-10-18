@@ -206,6 +206,8 @@ jobs:
       - name: Run release-please github-release # see https://github.com/google-github-actions/release-please-action/issues/841
         if: contains(github.ref, 'refs/tags/') && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         run: npm run release-gh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build binaries with electron-builder
         uses: paneron/action-electron-builder@14b133702d1b2e9749912051c43ed62b4afe56c8 # v1.8.1
@@ -268,3 +270,5 @@ jobs:
 
       - name: Run release-please release-pr # see https://github.com/google-github-actions/release-please-action/issues/841
         run: npm run release-pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

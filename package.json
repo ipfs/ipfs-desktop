@@ -21,8 +21,8 @@
     "build:webui:download": "npx ipfs-or-gateway -c bafybeiamycmd52xvg6k3nzr6z3n33de6a2teyhquhj4kspdtnvetnkrfim -p assets/webui/ -t 360000 --verbose -g \"https://dweb.link\" ",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
     "package": "shx rm -rf dist/ && run-s build && electron-builder --publish onTag",
-    "release-pr": "release-please release-pr --token=$GH_TOKEN --plugin '@ipfs-shipyard/release-please-ipfs-plugin' --repo-url=ipfs/ipfs-desktop --trace --debug --draft-pull-request",
-    "release-gh": "release-please github-release --token=$GH_TOKEN --repo-url=ipfs/ipfs-desktop --trace --debug --draft"
+    "release-pr": "release-please release-pr --token=$GITHUB_TOKEN --plugin '@ipfs-shipyard/release-please-ipfs-plugin' --repo-url=ipfs/ipfs-desktop --trace --debug --draft-pull-request",
+    "release-gh": "release-please github-release --token=$GITHUB_TOKEN --repo-url=ipfs/ipfs-desktop --trace --debug --draft"
   },
   "pre-commit": [
     "lint"

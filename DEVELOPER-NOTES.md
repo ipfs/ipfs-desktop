@@ -52,7 +52,7 @@ brew bump --open-pr homebrew/cask/ipfs
 
 ### Manual release process
 
-Be sure you have an environment variable `GH_TOKEN` set to a valid GitHub token with `repo` scope.
+Be sure you have an environment variable `GITHUB_TOKEN` set to a valid GitHub token with `repo` scope.
 
 ```bash
 ### Create release PR
