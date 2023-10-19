@@ -3,14 +3,6 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.31.1 (2023-10-18)
-
-## What's Changed
-* chore: automate releases with release-please by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2664
-
-
-**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.31.0...v0.31.1
-
 ## [v0.30.2] - 2023-08-11
 
 ## What's Changed
