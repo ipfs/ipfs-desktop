@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.32.0 (2023-11-27)
+
+## What's Changed
+* chore: automate releases with release-please by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2664
+* chore(main): release 0.31.1 by @github-actions in https://github.com/ipfs/ipfs-desktop/pull/2682
+* fix: release-please release creation by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2683
+* chore: remove 0.31.1 release testing artifacts by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2684
+* chore(deps): bump actions/checkout from 3 to 4 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2620
+* feat: kubo 0.24.0 by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2697
+
+## New Contributors
+* @github-actions made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2682
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.31.0...v0.32.0
+
 ## [v0.30.2] - 2023-08-11
 
 ## What's Changed
