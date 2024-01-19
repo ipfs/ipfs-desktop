@@ -231,8 +231,8 @@ jobs:
           windows_certs: ${{ secrets.windows_certs }}
           windows_certs_password: ${{ secrets.windows_certs_password }}
           # Apple signing
-          mac_certs: ${{ secrets.mac_certs_test }}
-          mac_certs_password: ${{ secrets.mac_certs_password_test }}
+          mac_certs: ${{ secrets.mac_certs }}
+          mac_certs_password: ${{ secrets.mac_certs_password }}
         env:
           # CI_BUILD_TAG: ${{steps.tag.outputs.tag}} # used by --publish onTag
           # Force signing on PR IFF secrets are around
