@@ -34,14 +34,14 @@ jobs:
           echo '::echo::off'
         shell: bash
       - name: Cache webui
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: webui-cache
         with:
           path: assets/webui
           key: ${{ steps.read-webui-version.outputs.cid }}
 
       - name: Cache bigger downloads
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cache
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
@@ -94,14 +94,14 @@ jobs:
         run: echo "cid=$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")" >> $GITHUB_OUTPUT
         shell: bash
       - name: Cache webui
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: webui-cache
         with:
           path: assets/webui
           key: ${{ steps.read-webui-version.outputs.cid }}
 
       - name: Cache bigger downloads
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cache
         with:
           path: ${{ github.workspace }}/.cache
@@ -161,14 +161,14 @@ jobs:
         run: echo "cid=$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")" >> $GITHUB_OUTPUT
         shell: bash
       - name: Cache webui
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: webui-cache
         with:
           path: assets/webui
           key: ${{ steps.read-webui-version.outputs.cid }}
 
       - name: Cache bigger downloads
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cache
         with:
           path: ${{ github.workspace }}/.cache
