@@ -7,8 +7,8 @@
     <authors>ipfs-shipyard</authors>
     <owners>hacdias</owners>
     <projectUrl>https://github.com/ipfs/ipfs-desktop/#readme</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/ipfs/ipfs-desktop/v0.32.0/assets/icons/tray/others/on-large.png</iconUrl>
-    <licenseUrl>https://raw.githubusercontent.com/ipfs/ipfs-desktop/main/LICENSE</licenseUrl>
+    <iconUrl>https://cdn.statically.io/gh/ipfs/ipfs-desktop/v0.34.0/assets/icons/tray/others/on-large.png</iconUrl>
+    <licenseUrl>https://cdn.statically.io/gh/ipfs/ipfs-desktop/main/LICENSE</licenseUrl>
     <projectSourceUrl>https://github.com/ipfs/ipfs-desktop/</projectSourceUrl>
     <bugTrackerUrl>https://github.com/ipfs/ipfs-desktop/issues</bugTrackerUrl>
     <tags>ipfs-desktop ipfs p2p distributed InterPlanetary-File-System gateway protocol</tags>
