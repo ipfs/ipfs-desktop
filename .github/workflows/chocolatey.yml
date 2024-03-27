@@ -5,8 +5,8 @@ on:
     inputs:
       manual_name:
         required: true
-        description: 'Release number to publish (without v prefix)'
-        default: '0.0.0'
+        description: 'Release number to publish'
+        default: 'v0.0.0'
   release:
     types: [published]
 
@@ -39,11 +39,17 @@ jobs:
             ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
             ${{ runner.os }}-
 
+      - name: Strip 'v' prefix and save as CHOCO_RELEASE_NAME
+        id: name
+        run: |
+          TAG=${{ github.event.inputs.manual_name || github.event.release.name }}
+          echo "CHOCO_RELEASE_NAME=${TAG#v}" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
 
       - name: Download .exe, update version, URL and hash
-        run: node update.mjs ${{ env.release_name }}
+        run: node update.mjs ${{ env.CHOCO_RELEASE_NAME }}
         working-directory: .\pkgs\chocolatey
 
       - name: Create .nupkg
@@ -51,5 +57,5 @@ jobs:
         working-directory: .\pkgs\chocolatey
 
       - name: Publish to Chocolatey
-        run: choco push ipfs-desktop.${{ env.release_name }}.nupkg --key ${{ secrets.chocolatey_key }} --source "https://push.chocolatey.org"
+        run: choco push ipfs-desktop.${{ env.CHOCO_RELEASE_NAME }}.nupkg --key ${{ secrets.chocolatey_key }} --source "https://push.chocolatey.org"
         working-directory: .\pkgs\chocolatey
