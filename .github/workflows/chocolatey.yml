@@ -42,8 +42,9 @@ jobs:
       - name: Strip 'v' prefix and save as CHOCO_RELEASE_NAME
         id: name
         run: |
-          TAG=${{ github.event.inputs.manual_name || github.event.release.name }}
-          echo "CHOCO_RELEASE_NAME=${TAG#v}" >> $GITHUB_ENV
+          $TAG=${{ github.event.inputs.manual_name || github.event.release.name }}
+          $CHOCO_RELEASE_NAME = $TAG -replace '^v', ''
+          echo "CHOCO_RELEASE_NAME=$CHOCO_RELEASE_NAME" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Install dependencies
         run: npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
