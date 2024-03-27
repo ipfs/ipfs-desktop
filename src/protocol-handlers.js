@@ -14,7 +14,7 @@ function parseAddr (addr) {
 async function parseUrl (url) {
   const getIpfsd = await getCtx().getProp('getIpfsd')
   const ipfsd = getIpfsd ? await getIpfsd(true) : null
-  let base = 'https://ipfs.io'
+  let base = 'https://dweb.link'
 
   if (ipfsd && ipfsd.gatewayAddr) {
     base = parseAddr(ipfsd.gatewayAddr)

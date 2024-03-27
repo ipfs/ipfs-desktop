@@ -5,7 +5,7 @@
 [![total download count](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/total.svg?style=flat-square&label=all%20downloads)](https://github.com/ipfs/ipfs-desktop/releases)
 [![latest release download count](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.33.0/total.svg?style=flat-square)](https://github.com/ipfs/ipfs-desktop/releases/tag/v0.33.0)
 
-**IPFS Desktop gives you all the power of [IPFS](https://ipfs.io) in a convenient desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
+**IPFS Desktop gives you all the power of [IPFS](https://ipfs.tech) in a convenient desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
 
 Use IPFS Desktop to get acquainted with IPFS without needing to touch the terminal — or, if you're already experienced, use the powerful menubar/taskbar shortcuts alongside the command line to make your IPFS workflow faster.
 
