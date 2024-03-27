@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.34.0 (2024-03-27)
+
+## What's Changed
+* chore(deps): bump actions/cache from 3 to 4 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2736
+* Update Kubo: v0.27.0 by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2763
+* chore: fix typo in README.md by @occupyhabit in https://github.com/ipfs/ipfs-desktop/pull/2771
+* chore(deps): bump actions/setup-node from 3 to 4 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2694
+* chore(deps): bump actions/upload-artifact from 3 to 4 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2723
+* chore(deps): bump snapcore/action-publish from 1.1.1 to 1.2.0 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2693
+
+## New Contributors
+* @occupyhabit made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2771
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.33.0...v0.34.0
+
 ## 0.33.0 (2024-01-22)
 
 ## What's Changed
