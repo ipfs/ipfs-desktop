@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.35.0 (2024-05-13)
+
+## What's Changed
+* chore: webui v4.2.1 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2789
+* Update Kubo: v0.28.0 by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2792
+* docs(readme): additional download metrics by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2796
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.34.0...v0.35.0
+
 ## 0.34.0 (2024-03-27)
 
 ## What's Changed
