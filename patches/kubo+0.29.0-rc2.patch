@@ -1,0 +1,29 @@
+diff --git a/node_modules/kubo/bin/ipfs b/node_modules/kubo/bin/ipfs
+index 70b8f92..4d3c24c 100644
+--- a/node_modules/kubo/src/download.js
++++ b/node_modules/kubo/src/download.js
+@@ -204,7 +204,23 @@ async function link ({ depBin, version }) {
+   }
+ 
+   console.info('Linking', depBin, 'to', localBin)
+-  fs.symlinkSync(depBin, localBin)
++  try {
++    fs.symlinkSync(depBin, localBin)
++  } catch (err) {
++    // Try to recover when creating symlink on modern Windows fails (https://github.com/ipfs/npm-kubo/issues/68)
++    if (isWin && typeof err === 'object' && err !== null && 'code' in err && err.code === 'EPERM') {
++      console.info('Symlink creation failed due to insufficient privileges. Attempting to copy file instead...')
++      try {
++        fs.copyFileSync(depBin, localBin)
++        console.info('Copying', depBin, 'to', localBin)
++      } catch (copyErr) {
++        console.error('File copy also failed:', copyErr)
++        throw copyErr
++      }
++    } else {
++      throw err
++    }
++  }
+ 
+   if (isWin) {
+     // On Windows, update the shortcut file to use the .exe
