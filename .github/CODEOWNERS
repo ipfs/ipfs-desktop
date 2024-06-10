@@ -5,7 +5,7 @@
 # these owners will be requested for review when someone
 # opens a pull request.
 # All GUI Teams: @ipfs-shipyard/ipfs-gui @ipfs-shipyard/gui @ipfs/gui-dev @ipfs/wg-gui-ux
-*   @ipfs/gui-dev @sgtpooki @whizzzkid
+*   @ipfs/gui-dev @sgtpooki
 
 # Explicit ping when changes impact build and release pipeline
 electron-builder.yml @lidel
