@@ -78,7 +78,7 @@
     "countly-sdk-nodejs": "^20.11.0",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.1.0",
-    "electron-updater": "^6.1.8",
+    "electron-updater": "^6.2.1",
     "fix-path": "3.0.0",
     "fs-extra": "^10.0.1",
     "i18next": "^21.8.14",
