@@ -43,6 +43,8 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2120#issuecomment-1114817009'
       case stack.includes('Error: Exception 0xc0000005 0x8 0x0 0x0'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2823#issuecomment-2163182898'
+      case stack.includes('directory missing SHARDING file'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2037#issuecomment-1074464701'
     }
   }
   // Something else, prefill new issue form with error details
