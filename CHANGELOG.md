@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.36.0 (2024-06-12)
+
+## What's Changed
+* docs: link to faq on known error by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2827
+* feat: kubo 0.29 and native apple silicon by @lidel in https://github.com/ipfs/ipfs-desktop/pull/1856
+* docs: add more known soutions by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2829
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.35.1...v0.36.0
+
 ## 0.35.1 (2024-05-16)
 
 ## What's Changed
