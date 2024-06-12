@@ -94,6 +94,8 @@ async function run () {
       submitAppReady()
     }
   } catch (e) {
+    const splash = await getCtx().getProp('splashScreen')
+    if (splash && !splash.isDestroyed()) splash.hide()
     handleError(e)
   }
 }
