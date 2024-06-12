@@ -47,6 +47,10 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2037#issuecomment-1074464701'
       case stack.includes('Error: Your programs version'):
         return 'https://github.com/ipfs/ipfs-desktop?tab=readme-ov-file#error-your-programs-version-n-is-lower-than-your-repos-nx'
+      case stack.includes('_SecTrustEvaluateWithError'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2425#issuecomment-1457250858'
+      case stack.includes('config: The system cannot find the path specified'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2259#issuecomment-1239275950'
     }
   }
   // Something else, prefill new issue form with error details
