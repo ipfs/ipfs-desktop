@@ -41,6 +41,8 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2821#issuecomment-2163117586'
       case stack.includes('process cannot access the file because it is being used by another process'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2120#issuecomment-1114817009'
+      case stack.includes('Error: Exception 0xc0000005 0x8 0x0 0x0'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2823#issuecomment-2163182898'
     }
   }
   // Something else, prefill new issue form with error details
