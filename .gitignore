@@ -6,4 +6,6 @@ config.gypi
 assets/webui
 *.nupkg
 *.bak
+combined.log
+error.log
 assets/build/snap-hooks

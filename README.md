@@ -233,16 +233,25 @@ $ ipfs-desktop --no-sandbox
 
 ### Where are my IPFS configuration and log files?
 
-You can open these files from the IPFS logo menu by selecting `Open Logs Directory` or `Open Configuration File` from the `Advanced` submenu. Or, find them in your OS as follows:
+> [!IMPORTANT]
+> IPFS Desktop app configuration is separate from the configuration and repository of Kubo IPFS node.
+
+You can open Desktop app and log files from the IPFS logo menu by selecting `Open Logs Directory` or `Open Configuration File` from the `Advanced` submenu. Or, find them in your OS as follows:
 - **Mac:** `~/Library/Application Support/IPFS Desktop/`
 - **Windows:** `%appdata%/IPFS Desktop/`
 - **Linux:** `~/.config/IPFS Desktop/`
 
 ### How does IPFS Desktop select the IPFS repo location?
 
-IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, by default, checks the `IPFS_PATH` environment variable. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeeded, repository location info is saved in the configuration file, which becomes the source of truth.
+> [!IMPORTANT]
+> IPFS Desktop uses [Kubo](https://github.com/ipfs/kubo) implementation of IPFS node, which has its own configuration and repository, separate from the Desktop app.
 
-To open your repo directory from the IPFS logo menu, select `Open Repository Directory` from the `Advanced` submenu.
+IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl) to locate Kubo repository.
+
+1. First, it checks the `IPFS_PATH` environment variable.
+2. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeeded, repository location info is saved in the configuration file, which becomes the source of truth.
+
+To open your Kubo repo directory from the IPFS logo menu, select `Open Repository Directory` from the `Advanced` submenu.
 
 ### Which version of IPFS does IPFS Desktop use?
 
@@ -280,7 +289,11 @@ These errors pop up from [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl) when 
 
 This means you are attempting to run an older version of ipfs-desktop or Kubo than you have previously ran on your machine. Each Kubo version (which is included with ipfs-desktop) is tied to a specific IPFS repo version, which you can see at https://github.com/ipfs/fs-repo-migrations#when-should-i-migrate.
 
-The ideal solution is to ensure you're running the latest version of ipfs-desktop, as upward migrations happen automatically. However, if you need to run the older version that is emitting this error, you will need to run a migration in reverse, manually. You can follow the official instructions [here](https://github.com/ipfs/fs-repo-migrations/blob/master/run.md) but with additional parameters: `fs-repo-migrations -revert-ok -to N`. See `fs-repo-migrations --help` for more information.
+The ideal solution is to ensure you're running [the latest version of ipfs-desktop](https://github.com/ipfs/ipfs-desktop/releases/latest), as upward migrations happen automatically.
+
+It is possible that your `PATH` has different kubo version than the one bundled with IPFS Desktop, in such case you should update it to [the latest kubo binary](https://github.com/ipfs/kubo/releases/latest) as well.
+
+However, if you are an advanced user and you really need to run the older version that is emitting this error, you will need to run a migration in reverse, manually. You can follow the official instructions [here](https://github.com/ipfs/fs-repo-migrations/blob/master/run.md) but with additional parameters: `fs-repo-migrations -revert-ok -to N`. See `fs-repo-migrations --help` for more information.
 
 #### Found outdated fs-repo, migrations need to be run. - Error fetching: context deadline exceeded
 

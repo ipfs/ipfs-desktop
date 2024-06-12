@@ -10,16 +10,12 @@ const issueTitle = (e) => {
   return `[gui error report] ${firstLine}`
 }
 
-const issueTemplate = (e) => `👉️ Please describe what you were doing when this error happened.
+const issueTemplate = (e) => `<!-- 👉️ Please describe HERE what you were doing when this error happened. -->
 
-**Specifications**
-
-- **OS**: ${os.platform()} ${os.release()}
-- **IPFS Desktop Version**: ${app.getVersion()}
-- **Electron Version**: ${process.versions.electron}
-- **Chrome Version**: ${process.versions.chrome}
-
-**Error**
+- **Desktop**: ${app.getVersion()}
+- **OS**: ${os.platform()} ${os.release()} ${os.arch()}
+- **Electron**: ${process.versions.electron}
+- **Chrome**: ${process.versions.chrome}
 
 \`\`\`
 ${e.stack}
@@ -29,6 +25,10 @@ ${e.stack}
 let hasErrored = false
 
 function generateErrorIssueUrl (e) {
+  // Check if OS is supported at all
+  if (os.platform() === 'win32' && os.release().startsWith('6.1.')) {
+    return 'https://github.com/ipfs/ipfs-desktop/issues/2823#issuecomment-2163182898' // Windows 7 EOL
+  }
   // Check if error is one we have FAQ for
   if (e && e.stack) {
     const stack = e.stack
@@ -37,6 +37,22 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop?tab=readme-ov-file#i-got-a-repolock-error-how-do-i-resolve-this'
       case stack.includes('Error fetching'):
         return 'https://github.com/ipfs/ipfs-desktop?tab=readme-ov-file#i-got-a-network-error-eg-error-fetching-what-should-i-do'
+      case stack.includes('private key in config does not match id'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2821#issuecomment-2163117586'
+      case stack.includes('process cannot access the file because it is being used by another process'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2120#issuecomment-1114817009'
+      case stack.includes('Error: Exception 0xc0000005 0x8 0x0 0x0'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2823#issuecomment-2163182898'
+      case stack.includes('directory missing SHARDING file'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2037#issuecomment-1074464701'
+      case stack.includes('Error: Your programs version'):
+        return 'https://github.com/ipfs/ipfs-desktop?tab=readme-ov-file#error-your-programs-version-n-is-lower-than-your-repos-nx'
+      case stack.includes('_SecTrustEvaluateWithError'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2425#issuecomment-1457250858'
+      case stack.includes('config: The system cannot find the path specified'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2259#issuecomment-1239275950'
+      case stack.includes('bind: address already in use'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2216#issuecomment-1199189648'
     }
   }
   // Something else, prefill new issue form with error details
