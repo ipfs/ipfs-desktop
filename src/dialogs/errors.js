@@ -28,7 +28,20 @@ ${e.stack}
 
 let hasErrored = false
 
-const generateErrorIssueUrl = (e) => `https://github.com/ipfs-shipyard/ipfs-desktop/issues/new?labels=kind%2Fbug%2C+need%2Ftriage&template=bug_report.md&title=${encodeURI(issueTitle(e))}&body=${encodeURI(issueTemplate(e))}`.substring(0, 1999)
+function generateErrorIssueUrl (e) {
+  // Check if error is one we have FAQ for
+  if (e && e.stack) {
+    const stack = e.stack
+    switch (true) {
+      case stack.includes('repo.lock'):
+        return 'https://github.com/ipfs/ipfs-desktop?tab=readme-ov-file#i-got-a-repolock-error-how-do-i-resolve-this'
+      case stack.includes('Error fetching'):
+        return 'https://github.com/ipfs/ipfs-desktop?tab=readme-ov-file#i-got-a-network-error-eg-error-fetching-what-should-i-do'
+    }
+  }
+  // Something else, prefill new issue form with error details
+  return `https://github.com/ipfs/ipfs-desktop/issues/new?labels=kind%2Fbug%2C+need%2Ftriage&template=bug_report.md&title=${encodeURI(issueTitle(e))}&body=${encodeURI(issueTemplate(e))}`.substring(0, 1999)
+}
 
 /**
  * This will fail and throw another application error if electron hasn't booted up properly.
