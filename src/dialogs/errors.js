@@ -45,6 +45,8 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2823#issuecomment-2163182898'
       case stack.includes('directory missing SHARDING file'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2037#issuecomment-1074464701'
+      case stack.includes('Error: Your programs version'):
+        return 'https://github.com/ipfs/ipfs-desktop?tab=readme-ov-file#error-your-programs-version-n-is-lower-than-your-repos-nx'
     }
   }
   // Something else, prefill new issue form with error details

@@ -280,7 +280,11 @@ These errors pop up from [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl) when 
 
 This means you are attempting to run an older version of ipfs-desktop or Kubo than you have previously ran on your machine. Each Kubo version (which is included with ipfs-desktop) is tied to a specific IPFS repo version, which you can see at https://github.com/ipfs/fs-repo-migrations#when-should-i-migrate.
 
-The ideal solution is to ensure you're running the latest version of ipfs-desktop, as upward migrations happen automatically. However, if you need to run the older version that is emitting this error, you will need to run a migration in reverse, manually. You can follow the official instructions [here](https://github.com/ipfs/fs-repo-migrations/blob/master/run.md) but with additional parameters: `fs-repo-migrations -revert-ok -to N`. See `fs-repo-migrations --help` for more information.
+The ideal solution is to ensure you're running [the latest version of ipfs-desktop](https://github.com/ipfs/ipfs-desktop/releases/latest), as upward migrations happen automatically.
+
+It is possible that your `PATH` has different kubo version than the one bundled with IPFS Desktop, in such case you should update it to [the latest kubo binary](https://github.com/ipfs/kubo/releases/latest) as well.
+
+However, if you are an advanced user and you really need to run the older version that is emitting this error, you will need to run a migration in reverse, manually. You can follow the official instructions [here](https://github.com/ipfs/fs-repo-migrations/blob/master/run.md) but with additional parameters: `fs-repo-migrations -revert-ok -to N`. See `fs-repo-migrations --help` for more information.
 
 #### Found outdated fs-repo, migrations need to be run. - Error fetching: context deadline exceeded
 
