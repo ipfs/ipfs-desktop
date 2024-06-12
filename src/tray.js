@@ -1,6 +1,8 @@
 const { Menu, Tray, shell, app, ipcMain, nativeTheme } = require('electron')
 const i18n = require('i18next')
 const path = require('path')
+const os = require('os')
+const fs = require('fs-extra')
 const addToIpfs = require('./add-to-ipfs')
 const logger = require('./common/logger')
 const store = require('./common/store')
@@ -158,12 +160,19 @@ async function buildMenu () {
           click: () => { shell.openPath(app.getPath('userData')) }
         },
         {
-          label: i18n.t('openRepoDir'),
-          click: () => { shell.openPath(store.get('ipfsConfig.path')) }
-        },
-        {
           label: i18n.t('openConfigFile'),
           click: () => { shell.openPath(store.path) }
+        },
+        { type: 'separator' },
+        {
+          id: 'openRepoDir',
+          label: i18n.t('openRepoDir'),
+          click: () => { shell.openPath(getKuboRepositoryPath()) }
+        },
+        {
+          id: 'openKuboConfigFile',
+          label: i18n.t('openKuboConfigFile'),
+          click: () => { shell.openPath(path.join(getKuboRepositoryPath(), 'config')) }
         },
         { type: 'separator' },
         {
@@ -344,6 +353,9 @@ module.exports = async function () {
     menu.getMenuItemById('checkForUpdates').visible = !isUpdating
     menu.getMenuItemById('checkingForUpdates').visible = isUpdating
 
+    menu.getMenuItemById('openRepoDir').enabled = fs.pathExistsSync(getKuboRepositoryPath())
+    menu.getMenuItemById('openKuboConfigFile').enabled = fs.pathExistsSync(path.join(getKuboRepositoryPath(), 'config'))
+
     if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon(on))
     } else {
@@ -405,4 +417,16 @@ module.exports = async function () {
 
   ctx.setProp('tray', tray)
   logger.info('[tray] started')
+}
+
+function getKuboRepositoryPath () {
+  let ipfsPath = store.get('ipfsConfig.path')
+  if (!ipfsPath) {
+    ipfsPath = process.env.IPFS_PATH
+    if (!ipfsPath) {
+      const homeDir = os.homedir()
+      ipfsPath = path.join(homeDir, '.ipfs')
+    }
+  }
+  return ipfsPath
 }
