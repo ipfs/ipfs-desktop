@@ -37,6 +37,10 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop?tab=readme-ov-file#i-got-a-repolock-error-how-do-i-resolve-this'
       case stack.includes('Error fetching'):
         return 'https://github.com/ipfs/ipfs-desktop?tab=readme-ov-file#i-got-a-network-error-eg-error-fetching-what-should-i-do'
+      case stack.includes('private key in config does not match id'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2821#issuecomment-2163117586'
+      case stack.includes('process cannot access the file because it is being used by another process'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2120#issuecomment-1114817009'
     }
   }
   // Something else, prefill new issue form with error details
