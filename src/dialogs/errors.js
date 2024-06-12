@@ -53,6 +53,8 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2259#issuecomment-1239275950'
       case stack.includes('bind: address already in use'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2216#issuecomment-1199189648'
+      case stack.includes('Get-AuthenticodeSignature'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2335#issuecomment-2161827010'
     }
   }
   // Something else, prefill new issue form with error details
