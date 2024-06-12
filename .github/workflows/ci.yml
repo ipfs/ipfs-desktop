@@ -24,7 +24,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.17.1'
+          node-version: 'lts/*'
 
       - name: Read ipfs-webui CID from package.json
         id: read-webui-version
@@ -78,7 +78,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
       - name: Check out Git repository
@@ -87,7 +87,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.17.1'
+          node-version: 'lts/*'
 
       - name: Read ipfs-webui CID from package.json
         id: read-webui-version
@@ -131,10 +131,7 @@ jobs:
         run: npm run test
 
       - name: Test end-to-end
-        uses: coactions/setup-xvfb@b6b4fcfb9f5a895edadc3bc76318fae0ac17c8b3 # v1.0.1
-        with:
-          working-directory: ${{ github.workspace }}
-          run: npm run test:e2e
+        run: npm run test:e2e
 
       - name: Lint
         run: npm run lint
@@ -145,7 +142,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
       - name: Check out Git repository
@@ -154,7 +151,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.17.1'
+          node-version: 'lts/*'
 
       - name: Read ipfs-webui CID from package.json
         id: read-webui-version
