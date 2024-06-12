@@ -10,16 +10,12 @@ const issueTitle = (e) => {
   return `[gui error report] ${firstLine}`
 }
 
-const issueTemplate = (e) => `👉️ Please describe what you were doing when this error happened.
+const issueTemplate = (e) => `<!-- 👉️ Please describe HERE what you were doing when this error happened. -->
 
-**Specifications**
-
-- **OS**: ${os.platform()} ${os.release()}
-- **IPFS Desktop Version**: ${app.getVersion()}
-- **Electron Version**: ${process.versions.electron}
-- **Chrome Version**: ${process.versions.chrome}
-
-**Error**
+- **Desktop**: ${app.getVersion()}
+- **OS**: ${os.platform()} ${os.release()} ${os.arch()}
+- **Electron**: ${process.versions.electron}
+- **Chrome**: ${process.versions.chrome}
 
 \`\`\`
 ${e.stack}
@@ -29,6 +25,10 @@ ${e.stack}
 let hasErrored = false
 
 function generateErrorIssueUrl (e) {
+  // Check if OS is supported at all
+  if (os.platform() === 'win32' && os.release().startsWith('6.1.')) {
+    return 'https://github.com/ipfs/ipfs-desktop/issues/2823#issuecomment-2163182898' // Windows 7 EOL
+  }
   // Check if error is one we have FAQ for
   if (e && e.stack) {
     const stack = e.stack
