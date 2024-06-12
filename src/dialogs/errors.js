@@ -51,6 +51,8 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2425#issuecomment-1457250858'
       case stack.includes('config: The system cannot find the path specified'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2259#issuecomment-1239275950'
+      case stack.includes('bind: address already in use'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2216#issuecomment-1199189648'
     }
   }
   // Something else, prefill new issue form with error details
