@@ -11,9 +11,12 @@ module.exports = function () {
       }
     })
 
-    contents.on('new-window', (event, url) => {
-      event.preventDefault()
+    // handling external links
+    contents.setWindowOpenHandler(({ url }) => {
+      // open in external URL handler (user's default web browser)
       shell.openExternal(url)
+      // do not open in Electron itself
+      return { action: 'deny' }
     })
   })
 }
