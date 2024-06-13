@@ -9,3 +9,4 @@ assets/webui
 combined.log
 error.log
 assets/build/snap-hooks
+test-results/
