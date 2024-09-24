@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.38.1 (2024-09-24)
+
+## What's Changed
+* feat: use ipfs-webui@4.3.2 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2861
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.38.0...v0.38.1
+
 ## 0.38.0 (2024-09-11)
 
 ## What's Changed
