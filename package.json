@@ -19,7 +19,7 @@
     "force-webui-download": "shx rm -rf assets/webui && run-s build:webui",
     "build": "run-s clean build:webui",
     "build:webui": "run-s build:webui:*",
-    "build:webui:download": "npx ipfs-or-gateway -c bafybeideglc722hiwhsy4kiyl2fivf5lr6wozy2iuixtgzkvl3v4hasaty -p assets/webui/ -t 360000 --verbose -g \"https://trustless-gateway.link\" ",
+    "build:webui:download": "npx ipfs-or-gateway -c bafybeif6abowqcavbkz243biyh7pde7ick5kkwwytrh7pd2hkbtuqysjxy -p assets/webui/ -t 360000 --verbose -g \"https://trustless-gateway.link\" ",
     "build:webui:minimize": "shx rm -rf assets/webui/static/js/*.map && shx rm -rf assets/webui/static/css/*.map",
     "package": "shx rm -rf dist/ && run-s build && electron-builder --publish onTag",
     "release-pr": "release-please release-pr --token=$GITHUB_TOKEN --plugin '@ipfs-shipyard/release-please-ipfs-plugin' --repo-url=ipfs/ipfs-desktop --trace --debug --draft-pull-request",
