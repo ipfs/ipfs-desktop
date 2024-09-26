@@ -150,7 +150,7 @@ const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
  */
 function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
-  const REVISION = 5
+  const REVISION = 6
   const REVISION_KEY = 'daemonConfigRevision'
   const CURRENT_REVISION = store.get(REVISION_KEY, 0)
 
@@ -229,6 +229,10 @@ function migrateConfig (ipfsd) {
         changed = true
       }
     }
+  }
+
+  if (CURRENT_REVISION < 6) {
+    ipfsd.api.files.chcid('/', { cidVersion: 1 })
   }
 
   if (changed) {
