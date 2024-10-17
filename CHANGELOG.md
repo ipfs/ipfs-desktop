@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.39.0 (2024-10-16)
+
+## What's Changed
+* feat: use ipfs-webui@4.3.2 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2861
+* feat: ipfs-webui v4.3.3 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2877
+* feat: kubo v0.31 and electron v32 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2875
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.38.0...v0.39.0
+
 ## 0.38.0 (2024-09-11)
 
 ## What's Changed
