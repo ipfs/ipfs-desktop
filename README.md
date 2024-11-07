@@ -3,9 +3,9 @@
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
 [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](https://ipfs.tech/)
 [![total download count](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/total.svg?style=flat-square&label=all%20downloads)](https://github.com/ipfs/ipfs-desktop/releases)
-[![latest release download count](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.33.0/total.svg?style=flat-square)](https://github.com/ipfs/ipfs-desktop/releases/tag/v0.33.0)
+[![latest release download count](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/total.svg?style=flat-square)](https://github.com/ipfs/ipfs-desktop/releases/tag/v0.39.0)
 
-**IPFS Desktop gives you all the power of [IPFS](https://ipfs.io) in a convenient desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
+**IPFS Desktop gives you all the power of [IPFS](https://ipfs.tech) in a convenient desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
 
 Use IPFS Desktop to get acquainted with IPFS without needing to touch the terminal — or, if you're already experienced, use the powerful menubar/taskbar shortcuts alongside the command line to make your IPFS workflow faster.
 
@@ -19,9 +19,9 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the termin
 
 When in doubt, pick one of package formats with built-in automatic update mechanism:
 
-- **Mac:** [ipfs-desktop-0.33.0-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-mac.dmg)
-- **Windows:** [IPFS-Desktop-Setup-0.33.0.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/IPFS-Desktop-Setup-0.33.0.exe)
-- **Linux:**  [ipfs-desktop-0.33.0-linux-x86_64.AppImage](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-linux-x86_64.AppImage)
+- **Mac:** [ipfs-desktop-0.39.0-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-mac.dmg)
+- **Windows:** [IPFS-Desktop-Setup-0.39.0.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/IPFS-Desktop-Setup-0.39.0.exe)
+- **Linux:**  [ipfs-desktop-0.39.0-linux-x86_64.AppImage](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-linux-x86_64.AppImage)
   - If you prefer to manage updates on your own, see [other package formats](#install) below.
 
 ### Table of Contents
@@ -111,29 +111,33 @@ Release notes and older versions of IPFS Desktop can be found on the [releases p
 Don't see your favorite package manager? Visit our [package managers page](https://github.com/ipfs/ipfs-desktop/issues/691) and help us add support for it!
 
 ### Mac
-- **Installer:** [ipfs-desktop-0.33.0-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-mac.dmg)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.33.0/ipfs-desktop-0.33.0-mac.dmg.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-mac.dmg)
+- **Installer:** [ipfs-desktop-0.39.0-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-mac.dmg)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/ipfs-desktop-0.39.0-mac.dmg.svg?style=flat-square&label=downloads)<br/>
+![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/ipfs-desktop-0.39.0-squirrel.zip.svg?style=flat-square&label=update)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-mac.dmg)
 - **Homebrew** (community-maintained): `brew install --cask ipfs`
+- ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/latest-mac.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
 
 ### Windows
-- **Installer:** [IPFS-Desktop-Setup-0.33.0.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/IPFS-Desktop-Setup-0.33.0.exe)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.33.0/IPFS-Desktop-Setup-0.33.0.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/IPFS-Desktop-Setup-0.33.0.exe)
+- **Installer:** [IPFS-Desktop-Setup-0.39.0.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/IPFS-Desktop-Setup-0.39.0.exe)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/IPFS-Desktop-Setup-0.39.0.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/IPFS-Desktop-Setup-0.39.0.exe)
 - **Chocolatey** (community-maintained): `choco install ipfs-desktop`
 - **Scoop** (community-maintained): `scoop bucket add extras; scoop install extras/ipfs-desktop`
 - **WinGet** (community-maintained): `winget install IPFS.IPFS-Desktop`
+- ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/latest.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
 
 ### Linux/FreeBSD
-- **AppImage**: [ipfs-desktop-0.33.0-linux-x86_64.AppImage](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-linux-x86_64.AppImage)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.33.0/ipfs-desktop-0.33.0-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-linux-x86_64.AppImage)
-- **Tarball** (use this for building packages for distros): [ipfs-desktop-0.33.0-linux-x64.tar.xz](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-linux-x64.tar.xz)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.33.0/ipfs-desktop-0.33.0-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-linux-x64.tar.xz)
-- **Debian** (experimental): [ipfs-desktop-0.33.0-linux-amd64.deb](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-linux-amd64.deb)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.33.0/ipfs-desktop-0.33.0-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-linux-amd64.deb)
-- **Red Hat** (experimental): [ipfs-desktop-0.33.0-linux-x86_64.rpm](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-linux-x86_64.rpm)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.33.0/ipfs-desktop-0.33.0-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-linux-x86_64.rpm)
-- **FreeBSD** (experimental): [ipfs-desktop-0.33.0-linux-x64.freebsd](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.33.0/ipfs-desktop-0.33.0-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.33.0/ipfs-desktop-0.33.0-linux-x64.freebsd)
+- **AppImage**: [ipfs-desktop-0.39.0-linux-x86_64.AppImage](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-linux-x86_64.AppImage)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/ipfs-desktop-0.39.0-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-linux-x86_64.AppImage)
+- **Tarball (tar.gz)** (use this for building packages for distros): [ipfs-desktop-0.39.0-linux-x64.tar.xz](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-linux-x64.tar.xz)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/ipfs-desktop-0.39.0-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-linux-x64.tar.xz)
+- **Debian (DEB)** (experimental): [ipfs-desktop-0.39.0-linux-amd64.deb](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-linux-amd64.deb)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/ipfs-desktop-0.39.0-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-linux-amd64.deb)
+- **Red Hat (RPM)** (experimental): [ipfs-desktop-0.39.0-linux-x86_64.rpm](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-linux-x86_64.rpm)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/ipfs-desktop-0.39.0-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-linux-x86_64.rpm)
+- **FreeBSD** (experimental): [ipfs-desktop-0.39.0-linux-x64.freebsd](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/ipfs-desktop-0.39.0-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.39.0/ipfs-desktop-0.39.0-linux-x64.freebsd)
 - **Snapcraft** support is deprecated and discouraged due to [confinement issues](https://github.com/ipfs/ipfs-desktop/issues/2031), use `.AppImage` instead
+- ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.39.0/latest-linux.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
 
 Additional third-party packages exist, but have the built-in auto-update mechanism disabled.
 Instead, update cycle is maintained by respective communities:
@@ -229,16 +233,25 @@ $ ipfs-desktop --no-sandbox
 
 ### Where are my IPFS configuration and log files?
 
-You can open these files from the IPFS logo menu by selecting `Open Logs Directory` or `Open Configuration File` from the `Advanced` submenu. Or, find them in your OS as follows:
+> [!IMPORTANT]
+> IPFS Desktop app configuration is separate from the configuration and repository of Kubo IPFS node.
+
+You can open Desktop app and log files from the IPFS logo menu by selecting `Open Logs Directory` or `Open Configuration File` from the `Advanced` submenu. Or, find them in your OS as follows:
 - **Mac:** `~/Library/Application Support/IPFS Desktop/`
 - **Windows:** `%appdata%/IPFS Desktop/`
 - **Linux:** `~/.config/IPFS Desktop/`
 
 ### How does IPFS Desktop select the IPFS repo location?
 
-IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl), which, by default, checks the `IPFS_PATH` environment variable. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeeded, repository location info is saved in the configuration file, which becomes the source of truth.
+> [!IMPORTANT]
+> IPFS Desktop uses [Kubo](https://github.com/ipfs/kubo) implementation of IPFS node, which has its own configuration and repository, separate from the Desktop app.
 
-To open your repo directory from the IPFS logo menu, select `Open Repository Directory` from the `Advanced` submenu.
+IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl) to locate Kubo repository.
+
+1. First, it checks the `IPFS_PATH` environment variable.
+2. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeeded, repository location info is saved in the configuration file, which becomes the source of truth.
+
+To open your Kubo repo directory from the IPFS logo menu, select `Open Repository Directory` from the `Advanced` submenu.
 
 ### Which version of IPFS does IPFS Desktop use?
 
@@ -276,7 +289,11 @@ These errors pop up from [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl) when 
 
 This means you are attempting to run an older version of ipfs-desktop or Kubo than you have previously ran on your machine. Each Kubo version (which is included with ipfs-desktop) is tied to a specific IPFS repo version, which you can see at https://github.com/ipfs/fs-repo-migrations#when-should-i-migrate.
 
-The ideal solution is to ensure you're running the latest version of ipfs-desktop, as upward migrations happen automatically. However, if you need to run the older version that is emitting this error, you will need to run a migration in reverse, manually. You can follow the official instructions [here](https://github.com/ipfs/fs-repo-migrations/blob/master/run.md) but with additional parameters: `fs-repo-migrations -revert-ok -to N`. See `fs-repo-migrations --help` for more information.
+The ideal solution is to ensure you're running [the latest version of ipfs-desktop](https://github.com/ipfs/ipfs-desktop/releases/latest), as upward migrations happen automatically.
+
+It is possible that your `PATH` has different kubo version than the one bundled with IPFS Desktop, in such case you should update it to [the latest kubo binary](https://github.com/ipfs/kubo/releases/latest) as well.
+
+However, if you are an advanced user and you really need to run the older version that is emitting this error, you will need to run a migration in reverse, manually. You can follow the official instructions [here](https://github.com/ipfs/fs-repo-migrations/blob/master/run.md) but with additional parameters: `fs-repo-migrations -revert-ok -to N`. See `fs-repo-migrations --help` for more information.
 
 #### Found outdated fs-repo, migrations need to be run. - Error fetching: context deadline exceeded
 

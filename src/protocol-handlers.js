@@ -11,10 +11,10 @@ function parseAddr (addr) {
   return toUri(addr.toString().includes('/http') ? addr : addr.encapsulate('/http'))
 }
 
-async function parseUrl (url) {
+async function handleOpenLink (url) {
   const getIpfsd = await getCtx().getProp('getIpfsd')
   const ipfsd = getIpfsd ? await getIpfsd(true) : null
-  let base = 'https://ipfs.io'
+  let base = 'https://dweb.link'
 
   if (ipfsd && ipfsd.gatewayAddr) {
     base = parseAddr(ipfsd.gatewayAddr)
@@ -24,10 +24,6 @@ async function parseUrl (url) {
     return openLink('ipfs', url.slice(7), base)
   } else if (url.startsWith('ipns://')) {
     return openLink('ipns', url.slice(7), base)
-  } else if (url.startsWith('dweb:/ipfs/')) {
-    return openLink('ipfs', url.slice(11), base)
-  } else if (url.startsWith('dweb:/ipns/')) {
-    return openLink('ipns', url.slice(11), base)
   }
 
   return false
@@ -37,7 +33,7 @@ async function argvHandler (argv) {
   let handled = false
 
   for (const arg of argv) {
-    if (await parseUrl(arg)) {
+    if (await handleOpenLink(arg)) {
       handled = true
     }
   }
@@ -53,7 +49,7 @@ module.exports = function () {
   // Handle URLs in macOS
   app.on('open-url', async (event, url) => {
     event.preventDefault()
-    parseUrl(url)
+    handleOpenLink(url)
   })
 }
 

@@ -8,9 +8,9 @@ newIssueWelcomeComment: >
 
   In the meantime, please double-check that you have provided all the
   necessary information to make this process easy! Any information that can
-  help save additional round trips is useful! We currently aim to give
-  initial feedback within **two business days**. If this does not happen, feel
-  free to leave a comment.
+  help save additional round trips is useful! We are triaging issues on weekly
+  basis and aim to give initial feedback within a few business days. If this
+  does not happen, feel free to leave a comment.
 
   Please keep an eye on how this issue will be labeled, as labels give an
   overview of priorities, assignments and additional actions requested by the
@@ -20,7 +20,7 @@ newIssueWelcomeComment: >
     - "Status" labels will show if this is ready to be worked on, blocked, or in progress.
     - "Need" labels will indicate if additional input or analysis is required.
 
-  Finally, remember to use https://discuss.ipfs.io if you just need general
+  Finally, remember to use https://discuss.ipfs.tech if you just need general
   support.
 
 # Configuration for new-pr-welcome - https://github.com/behaviorbot/new-pr-welcome
@@ -55,9 +55,9 @@ newPRWelcomeComment: >
 
     * The PR is merged by maintainers when it has been approved and comments addressed.
 
-  We currently aim to provide initial feedback/triaging within **two business
-  days**. Please keep an eye on any labelling actions, as these will indicate
-  priorities and status of your contribution.
+  We currently aim to provide initial feedback/triaging on best-effort basis,
+  which may take multiple business. Please keep an eye on any labelling
+  actions, as these will indicate priorities and status of your contribution.
 
   We are very grateful for your contribution!
 

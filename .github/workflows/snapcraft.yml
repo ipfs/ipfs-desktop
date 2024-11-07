@@ -5,27 +5,31 @@ on:
     inputs:
       manual_name:
         required: true
-        description: 'Release number to publish (without v prefix)'
-        default: '0.0.0'
+        description: 'Release number to publish'
+        default: 'v0.0.0'
   release:
     types: [published]
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    env:
-      SNAP_RELEASE_NAME: ${{ github.event.inputs.manual_name || github.event.release.name }}
     steps:
+      - name: Strip 'v' prefix
+        id: name
+        run: |
+          TAG=${{ github.event.inputs.manual_name || github.event.release.name }}
+          echo "SNAP_RELEASE_NAME=${TAG#v}" >> $GITHUB_ENV
       - name: Download .snap artifact
-        uses: dsaltares/fetch-gh-release-asset@0efe227dedb360b09ea0e533795d584b61c461a9 # 0.06
+        uses: dsaltares/fetch-gh-release-asset@a40c8b4a0471f9ab81bdf73a010f74cc51476ad4 # v1.1.1
         with:
           repo: ipfs/ipfs-desktop
           version: tags/v${{ env.SNAP_RELEASE_NAME }}
           file: ipfs-desktop-${{ env.SNAP_RELEASE_NAME }}-linux-amd64.snap
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish to Snapcraft
-        uses: snapcore/action-publish@0a8d537ae06f4a292e8b4ef1084cd5631b3c6871 # 1.1.1
+        uses: snapcore/action-publish@214b86e5ca036ead1668c79afb81e550e6c54d40 # v1.2.0
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_STORE_LOGIN }}
         with:
-          store_login: ${{ secrets.SNAP_STORE_LOGIN }}
           snap: ipfs-desktop-${{ env.SNAP_RELEASE_NAME }}-linux-amd64.snap
           release: stable

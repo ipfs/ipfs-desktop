@@ -3,6 +3,76 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.39.0 (2024-10-16)
+
+## What's Changed
+* feat: use ipfs-webui@4.3.2 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2861
+* feat: ipfs-webui v4.3.3 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2877
+* feat: kubo v0.31 and electron v32 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2875
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.38.0...v0.39.0
+
+## 0.38.0 (2024-09-11)
+
+## What's Changed
+* feat: webui v4.3.0 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2847
+* feat: kubo 0.30.0 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2855
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.37.0...v0.38.0
+
+## 0.37.0 (2024-06-13)
+
+## What's Changed
+* feat: electron 31 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2832
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.36.0...v0.37.0
+
+## 0.36.0 (2024-06-12)
+
+## What's Changed
+* docs: link to faq on known error by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2827
+* feat: kubo 0.29 and native apple silicon by @lidel in https://github.com/ipfs/ipfs-desktop/pull/1856
+* docs: add more known soutions by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2829
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.35.1...v0.36.0
+
+## 0.35.1 (2024-05-16)
+
+## What's Changed
+* fix: downgrade to macos-13 for intel-compat build by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2811
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.35.0...v0.35.1
+
+## 0.35.0 (2024-05-13)
+
+## What's Changed
+* chore: webui v4.2.1 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2789
+* Update Kubo: v0.28.0 by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2792
+* docs(readme): additional download metrics by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2796
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.34.0...v0.35.0
+
+## 0.34.0 (2024-03-27)
+
+## What's Changed
+* chore(deps): bump actions/cache from 3 to 4 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2736
+* Update Kubo: v0.27.0 by @hacdias in https://github.com/ipfs/ipfs-desktop/pull/2763
+* chore: fix typo in README.md by @occupyhabit in https://github.com/ipfs/ipfs-desktop/pull/2771
+* chore(deps): bump actions/setup-node from 3 to 4 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2694
+* chore(deps): bump actions/upload-artifact from 3 to 4 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2723
+* chore(deps): bump snapcore/action-publish from 1.1.1 to 1.2.0 by @dependabot in https://github.com/ipfs/ipfs-desktop/pull/2693
+
+## New Contributors
+* @occupyhabit made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2771
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.33.0...v0.34.0
+
 ## 0.33.0 (2024-01-22)
 
 ## What's Changed
