@@ -36,28 +36,21 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ipfs-shipyard/ipfs-desktop"
+    "url": "https://github.com/ipfs/ipfs-desktop"
   },
-  "author": "Protocol Labs, Inc.",
-  "contributors": [
-    "Kristoffer Ström <kristoffer@rymdkoloni.se>",
-    "David Dias <daviddias@ipfs.io>",
-    "Juan Benet <juan@ipfs.io>",
-    "Friedel Ziegelmayer <dignifiedquire@gmail.com>",
-    "Henrique Dias <hacdias@gmail.com>"
-  ],
+  "author": "Interplanetary Shipyard",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ipfs-shipyard/ipfs-desktop/issues"
+    "url": "https://github.com/ipfs/ipfs-desktop/issues/new/choose"
   },
-  "homepage": "https://github.com/ipfs-shipyard/ipfs-desktop",
+  "homepage": "https://github.com/ipfs/ipfs-desktop",
   "devDependencies": {
     "@electron/notarize": "^1.2.3",
     "@ipfs-shipyard/release-please-ipfs-plugin": "^1.0.0",
     "@playwright/test": "^1.44.1",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
-    "electron": "^32.2.0",
+    "electron": "^33.2.0",
     "electron-builder": "^25.1.8",
     "got": "^12.0.3",
     "ipfs-or-gateway": "^4.1.0",
@@ -89,7 +82,7 @@
     "ipfs-utils": "^9.0.10",
     "ipfsd-ctl": "10.0.6",
     "it-last": "^1.0.6",
-    "kubo": "0.32.0",
+    "kubo": "0.32.1",
     "multiaddr": "10.0.1",
     "multiaddr-to-uri": "8.0.0",
     "portfinder": "^1.0.28",
