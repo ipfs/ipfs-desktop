@@ -55,6 +55,8 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2216#issuecomment-1199189648'
       case stack.includes('Get-AuthenticodeSignature'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2335#issuecomment-2161827010'
+      case stack.includes('Error: multiaddr "http'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2092#issuecomment-1088124521'
     }
   }
   // Something else, prefill new issue form with error details
