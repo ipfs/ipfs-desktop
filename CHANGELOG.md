@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.40.0 (2024-11-20)
+
+## What's Changed
+* feat: ipfs-webui v4.4.0 by @SgtPooki in https://github.com/ipfs/ipfs-desktop/pull/2886
+* refactor: lossless compression of assets by @Awqre in https://github.com/ipfs/ipfs-desktop/pull/2892
+* chore: kubo 0.32 + electron 33.2 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2890
+* fix(explore): switch back to ipfs-webui v4.3.3 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2893
+
+## New Contributors
+* @Awqre made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2892
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.39.0...v0.40.0
+
 ## 0.39.0 (2024-10-16)
 
 ## What's Changed
