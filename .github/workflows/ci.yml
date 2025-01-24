@@ -130,8 +130,14 @@ jobs:
       - name: Test
         run: npm run test
 
+      # https://github.com/ipfs/ipfs-desktop/pull/2915
+      # https://github.com/microsoft/playwright/issues/34251#issuecomment-2580591770
+      - name: Workaround to enable e2e tests on github CI
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
       - name: Test end-to-end
-        run: npm run test:e2e
+        run: |
+          npm run test:e2e
 
       - name: Lint
         run: npm run lint
@@ -181,7 +187,7 @@ jobs:
       - uses: ipfs/start-ipfs-daemon-action@v1
         if: steps.webui-cache.outputs.cache-hit != 'true'
 
-      - name: Install dependencies
+      - name: Install NPM dependencies
         run: npm ci --prefer-offline --no-audit --progress=false --cache ${{ github.workspace }}/.cache/npm
 
       - name: Build
