@@ -130,6 +130,12 @@ jobs:
       - name: Test
         run: npm run test
 
+      # https://github.com/ipfs/ipfs-desktop/pull/2915
+      # https://github.com/microsoft/playwright/issues/34251#issuecomment-2580591770
+      - name: Workaround to enable e2e tests on github CI
+        if: runner.os == 'Linux'
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
       - name: Test end-to-end
         run: npm run test:e2e
 
