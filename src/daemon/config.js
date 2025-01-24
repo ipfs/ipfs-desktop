@@ -93,12 +93,15 @@ function applyDefaults (ipfsd) {
   config.API = { HTTPHeaders: {} }
 
   config.Swarm = config.Swarm ?? {}
-  config.Swarm.DisableNatPortMap = false
+  config.Swarm.DisableNatPortMap = false // uPnP
   config.Swarm.ConnMgr = config.Swarm.ConnMgr ?? {}
 
   config.Discovery = config.Discovery ?? {}
   config.Discovery.MDNS = config.Discovery.MDNS ?? {}
   config.Discovery.MDNS.Enabled = true
+
+  config.AutoTLS = config.AutoTLS ?? {}
+  config.AutoTLS.Enabled = true
 
   writeConfigFile(ipfsd, config)
 }
@@ -150,7 +153,7 @@ const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
  */
 function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
-  const REVISION = 5
+  const REVISION = 6
   const REVISION_KEY = 'daemonConfigRevision'
   const CURRENT_REVISION = store.get(REVISION_KEY, 0)
 
@@ -228,6 +231,18 @@ function migrateConfig (ipfsd) {
         config.Swarm.ConnMgr = {} // remove overrides, use defaults from Kubo https://github.com/ipfs/kubo/pull/9483
         changed = true
       }
+    }
+  }
+
+  if (CURRENT_REVISION < 6) {
+    // Enable AutoTLS if there is no explicit user preference
+    if (config.AutoTLS === undefined) {
+      config.AutoTLS = {}
+      changed = true
+    }
+    if (config.AutoTLS.Enabled === undefined) {
+      config.AutoTLS.Enabled = true
+      changed = true
     }
   }
 
