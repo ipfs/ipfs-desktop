@@ -47,9 +47,8 @@ win:
   target:
     - nsis
     # TODO - portable
-  publisherName: 'IPFS Project'
-  rfc3161TimeStampServer: 'http://timestamp.acs.microsoft.com'
   azureSignOptions:
+    publisherName: 'IPFS Project'
     endpoint: 'https://eus.codesigning.azure.net'
     certificateProfileName: 'ipfs-desktop'
     codeSigningAccountName: 'pl-code-signing'
