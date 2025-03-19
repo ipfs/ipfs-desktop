@@ -1,5 +1,7 @@
 /* eslint-env mocha */
 
+const { applyDefaults } = require('../../../src/daemon/config')
+
 const tmp = require('tmp')
 const Ctl = require('ipfsd-ctl')
 
@@ -29,6 +31,7 @@ async function makeRepository ({ start = false }) {
     profiles: ['test'],
     directory: repoPath
   })
+  applyDefaults(ipfsd)
 
   const { id } = await ipfsd.api.id()
   if (start) await ipfsd.start()
