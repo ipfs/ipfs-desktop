@@ -43,13 +43,28 @@ dmg:
       type: link
       path: /Applications
 
+win:
+  target:
+    - nsis
+    # TODO - portable
+  publisherName: 'IPFS Project'
+  rfc3161TimeStampServer: 'http://timestamp.acs.microsoft.com'
+  azureSignOptions:
+    endpoint: 'https://eus.codesigning.azure.net'
+    certificateProfileName: 'ipfs-desktop'
+    codeSigningAccountName: 'pl-code-signing'
+
 nsis:
+  artifactName: ${name}-setup-${version}-${os}-${arch}.${ext}
   include: assets/build/nsis.nsh
   oneClick: false
   warningsAsErrors: false
   perMachine: false
   allowElevation: true
   allowToChangeInstallationDirectory: true
+
+portable:
+  artifactName: ${name}-portable-${version}-${os}-${arch}.${ext}
 
 linux:
   artifactName: ${name}-${version}-${os}-${arch}.${ext}
