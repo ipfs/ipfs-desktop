@@ -20,7 +20,7 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the termin
 When in doubt, pick one of package formats with built-in automatic update mechanism:
 
 - **Mac:** [ipfs-desktop-0.42.0-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-0.42.0-mac.dmg)
-- **Windows:** [IPFS-Desktop-Setup-0.42.0.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/IPFS-Desktop-Setup-0.42.0.exe)
+- **Windows:** [ipfs-desktop-setup-0.42.0-win-x64.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-setup-0.42.0-win-x64.exe)
 - **Linux:**  [ipfs-desktop-0.42.0-linux-x86_64.AppImage](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-0.42.0-linux-x86_64.AppImage)
   - If you prefer to manage updates on your own, see [other package formats](#install) below.
 
@@ -118,8 +118,8 @@ Don't see your favorite package manager? Visit our [package managers page](https
 - ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/latest-mac.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
 
 ### Windows
-- **Installer:** [IPFS-Desktop-Setup-0.42.0.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/IPFS-Desktop-Setup-0.42.0.exe)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/IPFS-Desktop-Setup-0.42.0.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/IPFS-Desktop-Setup-0.42.0.exe)
+- **Installer:** [ipfs-desktop-setup-0.42.0-win-x64.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-setup-0.42.0-win-x64.exe)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/ipfs-desktop-setup-0.42.0-win-x64.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-setup-0.42.0-win-x64.exe)
 - **Chocolatey** (community-maintained): `choco install ipfs-desktop`
 - **Scoop** (community-maintained): `scoop bucket add extras; scoop install extras/ipfs-desktop`
 - **WinGet** (community-maintained): `winget install IPFS.IPFS-Desktop`

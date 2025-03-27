@@ -48,7 +48,7 @@ function hashStream (stream) {
   await fs.outputFile(nuspec, nuspecContent)
 
   console.log('Downloading latest binary from:')
-  const binaryUrl = `https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v${version}/IPFS-Desktop-Setup-${version}.exe`
+  const binaryUrl = `https://github.com/ipfs-shipyard/ipfs-desktop/releases/download/v${version}/ipfs-desktop-setup-${version}-win-x64.exe`
   console.log(binaryUrl)
 
   console.log('Calculating sha256...')
