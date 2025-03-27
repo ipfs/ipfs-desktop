@@ -17,7 +17,7 @@ const defaults = {
       '--enable-gc'
     ]
   },
-  language: app.getLocale(),
+  language: app?.getLocale() ?? 'en',
   experiments: {},
   binaryPath: ''
 }

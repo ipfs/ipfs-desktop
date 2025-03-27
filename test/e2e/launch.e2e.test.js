@@ -220,24 +220,8 @@ test.describe.serial('Application launch', async () => {
     expect(config.Swarm.ConnMgr.HighWater).toEqual(undefined)
   })
 
-  test('applies config migration v6 (explicitly enable AutoTLS if upgrading from Kubo <0.33)', async () => {
-    // create preexisting, initialized repo and config
-    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
-
-    const initConfig = fs.readJsonSync(configPath)
-    initConfig.AutoTLS = undefined // simulate kubo <0.33, where there was no AutoTLS section
-    fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
-
-    const { app } = await startApp({ repoPath })
-    const { peerId } = await daemonReady(app)
-    expect(peerId).toBe(expectedId)
-
-    const config = fs.readJsonSync(configPath)
-    // ensure app has migrated config and AutoTLS is explicitly enabled now
-    expect(config.AutoTLS.Enabled).toEqual(true)
-  })
-
-  test('applies config migration v6 (explicitly enable AutoTLS if Kubo >=0.33)', async () => {
+  // IPFS Desktop has explicit AutoTLS.Enabled=true from the start, to skip AutoTLS.RegistrationDelay
+  test('repo init sets explicit AutoTLS.Enabled=true', async () => {
     // create preexisting, initialized repo and config
     const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
 
@@ -252,23 +236,6 @@ test.describe.serial('Application launch', async () => {
     const config = fs.readJsonSync(configPath)
     // ensure ipfs-desktop migrated default Kubo config to explicitly enable AutoTLS
     expect(config.AutoTLS.Enabled).toEqual(true)
-  })
-
-  test('applies config migration v6 (respect pre-existing AutoTLS user config)', async () => {
-    // create preexisting, initialized repo and config
-    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
-
-    const initConfig = fs.readJsonSync(configPath)
-    initConfig.AutoTLS = { Enabled: false } // user explicitly disabled it
-    fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
-
-    const { app } = await startApp({ repoPath })
-    const { peerId } = await daemonReady(app)
-    expect(peerId).toBe(expectedId)
-
-    const config = fs.readJsonSync(configPath)
-    // ensure app respected and kept user choice
-    expect(config.AutoTLS.Enabled).toEqual(false)
   })
 
   test('starts with repository with "IPFS_PATH/api" file and no daemon running', async () => {

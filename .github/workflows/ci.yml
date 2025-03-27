@@ -230,9 +230,6 @@ jobs:
           max_attempts: 2
           # GH token for attaching atrifacts to release draft on tag build
           github_token: ${{ secrets.github_token }}
-          # Windows signing
-          windows_certs: ${{ secrets.windows_certs }}
-          windows_certs_password: ${{ secrets.windows_certs_password }}
           # Apple signing
           mac_certs: ${{ secrets.mac_certs }}
           mac_certs_password: ${{ secrets.mac_certs_password }}
@@ -244,6 +241,10 @@ jobs:
           # Apple notarization
           APPLEID: ${{ secrets.apple_id }}
           APPLEIDPASS: ${{ secrets.apple_id_pass }}
+          # Windows Azure Trusted Signing
+          AZURE_TENANT_ID: ${{secrets.AZURE_TENANT_ID}}
+          AZURE_CLIENT_ID: ${{secrets.AZURE_CLIENT_ID}}
+          AZURE_CLIENT_SECRET: ${{secrets.AZURE_CLIENT_SECRET}}
 
       - name: Show dist/
         run: du -sh dist/ && ls -l dist/
