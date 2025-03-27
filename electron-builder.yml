@@ -46,7 +46,7 @@ dmg:
 win:
   target:
     - nsis
-    - portable
+    # TODO - portable
   azureSignOptions:
     publisherName: 'IPFS Project'
     endpoint: 'https://eus.codesigning.azure.net'
