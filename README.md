@@ -1,26 +1,31 @@
-# IPFS Desktop
+<h1 align="center">
+  IPFS Desktop
+</h1>
 
-[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
-[![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](https://ipfs.tech/)
-[![total download count](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/total.svg?style=flat-square&label=all%20downloads)](https://github.com/ipfs/ipfs-desktop/releases)
-[![latest release download count](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/total.svg?style=flat-square)](https://github.com/ipfs/ipfs-desktop/releases/tag/v0.42.0)
+<p align="center">
+  <a href="https://ipfs.tech"><img src="https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square" alt="Official Part of IPFS Project"></a>
+  <a href="https://discuss.ipfs.tech"><img alt="Discourse Forum" src="https://img.shields.io/discourse/posts?server=https%3A%2F%2Fdiscuss.ipfs.tech"></a>
+  <a href="https://matrix.to/#/#ipfs-space:ipfs.io"><img alt="Matrix" src="https://img.shields.io/matrix/ipfs-space%3Aipfs.io?server_fqdn=matrix.org"></a>
+  <a href="https://github.com/ipfs/ipfs-desktop/actions?query=branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/ipfs/ipfs-desktop/ci.yml?branch=main"></a>
+  <a href="https://github.com/ipfs/ipfs-desktop/releases"><img alt="GitHub release" src="https://img.shields.io/github/v/release/ipfs/ipfs-desktop?filter=!*rc*"></a>
+</p>
 
 **IPFS Desktop gives you all the power of [IPFS](https://ipfs.tech) in a convenient desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
 
 Use IPFS Desktop to get acquainted with IPFS without needing to touch the terminal — or, if you're already experienced, use the powerful menubar/taskbar shortcuts alongside the command line to make your IPFS workflow faster.
 
-![Status screen of IPFS Desktop](https://gateway.ipfs.io/ipfs/QmYHuXitXMf5xTjiQXmXdqszvMTADvrM5zA7EqoDj3d3RH)
+![Status screen of IPFS Desktop](https://ipfs.io/ipfs/QmYHuXitXMf5xTjiQXmXdqszvMTADvrM5zA7EqoDj3d3RH)
 
 | Files screen | Explore screen | Peers screen | Settings screen | Menubar/taskbar |
 |-------|---------|-------|----------|------|
-| ![Screenshot of the Files screen](https://gateway.ipfs.io/ipfs/QmRN82RPWHKuSuBadijTQuaCjFKAGaymt3aFBoG6Du9Vi3) | ![Screenshot of the Explore screen](https://gateway.ipfs.io/ipfs/Qmaerxh9UKf9F3YPKnV2cBEnPQoJdVmkswFdz7kNQGncKt) | ![Screenshot of the Peers screen](https://gateway.ipfs.io/ipfs/QmaVbBYsEBb34HMP1YWeErrS7X3TB6Y9t1iQ4sBRnTvSwa) | ![Screenshot of the Settings screen](https://gateway.ipfs.io/ipfs/Qmby5RuN7K9s5W9RVLdrQSE8gRKQ66EX8c39iC31DLAxN6) | ![Screenshot of Mac/Windows menus](https://gateway.ipfs.io/ipfs/QmbT2YtuNo17Qaq31FJWRZgRMY4E6N9cdfBwzZTFSHUoBP) |
+| ![Screenshot of the Files screen](https://ipfs.io/ipfs/QmRN82RPWHKuSuBadijTQuaCjFKAGaymt3aFBoG6Du9Vi3) | ![Screenshot of the Explore screen](https://ipfs.io/ipfs/Qmaerxh9UKf9F3YPKnV2cBEnPQoJdVmkswFdz7kNQGncKt) | ![Screenshot of the Peers screen](https://ipfs.io/ipfs/QmaVbBYsEBb34HMP1YWeErrS7X3TB6Y9t1iQ4sBRnTvSwa) | ![Screenshot of the Settings screen](https://ipfs.io/ipfs/Qmby5RuN7K9s5W9RVLdrQSE8gRKQ66EX8c39iC31DLAxN6) | ![Screenshot of Mac/Windows menus](https://ipfs.io/ipfs/QmbT2YtuNo17Qaq31FJWRZgRMY4E6N9cdfBwzZTFSHUoBP) |
 
 ### Quick-install shortcuts
 
 When in doubt, pick one of package formats with built-in automatic update mechanism:
 
-- **Mac:** [ipfs-desktop-0.42.0-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-0.42.0-mac.dmg)
 - **Windows:** [ipfs-desktop-setup-0.42.0-win-x64.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-setup-0.42.0-win-x64.exe)
+- **Mac:** [ipfs-desktop-0.42.0-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-0.42.0-mac.dmg)
 - **Linux:**  [ipfs-desktop-0.42.0-linux-x86_64.AppImage](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-0.42.0-linux-x86_64.AppImage)
   - If you prefer to manage updates on your own, see [other package formats](#install) below.
 
@@ -60,7 +65,7 @@ When in doubt, pick one of package formats with built-in automatic update mechan
 
 ## Features
 
-IPFS Desktop combines a complete IPFS node (running [kubo](https://github.com/ipfs/kubo)) and the [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) into a single, convenient desktop app — plus adds a menu to your OS menubar/system tray for easy access to a variety of common IPFS tasks.
+IPFS Desktop combines a complete IPFS node (running [kubo](https://github.com/ipfs/kubo)) and the [IPFS Web UI](https://github.com/ipfs/ipfs-webui) into a single, convenient desktop app — plus adds a menu to your OS menubar/system tray for easy access to a variety of common IPFS tasks.
 
 If you already have an IPFS node on your computer, IPFS Desktop will act as a control panel and file browser for that node. If you don't have a node, it'll install one for you. And either way, IPFS Desktop will automatically check for updates.
 
@@ -98,7 +103,7 @@ Use the `Explore` screen to explore some example datasets — or your own files 
 
 IPFS Desktop enables most operating systems (Mac, Windows and some Linux flavors) to support protocols including `ipfs://` and `ipns://`. This means that if an app on your computer tries to open a link starting with one of those protocol identifiers (for example, if your web browser encounters a link to `ipns://en.wikipedia-on-ipfs.org`), it'll automatically open in IPFS Desktop.
 
-For an even better experience with `ipfs://`, and `ipns://` addresses, we also recommend installing [IPFS Companion](https://github.com/ipfs-shipyard/ipfs-companion) to add support in your favorite browser!
+For an even better experience with `ipfs://`, and `ipns://` addresses, we also recommend installing [IPFS Companion](https://github.com/ipfs/ipfs-companion) to add support in your favorite browser!
 
 ### Learn IPFS commands as you go
 
@@ -110,13 +115,6 @@ Release notes and older versions of IPFS Desktop can be found on the [releases p
 
 Don't see your favorite package manager? Visit our [package managers page](https://github.com/ipfs/ipfs-desktop/issues/691) and help us add support for it!
 
-### Mac
-- **Installer:** [ipfs-desktop-0.42.0-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-0.42.0-mac.dmg)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/ipfs-desktop-0.42.0-mac.dmg.svg?style=flat-square&label=downloads)<br/>
-![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/ipfs-desktop-0.42.0-squirrel.zip.svg?style=flat-square&label=update)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-0.42.0-mac.dmg)
-- **Homebrew** (community-maintained): `brew install --cask ipfs`
-- ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/latest-mac.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
-
 ### Windows
 - **Installer:** [ipfs-desktop-setup-0.42.0-win-x64.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-setup-0.42.0-win-x64.exe)\
 [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/ipfs-desktop-setup-0.42.0-win-x64.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-setup-0.42.0-win-x64.exe)
@@ -124,6 +122,13 @@ Don't see your favorite package manager? Visit our [package managers page](https
 - **Scoop** (community-maintained): `scoop bucket add extras; scoop install extras/ipfs-desktop`
 - **WinGet** (community-maintained): `winget install IPFS.IPFS-Desktop`
 - ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/latest.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
+
+### Mac
+- **Installer:** [ipfs-desktop-0.42.0-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-0.42.0-mac.dmg)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/ipfs-desktop-0.42.0-mac.dmg.svg?style=flat-square&label=downloads)<br/>
+![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/ipfs-desktop-0.42.0-squirrel.zip.svg?style=flat-square&label=update)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-0.42.0-mac.dmg)
+- **Homebrew** (community-maintained): `brew install --cask ipfs`
+- ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/latest-mac.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
 
 ### Linux/FreeBSD
 - **AppImage**: [ipfs-desktop-0.42.0-linux-x86_64.AppImage](https://github.com/ipfs/ipfs-desktop/releases/download/v0.42.0/ipfs-desktop-0.42.0-linux-x86_64.AppImage)\
@@ -181,7 +186,7 @@ No matter how you contribute, please be sure you read and follow the [IPFS Contr
 
 Contributing translations in your language is particularly valuable! We use Transifex to manage internationalization, which means you don't need to change a single line of code to add your translations — just sign up for a Transifex account.
 
-Because IPFS Desktop app includes text from [IPFS Web UI](https://github.com/ipfs-shipyard/ipfs-webui) and [IPLD Explorer](https://github.com/ipfs-shipyard/ipld-explorer), you'll want to join all three Transifex projects in order to see all the text:
+Because IPFS Desktop app includes text from [IPFS Web UI](https://github.com/ipfs/ipfs-webui) and [IPLD Explorer Components](https://github.com/ipfs/ipld-explorer-components/), you'll want to join all three Transifex projects in order to see all the text:
 - https://www.transifex.com/ipfs/ipfs-desktop/
 - https://www.transifex.com/ipfs/ipfs-webui/
 - https://www.transifex.com/ipfs/ipld-explorer/
@@ -231,25 +236,39 @@ This is a known issue with Electron/Chrome and some hardened kernels. More detai
 $ ipfs-desktop --no-sandbox
 ```
 
-### Where are my IPFS configuration and log files?
-
-> [!IMPORTANT]
-> IPFS Desktop app configuration is separate from the configuration and repository of Kubo IPFS node.
-
-You can open Desktop app and log files from the IPFS logo menu by selecting `Open Logs Directory` or `Open Configuration File` from the `Advanced` submenu. Or, find them in your OS as follows:
-- **Mac:** `~/Library/Application Support/IPFS Desktop/`
-- **Windows:** `%appdata%/IPFS Desktop/`
-- **Linux:** `~/.config/IPFS Desktop/`
-
-### How does IPFS Desktop select the IPFS repo location?
+### Where are my configuration and log files?
 
 > [!IMPORTANT]
 > IPFS Desktop uses [Kubo](https://github.com/ipfs/kubo) implementation of IPFS node, which has its own configuration and repository, separate from the Desktop app.
 
+#### IPFS Desktop configuration
+
+You can open Desktop app and log files from the IPFS logo menu by selecting `Open Logs Directory` or `Open Configuration File` from the `Advanced` submenu.
+
+Or, find them in your OS as follows:
+
+- **Mac:** `~/Library/Application Support/IPFS Desktop/`
+- **Windows:** `%APPDATA%\IPFS Desktop\`
+- **Linux:** `~/.config/IPFS Desktop/`
+
+#### Kubo repository and configuration
+
+To open your Kubo repo directory from the IPFS logo menu, select `Open Repository Directory` from the `Advanced` submenu.
+
+Or, find them in your OS as follows (assuming no custom `$IPFS_PATH` was set):
+
+- **Mac:** `$HOME/.ipfs/`
+- **Windows:** `%USERPROFILE%\.ipfs\` (`C:\Users\Username\.ipfs\`)
+- **Linux:** `$HOME/.ipfs/`
+
+Configuration file is named `.ipfs/config`
+
+##### How does IPFS Desktop select the IPFS repo location?
+
 IPFS Desktop uses [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl) to locate Kubo repository.
 
 1. First, it checks the `IPFS_PATH` environment variable.
-2. If that isn't set, it falls back to `$HOME/.ipfs`. As soon as the first run has succeeded, repository location info is saved in the configuration file, which becomes the source of truth.
+2. If that isn't set, it falls back to `$HOME/.ipfs` (`%USERPROFILE%/.ipfs/` on Windows). As soon as the first run has succeeded, repository location info is saved in the configuration file, which becomes the source of truth.
 
 To open your Kubo repo directory from the IPFS logo menu, select `Open Repository Directory` from the `Advanced` submenu.
 
@@ -325,14 +344,14 @@ You can update your Kubo config to try different sources of the migration files.
 ##### With IPFS-Desktop
 
 1. Go to the Settings tab
-2. Find "Migrations" in the config, and update the `DownloadSources` array to be `["IPFS", "https://dweb.link", "https://cloudflare-ipfs.com", "HTTP"]`
+2. Find "Migrations" in the config, and update the `DownloadSources` array to be `["IPFS", "https://trustless-gateway.link", "HTTP"]`
 
 ##### From the terminal
 
 For this method, you have to have the `ipfs` binary available on your command line:
 
 ```bash
-ipfs config --json Migration.DownloadSources '["IPFS", "https://dweb.link", "https://cloudflare-ipfs.com", "HTTP"]'
+ipfs config --json Migration.DownloadSources '["IPFS", "https://trustless-gateway.link", "HTTP"]'
 ```
 
 ##### Manually in an editor (not recommended)
@@ -341,10 +360,10 @@ You can also edit the config file (`~/.ipfs/config` or `C:\Users\Username\.ipfs\
 
 ### I need more help!
 
-If you need help with using IPFS Desktop, the quickest way to get answers is to post them in the [official IPFS forums](https://discuss.ipfs.tech).
+If you need help with using IPFS Desktop, the quickest way to get answers is to post them in the [official IPFS forums](https://discuss.ipfs.tech/c/help/13).
 
 If you think you've found a bug or other issue with IPFS Desktop itself, please [open an issue](https://github.com/ipfs/ipfs-desktop/issues/new/choose).
 
 ## License
 
-[MIT — Protocol Labs, Inc.](./LICENSE)
+[MIT](./LICENSE)
