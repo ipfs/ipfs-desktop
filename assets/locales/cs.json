@@ -11,9 +11,10 @@
   "restart": "Restartovat",
   "about": "O projektu",
   "advanced": "Pokročilý",
-  "openRepoDir": "Otevřít adresář úložiště",
-  "openLogsDir": "Otevřít adresář Logů",
-  "openConfigFile": "Otevřít konfigurační soubor",
+  "openRepoDir": "Adresář úložiště Open Kubo",
+  "openLogsDir": "Adresář protokolů Open Desktop",
+  "openConfigFile": "Konfigurační soubor Open Desktop",
+  "openKuboConfigFile": "Konfigurační soubor Open Kubo",
   "viewOnGitHub": "Navštívit GitHub projektu...",
   "helpUsTranslate": "Pomozte s překladem...",
   "readReleaseNotes": "Přečtěte si poznámky k vydání",
@@ -179,7 +180,7 @@
     "takeScreenshotShortcut": "Globální zkratka snímku obrazovky",
     "experiments": "Experimenty",
     "npmOnIpfs": "Povolení npm na IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "monochromeTrayIcon": "Použití monochromatické ikony v Tray"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Vlastní binární soubor IPFS",
@@ -209,19 +210,19 @@
     "message": "Uzel IPFS narazil na chybu a spuštění nebylo možné dokončit:"
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "Úložiště IPFS musí být adresářem",
+    "message": "Úložiště na  \"{ path }\" je neplatné, protože se nejedná o adresář.\n\nPřed opětovným spuštěním systému IPFS Desktop přejmenujte staré úložiště na \".ipfs.backup\". Vezměte prosím na vědomí, že to způsobí, že aplikace IPFS Desktop vygeneruje nové úložiště."
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "Chybí konfigurace úložiště IPFS",
+    "message": "Úložiště na adrese \"{ path }\" nemá soubor \"config\". Soubor \"config\" musí být platný soubor JSON.\n\nPřed opětovným spuštěním systému IPFS Desktop opravte konfigurační soubor nebo přejmenujte staré úložiště na \".ipfs.backup\". Upozorňujeme, že přejmenováním starého úložiště vytvoří aplikace IPFS Desktop nové úložiště."
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "Úložiště IPFS v privátní síti",
+    "message": "Úložiště na adrese \"{ path }\" je součástí soukromé sítě, kterou služba IPFS Desktop nepodporuje."
   },
   "invalidRepositoryDialog": {
     "title": "Neplatné úložiště IPFS nebo konfigurační soubor",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "message": "Úložiště na adrese \"{ path }\" nebo jeho konfigurace je neplatná. Soubor \"config\" musí být platný JSON.\n\nPřed opětovným spuštěním systému IPFS Desktop opravte konfigurační soubor nebo přejmenujte staré úložiště na \".ipfs.backup\". Upozorňujeme, že přejmenováním starého úložiště vytvoří aplikace IPFS Desktop nové úložiště"
   }
 }

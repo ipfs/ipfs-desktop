@@ -11,9 +11,10 @@
   "restart": "Riavvia",
   "about": "Informazioni",
   "advanced": "Avanzate",
-  "openRepoDir": "Apri Cartella Repository",
-  "openLogsDir": "Apri Cartella dei Log",
-  "openConfigFile": "Apri il File di Configurazione",
+  "openRepoDir": "Open Kubo Repository Directory",
+  "openLogsDir": "Open Desktop Logs Directory",
+  "openConfigFile": "Open Desktop Configuration File",
+  "openKuboConfigFile": "Open Kubo Configuration File",
   "viewOnGitHub": "Vedi su GitHub...",
   "helpUsTranslate": "Aiuta a Tradurre Quest'App...",
   "readReleaseNotes": "Leggi Note Di Rilascio",
@@ -179,7 +180,7 @@
     "takeScreenshotShortcut": "Scorciatoia Screenshot Globale",
     "experiments": "Esperimenti",
     "npmOnIpfs": "Abilita npm su IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "monochromeTrayIcon": "Usa Tray Icon monocromatica"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "File binario IPFS personalizzato",

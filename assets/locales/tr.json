@@ -11,9 +11,10 @@
   "restart": "Tekrar başlat",
   "about": "Hakkında",
   "advanced": "Gelişmiş",
-  "openRepoDir": "Depo Dizinini Aç",
-  "openLogsDir": "Günlük Dizinini Aç",
-  "openConfigFile": "Yapılandırma Dosyasını Aç",
+  "openRepoDir": "Open Kubo Repository Directory",
+  "openLogsDir": "Open Desktop Logs Directory",
+  "openConfigFile": "Open Desktop Configuration File",
+  "openKuboConfigFile": "Open Kubo Configuration File",
   "viewOnGitHub": "GitHub'da görüntüleyin…",
   "helpUsTranslate": "Bu Uygulamayı Çevirmeye Yardım Edin…",
   "readReleaseNotes": "Sürüm Notlarını Okuyun",
@@ -179,7 +180,7 @@
     "takeScreenshotShortcut": "Global Ekran Görüntüsü Kısayolu",
     "experiments": "Deneyler",
     "npmOnIpfs": "IPFS'de npm'yi etkinleştir",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "monochromeTrayIcon": "Tek renkli tepsi ikonunu kullan"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Özel IPFS ikilisi",
@@ -209,16 +210,16 @@
     "message": "IPFS düğümü bir hatayla karşılaştı ve başlatma tamamlanamadı:"
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "IPFS Deposu Bir Dizin Olmak Zorundadır",
+    "message": "{ path } dizinindeki depo bir dizin olmadığı için geçersizdir.\n\nLütfen IPFS Masaüstü'nü yeniden başlatmadan önce eski deponun ismini \".ipfs.backup\" olarak değiştirin. Lütfen eski deponun isminin değişikliği sebebiyle IPFS Masaüstü'nün yeni bir depo oluşturmasını sağlayacağını unutmayın."
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "IPFS Depo Konfigürasyonu Bulunamadı",
+    "message": "{ path } dizinindeki deponun bir \"config\" dosyası bulunmuyor. \"config\" dosyası geçerli bir JSON dosyası olmalıdır.\n\nLütfen IPFS Masaüstü'nü yeniden başlatmadan önce konfigürasyon dosyasını  onarın veya eski deponun ismini \".ipfs.backup\" olarak değiştirin. Lütfen eski deponun isminin değişikliği sebebiyle IPFS Masaüstü'nün yeni bir depo oluşturmasını sağlayacağını unutmayın."
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "Gizli Ağ IPFS Deposu",
+    "message": "{ path } dizinindeki depo IPFS Masaüstü tarafından desteklenmeyen bir gizli ağın parçasıdır."
   },
   "invalidRepositoryDialog": {
     "title": "Geçersiz IPFS Deposu veya Yapılandırma Dosyası",
