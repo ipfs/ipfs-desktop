@@ -1,83 +1,84 @@
 {
-  "ipfsIsRunning": "IPFS is Running",
-  "ipfsIsStopping": "IPFS is Stopping",
-  "ipfsIsStarting": "IPFS is Starting",
-  "ipfsIsNotRunning": "IPFS is Not Running",
-  "ipfsHasErrored": "IPFS has Errored",
-  "runningWithGC": "Running (GC in progress)",
-  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
-  "start": "Start",
+  "ipfsIsRunning": "IPFS körs",
+  "ipfsIsStopping": "IPFS stannar av",
+  "ipfsIsStarting": "IPFS startar",
+  "ipfsIsNotRunning": "IPFS körs inte",
+  "ipfsHasErrored": "IPFS har felat",
+  "runningWithGC": "Körs (GC pågår)",
+  "runningWhileCheckingForUpdate": "Körs (Söker efter uppdateringar)",
+  "start": "Starta",
   "stop": "Stop",
-  "restart": "Restart",
-  "about": "About",
-  "advanced": "Avancerad",
-  "openRepoDir": "Open Repository Directory",
-  "openLogsDir": "Open Logs Directory",
-  "openConfigFile": "Open Configuration File",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
-  "readReleaseNotes": "Read Release Notes",
+  "restart": "Starta om",
+  "about": "Om",
+  "advanced": "Avancerat",
+  "openRepoDir": "Open Kubo Repository Directory",
+  "openLogsDir": "Open Desktop Logs Directory",
+  "openConfigFile": "Open Desktop Configuration File",
+  "openKuboConfigFile": "Open Kubo Configuration File",
+  "viewOnGitHub": "Visa på GitHub...",
+  "helpUsTranslate": "Hjälp till att översätta den här appen...",
+  "readReleaseNotes": "Läs utgåvans anteckningar",
   "status": "Status",
-  "files": "Files",
+  "files": "Filer",
   "peers": "Kopplingar",
-  "quit": "Quit",
-  "versions": "Versions",
-  "screenshotTaken": "Screenshot taken",
-  "shareableLinkCopied": "Shareable link copied to the clipboard. Click here to view the screenshot.",
-  "couldNotTakeScreenshot": "Could not take screenshot",
-  "errorwhileTakingScreenshot": "An error occurred while taking the screenshot.",
-  "clickToOpenLogs": "Click here to open the logs.",
-  "ipfsNotRunning": "IPFS is not running",
-  "checkForUpdates": "Check for Updates…",
-  "checkingForUpdates": "Checking for Updates",
-  "yes": "Yes",
-  "no": "No",
+  "quit": "Avsluta",
+  "versions": "Versioner",
+  "screenshotTaken": "Skärmdump togs",
+  "shareableLinkCopied": "Delbar länk kopierades till klippbordet. Klicka här för att visa skärmdumpen.",
+  "couldNotTakeScreenshot": "Kunde inte ta skärmdumpen",
+  "errorwhileTakingScreenshot": "Ett fel inträffade när skärmdumpen skulle tas.",
+  "clickToOpenLogs": "Klicka här för att öppna loggarna.",
+  "ipfsNotRunning": "IPFS körs inte",
+  "checkForUpdates": "Sök efter uppdateringar...",
+  "checkingForUpdates": "Söker efter uppdateringar",
+  "yes": "Ja",
+  "no": "Nej",
   "close": "Stäng",
   "ok": "OK",
   "cancel": "Ångra",
-  "enable": "Enable",
-  "reportTheError": "Report the error",
-  "restartIpfsDesktop": "Restart IPFS Desktop",
-  "openLogs": "Open logs",
-  "takeScreenshot": "Take Screenshot",
-  "downloadCid": "Download…",
-  "moveRepositoryLocation": "Move Repository Location",
-  "runGarbageCollector": "Run Garbage Collector",
-  "selectDirectory": "Select Directory",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
+  "enable": "Aktivera",
+  "reportTheError": "Rapportera felet",
+  "restartIpfsDesktop": "Starta om IPFS-skrivbordet",
+  "openLogs": "Öppna loggar",
+  "takeScreenshot": "Ta en skärmdump",
+  "moveRepositoryLocation": "Flytta filförrådets plats",
+  "runGarbageCollector": "Kör skräpinsamlare",
+  "selectDirectory": "Välj mapp",
+  "customIpfsBinary": "Anpassad IPFS-binär",
+  "setCustomIpfsBinary": "Ställ in anpassad IPFS-binär",
+  "clearCustomIpfsBinary": "Rensa anpassad IPFS-binär",
+  "openCliDocumentation": "Öppna CLI-dokumentationen",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS can't be added to /usr/local/bin/ without polkit agent."
+    "title": "Polkit hittades inte",
+    "message": "IPFS kan inte läggas till i /usr/local/bin/ utan polkit-agenten."
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "Inget tillstånd",
+    "message": "IPFS kunde inte läggas till i /usr/local/bin/, antingen för att du angav fel lösenord eller så nekades du åtkomst."
   },
   "ipfsNotRunningDialog": {
-    "title": "IPFS is not running",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "title": "IPFS körs inte",
+    "message": "IPFS behöver köras för att utföra den här åtgärden. Vill du starta demonen?"
   },
   "recoverableErrorDialog": {
-    "title": "An error has occurred",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "title": "Ett fel har inträffat",
+    "message": "Ett fel inträffade, men det verkar inte hindra från IPFS-skrivbordet körs. Du kan antingen inspektera loggarna självmant eller rapportera felet till utvecklarna."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "Kan inte ansluta till API",
+    "message": "IPFS-skrivbordet kan inte ansluta till den API-adressen som angavs:{ addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "IPFS-skrivbordet har stängts ner",
+    "message": "IPFS-skrivbordet har stängts ner till följd av ett fel. Du kan starta om appen eller rapportera felet till utvecklarna vilket kräver ett GitHub-konto."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
+    "title": "Flytta filförrådet",
     "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "action": "Flytta och starta om noden"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
+    "title": "Flytten av filförrådet lyckades",
     "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
   },
   "moveRepositorySameDirDialog": {
@@ -85,154 +86,101 @@
     "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "Mappen existerar redan",
+    "message": "Mappen { location } finns redan. Vänligen prova att använda en annan."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "Portarna är upptagna",
+    "message": "Porterna { port1 } och { port2 } är inte tillgängliga. Vill du använda { alt1 } och { alt2 } istället?",
+    "action": "Använd porterna { alt1 } och { alt2 } istället"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "Porten är upptagen",
+    "message": "Porten { port } är inte tillgänglig. Vill du använda { alt } istället?",
+    "action": "Använd port { alt } istället"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
+    "title": "Portarna är upptagna",
     "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "action": "Öppna konfigurationsfilen"
   },
   "itemsAddedNotification": {
     "title": "Items added",
-    "message": "{ count } items added to your node. A shareable link was copied to your clipboard. Click here to see your files."
+    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemAddedNotification": {
     "title": "Item added",
-    "message": "Item added to your node. A shareable link was copied to your clipboard. Click here to see your file."
+    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
   },
   "itemsFailedNotification": {
     "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "message": "Kunde inte lägga till dina objekt till dina noder."
   },
   "updateAvailableDialog": {
-    "title": "Update available",
-    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
+    "title": "Uppdatering tillgänglig",
+    "message": "En ny version ({ version }) av IPFS-skrivbord är tillgänglig. Hämtningen kommer att börja snart i bakgrunden."
   },
   "updateNotAvailableDialog": {
-    "title": "Update not available",
-    "message": "You are on the latest version of IPFS Desktop ({ version })."
+    "title": "Uppdateringen är inte tillgänglig",
+    "message": "Du är i den senaste versionen av IPFS-skrivbord ({ version })."
   },
   "updateErrorDialog": {
-    "title": "Could not download update",
+    "title": "Kunde inte hämta uppdateringen",
     "message": "It was not possible to download the update. Please check your Internet connection and try again."
   },
   "updateDownloadedDialog": {
-    "title": "Update downloaded",
-    "message": "Update for version { version } downloaded. To install the update, please restart IPFS Desktop.",
-    "action": "Restart"
+    "title": "IPFS Desktop Update",
+    "message": "En uppdatering { version } för IPFS-skrivbordet är tillgänglig. Skulle du vilja installera den nu?",
+    "later": "Senare",
+    "now": "Installera nu"
   },
   "updateDownloadedNotification": {
-    "title": "Update downloaded",
-    "message": "Update for version { version } of IPFS Desktop downloaded. Click this notification to install."
+    "title": "IPFS Desktop Update",
+    "message": "An update to IPFS Desktop { version } is available."
   },
   "runGarbageCollectorWarning": {
-    "title": "Garbage collector",
+    "title": "Skräpinsamlare",
     "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
-    "action": "Run"
+    "action": "Kör"
   },
   "runGarbageCollectorDone": {
-    "title": "Garbage collector",
-    "message": "The garbage collector ran successfully."
+    "title": "Skräpinsamlare",
+    "message": "Körningen av skräpinsamlaren lyckades."
   },
   "moveRepositoryFailed": {
-    "title": "Move repository",
+    "title": "Flytta filförrådet",
     "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
   },
-  "cantAddIpfsToPath": {
-    "title": "IPFS on PATH",
-    "message": "Could not add IPFS to the PATH."
-  },
   "runGarbageCollectorErrored": {
-    "title": "Garbage collector",
+    "title": "Skräpinsamlare",
     "message": "The garbage collector run could not be completed successfully."
   },
-  "downloadCidContentDialog": {
-    "title": "Download to a local directory",
-    "message": "Enter a CID, IPFS path, or IPNS path:",
-    "action": "Next"
-  },
-  "cantResolveCidDialog": {
-    "title": "Error",
-    "message": "Unable to resolve \"{ path }\"."
-  },
-  "couldNotGetCidDialog": {
-    "title": "Error",
-    "message": "Unable to fetch \"{ path }\"."
-  },
-  "contentsSavedDialog": {
-    "title": "Success",
-    "message": "The contents of \"{ path }\" were successfully downloaded.",
-    "action": "See Files"
-  },
-  "couldNotSaveDialog": {
-    "title": "Could not write to disk",
-    "message": "There was an error writing to the disk. Please try again."
-  },
   "launchAtLoginNotSupported": {
-    "title": "Error",
+    "title": "Fel",
     "message": "Launch at login is not supported on your platform."
   },
   "launchAtLoginFailed": {
-    "title": "Error",
+    "title": "Fel",
     "message": "Launch at login could not be enabled on your machine."
-  },
-  "enableIpfsOnPath": {
-    "title": "Enable IPFS on PATH",
-    "message": "By enabling this option, IPFS will be available on your command line as \"ipfs\". This action is reversible.",
-    "action": "Enable"
-  },
-  "disableIpfsOnPath": {
-    "title": "Disable IPFS on PATH",
-    "message": "By disabling this option, IPFS will no longer be available on your command line as \"ipfs\".",
-    "action": "Disable"
   },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Enable screenshot shortcut",
     "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
   },
-  "enableGlobalDownloadShortcut": {
-    "title": "Enable download shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to download files as long as IPFS Desktop is running."
-  },
-  "installNpmOnIpfsWarning": {
-    "title": "Install npm on IPFS",
-    "message": "This experimental feature installs the \"ipfs-npm\" package on your system. It requires Node.js to be installed.",
-    "action": "Install"
-  },
-  "unableToInstallNpmOnIpfs": {
-    "title": "Error",
-    "message": "It was not possible to install \"ipfs-npm\" package on your system. Please check the logs for more information or try installing it manually by running \"npm install -g ipfs-npm\" on your command line."
-  },
-  "unableToUninstallNpmOnIpfs": {
-    "title": "Error",
-    "message": "It was not possible to uninstall \"ipfs-npm\" package on your system. Please check the logs for more information or try uninstalling it manually by running \"npm uninstall -g ipfs-npm\" on your command line."
-  },
   "settings": {
     "settings": "Inställningar",
-    "preferences": "Preferences",
+    "preferences": "Egenskaper",
     "openNodeSettings": "Open Node Settings",
-    "appPreferences": "App Preferences",
-    "launchOnStartup": "Launch at Login",
+    "appPreferences": "Egenskaper för appen",
+    "launchOnStartup": "Starta vid inloggning",
     "openWebUIAtLaunch": "Open Web UI at Launch",
-    "pubsub": "Enable PubSub",
-    "namesysPubsub": "Enable IPNS over PubSub",
-    "automaticGC": "Automatic Garbage Collection",
-    "ipfsCommandLineTools": "Command Line Tools",
+    "pubsub": "Aktivera PubSub",
+    "namesysPubsub": "Aktivera IPNS över PubSub",
+    "automaticGC": "Automatisk skräpinsamling",
     "takeScreenshotShortcut": "Global Screenshot Shortcut",
-    "downloadHashShortcut": "Global Download Shortcut",
     "experiments": "Experiment",
-    "npmOnIpfs": "Enable npm on IPFS"
+    "npmOnIpfs": "Aktivera npm på IPFS",
+    "monochromeTrayIcon": "Använd monokrom ikon för verktygsfältet"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",
@@ -245,5 +193,36 @@
   "clearCustomIpfsBinarySuccess": {
     "title": "Clear custom IPFS binary",
     "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+  },
+  "unresponsiveWindowDialog": {
+    "title": "IPFS Desktop became unresponsive",
+    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "forceReload": "Yes, reload",
+    "doNothing": "Do nothing"
+  },
+  "migrationDialog": {
+    "title": "IPFS Desktop Migration",
+    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "closeAndContinue": "Continue in the background"
+  },
+  "startupFailedDialog": {
+    "title": "IPFS Desktop Startup Has Failed",
+    "message": "IPFS node has encountered an error and startup could not be completed:"
+  },
+  "repositoryMustBeDirectoryDialog": {
+    "title": "IPFS Repository Must Be a Directory",
+    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+  },
+  "repositoryConfigurationIsMissingDialog": {
+    "title": "IPFS Repository Configuration Is Missing",
+    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+  },
+  "privateNetworkDialog": {
+    "title": "Private Network IPFS Repository",
+    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+  },
+  "invalidRepositoryDialog": {
+    "title": "Invalid IPFS Repository or Configuration File",
+    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
   }
 }

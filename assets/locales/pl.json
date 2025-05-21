@@ -11,9 +11,10 @@
   "restart": "Restart",
   "about": "O...",
   "advanced": "Zaawansowane",
-  "openRepoDir": "Otwórz katalog repozytorium",
-  "openLogsDir": "Otwórz katalog logów",
-  "openConfigFile": "Otwórz plik konfiguracyjny",
+  "openRepoDir": "Open Kubo Repository Directory",
+  "openLogsDir": "Open Desktop Logs Directory",
+  "openConfigFile": "Open Desktop Configuration File",
+  "openKuboConfigFile": "Open Kubo Configuration File",
   "viewOnGitHub": "Zobacz na GitHub",
   "helpUsTranslate": "Pomóż przetłumaczyć tę aplikację",
   "readReleaseNotes": "Przeczytaj informacje o wydaniu",
@@ -210,18 +211,18 @@
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Repozytorium IPFS musi być katalogiem",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "message": "Repozytorium pod adresem “{ path }” jest nieprawidłowe, ponieważ nie jest katalogiem.\n\nPrzed ponownym uruchomieniem IPFS Desktop, zmień nazwę starego repozytorium na \".ipfs.backup\". Proszę zauważyć, że to spowoduje, że IPFS Desktop wygeneruje nowe repozytorium."
   },
   "repositoryConfigurationIsMissingDialog": {
     "title": "Brak konfiguracji repozytorium IPFS",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "message": "Repozytorium w “{ path }”  nie zawiera pliku \"config\". Plik \"config\" musi być poprawnym plikiem JSON.\n\nPrzed ponownym uruchomieniem IPFS Desktop, proszę naprawić plik konfiguracyjny lub zmienić nazwę starego repozytorium na \".ipfs.backup\". Należy pamiętać, że zmieniając nazwę starego repozytorium, IPFS Desktop wygeneruje nowe repozytorium."
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "Sieć prywatna repozytorium IPFS",
+    "message": "Repozytorium pod adresem “{ path }” jest częścią sieci prywatnej, która nie jest obsługiwana przez IPFS Desktop."
   },
   "invalidRepositoryDialog": {
     "title": "Nieprawidłowy plik konfiguracji lub repozytorium IPFS",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "message": "Repozytorium pod adresem “{ path }” olub jego konfiguracja jest nieprawidłowa. Plik \"config\" musi być poprawnym JSON-em.\n\nPrzed ponownym uruchomieniem IPFS Desktop napraw plik konfiguracyjny lub zmień nazwę starego repozytorium na \".ipfs.backup\". Zwróć uwagę, że zmieniając nazwę starego repozytorium, IPFS Desktop wygeneruje nowe repozytorium"
   }
 }

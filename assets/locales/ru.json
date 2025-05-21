@@ -11,9 +11,10 @@
   "restart": "Перезапуск",
   "about": "Описание",
   "advanced": "Дополнительно",
-  "openRepoDir": "Открыть Каталог Репозитория",
-  "openLogsDir": "Открыть Каталог Логов",
-  "openConfigFile": "Открыть Файл Конфигурации",
+  "openRepoDir": "Открыть директорию репозитория Kubo",
+  "openLogsDir": "Открыть директорию журналов",
+  "openConfigFile": "Open Desktop Configuration File",
+  "openKuboConfigFile": "Open Kubo Configuration File",
   "viewOnGitHub": "Посмотреть на GitHub...",
   "helpUsTranslate": "Помогите перевести это приложение...",
   "readReleaseNotes": "Читать заметки о выпуске",
@@ -109,7 +110,7 @@
   },
   "itemAddedNotification": {
     "title": "Элемент добавлен",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "Элемент добавлен на ваш IPFS узел. Ссылка была скопирована в ваш буфер обмена."
   },
   "itemsFailedNotification": {
     "title": "Не удалось добавить элементы",
@@ -128,13 +129,13 @@
     "message": "Невозможно загрузить обновление. Проверьте соединение с интернетом и попробуйте еще раз."
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
+    "title": "Обновление IPFS Desktop",
     "message": "Доступно обновление IPFS { version }, хотите установить сейчас?",
     "later": "Позже",
     "now": "Установить сейчас"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
+    "title": "Обновление IPFS Desktop",
     "message": "Доступно обновление [version]"
   },
   "runGarbageCollectorWarning": {
@@ -179,7 +180,7 @@
     "takeScreenshotShortcut": "Сочетание клавиш для скриншотов",
     "experiments": "Эксперименты",
     "npmOnIpfs": "Активировать npm на IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "monochromeTrayIcon": "Использовать монохромный значок в трее"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Пользовательский файл IPFS",
@@ -194,34 +195,34 @@
     "message": "Кастомный исполняемый файл IPFS более не используется. Чтобы начать использовать включенную в состав версию IPFS, IPFS нужно перезапустить."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
+    "title": "IPFS Desktop не отвечает",
+    "message": "Исходящая операция требует больше ресурсов, чем ожидалось. Вы хотите прервать работу и принудительно перезагрузить интерфейс?",
     "forceReload": "Да, перезагрузить",
     "doNothing": "Ничего не делать"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "title": "Миграция IPFS Desktop",
+    "message": "Один момент! IPFS Desktop необходимо выполнить последние миграции хранилища данных:",
     "closeAndContinue": "Продолжить в фоне"
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "Не удалось запустить IPFS Desktop",
+    "message": "IPFS Узел столкнулся с ошибкой, и запуск не удалось завершить:"
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "Репозиторий IPFS должен быть каталогом",
+    "message": "Репозиторий по адресу “{ path }” неверен так как не является директорией.\n\nПрежде чем снова запустить IPFS Desktop, пожалуйста, переименуйте старый репозиторий в “.ipfs.backup”. Пожалуйста, обратите внимание, что это заставит IPFS Desktop сгенерировать новый репозиторий."
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "Отсутствует конфигурация репозитория IPFS",
+    "message": "Репозиторий по адресу ”{ path }\" не содержит файл “config”. Файл \"config\" должен иметь содержимое в формате JSON.\n\nПрежде чем снова запустить IPFS Desktop, пожалуйста, исправьте файл конфигурации или переименуйте старый репозиторий в “.ipfs.backup”. Заметьте, что при переименовании старого репозитория IPFS Desktop создаст новый репозиторий"
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "Репозиторий IPFS в частной сети",
+    "message": "Репозиторий по адресу “{ path }” является частью частной сети, которая не поддерживается IPFS Desktop."
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "title": "Недопустимый репозиторий IPFS или файл конфигурации",
+    "message": "Репозиторий по адресу ”{ path }\" или его конфигурация недопустимы. Файл “config” должен иметь содержимое в формате JSON.\n\nПрежде чем снова запустить IPFS Desktop, пожалуйста, исправьте файл конфигурации или переименуйте старый репозиторий в “.ipfs.backup”. Заметьте, что при переименовании старого репозитория IPFS Desktop создаст новый репозиторий"
   }
 }

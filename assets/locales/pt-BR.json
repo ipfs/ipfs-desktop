@@ -11,9 +11,10 @@
   "restart": "Reiniciar",
   "about": "Sobre",
   "advanced": "Avançado",
-  "openRepoDir": "Abrir Pasta de Repositórios",
-  "openLogsDir": "Abrir Pasta de Logs",
-  "openConfigFile": "Abrir Arquivo de Configuração",
+  "openRepoDir": "Open Kubo Repository Directory",
+  "openLogsDir": "Open Desktop Logs Directory",
+  "openConfigFile": "Open Desktop Configuration File",
+  "openKuboConfigFile": "Open Kubo Configuration File",
   "viewOnGitHub": "Abrir no GitHub",
   "helpUsTranslate": "Ajude a traduzir este app",
   "readReleaseNotes": "Notas da versão",
@@ -105,11 +106,11 @@
   },
   "itemsAddedNotification": {
     "title": "Items adicionados",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "{ count } itens adicionados ao seu nó IPFS. Um link compartilhável foi copiado para sua área de transferência."
   },
   "itemAddedNotification": {
     "title": "Item adicionado",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "Item adicionado ao seu nó IPFS. Um link compartilhável foi copiado para a sua área de transferência. "
   },
   "itemsFailedNotification": {
     "title": "Falha ao adicionar itens",
@@ -179,7 +180,7 @@
     "takeScreenshotShortcut": "Atalho de captura de tela integral",
     "experiments": "Experimentos",
     "npmOnIpfs": "Ativar npm no IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "monochromeTrayIcon": "Usar Ícone de Bandeja Monocromática"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binário IPFS personalizado",
@@ -200,28 +201,28 @@
     "doNothing": "Ignorar"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "Migração do IPFS Desktop",
+    "message": "Um momento! O IPFS Desktop precisa executar a última migração do banco de dados:",
+    "closeAndContinue": "Continuar em segundo plano"
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "A inicialização do IPFS Desktop falhou",
+    "message": "O nó IPFS encontrou um erro, e a inicialização não pode ser completada:"
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "O Repositório do IPFS Precisa Ser um Diretório",
+    "message": "O repositório em “{ path }” é inválido, pois não é um diretório.\n\nAntes de iniciar o IPFS Desktop novamente, favor renomear o antigo repositório para \".ipfs.backup\". Observe que isto fará com que o IPFS Desktop gere um novo repositório."
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "Falta a Configuração do Repositório IPFS",
+    "message": "O repositório em “{ path }” não possui um arquivo \"config\". O arquivo \"config\" deve ser um arquivo JSON válido.\n\nAntes de iniciar o desktop IPFS novamente, por favor, conserte o arquivo de configuração ou renomeie o antigo repositório para \".ipfs.backup\". Favor notar que, ao renomear o antigo repositório, o IPFS Desktop irá gerar um novo repositório."
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "Repositório IPFS da Rede Privada",
+    "message": "O repositório em “{ path }” é parte de uma rede privada, o que não é suportado pelo IPFS Desktop."
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "title": "Repositório IPFS ou arquivo de Configuração inválido",
+    "message": "O repositório em “{ path }”  ou sua configuração é inválido. O arquivo de \"configuração\" deve ser um JSON válido.\n\nAntes de iniciar o desktop IPFS novamente, por favor, conserte o arquivo de configuração ou renomeie o antigo repositório para \".ipfs.backup\". Favor observar que, ao renomear o antigo repositório, o IPFS Desktop irá gerar um novo repositório"
   }
 }

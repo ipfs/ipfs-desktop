@@ -11,9 +11,10 @@
   "restart": "再開",
   "about": "以下について",
   "advanced": "高度な",
-  "openRepoDir": "リポジトリディレクトリを開く",
-  "openLogsDir": "ログディレクトリを開く",
-  "openConfigFile": "設定ファイルを開く",
+  "openRepoDir": "Open Kubo Repository Directory",
+  "openLogsDir": "Open Desktop Logs Directory",
+  "openConfigFile": "Open Desktop Configuration File",
+  "openKuboConfigFile": "Open Kubo Configuration File",
   "viewOnGitHub": "GitHub で表示...",
   "helpUsTranslate": "翻訳を手伝う...",
   "readReleaseNotes": "リリースノートを見る",
@@ -46,7 +47,7 @@
   "customIpfsBinary": "カスタム IPFS バイナリ",
   "setCustomIpfsBinary": "カスタム IPFS バイナリをセット",
   "clearCustomIpfsBinary": "カスタム IPFS バイナリをクリア",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "CLIドキュメントを開く",
   "polkitDialog": {
     "title": "Polkitが見つかりません",
     "message": "IPFSは、polkitエージェントなしでは/usr/local/bin/に追加できません。"
@@ -74,14 +75,14 @@
   "moveRepositoryWarnDialog": {
     "title": "リポジトリを移動する",
     "message": "リポジトリがメインドライブのスペースを使いすぎている場合は、他の場所に移動できます。 IPFSデスクトップが正しく機能するためには、新しい場所が常に利用可能でなければならないことに注意してください。",
-    "action": "ノードを移動して再起動する"
+    "action": "リポジトリを移動してノードを再起動する"
   },
   "moveRepositorySuccessDialog": {
     "title": "リポジトリが正常に移動しました",
     "message": "リポジトリが  { location }  に正常に移動され、構成が更新されました。デーモンは再び起動します。"
   },
   "moveRepositorySameDirDialog": {
-    "title": "同じディレクトリを選択",
+    "title": "同じディレクトリを選択しました",
     "message": "選択したディレクトリは、現在のディレクトリと同じです：  { location }  。したがって、変更は行われません。"
   },
   "moveRepositoryDirExists": {
@@ -105,11 +106,11 @@
   },
   "itemsAddedNotification": {
     "title": "複数アイテムが追加されました",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": " { count }個のアイテムがノードに追加されました。共有可能なリンクがクリップボードにコピーされました。"
   },
   "itemAddedNotification": {
     "title": "ひとつのアイテムが追加されました",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": "ひとつのアイテムがノードに追加されました。共有可能なリンクがクリップボードにコピーされました。"
   },
   "itemsFailedNotification": {
     "title": "複数アイテムを追加できませんでした",
@@ -128,100 +129,100 @@
     "message": "更新に失敗しました。インターネット接続を確認して、もう一度お試しください。"
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "IPFSデスクトップを更新する",
+    "message": "IPFS Desktop{ version }のアップデートが利用可能です。今すぐインストールしますか？",
+    "later": "後で",
+    "now": "今すぐインストールする"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "IPFSデスクトップを更新する",
+    "message": "IPFS Desktop{ version }のアップデートが利用可能です。今すぐインストールしますか？"
   },
   "runGarbageCollectorWarning": {
-    "title": "ゴミコレクター",
+    "title": "ガベージコレクター",
     "message": "ゴミコレクター (GC) を実行すると、MFSに固定されないオブジェクトはリポジトリから取り消されます。しばらく時間がかかります。よろしいですか？",
     "action": "実行"
   },
   "runGarbageCollectorDone": {
-    "title": "ゴミコレクター",
-    "message": "ゴミコレクターは成功に実行しました。"
+    "title": "ガベージコレクター",
+    "message": "ガベージコレクターは実行に成功しました。"
   },
   "moveRepositoryFailed": {
     "title": "リポジトリを移動する",
     "message": "リポジトリは\"{ currDir }\"から\"{ newDir }\"まで移動できませんでした。"
   },
   "runGarbageCollectorErrored": {
-    "title": "ゴミコレクター",
-    "message": "ゴミコレクターは成功に完了できませんでした。"
+    "title": "ガベージコレクター",
+    "message": "ガベージコレクターは成功に完了できませんでした。"
   },
   "launchAtLoginNotSupported": {
     "title": "エラー",
-    "message": "ログイン時の開始はこのプラットフォームにサポートされません。"
+    "message": "お使いのプラットフォームでは、ログイン時の起動はサポートされていません。"
   },
   "launchAtLoginFailed": {
     "title": "エラー",
-    "message": "ログイン時の開始はこのコンピューターに有効できませんでした。"
+    "message": "お使いのプラットフォームでは、ログイン時の起動を有効にすることはできませんでした。"
   },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "スクリーンショットショートカットを有効にする",
-    "message": "有効にすると、IPFSデスクトップは実行される限り\"{ accelerator }\"ショートカットはスクリーンショットを撮ることができます。"
+    "message": "これを有効にすると、IPFSデスクトップが起動している間、ショートカット{ accelerator }がスクリーンショットを撮るために利用できるようになります。"
   },
   "settings": {
     "settings": "設定",
-    "preferences": "設定",
+    "preferences": "環境設定",
     "openNodeSettings": "ノード設定を開く",
-    "appPreferences": "アプリ設定",
+    "appPreferences": "アプリの環境設定",
     "launchOnStartup": "ログイン時に起動",
     "openWebUIAtLaunch": "起動時にWeb UIを開く",
     "pubsub": "PubSubを有効",
-    "namesysPubsub": "IPNS・オーバー・PubSubを有効",
-    "automaticGC": "自動的なゴミコレクター",
+    "namesysPubsub": "IPNS over PubSubを有効にする",
+    "automaticGC": "自動ガベージコレクション",
     "takeScreenshotShortcut": "グローバルスクリーンショットのショートカット",
     "experiments": "実験",
     "npmOnIpfs": "IPFSにnpmを有効",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "monochromeTrayIcon": "モノクロのトレイアイコンを使う"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "カスタム IPFS バイナリ",
-    "message": "カスタムIPFSを設定すると、IPFSデスクトップは同梱IPFSバージョンを使わず選択されるバイナリを使用します。よろしいですか？"
+    "message": "カスタムIPFSを設定することで、IPFS DesktopはバンドルされているバージョンのIPFSを使用しなくなり、指定したバイナリを使用するようになります。続行しますか？"
   },
   "setCustomIpfsBinarySuccess": {
     "title": "カスタム IPFS バイナリ",
-    "message": "IPFSは{ path }に保存してあるバイナリを使用し始めます。まずは再起動する必要があります。"
+    "message": "IPFSデスクトップは{ path }にあるバイナリを使用して起動します。利用を開始するには、まずIPFSを再起動する必要があります。"
   },
   "clearCustomIpfsBinarySuccess": {
     "title": "カスタムIPFSバイナリを除去",
-    "message": "カスタムIPFSバイナリは除去されました。同梱IPFSバージョンを使用し始めるのに、IPFSを再起動する必要があります。"
+    "message": "カスタムIPFSバイナリは除去されました。バンドルされているIPFSバージョンを使い始めるには、まずIPFSを再起動する必要があります。"
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "IPFSデスクトップが応答しなくなった",
+    "message": "進行中のオペレーションが予想以上にリソースを消費しています。中止して、インターフェイスを強制的に再読み込みしますか？",
+    "forceReload": "はい、再読み込みします",
+    "doNothing": "何もしません"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "IPFSデスクトップの移行",
+    "message": "ちょっと待って! IPFSデスクトップは、最新のデータストアの移行を実行する必要があります：",
+    "closeAndContinue": "バックグラウンドでの実行を続ける"
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "IPFSデスクトップの開始が失敗しました",
+    "message": "IPFSノードでエラーが発生し、起動を完了できませんでした："
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "IPFS リポジトリはディレクトリでなければならない",
+    "message": "\"{ path }\"のリポジトリはディレクトリではないので無効です。\n\nIPFSデスクトップ を再度起動する前に、古いリポジトリの名前を「.ipfs.backup」に変更してください。これにより、IPFSデスクトップ は新しいリポジトリを生成するようになりますので、ご注意ください。"
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "IPFS リポジトリの設定がありません",
+    "message": "そのリポジトリ\"{ path }\"は、\"config\"ファイルを持っていません。config\" ファイルは有効な JSON ファイルである必要があります。\n\nIPFSデスクトップを再度起動する前に、設定ファイルを修正するか、古いリポジトリを「.ipfs.backup」にリネームしてください。古いリポジトリの名前を変更することで、IPFSデスクトップは新しいリポジトリを生成することになりますので、ご注意ください。"
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "プライベートネットワークIPFSリポジトリ",
+    "message": "\"{ path }\"のリポジトリはプライベートネットワークの一部であり、IPFSデスクトップではサポートされていません。"
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "title": "無効なIPFSリポジトリまたは設定ファイル",
+    "message": "\"{ path }\"にあるリポジトリ、またはその構成が無効です。その\"config\"ファイルは有効なJSONである必要があります。\n\nIPFSデスクトップを再度起動する前に、設定ファイルを修正するか、古いリポジトリを「.ipfs.backup」にリネームしてください。古いリポジトリの名前を変更することで、IPFSデスクトップは新しいリポジトリを生成しますのでご注意ください。"
   }
 }

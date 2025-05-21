@@ -10,75 +10,76 @@
   "stop": "Leállítás",
   "restart": "Újraindítás",
   "about": "Rólunk",
-  "advanced": "Haladó",
-  "openRepoDir": "Nyisd meg a raktár tárolót",
-  "openLogsDir": "A napló könyvtár megnyitása",
-  "openConfigFile": "A konfigurációs fájl megnyitása",
-  "viewOnGitHub": "Nézd meg a Github-on...",
-  "helpUsTranslate": "Segíts a program fordításában!",
-  "readReleaseNotes": "Olvasd el a hivatkozó forrásokat!",
+  "advanced": "Speciális",
+  "openRepoDir": "Open Kubo Repository Directory",
+  "openLogsDir": "Open Desktop Logs Directory",
+  "openConfigFile": "Open Desktop Configuration File",
+  "openKuboConfigFile": "Open Kubo Configuration File",
+  "viewOnGitHub": "Megtekintés a GitHubon…",
+  "helpUsTranslate": "Segítsen az alkalmazás fordításában…",
+  "readReleaseNotes": "Kiadási megjegyzések elolvasása",
   "status": "Állapot",
   "files": "Fájlok",
-  "peers": "Ügyfelek",
+  "peers": "Partnerek",
   "quit": "Kilépés",
   "versions": "Verziók",
   "screenshotTaken": "Képernyőkép elkészítve",
-  "shareableLinkCopied": "Megosztható link a vágólapra került. Kattints ide a képernyőfotó megtekintéséhez.",
-  "couldNotTakeScreenshot": "Nem tudok képernyőképet készíteni",
+  "shareableLinkCopied": "A megosztható hivatkozás a vágólapra került. Kattintson ide a képernyőkép megtekintéséhez.",
+  "couldNotTakeScreenshot": "Nem sikerült a képernyőkép elkészítése",
   "errorwhileTakingScreenshot": "Hiba történt a képernyőkép készítése során",
-  "clickToOpenLogs": "Kattints ide a naplófájlok eléréséhez.",
+  "clickToOpenLogs": "Kattintson ide a naplófájlok megnyitásához.",
   "ipfsNotRunning": "Az IPFS nem fut",
-  "checkForUpdates": "Nézd meg a frissítéseket!",
+  "checkForUpdates": "Frissítések keresése…",
   "checkingForUpdates": "Frissítések keresése",
   "yes": "Igen",
   "no": "Nem",
   "close": "Bezárás",
   "ok": "OK",
-  "cancel": "Mégsem",
+  "cancel": "Mégse",
   "enable": "Engedélyezés",
-  "reportTheError": "Jelezd a hibát",
+  "reportTheError": "Jelentse a hibát",
   "restartIpfsDesktop": "Az IPFS asztali programjának újraindítása",
-  "openLogs": "A logok megnyitása",
-  "takeScreenshot": "Készíts képernyőképet",
-  "moveRepositoryLocation": "A tároló helyének áthelyezése",
-  "runGarbageCollector": "Futtasd a szemétgyűjtőt",
-  "selectDirectory": "Válassz könyvtárat",
-  "customIpfsBinary": "Saját IPFS bináris",
-  "setCustomIpfsBinary": "Állíts be saját IPFS binárist",
-  "clearCustomIpfsBinary": "A saját IPFS bináris törlése",
+  "openLogs": "A naplók megnyitása",
+  "takeScreenshot": "Képernyőkép készítése",
+  "moveRepositoryLocation": "Tároló helyének áthelyezése",
+  "runGarbageCollector": "Szemétgyűjtő futtatása",
+  "selectDirectory": "Válasszon könyvtárat",
+  "customIpfsBinary": "Egyéni IPFS bináris",
+  "setCustomIpfsBinary": "Egyéni IPFS bináris beállítása",
+  "clearCustomIpfsBinary": "Az egyéni IPFS bináris törlése",
   "openCliDocumentation": "CLI dokumentáció megnyitása",
   "polkitDialog": {
-    "title": "A Poolkit nem található",
-    "message": "Az IPFS nem adható hozzá a /usr/local/bin/ ügynök nélkül."
+    "title": "A Polkit nem található",
+    "message": "Az IPFS polkit ügynök nélkül nem adható hozzá az /usr/local/bin/ könyvtárhoz."
   },
   "noPermissionDialog": {
     "title": "Nincs hozzáférés",
-    "message": "Az IPFS-t nem lehetett hozzáadni a /usr/local/bin/ könyvtárhoz, mert rossz jelszót adott meg, vagy megtagadta az engedélyt."
+    "message": "Az IPFS-t nem lehetett hozzáadni az /usr/local/bin/ könyvtárhoz, mert hibás jelszót adott meg, vagy a hozzáférés meg lett tagadva."
   },
   "ipfsNotRunningDialog": {
     "title": "Az IPFS nem fut",
-    "message": "Az IPFS-nek futnia kell, hogy végre tudjuk hajtani ezt a műveletet. El akarod indítani a szolgáltatást?"
+    "message": "Az IPFS-nek futnia kell, hogy végre tudja hajtani ezt a műveletet. Elindítja a démont?"
   },
   "recoverableErrorDialog": {
-    "title": "Hiba történt.",
-    "message": "Hiba történt, de ez nem akadályozza meg az IPFS Desktop működését. Vagy ellenőrizheti a naplókat saját maga, vagy jelentheti a hibát a fejlesztőknek."
+    "title": "Hiba történt",
+    "message": "Hiba történt, de ez nem akadályozza meg az IPFS Desktop működését. Ellenőrizheti a naplókat, vagy jelentheti a hibát a fejlesztőknek."
   },
   "cannotConnectToApiDialog": {
-    "title": "Nem tudok csatlakozni az API-hoz.",
+    "title": "Nem lehet kapcsolódni az API-hoz",
     "message": "Az IPFS Dektop nem tud a(z) { addr } címen lévő API-hoz kapcsolódni."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "Az IPFS asztalli program leállt",
-    "message": "Az IPFS Desktop hiba miatt leállt. Újra indíthatja az alkalmazást, vagy jelentheti a hibát a fejlesztőknek, amelyhez GitHub-fiók szükséges."
+    "title": "Az IPFS Desktop leállt",
+    "message": "Az IPFS Desktop hiba miatt leállt. Újraindíthatja az alkalmazást, vagy jelentheti a hibát a fejlesztőknek, amelyhez GitHub-fiók szükséges."
   },
   "moveRepositoryWarnDialog": {
-    "title": "A tároló áthelyezve",
+    "title": "Tároló áthelyezése",
     "message": "Ha a tárhely túl sok helyet foglal el a fő meghajtón, áthelyezheti más helyre. Ne feledje, hogy az új helynek mindig elérhetőnek kell lennie ahhoz, hogy az IPFS Desktop megfelelően működjön.",
-    "action": "Módosítsd, vagy indítsd újra a csomópontot"
+    "action": "Csomópont áthelyezése és újraindítása"
   },
   "moveRepositorySuccessDialog": {
-    "title": "A tároló sikeresen elköltözött.",
-    "message": "A tárhelyedet sikeresen áthelyezték a { location }helyre, és frissítették a konfigurációt. A démon most újraindul."
+    "title": "A tároló sikeresen át lett helyezve",
+    "message": "A tárhelyed sikeresen át lett helyezve ide: { location }, és a konfiguráció frissítve lett. A démon most újraindul."
   },
   "moveRepositorySameDirDialog": {
     "title": "Ugyanaz a könyvtár lett kiválasztva",
@@ -86,73 +87,73 @@
   },
   "moveRepositoryDirExists": {
     "title": "A könyvtár már létezik",
-    "message": "A(z) { location }könyvtár már létezik. Kérlek próbálj használj másikat."
+    "message": "A(z) { location }könyvtár már létezik. Próbáljon másikat használni."
   },
   "busyPortsDialog": {
     "title": "A portok foglaltak",
-    "message": "Az { port1 }-es és a { port2 }-es port nem elérhető. Használni szeretnéd a { alt1 }-as és a { alt2 }-es portot?",
-    "action": "Használd az { alt1 }-es portot a { alt2 }-es helyett"
+    "message": "A következő portok nem érhetők el:  { port1 } és { port2 }. Inkább ezeket használja: { alt1 } és { alt2 }?",
+    "action": "Inkább ezen portok használata: { alt1 } és { alt2 }"
   },
   "busyPortDialog": {
     "title": "A port foglalt",
-    "message": "Az { port }-es port nem elérhető. Szeretnéd használni a { alt }-es portot?",
-    "action": "Használd az { alt }-es portot"
+    "message": "A következő port nem érhető el: { port }. Inkább ezt használja: { alt }?",
+    "action": "Inkább ezen port használata: { alt }"
   },
   "multipleBusyPortsDialog": {
-    "title": "A port foglalt",
-    "message": "Egy vagy több API-hoz vagy átjáróhoz nem tudok kapcsolódni, mert a portok foglaltak.",
+    "title": "A portok foglaltak",
+    "message": "Egy vagy több API-hoz vagy átjáróhoz nem lehet kötődni, mert a portok foglaltak.",
     "action": "Konfigurációs fájl megnyitása"
   },
   "itemsAddedNotification": {
     "title": "Elemek hozzáadva",
-    "message": "{ count } tétel hozzáadva az IPFS csomópontodhoz. Egy megosztható link a vágólapodra lett másolva."
+    "message": "{ count } tétel hozzáadva az IPFS-csomópontjához. Egy megosztható hivatkozás lett a vágólapra másolva."
   },
   "itemAddedNotification": {
     "title": "Elem hozzáadva",
-    "message": "Tétel hozzáadva az IPFS csomópontodhoz. Egy megosztható link a vágólapodra lett másolva."
+    "message": "Tétel hozzáadva az IPFS-csomópontjához. Egy megosztható hivatkozás lett a vágólapra másolva."
   },
   "itemsFailedNotification": {
-    "title": "Hibásak a hozzáadott tételek",
-    "message": "Nem tudjuk hozzáadni a tételeket a csomópontodhoz"
+    "title": "Az elemek hozzáadása sikertelen",
+    "message": "Az elemei nem adhatók hozzá a csomópontjához."
   },
   "updateAvailableDialog": {
-    "title": "Frissítés elérhető",
-    "message": "Az IPFS újabb verziója ({ version }) már elérhető. A letöltés a háttérben hamarosan elkezdődik."
+    "title": "Frissítés érhető el",
+    "message": "Az IPFS Desktop újabb verziója ({ version }) érhető el. A letöltés hamarosan elkezdődik a háttérben."
   },
   "updateNotAvailableDialog": {
-    "title": "Frissítés nem elérhető",
-    "message": "Az IPSF Desktop legfrissebb verzióját használod ({ version })"
+    "title": "Nem érhető el frissítés",
+    "message": "Az IPSF Desktop legfrissebb verzióját használja ({ version })"
   },
   "updateErrorDialog": {
-    "title": "Nem tudom letölteni a frissítést",
-    "message": "Nem tudtuk letölteni a frissítést. Kérlek ellenőrizd az internet hozzáférésed és próbáld meg újra."
+    "title": "A frissítés nem tölthető le",
+    "message": "A frissítés letöltése nem volt lehetséges. Ellenőrizze az internetkapcsolatát, és próbálja meg újra."
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Frissítés",
-    "message": "Egy frissítés elérhető az IPFS Desktop { version }-as/-es verziójára. Szeretnéd ezt telepíteni most?",
+    "title": "IPFS Desktop frissítés",
+    "message": "Egy frissítés érhető el: IPFS Desktop { version }. Telepíti most?",
     "later": "Később",
     "now": "Telepítés most"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Frissítés",
-    "message": "Egy frissítés elérhető az IPFS Desktop { version }-as/-es verziójára."
+    "title": "IPFS Desktop frissítés",
+    "message": "Egy frissítés érhető el: IPFS Desktop { version }."
   },
   "runGarbageCollectorWarning": {
-    "title": "Szemetes",
-    "message": "A szemétszedő (GC) futtatása eltávolítja a tárolóból az összes objektumot, amely nincs rögzítve vagy az MFS-en található. Ez eltarthat egy ideig. Folytatni akarja?",
+    "title": "Szemétgyűjtő",
+    "message": "A szemétgyűjtő (GC) futtatása eltávolítja a tárolóból az összes olyan objektumot, amely nincs rögzítve, vagy az MFS-en található. Ez eltarthat egy ideig. Folytatja?",
     "action": "Futtatás"
   },
   "runGarbageCollectorDone": {
-    "title": "Szemetes",
-    "message": "A szemetesgyűjtő sikeresen futott."
+    "title": "Szemétgyűjtő",
+    "message": "A szemétgyűjtő sikeresen futott."
   },
   "moveRepositoryFailed": {
-    "title": "A tároló áthelyezve",
-    "message": "Nem sikerült áthelyezni a repositoryt \"{ currDir }\" -ról \"{ newDir }\" -re."
+    "title": "Tároló áthelyezése",
+    "message": "A tároló nem helyezhető át innen: „{ currDir }”, ide: „{ newDir }”."
   },
   "runGarbageCollectorErrored": {
-    "title": "Szemetes",
-    "message": "A hulladékgyűjtőt nem sikerült sikeresen befejezni."
+    "title": "Szemétgyűjtő",
+    "message": "A szemétgyűjtő futását nem sikerült sikeresen befejezni."
   },
   "launchAtLoginNotSupported": {
     "title": "Hiba",
@@ -163,23 +164,23 @@
     "message": "A bejelentkezéskor történő indítást nem lehetett engedélyezni a számítógépen."
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "A képernyőmentés parancs engedélyezve",
-    "message": "Ennek a parancsikonnak az engedélyezésével a \"{ accelerator }\" parancsikon elérhető lesz képernyőképeket készíteni mindaddig, amíg az IPFS Desktop fut."
+    "title": "Képernyőmentés gyorsbillentyűjének engedélyezve",
+    "message": "Ennek engedélyezésével a „{ accelerator }” gyorsbillentyű mindaddig képernyőképeket fog készíteni, amíg az IPFS Desktop fut."
   },
   "settings": {
     "settings": "Beállítások",
     "preferences": "Beállítások",
-    "openNodeSettings": "A csomópont beállításainak megnyitása",
-    "appPreferences": "Program beállítások",
+    "openNodeSettings": "Csomópont-beállítások megnyitása",
+    "appPreferences": "Alkalmazásbeállítások",
     "launchOnStartup": "Futtatás bejelentkezéskor",
-    "openWebUIAtLaunch": "A webes interfész megnyitása futtatásra",
+    "openWebUIAtLaunch": "A webes felület megnyitása indításkor",
     "pubsub": "PubSub engedélyezése",
-    "namesysPubsub": "IPNS engedélyezése a PubSub-on",
-    "automaticGC": "Automatikus Szemétgyűjtés",
-    "takeScreenshotShortcut": "Központi képernyőmentési parancs",
-    "experiments": "Experiments",
-    "npmOnIpfs": "npm engedélyezése az IPFS-en",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "namesysPubsub": "PubSub feletti IPNS engedélyezése",
+    "automaticGC": "Automatikus szemétgyűjtés",
+    "takeScreenshotShortcut": "Globális képernyőkép-készítési parancs",
+    "experiments": "Kísérletek",
+    "npmOnIpfs": "Az npm engedélyezése az IPFS-en",
+    "monochromeTrayIcon": "Monokróm tálcaikon használata"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Saját IPFS bináris",
