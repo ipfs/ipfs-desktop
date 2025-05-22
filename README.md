@@ -31,39 +31,40 @@ When in doubt, pick one of package formats with built-in automatic update mechan
 
 ### Table of Contents
 
-  - [Features](#features)
-    - [Start your node at system startup and control it from your OS](#start-your-node-at-system-startup-and-control-it-from-your-os)
-    - [Quickly import files, folders, and screenshots to IPFS](#quickly-import-files-folders-and-screenshots-to-ipfs)
-    - [Easily manage the contents of your node](#easily-manage-the-contents-of-your-node)
-    - [Visualize your IPFS peers worldwide](#visualize-your-ipfs-peers-worldwide)
-    - [Explore the "Merkle Forest" of IPFS files](#explore-the-merkle-forest-of-ipfs-files)
-    - [Enjoy OS-wide support for IPFS files and links](#enjoy-os-wide-support-for-ipfs-files-and-links)
-    - [Learn IPFS commands as you go](#learn-ipfs-commands-as-you-go)
-  - [Install](#install)
-    - [Windows](#windows)
-    - [Mac](#mac)
-    - [Linux/FreeBSD](#linuxfreebsd)
-    - [Install from source](#install-from-source)
-  - [Contribute](#contribute)
-    - [Translations](#translations)
-    - [Developer notes](#developer-notes)
-  - [FAQ & Troubleshooting](#faq--troubleshooting)
-    - [Why am I missing the system tray menu on Linux?](#why-am-i-missing-the-system-tray-menu-on-linux)
-    - [Why can't I install IPFS Desktop under Debian 11?](#why-cant-i-install-ipfs-desktop-under-debian-11)
-    - [Why can't I start IPFS Desktop under Debian 10?](#why-cant-i-start-ipfs-desktop-under-debian-10)
-    - [Where are my configuration and log files?](#where-are-my-configuration-and-log-files)
-      - [IPFS Desktop configuration](#ipfs-desktop-configuration)
-      - [Kubo repository and configuration](#kubo-repository-and-configuration)
-        - [How does IPFS Desktop select the IPFS repo location?](#how-does-ipfs-desktop-select-the-ipfs-repo-location)
-    - [Which version of IPFS does IPFS Desktop use?](#which-version-of-ipfs-does-ipfs-desktop-use)
-    - [Which flags does IPFS Desktop boot with?](#which-flags-does-ipfs-desktop-boot-with)
-    - [I got a `repo.lock` error. How do I resolve this?](#i-got-a-repolock-error-how-do-i-resolve-this)
-    - [I got a network error (e.g. `Error fetching`). What should I do?](#i-got-a-network-error-eg-error-fetching-what-should-i-do)
-    - [Error: Initializing daemon...](#error-initializing-daemon)
-      - [Error: Your programs version (N) is lower than your repos (N+x).](#error-your-programs-version-n-is-lower-than-your-repos-nx)
-      - [Found outdated fs-repo, migrations need to be run. - Error fetching: context deadline exceeded](#found-outdated-fs-repo-migrations-need-to-be-run---error-fetching-context-deadline-exceeded)
-    - [I need more help!](#i-need-more-help)
-  - [License](#license)
+- [Features](#features)
+  - [Start your node at system startup and control it from your OS](#start-your-node-at-system-startup-and-control-it-from-your-os)
+  - [Quickly import files, folders, and screenshots to IPFS](#quickly-import-files-folders-and-screenshots-to-ipfs)
+  - [Easily manage the contents of your node](#easily-manage-the-contents-of-your-node)
+  - [Visualize your IPFS peers worldwide](#visualize-your-ipfs-peers-worldwide)
+  - [Explore the "Merkle Forest" of IPFS files](#explore-the-merkle-forest-of-ipfs-files)
+  - [Enjoy OS-wide support for IPFS files and links](#enjoy-os-wide-support-for-ipfs-files-and-links)
+  - [Learn IPFS commands as you go](#learn-ipfs-commands-as-you-go)
+- [Install](#install)
+  - [Windows](#windows)
+  - [Mac](#mac)
+  - [Linux/FreeBSD](#linuxfreebsd)
+  - [Install from source](#install-from-source)
+- [Contribute](#contribute)
+  - [Translations](#translations)
+  - [Developer notes](#developer-notes)
+- [FAQ & Troubleshooting](#faq--troubleshooting)
+  - [Why am I missing the system tray menu on Linux?](#why-am-i-missing-the-system-tray-menu-on-linux)
+  - [Why can't I install IPFS Desktop under Debian 11?](#why-cant-i-install-ipfs-desktop-under-debian-11)
+  - [Why can't I start IPFS Desktop under Debian 10?](#why-cant-i-start-ipfs-desktop-under-debian-10)
+  - [`GTK 2/3 symbols detected. Using GTK 2/3 and GTK 4 in the same process is not supported`](#gtk-23-symbols-detected-using-gtk-23-and-gtk-4-in-the-same-process-is-not-supported)
+  - [Where are my configuration and log files?](#where-are-my-configuration-and-log-files)
+    - [IPFS Desktop configuration](#ipfs-desktop-configuration)
+    - [Kubo repository and configuration](#kubo-repository-and-configuration)
+      - [How does IPFS Desktop select the IPFS repo location?](#how-does-ipfs-desktop-select-the-ipfs-repo-location)
+  - [Which version of IPFS does IPFS Desktop use?](#which-version-of-ipfs-does-ipfs-desktop-use)
+  - [Which flags does IPFS Desktop boot with?](#which-flags-does-ipfs-desktop-boot-with)
+  - [I got a `repo.lock` error. How do I resolve this?](#i-got-a-repolock-error-how-do-i-resolve-this)
+  - [I got a network error (e.g. `Error fetching`). What should I do?](#i-got-a-network-error-eg-error-fetching-what-should-i-do)
+  - [Error: Initializing daemon...](#error-initializing-daemon)
+    - [Error: Your programs version (N) is lower than your repos (N+x).](#error-your-programs-version-n-is-lower-than-your-repos-nx)
+    - [Found outdated fs-repo, migrations need to be run. - Error fetching: context deadline exceeded](#found-outdated-fs-repo-migrations-need-to-be-run---error-fetching-context-deadline-exceeded)
+  - [I need more help!](#i-need-more-help)
+- [License](#license)
 
 ## Features
 
@@ -237,6 +238,10 @@ This is a known issue with Electron/Chrome and some hardened kernels. More detai
 ```console
 $ ipfs-desktop --no-sandbox
 ```
+
+### `GTK 2/3 symbols detected. Using GTK 2/3 and GTK 4 in the same process is not supported`
+
+See [ipfs-desktop#2952](https://github.com/ipfs/ipfs-desktop/issues/2952).
 
 ### Where are my configuration and log files?
 
