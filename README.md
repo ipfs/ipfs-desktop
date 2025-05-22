@@ -1,14 +1,9 @@
-<h1 align="center">
-  IPFS Desktop
-</h1>
+# IPFS Desktop
 
-<p align="center">
-  <a href="https://ipfs.tech"><img src="https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square" alt="Official Part of IPFS Project"></a>
-  <a href="https://discuss.ipfs.tech"><img alt="Discourse Forum" src="https://img.shields.io/discourse/posts?server=https%3A%2F%2Fdiscuss.ipfs.tech"></a>
-  <a href="https://matrix.to/#/#ipfs-space:ipfs.io"><img alt="Matrix" src="https://img.shields.io/matrix/ipfs-space%3Aipfs.io?server_fqdn=matrix.org"></a>
-  <a href="https://github.com/ipfs/ipfs-desktop/actions?query=branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/ipfs/ipfs-desktop/ci.yml?branch=main"></a>
-  <a href="https://github.com/ipfs/ipfs-desktop/releases"><img alt="GitHub release" src="https://img.shields.io/github/v/release/ipfs/ipfs-desktop?filter=!*rc*"></a>
-</p>
+[![ipfs](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](https://ipfs.tech)
+[![forum](https://img.shields.io/discourse/posts?server=https%3A%2F%2Fdiscuss.ipfs.tech)](https://discuss.ipfs.tech)
+[![ci](https://img.shields.io/github/actions/workflow/status/ipfs/ipfs-desktop/ci.yml?branch=main)](https://github.com/ipfs/ipfs-desktop/actions?query=branch%3Amain)
+[![latest release download count](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.42.0/total.svg?style=flat-square)](https://github.com/ipfs/ipfs-desktop/releases/tag/v0.42.0)
 
 **IPFS Desktop gives you all the power of [IPFS](https://ipfs.tech) in a convenient desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
 
