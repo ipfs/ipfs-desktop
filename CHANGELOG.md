@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.43.0 (2025-05-22)
+
+## What's Changed
+* feat: ipfs-webui v4.7 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2942
+* ci: uci/copy-templates by @web3-bot in https://github.com/ipfs/ipfs-desktop/pull/2946
+* feat: kubo v0.35, electron 36 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2949
+* chore: sync translations by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2951
+* fix(linux): electron 35 to fix GTK error by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2953
+
+## New Contributors
+* @web3-bot made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/2946
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.42.0...v0.43.0
+
 ## 0.42.0 (2025-03-27)
 
 ## What's Changed
