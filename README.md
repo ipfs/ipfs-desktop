@@ -3,7 +3,7 @@
 [![ipfs](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](https://ipfs.tech)
 [![forum](https://img.shields.io/discourse/posts?server=https%3A%2F%2Fdiscuss.ipfs.tech)](https://discuss.ipfs.tech)
 [![ci](https://img.shields.io/github/actions/workflow/status/ipfs/ipfs-desktop/ci.yml?branch=main)](https://github.com/ipfs/ipfs-desktop/actions?query=branch%3Amain)
-[![latest release download count](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/total.svg?style=flat-square)](https://github.com/ipfs/ipfs-desktop/releases/tag/v0.43.0)
+[![latest release download count](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/total.svg?style=flat-square)](https://github.com/ipfs/ipfs-desktop/releases/tag/v0.43.1)
 
 **IPFS Desktop gives you all the power of [IPFS](https://ipfs.tech) in a convenient desktop app: a complete IPFS node, plus handy OS menubar/taskbar shortcuts and an all-in-one file manager, peer map, and content explorer.**
 
@@ -19,9 +19,9 @@ Use IPFS Desktop to get acquainted with IPFS without needing to touch the termin
 
 When in doubt, pick one of package formats with built-in automatic update mechanism:
 
-- **Windows:** [ipfs-desktop-setup-0.43.0-win-x64.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-setup-0.43.0-win-x64.exe)
-- **Mac:** [ipfs-desktop-0.43.0-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-mac.dmg)
-- **Linux:**  [ipfs-desktop-0.43.0-linux-x86_64.AppImage](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-linux-x86_64.AppImage)
+- **Windows:** [ipfs-desktop-setup-0.43.0-win-x64.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-setup-0.43.0-win-x64.exe)
+- **Mac:** [ipfs-desktop-0.43.1-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-mac.dmg)
+- **Linux:**  [ipfs-desktop-0.43.1-linux-x86_64.AppImage](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-linux-x86_64.AppImage)
   - If you prefer to manage updates on your own, see [other package formats](#install) below.
 
 ### Table of Contents
@@ -114,33 +114,33 @@ Release notes and older versions of IPFS Desktop can be found on the [releases p
 Don't see your favorite package manager? Visit our [package managers page](https://github.com/ipfs/ipfs-desktop/issues/691) and help us add support for it!
 
 ### Windows
-- **Installer:** [ipfs-desktop-setup-0.43.0-win-x64.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-setup-0.43.0-win-x64.exe)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/ipfs-desktop-setup-0.43.0-win-x64.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-setup-0.43.0-win-x64.exe)
+- **Installer:** [ipfs-desktop-setup-0.43.0-win-x64.exe](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-setup-0.43.0-win-x64.exe)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/ipfs-desktop-setup-0.43.0-win-x64.exe.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-setup-0.43.0-win-x64.exe)
 - **Chocolatey** (community-maintained): `choco install ipfs-desktop`
 - **Scoop** (community-maintained): `scoop bucket add extras; scoop install extras/ipfs-desktop`
 - **WinGet** (community-maintained): `winget install IPFS.IPFS-Desktop`
-- ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/latest.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
+- ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/latest.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
 
 ### Mac
-- **Installer:** [ipfs-desktop-0.43.0-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-mac.dmg)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/ipfs-desktop-0.43.0-mac.dmg.svg?style=flat-square&label=downloads)<br/>
-![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/ipfs-desktop-0.43.0-squirrel.zip.svg?style=flat-square&label=update)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-mac.dmg)
+- **Installer:** [ipfs-desktop-0.43.1-mac.dmg](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-mac.dmg)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/ipfs-desktop-0.43.1-mac.dmg.svg?style=flat-square&label=downloads)<br/>
+![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/ipfs-desktop-0.43.1-squirrel.zip.svg?style=flat-square&label=update)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-mac.dmg)
 - **Homebrew** (community-maintained): `brew install --cask ipfs`
-- ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/latest-mac.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
+- ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/latest-mac.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
 
 ### Linux/FreeBSD
-- **AppImage**: [ipfs-desktop-0.43.0-linux-x86_64.AppImage](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-linux-x86_64.AppImage)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/ipfs-desktop-0.43.0-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-linux-x86_64.AppImage)
-- **Tarball (tar.gz)** (use this for building packages for distros): [ipfs-desktop-0.43.0-linux-x64.tar.xz](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-linux-x64.tar.xz)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/ipfs-desktop-0.43.0-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-linux-x64.tar.xz)
-- **Debian (DEB)** (experimental): [ipfs-desktop-0.43.0-linux-amd64.deb](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-linux-amd64.deb)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/ipfs-desktop-0.43.0-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-linux-amd64.deb)
-- **Red Hat (RPM)** (experimental): [ipfs-desktop-0.43.0-linux-x86_64.rpm](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-linux-x86_64.rpm)\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/ipfs-desktop-0.43.0-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-linux-x86_64.rpm)
-- **FreeBSD** (experimental): [ipfs-desktop-0.43.0-linux-x64.freebsd](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
-[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/ipfs-desktop-0.43.0-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.0/ipfs-desktop-0.43.0-linux-x64.freebsd)
+- **AppImage**: [ipfs-desktop-0.43.1-linux-x86_64.AppImage](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-linux-x86_64.AppImage)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/ipfs-desktop-0.43.1-linux-x86_64.AppImage.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-linux-x86_64.AppImage)
+- **Tarball (tar.gz)** (use this for building packages for distros): [ipfs-desktop-0.43.1-linux-x64.tar.xz](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-linux-x64.tar.xz)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/ipfs-desktop-0.43.1-linux-x64.tar.xz.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-linux-x64.tar.xz)
+- **Debian (DEB)** (experimental): [ipfs-desktop-0.43.1-linux-amd64.deb](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-linux-amd64.deb)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/ipfs-desktop-0.43.1-linux-amd64.deb.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-linux-amd64.deb)
+- **Red Hat (RPM)** (experimental): [ipfs-desktop-0.43.1-linux-x86_64.rpm](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-linux-x86_64.rpm)\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/ipfs-desktop-0.43.1-linux-x86_64.rpm.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-linux-x86_64.rpm)
+- **FreeBSD** (experimental): [ipfs-desktop-0.43.1-linux-x64.freebsd](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-linux-x64.freebsd) (requires [Linux Binary Compatibility to be enabled](https://docs.freebsd.org/en/books/handbook/linuxemu/))\
+[![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/ipfs-desktop-0.43.1-linux-x64.freebsd.svg?style=flat-square&label=downloads)](https://github.com/ipfs/ipfs-desktop/releases/download/v0.43.1/ipfs-desktop-0.43.1-linux-x64.freebsd)
 - **Snapcraft** support is deprecated and discouraged due to [confinement issues](https://github.com/ipfs/ipfs-desktop/issues/2031), use `.AppImage` instead
-- ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.0/latest-linux.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
+- ℹ️ update checks from existing users: [![](https://img.shields.io/github/downloads/ipfs/ipfs-desktop/v0.43.1/latest-linux.yml.svg?style=flat-square&label=autoupdate)](https://github.com/ipfs/kubo/releases/latest)
 
 Additional third-party packages exist, but have the built-in auto-update mechanism disabled.
 Instead, update cycle is maintained by respective communities:
