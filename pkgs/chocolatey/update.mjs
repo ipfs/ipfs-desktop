@@ -63,5 +63,7 @@ function hashStream (stream) {
 
   await fs.outputFile(script, scriptContent)
   console.log('Done!')
-  console.log('Please commit the changes, generate new .nupkg and push it to chocolatey.org')
+  console.log(
+    'Please commit the changes, generate new .nupkg and push it to chocolatey.org'
+  )
 })()

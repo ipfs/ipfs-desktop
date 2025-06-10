@@ -1,19 +1,15 @@
 declare module 'countly-sdk-nodejs' {
-
-  /**
-   * @todo: Should be an enum when we migrate to typescript
-   */
-  export interface AnalyticsKeys {
-    ADD_VIA_DESKTOP: 'ADD_VIA_DESKTOP'
-    MOVE_REPOSITORY: 'MOVE_REPOSITORY'
-    SCREENSHOT_TAKEN: 'SCREENSHOT_TAKEN'
-    DAEMON_START: 'DAEMON_START'
-    DAEMON_STOP: 'DAEMON_STOP'
-    WEB_UI_READY: 'WEB_UI_READY'
-    APP_READY: 'APP_READY'
-    APP_START_TO_DOM_READY: 'APP_START_TO_DOM_READY'
-    FN_LAUNCH_WEB_UI: 'FN_LAUNCH_WEB_UI'
-    FN_LAUNCH_WEB_UI_WITH_PATH: 'FN_LAUNCH_WEB_UI_WITH_PATH'
+  export enum AnalyticsKeys {
+    ADD_VIA_DESKTOP = 'ADD_VIA_DESKTOP',
+    MOVE_REPOSITORY = 'MOVE_REPOSITORY',
+    SCREENSHOT_TAKEN = 'SCREENSHOT_TAKEN',
+    DAEMON_START = 'DAEMON_START',
+    DAEMON_STOP = 'DAEMON_STOP',
+    WEB_UI_READY = 'WEB_UI_READY',
+    APP_READY = 'APP_READY',
+    APP_START_TO_DOM_READY = 'APP_START_TO_DOM_READY',
+    FN_LAUNCH_WEB_UI = 'FN_LAUNCH_WEB_UI',
+    FN_LAUNCH_WEB_UI_WITH_PATH = 'FN_LAUNCH_WEB_UI_WITH_PATH',
   }
 
   export interface CountlyAddEventOptions {
@@ -28,23 +24,26 @@ declare module 'countly-sdk-nodejs' {
   /**
    * @see https://support.count.ly/hc/en-us/articles/4408793793689-Web-analytics-JavaScript-20-11-#features-for-consent
    */
-  export type ConsentFeaturesIndividual = 'sessions' | // - tracks when, how often, and how long users use your website
-  'events' | // - allows your events to be sent to the server
-  'views' | // - allows for the views/pages accessed by a user to be tracked
-  'scrolls' | // - allows a user’s scrolls to be tracked on the heatmap
-  'clicks' | // - allows a user’s clicks and link clicks to be tracked on the heatmap
-  'forms' | // - allows a user’s form submissions to be tracked
-  'crashes' | // - allows JavaScript errors to be tracked
-  'attribution' | // - allows the campaign from which a user came to be tracked
-  'users' | // - allows user information, including custom properties, to be collected/provided
-  'star rating' | // - allows users to rate the site and leave feedback
-  'feedback' | // - allows users to take part in surveys and nps ratings and submit feedbacks
-  'apm' | // - allows performance tracking of application by recording traces
-  'location' // - allows a user’s location (country, city area) to be recorded
+  export type ConsentFeaturesIndividual =
+    | 'sessions' // - tracks when, how often, and how long users use your website
+    | 'events' // - allows your events to be sent to the server
+    | 'views' // - allows for the views/pages accessed by a user to be tracked
+    | 'scrolls' // - allows a user’s scrolls to be tracked on the heatmap
+    | 'clicks' // - allows a user’s clicks and link clicks to be tracked on the heatmap
+    | 'forms' // - allows a user’s form submissions to be tracked
+    | 'crashes' // - allows JavaScript errors to be tracked
+    | 'attribution' // - allows the campaign from which a user came to be tracked
+    | 'users' // - allows user information, including custom properties, to be collected/provided
+    | 'star rating' // - allows users to rate the site and leave feedback
+    | 'feedback' // - allows users to take part in surveys and nps ratings and submit feedbacks
+    | 'apm' // - allows performance tracking of application by recording traces
+    | 'location' // - allows a user’s location (country, city area) to be recorded
 
   export type ConsentFeaturesGrouped = 'all' // all feature groups
 
-  export type ConsentFeatures = ConsentFeaturesIndividual | ConsentFeaturesGrouped
+  export type ConsentFeatures =
+    | ConsentFeaturesIndividual
+    | ConsentFeaturesGrouped
 
   export interface CountlyType {
     init: (
@@ -86,8 +85,7 @@ declare module 'countly-sdk-nodejs' {
       metrics?: unknown,
       // device_id - to identify a visitor, will be auto generated if not provided
       device_id?: string,
-
-    // @see https://support.count.ly/hc/en-us/articles/360037442892-NodeJS-SDK#sdk-internal-limits
+      // @see https://support.count.ly/hc/en-us/articles/360037442892-NodeJS-SDK#sdk-internal-limits
       /**
        * @description
        * This is used for setting the maximum size of all string keys including:
@@ -182,7 +180,5 @@ declare module 'countly-sdk-nodejs' {
     request: unknown
   }
 
-  declare const Countly: CountlyType
-
-  export = Countly
+  const Countly: CountlyType
 }

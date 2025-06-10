@@ -8,19 +8,23 @@ const ipcMainEvents = require('../common/ipc-main-events')
 
 // This function registers a global shortcut/accelerator with a certain action
 // and (de)activates it according to its 'settingsOption' value on settings.
-module.exports = function ({ settingsOption, accelerator, action, confirmationDialog }) {
+module.exports = function ({
+  settingsOption,
+  accelerator,
+  action,
+  confirmationDialog
+}) {
   const activate = ({ newValue, oldValue, feedback }) => {
     if (newValue === oldValue) return
 
     if (newValue === true) {
       if (feedback && confirmationDialog) {
-        if (showDialog({
-          ...confirmationDialog,
-          buttons: [
-            i18n.t('enable'),
-            i18n.t('cancel')
-          ]
-        }) !== 0) {
+        if (
+          showDialog({
+            ...confirmationDialog,
+            buttons: [i18n.t('enable'), i18n.t('cancel')]
+          }) !== 0
+        ) {
           // User canceled
           return
         }

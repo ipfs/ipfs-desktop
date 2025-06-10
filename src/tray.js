@@ -9,13 +9,20 @@ const store = require('./common/store')
 const moveRepositoryLocation = require('./move-repository-location')
 const runGarbageCollector = require('./run-gc')
 const ipcMainEvents = require('./common/ipc-main-events')
-const { setCustomBinary, clearCustomBinary, hasCustomBinary } = require('./custom-ipfs-binary')
+const {
+  setCustomBinary,
+  clearCustomBinary,
+  hasCustomBinary
+} = require('./custom-ipfs-binary')
 const { STATUS } = require('./daemon')
 const { IS_MAC, VERSION, KUBO_VERSION } = require('./common/consts')
 
 const CONFIG_KEYS = require('./common/config-keys')
 
-const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
+const {
+  SHORTCUT: SCREENSHOT_SHORTCUT,
+  takeScreenshot
+} = require('./take-screenshot')
 const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const createToggler = require('./utils/create-toggler')
 const getCtx = require('./context')
@@ -24,7 +31,9 @@ function buildCheckbox (key, label) {
   return {
     id: key,
     label: i18n.t(label),
-    click: () => { ipcMain.emit(ipcMainEvents.TOGGLE(key)) },
+    click: () => {
+      ipcMain.emit(ipcMainEvents.TOGGLE(key))
+    },
     type: 'checkbox',
     checked: false
   }
@@ -67,13 +76,17 @@ async function buildMenu () {
       label: i18n.t(status),
       visible: false,
       enabled: false,
-      icon: path.resolve(path.join(__dirname, `../assets/icons/status/${color}.png`))
+      icon: path.resolve(
+        path.join(__dirname, `../assets/icons/status/${color}.png`)
+      )
     })),
     // @ts-ignore
     {
       id: 'restartIpfs',
       label: i18n.t('restart'),
-      click: () => { restartIpfs() },
+      click: () => {
+        restartIpfs()
+      },
       visible: false,
       accelerator: IS_MAC ? 'Command+R' : null
     },
@@ -81,14 +94,18 @@ async function buildMenu () {
     {
       id: 'startIpfs',
       label: i18n.t('start'),
-      click: () => { startIpfs() },
+      click: () => {
+        startIpfs()
+      },
       visible: false
     },
     // @ts-ignore
     {
       id: 'stopIpfs',
       label: i18n.t('stop'),
-      click: () => { stopIpfs() },
+      click: () => {
+        stopIpfs()
+      },
       visible: false
     },
     // @ts-ignore
@@ -97,19 +114,25 @@ async function buildMenu () {
     {
       id: 'webuiStatus',
       label: i18n.t('status'),
-      click: () => { launchWebUI('/') }
+      click: () => {
+        launchWebUI('/')
+      }
     },
     // @ts-ignore
     {
       id: 'webuiFiles',
       label: i18n.t('files'),
-      click: () => { launchWebUI('/files') }
+      click: () => {
+        launchWebUI('/files')
+      }
     },
     // @ts-ignore
     {
       id: 'webuiPeers',
       label: i18n.t('peers'),
-      click: () => { launchWebUI('/peers') }
+      click: () => {
+        launchWebUI('/peers')
+      }
     },
     // @ts-ignore
     { type: 'separator' },
@@ -117,7 +140,9 @@ async function buildMenu () {
     {
       id: 'takeScreenshot',
       label: i18n.t('takeScreenshot'),
-      click: () => { takeScreenshot() },
+      click: () => {
+        takeScreenshot()
+      },
       accelerator: IS_MAC ? SCREENSHOT_SHORTCUT : null,
       enabled: false
     },
@@ -125,12 +150,16 @@ async function buildMenu () {
     { type: 'separator' },
     // @ts-ignore
     {
-      label: IS_MAC ? i18n.t('settings.preferences') : i18n.t('settings.settings'),
+      label: IS_MAC
+        ? i18n.t('settings.preferences')
+        : i18n.t('settings.settings'),
       submenu: [
         {
           id: 'webuiNodeSettings',
           label: i18n.t('settings.openNodeSettings'),
-          click: () => { launchWebUI('/settings') }
+          click: () => {
+            launchWebUI('/settings')
+          }
         },
         { type: 'separator' },
         {
@@ -138,17 +167,36 @@ async function buildMenu () {
           enabled: false
         },
         buildCheckbox(CONFIG_KEYS.AUTO_LAUNCH, 'settings.launchOnStartup'),
-        buildCheckbox(CONFIG_KEYS.OPEN_WEBUI_LAUNCH, 'settings.openWebUIAtLaunch'),
-        buildCheckbox(CONFIG_KEYS.AUTO_GARBAGE_COLLECTOR, 'settings.automaticGC'),
-        buildCheckbox(CONFIG_KEYS.SCREENSHOT_SHORTCUT, 'settings.takeScreenshotShortcut'),
-        ...(IS_MAC ? [] : [buildCheckbox(CONFIG_KEYS.MONOCHROME_TRAY_ICON, 'settings.monochromeTrayIcon')]),
+        buildCheckbox(
+          CONFIG_KEYS.OPEN_WEBUI_LAUNCH,
+          'settings.openWebUIAtLaunch'
+        ),
+        buildCheckbox(
+          CONFIG_KEYS.AUTO_GARBAGE_COLLECTOR,
+          'settings.automaticGC'
+        ),
+        buildCheckbox(
+          CONFIG_KEYS.SCREENSHOT_SHORTCUT,
+          'settings.takeScreenshotShortcut'
+        ),
+        ...(IS_MAC
+          ? []
+          : [
+              buildCheckbox(
+                CONFIG_KEYS.MONOCHROME_TRAY_ICON,
+                'settings.monochromeTrayIcon'
+              )
+            ]),
         { type: 'separator' },
         {
           label: i18n.t('settings.experiments'),
           enabled: false
         },
         buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB, 'settings.pubsub'),
-        buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB_NAMESYS, 'settings.namesysPubsub')
+        buildCheckbox(
+          CONFIG_KEYS.EXPERIMENT_PUBSUB_NAMESYS,
+          'settings.namesysPubsub'
+        )
       ]
     },
     // @ts-ignore
@@ -157,46 +205,62 @@ async function buildMenu () {
       submenu: [
         {
           label: i18n.t('openLogsDir'),
-          click: () => { shell.openPath(app.getPath('userData')) }
+          click: () => {
+            shell.openPath(app.getPath('userData'))
+          }
         },
         {
           label: i18n.t('openConfigFile'),
-          click: () => { shell.openPath(store.path) }
+          click: () => {
+            shell.openPath(store.path)
+          }
         },
         { type: 'separator' },
         {
           id: 'openRepoDir',
           label: i18n.t('openRepoDir'),
-          click: () => { shell.openPath(getKuboRepositoryPath()) }
+          click: () => {
+            shell.openPath(getKuboRepositoryPath())
+          }
         },
         {
           id: 'openKuboConfigFile',
           label: i18n.t('openKuboConfigFile'),
-          click: () => { shell.openPath(path.join(getKuboRepositoryPath(), 'config')) }
+          click: () => {
+            shell.openPath(path.join(getKuboRepositoryPath(), 'config'))
+          }
         },
         { type: 'separator' },
         {
           id: 'runGarbageCollector',
           label: i18n.t('runGarbageCollector'),
-          click: () => { runGarbageCollector() },
+          click: () => {
+            runGarbageCollector()
+          },
           enabled: false
         },
         { type: 'separator' },
         {
           id: 'moveRepositoryLocation',
           label: i18n.t('moveRepositoryLocation'),
-          click: () => { moveRepositoryLocation() }
+          click: () => {
+            moveRepositoryLocation()
+          }
         },
         {
           id: 'setCustomBinary',
           label: i18n.t('setCustomIpfsBinary'),
-          click: () => { setCustomBinary() },
+          click: () => {
+            setCustomBinary()
+          },
           visible: false
         },
         {
           id: 'clearCustomBinary',
           label: i18n.t('clearCustomIpfsBinary'),
-          click: () => { clearCustomBinary() },
+          click: () => {
+            clearCustomBinary()
+          },
           visible: false
         }
       ]
@@ -211,19 +275,29 @@ async function buildMenu () {
         },
         {
           label: `ipfs-desktop ${VERSION}`,
-          click: () => { shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/releases/v${VERSION}`) }
+          click: () => {
+            shell.openExternal(
+              `https://github.com/ipfs-shipyard/ipfs-desktop/releases/v${VERSION}`
+            )
+          }
         },
         {
           label: hasCustomBinary()
             ? i18n.t('customIpfsBinary')
             : `kubo ${KUBO_VERSION}`,
-          click: () => { shell.openExternal(`https://github.com/ipfs/kubo/releases/v${KUBO_VERSION.replace(/^\^/, '')}`) }
+          click: () => {
+            shell.openExternal(
+              `https://github.com/ipfs/kubo/releases/v${KUBO_VERSION.replace(/^\^/, '')}`
+            )
+          }
         },
         { type: 'separator' },
         {
           id: 'checkForUpdates',
           label: i18n.t('checkForUpdates'),
-          click: () => { manualCheckForUpdates() }
+          click: () => {
+            manualCheckForUpdates()
+          }
         },
         {
           id: 'checkingForUpdates',
@@ -233,18 +307,26 @@ async function buildMenu () {
         { type: 'separator' },
         {
           label: i18n.t('viewOnGitHub'),
-          click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/blob/master/README.md') }
+          click: () => {
+            shell.openExternal(
+              'https://github.com/ipfs-shipyard/ipfs-desktop/blob/master/README.md'
+            )
+          }
         },
         {
           label: i18n.t('helpUsTranslate'),
-          click: () => { shell.openExternal('https://www.transifex.com/ipfs/public/') }
+          click: () => {
+            shell.openExternal('https://www.transifex.com/ipfs/public/')
+          }
         }
       ]
     },
     // @ts-ignore
     {
       label: i18n.t('quit'),
-      click: () => { app.quit() },
+      click: () => {
+        app.quit()
+      },
       accelerator: IS_MAC ? 'Command+Q' : null
     }
   ])
@@ -298,7 +380,7 @@ module.exports = async function () {
 
   const popupMenu = (event) => {
     // https://github.com/ipfs-shipyard/ipfs-desktop/issues/1762 ¯\_(ツ)_/¯
-    if (event && typeof event.preventDefault === 'function') event.preventDefault()
+    if (event && typeof event.preventDefault === 'function') { event.preventDefault() }
 
     tray.popUpContextMenu()
   }
@@ -314,37 +396,58 @@ module.exports = async function () {
   ctx.setProp('tray.update-menu', async () => {
     logger.fileLogger.debug('[tray.update-menu] updating tray menu')
     const { status, gcRunning, isUpdating } = state
-    const errored = status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
+    const errored =
+      status === STATUS.STARTING_FAILED || status === STATUS.STOPPING_FAILED
     const menu = await buildMenu() // new menu instance every time
-    menu.on('menu-will-show', () => { ipcMain.emit(ipcMainEvents.MENUBAR_OPEN) })
-    menu.on('menu-will-close', () => { ipcMain.emit(ipcMainEvents.MENUBAR_CLOSE) })
+    menu.on('menu-will-show', () => {
+      ipcMain.emit(ipcMainEvents.MENUBAR_OPEN)
+    })
+    menu.on('menu-will-close', () => {
+      ipcMain.emit(ipcMainEvents.MENUBAR_CLOSE)
+    })
 
-    menu.getMenuItemById('ipfsIsStarting').visible = status === STATUS.STARTING_STARTED && !gcRunning && !isUpdating
-    menu.getMenuItemById('ipfsIsRunning').visible = status === STATUS.STARTING_FINISHED && !gcRunning && !isUpdating
-    menu.getMenuItemById('ipfsIsStopping').visible = status === STATUS.STOPPING_STARTED && !gcRunning && !isUpdating
-    menu.getMenuItemById('ipfsIsNotRunning').visible = status === STATUS.STOPPING_FINISHED && !gcRunning && !isUpdating
-    menu.getMenuItemById('ipfsHasErrored').visible = errored && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsIsStarting').visible =
+      status === STATUS.STARTING_STARTED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsIsRunning').visible =
+      status === STATUS.STARTING_FINISHED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsIsStopping').visible =
+      status === STATUS.STOPPING_STARTED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsIsNotRunning').visible =
+      status === STATUS.STOPPING_FINISHED && !gcRunning && !isUpdating
+    menu.getMenuItemById('ipfsHasErrored').visible =
+      errored && !gcRunning && !isUpdating
     menu.getMenuItemById('runningWithGC').visible = gcRunning
     menu.getMenuItemById('runningWhileCheckingForUpdate').visible = isUpdating
 
-    menu.getMenuItemById('startIpfs').visible = status === STATUS.STOPPING_FINISHED
-    menu.getMenuItemById('stopIpfs').visible = status === STATUS.STARTING_FINISHED
-    menu.getMenuItemById('restartIpfs').visible = (status === STATUS.STARTING_FINISHED || errored)
+    menu.getMenuItemById('startIpfs').visible =
+      status === STATUS.STOPPING_FINISHED
+    menu.getMenuItemById('stopIpfs').visible =
+      status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('restartIpfs').visible =
+      status === STATUS.STARTING_FINISHED || errored
 
-    menu.getMenuItemById('webuiStatus').enabled = status === STATUS.STARTING_FINISHED
-    menu.getMenuItemById('webuiFiles').enabled = status === STATUS.STARTING_FINISHED
-    menu.getMenuItemById('webuiPeers').enabled = status === STATUS.STARTING_FINISHED
-    menu.getMenuItemById('webuiNodeSettings').enabled = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('webuiStatus').enabled =
+      status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('webuiFiles').enabled =
+      status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('webuiPeers').enabled =
+      status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('webuiNodeSettings').enabled =
+      status === STATUS.STARTING_FINISHED
 
     menu.getMenuItemById('startIpfs').enabled = !gcRunning
     menu.getMenuItemById('stopIpfs').enabled = !gcRunning
     menu.getMenuItemById('restartIpfs').enabled = !gcRunning
 
-    menu.getMenuItemById(CONFIG_KEYS.AUTO_LAUNCH).enabled = supportsLaunchAtLogin()
-    menu.getMenuItemById('takeScreenshot').enabled = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById(CONFIG_KEYS.AUTO_LAUNCH).enabled =
+      supportsLaunchAtLogin()
+    menu.getMenuItemById('takeScreenshot').enabled =
+      status === STATUS.STARTING_FINISHED
 
-    menu.getMenuItemById('moveRepositoryLocation').enabled = !gcRunning && status !== STATUS.STOPPING_STARTED
-    menu.getMenuItemById('runGarbageCollector').enabled = menu.getMenuItemById('ipfsIsRunning').visible && !gcRunning
+    menu.getMenuItemById('moveRepositoryLocation').enabled =
+      !gcRunning && status !== STATUS.STOPPING_STARTED
+    menu.getMenuItemById('runGarbageCollector').enabled =
+      menu.getMenuItemById('ipfsIsRunning').visible && !gcRunning
 
     menu.getMenuItemById('setCustomBinary').visible = !hasCustomBinary()
     menu.getMenuItemById('clearCustomBinary').visible = hasCustomBinary()
@@ -353,8 +456,12 @@ module.exports = async function () {
     menu.getMenuItemById('checkForUpdates').visible = !isUpdating
     menu.getMenuItemById('checkingForUpdates').visible = isUpdating
 
-    menu.getMenuItemById('openRepoDir').enabled = fs.pathExistsSync(getKuboRepositoryPath())
-    menu.getMenuItemById('openKuboConfigFile').enabled = fs.pathExistsSync(path.join(getKuboRepositoryPath(), 'config'))
+    menu.getMenuItemById('openRepoDir').enabled = fs.pathExistsSync(
+      getKuboRepositoryPath()
+    )
+    menu.getMenuItemById('openKuboConfigFile').enabled = fs.pathExistsSync(
+      path.join(getKuboRepositoryPath(), 'config')
+    )
 
     if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon(on))
@@ -376,7 +483,7 @@ module.exports = async function () {
   })
   const updateMenu = ctx.getFn('tray.update-menu')
 
-  ipcMain.on(ipcMainEvents.IPFSD, status => {
+  ipcMain.on(ipcMainEvents.IPFSD, (status) => {
     // @ts-ignore
     state.status = status
     updateMenu()
@@ -402,8 +509,12 @@ module.exports = async function () {
     updateMenu()
   })
 
-  ipcMain.on(ipcMainEvents.CONFIG_UPDATED, () => { updateMenu() })
-  ipcMain.on(ipcMainEvents.LANG_UPDATED_SUCCEEDED, () => { updateMenu() })
+  ipcMain.on(ipcMainEvents.CONFIG_UPDATED, () => {
+    updateMenu()
+  })
+  ipcMain.on(ipcMainEvents.LANG_UPDATED_SUCCEEDED, () => {
+    updateMenu()
+  })
 
   nativeTheme.on('updated', () => {
     updateMenu()

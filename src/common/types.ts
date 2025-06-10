@@ -1,12 +1,11 @@
 export interface DesktopPersistentStore_IpfsdConfig {
-  path: string,
+  path: string
   flags: string[]
 }
 
 export interface DesktopPersistentStore {
-
-  ipfsConfig: DesktopPersistentStore_IpfsdConfig,
-  language: string,
-  experiments: Record<string, boolean>,
+  ipfsConfig: DesktopPersistentStore_IpfsdConfig
+  language: string
+  experiments: Record<string, boolean>
   binaryPath?: string
 }

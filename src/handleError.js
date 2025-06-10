@@ -15,7 +15,7 @@ function handleError (err) {
   /**
    * Ignore network errors that might happen during the execution.
    */
-  if ((/** @type Error */(err))?.stack?.includes('net::')) {
+  if (/** @type Error */ (err)?.stack?.includes('net::')) {
     logger.debug('[global handleError] Ignoring network error')
     return
   }

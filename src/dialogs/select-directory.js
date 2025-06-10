@@ -5,10 +5,7 @@ module.exports = async function selectDirectory (options = {}) {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     title: i18n.t('selectDirectory'),
     defaultPath: app.getPath('home'),
-    properties: [
-      'openDirectory',
-      'createDirectory'
-    ],
+    properties: ['openDirectory', 'createDirectory'],
     ...options
   })
 

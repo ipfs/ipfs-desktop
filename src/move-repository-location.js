@@ -3,7 +3,11 @@ const path = require('path')
 const fs = require('fs-extra')
 const store = require('./common/store')
 const logger = require('./common/logger')
-const { showDialog, recoverableErrorDialog, selectDirectory } = require('./dialogs')
+const {
+  showDialog,
+  recoverableErrorDialog,
+  selectDirectory
+} = require('./dialogs')
 const dock = require('./utils/dock')
 const { analyticsKeys } = require('./analytics/keys')
 const getCtx = require('./context')
@@ -19,10 +23,7 @@ module.exports = function () {
       title: i18n.t('moveRepositoryWarnDialog.title'),
       message: i18n.t('moveRepositoryWarnDialog.message'),
       type: 'warning',
-      buttons: [
-        i18n.t('moveRepositoryWarnDialog.action'),
-        i18n.t('cancel')
-      ],
+      buttons: [i18n.t('moveRepositoryWarnDialog.action'), i18n.t('cancel')],
       showDock: false
     })
 
@@ -50,7 +51,9 @@ module.exports = function () {
 
       return showDialog({
         title: i18n.t('moveRepositorySameDirDialog.title'),
-        message: i18n.t('moveRepositorySameDirDialog.message', { location: newDir }),
+        message: i18n.t('moveRepositorySameDirDialog.message', {
+          location: newDir
+        }),
         type: 'warning',
         showDock: false
       })
@@ -61,7 +64,9 @@ module.exports = function () {
 
       return showDialog({
         title: i18n.t('moveRepositoryDirExists.title'),
-        message: i18n.t('moveRepositoryDirExists.message', { location: newDir }),
+        message: i18n.t('moveRepositoryDirExists.message', {
+          location: newDir
+        }),
         type: 'warning',
         showDock: false
       })
@@ -73,21 +78,31 @@ module.exports = function () {
       await fs.move(currDir, newDir)
       logger.info(`[move repository] moved from ${currDir} to ${newDir}`)
     } catch (err) {
-      logger.error(`[move repository] error moving from '${currDir}' to '${newDir}'`, err)
+      logger.error(
+        `[move repository] error moving from '${currDir}' to '${newDir}'`,
+        err
+      )
       return recoverableErrorDialog(err, {
         title: i18n.t('moveRepositoryFailed.title'),
-        message: i18n.t('moveRepositoryFailed.message', { currDir, newDir })
+        message: i18n.t('moveRepositoryFailed.message', {
+          currDir,
+          newDir
+        })
       })
     }
 
     config.path = newDir
 
     await store.safeSet('ipfsConfig', config, async () => {
-      logger.info('[move repository] configuration updated', { withAnalytics: analyticsKeys.MOVE_REPOSITORY })
+      logger.info('[move repository] configuration updated', {
+        withAnalytics: analyticsKeys.MOVE_REPOSITORY
+      })
 
       showDialog({
         title: i18n.t('moveRepositorySuccessDialog.title'),
-        message: i18n.t('moveRepositorySuccessDialog.message', { location: newDir }),
+        message: i18n.t('moveRepositorySuccessDialog.message', {
+          location: newDir
+        }),
         showDock: false
       })
 

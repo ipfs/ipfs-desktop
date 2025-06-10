@@ -6,7 +6,7 @@ const { ipcMain } = require('electron')
 const ipcMainEvents = require('./common/ipc-main-events')
 
 const gcFlag = '--enable-gc'
-const isEnabled = flags => flags.some(f => f === gcFlag)
+const isEnabled = (flags) => flags.some((f) => f === gcFlag)
 
 function enable () {
   const flags = store.get('ipfsConfig.flags', [])
@@ -19,7 +19,7 @@ function enable () {
 function disable () {
   let flags = store.get('ipfsConfig.flags', [])
   if (isEnabled(flags)) {
-    flags = flags.filter(item => item !== gcFlag) // remove flag
+    flags = flags.filter((item) => item !== gcFlag) // remove flag
     applyConfig(flags)
   }
 }
@@ -54,5 +54,7 @@ module.exports = async function () {
   }
   activate({ newValue: store.get(CONFIG_KEY, true) })
   createToggler(CONFIG_KEY, activate)
-  logger.info(`[automatic gc] ${store.get(CONFIG_KEY, true) ? 'enabled' : 'disabled'}`)
+  logger.info(
+    `[automatic gc] ${store.get(CONFIG_KEY, true) ? 'enabled' : 'disabled'}`
+  )
 }

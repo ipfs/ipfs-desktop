@@ -1,7 +1,15 @@
 const Ctl = require('ipfsd-ctl')
 const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
-const { applyDefaults, migrateConfig, checkPorts, configExists, checkRepositoryAndConfiguration, removeApiFile, apiFileExists } = require('./config')
+const {
+  applyDefaults,
+  migrateConfig,
+  checkPorts,
+  configExists,
+  checkRepositoryAndConfiguration,
+  removeApiFile,
+  apiFileExists
+} = require('./config')
 const showMigrationPrompt = require('./migration-prompt')
 const dialogs = require('./dialogs')
 const { app } = require('electron')
@@ -12,11 +20,11 @@ const { app } = require('electron')
  * @returns {string}
  */
 function getIpfsBinPath () {
-  return process.env.IPFS_GO_EXEC ||
+  return (
+    process.env.IPFS_GO_EXEC ||
     getCustomBinary() ||
-    require('kubo')
-      .path()
-      .replace('app.asar', 'app.asar.unpacked')
+    require('kubo').path().replace('app.asar', 'app.asar.unpacked')
+  )
 }
 
 /**
@@ -68,7 +76,7 @@ async function getIpfsd (flags, path) {
   if (!isRemote) {
     // Check if ports are free and we're clear to start IPFS.
     // If not, we return null.
-    if (!await checkPorts(ipfsd)) {
+    if (!(await checkPorts(ipfsd))) {
       return null
     }
   }
@@ -79,7 +87,7 @@ async function getIpfsd (flags, path) {
 function listenToIpfsLogs (ipfsd, callback) {
   let stdout, stderr
 
-  const listener = data => {
+  const listener = (data) => {
     callback(data.toString())
   }
 
@@ -126,7 +134,11 @@ async function startIpfsWithLogs (ipfsd) {
   let logs = ''
 
   const isSpawnedDaemonDead = (ipfsd) => {
-    if (typeof ipfsd.subprocess === 'undefined') throw new Error('undefined ipfsd.subprocess, unable to reason about startup errors')
+    if (typeof ipfsd.subprocess === 'undefined') {
+      throw new Error(
+        'undefined ipfsd.subprocess, unable to reason about startup errors'
+      )
+    }
     if (ipfsd.subprocess === null) return false // not spawned yet or remote
     if (ipfsd.subprocess?.failed) return true // explicit failure
 
@@ -142,7 +154,7 @@ async function startIpfsWithLogs (ipfsd) {
     }
   }
 
-  const stopListening = listenToIpfsLogs(ipfsd, data => {
+  const stopListening = listenToIpfsLogs(ipfsd, (data) => {
     logs += data.toString()
     const line = data.toLowerCase()
     isMigrating = isMigrating || line.includes('migration')
@@ -163,7 +175,8 @@ async function startIpfsWithLogs (ipfsd) {
       // forced show on error or when finished,
       // because user could close it to run in background
       migrationPrompt.loadWindow(logs, isErrored, isFinished)
-    } else { // update progress if the window is still around
+    } else {
+      // update progress if the window is still around
       migrationPrompt.update(logs)
     }
   })
@@ -182,9 +195,11 @@ async function startIpfsWithLogs (ipfsd) {
     // This is catch-all that will show stdout/stderr of ipfs daemon
     // that failed to start, allowing user to self-diagnose or report issue.
     isErrored = isErrored || isSpawnedDaemonDead(ipfsd)
-    if (isErrored) { // save daemon output to error.log
+    if (isErrored) {
+      // save daemon output to error.log
       if (logs.trim().length === 0) {
-        logs = 'ipfs daemon failed to start and produced no output (see error.log for details)'
+        logs =
+          'ipfs daemon failed to start and produced no output (see error.log for details)'
       }
       logger.error(logs)
       if (migrationPrompt) {
@@ -196,7 +211,9 @@ async function startIpfsWithLogs (ipfsd) {
   }
 
   return {
-    err, id, logs
+    err,
+    id,
+    logs
   }
 }
 
@@ -210,12 +227,20 @@ async function startDaemon (opts) {
   const ipfsd = await getIpfsd(opts.flags, opts.path)
   if (ipfsd === null) {
     app.quit()
-    return { ipfsd: undefined, err: new Error('get ipfsd failed'), id: undefined, logs: '' }
+    return {
+      ipfsd: undefined,
+      err: new Error('get ipfsd failed'),
+      id: undefined,
+      logs: ''
+    }
   }
 
   let { err, logs, id } = await startIpfsWithLogs(ipfsd)
   if (err) {
-    if (!err.message.includes('ECONNREFUSED') && !err.message.includes('ERR_CONNECTION_REFUSED')) {
+    if (
+      !err.message.includes('ECONNREFUSED') &&
+      !err.message.includes('ERR_CONNECTION_REFUSED')
+    ) {
       return { ipfsd, err, logs, id }
     }
 

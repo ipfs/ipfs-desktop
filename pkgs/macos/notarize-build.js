@@ -14,9 +14,11 @@ exports.default = async function notarizing (context) {
   if (!process.env.APPLEID || !process.env.APPLEIDPASS) return
   // skip notarization when signing is disabled in PRs
   // https://github.com/electron-userland/electron-builder/commit/e1dda14
-  if (isSet(process.env.TRAVIS_PULL_REQUEST) ||
+  if (
+    isSet(process.env.TRAVIS_PULL_REQUEST) ||
     isSet(process.env.CI_PULL_REQUEST) ||
-    isSet(process.env.CI_PULL_REQUESTS)) return
+    isSet(process.env.CI_PULL_REQUESTS)
+  ) { return }
 
   const appName = context.packager.appInfo.productFilename
 

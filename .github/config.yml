@@ -61,7 +61,6 @@ newPRWelcomeComment: >
 
   We are very grateful for your contribution!
 
-
 # Configuration for first-pr-merge - https://github.com/behaviorbot/first-pr-merge
 # Comment to be posted to on pull requests merged by a first time user
 # Currently disabled

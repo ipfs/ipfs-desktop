@@ -12,12 +12,15 @@ function notify (options, onClick) {
 }
 
 function notifyError ({ title, body = '' }) {
-  notify({
-    title,
-    body: `${body} ${i18n.t('clickToOpenLogs')}`.trim()
-  }, () => {
-    shell.openPath(app.getPath('userData'))
-  })
+  notify(
+    {
+      title,
+      body: `${body} ${i18n.t('clickToOpenLogs')}`.trim()
+    },
+    () => {
+      shell.openPath(app.getPath('userData'))
+    }
+  )
 }
 
 module.exports = Object.freeze({

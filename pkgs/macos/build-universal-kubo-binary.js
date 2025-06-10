@@ -52,7 +52,9 @@ const execLog = (cmd) => {
   const armBinary = path.join(tmpDir, 'kubo-arm64', 'kubo', 'ipfs')
 
   console.log('→ lipo merging binaries')
-  execLog(`lipo -create "${intelBinary}" "${armBinary}" -output "${ipfsBinaryPath}"`)
+  execLog(
+    `lipo -create "${intelBinary}" "${armBinary}" -output "${ipfsBinaryPath}"`
+  )
 
   console.log('→ lipo info after merging binaries')
   execLog(`lipo "${ipfsBinaryPath}" -info`)
@@ -60,5 +62,7 @@ const execLog = (cmd) => {
   execLog(`lipo "${ipfsBinaryPath}" -verify_arch x86_64`)
   execLog(`lipo "${ipfsBinaryPath}" -verify_arch arm64`)
 
-  console.log(`→ macOS lipo command executed successfully, universal Kubo binary saved at ${ipfsBinaryPath}`)
+  console.log(
+    `→ macOS lipo command executed successfully, universal Kubo binary saved at ${ipfsBinaryPath}`
+  )
 })()

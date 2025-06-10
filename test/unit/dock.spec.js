@@ -2,9 +2,7 @@ const sinon = require('sinon')
 const { test, expect } = require('@playwright/test')
 const mockElectron = require('./mocks/electron')
 
-const proxyquire = require('proxyquire')
-  .noCallThru()
-  .noPreserveCache()
+const proxyquire = require('proxyquire').noCallThru().noPreserveCache()
 
 test.describe('Dock', () => {
   test('show dock succeeds with dock (macOS)', () => {
@@ -71,7 +69,9 @@ test.describe('Dock', () => {
     expect(res).toEqual(5)
     expect(electron.app.dock.show.callCount).toEqual(1)
     expect(electron.app.dock.hide.callCount).toEqual(1)
-    expect(electron.app.dock.show.calledBefore(electron.app.dock.hide)).toEqual(true)
+    expect(electron.app.dock.show.calledBefore(electron.app.dock.hide)).toEqual(
+      true
+    )
   })
 
   test('runs async function without dock (other OSes)', async () => {
@@ -92,7 +92,9 @@ test.describe('Dock', () => {
     expect(res).toEqual(5)
     expect(electron.app.dock.show.callCount).toEqual(1)
     expect(electron.app.dock.hide.callCount).toEqual(1)
-    expect(electron.app.dock.show.calledBefore(electron.app.dock.hide)).toEqual(true)
+    expect(electron.app.dock.show.calledBefore(electron.app.dock.hide)).toEqual(
+      true
+    )
   })
 
   test('runs sync function without dock (other OSes)', () => {

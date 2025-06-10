@@ -35,8 +35,14 @@ const createWindow = () => {
     show: false,
     autoHideMenuBar: true,
     titleBarStyle: 'hiddenInset',
-    width: store.get('window.width', dimensions.width < 1440 ? dimensions.width : 1440),
-    height: store.get('window.height', dimensions.height < 900 ? dimensions.height : 900),
+    width: store.get(
+      'window.width',
+      dimensions.width < 1440 ? dimensions.width : 1440
+    ),
+    height: store.get(
+      'window.height',
+      dimensions.height < 900 ? dimensions.height : 900
+    ),
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       webSecurity: false,
@@ -48,13 +54,18 @@ const createWindow = () => {
 
   window.webContents.once('did-start-loading', (event) => {
     const msg = '[web ui] loading'
-    const webContentLoad = logger.start(msg, { withAnalytics: analyticsKeys.WEB_UI_READY })
+    const webContentLoad = logger.start(msg, {
+      withAnalytics: analyticsKeys.WEB_UI_READY
+    })
     window.webContents.once('did-finish-load', () => {
       webContentLoad.end()
     })
-    window.webContents.once('did-fail-load', (_, errorCode, errorDescription) => {
-      webContentLoad.fail(`${msg}: ${errorDescription}, code: ${errorCode}`)
-    })
+    window.webContents.once(
+      'did-fail-load',
+      (_, errorCode, errorDescription) => {
+        webContentLoad.fail(`${msg}: ${errorDescription}, code: ${errorCode}`)
+      }
+    )
   })
   window.webContents.once('dom-ready', async (event) => {
     const endTime = performance.now()
@@ -148,27 +159,36 @@ module.exports = async function () {
   url.hash = '/blank'
   url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
 
-  ctx.setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
-    if (window.isDestroyed()) {
-      logger.error(`[web ui] window is destroyed, not launching web ui with ${path}`)
-      return
+  ctx.setProp(
+    'launchWebUI',
+    async (path, { focus = true, forceRefresh = false } = {}) => {
+      if (window.isDestroyed()) {
+        logger.error(
+          `[web ui] window is destroyed, not launching web ui with ${path}`
+        )
+        return
+      }
+      if (forceRefresh) window.webContents.reload()
+      if (!path) {
+        logger.info('[web ui] launching web ui', {
+          withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI
+        })
+      } else {
+        logger.info(`[web ui] navigate to ${path}`, {
+          withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI_WITH_PATH
+        })
+        url.hash = path
+        window.webContents.loadURL(url.toString())
+      }
+      if (focus) {
+        window.show()
+        window.focus()
+        dock.show()
+      }
+      // load again: minimize visual jitter on windows
+      if (path) window.webContents.loadURL(url.toString())
     }
-    if (forceRefresh) window.webContents.reload()
-    if (!path) {
-      logger.info('[web ui] launching web ui', { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI })
-    } else {
-      logger.info(`[web ui] navigate to ${path}`, { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI_WITH_PATH })
-      url.hash = path
-      window.webContents.loadURL(url.toString())
-    }
-    if (focus) {
-      window.show()
-      window.focus()
-      dock.show()
-    }
-    // load again: minimize visual jitter on windows
-    if (path) window.webContents.loadURL(url.toString())
-  })
+  )
 
   function updateLanguage () {
     url.searchParams.set('lng', store.get('language'))
@@ -190,7 +210,8 @@ module.exports = async function () {
 
   // Set user agent
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-    details.requestHeaders['User-Agent'] = `ipfs-desktop/${VERSION} (Electron ${ELECTRON_VERSION})`
+    details.requestHeaders['User-Agent'] =
+      `ipfs-desktop/${VERSION} (Electron ${ELECTRON_VERSION})`
     callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
   })
 
@@ -225,19 +246,21 @@ module.exports = async function () {
     }
   }
 
-  return /** @type {Promise<void>} */(new Promise(resolve => {
-    if (store.get(CONFIG_KEY)) {
-      logger.info('[web ui] waiting for ipfsd to start')
-      window.once('ready-to-show', async () => {
-        logger.info('[web ui] window ready')
+  return /** @type {Promise<void>} */ (
+    new Promise((resolve) => {
+      if (store.get(CONFIG_KEY)) {
+        logger.info('[web ui] waiting for ipfsd to start')
+        window.once('ready-to-show', async () => {
+          logger.info('[web ui] window ready')
 
-        handleSplashScreen()
+          handleSplashScreen()
 
-        resolve()
-      })
-    }
+          resolve()
+        })
+      }
 
-    updateLanguage()
-    window.loadURL(url.toString())
-  }))
+      updateLanguage()
+      window.loadURL(url.toString())
+    })
+  )
 }

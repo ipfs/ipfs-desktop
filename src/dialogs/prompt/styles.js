@@ -84,10 +84,13 @@ button.default {
 }
 `
 
-const getBackgroundColor = () => nativeTheme.shouldUseDarkColors
-  ? pallette.dark.background
-  : pallette.default.background
+const getBackgroundColor = () =>
+  nativeTheme.shouldUseDarkColors
+    ? pallette.dark.background
+    : pallette.default.background
 
 module.exports = {
-  pallette, styles, getBackgroundColor
+  pallette,
+  styles,
+  getBackgroundColor
 }

@@ -14,7 +14,6 @@ env:
   ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
 
 jobs:
-
   webui:
     runs-on: ubuntu-latest
     steps:
@@ -202,7 +201,6 @@ jobs:
         shell: bash
         continue-on-error: true # empty steps.tag.outputs.tag will inform the next step
 
-
       # This step creates a release-please PR if there are any commits that haven't been released yet.
       - name: Run release-please release-pr # see https://github.com/google-github-actions/release-please-action/issues/841
         if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
@@ -262,4 +260,3 @@ jobs:
 
       - name: Show Cache
         run: du -sh ${{ github.workspace }}/.cache/ && ls -l ${{ github.workspace }}/.cache/
-

@@ -9,7 +9,10 @@ const mockNotify = require('./mocks/notify')
 const testGetAndSet = async (ctx, propertyName, value) => {
   ctx.setProp(propertyName, value)
   const ctxVal = await ctx.getProp(propertyName)
-  expect(ctxVal, `${String(propertyName)} should equal ${value} but is ${ctxVal}`).toEqual(value)
+  expect(
+    ctxVal,
+    `${String(propertyName)} should equal ${value} but is ${ctxVal}`
+  ).toEqual(value)
 }
 
 test.describe('App Context', () => {
@@ -50,8 +53,16 @@ test.describe('App Context', () => {
       4: 'four',
       apple: () => 'shenanigans'
     })
-    await testGetAndSet(ctx, 'obj2', { bar: 'foo', four: 4, shenanigans: () => 'apple' })
-    await testGetAndSet(ctx, Symbol('objSymbol'), { bar: 'foo2', four: 42, shenanigans: () => 'apple2' })
+    await testGetAndSet(ctx, 'obj2', {
+      bar: 'foo',
+      four: 4,
+      shenanigans: () => 'apple'
+    })
+    await testGetAndSet(ctx, Symbol('objSymbol'), {
+      bar: 'foo2',
+      four: 42,
+      shenanigans: () => 'apple2'
+    })
   })
 
   test('Can set and get a function', async () => {
@@ -92,6 +103,8 @@ test.describe('App Context', () => {
 
   test('throws when trying to overwrite already set value', async () => {
     await testGetAndSet(ctx, 'num', 4)
-    expect(() => ctx.setProp('num', 5)).toThrowError('[ctx] Property num already exists')
+    expect(() => ctx.setProp('num', 5)).toThrowError(
+      '[ctx] Property num already exists'
+    )
   })
 })

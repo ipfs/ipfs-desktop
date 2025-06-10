@@ -11,11 +11,7 @@ const { fileLogger } = logger
 const defaults = {
   ipfsConfig: {
     path: '',
-    flags: [
-      '--agent-version-suffix=desktop',
-      '--migrate',
-      '--enable-gc'
-    ]
+    flags: ['--agent-version-suffix=desktop', '--migrate', '--enable-gc']
   },
   language: app?.getLocale() ?? 'en',
   experiments: {},
@@ -23,17 +19,20 @@ const defaults = {
 }
 
 const migrations = {
-  '>=0.11.0': store => {
+  '>=0.11.0': (store) => {
     fileLogger.info('Running migration: >=0.11.0')
     store.delete('version')
 
     const flags = store.get('ipfsConfig.flags', [])
 
-    if (flags.includes('--migrate=true') || flags.includes('--enable-gc=true')) {
+    if (
+      flags.includes('--migrate=true') ||
+      flags.includes('--enable-gc=true')
+    ) {
       store.set('ipfsConfig.flags', defaults.ipfsConfig.flags)
     }
   },
-  '>0.13.2': store => {
+  '>0.13.2': (store) => {
     fileLogger.info('Running migration: >0.13.2')
     const flags = store.get('ipfsConfig.flags', [])
     const automaticGC = store.get('automaticGC', false)
@@ -42,7 +41,7 @@ const migrations = {
       store.set('automaticGC', true)
     }
   },
-  '>=0.17.0': store => {
+  '>=0.17.0': (store) => {
     fileLogger.info('Running migration: >=0.17.0')
     let flags = store.get('ipfsConfig.flags', [])
 
@@ -50,26 +49,28 @@ const migrations = {
     const setVersionSuffix = '--agent-version-suffix=desktop'
     if (!flags.includes(setVersionSuffix)) {
       // remove any custom suffixes, if present
-      flags = flags.filter(f => !f.startsWith('--agent-version-suffix='))
+      flags = flags.filter((f) => !f.startsWith('--agent-version-suffix='))
       // set /desktop
       flags.push('--agent-version-suffix=desktop')
       store.set('ipfsConfig.flags', flags)
     }
     // merge routing flags into one
     if (flags.includes('--routing') && flags.includes('dhtclient')) {
-      flags = flags.filter(f => f !== '--routing').filter(f => f !== 'dhtclient')
+      flags = flags
+        .filter((f) => f !== '--routing')
+        .filter((f) => f !== 'dhtclient')
       flags.push('--routing=dhtclient')
       store.set('ipfsConfig.flags', flags)
     }
   },
-  '>=0.20.6': store => {
+  '>=0.20.6': (store) => {
     fileLogger.info('Running migration: >=0.20.6')
     let flags = store.get('ipfsConfig.flags', [])
 
     // use default instead of hard-coded dhtclient
     const dhtClientFlag = '--routing=dhtclient'
     if (flags.includes(dhtClientFlag)) {
-      flags = flags.filter(f => f !== dhtClientFlag)
+      flags = flags.filter((f) => f !== dhtClientFlag)
       store.set('ipfsConfig.flags', flags)
     }
   }
@@ -96,11 +97,17 @@ class StoreWrapper extends Store {
           try {
             return await onSuccessFn()
           } catch (err) {
-            logger.error(`[store.safeSet] Error calling onSuccessFn for '${key}'`, /** @type {Error} */(err))
+            logger.error(
+              `[store.safeSet] Error calling onSuccessFn for '${key}'`,
+              /** @type {Error} */ (err)
+            )
           }
         }
       } catch (err) {
-        logger.error(`[store.safeSet] Could not set store key '${key}' to '${value}'`, /** @type {Error} */(err))
+        logger.error(
+          `[store.safeSet] Could not set store key '${key}' to '${value}'`,
+          /** @type {Error} */ (err)
+        )
       }
     }
   }

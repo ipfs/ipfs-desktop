@@ -3,10 +3,10 @@ generateUpdatesFilesForAllChannels: true
 
 files:
   - filter:
-    - src/**/*
-    - assets/**/*
-    - node_modules/**/*
-    - package.json
+      - src/**/*
+      - assets/**/*
+      - node_modules/**/*
+      - package.json
 
 directories:
   buildResources: assets/build

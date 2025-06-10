@@ -1,6 +1,10 @@
 const { ipcRenderer, desktopCapturer } = require('electron')
 const ipcMainEvents = require('../common/ipc-main-events')
 
+/**
+ * @param {string | undefined} format
+ * @param {MediaStream} stream
+ */
 async function streamHandler (format, stream) {
   const track = stream.getVideoTracks()[0]
   const imageCapture = new window.ImageCapture(track)
@@ -13,6 +17,9 @@ async function streamHandler (format, stream) {
   return canvas.toDataURL(format)
 }
 
+/**
+ * @param {string | undefined} [format]
+ */
 async function screenshot (format) {
   format = format || 'image/png'
 

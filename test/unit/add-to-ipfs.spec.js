@@ -9,7 +9,8 @@ const proxyquire = require('proxyquire').noCallThru()
 
 const { makeRepository } = require('./../e2e/utils/ipfsd')
 
-const getFixtures = (...files) => files.map(f => path.join(__dirname, 'fixtures', f))
+const getFixtures = (...files) =>
+  files.map((f) => path.join(__dirname, 'fixtures', f))
 
 if (process.env.CI === 'true') test.setTimeout(120000) // slow ci
 
@@ -49,7 +50,9 @@ test.describe('Add To Ipfs', function () {
     expect(electron.clipboard.writeText.callCount).toEqual(1)
     expect(notify.notifyError.callCount).toEqual(0)
     expect(notify.notify.callCount).toEqual(1)
-    expect(cid.toString()).toEqual('bafkreibrl5n5w5wqpdcdxcwaazheualemevr7ttxzbutiw74stdvrfhn2m')
+    expect(cid.toString()).toEqual(
+      'bafkreibrl5n5w5wqpdcdxcwaazheualemevr7ttxzbutiw74stdvrfhn2m'
+    )
   })
 
   test('add to ipfs single directory', async () => {
@@ -57,7 +60,9 @@ test.describe('Add To Ipfs', function () {
     expect(electron.clipboard.writeText.callCount).toEqual(1)
     expect(notify.notifyError.callCount).toEqual(0)
     expect(notify.notify.callCount).toEqual(1)
-    expect(cid.toString()).toEqual('bafybeieyzpi3qdqtj7b7hfzdpt2mnmaiicvtrj7ngmf2fc76byecj62gea')
+    expect(cid.toString()).toEqual(
+      'bafybeieyzpi3qdqtj7b7hfzdpt2mnmaiicvtrj7ngmf2fc76byecj62gea'
+    )
   })
 
   test('add to ipfs multiple files', async () => {
@@ -65,6 +70,8 @@ test.describe('Add To Ipfs', function () {
     expect(electron.clipboard.writeText.callCount).toEqual(1)
     expect(notify.notifyError.callCount).toEqual(0)
     expect(notify.notify.callCount).toEqual(1)
-    expect(cid.toString()).toEqual('bafybeiaqy3wawya5ryds5zs4nsxv7ulptbdtgfngipqin7ee65azaxs2uq')
+    expect(cid.toString()).toEqual(
+      'bafybeiaqy3wawya5ryds5zs4nsxv7ulptbdtgfngipqin7ee65azaxs2uq'
+    )
   })
 })

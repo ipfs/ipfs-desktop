@@ -10,10 +10,7 @@ module.exports = async function () {
   const option = dialog({
     title: i18n.t('ipfsNotRunningDialog.title'),
     message: i18n.t('ipfsNotRunningDialog.message'),
-    buttons: [
-      i18n.t('start'),
-      i18n.t('cancel')
-    ]
+    buttons: [i18n.t('start'), i18n.t('cancel')]
   })
 
   if (option !== 0) {

@@ -6,7 +6,7 @@ const { ipcMain } = require('electron')
 const ipcMainEvents = require('./common/ipc-main-events')
 
 const pubsubFlag = '--enable-pubsub-experiment'
-const isEnabled = flags => flags.some(f => f === pubsubFlag)
+const isEnabled = (flags) => flags.some((f) => f === pubsubFlag)
 
 function enable () {
   const flags = store.get('ipfsConfig.flags', [])
@@ -19,7 +19,7 @@ function enable () {
 function disable () {
   let flags = store.get('ipfsConfig.flags', [])
   if (isEnabled(flags)) {
-    flags = flags.filter(item => item !== pubsubFlag) // remove flag
+    flags = flags.filter((item) => item !== pubsubFlag) // remove flag
     applyConfig(flags)
   }
 }
@@ -50,5 +50,7 @@ module.exports = async function () {
   }
   activate({ newValue: store.get(CONFIG_KEY, false) })
   createToggler(CONFIG_KEY, activate)
-  logger.info(`[pubsub] ${store.get(CONFIG_KEY, false) ? 'enabled' : 'disabled'}`)
+  logger.info(
+    `[pubsub] ${store.get(CONFIG_KEY, false) ? 'enabled' : 'disabled'}`
+  )
 }

@@ -31,10 +31,13 @@ test.describe.serial('Application launch', async () => {
    *
    * @param {Object} [param0]
    * @param {string} param0.repoPath
-   * @returns {Promise<{ app: Awaited<ReturnType<import('playwright')._electron['launch']>>, repoPath: string, home: string }>
+   * @returns Promise<{ app: Awaited<ReturnType<import('playwright')._electron['launch']>>, repoPath: string, home: string }>
    */
   async function startApp ({ repoPath } = {}) {
-    const home = tmp.dirSync({ prefix: 'tmp_home_', unsafeCleanup: true }).name
+    const home = tmp.dirSync({
+      prefix: 'tmp_home_',
+      unsafeCleanup: true
+    }).name
     if (!repoPath) {
       repoPath = path.join(home, '.ipfs')
     }
@@ -52,24 +55,27 @@ test.describe.serial('Application launch', async () => {
   /**
    *
    * @param {Awaited<ReturnType<import('playwright')._electron['launch']>>} app
-   * @returns {Promise<{ peerId: string }>
+   * @returns Promise<{ peerId: string }>
    */
   async function daemonReady (app) {
-    const peerId = await app.evaluate(async ({ ipcMain }) => new Promise((resolve, reject) => {
-      ipcMain.on('ipfsd', (status, peerId) => {
-        switch (status) {
-          // NOTE: this code runs inside the main process of electron, so we cannot use
-          // things we've imported outside of this function. The hard coded values can be
-          // found in src/daemon/consts.js.
-          case 3:
-            reject(new Error('starting daemon failed'))
-            break
-          case 2:
-            resolve(peerId)
-            break
-        }
-      })
-    }))
+    const peerId = await app.evaluate(
+      async ({ ipcMain }) =>
+        new Promise((resolve, reject) => {
+          ipcMain.on('ipfsd', (status, peerId) => {
+            switch (status) {
+              // NOTE: this code runs inside the main process of electron, so we cannot use
+              // things we've imported outside of this function. The hard coded values can be
+              // found in src/daemon/consts.js.
+              case 3:
+                reject(new Error('starting daemon failed'))
+                break
+              case 2:
+                resolve(peerId)
+                break
+            }
+          })
+        })
+    )
 
     return { peerId }
   }
@@ -98,7 +104,11 @@ test.describe.serial('Application launch', async () => {
 
   test('applies config migration (MDNS.enabled)', async () => {
     // create preexisting, initialized repo and config
-    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
+    const {
+      repoPath,
+      configPath,
+      peerId: expectedId
+    } = await makeRepository({ start: false })
 
     // setup "broken" config for the test
     const initConfig = fs.readJsonSync(configPath)
@@ -119,10 +129,16 @@ test.describe.serial('Application launch', async () => {
 
   test('applies config migration (Web UI CORS 1)', async () => {
     // create preexisting, initialized repo and config
-    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
+    const {
+      repoPath,
+      configPath,
+      peerId: expectedId
+    } = await makeRepository({ start: false })
 
     const initConfig = fs.readJsonSync(configPath)
-    initConfig.API.HTTPHeaders['Access-Control-Allow-Origin'] = ['https://127.0.0.1:4040']
+    initConfig.API.HTTPHeaders['Access-Control-Allow-Origin'] = [
+      'https://127.0.0.1:4040'
+    ]
     fs.writeJsonSync(configPath, initConfig, { spaces: 2 })
 
     const { app } = await startApp({ repoPath })
@@ -140,7 +156,11 @@ test.describe.serial('Application launch', async () => {
 
   test('applies config migration (Web UI CORS 2)', async () => {
     // create preexisting, initialized repo and config
-    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
+    const {
+      repoPath,
+      configPath,
+      peerId: expectedId
+    } = await makeRepository({ start: false })
 
     const initConfig = fs.readJsonSync(configPath)
     initConfig.API.HTTPHeaders['Access-Control-Allow-Origin'] = []
@@ -160,7 +180,11 @@ test.describe.serial('Application launch', async () => {
 
   test('applies config migration (Web UI CORS 3)', async () => {
     // create preexisting, initialized repo and config
-    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
+    const {
+      repoPath,
+      configPath,
+      peerId: expectedId
+    } = await makeRepository({ start: false })
 
     const initConfig = fs.readJsonSync(configPath)
     delete initConfig.API.HTTPHeaders
@@ -180,7 +204,11 @@ test.describe.serial('Application launch', async () => {
 
   test('applies config migration v4 (old custom ConnMgr)', async () => {
     // create preexisting, initialized repo and config
-    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
+    const {
+      repoPath,
+      configPath,
+      peerId: expectedId
+    } = await makeRepository({ start: false })
 
     const initConfig = fs.readJsonSync(configPath)
     initConfig.Swarm.ConnMgr.GracePeriod = '300s'
@@ -201,7 +229,11 @@ test.describe.serial('Application launch', async () => {
 
   test('applies config migration v5 (switch to implicit defaults from Kubo 0.18)', async () => {
     // create preexisting, initialized repo and config
-    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
+    const {
+      repoPath,
+      configPath,
+      peerId: expectedId
+    } = await makeRepository({ start: false })
 
     const initConfig = fs.readJsonSync(configPath)
     initConfig.Swarm.ConnMgr.GracePeriod = '1m'
@@ -223,7 +255,11 @@ test.describe.serial('Application launch', async () => {
   // IPFS Desktop has explicit AutoTLS.Enabled=true from the start, to skip AutoTLS.RegistrationDelay
   test('repo init sets explicit AutoTLS.Enabled=true', async () => {
     // create preexisting, initialized repo and config
-    const { repoPath, configPath, peerId: expectedId } = await makeRepository({ start: false })
+    const {
+      repoPath,
+      configPath,
+      peerId: expectedId
+    } = await makeRepository({ start: false })
 
     // just read config (it should have empty AutoTLS config)
     const initConfig = fs.readJsonSync(configPath)

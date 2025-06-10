@@ -17,7 +17,10 @@ const factory = Ctl.createFactory({
 })
 
 async function makeRepository ({ start = false }) {
-  const { name: repoPath } = tmp.dirSync({ prefix: 'tmp_IPFS_PATH_', unsafeCleanup: true })
+  const { name: repoPath } = tmp.dirSync({
+    prefix: 'tmp_IPFS_PATH_',
+    unsafeCleanup: true
+  })
   const configPath = join(repoPath, 'config')
 
   const ipfsd = await factory.spawn({

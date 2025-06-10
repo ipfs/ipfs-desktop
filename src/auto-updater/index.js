@@ -12,7 +12,9 @@ const CONFIG_KEYS = require('../common/config-keys')
 
 function isAutoUpdateSupported () {
   if (store.get(CONFIG_KEYS.DISABLE_AUTO_UPDATE, false)) {
-    logger.info('[updater] auto update explicitly disabled, not checking for updates automatically')
+    logger.info(
+      '[updater] auto update explicitly disabled, not checking for updates automatically'
+    )
     return false
   }
   // atm only macOS, windows and AppImage builds support autoupdate mechanism,
@@ -30,7 +32,7 @@ function setup () {
   autoUpdater.autoInstallOnAppQuit = true
   autoUpdater.logger = logger
 
-  autoUpdater.on('error', err => {
+  autoUpdater.on('error', (err) => {
     logger.error(`[updater] ${err.toString()}`)
 
     if (!feedback) {
@@ -42,9 +44,7 @@ function setup () {
       title: i18n.t('updateErrorDialog.title'),
       message: i18n.t('updateErrorDialog.message'),
       type: 'error',
-      buttons: [
-        i18n.t('close')
-      ]
+      buttons: [i18n.t('close')]
     })
   })
 
@@ -54,7 +54,11 @@ function setup () {
     try {
       await autoUpdater.downloadUpdate()
     } catch (err) {
-      logger.error(`[updater] ${err.toString()}`)
+      if (err instanceof Error) {
+        logger.error(`[updater] ${err.message}`)
+      } else {
+        logger.error(`[updater] ${String(err)}`)
+      }
     }
 
     if (!feedback) {
@@ -66,16 +70,18 @@ function setup () {
 
     const opt = showDialog({
       title: i18n.t('updateAvailableDialog.title'),
-      message: i18n.t('updateAvailableDialog.message', { version, releaseNotes }),
+      message: i18n.t('updateAvailableDialog.message', {
+        version,
+        releaseNotes
+      }),
       type: 'info',
-      buttons: [
-        i18n.t('close'),
-        i18n.t('readReleaseNotes')
-      ]
+      buttons: [i18n.t('close'), i18n.t('readReleaseNotes')]
     })
 
     if (opt === 1) {
-      shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/releases/v${version}`)
+      shell.openExternal(
+        `https://github.com/ipfs-shipyard/ipfs-desktop/releases/v${version}`
+      )
     }
   })
 
@@ -91,16 +97,16 @@ function setup () {
       title: i18n.t('updateNotAvailableDialog.title'),
       message: i18n.t('updateNotAvailableDialog.message', { version }),
       type: 'info',
-      buttons: [
-        i18n.t('close')
-      ]
+      buttons: [i18n.t('close')]
     })
   })
 
   let progressPercentTimeout = null
   autoUpdater.on('download-progress', ({ percent, bytesPerSecond }) => {
     const logDownloadProgress = () => {
-      logger.info(`[updater] download progress is ${percent.toFixed(2)}% at ${bytesPerSecond} bps.`)
+      logger.info(
+        `[updater] download progress is ${percent.toFixed(2)}% at ${bytesPerSecond} bps.`
+      )
     }
     // log the percent, but not too often to avoid spamming the logs, but we should
     // be sure we're logging at what percent any hiccup is occurring.
@@ -125,7 +131,8 @@ function setup () {
           i18n.t('updateDownloadedDialog.now')
         ]
       })
-      if (opt === 1) { // now
+      if (opt === 1) {
+        // now
         setImmediate(async () => {
           await beforeQuitCleanup() // just to be sure (we had regressions before)
           autoUpdater.quitAndInstall()
@@ -140,7 +147,9 @@ function setup () {
       // show unobtrusive notification + dialog on click
       updateNotification = new Notification({
         title: i18n.t('updateDownloadedNotification.title'),
-        body: i18n.t('updateDownloadedNotification.message', { version })
+        body: i18n.t('updateDownloadedNotification.message', {
+          version
+        })
       })
       updateNotification.on('click', feedbackDialog)
       updateNotification.show()
@@ -151,7 +160,7 @@ function setup () {
   // In some cases before-quit event is not emitted before all windows are closed,
   // and we need to do cleanup here
   const beforeQuitCleanup = async () => {
-    BrowserWindow.getAllWindows().forEach(w => w.removeAllListeners('close'))
+    BrowserWindow.getAllWindows().forEach((w) => w.removeAllListeners('close'))
     app.removeAllListeners('window-all-closed')
     try {
       const s = await stopIpfs()
@@ -162,7 +171,10 @@ function setup () {
   }
   // built-in updater != electron-updater
   // Added in https://github.com/electron-userland/electron-builder/pull/6395
-  require('electron').autoUpdater.on('before-quit-for-update', beforeQuitCleanup)
+  require('electron').autoUpdater.on(
+    'before-quit-for-update',
+    beforeQuitCleanup
+  )
 }
 
 async function checkForUpdates () {

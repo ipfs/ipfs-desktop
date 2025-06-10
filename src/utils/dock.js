@@ -7,9 +7,9 @@ function show () {
 function hide () {
   if (!app.dock) return
 
-  const count = BrowserWindow.getAllWindows()
-    .filter(w => w.isVisible())
-    .length
+  const count = BrowserWindow.getAllWindows().filter((w) =>
+    w.isVisible()
+  ).length
 
   if (count <= 0) {
     app.dock.hide()

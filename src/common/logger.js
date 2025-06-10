@@ -23,7 +23,11 @@ const { analyticsKeys } = require('../analytics/keys')
  */
 
 const { combine, splat, timestamp, printf, errors } = format
-const logsPath = ['test', 'development'].includes(process.env.NODE_ENV ?? 'none') ? process.cwd() : app.getPath('userData')
+const logsPath = ['test', 'development'].includes(
+  process.env.NODE_ENV ?? 'none'
+)
+  ? process.cwd()
+  : app.getPath('userData')
 
 const errorFile = new transports.File({
   level: 'error',
@@ -39,7 +43,7 @@ const logger = createLogger({
     errors({ stack: true }),
     timestamp(),
     splat(),
-    printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+    printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
   ),
   transports: [
     new transports.Console({

@@ -128,7 +128,7 @@ function getHttpPort (addrs) {
   let httpUrl = null
 
   if (Array.isArray(addrs)) {
-    httpUrl = addrs.find(v => v.includes('127.0.0.1'))
+    httpUrl = addrs.find((v) => v.includes('127.0.0.1'))
   } else {
     httpUrl = addrs
   }
@@ -167,13 +167,19 @@ function migrateConfig (ipfsd) {
     config = readConfigFile(ipfsd)
   } catch (err) {
     // This is a best effort check, dont blow up here, that should happen else where.
-    logger.error(`[daemon] migrateConfig: error reading config file: ${err.message || err}`)
+    logger.error(
+      `[daemon] migrateConfig: error reading config file: ${err.message || err}`
+    )
     return
   }
 
   if (CURRENT_REVISION < 1) {
     // Cleanup https://github.com/ipfs-shipyard/ipfs-desktop/issues/1631
-    if (config.Discovery && config.Discovery.MDNS && config.Discovery.MDNS.enabled) {
+    if (
+      config.Discovery &&
+      config.Discovery.MDNS &&
+      config.Discovery.MDNS.enabled
+    ) {
       config.Discovery.MDNS.Enabled = config.Discovery.MDNS.Enabled || true
       delete config.Discovery.MDNS.enabled
       changed = true
@@ -183,9 +189,10 @@ function migrateConfig (ipfsd) {
   if (CURRENT_REVISION < 3) {
     const api = config.API || {}
     const httpHeaders = api.HTTPHeaders || {}
-    const accessControlAllowOrigin = httpHeaders['Access-Control-Allow-Origin'] || []
+    const accessControlAllowOrigin =
+      httpHeaders['Access-Control-Allow-Origin'] || []
 
-    const addURL = url => {
+    const addURL = (url) => {
       if (!accessControlAllowOrigin.includes(url)) {
         accessControlAllowOrigin.push(url)
         return true
@@ -194,7 +201,9 @@ function migrateConfig (ipfsd) {
     }
 
     const addedWebUI = addURL('https://webui.ipfs.io')
-    const addedGw = addURL(`http://webui.ipfs.io.ipns.localhost:${getGatewayPort(config)}`)
+    const addedGw = addURL(
+      `http://webui.ipfs.io.ipns.localhost:${getGatewayPort(config)}`
+    )
 
     if (addedWebUI || addedGw) {
       httpHeaders['Access-Control-Allow-Origin'] = accessControlAllowOrigin
@@ -251,7 +260,9 @@ function migrateConfig (ipfsd) {
       writeConfigFile(ipfsd, config)
       store.safeSet(REVISION_KEY, REVISION)
     } catch (err) {
-      logger.error(`[daemon] migrateConfig: error writing config file: ${err.message || err}`)
+      logger.error(
+        `[daemon] migrateConfig: error writing config file: ${err.message || err}`
+      )
       return
     }
   }
@@ -273,7 +284,7 @@ async function checkIfAddrIsDaemon (addr) {
     path: '/api/v0/refs?arg=/ipfs/QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn'
   }
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const req = http.request(options, function (r) {
       resolve(r.statusCode === 200)
     })
@@ -350,15 +361,22 @@ async function checkPorts (ipfsd) {
   const gatewayIsArr = Array.isArray(config.Addresses.Gateway)
 
   if (apiIsArr || gatewayIsArr) {
-    logger.info('[daemon] custom configuration with array of API or Gateway addrs')
-    return checkPortsArray(ipfsd, [].concat(config.Addresses.API, config.Addresses.Gateway))
+    logger.info(
+      '[daemon] custom configuration with array of API or Gateway addrs'
+    )
+    return checkPortsArray(
+      ipfsd,
+      [].concat(config.Addresses.API, config.Addresses.Gateway)
+    )
   }
 
   const configApiMa = parseMultiaddr(config.Addresses.API)
   const configGatewayMa = parseMultiaddr(config.Addresses.Gateway)
 
   const isApiMaDaemon = await checkIfAddrIsDaemon(configApiMa.nodeAddress())
-  const isGatewayMaDaemon = await checkIfAddrIsDaemon(configGatewayMa.nodeAddress())
+  const isGatewayMaDaemon = await checkIfAddrIsDaemon(
+    configGatewayMa.nodeAddress()
+  )
 
   if (isApiMaDaemon && isGatewayMaDaemon) {
     logger.info('[daemon] ports busy by a daemon')
@@ -384,7 +402,7 @@ async function checkPorts (ipfsd) {
   }
 
   // two "0" in config mean "pick free ports without any prompt"
-  let promptUser = (apiPort !== 0 || gatewayPort !== 0)
+  let promptUser = apiPort !== 0 || gatewayPort !== 0
 
   if (process.env.NODE_ENV === 'test' || process.env.CI != null) {
     logger.info('[daemon] CI or TEST mode, skipping busyPortDialog')
@@ -396,7 +414,12 @@ async function checkPorts (ipfsd) {
 
     if (busyApiPort && busyGatewayPort) {
       logger.info('[daemon] api and gateway ports busy')
-      useAlternativePorts = dialogs.busyPortsDialog(apiPort, freeApiPort, gatewayPort, freeGatewayPort)
+      useAlternativePorts = dialogs.busyPortsDialog(
+        apiPort,
+        freeApiPort,
+        gatewayPort,
+        freeGatewayPort
+      )
     } else if (busyApiPort) {
       logger.info('[daemon] api port busy')
       useAlternativePorts = dialogs.busyPortDialog(apiPort, freeApiPort)
@@ -411,11 +434,17 @@ async function checkPorts (ipfsd) {
   }
 
   if (busyApiPort) {
-    config.Addresses.API = config.Addresses.API.replace(apiPort.toString(), freeApiPort.toString())
+    config.Addresses.API = config.Addresses.API.replace(
+      apiPort.toString(),
+      freeApiPort.toString()
+    )
   }
 
   if (busyGatewayPort) {
-    config.Addresses.Gateway = config.Addresses.Gateway.replace(gatewayPort.toString(), freeGatewayPort.toString())
+    config.Addresses.Gateway = config.Addresses.Gateway.replace(
+      gatewayPort.toString(),
+      freeGatewayPort.toString()
+    )
   }
 
   writeConfigFile(ipfsd, config)

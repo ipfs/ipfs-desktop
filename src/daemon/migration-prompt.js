@@ -52,8 +52,12 @@ const template = (logs, script, title, message, buttons) => {
 
 const inProgressTemplate = (logs, id, done) => {
   const title = i18n.t('migrationDialog.title')
-  const message = done ? i18n.t('ipfsIsRunning') : i18n.t('migrationDialog.message')
-  const buttons = [`<button class="default" onclick="javascript:window.close()">${done ? i18n.t('close') : i18n.t('migrationDialog.closeAndContinue')}</button>`]
+  const message = done
+    ? i18n.t('ipfsIsRunning')
+    : i18n.t('migrationDialog.message')
+  const buttons = [
+    `<button class="default" onclick="javascript:window.close()">${done ? i18n.t('close') : i18n.t('migrationDialog.closeAndContinue')}</button>`
+  ]
   const script = `const { ipcRenderer } = require('electron')
 
   ipcRenderer.on('${id}', (event, logs) => {
@@ -126,7 +130,9 @@ function showMigrationPrompt (logs, error = false, done = false) {
         window.show()
       })
     }
-    const page = error ? errorTemplate(logs) : inProgressTemplate(logs, id, done)
+    const page = error
+      ? errorTemplate(logs)
+      : inProgressTemplate(logs, id, done)
     const data = `data:text/html;base64,${Buffer.from(page, 'utf8').toString('base64')}`
     window.loadURL(data)
   }
@@ -134,7 +140,7 @@ function showMigrationPrompt (logs, error = false, done = false) {
   loadWindow(logs, error, done)
 
   return {
-    update: logs => {
+    update: (logs) => {
       if (window) {
         window.webContents.send(id, logs)
         return true

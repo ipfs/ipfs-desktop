@@ -10,7 +10,9 @@ const issueTitle = (e) => {
   return `[gui error report] ${firstLine}`
 }
 
-const issueTemplate = (e) => `<!-- 👉️ Please describe HERE what you were doing when this error happened. -->
+const issueTemplate = (
+  e
+) => `<!-- 👉️ Please describe HERE what you were doing when this error happened. -->
 
 - **Desktop**: ${app.getVersion()}
 - **OS**: ${os.platform()} ${os.release()} ${os.arch()}
@@ -39,7 +41,9 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop?tab=readme-ov-file#i-got-a-network-error-eg-error-fetching-what-should-i-do'
       case stack.includes('private key in config does not match id'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2821#issuecomment-2163117586'
-      case stack.includes('process cannot access the file because it is being used by another process'):
+      case stack.includes(
+        'process cannot access the file because it is being used by another process'
+      ):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2120#issuecomment-1114817009'
       case stack.includes('Error: Exception 0xc0000005 0x8 0x0 0x0'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2823#issuecomment-2163182898'
@@ -57,12 +61,17 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2335#issuecomment-2161827010'
       case stack.includes('Error: multiaddr "http'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2092#issuecomment-1088124521'
-      case stack.includes('error loading filesroot from dagservice: block was not found locally (offline): ipld: could not find'):
+      case stack.includes(
+        'error loading filesroot from dagservice: block was not found locally (offline): ipld: could not find'
+      ):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2882#issuecomment-2658038042'
     }
   }
   // Something else, prefill new issue form with error details
-  return `https://github.com/ipfs/ipfs-desktop/issues/new?labels=kind%2Fbug%2C+need%2Ftriage&template=bug_report.md&title=${encodeURI(issueTitle(e))}&body=${encodeURI(issueTemplate(e))}`.substring(0, 1999)
+  return `https://github.com/ipfs/ipfs-desktop/issues/new?labels=kind%2Fbug%2C+need%2Ftriage&template=bug_report.md&title=${encodeURI(issueTitle(e))}&body=${encodeURI(issueTemplate(e))}`.substring(
+    0,
+    1999
+  )
 }
 
 /**
@@ -102,11 +111,7 @@ function recoverableErrorDialog (e, options) {
     title: i18n.t('recoverableErrorDialog.title'),
     message: i18n.t('recoverableErrorDialog.message'),
     type: 'error',
-    buttons: [
-      i18n.t('close'),
-      i18n.t('reportTheError'),
-      i18n.t('openLogs')
-    ]
+    buttons: [i18n.t('close'), i18n.t('reportTheError'), i18n.t('openLogs')]
   }
 
   if (options) {

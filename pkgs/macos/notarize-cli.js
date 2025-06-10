@@ -23,7 +23,9 @@ const { notarize } = require('electron-notarize-dmg')
     process.exit(1)
   }
   if (!process.env.APPLEID || !process.env.APPLEIDPASS) {
-    console.log('Define APPLEID and APPLEIDPASS as env variables or in .env file')
+    console.log(
+      'Define APPLEID and APPLEIDPASS as env variables or in .env file'
+    )
     process.exit(1)
   }
   console.log(`Initializing notarization of DMG at ${artifactPath}`)

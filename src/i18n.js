@@ -17,32 +17,34 @@ module.exports = async function () {
     // @ts-expect-error
     .use(ICU)
     .use(Backend)
-    .init({
-      lng,
-      fallbackLng: {
-        'zh-Hans': ['zh-CN', 'en'],
-        'zh-Hant': ['zh-TW', 'en'],
-        zh: ['zh-CN', 'en'],
-        default: ['en']
+    .init(
+      {
+        lng,
+        fallbackLng: {
+          'zh-Hans': ['zh-CN', 'en'],
+          'zh-Hant': ['zh-TW', 'en'],
+          zh: ['zh-CN', 'en'],
+          default: ['en']
+        },
+        backend: {
+          loadPath: join(__dirname, '../assets/locales/{{lng}}.json')
+        }
       },
-      backend: {
-        loadPath: join(__dirname, '../assets/locales/{{lng}}.json')
+      (err, t) => {
+        if (err) {
+          /**
+           * even if an error occurs here, i18n still may work properly.
+           * e.g. https://github.com/ipfs/ipfs-desktop/issues/2627
+           * Language's of "en-US" or "zh" may not exist at `join(__dirname, '../assets/locales/{{lng}}.json')` but i18next loads
+           * the appropriate language file with/without the region code. Partially discussed at https://github.com/i18next/i18next/issues/964
+           */
+          logger.error('[i18n] init error')
+          logger.error(err)
+        }
+        logger.info('[i18n] init done')
+        ctx.setProp('i18n.initDone', true)
       }
-    },
-    (err, t) => {
-      if (err) {
-        /**
-         * even if an error occurs here, i18n still may work properly.
-         * e.g. https://github.com/ipfs/ipfs-desktop/issues/2627
-         * Language's of "en-US" or "zh" may not exist at `join(__dirname, '../assets/locales/{{lng}}.json')` but i18next loads
-         * the appropriate language file with/without the region code. Partially discussed at https://github.com/i18next/i18next/issues/964
-         */
-        logger.error('[i18n] init error')
-        logger.error(err)
-      }
-      logger.info('[i18n] init done')
-      ctx.setProp('i18n.initDone', true)
-    })
+    )
 
   ipcMain.on(ipcMainEvents.LANG_UPDATED, async (_, lang) => {
     logger.fileLogger.info('[i18n] language updated to %s requested', lang)

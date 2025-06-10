@@ -6,7 +6,10 @@ const makePage = require('./template')
 const { getBackgroundColor } = require('./styles')
 
 function generatePage ({ message, defaultValue = '', buttons }, id) {
-  buttons = buttons.map((txt, i) => `<button ${i === 0 ? 'class="default"' : ''} id="${i}">${txt}</button>`)
+  buttons = buttons.map(
+    (txt, i) =>
+      `<button ${i === 0 ? 'class="default"' : ''} id="${i}">${txt}</button>`
+  )
 
   if (IS_MAC) {
     buttons.reverse()
@@ -17,10 +20,14 @@ function generatePage ({ message, defaultValue = '', buttons }, id) {
 }
 
 module.exports = async function showPrompt (options) {
-  options = Object.assign({}, {
-    window: {},
-    showDock: true
-  }, options)
+  options = Object.assign(
+    {},
+    {
+      window: {},
+      showDock: true
+    },
+    options
+  )
 
   const window = new BrowserWindow({
     title: options.title,
@@ -41,7 +48,7 @@ module.exports = async function showPrompt (options) {
   // Generate random id
   const id = crypto.randomBytes(16).toString('hex')
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     ipcMain.once(id, (_, data) => {
       window.destroy()
       if (options.showDock) dock.hide()

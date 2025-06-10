@@ -19,7 +19,9 @@ const registerAppStartTime = () => {
  */
 const getAppStartTime = () => {
   if (startTime == null) {
-    throw new Error('You must call `registerAppStartTime` prior to calling `getAppStartTime`')
+    throw new Error(
+      'You must call `registerAppStartTime` prior to calling `getAppStartTime`'
+    )
   }
   return startTime
 }
@@ -28,4 +30,8 @@ const getSecondsSinceAppStart = (currentTime = performance.now()) => {
   return (currentTime - getAppStartTime()) / 1000
 }
 
-module.exports = { registerAppStartTime, getAppStartTime, getSecondsSinceAppStart }
+module.exports = {
+  registerAppStartTime,
+  getAppStartTime,
+  getSecondsSinceAppStart
+}

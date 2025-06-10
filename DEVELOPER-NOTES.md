@@ -10,7 +10,6 @@ Before cutting a new release of IPFS Desktop, please go through the following pr
 
 Manually test a few things that don't transfer well to automated testing:
 
-
 1. **Mac & Windows (both must to be checked):** Confirm that drag-and-drop file import works:
    - Open _Files_ screen
    - Drag file(s) into it (PDF, images, or videos)
@@ -38,8 +37,8 @@ So the first step is to merge the release PR. Once that is merged, the release w
 1. Check out the [releases page](https://github.com/ipfs/ipfs-desktop/releases) and find the latest release.
 1. Click the `Edit` button for the version we want to release
 1. Ensure the release notes are correct and the binaries and other artifacts are attached. (there should be 15 attached assets total)
-    * The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available.
-    * `Source code (tar.gz)` & `Source code (zip)` are attached by github automatically when the release is published.
+   - The `latest.yml, latest-mac.yml, latest-linux.yml` files on the release are used by the app to determine when an app update is available.
+   - `Source code (tar.gz)` & `Source code (zip)` are attached by github automatically when the release is published.
 1. Check the `Set as the latest release` box.
 1. Then click `Publish release`.
 

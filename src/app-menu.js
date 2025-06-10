@@ -32,10 +32,7 @@ const template = [
   },
   {
     role: 'window',
-    submenu: [
-      { role: 'minimize' },
-      { role: 'close' }
-    ]
+    submenu: [{ role: 'minimize' }, { role: 'close' }]
   },
   {
     role: 'help',
@@ -71,10 +68,7 @@ if (process.platform === 'darwin') {
     { type: 'separator' },
     {
       label: 'Speech',
-      submenu: [
-        { role: 'startspeaking' },
-        { role: 'stopspeaking' }
-      ]
+      submenu: [{ role: 'startspeaking' }, { role: 'stopspeaking' }]
     }
   )
 

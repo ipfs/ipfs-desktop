@@ -18,7 +18,10 @@ test.describe('Create toggler', () => {
       electron: electron,
       '../common/logger': logger,
       '../common/store': store,
-      './safe-store-set': (key, val, onSuccess) => { store.set(key, val); onSuccess() }
+      './safe-store-set': (key, val, onSuccess) => {
+        store.set(key, val)
+        onSuccess()
+      }
     })
     sinon.spy(store, 'get')
     sinon.spy(store, 'set')

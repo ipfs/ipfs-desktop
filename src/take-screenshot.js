@@ -9,9 +9,7 @@ const { analyticsKeys } = require('./analytics/keys')
 const ipcMainEvents = require('./common/ipc-main-events')
 const getCtx = require('./context')
 
-const SHORTCUT = IS_MAC
-  ? 'Command+Control+S'
-  : 'CommandOrControl+Alt+S'
+const SHORTCUT = IS_MAC ? 'Command+Control+S' : 'CommandOrControl+Alt+S'
 
 async function makeScreenshotDir (ipfs) {
   try {
@@ -23,21 +21,26 @@ async function makeScreenshotDir (ipfs) {
 
 async function onSuccess (ipfs, launchWebUI, path, img) {
   // preserve filename if single file is shared
-  const filename = path.endsWith('.png') ? `?filename=${encodeURIComponent(path.split('/').pop())}` : ''
+  const filename = path.endsWith('.png')
+    ? `?filename=${encodeURIComponent(path.split('/').pop())}`
+    : ''
   const { cid } = await ipfs.files.stat(path)
   const url = `https://dweb.link/ipfs/${cid}${filename}`
   clipboard.writeText(url)
 
-  notify({
-    title: i18n.t('screenshotTaken'),
-    body: i18n.t('shareableLinkCopied'),
-    icon: img.resize({
-      width: 200,
-      quality: 'good'
-    })
-  }, () => {
-    launchWebUI(`/files${path}`)
-  })
+  notify(
+    {
+      title: i18n.t('screenshotTaken'),
+      body: i18n.t('shareableLinkCopied'),
+      icon: img.resize({
+        width: 200,
+        quality: 'good'
+      })
+    },
+    () => {
+      launchWebUI(`/files${path}`)
+    }
+  )
 }
 
 function onError (e) {
@@ -71,7 +74,7 @@ function handleScreenshot () {
       await makeScreenshotDir(ipfs)
       const isDir = output.length > 1
       const d = new Date()
-      const pad = n => String(n).padStart(2, '0')
+      const pad = (n) => String(n).padStart(2, '0')
       const date = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
       const time = `${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getMilliseconds())}`
       let baseName = `/screenshots/${date}_${time}`
@@ -83,7 +86,9 @@ function handleScreenshot () {
         baseName += '.png'
       }
 
-      logger.info(`[screenshot] started: writing screenshots to ${baseName}`, { withAnalytics: analyticsKeys.SCREENSHOT_TAKEN })
+      logger.info(`[screenshot] started: writing screenshots to ${baseName}`, {
+        withAnalytics: analyticsKeys.SCREENSHOT_TAKEN
+      })
       let lastImage = null
 
       for (const { name, image } of output) {
@@ -112,7 +117,9 @@ module.exports = function () {
   setupGlobalShortcut({
     confirmationDialog: {
       title: i18n.t('enableGlobalTakeScreenshotShortcut.title'),
-      message: i18n.t('enableGlobalTakeScreenshotShortcut.message', { accelerator: SHORTCUT })
+      message: i18n.t('enableGlobalTakeScreenshotShortcut.message', {
+        accelerator: SHORTCUT
+      })
     },
     settingsOption: CONFIG_KEY,
     accelerator: SHORTCUT,

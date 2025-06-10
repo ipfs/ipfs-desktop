@@ -42,7 +42,9 @@ async function setupDaemon () {
       return
     }
 
-    const log = logger.start('[ipfsd] start daemon', { withAnalytics: analyticsKeys.DAEMON_START })
+    const log = logger.start('[ipfsd] start daemon', {
+      withAnalytics: analyticsKeys.DAEMON_START
+    })
     const config = store.get('ipfsConfig')
     updateStatus(STATUS.STARTING_STARTED)
 
@@ -76,7 +78,9 @@ async function setupDaemon () {
       return
     }
 
-    const log = logger.start('[ipfsd] stop daemon', { withAnalytics: analyticsKeys.DAEMON_STOP })
+    const log = logger.start('[ipfsd] stop daemon', {
+      withAnalytics: analyticsKeys.DAEMON_STOP
+    })
     updateStatus(STATUS.STOPPING_STARTED)
 
     if (!fs.pathExistsSync(join(ipfsd.path, 'config'))) {

@@ -16,10 +16,7 @@ module.exports = function runGarbageCollector () {
       title: i18n.t('runGarbageCollectorWarning.title'),
       message: i18n.t('runGarbageCollectorWarning.message'),
       type: 'warning',
-      buttons: [
-        i18n.t('runGarbageCollectorWarning.action'),
-        i18n.t('cancel')
-      ],
+      buttons: [i18n.t('runGarbageCollectorWarning.action'), i18n.t('cancel')],
       showDock: false
     })
 
@@ -28,7 +25,9 @@ module.exports = function runGarbageCollector () {
       return
     }
 
-    const ipfsd = /** @type {(optional?: boolean) => Promise<any>} */(await getIpfsd())
+    const ipfsd = /** @type {(optional?: boolean) => Promise<any>} */ (
+      await getIpfsd()
+    )
 
     if (!ipfsd) {
       return
@@ -53,9 +52,7 @@ module.exports = function runGarbageCollector () {
         title: i18n.t('runGarbageCollectorDone.title'),
         message: i18n.t('runGarbageCollectorDone.message'),
         type: 'info',
-        buttons: [
-          i18n.t('ok')
-        ],
+        buttons: [i18n.t('ok')],
         showDock: false
       })
       logger.info('[run gc] success')

@@ -1,6 +1,6 @@
 const { styles } = require('./styles')
 
-module.exports = ({ message, defaultValue, buttons, id }) => (`<!DOCTYPE html>
+module.exports = ({ message, defaultValue, buttons, id }) => `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" /> 
@@ -32,4 +32,4 @@ module.exports = ({ message, defaultValue, buttons, id }) => (`<!DOCTYPE html>
       }
     })
   </script>
-</html>`)
+</html>`

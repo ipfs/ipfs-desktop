@@ -1,5 +1,8 @@
 // @ts-check
-const { registerAppStartTime, getSecondsSinceAppStart } = require('./metrics/appStart')
+const {
+  registerAppStartTime,
+  getSecondsSinceAppStart
+} = require('./metrics/appStart')
 registerAppStartTime()
 require('v8-compile-cache')
 
@@ -85,7 +88,10 @@ async function run () {
       setupTakeScreenshot()
     ])
     const submitAppReady = () => {
-      logger.addAnalyticsEvent({ withAnalytics: analyticsKeys.APP_READY, dur: getSecondsSinceAppStart() })
+      logger.addAnalyticsEvent({
+        withAnalytics: analyticsKeys.APP_READY,
+        dur: getSecondsSinceAppStart()
+      })
     }
     const webui = await getCtx().getProp('webui')
     if (webui.webContents.isLoading()) {

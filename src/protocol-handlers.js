@@ -8,7 +8,9 @@ function openLink (protocol, part, base) {
 }
 
 function parseAddr (addr) {
-  return toUri(addr.toString().includes('/http') ? addr : addr.encapsulate('/http'))
+  return toUri(
+    addr.toString().includes('/http') ? addr : addr.encapsulate('/http')
+  )
 }
 
 async function handleOpenLink (url) {

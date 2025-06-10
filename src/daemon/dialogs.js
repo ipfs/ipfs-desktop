@@ -4,7 +4,7 @@ const { showDialog } = require('../dialogs')
 
 function hideOtherWindows () {
   // Hide other windows so the user focus in on the dialog
-  BrowserWindow.getAllWindows().forEach(w => w.hide())
+  BrowserWindow.getAllWindows().forEach((w) => w.hide())
 }
 
 /**
@@ -18,9 +18,7 @@ function cannotConnectToApiDialog (addr) {
     title: i18n.t('cannotConnectToApiDialog.title'),
     message: i18n.t('cannotConnectToApiDialog.message', { addr }),
     type: 'error',
-    buttons: [
-      i18n.t('quit')
-    ]
+    buttons: [i18n.t('quit')]
   })
 }
 
@@ -35,10 +33,7 @@ function multipleBusyPortsDialog () {
     title: i18n.t('multipleBusyPortsDialog.title'),
     message: i18n.t('multipleBusyPortsDialog.message'),
     type: 'error',
-    buttons: [
-      i18n.t('multipleBusyPortsDialog.action'),
-      i18n.t('quit')
-    ]
+    buttons: [i18n.t('multipleBusyPortsDialog.action'), i18n.t('quit')]
   })
 
   return opt === 0
@@ -57,10 +52,7 @@ function busyPortDialog (port, alt) {
     title: i18n.t('busyPortDialog.title'),
     message: i18n.t('busyPortDialog.message', { port, alt }),
     type: 'error',
-    buttons: [
-      i18n.t('busyPortDialog.action', { port, alt }),
-      i18n.t('quit')
-    ]
+    buttons: [i18n.t('busyPortDialog.action', { port, alt }), i18n.t('quit')]
   })
 
   return opt === 0
@@ -79,7 +71,12 @@ function busyPortsDialog (port1, alt1, port2, alt2) {
   hideOtherWindows()
   const opt = showDialog({
     title: i18n.t('busyPortsDialog.title'),
-    message: i18n.t('busyPortsDialog.message', { port1, alt1, port2, alt2 }),
+    message: i18n.t('busyPortsDialog.message', {
+      port1,
+      alt1,
+      port2,
+      alt2
+    }),
     type: 'error',
     buttons: [
       i18n.t('busyPortsDialog.action', { port1, alt1, port2, alt2 }),

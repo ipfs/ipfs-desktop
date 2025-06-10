@@ -22,7 +22,9 @@ module.exports = async function createSplashScreen () {
   })
 
   try {
-    await splashScreen.loadFile(path.join(__dirname, '../../assets/pages/splash.html'))
+    await splashScreen.loadFile(
+      path.join(__dirname, '../../assets/pages/splash.html')
+    )
   } catch (err) {
     logger.error('[splashScreen] loadFile failed')
     logger.error(err)

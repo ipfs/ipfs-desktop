@@ -68,7 +68,9 @@ function sendNotification (launchWebUI, hasFailures, successCount, filename) {
     } else {
       link = '/files'
       title = i18n.t('itemsAddedNotification.title')
-      body = i18n.t('itemsAddedNotification.message', { count: successCount })
+      body = i18n.t('itemsAddedNotification.message', {
+        count: successCount
+      })
     }
   } else {
     // Some/all failed!
@@ -90,12 +92,17 @@ async function addFileOrDirectory (ipfs, filepath) {
   let cid = null
 
   if (stat.isDirectory()) {
-    const files = globSource(filepath, '**/*', { recursive: true, cidVersion: 1 })
-    const res = await last(ipfs.addAll(files, {
-      pin: false,
-      wrapWithDirectory: true,
+    const files = globSource(filepath, '**/*', {
+      recursive: true,
       cidVersion: 1
-    }))
+    })
+    const res = await last(
+      ipfs.addAll(files, {
+        pin: false,
+        wrapWithDirectory: true,
+        cidVersion: 1
+      })
+    )
     cid = res.cid
   } else {
     const readStream = fs.createReadStream(filepath)
@@ -122,16 +129,20 @@ module.exports = async function (files) {
   const successes = []
   const failures = []
 
-  const log = logger.start('[add to ipfs] started', { withAnalytics: analyticsKeys.ADD_VIA_DESKTOP })
+  const log = logger.start('[add to ipfs] started', {
+    withAnalytics: analyticsKeys.ADD_VIA_DESKTOP
+  })
 
-  await Promise.all(files.map(async file => {
-    try {
-      const res = await addFileOrDirectory(ipfsd.api, file)
-      successes.push(res)
-    } catch (e) {
-      failures.push(e.toString())
-    }
-  }))
+  await Promise.all(
+    files.map(async (file) => {
+      try {
+        const res = await addFileOrDirectory(ipfsd.api, file)
+        successes.push(res)
+      } catch (e) {
+        failures.push(e.toString())
+      }
+    })
+  )
 
   if (failures.length > 0) {
     log.fail(new Error(failures.join('\n')))
@@ -141,7 +152,12 @@ module.exports = async function (files) {
 
   const { cid, filename } = await getShareableCid(ipfsd.api, successes)
   const launchWebUI = ctx.getFn('launchWebUI')
-  sendNotification(launchWebUI, failures.length !== 0, successes.length, filename)
+  sendNotification(
+    launchWebUI,
+    failures.length !== 0,
+    successes.length,
+    filename
+  )
 
   const query = filename ? `?filename=${encodeURIComponent(filename)}` : ''
   const url = `https://dweb.link/ipfs/${cid.toString()}${query}`
