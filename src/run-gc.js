@@ -39,6 +39,7 @@ module.exports = function runGarbageCollector () {
     try {
       const errors = []
 
+      // @ts-ignore
       for await (const res of ipfsd.api.repo.gc()) {
         if (res instanceof Error) {
           errors.push(res)
@@ -60,6 +61,7 @@ module.exports = function runGarbageCollector () {
       })
       logger.info('[run gc] success')
     } catch (err) {
+      // @ts-ignore
       logger.error(`[run gc] ${err.stack}`)
       recoverableErrorDialog(err, {
         title: i18n.t('runGarbageCollectorErrored.title'),

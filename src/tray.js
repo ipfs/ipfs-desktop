@@ -167,11 +167,13 @@ async function buildMenu () {
         {
           id: 'openRepoDir',
           label: i18n.t('openRepoDir'),
+          // @ts-ignore
           click: () => { shell.openPath(getKuboRepositoryPath()) }
         },
         {
           id: 'openKuboConfigFile',
           label: i18n.t('openKuboConfigFile'),
+          // @ts-ignore
           click: () => { shell.openPath(path.join(getKuboRepositoryPath(), 'config')) }
         },
         { type: 'separator' },
@@ -353,7 +355,9 @@ module.exports = async function () {
     menu.getMenuItemById('checkForUpdates').visible = !isUpdating
     menu.getMenuItemById('checkingForUpdates').visible = isUpdating
 
+    // @ts-ignore
     menu.getMenuItemById('openRepoDir').enabled = fs.pathExistsSync(getKuboRepositoryPath())
+    // @ts-ignore
     menu.getMenuItemById('openKuboConfigFile').enabled = fs.pathExistsSync(path.join(getKuboRepositoryPath(), 'config'))
 
     if (status === STATUS.STARTING_FINISHED) {

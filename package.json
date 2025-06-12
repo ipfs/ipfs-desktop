@@ -7,8 +7,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron .",
-    "lint": "ts-standard && standard",
-    "aegir": "aegir lint",
+    "lint": "aegir lint",
     "lint:fix": "ts-standard --fix && standard --fix",
     "test": "cross-env NODE_ENV=test playwright test 'test/unit/.*.spec.js'",
     "test:e2e": "xvfb-maybe cross-env NODE_ENV=test playwright test -c test/e2e/playwright.config.js",

@@ -20,7 +20,9 @@ function handleError (err) {
     return
   }
 
+  // @ts-ignore
   logger.error(err)
+  // @ts-ignore
   criticalErrorDialog(err)
 }
 

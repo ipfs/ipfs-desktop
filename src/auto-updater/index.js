@@ -54,6 +54,7 @@ function setup () {
     try {
       await autoUpdater.downloadUpdate()
     } catch (err) {
+      // @ts-ignore
       logger.error(`[updater] ${err.toString()}`)
     }
 

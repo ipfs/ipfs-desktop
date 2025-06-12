@@ -35,17 +35,21 @@ const createWindow = () => {
     show: false,
     autoHideMenuBar: true,
     titleBarStyle: 'hiddenInset',
+    // @ts-ignore
     width: store.get('window.width', dimensions.width < 1440 ? dimensions.width : 1440),
+    // @ts-ignore
     height: store.get('window.height', dimensions.height < 900 ? dimensions.height : 900),
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       webSecurity: false,
       allowRunningInsecureContent: false,
+      // @ts-ignore
       enableRemoteModule: process.env.NODE_ENV === 'test', // https://github.com/electron-userland/spectron/pull/738#issuecomment-754810364
       nodeIntegration: process.env.NODE_ENV === 'test'
     }
   })
 
+  // @ts-ignore
   window.webContents.once('did-start-loading', (event) => {
     const msg = '[web ui] loading'
     const webContentLoad = logger.start(msg, { withAnalytics: analyticsKeys.WEB_UI_READY })
@@ -53,9 +57,11 @@ const createWindow = () => {
       webContentLoad.end()
     })
     window.webContents.once('did-fail-load', (_, errorCode, errorDescription) => {
+      // @ts-ignore
       webContentLoad.fail(`${msg}: ${errorDescription}, code: ${errorCode}`)
     })
   })
+  // @ts-ignore
   window.webContents.once('dom-ready', async (event) => {
     const endTime = performance.now()
     try {
@@ -67,6 +73,7 @@ const createWindow = () => {
         dur
       })
     } catch (err) {
+      // @ts-ignore
       logger.error(err)
     }
   })
@@ -180,7 +187,9 @@ module.exports = async function () {
     const ipfsd = await getIpfsd(true)
     ipfsdStatus = status
 
+    // @ts-ignore
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
+      // @ts-ignore
       apiAddress = ipfsd.apiAddr
       url.searchParams.set('api', apiAddress.toString())
       updateLanguage()
@@ -221,6 +230,7 @@ module.exports = async function () {
       splashScreen.destroy()
     } catch (err) {
       logger.error('[web ui] failed to hide splash screen')
+      // @ts-ignore
       logger.error(err)
     }
   }

@@ -60,6 +60,7 @@ async function run () {
   try {
     await app.whenReady()
   } catch (e) {
+    // @ts-ignore
     dialog.showErrorBox('Electron could not start', e.stack)
     app.exit(1)
   }

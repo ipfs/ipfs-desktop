@@ -56,6 +56,7 @@ async function setupDaemon () {
 
     ipfsd = res.ipfsd
 
+    // @ts-ignore
     logger.info(`[daemon] IPFS_PATH: ${ipfsd.path}`)
     logger.info(`[daemon] PeerID:    ${res.id}`)
 
@@ -63,11 +64,13 @@ async function setupDaemon () {
     // This way we use the default path when it is
     // not set.
     if (!config.path || typeof config.path !== 'string') {
+      // @ts-ignore
       config.path = ipfsd.path
       store.safeSet('ipfsConfig', config)
     }
 
     log.end()
+    // @ts-ignore
     updateStatus(STATUS.STARTING_FINISHED, res.id)
   }
 
@@ -91,6 +94,7 @@ async function setupDaemon () {
       log.end()
       updateStatus(STATUS.STOPPING_FINISHED)
     } catch (err) {
+      // @ts-ignore
       logger.error(`[ipfsd] ${err.toString()}`)
       updateStatus(STATUS.STOPPING_FAILED)
     } finally {

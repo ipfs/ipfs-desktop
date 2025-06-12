@@ -34,6 +34,7 @@ module.exports = function ({ settingsOption, accelerator, action, confirmationDi
     return true
   }
 
+  // @ts-ignore
   activate({ newValue: store.get(settingsOption, false) })
   createToggler(settingsOption, activate)
 

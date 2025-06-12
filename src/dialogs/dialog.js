@@ -20,10 +20,14 @@ module.exports = function ({
   }
 
   if (IS_MAC) {
+    // @ts-ignore
     options.message = title
+    // @ts-ignore
     options.detail = message
   } else {
+    // @ts-ignore
     options.title = title
+    // @ts-ignore
     options.message = message
   }
 
@@ -34,11 +38,14 @@ module.exports = function ({
   }
 
   if (buttons.length > 1) {
+    // @ts-ignore
     options.defaultId = isInverse ? buttons.length - 1 : 0
+    // @ts-ignore
     options.cancelId = isInverse ? buttons.length - 2 : 1
   }
 
   if (showDock) dock.show()
+  // @ts-ignore
   const selected = dialog.showMessageBoxSync(options)
   if (showDock) dock.hide()
 

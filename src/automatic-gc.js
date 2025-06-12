@@ -47,11 +47,13 @@ module.exports = async function () {
 
       return true
     } catch (err) {
+      // @ts-ignore
       logger.error(`[automatic gc] ${err.toString()}`)
 
       return false
     }
   }
+  // @ts-ignore
   activate({ newValue: store.get(CONFIG_KEY, true) })
   createToggler(CONFIG_KEY, activate)
   logger.info(`[automatic gc] ${store.get(CONFIG_KEY, true) ? 'enabled' : 'disabled'}`)

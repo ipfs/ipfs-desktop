@@ -188,6 +188,7 @@ async function startIpfsWithLogs (ipfsd) {
       }
       logger.error(logs)
       if (migrationPrompt) {
+        // @ts-ignore
         migrationPrompt.loadWindow(logs, isErrored, isFinished)
       } else {
         showMigrationPrompt(logs, isErrored, isFinished)

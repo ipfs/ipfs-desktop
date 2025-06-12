@@ -43,6 +43,7 @@ module.exports = async function () {
 
       return true
     } catch (err) {
+      // @ts-ignore
       logger.error(`[pubsub] ${err.toString()}`)
 
       return false

@@ -92,6 +92,7 @@ module.exports = async function () {
 
       return true
     } catch (err) {
+      // @ts-ignore
       logger.error(`[launch on startup] ${err.toString()}`)
 
       if (feedback) {
@@ -105,6 +106,7 @@ module.exports = async function () {
     }
   }
 
+  // @ts-ignore
   activate({ newValue: store.get(CONFIG_KEY, false) })
   createToggler(CONFIG_KEY, activate)
 }

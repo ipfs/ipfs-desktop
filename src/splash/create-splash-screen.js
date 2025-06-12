@@ -25,6 +25,7 @@ module.exports = async function createSplashScreen () {
     await splashScreen.loadFile(path.join(__dirname, '../../assets/pages/splash.html'))
   } catch (err) {
     logger.error('[splashScreen] loadFile failed')
+    // @ts-ignore
     logger.error(err)
     return
   }
