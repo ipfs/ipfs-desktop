@@ -1,6 +1,6 @@
-const { app, shell } = require('electron')
-const path = require('path')
 const os = require('os')
+const path = require('path')
+const { app, shell } = require('electron')
 const i18n = require('i18next')
 const dialog = require('./dialog')
 
@@ -59,6 +59,8 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2092#issuecomment-1088124521'
       case stack.includes('error loading filesroot from dagservice: block was not found locally (offline): ipld: could not find'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2882#issuecomment-2658038042'
+      default:
+        return `https://github.com/ipfs/ipfs-desktop/issues/new?labels=kind%2Fbug%2C+need%2Ftriage&template=bug_report.md&title=${encodeURIComponent(issueTitle(e))}&body=${encodeURIComponent(issueTemplate(e))}`.substring(0, 1999)
     }
   }
   // Something else, prefill new issue form with error details
@@ -67,11 +69,11 @@ function generateErrorIssueUrl (e) {
 
 /**
  * This will fail and throw another application error if electron hasn't booted up properly.
+ *
  * @param {Error} e
- * @returns
  */
 function criticalErrorDialog (e) {
-  if (hasErrored) return
+  if (hasErrored) { return }
   hasErrored = true
 
   const option = dialog({

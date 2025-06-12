@@ -13,8 +13,8 @@ module.exports = function ({
   ], ...opts
 }) {
   const options = {
-    type: type,
-    buttons: buttons,
+    type,
+    buttons,
     noLink: true,
     ...opts
   }
@@ -44,10 +44,10 @@ module.exports = function ({
     options.cancelId = isInverse ? buttons.length - 2 : 1
   }
 
-  if (showDock) dock.show()
+  if (showDock) { dock.show() }
   // @ts-ignore
   const selected = dialog.showMessageBoxSync(options)
-  if (showDock) dock.hide()
+  if (showDock) { dock.hide() }
 
   if (!isInverse) {
     return selected

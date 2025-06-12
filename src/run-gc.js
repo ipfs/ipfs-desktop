@@ -1,10 +1,10 @@
-const i18n = require('i18next')
 const { ipcMain } = require('electron')
+const i18n = require('i18next')
+const ipcMainEvents = require('./common/ipc-main-events')
 const logger = require('./common/logger')
+const getCtx = require('./context')
 const { showDialog, recoverableErrorDialog } = require('./dialogs')
 const dock = require('./utils/dock')
-const ipcMainEvents = require('./common/ipc-main-events')
-const getCtx = require('./context')
 
 module.exports = function runGarbageCollector () {
   dock.run(async () => {

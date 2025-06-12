@@ -1,14 +1,14 @@
+const { join } = require('path')
 const { app, ipcMain } = require('electron')
 const fs = require('fs-extra')
-const { join } = require('path')
-const { ipfsNotRunningDialog } = require('../dialogs')
-const store = require('../common/store')
+const { analyticsKeys } = require('../analytics/keys')
+const ipcMainEvents = require('../common/ipc-main-events')
 const logger = require('../common/logger')
+const store = require('../common/store')
+const getCtx = require('../context')
+const { ipfsNotRunningDialog } = require('../dialogs')
 const { STATUS } = require('./consts')
 const createDaemon = require('./daemon')
-const ipcMainEvents = require('../common/ipc-main-events')
-const { analyticsKeys } = require('../analytics/keys')
-const getCtx = require('../context')
 
 async function setupDaemon () {
   let ipfsd = null
@@ -114,7 +114,7 @@ async function setupDaemon () {
   ipcMain.on(ipcMainEvents.IPFS_CONFIG_CHANGED, restartIpfs)
 
   app.on('before-quit', async () => {
-    if (ipfsd) await stopIpfs()
+    if (ipfsd) { await stopIpfs() }
   })
 
   await startIpfs()

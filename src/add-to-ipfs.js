@@ -1,12 +1,12 @@
 const { extname, basename } = require('path')
 const { clipboard } = require('electron')
-const { globSource } = require('ipfs-http-client')
-const i18n = require('i18next')
-const last = require('it-last')
 const fs = require('fs-extra')
+const i18n = require('i18next')
+const { globSource } = require('ipfs-http-client')
+const last = require('it-last')
+const { analyticsKeys } = require('./analytics/keys')
 const logger = require('./common/logger')
 const { notify, notifyError } = require('./common/notify')
-const { analyticsKeys } = require('./analytics/keys')
 const getCtx = require('./context')
 
 async function copyFileToMfs (ipfs, cid, filename) {

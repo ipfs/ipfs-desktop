@@ -1,9 +1,9 @@
 // @ts-check
-const { createLogger, format, transports } = require('winston')
 const { join } = require('path')
-const { app } = require('electron')
 const { performance } = require('perf_hooks')
 const Countly = require('countly-sdk-nodejs')
+const { app } = require('electron')
+const { createLogger, format, transports } = require('winston')
 const { analyticsKeys } = require('../analytics/keys')
 
 /**

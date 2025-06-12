@@ -108,7 +108,7 @@
   "aegir": {
     "tsRepo": false,
     "lint": {
-      "files": [ "src/**/*.ts" ]
+      "files": [ "src/**/*.js", "src/**/*.ts" ]
     }
   }
 }
