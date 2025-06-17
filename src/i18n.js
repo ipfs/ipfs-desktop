@@ -29,7 +29,7 @@ module.exports = async function () {
         loadPath: join(__dirname, '../assets/locales/{{lng}}.json')
       }
     },
-    (err, t) => {
+    (err) => {
       if (err) {
         /**
          * even if an error occurs here, i18n still may work properly.

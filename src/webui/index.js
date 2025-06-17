@@ -1,4 +1,3 @@
-// @ts-check
 const { join } = require('path')
 const { performance } = require('perf_hooks')
 const { URL } = require('url')
@@ -21,6 +20,11 @@ const dock = require('../utils/dock')
 const openExternal = require('./open-external')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
+
+/**
+ * @typedef {object} Ipfsd
+ * @property {string} apiAddr
+ */
 
 /**
  *
@@ -49,8 +53,7 @@ const createWindow = () => {
     }
   })
 
-  // @ts-ignore
-  window.webContents.once('did-start-loading', (event) => {
+  window.webContents.once('did-start-loading', () => {
     const msg = '[web ui] loading'
     const webContentLoad = logger.start(msg, { withAnalytics: analyticsKeys.WEB_UI_READY })
     window.webContents.once('did-finish-load', () => {
@@ -61,8 +64,8 @@ const createWindow = () => {
       webContentLoad.fail(`${msg}: ${errorDescription}, code: ${errorCode}`)
     })
   })
-  // @ts-ignore
-  window.webContents.once('dom-ready', async (event) => {
+
+  window.webContents.once('dom-ready', async () => {
     const endTime = performance.now()
     try {
       const dur = getSecondsSinceAppStart(endTime)
@@ -73,8 +76,7 @@ const createWindow = () => {
         dur
       })
     } catch (err) {
-      // @ts-ignore
-      logger.error(err)
+      logger.error(String(err))
     }
   })
 
@@ -155,7 +157,7 @@ module.exports = async function () {
   url.hash = '/blank'
   url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
 
-  ctx.setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
+  ctx.setProp('launchWebUI', async (/** @type {string} */ path, { focus = true, forceRefresh = false } = {}) => {
     if (window.isDestroyed()) {
       logger.error(`[web ui] window is destroyed, not launching web ui with ${path}`)
       return
@@ -184,12 +186,12 @@ module.exports = async function () {
   const getIpfsd = ctx.getFn('getIpfsd')
   let ipfsdStatus = null
   ipcMain.on(ipcMainEvents.IPFSD, async (status) => {
+    /** @type {Ipfsd} */
+    // @ts-ignore
     const ipfsd = await getIpfsd(true)
     ipfsdStatus = status
 
-    // @ts-ignore
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
-      // @ts-ignore
       apiAddress = ipfsd.apiAddr
       url.searchParams.set('api', apiAddress.toString())
       updateLanguage()
@@ -200,7 +202,7 @@ module.exports = async function () {
   // Set user agent
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
     details.requestHeaders['User-Agent'] = `ipfs-desktop/${VERSION} (Electron ${ELECTRON_VERSION})`
-    callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
+    callback({ cancel: false, requestHeaders: details.requestHeaders })
   })
 
   const launchWebUI = ctx.getFn('launchWebUI')
@@ -230,8 +232,7 @@ module.exports = async function () {
       splashScreen.destroy()
     } catch (err) {
       logger.error('[web ui] failed to hide splash screen')
-      // @ts-ignore
-      logger.error(err)
+      logger.error(String(err))
     }
   }
 

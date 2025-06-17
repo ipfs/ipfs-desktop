@@ -18,6 +18,10 @@ const runGarbageCollector = require('./run-gc')
 const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
 const createToggler = require('./utils/create-toggler')
 
+/**
+ * @param {string} key
+ * @param {string} label
+ */
 function buildCheckbox (key, label) {
   return {
     id: key,
