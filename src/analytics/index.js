@@ -1,4 +1,3 @@
-// @ts-check
 const { existsSync, mkdirSync } = require('fs')
 const { join } = require('path')
 const Countly = require('countly-sdk-nodejs')

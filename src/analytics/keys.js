@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * This should be an enum once we migrate to typescript
  *

@@ -1,4 +1,3 @@
-// @ts-check
 const { join } = require('path')
 const { performance } = require('perf_hooks')
 const Countly = require('countly-sdk-nodejs')
@@ -138,11 +137,11 @@ module.exports = Object.freeze({
     }
   },
 
-  warn: (msg, meta) => {
+  warn: (/** @type {string} */ msg, /** @type {import("winston").LogCallback} */ meta) => {
     logger.warn(msg, meta)
   },
 
-  debug: (msg) => {
+  debug: (/** @type {any} */ msg) => {
     logger.debug(msg)
   },
 
