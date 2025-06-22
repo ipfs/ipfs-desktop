@@ -10,8 +10,7 @@ async function streamHandler (format, stream) {
   canvas.width = bitmap.width
   canvas.height = bitmap.height
   const ctx = canvas.getContext('2d')
-  // @ts-ignore
-  ctx.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height)
+  if (ctx) { ctx.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height) }
   return canvas.toDataURL(format)
 }
 
@@ -25,15 +24,9 @@ async function screenshot (format) {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
-        // @ts-ignore
-        mandatory: {
-          chromeMediaSource: 'desktop',
-          chromeMediaSourceId: source.id,
-          minWidth: 1280,
-          maxWidth: 4000,
-          minHeight: 720,
-          maxHeight: 4000
-        }
+        width: { min: 1280, ideal: 1920, max: 4000 },
+        height: { min: 720, ideal: 1080, max: 4000 },
+        deviceId: source.id
       }
     })
 
