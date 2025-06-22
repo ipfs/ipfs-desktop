@@ -90,8 +90,7 @@ async function addFileOrDirectory (ipfs, filepath) {
   let cid = null
 
   if (stat.isDirectory()) {
-    // @ts-ignore
-    const files = globSource(filepath, '**/*', { recursive: true, cidVersion: 1 })
+    const files = globSource(filepath, '**/*')
     const res = await last(ipfs.addAll(files, {
       pin: false,
       wrapWithDirectory: true,
