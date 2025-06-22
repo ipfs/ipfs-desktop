@@ -64,8 +64,7 @@ class Context {
       this._properties.set(propertyName, value)
       this._resolvePropToValue(propertyName, value)
     } catch (e) {
-      // @ts-ignore
-      logger.error(e)
+      logger.error(String(e))
     }
   }
 
@@ -109,8 +108,7 @@ class Context {
         return await originalFn(...args)
       } catch (err) {
         logger.error(`[ctx] Error calling ${String(propertyName)}`)
-        // @ts-ignore
-        logger.error(err)
+        logger.error(String(err))
         throw err
       }
     }

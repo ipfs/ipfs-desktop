@@ -91,8 +91,7 @@ module.exports = async function () {
 
       return true
     } catch (err) {
-      // @ts-ignore
-      logger.error(`[launch on startup] ${err.toString()}`)
+      logger.error(`[launch on startup] ${String(err)}`)
 
       if (feedback) {
         // @ts-ignore

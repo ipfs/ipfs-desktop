@@ -130,8 +130,7 @@ module.exports = async function (files) {
       const res = await addFileOrDirectory(ipfsd.api, file)
       successes.push(res)
     } catch (e) {
-      // @ts-ignore
-      failures.push(e.toString())
+      failures.push(String(e))
     }
   }))
 

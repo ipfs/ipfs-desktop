@@ -469,8 +469,7 @@ function checkRepositoryAndConfiguration (ipfsd) {
     return true
   } catch (e) {
     // Save to error.log
-    // @ts-ignore
-    logger.error(e)
+    logger.error(String(e))
     dialogs.repositoryIsInvalidDialog(ipfsd.path)
     return false
   }

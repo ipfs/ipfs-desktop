@@ -18,8 +18,7 @@ function handleError (err) {
     return
   }
 
-  // @ts-ignore
-  logger.error(err)
+  logger.error(String(err))
   // @ts-ignore
   criticalErrorDialog(err)
 }

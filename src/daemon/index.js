@@ -94,8 +94,7 @@ async function setupDaemon () {
       log.end()
       updateStatus(STATUS.STOPPING_FINISHED)
     } catch (err) {
-      // @ts-ignore
-      logger.error(`[ipfsd] ${err.toString()}`)
+      logger.error(`[ipfsd] ${String(err)}`)
       updateStatus(STATUS.STOPPING_FAILED)
     } finally {
       ipfsd = null

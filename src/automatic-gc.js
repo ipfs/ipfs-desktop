@@ -47,8 +47,7 @@ module.exports = async function () {
 
       return true
     } catch (err) {
-      // @ts-ignore
-      logger.error(`[automatic gc] ${err.toString()}`)
+      logger.error(`[automatic gc] ${String(err)}`)
 
       return false
     }

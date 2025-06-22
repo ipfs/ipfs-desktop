@@ -43,8 +43,7 @@ module.exports = async function () {
 
       return true
     } catch (err) {
-      // @ts-ignore
-      logger.error(`[ipns over pubsub] ${err.toString()}`)
+      logger.error(`[ipns over pubsub] ${String(err)}`)
 
       return false
     }
