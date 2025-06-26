@@ -12,7 +12,7 @@ test.describe('store', () => {
       electron = mockElectron()
       logger = mockLogger()
       store = proxyquire('../../src/common/store', {
-        electron: electron,
+        electron,
         './logger': logger
       })
       sinon.spy(logger, 'error')

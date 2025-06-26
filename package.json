@@ -7,7 +7,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron .",
-    "lint": "aegir lint",
+    "lint": "ts-standard && standard",
     "lint:fix": "ts-standard --fix && standard --fix",
     "test": "cross-env NODE_ENV=test playwright test 'test/unit/.*.spec.js'",
     "test:e2e": "xvfb-maybe cross-env NODE_ENV=test playwright test -c test/e2e/playwright.config.js",
@@ -68,7 +68,6 @@
     "xvfb-maybe": "^0.2.1"
   },
   "dependencies": {
-    "aegir": "^47.0.16",
     "countly-sdk-nodejs": "^20.11.0",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.1.0",
@@ -104,11 +103,5 @@
     "ignore": [
       "**/*.js"
     ]
-  },
-  "aegir": {
-    "tsRepo": false,
-    "lint": {
-      "files": [ "src/**/*.js", "src/**/*.ts" ]
-    }
   }
 }
