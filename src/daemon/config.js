@@ -167,8 +167,11 @@ function migrateConfig (ipfsd) {
     config = readConfigFile(ipfsd)
   } catch (err) {
     // This is a best effort check, dont blow up here, that should happen else where.
-    // @ts-ignore
-    logger.error(`[daemon] migrateConfig: error reading config file: ${err.message || err}`)
+    if (err instanceof Error) {
+      logger.error(`[daemon] migrateConfig: error reading config file: ${err.message}`)
+    } else {
+      logger.error(`[daemon] migrateConfig: error reading config file: ${String(err)}`)
+    }
     return
   }
 
@@ -252,8 +255,11 @@ function migrateConfig (ipfsd) {
       writeConfigFile(ipfsd, config)
       store.safeSet(REVISION_KEY, REVISION)
     } catch (err) {
-      // @ts-ignore
-      logger.error(`[daemon] migrateConfig: error writing config file: ${err.message || err}`)
+      if (err instanceof Error) {
+        logger.error(`[daemon] migrateConfig: error writing config file: ${err.message}`)
+      } else {
+        logger.error(`[daemon] migrateConfig: error writing config file: ${String(err)}`)
+      }
       return
     }
   }

@@ -56,8 +56,11 @@ async function setupDaemon () {
 
     ipfsd = res.ipfsd
 
-    // @ts-ignore
-    logger.info(`[daemon] IPFS_PATH: ${ipfsd.path}`)
+    if (ipfsd) {
+      logger.info(`[daemon] IPFS_PATH: ${ipfsd.path}`)
+    } else {
+      logger.warn('[daemon] IPFS_PATH: ipfsd is undefined')
+    }
     logger.info(`[daemon] PeerID:    ${res.id}`)
 
     // Update the path if it was blank previously.
