@@ -53,6 +53,10 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2259#issuecomment-1239275950'
       case stack.includes('bind: address already in use'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2216#issuecomment-1199189648'
+      case stack.includes('5001: bind: address already in use'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2216'
+      case stack.includes('Only one usage of each socket address (protocol/network address/port) is normally permitted'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2932#issuecomment-3083947021'
       case stack.includes('Get-AuthenticodeSignature'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2335#issuecomment-2161827010'
       case stack.includes('Error: multiaddr "http'):
