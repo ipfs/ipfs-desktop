@@ -1,9 +1,8 @@
-// @ts-check
-const { createLogger, format, transports } = require('winston')
 const { join } = require('path')
-const { app } = require('electron')
 const { performance } = require('perf_hooks')
 const Countly = require('countly-sdk-nodejs')
+const { app } = require('electron')
+const { createLogger, format, transports } = require('winston')
 const { analyticsKeys } = require('../analytics/keys')
 
 /**
@@ -138,11 +137,11 @@ module.exports = Object.freeze({
     }
   },
 
-  warn: (msg, meta) => {
+  warn: (/** @type {string} */ msg, /** @type {import("winston").LogCallback} */ meta) => {
     logger.warn(msg, meta)
   },
 
-  debug: (msg) => {
+  debug: (/** @type {any} */ msg) => {
     logger.debug(msg)
   },
 
