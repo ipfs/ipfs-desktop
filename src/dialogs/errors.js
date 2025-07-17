@@ -61,6 +61,8 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2882#issuecomment-2658038042'
       case stack.includes('no protocol with name: localhost:5001'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2964#issuecomment-3083882607'
+      case stack.includes('failure to decode config: The Experimental.AcceleratedDHTClient key has been moved to Routing.AcceleratedDHTClient'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2961#issuecomment-3083916364'
     }
   }
   // Something else, prefill new issue form with error details
