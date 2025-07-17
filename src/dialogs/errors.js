@@ -59,6 +59,8 @@ function generateErrorIssueUrl (e) {
         return 'https://github.com/ipfs/ipfs-desktop/issues/2092#issuecomment-1088124521'
       case stack.includes('error loading filesroot from dagservice: block was not found locally (offline): ipld: could not find'):
         return 'https://github.com/ipfs/ipfs-desktop/issues/2882#issuecomment-2658038042'
+      case stack.includes('no protocol with name: localhost:5001'):
+        return 'https://github.com/ipfs/ipfs-desktop/issues/2964#issuecomment-3083882607'
     }
   }
   // Something else, prefill new issue form with error details
