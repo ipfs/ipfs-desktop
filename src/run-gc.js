@@ -61,9 +61,7 @@ module.exports = function runGarbageCollector () {
       })
       logger.info('[run gc] success')
     } catch (err) {
-      // @ts-ignore
-      logger.error(`[run gc] ${err.stack}`)
-      // @ts-ignore
+      logger.error(`[run gc] ${err}`)
       recoverableErrorDialog(err, {
         title: i18n.t('runGarbageCollectorErrored.title'),
         message: i18n.t('runGarbageCollectorErrored.message')

@@ -94,7 +94,6 @@ module.exports = async function () {
       logger.error(`[launch on startup] ${String(err)}`)
 
       if (feedback) {
-        // @ts-ignore
         recoverableErrorDialog(err, {
           title: i18n.t('launchAtLoginFailed.title'),
           message: i18n.t('launchAtLoginFailed.message')
