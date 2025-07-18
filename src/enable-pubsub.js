@@ -1,9 +1,9 @@
-const createToggler = require('./utils/create-toggler')
+const { ipcMain } = require('electron')
+const { EXPERIMENT_PUBSUB: CONFIG_KEY } = require('./common/config-keys')
+const ipcMainEvents = require('./common/ipc-main-events')
 const logger = require('./common/logger')
 const store = require('./common/store')
-const { EXPERIMENT_PUBSUB: CONFIG_KEY } = require('./common/config-keys')
-const { ipcMain } = require('electron')
-const ipcMainEvents = require('./common/ipc-main-events')
+const createToggler = require('./utils/create-toggler')
 
 const pubsubFlag = '--enable-pubsub-experiment'
 const isEnabled = flags => flags.some(f => f === pubsubFlag)
@@ -32,7 +32,7 @@ function applyConfig (newFlags) {
 
 module.exports = async function () {
   const activate = ({ newValue, oldValue = null }) => {
-    if (newValue === oldValue) return
+    if (newValue === oldValue) { return }
 
     try {
       if (newValue === true) {
@@ -43,7 +43,7 @@ module.exports = async function () {
 
       return true
     } catch (err) {
-      logger.error(`[pubsub] ${err.toString()}`)
+      logger.error(`[pubsub] ${String(err)}`)
 
       return false
     }

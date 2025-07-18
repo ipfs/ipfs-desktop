@@ -1,9 +1,9 @@
-const { BrowserWindow, ipcMain } = require('electron')
 const crypto = require('crypto')
+const { BrowserWindow, ipcMain } = require('electron')
 const { IS_MAC } = require('../../common/consts')
 const dock = require('../../utils/dock')
-const makePage = require('./template')
 const { getBackgroundColor } = require('./styles')
+const makePage = require('./template')
 
 function generatePage ({ message, defaultValue = '', buttons }, id) {
   buttons = buttons.map((txt, i) => `<button ${i === 0 ? 'class="default"' : ''} id="${i}">${txt}</button>`)
@@ -44,17 +44,17 @@ module.exports = async function showPrompt (options) {
   return new Promise(resolve => {
     ipcMain.once(id, (_, data) => {
       window.destroy()
-      if (options.showDock) dock.hide()
+      if (options.showDock) { dock.hide() }
       resolve(data)
     })
 
     window.on('close', () => {
-      if (options.showDock) dock.hide()
+      if (options.showDock) { dock.hide() }
       resolve({ input: '', button: null })
     })
 
     window.once('ready-to-show', () => {
-      if (options.showDock) dock.show()
+      if (options.showDock) { dock.show() }
       window.show()
     })
 

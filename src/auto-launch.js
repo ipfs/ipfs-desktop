@@ -1,16 +1,15 @@
-// @ts-check
-const { app } = require('electron')
-const i18n = require('i18next')
 const os = require('os')
 const path = require('path')
+const { app } = require('electron')
 const fs = require('fs-extra')
+const i18n = require('i18next')
 const untildify = require('untildify')
-const createToggler = require('./utils/create-toggler')
+const { AUTO_LAUNCH: CONFIG_KEY } = require('./common/config-keys')
+const { IS_MAC, IS_WIN } = require('./common/consts')
 const logger = require('./common/logger')
 const store = require('./common/store')
-const { IS_MAC, IS_WIN } = require('./common/consts')
-const { AUTO_LAUNCH: CONFIG_KEY } = require('./common/config-keys')
 const { showDialog, recoverableErrorDialog } = require('./dialogs')
+const createToggler = require('./utils/create-toggler')
 
 function isSupported () {
   const plat = os.platform()
@@ -79,7 +78,7 @@ module.exports = async function () {
       return false
     }
 
-    if (newValue === oldValue) return
+    if (newValue === oldValue) { return }
 
     try {
       if (newValue === true) {
@@ -92,9 +91,10 @@ module.exports = async function () {
 
       return true
     } catch (err) {
-      logger.error(`[launch on startup] ${err.toString()}`)
+      logger.error(`[launch on startup] ${String(err)}`)
 
       if (feedback) {
+        // @ts-ignore
         recoverableErrorDialog(err, {
           title: i18n.t('launchAtLoginFailed.title'),
           message: i18n.t('launchAtLoginFailed.message')
@@ -105,6 +105,7 @@ module.exports = async function () {
     }
   }
 
+  // @ts-ignore
   activate({ newValue: store.get(CONFIG_KEY, false) })
   createToggler(CONFIG_KEY, activate)
 }

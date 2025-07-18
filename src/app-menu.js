@@ -68,6 +68,7 @@ if (process.platform === 'darwin') {
 
   // Edit menu
   template[1].submenu.push(
+    // @ts-ignore
     { type: 'separator' },
     {
       label: 'Speech',
@@ -90,6 +91,7 @@ if (process.platform === 'darwin') {
 
 module.exports = function () {
   logger.info('[appMenu] init...')
+  // @ts-ignore
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
   logger.info('[appMenu] init done...')

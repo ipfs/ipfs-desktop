@@ -4,10 +4,10 @@
  * This is to prevent the user from seeing the `Could not connect to the IPFS API` error
  * while we're still booting up the daemon.
  */
-const { BrowserWindow } = require('electron')
-const getCtx = require('../context')
-const logger = require('../common/logger')
 const path = require('node:path')
+const { BrowserWindow } = require('electron')
+const logger = require('../common/logger')
+const getCtx = require('../context')
 
 module.exports = async function createSplashScreen () {
   const ctx = getCtx()
@@ -25,7 +25,7 @@ module.exports = async function createSplashScreen () {
     await splashScreen.loadFile(path.join(__dirname, '../../assets/pages/splash.html'))
   } catch (err) {
     logger.error('[splashScreen] loadFile failed')
-    logger.error(err)
+    logger.error(String(err))
     return
   }
 
