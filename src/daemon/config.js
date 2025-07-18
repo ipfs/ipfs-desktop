@@ -187,7 +187,15 @@ function migrateConfig (ipfsd) {
   if (CURRENT_REVISION < 3) {
     const api = config.API || {}
     const httpHeaders = api.HTTPHeaders || {}
-    const accessControlAllowOrigin = httpHeaders['Access-Control-Allow-Origin'] || []
+    let accessControlAllowOrigin = httpHeaders['Access-Control-Allow-Origin'] || []
+
+    // Ensure accessControlAllowOrigin is an array
+    if (!Array.isArray(accessControlAllowOrigin)) {
+      // Convert string to array, or create empty array for other types
+      accessControlAllowOrigin = typeof accessControlAllowOrigin === 'string'
+        ? [accessControlAllowOrigin]
+        : []
+    }
 
     const addURL = url => {
       if (!accessControlAllowOrigin.includes(url)) {
