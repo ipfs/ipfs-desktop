@@ -1,11 +1,9 @@
-// @ts-check
 const logger = require('./common/logger')
 const { criticalErrorDialog } = require('./dialogs')
 
 /**
  *
  * @param {Error|unknown} err
- * @returns
  */
 function handleError (err) {
   if (err == null) {
@@ -20,7 +18,8 @@ function handleError (err) {
     return
   }
 
-  logger.error(err)
+  logger.error(String(err))
+  // @ts-ignore
   criticalErrorDialog(err)
 }
 

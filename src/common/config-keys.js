@@ -1,5 +1,6 @@
 /**
  * Configuration key constants for the features in IPFS Desktop.
+ *
  * @constant
  * @type {Record<import('../types').CONFIG_KEYS, string>}
  */
@@ -11,7 +12,8 @@ const CONFIG_KEYS = {
   OPEN_WEBUI_LAUNCH: 'openWebUIAtLaunch',
   MONOCHROME_TRAY_ICON: 'monochromeTrayIcon',
   EXPERIMENT_PUBSUB: 'experiments.pubsub',
-  EXPERIMENT_PUBSUB_NAMESYS: 'experiments.pubsubNamesys'
+  EXPERIMENT_PUBSUB_NAMESYS: 'experiments.pubsubNamesys',
+  AUTO_UPDATE: ''
 }
 
 module.exports = CONFIG_KEYS
