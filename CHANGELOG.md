@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.44.0 (2025-07-14)
+
+## What's Changed
+* feat: kubo 0.36 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/2963
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.43.0...v0.44.0
+
 ## 0.43.0 (2025-05-22)
 
 ## What's Changed
