@@ -35,13 +35,12 @@ const createWindow = () => {
     show: false,
     autoHideMenuBar: true,
     titleBarStyle: 'hiddenInset',
-    width: store.get('window.width', dimensions.width < 1440 ? dimensions.width : 1440),
-    height: store.get('window.height', dimensions.height < 900 ? dimensions.height : 900),
+    width: store.get('window.width', dimensions.size.width < 1440 ? dimensions.size.width : 1440),
+    height: store.get('window.height', dimensions.size.height < 900 ? dimensions.size.height : 900),
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       webSecurity: false,
       allowRunningInsecureContent: false,
-      enableRemoteModule: process.env.NODE_ENV === 'test', // https://github.com/electron-userland/spectron/pull/738#issuecomment-754810364
       nodeIntegration: process.env.NODE_ENV === 'test'
     }
   })
