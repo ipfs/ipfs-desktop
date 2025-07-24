@@ -1,7 +1,7 @@
 const { app } = require('electron')
-const { argvHandler: protocolHandler } = require('./protocol-handlers')
 const { argvHandler: filesHandler } = require('./argv-files-handler')
 const getCtx = require('./context')
+const { argvHandler: protocolHandler } = require('./protocol-handlers')
 
 module.exports = async function () {
   const ctx = getCtx()
