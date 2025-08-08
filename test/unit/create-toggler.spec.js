@@ -15,7 +15,7 @@ test.describe('Create toggler', () => {
     store = mockStore()
     logger = mockLogger()
     createToggler = proxyquire('../../src/utils/create-toggler', {
-      electron: electron,
+      electron,
       '../common/logger': logger,
       '../common/store': store,
       './safe-store-set': (key, val, onSuccess) => { store.set(key, val); onSuccess() }

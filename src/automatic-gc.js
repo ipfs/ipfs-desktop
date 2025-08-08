@@ -1,9 +1,9 @@
-const createToggler = require('./utils/create-toggler')
+const { ipcMain } = require('electron')
+const { AUTO_GARBAGE_COLLECTOR: CONFIG_KEY } = require('./common/config-keys')
+const ipcMainEvents = require('./common/ipc-main-events')
 const logger = require('./common/logger')
 const store = require('./common/store')
-const { AUTO_GARBAGE_COLLECTOR: CONFIG_KEY } = require('./common/config-keys')
-const { ipcMain } = require('electron')
-const ipcMainEvents = require('./common/ipc-main-events')
+const createToggler = require('./utils/create-toggler')
 
 const gcFlag = '--enable-gc'
 const isEnabled = flags => flags.some(f => f === gcFlag)
@@ -36,7 +36,7 @@ function applyConfig (newFlags) {
 
 module.exports = async function () {
   const activate = ({ newValue, oldValue }) => {
-    if (newValue === oldValue) return
+    if (newValue === oldValue) { return }
 
     try {
       if (newValue === true) {
@@ -47,11 +47,12 @@ module.exports = async function () {
 
       return true
     } catch (err) {
-      logger.error(`[automatic gc] ${err.toString()}`)
+      logger.error(`[automatic gc] ${String(err)}`)
 
       return false
     }
   }
+  // @ts-ignore
   activate({ newValue: store.get(CONFIG_KEY, true) })
   createToggler(CONFIG_KEY, activate)
   logger.info(`[automatic gc] ${store.get(CONFIG_KEY, true) ? 'enabled' : 'disabled'}`)

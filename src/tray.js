@@ -1,25 +1,27 @@
-const { Menu, Tray, shell, app, ipcMain, nativeTheme } = require('electron')
-const i18n = require('i18next')
-const path = require('path')
 const os = require('os')
+const path = require('path')
+const { Menu, Tray, shell, app, ipcMain, nativeTheme } = require('electron')
 const fs = require('fs-extra')
+const i18n = require('i18next')
 const addToIpfs = require('./add-to-ipfs')
+const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
+const CONFIG_KEYS = require('./common/config-keys')
+const { IS_MAC, VERSION, KUBO_VERSION } = require('./common/consts')
+const ipcMainEvents = require('./common/ipc-main-events')
 const logger = require('./common/logger')
 const store = require('./common/store')
-const moveRepositoryLocation = require('./move-repository-location')
-const runGarbageCollector = require('./run-gc')
-const ipcMainEvents = require('./common/ipc-main-events')
+const getCtx = require('./context')
 const { setCustomBinary, clearCustomBinary, hasCustomBinary } = require('./custom-ipfs-binary')
 const { STATUS } = require('./daemon')
-const { IS_MAC, VERSION, KUBO_VERSION } = require('./common/consts')
-
-const CONFIG_KEYS = require('./common/config-keys')
-
+const moveRepositoryLocation = require('./move-repository-location')
+const runGarbageCollector = require('./run-gc')
 const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
-const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const createToggler = require('./utils/create-toggler')
-const getCtx = require('./context')
 
+/**
+ * @param {string} key
+ * @param {string} label
+ */
 function buildCheckbox (key, label) {
   return {
     id: key,
@@ -36,6 +38,7 @@ function buildCheckbox (key, label) {
 // accelerator. Please see ../utils/setup-global-shortcut.js for more info.
 /**
  * Note: This method needs to be called any time the menu item labels need updated. i.e. when the language changes.
+ *
  * @returns {Promise<Omit<Electron.Menu, 'getMenuItemById'> & {getMenuItemById: (id: string) => Electron.MenuItem}>}
  */
 async function buildMenu () {
@@ -47,6 +50,7 @@ async function buildMenu () {
   const manualCheckForUpdates = ctx.getFn('manualCheckForUpdates')
   /**
    * we need to wait for i18n to be ready before we translate the tray menu
+   *
    * @type {boolean}
    */
   await ctx.getProp('i18n.initDone')
@@ -167,11 +171,13 @@ async function buildMenu () {
         {
           id: 'openRepoDir',
           label: i18n.t('openRepoDir'),
+          // @ts-ignore
           click: () => { shell.openPath(getKuboRepositoryPath()) }
         },
         {
           id: 'openKuboConfigFile',
           label: i18n.t('openKuboConfigFile'),
+          // @ts-ignore
           click: () => { shell.openPath(path.join(getKuboRepositoryPath(), 'config')) }
         },
         { type: 'separator' },
@@ -298,7 +304,7 @@ module.exports = async function () {
 
   const popupMenu = (event) => {
     // https://github.com/ipfs-shipyard/ipfs-desktop/issues/1762 ¯\_(ツ)_/¯
-    if (event && typeof event.preventDefault === 'function') event.preventDefault()
+    if (event && typeof event.preventDefault === 'function') { event.preventDefault() }
 
     tray.popUpContextMenu()
   }
@@ -353,7 +359,9 @@ module.exports = async function () {
     menu.getMenuItemById('checkForUpdates').visible = !isUpdating
     menu.getMenuItemById('checkingForUpdates').visible = isUpdating
 
+    // @ts-ignore
     menu.getMenuItemById('openRepoDir').enabled = fs.pathExistsSync(getKuboRepositoryPath())
+    // @ts-ignore
     menu.getMenuItemById('openKuboConfigFile').enabled = fs.pathExistsSync(path.join(getKuboRepositoryPath(), 'config'))
 
     if (status === STATUS.STARTING_FINISHED) {
