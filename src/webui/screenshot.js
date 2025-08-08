@@ -23,14 +23,9 @@ async function screenshot (format) {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
-        mandatory: {
-          chromeMediaSource: 'desktop',
-          chromeMediaSourceId: source.id,
-          minWidth: 1280,
-          maxWidth: 4000,
-          minHeight: 720,
-          maxHeight: 4000
-        }
+        width: { min: 1280, ideal: 1920, max: 4000 },
+        height: { min: 720, ideal: 1080, max: 4000 },
+        deviceId: source.id
       }
     })
 
