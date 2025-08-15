@@ -141,6 +141,24 @@ module.exports = async function () {
 
   openExternal()
   const window = createWindow()
+
+if (process.platform === 'darwin') {
+  window.webContents.on('did-finish-load', () => {
+    window.webContents.insertCSS(`
+      input:not([type="hidden"]),
+      textarea,
+      select,
+      button,
+      [role="button"],
+      [contenteditable="true"] {
+        -webkit-app-region: no-drag !important;
+        app-region: no-drag !important;
+        pointer-events: auto;
+      }
+    `);
+  });
+}
+
   ctx.setProp('webui', window)
   let apiAddress = null
 
