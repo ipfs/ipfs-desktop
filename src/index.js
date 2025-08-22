@@ -1,9 +1,29 @@
-// @ts-check
-const { registerAppStartTime, getSecondsSinceAppStart } = require('./metrics/appStart')
-registerAppStartTime()
 require('v8-compile-cache')
-
 const { app, dialog } = require('electron')
+const fixPath = require('fix-path')
+const setupAnalytics = require('./analytics')
+const { analyticsKeys } = require('./analytics/keys')
+const setupAppMenu = require('./app-menu')
+const setupArgvFilesHandler = require('./argv-files-handler')
+const setupAutoLaunch = require('./auto-launch')
+const setupAutoUpdater = require('./auto-updater')
+const setupAutoGc = require('./automatic-gc')
+const logger = require('./common/logger')
+const getCtx = require('./context')
+const setupDaemon = require('./daemon')
+const setupNamesysPubsub = require('./enable-namesys-pubsub')
+const setupPubsub = require('./enable-pubsub')
+const handleError = require('./handleError')
+const setupI18n = require('./i18n')
+const { registerAppStartTime, getSecondsSinceAppStart } = require('./metrics/appStart')
+const setupProtocolHandlers = require('./protocol-handlers')
+const setupSecondInstance = require('./second-instance')
+const createSplashScreen = require('./splash/create-splash-screen')
+const setupTakeScreenshot = require('./take-screenshot')
+const setupTray = require('./tray')
+const setupWebUI = require('./webui')
+
+registerAppStartTime()
 
 if (process.env.NODE_ENV === 'test') {
   const path = require('path')
@@ -13,30 +33,8 @@ if (process.env.NODE_ENV === 'test') {
   }
 }
 
-const getCtx = require('./context')
-const fixPath = require('fix-path')
-const logger = require('./common/logger')
-const setupProtocolHandlers = require('./protocol-handlers')
-const setupI18n = require('./i18n')
-const setupDaemon = require('./daemon')
-const setupWebUI = require('./webui')
-const setupAutoLaunch = require('./auto-launch')
-const setupAutoGc = require('./automatic-gc')
-const setupPubsub = require('./enable-pubsub')
-const setupNamesysPubsub = require('./enable-namesys-pubsub')
-const setupTakeScreenshot = require('./take-screenshot')
-const setupAppMenu = require('./app-menu')
-const setupArgvFilesHandler = require('./argv-files-handler')
-const setupAutoUpdater = require('./auto-updater')
-const setupTray = require('./tray')
-const setupAnalytics = require('./analytics')
-const setupSecondInstance = require('./second-instance')
-const { analyticsKeys } = require('./analytics/keys')
-const handleError = require('./handleError')
-const createSplashScreen = require('./splash/create-splash-screen')
-
 // Hide Dock
-if (app.dock) app.dock.hide()
+if (app.dock) { app.dock.hide() }
 
 // Sets User Model Id so notifications work on Windows 10
 app.setAppUserModelId('io.ipfs.desktop')
@@ -60,6 +58,7 @@ async function run () {
   try {
     await app.whenReady()
   } catch (e) {
+    // @ts-ignore
     dialog.showErrorBox('Electron could not start', e.stack)
     app.exit(1)
   }
@@ -95,7 +94,7 @@ async function run () {
     }
   } catch (e) {
     const splash = await getCtx().getProp('splashScreen')
-    if (splash && !splash.isDestroyed()) splash.hide()
+    if (splash && !splash.isDestroyed()) { splash.hide() }
     handleError(e)
   }
 }

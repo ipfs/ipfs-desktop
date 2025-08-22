@@ -1,26 +1,30 @@
-// @ts-check
-const { screen, BrowserWindow, ipcMain, app, session } = require('electron')
 const { join } = require('path')
+const { performance } = require('perf_hooks')
 const { URL } = require('url')
+const Countly = require('countly-sdk-nodejs')
+const { screen, BrowserWindow, ipcMain, app, session } = require('electron')
 const serve = require('electron-serve')
 const i18n = require('i18next')
-const openExternal = require('./open-external')
+const { analyticsKeys } = require('../analytics/keys')
+const { OPEN_WEBUI_LAUNCH: CONFIG_KEY } = require('../common/config-keys')
+const { VERSION, ELECTRON_VERSION } = require('../common/consts')
+const ipcMainEvents = require('../common/ipc-main-events')
 const logger = require('../common/logger')
 const store = require('../common/store')
-const { OPEN_WEBUI_LAUNCH: CONFIG_KEY } = require('../common/config-keys')
-const dock = require('../utils/dock')
-const { VERSION, ELECTRON_VERSION } = require('../common/consts')
-const createToggler = require('../utils/create-toggler')
-const { showDialog } = require('../dialogs')
-const { getSecondsSinceAppStart } = require('../metrics/appStart')
-const { performance } = require('perf_hooks')
-const Countly = require('countly-sdk-nodejs')
-const { analyticsKeys } = require('../analytics/keys')
-const ipcMainEvents = require('../common/ipc-main-events')
 const getCtx = require('../context')
 const { STATUS } = require('../daemon/consts')
+const { showDialog } = require('../dialogs')
+const { getSecondsSinceAppStart } = require('../metrics/appStart')
+const createToggler = require('../utils/create-toggler')
+const dock = require('../utils/dock')
+const openExternal = require('./open-external')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
+
+/**
+ * @typedef {object} Ipfsd
+ * @property {string} apiAddr
+ */
 
 /**
  *
@@ -35,28 +39,33 @@ const createWindow = () => {
     show: false,
     autoHideMenuBar: true,
     titleBarStyle: 'hiddenInset',
+    // @ts-ignore
     width: store.get('window.width', dimensions.width < 1440 ? dimensions.width : 1440),
+    // @ts-ignore
     height: store.get('window.height', dimensions.height < 900 ? dimensions.height : 900),
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       webSecurity: false,
       allowRunningInsecureContent: false,
+      // @ts-ignore
       enableRemoteModule: process.env.NODE_ENV === 'test', // https://github.com/electron-userland/spectron/pull/738#issuecomment-754810364
       nodeIntegration: process.env.NODE_ENV === 'test'
     }
   })
 
-  window.webContents.once('did-start-loading', (event) => {
+  window.webContents.once('did-start-loading', () => {
     const msg = '[web ui] loading'
     const webContentLoad = logger.start(msg, { withAnalytics: analyticsKeys.WEB_UI_READY })
     window.webContents.once('did-finish-load', () => {
       webContentLoad.end()
     })
     window.webContents.once('did-fail-load', (_, errorCode, errorDescription) => {
+      // @ts-ignore
       webContentLoad.fail(`${msg}: ${errorDescription}, code: ${errorCode}`)
     })
   })
-  window.webContents.once('dom-ready', async (event) => {
+
+  window.webContents.once('dom-ready', async () => {
     const endTime = performance.now()
     try {
       const dur = getSecondsSinceAppStart(endTime)
@@ -67,7 +76,7 @@ const createWindow = () => {
         dur
       })
     } catch (err) {
-      logger.error(err)
+      logger.error(String(err))
     }
   })
 
@@ -148,12 +157,12 @@ module.exports = async function () {
   url.hash = '/blank'
   url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
 
-  ctx.setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
+  ctx.setProp('launchWebUI', async (/** @type {string} */ path, { focus = true, forceRefresh = false } = {}) => {
     if (window.isDestroyed()) {
       logger.error(`[web ui] window is destroyed, not launching web ui with ${path}`)
       return
     }
-    if (forceRefresh) window.webContents.reload()
+    if (forceRefresh) { window.webContents.reload() }
     if (!path) {
       logger.info('[web ui] launching web ui', { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI })
     } else {
@@ -167,7 +176,7 @@ module.exports = async function () {
       dock.show()
     }
     // load again: minimize visual jitter on windows
-    if (path) window.webContents.loadURL(url.toString())
+    if (path) { window.webContents.loadURL(url.toString()) }
   })
 
   function updateLanguage () {
@@ -177,6 +186,8 @@ module.exports = async function () {
   const getIpfsd = ctx.getFn('getIpfsd')
   let ipfsdStatus = null
   ipcMain.on(ipcMainEvents.IPFSD, async (status) => {
+    /** @type {Ipfsd} */
+    // @ts-ignore
     const ipfsd = await getIpfsd(true)
     ipfsdStatus = status
 
@@ -221,7 +232,7 @@ module.exports = async function () {
       splashScreen.destroy()
     } catch (err) {
       logger.error('[web ui] failed to hide splash screen')
-      logger.error(err)
+      logger.error(String(err))
     }
   }
 

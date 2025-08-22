@@ -2,11 +2,19 @@ const { app, shell } = require('electron')
 const toUri = require('multiaddr-to-uri')
 const getCtx = require('./context')
 
+/**
+ * @param {string} protocol
+ * @param {string} part
+ * @param {string} base
+ */
 function openLink (protocol, part, base) {
   shell.openExternal(`${base}/${protocol}/${part}`)
   return true
 }
 
+/**
+ * @param {{ toString: () => string | string[]; encapsulate: (arg0: string) => any; }} addr
+ */
 function parseAddr (addr) {
   return toUri(addr.toString().includes('/http') ? addr : addr.encapsulate('/http'))
 }
