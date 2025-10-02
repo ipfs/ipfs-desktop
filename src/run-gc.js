@@ -1,10 +1,10 @@
-const i18n = require('i18next')
 const { ipcMain } = require('electron')
+const i18n = require('i18next')
+const ipcMainEvents = require('./common/ipc-main-events')
 const logger = require('./common/logger')
+const getCtx = require('./context')
 const { showDialog, recoverableErrorDialog } = require('./dialogs')
 const dock = require('./utils/dock')
-const ipcMainEvents = require('./common/ipc-main-events')
-const getCtx = require('./context')
 
 module.exports = function runGarbageCollector () {
   dock.run(async () => {
@@ -39,6 +39,7 @@ module.exports = function runGarbageCollector () {
     try {
       const errors = []
 
+      // @ts-ignore
       for await (const res of ipfsd.api.repo.gc()) {
         if (res instanceof Error) {
           errors.push(res)
@@ -60,7 +61,7 @@ module.exports = function runGarbageCollector () {
       })
       logger.info('[run gc] success')
     } catch (err) {
-      logger.error(`[run gc] ${err.stack}`)
+      logger.error(`[run gc] ${err}`)
       recoverableErrorDialog(err, {
         title: i18n.t('runGarbageCollectorErrored.title'),
         message: i18n.t('runGarbageCollectorErrored.message')

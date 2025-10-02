@@ -3,13 +3,14 @@ const ipcMainEvents = require('../common/ipc-main-events')
 
 async function streamHandler (format, stream) {
   const track = stream.getVideoTracks()[0]
+  // @ts-ignore
   const imageCapture = new window.ImageCapture(track)
   const bitmap = await imageCapture.grabFrame()
   const canvas = document.createElement('canvas')
   canvas.width = bitmap.width
   canvas.height = bitmap.height
   const ctx = canvas.getContext('2d')
-  ctx.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height)
+  if (ctx) { ctx.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height) }
   return canvas.toDataURL(format)
 }
 
@@ -23,6 +24,7 @@ async function screenshot (format) {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
+      // @ts-ignore
         mandatory: {
           chromeMediaSource: 'desktop',
           chromeMediaSourceId: source.id,
@@ -38,7 +40,7 @@ async function screenshot (format) {
 
     output.push({
       name: source.name,
-      image: image
+      image
     })
   }
 
