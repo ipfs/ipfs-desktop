@@ -369,3 +369,11 @@ If you think you've found a bug or other issue with IPFS Desktop itself, please 
 ## License
 
 [MIT](./LICENSE)
+## Welcome New Contributors
+As a new contributor to IPFS Desktop, you're helping build the future of decentralized storage! Start with the quickstart guide to add your first file. 🚀 If you have questions, join our Discord community.
+
+### Cross-Platform Usage Notes
+- **Windows**: Use the .exe installer; enable WSL for advanced features.
+- **macOS**: Drag to Applications; ARM64 (M1/M2) fully supported since v0.35.
+- **Linux**: .deb/.rpm packages available; run via Flatpak for sandboxing.
+Tip: For all platforms, check firewall settings for port 4001.
