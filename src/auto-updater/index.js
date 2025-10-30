@@ -31,21 +31,31 @@ function setup () {
   autoUpdater.logger = logger
 
   autoUpdater.on('error', err => {
-    logger.error(`[updater] ${err.toString()}`)
+    logger.error(`[updater] error: ${err.message}`)
+    if (err.stack) {
+      logger.error(`[updater] stack: ${err.stack}`)
+    }
+
+    // Show dialog for all errors (background and manual checks)
+    const opt = showDialog({
+      title: i18n.t('autoUpdateError.title'),
+      message: i18n.t('autoUpdateError.message'),
+      type: 'error',
+      buttons: [
+        i18n.t('autoUpdateError.later'),
+        i18n.t('autoUpdateError.downloadNow')
+      ]
+    })
+
+    if (opt === 1) {
+      shell.openExternal('https://github.com/ipfs/ipfs-desktop/releases/latest')
+    }
 
     if (!feedback) {
       return
     }
 
     feedback = false
-    showDialog({
-      title: i18n.t('updateErrorDialog.title'),
-      message: i18n.t('updateErrorDialog.message'),
-      type: 'error',
-      buttons: [
-        i18n.t('close')
-      ]
-    })
   })
 
   autoUpdater.on('update-available', async ({ version, releaseNotes }) => {

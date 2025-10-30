@@ -128,6 +128,12 @@
     "title": "Could not download update",
     "message": "It was not possible to download the update. Please check your Internet connection and try again."
   },
+  "autoUpdateError": {
+    "title": "Update Download Failed",
+    "message": "Could not install the update automatically. Would you like to download it manually?",
+    "downloadNow": "Download Now",
+    "later": "Later"
+  },
   "updateDownloadedDialog": {
     "title": "IPFS Desktop Update",
     "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",

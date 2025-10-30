@@ -48,7 +48,7 @@ win:
     - nsis
     # TODO - portable
   azureSignOptions:
-    publisherName: 'IPFS Project'
+    publisherName: 'Protocol Labs, Inc'
     endpoint: 'https://eus.codesigning.azure.net'
     certificateProfileName: 'ipfs-desktop'
     codeSigningAccountName: 'pl-code-signing'
