@@ -48,7 +48,13 @@ win:
     - nsis
     # TODO - portable
   azureSignOptions:
-    publisherName: 'Protocol Labs, Inc'
+    # multiple publisher names for auto-update compatibility across certificate changes.
+    # electron-updater accepts updates if ANY name matches the certificate's CN field.
+    publisherName:
+      - 'Protocol Labs, Inc'
+      - 'IPFS Project'
+      - 'Interplanetary File System Foundation'
+      - 'Interplanetary Shipyard, Inc'
     endpoint: 'https://eus.codesigning.azure.net'
     certificateProfileName: 'ipfs-desktop'
     codeSigningAccountName: 'pl-code-signing'
