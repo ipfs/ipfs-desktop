@@ -87,7 +87,7 @@ IPFS Desktop's `Files` screen gives you an easy, familiar interface for working 
 - Easily rename, move, or remove files and folders
 - Preview many common file formats directly in IPFS Desktop
 - Copy a file/folder's IPFS [content ID (CID)](https://docs.ipfs.tech/concepts/content-addressing/#identifier-formats) or a shareable link to your clipboard
-- ["Pin"](https://docs.ipfs.tech/concepts/persistence/) files to your IPFS node or (coming soon!) to a third-party pinning service
+- ["Pin"](https://docs.ipfs.tech/concepts/persistence/) files to your IPFS node or to a [third-party pinning service](https://github.com/ipfs/pinning-services-api-spec)
 
 ### Visualize your IPFS peers worldwide
 
@@ -185,9 +185,9 @@ No matter how you contribute, please be sure you read and follow the [IPFS Contr
 Contributing translations in your language is particularly valuable! We use Transifex to manage internationalization, which means you don't need to change a single line of code to add your translations — just sign up for a Transifex account.
 
 Because IPFS Desktop app includes text from [IPFS Web UI](https://github.com/ipfs/ipfs-webui) and [IPLD Explorer Components](https://github.com/ipfs/ipld-explorer-components/), you'll want to join all three Transifex projects in order to see all the text:
-- https://www.transifex.com/ipfs/ipfs-desktop/
-- https://www.transifex.com/ipfs/ipfs-webui/
-- https://www.transifex.com/ipfs/ipld-explorer/
+- https://explore.transifex.com/ipfs/ipfs-desktop/
+- https://explore.transifex.com/ipfs/ipfs-webui/
+- https://explore.transifex.com/ipfs/ipld-explorer/
 
 *Note for developers: We use English as our source of truth. This means that if you add any new text, make those additions in [`./assets/locales/en.json`](./assets/locales/en.json) and they will automatically propagate in Transifex for other languages.*
 
