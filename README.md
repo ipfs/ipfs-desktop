@@ -46,6 +46,7 @@ When in doubt, pick one of package formats with built-in automatic update mechan
   - [Why am I missing the system tray menu on Linux?](#why-am-i-missing-the-system-tray-menu-on-linux)
   - [Why can't I install IPFS Desktop under Debian 11?](#why-cant-i-install-ipfs-desktop-under-debian-11)
   - [Why can't I start IPFS Desktop under Debian 10?](#why-cant-i-start-ipfs-desktop-under-debian-10)
+  - [Why does the AppImage fail with a FUSE error?](#why-does-the-appimage-fail-with-a-fuse-error)
   - [`GTK 2/3 symbols detected. Using GTK 2/3 and GTK 4 in the same process is not supported`](#gtk-23-symbols-detected-using-gtk-23-and-gtk-4-in-the-same-process-is-not-supported)
   - [Where are my configuration and log files?](#where-are-my-configuration-and-log-files)
     - [IPFS Desktop configuration](#ipfs-desktop-configuration)
@@ -233,6 +234,36 @@ This is a known issue with Electron/Chrome and some hardened kernels. More detai
 ```console
 $ ipfs-desktop --no-sandbox
 ```
+
+### Why does the AppImage fail with a FUSE error?
+
+If you see this error when running the AppImage:
+
+```
+dlopen(): error loading libfuse.so.2
+AppImages require FUSE to run.
+```
+
+This happens because modern Linux distributions ship with FUSE 3, but AppImages currently require FUSE 2 (libfuse2). The two versions can coexist safely.
+
+**Fix by distribution:**
+
+| Distribution | Command |
+|--------------|---------|
+| Ubuntu 24.04+, Debian 13+ | `sudo apt install libfuse2t64` |
+| Ubuntu 22.04/23.x, Debian 12 | `sudo apt install libfuse2` |
+| Fedora | `sudo dnf install fuse-libs` |
+| Arch | `sudo pacman -S fuse2` |
+
+**Alternative:** Run without FUSE using extraction mode:
+
+```console
+./ipfs-desktop-*.AppImage --appimage-extract-and-run
+```
+
+> **Note:** This is a known limitation of the AppImage runtime used by electron-builder. Future releases may include a static runtime that removes this dependency. See [AppImage/AppImageKit#1120](https://github.com/AppImage/AppImageKit/issues/1120) for upstream progress.
+
+See [AppImage FUSE documentation](https://docs.appimage.org/user-guide/troubleshooting/fuse.html) for more details.
 
 ### `GTK 2/3 symbols detected. Using GTK 2/3 and GTK 4 in the same process is not supported`
 
