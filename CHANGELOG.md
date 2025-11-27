@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.47.0 (2025-11-27)
+
+## What's Changed
+* feat: update webui to v4.10.0 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3015
+* feat: electron 39 + kubo 0.39 with sweep and fast root cid provides by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3020
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.46.2...v0.47.0
+
 ## 0.46.2 (2025-10-31)
 
 ## What's Changed
