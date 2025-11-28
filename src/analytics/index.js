@@ -1,10 +1,9 @@
-// @ts-check
+const { existsSync, mkdirSync } = require('fs')
+const { join } = require('path')
 const Countly = require('countly-sdk-nodejs')
 const { ipcMain } = require('electron')
-const { COUNTLY_KEY } = require('../common/consts')
-const { join } = require('path')
 const { app } = require('electron')
-const { existsSync, mkdirSync } = require('fs')
+const { COUNTLY_KEY } = require('../common/consts')
 const ipcMainEvents = require('../common/ipc-main-events')
 const logger = require('../common/logger')
 const getCtx = require('../context')
