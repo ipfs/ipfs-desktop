@@ -1,18 +1,5 @@
 // @ts-check
-const { registerAppStartTime, getSecondsSinceAppStart } = require('./metrics/appStart.js')
-registerAppStartTime()
-require('v8-compile-cache')
-
 const { app, dialog } = require('electron')
-
-if (process.env.NODE_ENV === 'test') {
-  const path = require('path')
-  if (process.env.HOME) {
-    app.setPath('home', process.env.HOME)
-    app.setPath('userData', path.join(process.env.HOME, 'data'))
-  }
-}
-
 const getCtx = require('./context.js')
 const fixPath = require('fix-path')
 const logger = require('./common/logger.js')
@@ -34,6 +21,18 @@ const setupSecondInstance = require('./second-instance.js')
 const { analyticsKeys } = require('./analytics/keys.js')
 const handleError = require('./handleError.js')
 const createSplashScreen = require('./splash/create-splash-screen.js')
+const { registerAppStartTime, getSecondsSinceAppStart } = require('./metrics/appStart.js')
+require('v8-compile-cache')
+
+registerAppStartTime()
+
+if (process.env.NODE_ENV === 'test') {
+  const path = require('path')
+  if (process.env.HOME) {
+    app.setPath('home', process.env.HOME)
+    app.setPath('userData', path.join(process.env.HOME, 'data'))
+  }
+}
 
 // Hide Dock
 if (app.dock) app.dock.hide()
