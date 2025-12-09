@@ -1,13 +1,13 @@
 const path = require('path')
 const { test, expect } = require('@playwright/test')
 
-const mockElectron = require('./mocks/electron')
-const mockLogger = require('./mocks/logger')
-const mockNotify = require('./mocks/notify')
+const mockElectron = require('./mocks/electron.js')
+const mockLogger = require('./mocks/logger.js')
+const mockNotify = require('./mocks/notify.js')
 
 const proxyquire = require('proxyquire').noCallThru()
 
-const { makeRepository } = require('./../e2e/utils/ipfsd')
+const { makeRepository } = require('./../e2e/utils/ipfsd.js')
 
 const getFixtures = (...files) => files.map(f => path.join(__dirname, 'fixtures', f))
 

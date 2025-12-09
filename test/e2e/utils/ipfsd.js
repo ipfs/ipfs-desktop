@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 
-const { applyDefaults } = require('../../../src/daemon/config')
+const { applyDefaults } = require('../../../src/daemon/config.js')
 
 const tmp = require('tmp')
 const Ctl = require('ipfsd-ctl')

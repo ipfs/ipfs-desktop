@@ -1,6 +1,6 @@
 const sinon = require('sinon')
-const mockElectron = require('./mocks/electron')
-const mockLogger = require('./mocks/logger')
+const mockElectron = require('./mocks/electron.js')
+const mockLogger = require('./mocks/logger.js')
 const proxyquire = require('proxyquire').noCallThru()
 const { test, expect } = require('@playwright/test')
 

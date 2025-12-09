@@ -1,5 +1,5 @@
-const mockElectron = require('./electron')
-const mockLogger = require('./logger')
+const mockElectron = require('./electron.js')
+const mockLogger = require('./logger.js')
 const Store = require('electron-store')
 const proxyquire = require('proxyquire').noCallThru()
 

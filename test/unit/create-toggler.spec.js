@@ -1,10 +1,10 @@
 const sinon = require('sinon')
-const mockElectron = require('./mocks/electron')
-const mockStore = require('./mocks/store')
-const mockLogger = require('./mocks/logger')
+const mockElectron = require('./mocks/electron.js')
+const mockStore = require('./mocks/store.js')
+const mockLogger = require('./mocks/logger.js')
 const proxyquire = require('proxyquire').noCallThru()
 const { test, expect } = require('@playwright/test')
-const ipcMainEvents = require('../../src/common/ipc-main-events')
+const ipcMainEvents = require('../../src/common/ipc-main-events.js')
 
 test.describe('Create toggler', () => {
   const option = 'OPT'
