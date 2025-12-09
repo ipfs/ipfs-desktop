@@ -13,7 +13,7 @@
     "test:e2e": "xvfb-maybe cross-env NODE_ENV=test playwright test -c test/e2e/playwright.config.js",
     "postinstall": "run-s install-app-deps patch-deps macos-universal-kubo",
     "install-app-deps": "electron-builder install-app-deps",
-    "macos-universal-kubo": "node pkgs/macos/build-universal-kubo-binary.js",
+    "macos-universal-kubo": "node pkgs/macos/build-universal-kubo-binary.cjs",
     "patch-deps": "patch-package",
     "clean": "shx rm -rf node_modules/kubo/bin",
     "force-webui-download": "shx rm -rf assets/webui && run-s build:webui",
