@@ -1,7 +1,6 @@
-const { shell, app, BrowserWindow, Notification } = require('electron')
+const { shell, app, ipcMain, BrowserWindow, Notification } = require('electron')
 const { autoUpdater } = require('electron-updater')
 const i18n = require('i18next')
-const { ipcMain } = require('electron')
 const logger = require('../common/logger.js')
 const { showDialog } = require('../dialogs/index.js')
 const { IS_MAC, IS_WIN, IS_APPIMAGE } = require('../common/consts.js')

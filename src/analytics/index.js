@@ -1,9 +1,8 @@
 // @ts-check
 const Countly = require('countly-sdk-nodejs')
-const { ipcMain } = require('electron')
+const { app, ipcMain } = require('electron')
 const { COUNTLY_KEY } = require('../common/consts.js')
 const { join } = require('path')
-const { app } = require('electron')
 const { existsSync, mkdirSync } = require('fs')
 const ipcMainEvents = require('../common/ipc-main-events.js')
 const logger = require('../common/logger.js')
