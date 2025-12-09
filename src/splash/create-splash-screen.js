@@ -9,7 +9,7 @@ const getCtx = require('../context.js')
 const logger = require('../common/logger.js')
 const path = require('node:path')
 
-module.exports = async function createSplashScreen () {
+async function createSplashScreen () {
   const ctx = getCtx()
   const splashScreen = new BrowserWindow({
     title: 'IPFS Desktop splash screen',
@@ -33,3 +33,5 @@ module.exports = async function createSplashScreen () {
 
   ctx.setProp('splashScreen', splashScreen)
 }
+
+module.exports = createSplashScreen

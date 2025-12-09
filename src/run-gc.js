@@ -6,7 +6,7 @@ const dock = require('./utils/dock.js')
 const ipcMainEvents = require('./common/ipc-main-events.js')
 const getCtx = require('./context.js')
 
-module.exports = function runGarbageCollector () {
+function runGarbageCollector () {
   dock.run(async () => {
     logger.info('[run gc] alerting user for effects')
     const ctx = getCtx()
@@ -70,3 +70,5 @@ module.exports = function runGarbageCollector () {
     ipcMain.emit(ipcMainEvents.GC_ENDED)
   })
 }
+
+module.exports = runGarbageCollector

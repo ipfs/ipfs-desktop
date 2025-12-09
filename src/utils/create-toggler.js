@@ -3,7 +3,7 @@ const store = require('../common/store.js')
 const logger = require('../common/logger.js')
 const ipcMainEvents = require('../common/ipc-main-events.js')
 
-module.exports = function (settingsOption, activate) {
+const defaultExport = function (settingsOption, activate) {
   ipcMain.on(ipcMainEvents.TOGGLE(settingsOption), async () => {
     const oldValue = store.get(settingsOption, null)
     const newValue = !oldValue
@@ -21,3 +21,5 @@ module.exports = function (settingsOption, activate) {
     ipcMain.emit(ipcMainEvents.CONFIG_UPDATED)
   })
 }
+
+module.exports = defaultExport

@@ -4,7 +4,7 @@ const { STATUS } = require('../daemon/consts.js')
 const logger = require('../common/logger.js')
 const getCtx = require('../context.js')
 
-module.exports = async function () {
+const defaultExport = async function () {
   logger.info('[ipfs-not-running] an action needs ipfs to be running')
 
   const option = dialog({
@@ -23,3 +23,5 @@ module.exports = async function () {
 
   return (await startIpfs()) === STATUS.STARTING_FINISHED
 }
+
+module.exports = defaultExport

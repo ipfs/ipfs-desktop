@@ -49,7 +49,7 @@ async function disable () {
   await fs.remove(getDesktopFile())
 }
 
-module.exports = async function () {
+const defaultExport = async function () {
   const activate = async ({ newValue, oldValue, feedback }) => {
     if (process.env.NODE_ENV === 'development') {
       logger.info('[launch on startup] unavailable during development')
@@ -109,4 +109,5 @@ module.exports = async function () {
   createToggler(CONFIG_KEY, activate)
 }
 
+module.exports = defaultExport
 module.exports.isSupported = isSupported

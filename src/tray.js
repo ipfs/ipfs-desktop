@@ -274,7 +274,7 @@ function icon (status) {
 // https://www.electronjs.org/docs/faq#my-apps-tray-disappeared-after-a-few-minutes
 let tray = null
 
-module.exports = async function () {
+const defaultExport = async function () {
   const ctx = getCtx()
   logger.info('[tray] starting')
   tray = new Tray(icon(off))
@@ -430,3 +430,5 @@ function getKuboRepositoryPath () {
   }
   return ipfsPath
 }
+
+module.exports = defaultExport

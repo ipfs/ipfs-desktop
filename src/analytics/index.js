@@ -8,7 +8,7 @@ const ipcMainEvents = require('../common/ipc-main-events.js')
 const logger = require('../common/logger.js')
 const getCtx = require('../context.js')
 
-module.exports = async function () {
+const defaultExport = async function () {
   logger.info('[analytics] init...')
   // workaround: recursive mkdir https://github.com/Countly/countly-sdk-nodejs/pull/14
   const countlyDataDir = join(app.getPath('userData'), 'countly-data')
@@ -38,3 +38,5 @@ module.exports = async function () {
   })
   logger.info('[analytics] init done')
 }
+
+module.exports = defaultExport

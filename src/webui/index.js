@@ -121,7 +121,7 @@ const createWindow = () => {
   return window
 }
 
-module.exports = async function () {
+const defaultExport = async function () {
   logger.info('[webui] init...')
   const ctx = getCtx()
 
@@ -241,3 +241,5 @@ module.exports = async function () {
     window.loadURL(url.toString())
   }))
 }
+
+module.exports = defaultExport

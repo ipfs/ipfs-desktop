@@ -25,9 +25,10 @@ async function argvHandler (argv) {
   return handled
 }
 
-module.exports = async function () {
+const defaultExport = async function () {
   // Checks current process
   await argvHandler(process.argv)
 }
 
+module.exports = defaultExport
 module.exports.argvHandler = argvHandler

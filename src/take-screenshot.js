@@ -108,7 +108,7 @@ async function takeScreenshot () {
   webui.webContents.send('screenshot')
 }
 
-module.exports = function () {
+const defaultExport = function () {
   setupGlobalShortcut({
     confirmationDialog: {
       title: i18n.t('enableGlobalTakeScreenshotShortcut.title'),
@@ -124,5 +124,6 @@ module.exports = function () {
   ipcMain.on(ipcMainEvents.SCREENSHOT, handleScreenshot())
 }
 
+module.exports = defaultExport
 module.exports.takeScreenshot = takeScreenshot
 module.exports.SHORTCUT = SHORTCUT

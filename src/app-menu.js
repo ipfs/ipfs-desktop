@@ -88,9 +88,11 @@ if (process.platform === 'darwin') {
   ]
 }
 
-module.exports = function () {
+const defaultExport = function () {
   logger.info('[appMenu] init...')
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
   logger.info('[appMenu] init done...')
 }
+
+module.exports = defaultExport

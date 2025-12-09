@@ -8,7 +8,7 @@ const dock = require('./utils/dock.js')
 const { analyticsKeys } = require('./analytics/keys.js')
 const getCtx = require('./context.js')
 
-module.exports = function () {
+const defaultExport = function () {
   dock.run(async () => {
     logger.info('[move repository] user prompted about effects')
     const ctx = getCtx()
@@ -95,3 +95,5 @@ module.exports = function () {
     })
   })
 }
+
+module.exports = defaultExport

@@ -8,7 +8,7 @@ const ipcMainEvents = require('./common/ipc-main-events.js')
 const logger = require('./common/logger.js')
 const getCtx = require('./context.js')
 
-module.exports = async function () {
+const defaultExport = async function () {
   const ctx = getCtx()
   logger.info('[i18n] init...')
   const lng = store.get('language')
@@ -63,3 +63,5 @@ module.exports = async function () {
     })
   })
 }
+
+module.exports = defaultExport

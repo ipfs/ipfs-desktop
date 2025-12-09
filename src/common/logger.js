@@ -75,7 +75,7 @@ const addAnalyticsEvent = ({ withAnalytics, ...countlyOptions }) => {
   }
 }
 
-module.exports = Object.freeze({
+const defaultExport = Object.freeze({
   /**
    *
    * @param {string} msg
@@ -153,3 +153,5 @@ module.exports = Object.freeze({
    */
   fileLogger: logger
 })
+
+module.exports = defaultExport

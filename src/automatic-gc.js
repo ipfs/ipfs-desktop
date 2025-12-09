@@ -34,7 +34,7 @@ function applyConfig (newFlags) {
   })
 }
 
-module.exports = async function () {
+const defaultExport = async function () {
   const activate = ({ newValue, oldValue }) => {
     if (newValue === oldValue) return
 
@@ -56,3 +56,5 @@ module.exports = async function () {
   createToggler(CONFIG_KEY, activate)
   logger.info(`[automatic gc] ${store.get(CONFIG_KEY, true) ? 'enabled' : 'disabled'}`)
 }
+
+module.exports = defaultExport

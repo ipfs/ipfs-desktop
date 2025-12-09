@@ -185,7 +185,7 @@ async function checkForUpdates () {
   ipcMain.emit(ipcMainEvents.UPDATING_ENDED)
 }
 
-module.exports = async function () {
+const defaultExport = async function () {
   if (['test', 'development'].includes(process.env.NODE_ENV ?? '')) {
     getCtx().setProp('manualCheckForUpdates', () => {
       showDialog({
@@ -215,3 +215,5 @@ module.exports = async function () {
     checkForUpdates()
   })
 }
+
+module.exports = defaultExport

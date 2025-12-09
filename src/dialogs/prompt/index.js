@@ -16,7 +16,7 @@ function generatePage ({ message, defaultValue = '', buttons }, id) {
   return `data:text/html;base64,${Buffer.from(page, 'utf8').toString('base64')}`
 }
 
-module.exports = async function showPrompt (options) {
+async function showPrompt (options) {
   options = Object.assign({}, {
     window: {},
     showDock: true
@@ -61,3 +61,5 @@ module.exports = async function showPrompt (options) {
     window.loadURL(generatePage(options, id))
   })
 }
+
+module.exports = showPrompt

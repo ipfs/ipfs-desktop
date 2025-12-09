@@ -6,7 +6,7 @@ const dock = require('../utils/dock.js')
 // NOTE: always send the buttons in the order [OK, Cancel, ...Actions].
 // See this post for more interesting information about the topic:
 // https://medium.muz.li/ok-key-and-cancel-key-which-one-should-be-set-up-on-the-left-4780e86c16eb
-module.exports = function ({
+const defaultExport = function ({
   title, message, type = 'info', showDock = true, buttons = [
     i18n.t('ok'),
     i18n.t('cancel')
@@ -48,3 +48,5 @@ module.exports = function ({
 
   return buttons.length - selected - 1
 }
+
+module.exports = defaultExport

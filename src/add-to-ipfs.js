@@ -111,7 +111,7 @@ async function addFileOrDirectory (ipfs, filepath) {
   return { cid, filename }
 }
 
-module.exports = async function (files) {
+const defaultExport = async function (files) {
   const ctx = getCtx()
   const getIpfsd = await ctx.getProp('getIpfsd')
   const ipfsd = await getIpfsd()
@@ -150,3 +150,5 @@ module.exports = async function (files) {
 
   return cid
 }
+
+module.exports = defaultExport
