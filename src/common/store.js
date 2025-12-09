@@ -1,7 +1,7 @@
 const { app } = require('electron')
 const Store = require('electron-store')
 
-const logger = require('./logger')
+const logger = require('./logger.js')
 
 const { fileLogger } = logger
 

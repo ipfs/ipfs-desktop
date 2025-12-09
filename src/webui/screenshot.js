@@ -1,5 +1,5 @@
 const { ipcRenderer, desktopCapturer } = require('electron')
-const ipcMainEvents = require('../common/ipc-main-events')
+const ipcMainEvents = require('../common/ipc-main-events.js')
 
 async function streamHandler (format, stream) {
   const track = stream.getVideoTracks()[0]

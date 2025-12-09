@@ -1,9 +1,9 @@
 const Ctl = require('ipfsd-ctl')
-const logger = require('../common/logger')
-const { getCustomBinary } = require('../custom-ipfs-binary')
-const { applyDefaults, migrateConfig, checkPorts, configExists, checkRepositoryAndConfiguration, removeApiFile, apiFileExists } = require('./config')
-const showMigrationPrompt = require('./migration-prompt')
-const dialogs = require('./dialogs')
+const logger = require('../common/logger.js')
+const { getCustomBinary } = require('../custom-ipfs-binary.js')
+const { applyDefaults, migrateConfig, checkPorts, configExists, checkRepositoryAndConfiguration, removeApiFile, apiFileExists } = require('./config.js')
+const showMigrationPrompt = require('./migration-prompt.js')
+const dialogs = require('./dialogs.js')
 const { app } = require('electron')
 
 /**

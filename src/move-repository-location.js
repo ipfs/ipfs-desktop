@@ -1,12 +1,12 @@
 const i18n = require('i18next')
 const path = require('path')
 const fs = require('fs-extra')
-const store = require('./common/store')
-const logger = require('./common/logger')
-const { showDialog, recoverableErrorDialog, selectDirectory } = require('./dialogs')
-const dock = require('./utils/dock')
-const { analyticsKeys } = require('./analytics/keys')
-const getCtx = require('./context')
+const store = require('./common/store.js')
+const logger = require('./common/logger.js')
+const { showDialog, recoverableErrorDialog, selectDirectory } = require('./dialogs/index.js')
+const dock = require('./utils/dock.js')
+const { analyticsKeys } = require('./analytics/keys.js')
+const getCtx = require('./context.js')
 
 module.exports = function () {
   dock.run(async () => {

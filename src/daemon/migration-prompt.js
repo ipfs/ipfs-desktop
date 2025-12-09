@@ -1,10 +1,10 @@
 const { BrowserWindow } = require('electron')
 const i18n = require('i18next')
 const crypto = require('crypto')
-const dock = require('../utils/dock')
-const { styles, getBackgroundColor } = require('../dialogs/prompt/styles')
-const { generateErrorIssueUrl } = require('../dialogs/errors')
-const { IS_MAC } = require('../common/consts')
+const dock = require('../utils/dock.js')
+const { styles, getBackgroundColor } = require('../dialogs/prompt/styles.js')
+const { generateErrorIssueUrl } = require('../dialogs/errors.js')
+const { IS_MAC } = require('../common/consts.js')
 
 const template = (logs, script, title, message, buttons) => {
   if (IS_MAC) {

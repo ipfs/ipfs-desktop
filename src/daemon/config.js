@@ -4,9 +4,9 @@ const { multiaddr } = require('multiaddr')
 const http = require('http')
 const portfinder = require('portfinder')
 const { shell } = require('electron')
-const store = require('../common/store')
-const logger = require('../common/logger')
-const dialogs = require('./dialogs')
+const store = require('../common/store.js')
+const logger = require('../common/logger.js')
+const dialogs = require('./dialogs.js')
 
 /**
  * Get repository configuration file path.

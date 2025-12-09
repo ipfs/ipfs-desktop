@@ -1,6 +1,6 @@
 const { app, shell } = require('electron')
 const toUri = require('multiaddr-to-uri')
-const getCtx = require('./context')
+const getCtx = require('./context.js')
 
 function openLink (protocol, part, base) {
   shell.openExternal(`${base}/${protocol}/${part}`)

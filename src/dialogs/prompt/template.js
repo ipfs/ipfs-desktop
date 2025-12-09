@@ -1,4 +1,4 @@
-const { styles } = require('./styles')
+const { styles } = require('./styles.js')
 
 module.exports = ({ message, defaultValue, buttons, id }) => (`<!DOCTYPE html>
 <html>

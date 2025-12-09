@@ -1,5 +1,5 @@
 const fs = require('fs-extra')
-const addToIpfs = require('./add-to-ipfs')
+const addToIpfs = require('./add-to-ipfs.js')
 
 async function argvHandler (argv) {
   let handled = false

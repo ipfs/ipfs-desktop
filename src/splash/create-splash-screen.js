@@ -5,8 +5,8 @@
  * while we're still booting up the daemon.
  */
 const { BrowserWindow } = require('electron')
-const getCtx = require('../context')
-const logger = require('../common/logger')
+const getCtx = require('../context.js')
+const logger = require('../common/logger.js')
 const path = require('node:path')
 
 module.exports = async function createSplashScreen () {

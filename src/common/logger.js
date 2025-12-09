@@ -4,7 +4,7 @@ const { join } = require('path')
 const { app } = require('electron')
 const { performance } = require('perf_hooks')
 const Countly = require('countly-sdk-nodejs')
-const { analyticsKeys } = require('../analytics/keys')
+const { analyticsKeys } = require('../analytics/keys.js')
 
 /**
  * @typedef {import('countly-sdk-nodejs').AnalyticsKeys} AnalyticsKeys

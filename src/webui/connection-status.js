@@ -1,5 +1,5 @@
 const { ipcRenderer } = require('electron')
-const ipcMainEvents = require('../common/ipc-main-events')
+const ipcMainEvents = require('../common/ipc-main-events.js')
 
 module.exports = function () {
   const handler = () => {

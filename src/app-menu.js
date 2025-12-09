@@ -1,5 +1,5 @@
 const { app, Menu, shell } = require('electron')
-const logger = require('./common/logger')
+const logger = require('./common/logger.js')
 
 const template = [
   {

@@ -1,9 +1,9 @@
-const createToggler = require('./utils/create-toggler')
-const logger = require('./common/logger')
-const store = require('./common/store')
-const { AUTO_GARBAGE_COLLECTOR: CONFIG_KEY } = require('./common/config-keys')
+const createToggler = require('./utils/create-toggler.js')
+const logger = require('./common/logger.js')
+const store = require('./common/store.js')
+const { AUTO_GARBAGE_COLLECTOR: CONFIG_KEY } = require('./common/config-keys.js')
 const { ipcMain } = require('electron')
-const ipcMainEvents = require('./common/ipc-main-events')
+const ipcMainEvents = require('./common/ipc-main-events.js')
 
 const gcFlag = '--enable-gc'
 const isEnabled = flags => flags.some(f => f === gcFlag)
