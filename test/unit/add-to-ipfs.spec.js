@@ -19,7 +19,7 @@ test.describe('Add To Ipfs', function () {
   test.beforeAll(async () => {
     const repo = await makeRepository({ start: true })
     ipfsd = repo.ipfsd
-    const getCtx = proxyquire('../../src/context', {
+    const getCtx = proxyquire('../../src/context.js', {
       electron: mockElectron(),
       './common/notify': mockNotify(),
       './common/logger': mockLogger()
@@ -36,7 +36,7 @@ test.describe('Add To Ipfs', function () {
   test.beforeEach(async () => {
     electron = mockElectron()
     notify = mockNotify()
-    addToIpfs = proxyquire('../../src/add-to-ipfs', {
+    addToIpfs = proxyquire('../../src/add-to-ipfs.js', {
       electron: electron,
       './common/notify': notify,
       './common/logger': mockLogger(),

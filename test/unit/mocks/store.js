@@ -8,7 +8,7 @@ module.exports = function mockStore () {
     return new Store({ ...options, migrations: {} })
   }
   // use the real store object, but mock the logger and electron
-  return proxyquire('../../../src/common/store', {
+  return proxyquire('../../../src/common/store.js', {
     electron: mockElectron(),
     './logger': mockLogger(),
     'electron-store': MockElectronStoreConstructor

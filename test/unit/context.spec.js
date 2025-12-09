@@ -15,7 +15,7 @@ const testGetAndSet = async (ctx, propertyName, value) => {
 test.describe('App Context', () => {
   let ctx, getCtx
   test.beforeEach(async () => {
-    getCtx = proxyquire('../../src/context', {
+    getCtx = proxyquire('../../src/context.js', {
       electron: mockElectron(),
       './common/notify': mockNotify(),
       './common/logger': mockLogger()

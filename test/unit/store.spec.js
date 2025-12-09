@@ -11,7 +11,7 @@ test.describe('store', () => {
     test.beforeEach(() => {
       electron = mockElectron()
       logger = mockLogger()
-      store = proxyquire('../../src/common/store', {
+      store = proxyquire('../../src/common/store.js', {
         electron: electron,
         './logger': logger
       })
