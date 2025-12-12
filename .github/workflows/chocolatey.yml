@@ -22,15 +22,15 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '18.17.1'
 
       - name: Cache bigger downloads
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache
         with:
           path: ${{ github.workspace }}/.cache

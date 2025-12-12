@@ -19,10 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 'lts/*'
 
@@ -34,14 +34,14 @@ jobs:
           echo '::echo::off'
         shell: bash
       - name: Cache webui
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: webui-cache
         with:
           path: assets/webui
           key: ${{ steps.read-webui-version.outputs.cid }}
 
       - name: Cache bigger downloads
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
@@ -66,7 +66,7 @@ jobs:
           npm run force-webui-download
 
       - name: Attach cached ipfs-webui to Github Action
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ipfs-webui
           path: assets/webui
@@ -82,10 +82,10 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 'lts/*'
 
@@ -94,14 +94,14 @@ jobs:
         run: echo "cid=$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")" >> $GITHUB_OUTPUT
         shell: bash
       - name: Cache webui
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: webui-cache
         with:
           path: assets/webui
           key: ${{ steps.read-webui-version.outputs.cid }}
 
       - name: Cache bigger downloads
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache
         with:
           path: ${{ github.workspace }}/.cache
@@ -152,10 +152,10 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 'lts/*'
 
@@ -164,14 +164,14 @@ jobs:
         run: echo "cid=$(grep "build:webui:download" package.json | grep -Eio "bafy[a-z0-9]+")" >> $GITHUB_OUTPUT
         shell: bash
       - name: Cache webui
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: webui-cache
         with:
           path: assets/webui
           key: ${{ steps.read-webui-version.outputs.cid }}
 
       - name: Cache bigger downloads
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache
         with:
           path: ${{ github.workspace }}/.cache
@@ -254,7 +254,7 @@ jobs:
       # - action artifacts can be downloaded for 90 days, then are removed by github
       # - binaries in PRs from forks won't be signed
       - name: Attach produced packages to Github Action
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: dist-${{ matrix.os }}
           path: dist/*esktop*.*
