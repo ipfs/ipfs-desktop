@@ -13,8 +13,8 @@ module.exports = function ({
   ], ...opts
 }) {
   const options = {
-    type: type,
-    buttons: buttons,
+    type,
+    buttons,
     noLink: true,
     ...opts
   }
