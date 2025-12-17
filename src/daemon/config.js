@@ -481,7 +481,7 @@ function checkRepositoryAndConfiguration (ipfsd) {
   }
 }
 
-module.exports = Object.freeze({
+module.exports = {
   configExists,
   apiFileExists,
   removeApiFile,
@@ -489,4 +489,4 @@ module.exports = Object.freeze({
   migrateConfig,
   checkPorts,
   checkRepositoryAndConfiguration
-})
+}

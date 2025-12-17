@@ -30,9 +30,9 @@ const runSync = (fn) => {
   return res
 }
 
-module.exports = Object.freeze({
+module.exports = {
   show,
   hide,
   run,
   runSync
-})
+}

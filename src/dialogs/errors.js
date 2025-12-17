@@ -136,8 +136,8 @@ function recoverableErrorDialog (e, options) {
   }
 }
 
-module.exports = Object.freeze({
+module.exports = {
   criticalErrorDialog,
   recoverableErrorDialog,
   generateErrorIssueUrl
-})
+}
