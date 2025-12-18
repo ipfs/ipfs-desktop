@@ -1,6 +1,4 @@
 const { app, ipcMain } = require('electron')
-const fs = require('fs-extra')
-const { join } = require('path')
 const { ipfsNotRunningDialog } = require('../dialogs')
 const store = require('../common/store')
 const logger = require('../common/logger')
@@ -15,6 +13,7 @@ async function setupDaemon () {
   let ipfsd = null
   let status = null
   let wasOnline = null
+  let weSpawnedDaemon = false
 
   const updateStatus = (stat, id = null) => {
     status = stat
@@ -56,6 +55,7 @@ async function setupDaemon () {
     }
 
     ipfsd = res.ipfsd
+    weSpawnedDaemon = res.weSpawnedDaemon
 
     const repoPath = getRepoPath(ipfsd)
     logger.info(`[daemon] IPFS_PATH: ${repoPath}`)
@@ -81,13 +81,17 @@ async function setupDaemon () {
     const log = logger.start('[ipfsd] stop daemon', { withAnalytics: analyticsKeys.DAEMON_STOP })
     updateStatus(STATUS.STOPPING_STARTED)
 
-    if (!fs.pathExistsSync(join(getRepoPath(ipfsd), 'config'))) {
-      // Is remote api... ignore
+    if (!weSpawnedDaemon) {
+      // External daemon - just disconnect, not our responsibility to stop
+      logger.info('[ipfsd] disconnecting from external daemon (not started by us)')
       ipfsd = null
+      weSpawnedDaemon = false
+      log.end()
       updateStatus(STATUS.STOPPING_FINISHED)
       return
     }
 
+    // LOCAL daemon - we started it, wait for graceful shutdown
     try {
       await ipfsd.stop()
       log.end()
@@ -97,6 +101,7 @@ async function setupDaemon () {
       updateStatus(STATUS.STOPPING_FAILED)
     } finally {
       ipfsd = null
+      weSpawnedDaemon = false
     }
   }
 

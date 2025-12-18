@@ -233,20 +233,27 @@ async function startIpfsWithLogs (ipfsd, flags) {
  * Start the IPFS daemon.
  *
  * @param {any} opts
- * @returns {Promise<{ ipfsd: import('ipfsd-ctl').KuboNode|undefined } & IpfsLogs>}
+ * @returns {Promise<{ ipfsd: import('ipfsd-ctl').KuboNode|undefined, weSpawnedDaemon: boolean } & IpfsLogs>}
  */
 async function startDaemon (opts) {
   const flags = opts.flags || []
   const ipfsd = await getIpfsd(flags, opts.path)
   if (ipfsd === null) {
     app.quit()
-    return { ipfsd: undefined, err: new Error('get ipfsd failed'), id: undefined, logs: '' }
+    return { ipfsd: undefined, err: new Error('get ipfsd failed'), id: undefined, logs: '', weSpawnedDaemon: false }
   }
 
+  // Check if api file exists BEFORE starting - if it does, we're connecting
+  // to an external daemon (not spawning our own)
+  const apiExistedBeforeStart = apiFileExists(ipfsd)
+
   let { err, logs, id } = await startIpfsWithLogs(ipfsd, flags)
+  // We spawned the daemon if api file didn't exist before start
+  let weSpawnedDaemon = !apiExistedBeforeStart
+
   if (err) {
     if (!err.message.includes('ECONNREFUSED') && !err.message.includes('ERR_CONNECTION_REFUSED')) {
-      return { ipfsd, err, logs, id }
+      return { ipfsd, err, logs, id, weSpawnedDaemon }
     }
 
     if (!configExists(ipfsd)) {
@@ -259,9 +266,10 @@ async function startDaemon (opts) {
         // ignore, use default
       }
       dialogs.cannotConnectToApiDialog(apiAddr)
-      return { ipfsd, err, logs, id }
+      return { ipfsd, err, logs, id, weSpawnedDaemon }
     }
 
+    // Stale api file from crashed daemon - remove and retry
     logger.info('[daemon] removing api file')
     removeApiFile(ipfsd)
 
@@ -269,10 +277,12 @@ async function startDaemon (opts) {
     err = errLogs.err
     logs = errLogs.logs
     id = errLogs.id
+    // After removing stale api and retrying, we spawned our own daemon
+    weSpawnedDaemon = true
   }
 
   // If we have an error here, it should have been handled by startIpfsWithLogs.
-  return { ipfsd, err, logs, id }
+  return { ipfsd, err, logs, id, weSpawnedDaemon }
 }
 
 module.exports = startDaemon
