@@ -1,6 +1,6 @@
 const { app, shell } = require('electron')
-const toUri = require('multiaddr-to-uri')
 const getCtx = require('./context')
+const { getModules } = require('./esm-loader')
 
 function openLink (protocol, part, base) {
   shell.openExternal(`${base}/${protocol}/${part}`)
@@ -8,7 +8,10 @@ function openLink (protocol, part, base) {
 }
 
 function parseAddr (addr) {
-  return toUri(addr.toString().includes('/http') ? addr : addr.encapsulate('/http'))
+  const { multiaddrToUri, multiaddr } = getModules()
+  const ma = typeof addr === 'string' ? multiaddr(addr) : addr
+  const withHttp = ma.toString().includes('/http') ? ma : ma.encapsulate('/http')
+  return multiaddrToUri(withHttp)
 }
 
 async function handleOpenLink (url) {
@@ -16,8 +19,15 @@ async function handleOpenLink (url) {
   const ipfsd = getIpfsd ? await getIpfsd(true) : null
   let base = 'https://dweb.link'
 
-  if (ipfsd && ipfsd.gatewayAddr) {
-    base = parseAddr(ipfsd.gatewayAddr)
+  if (ipfsd) {
+    try {
+      const info = await ipfsd.info()
+      if (info.gateway) {
+        base = parseAddr(info.gateway)
+      }
+    } catch (e) {
+      // fallback to default gateway
+    }
   }
 
   if (url.startsWith('ipfs://')) {

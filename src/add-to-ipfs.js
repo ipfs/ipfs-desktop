@@ -1,7 +1,7 @@
 const { extname, basename } = require('path')
 const { clipboard } = require('electron')
-const { globSource } = require('ipfs-http-client')
 const i18n = require('i18next')
+const { getModules } = require('./esm-loader')
 const last = require('it-last')
 const fs = require('fs-extra')
 const logger = require('./common/logger')
@@ -90,6 +90,7 @@ async function addFileOrDirectory (ipfs, filepath) {
   let cid = null
 
   if (stat.isDirectory()) {
+    const { globSource } = getModules()
     const files = globSource(filepath, '**/*', { recursive: true, cidVersion: 1 })
     const res = await last(ipfs.addAll(files, {
       pin: false,

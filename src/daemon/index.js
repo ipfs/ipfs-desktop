@@ -9,6 +9,7 @@ const createDaemon = require('./daemon')
 const ipcMainEvents = require('../common/ipc-main-events')
 const { analyticsKeys } = require('../analytics/keys')
 const getCtx = require('../context')
+const { getRepoPath } = require('./config')
 
 async function setupDaemon () {
   let ipfsd = null
@@ -56,14 +57,15 @@ async function setupDaemon () {
 
     ipfsd = res.ipfsd
 
-    logger.info(`[daemon] IPFS_PATH: ${ipfsd.path}`)
+    const repoPath = getRepoPath(ipfsd)
+    logger.info(`[daemon] IPFS_PATH: ${repoPath}`)
     logger.info(`[daemon] PeerID:    ${res.id}`)
 
     // Update the path if it was blank previously.
     // This way we use the default path when it is
     // not set.
     if (!config.path || typeof config.path !== 'string') {
-      config.path = ipfsd.path
+      config.path = repoPath
       store.safeSet('ipfsConfig', config)
     }
 
@@ -79,7 +81,7 @@ async function setupDaemon () {
     const log = logger.start('[ipfsd] stop daemon', { withAnalytics: analyticsKeys.DAEMON_STOP })
     updateStatus(STATUS.STOPPING_STARTED)
 
-    if (!fs.pathExistsSync(join(ipfsd.path, 'config'))) {
+    if (!fs.pathExistsSync(join(getRepoPath(ipfsd), 'config'))) {
       // Is remote api... ignore
       ipfsd = null
       updateStatus(STATUS.STOPPING_FINISHED)

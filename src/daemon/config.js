@@ -1,37 +1,49 @@
 const { join } = require('path')
 const fs = require('fs-extra')
-const { multiaddr } = require('multiaddr')
 const http = require('http')
 const portfinder = require('portfinder')
 const { shell } = require('electron')
 const store = require('../common/store')
 const logger = require('../common/logger')
 const dialogs = require('./dialogs')
+const { getModules } = require('../esm-loader')
+
+/**
+ * Get the repo path from ipfsd controller.
+ * Handles both old (ipfsd.path) and new (ipfsd.options.repo) API.
+ *
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
+ * @returns {string} repo path
+ */
+function getRepoPath (ipfsd) {
+  // v16+ uses options.repo, older versions used path
+  return ipfsd.options?.repo || ipfsd.path
+}
 
 /**
  * Get repository configuration file path.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {string} config file path
  */
 function getConfigFilePath (ipfsd) {
-  return join(ipfsd.path, 'config')
+  return join(getRepoPath(ipfsd), 'config')
 }
 
 /**
  * Get repository api file path.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {string} api file path
  */
 function getApiFilePath (ipfsd) {
-  return join(ipfsd.path, 'api')
+  return join(getRepoPath(ipfsd), 'api')
 }
 
 /**
  * Checks if the repository configuration file exists.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {boolean} true if config file exists
  */
 function configExists (ipfsd) {
@@ -41,7 +53,7 @@ function configExists (ipfsd) {
 /**
  * Checks if the repository api file exists.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {boolean} true if config file exists
  */
 function apiFileExists (ipfsd) {
@@ -51,7 +63,7 @@ function apiFileExists (ipfsd) {
 /**
  * Removes the repository api file.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {void}
  */
 function removeApiFile (ipfsd) {
@@ -61,7 +73,7 @@ function removeApiFile (ipfsd) {
 /**
  * Reads the repository configuration file.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {any} the configuration
  */
 function readConfigFile (ipfsd) {
@@ -71,7 +83,7 @@ function readConfigFile (ipfsd) {
 /**
  * Writes the repository configuration file.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @param {Object<string, any>} config
  */
 function writeConfigFile (ipfsd, config) {
@@ -83,7 +95,7 @@ function writeConfigFile (ipfsd, config) {
  * by default. This must only be called for repositories created
  * by IPFS Desktop. Existing ones shall remain intact.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  */
 function applyDefaults (ipfsd) {
   const config = readConfigFile(ipfsd)
@@ -110,12 +122,41 @@ function applyDefaults (ipfsd) {
  * Parses multiaddr from the configuration.
  *
  * @param {string} addr
- * @returns {import('multiaddr').Multiaddr}
+ * @returns {import('@multiformats/multiaddr').Multiaddr}
  */
 function parseMultiaddr (addr) {
+  const { multiaddr } = getModules()
   return addr.includes('/http')
     ? multiaddr(addr)
     : multiaddr(addr).encapsulate('/http')
+}
+
+/**
+ * Extract node address (IP family, address, port) from a multiaddr.
+ * Replaces the deprecated nodeAddress() method from old multiaddr versions.
+ *
+ * @param {import('@multiformats/multiaddr').Multiaddr} ma
+ * @returns {{ family: 4 | 6, address: string, port: number }}
+ */
+function getNodeAddress (ma) {
+  const components = ma.getComponents()
+  let family = 4
+  let address = '127.0.0.1'
+  let port = 0
+
+  for (const comp of components) {
+    if (comp.name === 'ip4') {
+      family = 4
+      address = comp.value
+    } else if (comp.name === 'ip6') {
+      family = 6
+      address = comp.value
+    } else if (comp.name === 'tcp' || comp.name === 'udp') {
+      port = parseInt(comp.value, 10)
+    }
+  }
+
+  return { family, address, port }
 }
 
 /**
@@ -134,7 +175,7 @@ function getHttpPort (addrs) {
   }
 
   const gw = parseMultiaddr(httpUrl)
-  return gw.nodeAddress().port
+  return getNodeAddress(gw).port
 }
 
 /**
@@ -149,7 +190,7 @@ const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
  * Apply one-time updates to the config of IPFS node. This is the place
  * where we execute fixes and performance tweaks for existing users.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  */
 function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
@@ -308,7 +349,7 @@ const findFreePort = async (port) => {
 /**
  * Check if all the ports in the array are available.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @param {string[]} addrs
  * @returns {Promise<boolean>}
  */
@@ -317,13 +358,13 @@ async function checkPortsArray (ipfsd, addrs) {
 
   for (const addr of addrs) {
     const ma = parseMultiaddr(addr)
-    const port = ma.nodeAddress().port
+    const port = getNodeAddress(ma).port
 
     if (port === 0) {
       continue
     }
 
-    const isDaemon = await checkIfAddrIsDaemon(ma.nodeAddress())
+    const isDaemon = await checkIfAddrIsDaemon(getNodeAddress(ma))
 
     if (isDaemon) {
       continue
@@ -348,7 +389,7 @@ async function checkPortsArray (ipfsd, addrs) {
  * Check if ports are available and handle it. Returns
  * true if ports are cleared for IPFS to start.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {Promise<boolean>}
  */
 async function checkPorts (ipfsd) {
@@ -365,16 +406,16 @@ async function checkPorts (ipfsd) {
   const configApiMa = parseMultiaddr(config.Addresses.API)
   const configGatewayMa = parseMultiaddr(config.Addresses.Gateway)
 
-  const isApiMaDaemon = await checkIfAddrIsDaemon(configApiMa.nodeAddress())
-  const isGatewayMaDaemon = await checkIfAddrIsDaemon(configGatewayMa.nodeAddress())
+  const isApiMaDaemon = await checkIfAddrIsDaemon(getNodeAddress(configApiMa))
+  const isGatewayMaDaemon = await checkIfAddrIsDaemon(getNodeAddress(configGatewayMa))
 
   if (isApiMaDaemon && isGatewayMaDaemon) {
     logger.info('[daemon] ports busy by a daemon')
     return true
   }
 
-  const apiPort = configApiMa.nodeAddress().port
-  const gatewayPort = configGatewayMa.nodeAddress().port
+  const apiPort = getNodeAddress(configApiMa).port
+  const gatewayPort = getNodeAddress(configGatewayMa).port
 
   const freeGatewayPort = await findFreePort(gatewayPort)
   let freeApiPort = await findFreePort(apiPort)
@@ -419,11 +460,11 @@ async function checkPorts (ipfsd) {
   }
 
   if (busyApiPort) {
-    config.Addresses.API = config.Addresses.API.replace(apiPort.toString(), freeApiPort.toString())
+    config.Addresses.API = config.Addresses.API.replace(`/tcp/${apiPort}`, `/tcp/${freeApiPort}`)
   }
 
   if (busyGatewayPort) {
-    config.Addresses.Gateway = config.Addresses.Gateway.replace(gatewayPort.toString(), freeGatewayPort.toString())
+    config.Addresses.Gateway = config.Addresses.Gateway.replace(`/tcp/${gatewayPort}`, `/tcp/${freeGatewayPort}`)
   }
 
   writeConfigFile(ipfsd, config)
@@ -434,28 +475,29 @@ async function checkPorts (ipfsd) {
 /**
  * Checks if the repository and the configuration file are valid.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {boolean}
  */
 function checkRepositoryAndConfiguration (ipfsd) {
-  if (!fs.pathExistsSync(ipfsd.path)) {
+  const repoPath = getRepoPath(ipfsd)
+  if (!fs.pathExistsSync(repoPath)) {
     // If the repository doesn't exist, skip verification.
     return true
   }
 
   try {
-    const stats = fs.statSync(ipfsd.path)
+    const stats = fs.statSync(repoPath)
     if (!stats.isDirectory()) {
-      logger.error(`${ipfsd.path} must be a directory`)
-      dialogs.repositoryMustBeDirectoryDialog(ipfsd.path)
+      logger.error(`${repoPath} must be a directory`)
+      dialogs.repositoryMustBeDirectoryDialog(repoPath)
       return false
     }
 
     if (!apiFileExists(ipfsd)) {
       if (!configExists(ipfsd)) {
         // Config is generated automatically if it doesn't exist.
-        logger.error(`configuration does not exist at ${ipfsd.path}`)
-        dialogs.repositoryConfigurationIsMissingDialog(ipfsd.path)
+        logger.error(`configuration does not exist at ${repoPath}`)
+        dialogs.repositoryConfigurationIsMissingDialog(repoPath)
         return true
       }
 
@@ -465,10 +507,10 @@ function checkRepositoryAndConfiguration (ipfsd) {
       readConfigFile(ipfsd)
     }
 
-    const swarmKeyPath = join(ipfsd.path, 'swarm.key')
+    const swarmKeyPath = join(repoPath, 'swarm.key')
     if (fs.pathExistsSync(swarmKeyPath)) {
       // IPFS Desktop does not support private network IPFS repositories.
-      dialogs.repositoryIsPrivateDialog(ipfsd.path)
+      dialogs.repositoryIsPrivateDialog(repoPath)
       return false
     }
 
@@ -476,12 +518,13 @@ function checkRepositoryAndConfiguration (ipfsd) {
   } catch (e) {
     // Save to error.log
     logger.error(e)
-    dialogs.repositoryIsInvalidDialog(ipfsd.path)
+    dialogs.repositoryIsInvalidDialog(repoPath)
     return false
   }
 }
 
 module.exports = Object.freeze({
+  getRepoPath,
   configExists,
   apiFileExists,
   removeApiFile,

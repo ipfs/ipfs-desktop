@@ -93,7 +93,7 @@ test.describe.serial('Application launch', async () => {
     const { app } = await startApp({ repoPath })
     const { peerId } = await daemonReady(app)
     const { id: expectedId } = await ipfsd.api.id()
-    expect(peerId).toBe(expectedId)
+    expect(peerId).toBe(expectedId.toString())
   })
 
   test('applies config migration (MDNS.enabled)', async () => {
@@ -248,7 +248,8 @@ test.describe.serial('Application launch', async () => {
 
     // create IPFS_PATH/api file to point at remote node
     const apiPath = path.join(repoPath, 'api')
-    fs.writeFile(apiPath, ipfsd.apiAddr.toString())
+    const remoteInfo = await ipfsd.info()
+    fs.writeFile(apiPath, remoteInfo.api.toString())
 
     const { app } = await startApp({ repoPath })
     await daemonReady(app)
