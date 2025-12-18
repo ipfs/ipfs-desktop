@@ -1,6 +1,20 @@
 // @ts-check
-const pDefer = require('p-defer')
 const logger = require('./common/logger')
+
+/**
+ * Creates a deferred promise (p-defer inline replacement)
+ * @template T
+ * @returns {{ promise: Promise<T>, resolve: (value: T) => void, reject: (reason?: unknown) => void }}
+ */
+function pDefer () {
+  /** @type {{ promise: Promise<T>, resolve: (value: T) => void, reject: (reason?: unknown) => void }} */
+  const deferred = /** @type {any} */ ({})
+  deferred.promise = new Promise((resolve, reject) => {
+    deferred.resolve = resolve
+    deferred.reject = reject
+  })
+  return deferred
+}
 
 /**
  * @typedef { 'tray' | 'tray.update-menu' | 'countlyDeviceId' | 'manualCheckForUpdates' | 'startIpfs' | 'stopIpfs' | 'restartIpfs' | 'getIpfsd' | 'launchWebUI' | 'webui' | 'splashScreen' | 'i18n.initDone' } ContextProperties
@@ -38,7 +52,7 @@ class Context {
 
     /**
      * Stores prop->Promise mappings.
-     * @type {Map<string|symbol, pDefer.DeferredPromise<unknown>>}
+     * @type {Map<string|symbol, ReturnType<typeof pDefer<unknown>>>}
      */
     this._promiseMap = new Map()
   }
@@ -137,7 +151,7 @@ class Context {
    * @private
    * @template T
    * @param {ContextProperties} propertyName
-   * @returns {pDefer.DeferredPromise<T>}
+   * @returns {ReturnType<typeof pDefer<T>>}
    */
   _createDeferredForProp (propertyName) {
     let deferred = this._promiseMap.get(propertyName)
