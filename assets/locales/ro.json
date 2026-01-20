@@ -3,226 +3,232 @@
   "ipfsIsStopping": "IPFS se oprește",
   "ipfsIsStarting": "IPFS pornește",
   "ipfsIsNotRunning": "IPFS nu rulează",
-  "ipfsHasErrored": "Eroare IPFS",
-  "runningWithGC": "Rulează (GC în progres)",
-  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
-  "start": "Start",
-  "stop": "Stop",
-  "restart": "Restart",
+  "ipfsHasErrored": "IPFS a întâmpinat o eroare",
+  "runningWithGC": "Rulează (GC în curs)",
+  "runningWhileCheckingForUpdate": "Rulează (se verifică actualizările)",
+  "start": "Pornește",
+  "stop": "Oprește",
+  "restart": "Repornește",
   "about": "Despre",
   "advanced": "Avansat",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
-  "viewOnGitHub": "Vezi pe GitHub",
-  "helpUsTranslate": "Ajută la traducerea aplicației",
-  "readReleaseNotes": "Read Release Notes",
+  "openRepoDir": "Deschide dosarul depozitului Kubo",
+  "openLogsDir": "Deschide dosarul jurnalelor IPFS Desktop",
+  "openConfigFile": "Deschide fișierul de configurare IPFS Desktop",
+  "openKuboConfigFile": "Deschide fișierul de configurare Kubo",
+  "viewOnGitHub": "Vezi pe GitHub…",
+  "helpUsTranslate": "Ajută la traducerea acestei aplicații…",
+  "readReleaseNotes": "Citește notele de lansare",
   "status": "Stare",
   "files": "Fișiere",
-  "peers": "Noduri partenere",
+  "peers": "Peers",
   "quit": "Ieși",
-  "versions": "Versions",
-  "screenshotTaken": "Captură de ecran făcută",
-  "shareableLinkCopied": "Linkul a fost copiat în clipboard. Fă clic aici pentru a vedea captura de ecran.",
-  "couldNotTakeScreenshot": "Nu am putut face o captură de ecran",
-  "errorwhileTakingScreenshot": "A apărut o eroare la facerea capturii de ecran.",
+  "versions": "Versiuni",
+  "screenshotTaken": "Captură de ecran efectuată",
+  "shareableLinkCopied": "Linkul de partajare a fost copiat în clipboard. Fă clic aici pentru a vedea captura de ecran.",
+  "couldNotTakeScreenshot": "Nu s-a putut efectua captura de ecran",
+  "errorwhileTakingScreenshot": "A apărut o eroare la efectuarea capturei de ecran.",
   "clickToOpenLogs": "Fă clic aici pentru a deschide jurnalele.",
   "ipfsNotRunning": "IPFS nu rulează",
-  "checkForUpdates": "Verifică actualizările",
-  "checkingForUpdates": "Checking for Updates",
+  "checkForUpdates": "Caută actualizări…",
+  "checkingForUpdates": "Se caută actualizări",
   "yes": "Da",
   "no": "Nu",
   "close": "Închide",
-  "ok": "Ok",
+  "ok": "OK",
   "cancel": "Anulează",
   "enable": "Activează",
-  "reportTheError": "Reportează această eroare",
+  "reportTheError": "Raportează eroarea",
   "restartIpfsDesktop": "Repornește IPFS Desktop",
   "openLogs": "Deschide jurnalele",
-  "takeScreenshot": "Fă o captură de ecran",
-  "moveRepositoryLocation": "Move Repository Location",
-  "runGarbageCollector": "Run Garbage Collector",
-  "selectDirectory": "Selectează directorul",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
+  "takeScreenshot": "Efectuează captură de ecran",
+  "moveRepositoryLocation": "Mută locația depozitului",
+  "runGarbageCollector": "Rulează Garbage Collector",
+  "selectDirectory": "Selectează dosarul",
+  "customIpfsBinary": "Binar IPFS personalizat",
+  "setCustomIpfsBinary": "Setează binar IPFS personalizat",
+  "clearCustomIpfsBinary": "Șterge binar IPFS personalizat",
   "openCliDocumentation": "Deschide documentația CLI",
   "polkitDialog": {
-    "title": "Polkit not found",
-    "message": "IPFS nu poate fi adăugat la directorul /usr/local/bin/ fără un client polkit."
+    "title": "Polkit nu a fost găsit",
+    "message": "IPFS nu poate fi adăugat în /usr/local/bin/ fără agentul polkit."
   },
   "noPermissionDialog": {
-    "title": "No permission",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "title": "Fără permisiune",
+    "message": "IPFS nu a putut fi adăugat în /usr/local/bin/, fie pentru că ai introdus parola greșită, fie pentru că ai refuzat permisiunea."
   },
   "ipfsNotRunningDialog": {
     "title": "IPFS nu rulează",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "message": "IPFS trebuie să ruleze pentru a efectua această acțiune. Vrei să pornești daemonul?"
   },
   "recoverableErrorDialog": {
     "title": "A apărut o eroare",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "message": "A apărut o eroare, dar aceasta nu împiedică execuția IPFS Desktop. Poți inspecta jurnalele sau poți raporta eroarea dezvoltatorilor."
   },
   "cannotConnectToApiDialog": {
-    "title": "Cannot connect to API",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "title": "Nu se poate conecta la API",
+    "message": "IPFS Desktop nu se poate conecta la adresa API furnizată: { addr }."
   },
   "ipfsDesktopHasShutdownDialog": {
-    "title": "IPFS Desktop has shutdown",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "title": "IPFS Desktop s-a închis",
+    "message": "IPFS Desktop s-a închis din cauza unei erori. Poți reporni aplicația sau poți raporta eroarea dezvoltatorilor, ceea ce necesită un cont GitHub."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Move repository",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
-    "action": "Move and restart node"
+    "title": "Mută depozitul",
+    "message": "Dacă depozitul ocupă prea mult spațiu pe discul principal, îl poți muta într-o altă locație. Reține că noua locație trebuie să fie întotdeauna disponibilă pentru ca IPFS Desktop să funcționeze corect.",
+    "action": "Mută și repornește nodul"
   },
   "moveRepositorySuccessDialog": {
-    "title": "Repository moved successfully",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "title": "Depozit mutat cu succes",
+    "message": "Depozitul tău a fost mutat cu succes în { location }, iar configurația a fost actualizată. Daemonul va porni din nou acum."
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "Același dosar selectat",
+    "message": "Dosarul pe care l-ai ales este același cu cel curent: { location }. Prin urmare, nu se vor efectua modificări."
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": " Dosarul există deja",
+    "message": "Dosarul { location } există deja. Te rog să încerci unul diferit."
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "Porturile sunt ocupate",
+    "message": "Porturile { port1 } și { port2 } nu sunt disponibile. Vrei să folosești în schimb { alt1 } și { alt2 }?",
+    "action": "Folosește în schimb porturile { alt1 } și { alt2 }"
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "Portul este ocupat",
+    "message": "Portul { port } nu este disponibil. Vrei să folosești în schimb { alt }?",
+    "action": "Folosește în schimb portul { alt }"
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "Porturile sunt ocupate",
+    "message": "Nu se poate face legătura la una sau mai multe adrese API sau Gateway deoarece porturile sunt ocupate.",
+    "action": "Deschide fișierul de configurare"
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "title": "Elemente adăugate",
+    "message": "{ count } elemente adăugate la nodul tău IPFS. Un link de partajare a fost copiat în clipboard."
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "title": "Element adăugat",
+    "message": "Element adăugat la nodul tău IPFS. Un link de partajare a fost copiat în clipboard."
   },
   "itemsFailedNotification": {
-    "title": "Failed to add items",
-    "message": "Could not add your items to your node."
+    "title": "Nu s-au putut adăuga elemente",
+    "message": "Nu s-au putut adăuga elementele la nodul tău."
   },
   "updateAvailableDialog": {
-    "title": "Update available",
-    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
+    "title": "Actualizare disponibilă",
+    "message": "O nouă versiune ({ version }) de IPFS Desktop este disponibilă. Descărcarea va începe în scurt timp în fundal."
   },
   "updateNotAvailableDialog": {
-    "title": "Update not available",
-    "message": "You are on the latest version of IPFS Desktop ({ version })."
+    "title": "Actualizare indisponibilă",
+    "message": "Folosești cea mai recentă versiune de IPFS Desktop ({ version })."
   },
   "updateErrorDialog": {
-    "title": "Could not download update",
-    "message": "It was not possible to download the update. Please check your Internet connection and try again."
+    "title": "Nu s-a putut descărca actualizarea",
+    "message": "Nu a fost posibilă descărcarea actualizării. Te rog să verifici conexiunea la internet și să încerci din nou."
+  },
+  "autoUpdateError": {
+    "title": "Descărcarea actualizării a eșuat",
+    "message": "Nu s-a putut instala actualizarea automat. Vrei să o descarci manual?",
+    "downloadNow": "Descarcă acum",
+    "later": "Mai târziu"
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "title": "Actualizare IPFS Desktop",
+    "message": "O actualizare pentru IPFS Desktop { version } este disponibilă. Vrei să o instalezi acum?",
     "later": "Mai târziu",
     "now": "Instalează acum"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "Actualizare IPFS Desktop",
+    "message": "O actualizare pentru IPFS Desktop { version } este disponibilă."
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
-    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
-    "action": "Run"
+    "message": "Rularea Garbage Collector (GC) va elimina din depozitul tău toate obiectele care nu sunt fixate sau nu se află în MFS-ul tău. Acest lucru poate dura. Vrei să continui?",
+    "action": "Rulează"
   },
   "runGarbageCollectorDone": {
     "title": "Garbage collector",
-    "message": "The garbage collector ran successfully."
+    "message": "Garbage Collector a rulat cu succes."
   },
   "moveRepositoryFailed": {
-    "title": "Move repository",
-    "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
+    "title": "Mută depozitul",
+    "message": "Nu s-a putut muta depozitul din \"{ currDir }\" în \"{ newDir }\"."
   },
   "runGarbageCollectorErrored": {
     "title": "Garbage collector",
-    "message": "The garbage collector run could not be completed successfully."
+    "message": "Rularea Garbage Collector nu a putut fi finalizată cu succes."
   },
   "launchAtLoginNotSupported": {
     "title": "Eroare",
-    "message": "Launch at login is not supported on your platform."
+    "message": "Lansarea la autentificare nu este acceptată pe platforma ta."
   },
   "launchAtLoginFailed": {
     "title": "Eroare",
-    "message": "Launch at login could not be enabled on your machine."
+    "message": "Lansarea la autentificare nu a putut fi activată pe dispozitivul tău."
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "Enable screenshot shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+    "title": "Activează scurtătura pentru captură de ecran",
+    "message": "Activând aceasta, scurtătura \"{ accelerator }\" va fi disponibilă pentru a efectua capturi de ecran atâta timp cât IPFS Desktop rulează."
   },
   "settings": {
     "settings": "Setări",
-    "preferences": "Setări",
+    "preferences": "Preferințe",
     "openNodeSettings": "Deschide setările nodului",
-    "appPreferences": "Setările aplicației",
-    "launchOnStartup": "Launch at Login",
-    "openWebUIAtLaunch": "Open Web UI at Launch",
+    "appPreferences": "Preferințe aplicație",
+    "launchOnStartup": "Lansează la autentificare",
+    "openWebUIAtLaunch": "Deschide Web UI la lansare",
     "pubsub": "Activează PubSub",
     "namesysPubsub": "Activează IPNS prin PubSub",
-    "automaticGC": "Automatic Garbage Collection",
-    "takeScreenshotShortcut": "Global Screenshot Shortcut",
+    "automaticGC": "Colectare automată a reziduurilor (GC)",
+    "takeScreenshotShortcut": "Scurtătură globală pentru captură de ecran",
     "experiments": "Experimente",
-    "npmOnIpfs": "Activează NPM pe IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "npmOnIpfs": "Activează npm pe IPFS",
+    "monochromeTrayIcon": "Folosește pictograma monocromă în zona de notificare"
   },
   "setCustomIpfsBinaryConfirmation": {
-    "title": "Custom IPFS binary",
-    "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
+    "title": "Binar IPFS personalizat",
+    "message": "Setând un IPFS personalizat, IPFS Desktop nu va mai folosi versiunea IPFS inclusă și va folosi binarul specificat de tine. Vrei să continui?"
   },
   "setCustomIpfsBinarySuccess": {
-    "title": "Custom IPFS binary",
-    "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
+    "title": "Binar IPFS personalizat",
+    "message": "IPFS Desktop va începe să folosească binarul aflat la { path }. Pentru a începe să-l folosească, IPFS trebuie mai întâi repornit."
   },
   "clearCustomIpfsBinarySuccess": {
-    "title": "Clear custom IPFS binary",
-    "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+    "title": "Șterge binar IPFS personalizat",
+    "message": "Binarul IPFS personalizat a fost șters. Pentru a începe să folosească versiunea IPFS inclusă, IPFS trebuie mai întâi repornit."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop nu răspunde",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Da, reîmprospătează",
+    "title": "IPFS Desktop nu mai răspunde",
+    "message": "Operațiunea în curs consumă mai multe resurse decât era prevăzut. Vrei să o întrerupi și să reîncarci forțat interfața?",
+    "forceReload": "Da, reîncarcă",
     "doNothing": "Nu face nimic"
   },
   "migrationDialog": {
-    "title": "Migrație IPFS Desktop",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "title": "Migrare IPFS Desktop",
+    "message": "Un moment! IPFS Desktop trebuie să execute cele mai recente migrări ale depozitului de date:",
     "closeAndContinue": "Continuă în fundal"
   },
   "startupFailedDialog": {
     "title": "Pornirea IPFS Desktop a eșuat",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "message": "Nodul IPFS a întâmpinat o eroare și pornirea nu a putut fi finalizată:"
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "Depozitul IPFS trebuie să fie un dosar",
+    "message": "Depozitul de la “{ path }” este nevalid, deoarece nu este un dosar.\n\nÎnainte de a porni din nou IPFS Desktop, te rog redenumește vechiul depozit în “.ipfs.backup”. Reține că acest lucru va face ca IPFS Desktop să genereze un nou depozit."
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "Configurația depozitului IPFS lipsește",
+    "message": "Depozitul de la “{ path }” nu are un fișier “config”. Fișierul “config” trebuie să fie un fișier JSON valid.\n\nÎnainte de a porni din nou IPFS Desktop, te rog repară fișierul de configurare sau redenumește vechiul depozit în “.ipfs.backup”. Reține că prin redenumirea vechiului depozit, IPFS Desktop va genera un nou depozit."
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "Depozit IPFS în rețea privată",
+    "message": "Depozitul de la “{ path }” face parte dintr-o rețea privată, ceea ce nu este acceptat de IPFS Desktop."
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "title": "Depozit IPFS sau fișier de configurare nevalid",
+    "message": "Depozitul de la “{ path }” sau configurația acestuia este nevalidă. Fișierul “config” trebuie să fie un JSON valid.\n\nÎnainte de a porni din nou IPFS Desktop, te rog repară fișierul de configurare sau redenumește vechiul depozit în “.ipfs.backup”. Reține că prin redenumirea vechiului depozit, IPFS Desktop va genera un nou depozit"
   }
 }
