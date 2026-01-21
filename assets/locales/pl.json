@@ -2,35 +2,35 @@
   "ipfsIsRunning": "IPFS jest uruchomiony",
   "ipfsIsStopping": "IPFS zatrzymuje się",
   "ipfsIsStarting": "IPFS się uruchamia",
-  "ipfsIsNotRunning": "IPFS jest wyłączony",
+  "ipfsIsNotRunning": "IPFS nie jest uruchomiony",
   "ipfsHasErrored": "Błąd IPFS",
-  "runningWithGC": "Uruchamianie (GC w toku)",
-  "runningWhileCheckingForUpdate": "pracuję ... (sprawdzam uaktualnienia)",
+  "runningWithGC": "Działa (GC w toku)",
+  "runningWhileCheckingForUpdate": "Działa (sprawdzanie aktualizacji)",
   "start": "Start",
   "stop": "Stop",
   "restart": "Restart",
-  "about": "O...",
+  "about": "O aplikacji",
   "advanced": "Zaawansowane",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
-  "viewOnGitHub": "Zobacz na GitHub",
-  "helpUsTranslate": "Pomóż przetłumaczyć tę aplikację",
+  "openRepoDir": "Otwórz katalog repozytorium Kubo",
+  "openLogsDir": "Otwórz katalog logów Desktop",
+  "openConfigFile": "Otwórz plik konfiguracyjny Desktop",
+  "openKuboConfigFile": "Otwórz plik konfiguracyjny Kubo",
+  "viewOnGitHub": "Zobacz na GitHub…",
+  "helpUsTranslate": "Pomóż przetłumaczyć tę aplikację…",
   "readReleaseNotes": "Przeczytaj informacje o wydaniu",
   "status": "Status",
   "files": "Pliki",
-  "peers": "Węzły",
-  "quit": "Wyłącz",
-  "versions": "Wersja",
-  "screenshotTaken": "Zrzut ekrany wykonany",
+  "peers": "Peers",
+  "quit": "Zakończ",
+  "versions": "Wersje",
+  "screenshotTaken": "Zrzut ekranu wykonany",
   "shareableLinkCopied": "Link do udostępnienia skopiowany. Kliknij tutaj by zobaczyć zrzut ekranu.",
   "couldNotTakeScreenshot": "Nie można wykonać zrzutu ekranu",
   "errorwhileTakingScreenshot": "Podczas wykonywania zrzutu ekranu wystąpił błąd.",
-  "clickToOpenLogs": "Kliknij tutaj, aby otworzyć dziennik logów.",
+  "clickToOpenLogs": "Kliknij tutaj, aby otworzyć logi.",
   "ipfsNotRunning": "IPFS nie jest uruchomiony",
-  "checkForUpdates": "Sprawdź aktualizacje...",
-  "checkingForUpdates": "Sprawdzam uaktualnienia",
+  "checkForUpdates": "Sprawdź aktualizacje…",
+  "checkingForUpdates": "Sprawdzanie aktualizacji",
   "yes": "Tak",
   "no": "Nie",
   "close": "Zamknij",
@@ -44,13 +44,13 @@
   "moveRepositoryLocation": "Przenieś lokalizację repozytorium",
   "runGarbageCollector": "Uruchom Garbage Collector",
   "selectDirectory": "Wybierz katalog",
-  "customIpfsBinary": "Niestandardowe IPFS Binary",
-  "setCustomIpfsBinary": "Ustaw niestandardowe IPFS Binary",
-  "clearCustomIpfsBinary": "Wyczyść niestandardowe IPFS Binary",
+  "customIpfsBinary": "Niestandardowy plik binarny IPFS",
+  "setCustomIpfsBinary": "Ustaw niestandardowy plik binarny IPFS",
+  "clearCustomIpfsBinary": "Wyczyść niestandardowy plik binarny IPFS",
   "openCliDocumentation": "Otwórz dokumentację CLI",
   "polkitDialog": {
     "title": "Polkit nie został odnaleziony",
-    "message": "IPFS nie może być dodany do /usr/local/bin/ bez klienta polkit."
+    "message": "IPFS nie może być dodany do /usr/local/bin/ bez agenta polkit."
   },
   "noPermissionDialog": {
     "title": "Brak uprawnień",
@@ -58,11 +58,11 @@
   },
   "ipfsNotRunningDialog": {
     "title": "IPFS nie jest uruchomiony",
-    "message": "IPFS musi być uruchomiony, aby wykonać tę akcję. Czy chcesz uruchomić proces?"
+    "message": "IPFS musi być uruchomiony, aby wykonać tę akcję. Czy chcesz uruchomić demona?"
   },
   "recoverableErrorDialog": {
     "title": "Wystąpił błąd",
-    "message": "Wystąpił błąd, ale nie przeszkadza on w uruchomieniu IPFS Desktop. Możesz sprawdzić logi dla siebie, lub zgłosić błąd do deweloperów."
+    "message": "Wystąpił błąd, ale nie przeszkadza on w uruchomieniu IPFS Desktop. Możesz sprawdzić logi samodzielnie lub zgłosić błąd do deweloperów."
   },
   "cannotConnectToApiDialog": {
     "title": "Błąd połączenia z API",
@@ -73,13 +73,13 @@
     "message": "IPFS Desktop został zamknięty z powodu błędu. Możesz ponownie uruchomić aplikację lub zgłosić błąd do deweloperów, co wymaga konta na GitHubie."
   },
   "moveRepositoryWarnDialog": {
-    "title": "Przenieść repozytorium",
+    "title": "Przenoszenie repozytorium",
     "message": "Jeśli Twoje repozytorium zajmuje zbyt dużo miejsca na Twoim głównym dysku, możesz przenieść je w inne miejsce. Pamiętaj, że nowa lokalizacja musi być zawsze dostępna, aby IPFS Desktop działał poprawnie.",
     "action": "Przenieś i uruchom ponownie węzeł"
   },
   "moveRepositorySuccessDialog": {
     "title": "Repozytorium zostało przeniesione pomyślnie",
-    "message": "Twoje repozytorium zostało pomyślnie przeniesione do { location } i konfiguracja została zaktualizowana. Proces uruchomi się teraz ponownie."
+    "message": "Twoje repozytorium zostało pomyślnie przeniesione do { location } i konfiguracja została zaktualizowana. Demon uruchomi się teraz ponownie."
   },
   "moveRepositorySameDirDialog": {
     "title": "Wybrano ten sam katalog",
@@ -87,21 +87,21 @@
   },
   "moveRepositoryDirExists": {
     "title": "Katalog już istnieje",
-    "message": "Ten katalog { location } już istnieje. Proszę spróbować użyć innego."
+    "message": "Katalog { location } już istnieje. Użyj innego."
   },
   "busyPortsDialog": {
-    "title": "Port jest zajęty",
-    "message": "Port { port1 } i { port2 } nie są dostępne. Czy chcesz zamiast nich użyć { alt1 } i { alt2 } ?",
+    "title": "Porty są zajęte",
+    "message": "Porty { port1 } i { port2 } nie są dostępne. Czy chcesz zamiast nich użyć { alt1 } i { alt2 } ?",
     "action": "Użyj tych portów { alt1 } i { alt2 } zamiast poprzednich"
   },
   "busyPortDialog": {
     "title": "Port jest zajęty",
-    "message": "Port { port } nie jest dostępny. Czy chcesz zamiast jego użyć portu { alt }?",
-    "action": "Użyj portu { alt }"
+    "message": "Port { port } nie jest dostępny. Czy chcesz zamiast niego użyć portu { alt }?",
+    "action": "Użyj portu { alt } zamiast niego"
   },
   "multipleBusyPortsDialog": {
-    "title": "Port jest zajęty",
-    "message": "Nie można nawiązać połączenia z jednym lub kilkoma adresami API lub bramą, ponieważ porty są zajęte. ",
+    "title": "Porty są zajęte",
+    "message": "Nie można nawiązać połączenia z jednym lub kilkoma adresami API lub bramą, ponieważ porty są zajęte.",
     "action": "Otwórz plik konfiguracyjny"
   },
   "itemsAddedNotification": {
@@ -128,6 +128,12 @@
     "title": "Nie można pobrać aktualizacji",
     "message": "Pobranie aktualizacji nie było możliwe. Proszę sprawdzić połączenie internetowe i spróbować ponownie."
   },
+  "autoUpdateError": {
+    "title": "Pobieranie aktualizacji nie powiodło się",
+    "message": "Nie udało się automatycznie zainstalować aktualizacji. Czy chcesz pobrać ją ręcznie?",
+    "downloadNow": "Pobierz teraz",
+    "later": "Później"
+  },
   "updateDownloadedDialog": {
     "title": "Aktualizacja IPFS Desktop",
     "message": "Jest dostępna aktualizacja na IPFS Desktop { version }. Czy chcesz ją teraz zainstalować?",
@@ -140,15 +146,15 @@
   },
   "runGarbageCollectorWarning": {
     "title": "Garbage collector",
-    "message": "Uruchomienie garbage collectora (GC) usunie z twojego repozytorium wszystkie obiekty, które nie są przypięte lub nie znajdują się na twoim MFS. Może to chwilę potrwać. Czy chcesz kontynuować?",
+    "message": "Uruchomienie garbage collectora (GC) usunie z Twojego repozytorium wszystkie obiekty, które nie są przypięte lub nie znajdują się na Twoim MFS. Może to chwilę potrwać. Czy chcesz kontynuować?",
     "action": "Uruchom"
   },
   "runGarbageCollectorDone": {
     "title": "Garbage collector",
-    "message": "Garbage collector uruchomił się pomyślnie."
+    "message": "Garbage collector zakończył się pomyślnie."
   },
   "moveRepositoryFailed": {
-    "title": "Przenieść repozytorium",
+    "title": "Przenoszenie repozytorium",
     "message": "Nie można przenieść repozytorium z \"{ currDir }\" do \"{ newDir }\"."
   },
   "runGarbageCollectorErrored": {
@@ -161,11 +167,11 @@
   },
   "launchAtLoginFailed": {
     "title": "Błąd",
-    "message": "Uruchamianie przy logowaniu nie może być włączone na twoim komputerze."
+    "message": "Uruchamianie przy logowaniu nie może być włączone na Twoim komputerze."
   },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Włącz skrót do zrzutu ekranu",
-    "message": "Po włączeniu tej opcji, skrót \"{ accelerator }\" będzie dostępny do robienia zrzutów i będzie działać tak długo jak IPFS Desktop."
+    "message": "Po włączeniu tej opcji, skrót \"{ accelerator }\" będzie dostępny do robienia zrzutów ekranu dopóki IPFS Desktop jest uruchomiony."
   },
   "settings": {
     "settings": "Ustawienia",
@@ -175,19 +181,19 @@
     "launchOnStartup": "Uruchom przy logowaniu",
     "openWebUIAtLaunch": "Otwórz interfejs sieciowy podczas uruchamiania",
     "pubsub": "Włącz PubSub",
-    "namesysPubsub": "Włącz IPFS nad PubSub",
+    "namesysPubsub": "Włącz IPNS przez PubSub",
     "automaticGC": "Automatyczne Garbage Collection",
     "takeScreenshotShortcut": "Globalny skrót do zrzutu ekranu",
     "experiments": "Eksperymenty",
     "npmOnIpfs": "Włącz npm na IPFS",
-    "monochromeTrayIcon": "Monochromatyczna ikonka w kieszonce"
+    "monochromeTrayIcon": "Monochromatyczna ikona w zasobniku systemowym"
   },
   "setCustomIpfsBinaryConfirmation": {
-    "title": "Niestandardowe IPFS Binary",
+    "title": "Niestandardowy plik binarny IPFS",
     "message": "Poprzez ustawienie własnego IPFS, IPFS Desktop nie będzie już używał dołączonej wersji IPFS i użyje binarki, którą podasz. Czy chcesz kontynuować?"
   },
   "setCustomIpfsBinarySuccess": {
-    "title": "Niestandardowe IPFS Binary",
+    "title": "Niestandardowy plik binarny IPFS",
     "message": "IPFS Desktop zacznie korzystać z binarki znajdującej się pod adresem { path }. Aby zacząć go używać, IPFS musi zostać zrestartowany."
   },
   "clearCustomIpfsBinarySuccess": {
@@ -211,18 +217,18 @@
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Repozytorium IPFS musi być katalogiem",
-    "message": "Repozytorium pod adresem “{ path }” jest nieprawidłowe, ponieważ nie jest katalogiem.\n\nPrzed ponownym uruchomieniem IPFS Desktop, zmień nazwę starego repozytorium na \".ipfs.backup\". Proszę zauważyć, że to spowoduje, że IPFS Desktop wygeneruje nowe repozytorium."
+    "message": "Repozytorium pod adresem '{ path }' jest nieprawidłowe, ponieważ nie jest katalogiem.\n\nPrzed ponownym uruchomieniem IPFS Desktop, zmień nazwę starego repozytorium na '.ipfs.backup'. Proszę zauważyć, że to spowoduje, że IPFS Desktop wygeneruje nowe repozytorium."
   },
   "repositoryConfigurationIsMissingDialog": {
     "title": "Brak konfiguracji repozytorium IPFS",
-    "message": "Repozytorium w “{ path }”  nie zawiera pliku \"config\". Plik \"config\" musi być poprawnym plikiem JSON.\n\nPrzed ponownym uruchomieniem IPFS Desktop, proszę naprawić plik konfiguracyjny lub zmienić nazwę starego repozytorium na \".ipfs.backup\". Należy pamiętać, że zmieniając nazwę starego repozytorium, IPFS Desktop wygeneruje nowe repozytorium."
+    "message": "Repozytorium w '{ path }' nie zawiera pliku 'config'. Plik 'config' musi być poprawnym plikiem JSON.\n\nPrzed ponownym uruchomieniem IPFS Desktop, proszę naprawić plik konfiguracyjny lub zmienić nazwę starego repozytorium na '.ipfs.backup'. Należy pamiętać, że zmieniając nazwę starego repozytorium, IPFS Desktop wygeneruje nowe repozytorium."
   },
   "privateNetworkDialog": {
     "title": "Sieć prywatna repozytorium IPFS",
-    "message": "Repozytorium pod adresem “{ path }” jest częścią sieci prywatnej, która nie jest obsługiwana przez IPFS Desktop."
+    "message": "Repozytorium pod adresem '{ path }' jest częścią sieci prywatnej, która nie jest obsługiwana przez IPFS Desktop."
   },
   "invalidRepositoryDialog": {
     "title": "Nieprawidłowy plik konfiguracji lub repozytorium IPFS",
-    "message": "Repozytorium pod adresem “{ path }” olub jego konfiguracja jest nieprawidłowa. Plik \"config\" musi być poprawnym JSON-em.\n\nPrzed ponownym uruchomieniem IPFS Desktop napraw plik konfiguracyjny lub zmień nazwę starego repozytorium na \".ipfs.backup\". Zwróć uwagę, że zmieniając nazwę starego repozytorium, IPFS Desktop wygeneruje nowe repozytorium"
+    "message": "Repozytorium pod adresem '{ path }' lub jego konfiguracja jest nieprawidłowa. Plik 'config' musi być poprawnym JSON-em.\n\nPrzed ponownym uruchomieniem IPFS Desktop napraw plik konfiguracyjny lub zmień nazwę starego repozytorium na '.ipfs.backup'. Zwróć uwagę, że zmieniając nazwę starego repozytorium, IPFS Desktop wygeneruje nowe repozytorium."
   }
 }

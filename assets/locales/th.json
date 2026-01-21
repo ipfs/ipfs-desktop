@@ -11,10 +11,10 @@
   "restart": "รีสตาร์ท",
   "about": "เกี่ยวกับ",
   "advanced": "ขั้นสูง",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
+  "openRepoDir": "",
+  "openLogsDir": "",
+  "openConfigFile": "",
+  "openKuboConfigFile": "",
   "viewOnGitHub": "ดูใน Github....",
   "helpUsTranslate": "ช่วยแปลแอปพลิเคชันนี้",
   "readReleaseNotes": "อ่านบันทึกการอัพเดท",
@@ -47,7 +47,7 @@
   "customIpfsBinary": "ไบนารี่ IPFS ที่กำหนดเอง",
   "setCustomIpfsBinary": "กำหนดไบนารี่ IPFS",
   "clearCustomIpfsBinary": "ล้างไบนารี่ IPFS ที่กำหนดไว้",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "",
   "polkitDialog": {
     "title": "ไม่พบ Polkit",
     "message": "ไม่สามารถเพิ่ม IPFS ไปยัง /usr/local/bin/ ได้ หากไม่มี Polkit."
@@ -106,11 +106,11 @@
   },
   "itemsAddedNotification": {
     "title": "เพิ่มไอเทมแล้ว",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": ""
   },
   "itemAddedNotification": {
     "title": "เพิ่มไอเทมแล้ว",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": ""
   },
   "itemsFailedNotification": {
     "title": "มีปัญหาระหว่างเพิ่มไอเทม",
@@ -128,15 +128,21 @@
     "title": "ไม่สามารถดาวน์โหลดอัพเดท",
     "message": "ไม่สามารถดาวน์โหลดอัพเดทได้. โปรดตรวจสอบการเชื่อมต่อของคุณและลองใหม่อีกครั้ง."
   },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": ""
+  },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "",
+    "message": "",
+    "later": "",
+    "now": ""
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "",
+    "message": ""
   },
   "runGarbageCollectorWarning": {
     "title": "ตัวลบขยะ",
@@ -180,7 +186,7 @@
     "takeScreenshotShortcut": "คีย์ลัดในการถ่ายภาพหน้าจอ",
     "experiments": "ฟังก์ชั่นทดลอง",
     "npmOnIpfs": "เปิดใช้งาน npm บน IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "monochromeTrayIcon": ""
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "กำหนดค่าไบนารี่ IPFS",
@@ -195,34 +201,34 @@
     "message": "ไบนารี่ IPFS ที่กำหนดเองถูกล้างเรียบร้อย. ในการใช้งาน IPFS เวอร์ชั่นส่วนรวม, จะต้องรีสตาร์ท IPFS ก่อน."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "",
+    "message": "",
+    "forceReload": "",
+    "doNothing": ""
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "",
+    "message": "",
+    "closeAndContinue": ""
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "",
+    "message": ""
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "",
+    "message": ""
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "",
+    "message": ""
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "",
+    "message": ""
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "title": "",
+    "message": ""
   }
 }

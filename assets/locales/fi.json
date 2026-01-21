@@ -11,10 +11,10 @@
   "restart": "Käynnistä uudelleen",
   "about": "Lisätietoja",
   "advanced": "Lisäasetukset",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
+  "openRepoDir": "",
+  "openLogsDir": "",
+  "openConfigFile": "",
+  "openKuboConfigFile": "",
   "viewOnGitHub": "Katso Github:ssa",
   "helpUsTranslate": "Auta tämän applikaation kääntämisessä",
   "readReleaseNotes": "Lue julkaisutiedot",
@@ -54,93 +54,99 @@
   },
   "noPermissionDialog": {
     "title": "Ei oikeutta",
-    "message": "IPFS couldn't be added to /usr/local/bin/, either because you entered the wrong password, or you denied permission."
+    "message": ""
   },
   "ipfsNotRunningDialog": {
     "title": "IPFS ei ole käynnissä",
-    "message": "IPFS needs to be running to perform this action. Do you want to start the daemon?"
+    "message": ""
   },
   "recoverableErrorDialog": {
     "title": "Virhe on ilmennyt",
-    "message": "An error occurred but it does not prevent the execution of IPFS Desktop. You can either inspect the logs for yourself or report the error to the developers."
+    "message": ""
   },
   "cannotConnectToApiDialog": {
     "title": "Ohjelmointirajapintaan ei voida yhdistää",
-    "message": "IPFS Desktop cannot connect to the API address provided: { addr }."
+    "message": ""
   },
   "ipfsDesktopHasShutdownDialog": {
     "title": "IPFS Desktop on lakannut toimimasta",
-    "message": "IPFS Desktop has shutdown because of an error. You can restart the app or report the error to the developers, which requires a GitHub account."
+    "message": ""
   },
   "moveRepositoryWarnDialog": {
     "title": "Siirrä säilöpaikka",
-    "message": "If your repository is taking too much space on your main drive, you can move it to some other location. Bear in mind that the new location must always be available in order for IPFS Desktop to work correctly.",
+    "message": "",
     "action": "Siirrä ja käynnistä solmu uudelleen"
   },
   "moveRepositorySuccessDialog": {
     "title": "Säilö siirretty onnistuneesti",
-    "message": "Your repository was successfully moved to { location } and your configuration was updated. The daemon will now start up again."
+    "message": ""
   },
   "moveRepositorySameDirDialog": {
-    "title": "Same directory selected",
-    "message": "The directory you picked is the same as the current one: { location }. Hence, no changes will be made."
+    "title": "",
+    "message": ""
   },
   "moveRepositoryDirExists": {
-    "title": " Directory already exists",
-    "message": "The directory { location } already exists. Please try using a different one."
+    "title": "",
+    "message": ""
   },
   "busyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "The ports { port1 } and { port2 } are not available. Do you want to use { alt1 } and { alt2 } instead?",
-    "action": "Use ports { alt1 } and { alt2 } instead"
+    "title": "",
+    "message": "",
+    "action": ""
   },
   "busyPortDialog": {
-    "title": "Port is busy",
-    "message": "The port { port } is not available. Do you want to use { alt } instead?",
-    "action": "Use port { alt } instead"
+    "title": "",
+    "message": "",
+    "action": ""
   },
   "multipleBusyPortsDialog": {
-    "title": "Ports are busy",
-    "message": "Cannot bind to one or more of the API or Gateway addresses because the ports are busy.",
-    "action": "Open configuration file"
+    "title": "",
+    "message": "",
+    "action": ""
   },
   "itemsAddedNotification": {
-    "title": "Items added",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "title": "",
+    "message": ""
   },
   "itemAddedNotification": {
-    "title": "Item added",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "title": "",
+    "message": ""
   },
   "itemsFailedNotification": {
     "title": "Epäonnistuttiin lisäämään kohteita",
-    "message": "Could not add your items to your node."
+    "message": ""
   },
   "updateAvailableDialog": {
-    "title": "Update available",
-    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
+    "title": "",
+    "message": ""
   },
   "updateNotAvailableDialog": {
-    "title": "Update not available",
-    "message": "You are on the latest version of IPFS Desktop ({ version })."
+    "title": "",
+    "message": ""
   },
   "updateErrorDialog": {
-    "title": "Could not download update",
-    "message": "It was not possible to download the update. Please check your Internet connection and try again."
+    "title": "",
+    "message": ""
+  },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": ""
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "",
+    "message": "",
+    "later": "",
+    "now": ""
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "",
+    "message": ""
   },
   "runGarbageCollectorWarning": {
     "title": "Muistin vapauttaja",
-    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
+    "message": "",
     "action": "Suorita"
   },
   "runGarbageCollectorDone": {
@@ -164,65 +170,65 @@
     "message": "Ei pystytty ottamaan 'Käynnistä sisäänkirjautumisen yhteydessä' käyttöön laitteellasi."
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "Enable screenshot shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+    "title": "",
+    "message": ""
   },
   "settings": {
     "settings": "Asetukset",
-    "preferences": "Preferences",
-    "openNodeSettings": "Open Node Settings",
-    "appPreferences": "App Preferences",
+    "preferences": "",
+    "openNodeSettings": "",
+    "appPreferences": "",
     "launchOnStartup": "Käynnistä sisäänkirjautumisen yhteydessä",
-    "openWebUIAtLaunch": "Open Web UI at Launch",
-    "pubsub": "Enable PubSub",
-    "namesysPubsub": "Enable IPNS over PubSub",
-    "automaticGC": "Automatic Garbage Collection",
+    "openWebUIAtLaunch": "",
+    "pubsub": "",
+    "namesysPubsub": "",
+    "automaticGC": "",
     "takeScreenshotShortcut": "Globaali kuvakaappaus oikotie",
     "experiments": "Kokeilut",
-    "npmOnIpfs": "Enable npm on IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "npmOnIpfs": "",
+    "monochromeTrayIcon": ""
   },
   "setCustomIpfsBinaryConfirmation": {
-    "title": "Custom IPFS binary",
-    "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
+    "title": "",
+    "message": ""
   },
   "setCustomIpfsBinarySuccess": {
-    "title": "Custom IPFS binary",
-    "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
+    "title": "",
+    "message": ""
   },
   "clearCustomIpfsBinarySuccess": {
-    "title": "Clear custom IPFS binary",
-    "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+    "title": "",
+    "message": ""
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "",
+    "message": "",
+    "forceReload": "",
+    "doNothing": ""
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "",
+    "message": "",
+    "closeAndContinue": ""
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "",
+    "message": ""
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "",
+    "message": ""
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "",
+    "message": ""
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "",
+    "message": ""
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "title": "",
+    "message": ""
   }
 }

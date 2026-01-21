@@ -128,6 +128,12 @@
     "title": "Tidak dapat unduh pembaruan",
     "message": "Tidak mungkin unduh pembaruan. Silakan periksa koneksi internet Anda dan coba lagi."
   },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": "Nanti"
+  },
   "updateDownloadedDialog": {
     "title": "Pembaruan Desktop IPFS",
     "message": "Pembaruan untuk IPFS Desktop { version } tersedia. Apakah Anda ingin menginstalnya sekarang?",

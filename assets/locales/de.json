@@ -11,10 +11,10 @@
   "restart": "Neu starten",
   "about": "Über",
   "advanced": "Erweitert",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
+  "openRepoDir": "",
+  "openLogsDir": "",
+  "openConfigFile": "",
+  "openKuboConfigFile": "",
   "viewOnGitHub": "Auf GitHub anschauen…",
   "helpUsTranslate": "Hilf beim Übersetzten dieser App...",
   "readReleaseNotes": "Lies die Versionshinweise",
@@ -127,6 +127,12 @@
   "updateErrorDialog": {
     "title": "Update konnte nicht geladen werden",
     "message": "Es war nicht möglich das Update herunterzuladen. Bitte prüfe deine Internetverbindung und versuche es dann erneut."
+  },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": "Später"
   },
   "updateDownloadedDialog": {
     "title": "IPFS Desktop Update",

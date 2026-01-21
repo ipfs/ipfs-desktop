@@ -3,24 +3,24 @@
   "ipfsIsStopping": "Το IPFS σταματάει",
   "ipfsIsStarting": "Το IPFS εκκινεί",
   "ipfsIsNotRunning": "Το IPFS δεν λειτουργεί",
-  "ipfsHasErrored": "IPFS has Errored",
-  "runningWithGC": "Running (GC in progress)",
-  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "ipfsHasErrored": "",
+  "runningWithGC": "",
+  "runningWhileCheckingForUpdate": "",
   "start": "Εκκίνηση",
   "stop": "Διακοπή",
   "restart": "Επανεκκίνηση",
   "about": "Σχετικά",
   "advanced": "Για προχωρημένους",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
+  "openRepoDir": "",
+  "openLogsDir": "",
+  "openConfigFile": "",
+  "openKuboConfigFile": "",
   "viewOnGitHub": "Προβολή στο GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
+  "helpUsTranslate": "",
   "readReleaseNotes": "Σημειώσεις Έκδοσης",
   "status": "Κατάσταση",
   "files": "Αρχεία",
-  "peers": "Peers",
+  "peers": "",
   "quit": "Έξοδος",
   "versions": "Εκδόσεις",
   "screenshotTaken": "Πάρθηκε στιγμιότυπο οθόνης",
@@ -42,12 +42,12 @@
   "openLogs": "Άνοιγμα αρχείων καταγραφής",
   "takeScreenshot": "Λήψη Στιγμιότυπου Οθόνης",
   "moveRepositoryLocation": "Μετακίνηση Θέσης Αποθετηρίου",
-  "runGarbageCollector": "Run Garbage Collector",
+  "runGarbageCollector": "",
   "selectDirectory": "Επιλογή Φακέλου",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
-  "openCliDocumentation": "Open CLI Documentation",
+  "customIpfsBinary": "",
+  "setCustomIpfsBinary": "",
+  "clearCustomIpfsBinary": "",
+  "openCliDocumentation": "",
   "polkitDialog": {
     "title": "Το polkit δεν βρέθηκε",
     "message": "Το IPFS δεν μπορεί να προστεθεί στο /usr/local/bin/ χωρίς το polkit."
@@ -118,42 +118,48 @@
   },
   "updateAvailableDialog": {
     "title": "Διαθέσιμη ενημέρωση",
-    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
+    "message": ""
   },
   "updateNotAvailableDialog": {
     "title": "Μη διαθέσιμη ενημέρωση",
-    "message": "You are on the latest version of IPFS Desktop ({ version })."
+    "message": ""
   },
   "updateErrorDialog": {
     "title": "Αδυναμία λήψης ενημέρωσης",
     "message": "Η λήψη της ενημέρωσης δεν ήταν δυνατή. Παρακαλούμε ελέγξτε τη σύνδεσή σας στο Διαδίκτυο και δοκιμάστε ξανά."
   },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": "Αργότερα"
+  },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
+    "title": "",
+    "message": "",
     "later": "Αργότερα",
     "now": "Εγκατάσταση τώρα"
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "",
+    "message": ""
   },
   "runGarbageCollectorWarning": {
-    "title": "Garbage collector",
-    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
+    "title": "",
+    "message": "",
     "action": "Εκτέλεση"
   },
   "runGarbageCollectorDone": {
-    "title": "Garbage collector",
-    "message": "The garbage collector ran successfully."
+    "title": "",
+    "message": ""
   },
   "moveRepositoryFailed": {
     "title": "Μετακίνηση αποθετηρίου",
     "message": "Αδυναμία μετακίνησης αποθετηρίου από \"{ currDir }\" σε \"{ newDir }\"."
   },
   "runGarbageCollectorErrored": {
-    "title": "Garbage collector",
-    "message": "The garbage collector run could not be completed successfully."
+    "title": "",
+    "message": ""
   },
   "launchAtLoginNotSupported": {
     "title": "Σφάλμα",
@@ -165,7 +171,7 @@
   },
   "enableGlobalTakeScreenshotShortcut": {
     "title": "Ενεργοποίηση συντόμευσης στιγμιότυπου οθόνης",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+    "message": ""
   },
   "settings": {
     "settings": "Ρυθμίσεις",
@@ -173,56 +179,56 @@
     "openNodeSettings": "Άνοιγμα Ρυθμίσεων Κόμβου",
     "appPreferences": "Προτιμήσεις Εφαρμογής",
     "launchOnStartup": "Εκκίνηση κατά την Είσοδο",
-    "openWebUIAtLaunch": "Open Web UI at Launch",
+    "openWebUIAtLaunch": "",
     "pubsub": "Ενεργοποίηση PubSub",
     "namesysPubsub": "Ενεργοποίηση IPNS μέσω PubSub",
-    "automaticGC": "Automatic Garbage Collection",
-    "takeScreenshotShortcut": "Global Screenshot Shortcut",
+    "automaticGC": "",
+    "takeScreenshotShortcut": "",
     "experiments": "Πειράματα",
     "npmOnIpfs": "Ενεργοποίηση npm στο IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "monochromeTrayIcon": ""
   },
   "setCustomIpfsBinaryConfirmation": {
-    "title": "Custom IPFS binary",
-    "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
+    "title": "",
+    "message": ""
   },
   "setCustomIpfsBinarySuccess": {
-    "title": "Custom IPFS binary",
-    "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
+    "title": "",
+    "message": ""
   },
   "clearCustomIpfsBinarySuccess": {
-    "title": "Clear custom IPFS binary",
-    "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+    "title": "",
+    "message": ""
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
+    "title": "",
     "message": "Η τρέχουσα λειτουργία καταλαμβάνει περισσότερους πόρους από το αναμενόμενο. Θέλετε να τη ματαιώσετε και να επαναφορτώσετε το περιβάλλον;",
     "forceReload": "Ναι, επαναφόρτωση",
     "doNothing": "Να μείνει ως έχει"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "title": "",
+    "message": "",
     "closeAndContinue": "Συνέχιση στο παρασκήνιο"
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
+    "title": "",
     "message": "Ο κόμβος IPFS αντιμετώπισε κάποιο σφάλμα και η εκκίνηση δεν μπόρεσε να ολοκληρωθεί:"
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Το αποθετήριο του IPFS πρέπει να είναι φάκελος",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "message": ""
   },
   "repositoryConfigurationIsMissingDialog": {
     "title": "Λείπει η Παραμετροποίηση του Αποθετηρίου IPFS",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "message": ""
   },
   "privateNetworkDialog": {
     "title": "Αποθετήριο IPFS Ιδιωτικού Δικτύου",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "message": ""
   },
   "invalidRepositoryDialog": {
     "title": "Μη έγκυρο Αποθετήριο IPFS ή Αρχείο Παραμετροποίησης",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "message": ""
   }
 }
