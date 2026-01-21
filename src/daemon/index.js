@@ -1,14 +1,14 @@
+const { join } = require('path')
 const { app, ipcMain } = require('electron')
 const fs = require('fs-extra')
-const { join } = require('path')
-const { ipfsNotRunningDialog } = require('../dialogs')
-const store = require('../common/store')
+const { analyticsKeys } = require('../analytics/keys')
+const ipcMainEvents = require('../common/ipc-main-events')
 const logger = require('../common/logger')
+const store = require('../common/store')
+const getCtx = require('../context')
+const { ipfsNotRunningDialog } = require('../dialogs')
 const { STATUS } = require('./consts')
 const createDaemon = require('./daemon')
-const ipcMainEvents = require('../common/ipc-main-events')
-const { analyticsKeys } = require('../analytics/keys')
-const getCtx = require('../context')
 
 async function setupDaemon () {
   let ipfsd = null
@@ -56,18 +56,24 @@ async function setupDaemon () {
 
     ipfsd = res.ipfsd
 
-    logger.info(`[daemon] IPFS_PATH: ${ipfsd.path}`)
+    if (ipfsd) {
+      logger.info(`[daemon] IPFS_PATH: ${ipfsd.path}`)
+    } else {
+      logger.warn('[daemon] IPFS_PATH: ipfsd is undefined')
+    }
     logger.info(`[daemon] PeerID:    ${res.id}`)
 
     // Update the path if it was blank previously.
     // This way we use the default path when it is
     // not set.
     if (!config.path || typeof config.path !== 'string') {
+      // @ts-ignore
       config.path = ipfsd.path
       store.safeSet('ipfsConfig', config)
     }
 
     log.end()
+    // @ts-ignore
     updateStatus(STATUS.STARTING_FINISHED, res.id)
   }
 
@@ -91,7 +97,7 @@ async function setupDaemon () {
       log.end()
       updateStatus(STATUS.STOPPING_FINISHED)
     } catch (err) {
-      logger.error(`[ipfsd] ${err.toString()}`)
+      logger.error(`[ipfsd] ${String(err)}`)
       updateStatus(STATUS.STOPPING_FAILED)
     } finally {
       ipfsd = null
@@ -110,7 +116,7 @@ async function setupDaemon () {
   ipcMain.on(ipcMainEvents.IPFS_CONFIG_CHANGED, restartIpfs)
 
   app.on('before-quit', async () => {
-    if (ipfsd) await stopIpfs()
+    if (ipfsd) { await stopIpfs() }
   })
 
   await startIpfs()
