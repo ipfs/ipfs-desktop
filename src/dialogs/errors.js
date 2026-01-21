@@ -2,7 +2,7 @@ const { app, shell } = require('electron')
 const path = require('path')
 const os = require('os')
 const i18n = require('i18next')
-const dialog = require('./dialog')
+const dialog = require('./dialog.js')
 
 const issueTitle = (e) => {
   const es = e.stack ? e.stack.toString() : 'unknown error, no stacktrace'
@@ -136,8 +136,8 @@ function recoverableErrorDialog (e, options) {
   }
 }
 
-module.exports = Object.freeze({
+module.exports = {
   criticalErrorDialog,
   recoverableErrorDialog,
   generateErrorIssueUrl
-})
+}

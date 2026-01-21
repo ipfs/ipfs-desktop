@@ -16,19 +16,23 @@ function hide () {
   }
 }
 
-module.exports = Object.freeze({
+const run = async (fn) => {
+  show()
+  const res = await fn()
+  hide()
+  return res
+}
+
+const runSync = (fn) => {
+  show()
+  const res = fn()
+  hide()
+  return res
+}
+
+module.exports = {
   show,
   hide,
-  run: async (fn) => {
-    show()
-    const res = await fn()
-    hide()
-    return res
-  },
-  runSync: (fn) => {
-    show()
-    const res = fn()
-    hide()
-    return res
-  }
-})
+  run,
+  runSync
+}

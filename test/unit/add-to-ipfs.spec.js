@@ -1,13 +1,13 @@
 const path = require('path')
 const { test, expect } = require('@playwright/test')
 
-const mockElectron = require('./mocks/electron')
-const mockLogger = require('./mocks/logger')
-const mockNotify = require('./mocks/notify')
+const mockElectron = require('./mocks/electron.js')
+const mockLogger = require('./mocks/logger.js')
+const mockNotify = require('./mocks/notify.js')
 
 const proxyquire = require('proxyquire').noCallThru()
 
-const { makeRepository } = require('./../e2e/utils/ipfsd')
+const { makeRepository } = require('./../e2e/utils/ipfsd.js')
 
 const getFixtures = (...files) => files.map(f => path.join(__dirname, 'fixtures', f))
 
@@ -19,7 +19,7 @@ test.describe('Add To Ipfs', function () {
   test.beforeAll(async () => {
     const repo = await makeRepository({ start: true })
     ipfsd = repo.ipfsd
-    const getCtx = proxyquire('../../src/context', {
+    const getCtx = proxyquire('../../src/context.js', {
       electron: mockElectron(),
       './common/notify': mockNotify(),
       './common/logger': mockLogger()
@@ -36,7 +36,7 @@ test.describe('Add To Ipfs', function () {
   test.beforeEach(async () => {
     electron = mockElectron()
     notify = mockNotify()
-    addToIpfs = proxyquire('../../src/add-to-ipfs', {
+    addToIpfs = proxyquire('../../src/add-to-ipfs.js', {
       electron: electron,
       './common/notify': notify,
       './common/logger': mockLogger(),

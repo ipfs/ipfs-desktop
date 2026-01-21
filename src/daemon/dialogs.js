@@ -1,6 +1,6 @@
 const { BrowserWindow } = require('electron')
 const i18n = require('i18next')
-const { showDialog } = require('../dialogs')
+const { showDialog } = require('../dialogs/index.js')
 
 function hideOtherWindows () {
   // Hide other windows so the user focus in on the dialog

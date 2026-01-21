@@ -4,10 +4,10 @@ const { globSource } = require('ipfs-http-client')
 const i18n = require('i18next')
 const last = require('it-last')
 const fs = require('fs-extra')
-const logger = require('./common/logger')
-const { notify, notifyError } = require('./common/notify')
-const { analyticsKeys } = require('./analytics/keys')
-const getCtx = require('./context')
+const logger = require('./common/logger.js')
+const { notify, notifyError } = require('./common/notify.js')
+const { analyticsKeys } = require('./analytics/keys.js')
+const getCtx = require('./context.js')
 
 async function copyFileToMfs (ipfs, cid, filename) {
   let i = 0
@@ -111,7 +111,7 @@ async function addFileOrDirectory (ipfs, filepath) {
   return { cid, filename }
 }
 
-module.exports = async function (files) {
+const defaultExport = async function (files) {
   const ctx = getCtx()
   const getIpfsd = await ctx.getProp('getIpfsd')
   const ipfsd = await getIpfsd()
@@ -150,3 +150,5 @@ module.exports = async function (files) {
 
   return cid
 }
+
+module.exports = defaultExport

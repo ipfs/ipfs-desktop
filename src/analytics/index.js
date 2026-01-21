@@ -1,15 +1,14 @@
 // @ts-check
 const Countly = require('countly-sdk-nodejs')
-const { ipcMain } = require('electron')
-const { COUNTLY_KEY } = require('../common/consts')
+const { app, ipcMain } = require('electron')
+const { COUNTLY_KEY } = require('../common/consts.js')
 const { join } = require('path')
-const { app } = require('electron')
 const { existsSync, mkdirSync } = require('fs')
-const ipcMainEvents = require('../common/ipc-main-events')
-const logger = require('../common/logger')
-const getCtx = require('../context')
+const ipcMainEvents = require('../common/ipc-main-events.js')
+const logger = require('../common/logger.js')
+const getCtx = require('../context.js')
 
-module.exports = async function () {
+const defaultExport = async function () {
   logger.info('[analytics] init...')
   // workaround: recursive mkdir https://github.com/Countly/countly-sdk-nodejs/pull/14
   const countlyDataDir = join(app.getPath('userData'), 'countly-data')
@@ -39,3 +38,5 @@ module.exports = async function () {
   })
   logger.info('[analytics] init done')
 }
+
+module.exports = defaultExport

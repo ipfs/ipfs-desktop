@@ -20,7 +20,7 @@ function notifyError ({ title, body = '' }) {
   })
 }
 
-module.exports = Object.freeze({
+module.exports = {
   notify,
   notifyError
-})
+}

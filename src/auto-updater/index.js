@@ -1,14 +1,13 @@
-const { shell, app, BrowserWindow, Notification } = require('electron')
+const { shell, app, ipcMain, BrowserWindow, Notification } = require('electron')
 const { autoUpdater } = require('electron-updater')
 const i18n = require('i18next')
-const { ipcMain } = require('electron')
-const logger = require('../common/logger')
-const { showDialog } = require('../dialogs')
-const { IS_MAC, IS_WIN, IS_APPIMAGE } = require('../common/consts')
-const ipcMainEvents = require('../common/ipc-main-events')
-const getCtx = require('../context')
-const store = require('../common/store')
-const CONFIG_KEYS = require('../common/config-keys')
+const logger = require('../common/logger.js')
+const { showDialog } = require('../dialogs/index.js')
+const { IS_MAC, IS_WIN, IS_APPIMAGE } = require('../common/consts.js')
+const ipcMainEvents = require('../common/ipc-main-events.js')
+const getCtx = require('../context.js')
+const store = require('../common/store.js')
+const CONFIG_KEYS = require('../common/config-keys.js')
 
 function isAutoUpdateSupported () {
   if (store.get(CONFIG_KEYS.DISABLE_AUTO_UPDATE, false)) {
@@ -186,7 +185,7 @@ async function checkForUpdates () {
   ipcMain.emit(ipcMainEvents.UPDATING_ENDED)
 }
 
-module.exports = async function () {
+const defaultExport = async function () {
   if (['test', 'development'].includes(process.env.NODE_ENV ?? '')) {
     getCtx().setProp('manualCheckForUpdates', () => {
       showDialog({
@@ -216,3 +215,5 @@ module.exports = async function () {
     checkForUpdates()
   })
 }
+
+module.exports = defaultExport

@@ -4,7 +4,7 @@ const { test, expect } = require('@playwright/test')
 const path = require('path')
 const fs = require('fs-extra')
 const tmp = require('tmp')
-const { makeRepository } = require('./utils/ipfsd')
+const { makeRepository } = require('./utils/ipfsd.js')
 const portfinder = require('portfinder')
 
 async function getPort (port) {

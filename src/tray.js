@@ -3,22 +3,22 @@ const i18n = require('i18next')
 const path = require('path')
 const os = require('os')
 const fs = require('fs-extra')
-const addToIpfs = require('./add-to-ipfs')
-const logger = require('./common/logger')
-const store = require('./common/store')
-const moveRepositoryLocation = require('./move-repository-location')
-const runGarbageCollector = require('./run-gc')
-const ipcMainEvents = require('./common/ipc-main-events')
-const { setCustomBinary, clearCustomBinary, hasCustomBinary } = require('./custom-ipfs-binary')
-const { STATUS } = require('./daemon')
-const { IS_MAC, VERSION, KUBO_VERSION } = require('./common/consts')
+const addToIpfs = require('./add-to-ipfs.js')
+const logger = require('./common/logger.js')
+const store = require('./common/store.js')
+const moveRepositoryLocation = require('./move-repository-location.js')
+const runGarbageCollector = require('./run-gc.js')
+const ipcMainEvents = require('./common/ipc-main-events.js')
+const { setCustomBinary, clearCustomBinary, hasCustomBinary } = require('./custom-ipfs-binary.js')
+const { STATUS } = require('./daemon/index.js')
+const { IS_MAC, VERSION, KUBO_VERSION } = require('./common/consts.js')
 
-const CONFIG_KEYS = require('./common/config-keys')
+const CONFIG_KEYS = require('./common/config-keys.js')
 
-const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot')
-const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
-const createToggler = require('./utils/create-toggler')
-const getCtx = require('./context')
+const { SHORTCUT: SCREENSHOT_SHORTCUT, takeScreenshot } = require('./take-screenshot.js')
+const { isSupported: supportsLaunchAtLogin } = require('./auto-launch.js')
+const createToggler = require('./utils/create-toggler.js')
+const getCtx = require('./context.js')
 
 function buildCheckbox (key, label) {
   return {
@@ -274,7 +274,7 @@ function icon (status) {
 // https://www.electronjs.org/docs/faq#my-apps-tray-disappeared-after-a-few-minutes
 let tray = null
 
-module.exports = async function () {
+const defaultExport = async function () {
   const ctx = getCtx()
   logger.info('[tray] starting')
   tray = new Tray(icon(off))
@@ -430,3 +430,5 @@ function getKuboRepositoryPath () {
   }
   return ipfsPath
 }
+
+module.exports = defaultExport

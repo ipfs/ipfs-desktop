@@ -1,6 +1,6 @@
 const { app, shell } = require('electron')
 const toUri = require('multiaddr-to-uri')
-const getCtx = require('./context')
+const getCtx = require('./context.js')
 
 function openLink (protocol, part, base) {
   shell.openExternal(`${base}/${protocol}/${part}`)
@@ -41,7 +41,7 @@ async function argvHandler (argv) {
   return handled
 }
 
-module.exports = function () {
+const defaultExport = function () {
   // Handle if the app started running now, and a link
   // was sent to be handled.
   argvHandler(process.argv)
@@ -53,4 +53,5 @@ module.exports = function () {
   })
 }
 
+module.exports = defaultExport
 module.exports.argvHandler = argvHandler
