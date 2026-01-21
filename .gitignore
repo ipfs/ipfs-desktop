@@ -10,3 +10,5 @@ combined.log
 error.log
 assets/build/snap-hooks
 test-results/
+src/esm-bundle.cjs
+src/esm-bundle.cjs.map

@@ -90,10 +90,23 @@ test.describe.serial('Application launch', async () => {
 
   test('starts fine when node is already running', async () => {
     const { ipfsd, repoPath } = await makeRepository({ start: true })
-    const { app } = await startApp({ repoPath })
-    const { peerId } = await daemonReady(app)
-    const { id: expectedId } = await ipfsd.api.id()
-    expect(peerId).toBe(expectedId)
+    try {
+      const { app: testApp } = await startApp({ repoPath })
+      app = testApp
+      const { peerId } = await daemonReady(app)
+      const { id: expectedId } = await ipfsd.api.id()
+      expect(peerId).toBe(expectedId.toString())
+    } finally {
+      // Stop external daemon after test completes.
+      // On Windows, leaving the external daemon running while closing
+      // the Electron app can cause app.close() to hang.
+      try {
+        await ipfsd.stop()
+      } catch (e) {
+        // Fallback: try RPC shutdown if stop() fails
+        try { await ipfsd.api.stop() } catch (_) {}
+      }
+    }
   })
 
   test('applies config migration (MDNS.enabled)', async () => {
@@ -242,16 +255,28 @@ test.describe.serial('Application launch', async () => {
     // create "remote" repo
     const { ipfsd } = await makeRepository({ start: true })
 
-    // create "local" repo
-    const { repoPath, configPath } = await makeRepository({ start: false })
-    fs.unlinkSync(configPath) // remove config file to ensure local repo can't be used
+    try {
+      // create "local" repo
+      const { repoPath, configPath } = await makeRepository({ start: false })
+      fs.unlinkSync(configPath) // remove config file to ensure local repo can't be used
 
-    // create IPFS_PATH/api file to point at remote node
-    const apiPath = path.join(repoPath, 'api')
-    fs.writeFile(apiPath, ipfsd.apiAddr.toString())
+      // create IPFS_PATH/api file to point at remote node
+      const apiPath = path.join(repoPath, 'api')
+      const remoteInfo = await ipfsd.info()
+      fs.writeFile(apiPath, remoteInfo.api.toString())
 
-    const { app } = await startApp({ repoPath })
-    await daemonReady(app)
+      const { app: testApp } = await startApp({ repoPath })
+      app = testApp
+      await daemonReady(app)
+    } finally {
+      // Stop external daemon to prevent app.close() from hanging on Windows
+      try {
+        await ipfsd.stop()
+      } catch (e) {
+        // Fallback: try RPC shutdown if stop() fails
+        try { await ipfsd.api.stop() } catch (_) {}
+      }
+    }
   })
 
   test('starts with multiple api addresses', async () => {

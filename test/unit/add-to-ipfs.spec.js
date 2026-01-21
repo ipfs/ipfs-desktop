@@ -8,6 +8,7 @@ const mockNotify = require('./mocks/notify')
 const proxyquire = require('proxyquire').noCallThru()
 
 const { makeRepository } = require('./../e2e/utils/ipfsd')
+const { loadEsmModules } = require('../../src/esm-loader')
 
 const getFixtures = (...files) => files.map(f => path.join(__dirname, 'fixtures', f))
 
@@ -17,6 +18,9 @@ test.describe('Add To Ipfs', function () {
   let electron, notify, addToIpfs, ipfsd, ctx
 
   test.beforeAll(async () => {
+    // Load ESM modules first (required for globSource in add-to-ipfs)
+    await loadEsmModules()
+
     const repo = await makeRepository({ start: true })
     ipfsd = repo.ipfsd
     const getCtx = proxyquire('../../src/context', {

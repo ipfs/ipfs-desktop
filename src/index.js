@@ -34,6 +34,7 @@ const setupSecondInstance = require('./second-instance')
 const { analyticsKeys } = require('./analytics/keys')
 const handleError = require('./handleError')
 const createSplashScreen = require('./splash/create-splash-screen')
+const { loadEsmModules } = require('./esm-loader')
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -61,6 +62,14 @@ async function run () {
     await app.whenReady()
   } catch (e) {
     dialog.showErrorBox('Electron could not start', e.stack)
+    app.exit(1)
+  }
+
+  // Load ESM modules before any IPFS-related setup
+  try {
+    await loadEsmModules()
+  } catch (e) {
+    dialog.showErrorBox('Failed to load IPFS modules', e.stack)
     app.exit(1)
   }
 
