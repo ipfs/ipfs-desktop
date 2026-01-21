@@ -128,6 +128,12 @@
     "title": "Nous n'avons pas pu télécharger la mise à jour. ",
     "message": "Impossible de télécharger la mise à jour. Vérifiez votre connexion Internet et réessayez.  "
   },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": "Plus tard"
+  },
   "updateDownloadedDialog": {
     "title": "Mise à jour d'IPFS Desktop",
     "message": "Une mise à jour pour IPFS Desktop { version } est disponible. Voulez-vous l'installer maintenant ?",

@@ -11,10 +11,10 @@
   "restart": "راه اندازی مجدد",
   "about": "درباره",
   "advanced": "پیشرفته",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
+  "openRepoDir": "",
+  "openLogsDir": "",
+  "openConfigFile": "",
+  "openKuboConfigFile": "",
   "viewOnGitHub": "مشاهده در GitHub",
   "helpUsTranslate": "به ترجمه ی این برنامه کمک کنید...",
   "readReleaseNotes": "مشاهده نکات آپدیت منتشر شده",
@@ -128,6 +128,12 @@
     "title": "بروزرسانی بارگیری نشد",
     "message": "بارگیری بروزرسانی امکان پذیر نیست.\nلطفاً اتصال اینترنت خود را بررسی کرده و دوباره امتحان کنید."
   },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": "الان نه"
+  },
   "updateDownloadedDialog": {
     "title": "به روز رسانی IPFS Desktop",
     "message": "به روز رسانی IPFS Desktop { version }در دسترس است. آیا مایل هستید آن را همین الان نصب کنید؟",
@@ -180,7 +186,7 @@
     "takeScreenshotShortcut": "میانبر اصلی اسکرین شات",
     "experiments": "آزمایش",
     "npmOnIpfs": "فعال کردن npm در IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "monochromeTrayIcon": ""
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "فایل باینری سفارشی IPFS",
@@ -201,28 +207,28 @@
     "doNothing": "نخیر ، هیچ کاری نکن"
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
+    "title": "",
+    "message": "",
     "closeAndContinue": "در پس زمینه ادامه دهید"
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
+    "title": "",
     "message": "گره IPFS با خطا مواجه شده است و راه اندازی کامل نمی شود:"
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "",
+    "message": ""
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "",
+    "message": ""
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "",
+    "message": ""
   },
   "invalidRepositoryDialog": {
     "title": "مخزن IPFS یا فایل پیکربندی نامعتبر است",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "message": ""
   }
 }

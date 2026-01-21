@@ -13,8 +13,8 @@
   "advanced": "Дополнительно",
   "openRepoDir": "Открыть директорию репозитория Kubo",
   "openLogsDir": "Открыть директорию журналов",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
+  "openConfigFile": "",
+  "openKuboConfigFile": "",
   "viewOnGitHub": "Посмотреть на GitHub...",
   "helpUsTranslate": "Помогите перевести это приложение...",
   "readReleaseNotes": "Читать заметки о выпуске",
@@ -127,6 +127,12 @@
   "updateErrorDialog": {
     "title": "Не могу загрузить обновление",
     "message": "Невозможно загрузить обновление. Проверьте соединение с интернетом и попробуйте еще раз."
+  },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": "Позже"
   },
   "updateDownloadedDialog": {
     "title": "Обновление IPFS Desktop",

@@ -11,10 +11,10 @@
   "restart": "Reiniciar",
   "about": "Sobre",
   "advanced": "Avanzado",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
+  "openRepoDir": "",
+  "openLogsDir": "",
+  "openConfigFile": "",
+  "openKuboConfigFile": "",
   "viewOnGitHub": "Ver en GitHub…",
   "helpUsTranslate": "Axude a traducir esta aplicación…",
   "readReleaseNotes": "Ler as notas da versión",
@@ -128,6 +128,12 @@
     "title": "Non se puido descargar a actualización",
     "message": "Non se puido rematar a descarga da actualización. Comprobe a conexión a Internet e volva intentalo."
   },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": "Máis tarde"
+  },
   "updateDownloadedDialog": {
     "title": "Actualizar IPFS Desktop",
     "message": "Hai unha nova versión de IPFS Desktop ({ version }). Quere instalala?",
@@ -180,7 +186,7 @@
     "takeScreenshotShortcut": "Atallo de teclado global para tomar capturas de pantalla",
     "experiments": "Experimental",
     "npmOnIpfs": "Activar npm no IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "monochromeTrayIcon": ""
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Programa IPFS personalizado",
@@ -210,12 +216,12 @@
     "message": "O nodo IPFS atopou un erro, e non se puido completar o inicio:"
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "",
+    "message": ""
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "",
+    "message": ""
   },
   "privateNetworkDialog": {
     "title": "Repositorio IPFS dunha Rede Privada",
@@ -223,6 +229,6 @@
   },
   "invalidRepositoryDialog": {
     "title": "Repositorio IPFS, ou ficheiro de configuración, inválidos",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "message": ""
   }
 }

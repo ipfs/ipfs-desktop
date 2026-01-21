@@ -1,23 +1,23 @@
 {
-  "ipfsIsRunning": "IPFS is Running",
-  "ipfsIsStopping": "IPFS is Stopping",
-  "ipfsIsStarting": "IPFS is Starting",
-  "ipfsIsNotRunning": "IPFS is Not Running",
-  "ipfsHasErrored": "IPFS has Errored",
-  "runningWithGC": "Running (GC in progress)",
-  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "ipfsIsRunning": "",
+  "ipfsIsStopping": "",
+  "ipfsIsStarting": "",
+  "ipfsIsNotRunning": "",
+  "ipfsHasErrored": "",
+  "runningWithGC": "",
+  "runningWhileCheckingForUpdate": "",
   "start": "Start",
   "stop": "Stop",
   "restart": "Herstart",
   "about": "Over",
   "advanced": "Geavanceerd",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
-  "viewOnGitHub": "View on GitHub…",
-  "helpUsTranslate": "Help Translate This App…",
-  "readReleaseNotes": "Read Release Notes",
+  "openRepoDir": "",
+  "openLogsDir": "",
+  "openConfigFile": "",
+  "openKuboConfigFile": "",
+  "viewOnGitHub": "",
+  "helpUsTranslate": "",
+  "readReleaseNotes": "",
   "status": "Status",
   "files": "Bestanden",
   "peers": "Peers",
@@ -29,25 +29,25 @@
   "errorwhileTakingScreenshot": "Er is een fout opgetreden bij het maken van de screenshot.",
   "clickToOpenLogs": "Klik hier om de logs te openen.",
   "ipfsNotRunning": "IPFS draait niet",
-  "checkForUpdates": "Check for Updates…",
-  "checkingForUpdates": "Checking for Updates",
+  "checkForUpdates": "",
+  "checkingForUpdates": "",
   "yes": "Ja",
   "no": "Nee",
   "close": "Sluiten",
   "ok": "Ok",
   "cancel": "Annuleren",
-  "enable": "Enable",
+  "enable": "",
   "reportTheError": "Rapporteer deze fout",
   "restartIpfsDesktop": "IPFS Desktop herstarten",
   "openLogs": "Logs openen",
   "takeScreenshot": "Screenshot maken",
   "moveRepositoryLocation": "Repository locatie verplaatsen",
-  "runGarbageCollector": "Run Garbage Collector",
-  "selectDirectory": "Select Directory",
-  "customIpfsBinary": "Custom IPFS Binary",
-  "setCustomIpfsBinary": "Set Custom IPFS Binary",
-  "clearCustomIpfsBinary": "Clear Custom IPFS Binary",
-  "openCliDocumentation": "Open CLI Documentation",
+  "runGarbageCollector": "",
+  "selectDirectory": "",
+  "customIpfsBinary": "",
+  "setCustomIpfsBinary": "",
+  "clearCustomIpfsBinary": "",
+  "openCliDocumentation": "",
   "polkitDialog": {
     "title": "Polkit niet gevonden",
     "message": "IPFS kan niet worden toegevoegd aan /usr/local/bin/ zonder polkit agent."
@@ -106,11 +106,11 @@
   },
   "itemsAddedNotification": {
     "title": "Items toegevoegd",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": ""
   },
   "itemAddedNotification": {
     "title": "Item toegevoegd",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": ""
   },
   "itemsFailedNotification": {
     "title": "Het is niet gelukt om items toe te voegen",
@@ -118,111 +118,117 @@
   },
   "updateAvailableDialog": {
     "title": "Update beschikbaar",
-    "message": "A new version ({ version }) of IPFS Desktop is available. The download will begin shortly in the background."
+    "message": ""
   },
   "updateNotAvailableDialog": {
     "title": "Update niet beschikbaar",
-    "message": "You are on the latest version of IPFS Desktop ({ version })."
+    "message": ""
   },
   "updateErrorDialog": {
-    "title": "Could not download update",
-    "message": "It was not possible to download the update. Please check your Internet connection and try again."
+    "title": "",
+    "message": ""
+  },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": ""
   },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "",
+    "message": "",
+    "later": "",
+    "now": ""
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "",
+    "message": ""
   },
   "runGarbageCollectorWarning": {
-    "title": "Garbage collector",
-    "message": "Running the garbage collector (GC) will remove from your repository all objects that are not pinned or on your MFS. This may take a while. Do you wish to proceed?",
-    "action": "Run"
+    "title": "",
+    "message": "",
+    "action": ""
   },
   "runGarbageCollectorDone": {
-    "title": "Garbage collector",
-    "message": "The garbage collector ran successfully."
+    "title": "",
+    "message": ""
   },
   "moveRepositoryFailed": {
     "title": "Repository verplaatsen",
-    "message": "Could not move the repository from \"{ currDir }\" to \"{ newDir }\"."
+    "message": ""
   },
   "runGarbageCollectorErrored": {
-    "title": "Garbage collector",
-    "message": "The garbage collector run could not be completed successfully."
+    "title": "",
+    "message": ""
   },
   "launchAtLoginNotSupported": {
     "title": "Fout",
-    "message": "Launch at login is not supported on your platform."
+    "message": ""
   },
   "launchAtLoginFailed": {
     "title": "Fout",
-    "message": "Launch at login could not be enabled on your machine."
+    "message": ""
   },
   "enableGlobalTakeScreenshotShortcut": {
-    "title": "Enable screenshot shortcut",
-    "message": "By enabling this, the shortcut \"{ accelerator }\" will be available to take screenshots as long as IPFS Desktop is running."
+    "title": "",
+    "message": ""
   },
   "settings": {
     "settings": "Instellingen",
-    "preferences": "Preferences",
-    "openNodeSettings": "Open Node Settings",
-    "appPreferences": "App Preferences",
-    "launchOnStartup": "Launch at Login",
-    "openWebUIAtLaunch": "Open Web UI at Launch",
-    "pubsub": "Enable PubSub",
-    "namesysPubsub": "Enable IPNS over PubSub",
-    "automaticGC": "Automatic Garbage Collection",
-    "takeScreenshotShortcut": "Global Screenshot Shortcut",
+    "preferences": "",
+    "openNodeSettings": "",
+    "appPreferences": "",
+    "launchOnStartup": "",
+    "openWebUIAtLaunch": "",
+    "pubsub": "",
+    "namesysPubsub": "",
+    "automaticGC": "",
+    "takeScreenshotShortcut": "",
     "experiments": "Experimenten",
-    "npmOnIpfs": "Enable npm on IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "npmOnIpfs": "",
+    "monochromeTrayIcon": ""
   },
   "setCustomIpfsBinaryConfirmation": {
-    "title": "Custom IPFS binary",
-    "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
+    "title": "",
+    "message": ""
   },
   "setCustomIpfsBinarySuccess": {
-    "title": "Custom IPFS binary",
-    "message": "IPFS Desktop will start using the binary located at { path }. To start using it, IPFS needs to be restarted first."
+    "title": "",
+    "message": ""
   },
   "clearCustomIpfsBinarySuccess": {
-    "title": "Clear custom IPFS binary",
-    "message": "The custom IPFS binary was cleared. To start using the bundled IPFS version, IPFS needs to be restarted first."
+    "title": "",
+    "message": ""
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "",
+    "message": "",
+    "forceReload": "",
+    "doNothing": ""
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "",
+    "message": "",
+    "closeAndContinue": ""
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "",
+    "message": ""
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "",
+    "message": ""
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "",
+    "message": ""
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "",
+    "message": ""
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "title": "",
+    "message": ""
   }
 }

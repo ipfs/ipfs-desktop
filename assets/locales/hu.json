@@ -11,10 +11,10 @@
   "restart": "Újraindítás",
   "about": "Rólunk",
   "advanced": "Speciális",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
+  "openRepoDir": "",
+  "openLogsDir": "",
+  "openConfigFile": "",
+  "openKuboConfigFile": "",
   "viewOnGitHub": "Megtekintés a GitHubon…",
   "helpUsTranslate": "Segítsen az alkalmazás fordításában…",
   "readReleaseNotes": "Kiadási megjegyzések elolvasása",
@@ -128,6 +128,12 @@
     "title": "A frissítés nem tölthető le",
     "message": "A frissítés letöltése nem volt lehetséges. Ellenőrizze az internetkapcsolatát, és próbálja meg újra."
   },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": "Később"
+  },
   "updateDownloadedDialog": {
     "title": "IPFS Desktop frissítés",
     "message": "Egy frissítés érhető el: IPFS Desktop { version }. Telepíti most?",
@@ -210,19 +216,19 @@
     "message": "Az IPFS csomópont hibába ütközött és az indítást nem sikerült befejezni:"
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "",
+    "message": ""
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "",
+    "message": ""
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "",
+    "message": ""
   },
   "invalidRepositoryDialog": {
     "title": "Helytelen IPFS adattár vagy konfigurációs fájl",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "message": ""
   }
 }

@@ -5,16 +5,16 @@
   "ipfsIsNotRunning": "IPFS no se está ejecutando",
   "ipfsHasErrored": "IPFS ha encontrado un error",
   "runningWithGC": "Corriendo (GC en progreso)",
-  "runningWhileCheckingForUpdate": "Running (Checking for Updates)",
+  "runningWhileCheckingForUpdate": "",
   "start": "Comenzar",
   "stop": "Parar",
   "restart": "Reiniciar",
   "about": "Acerca de",
   "advanced": "Avanzado",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
+  "openRepoDir": "",
+  "openLogsDir": "",
+  "openConfigFile": "",
+  "openKuboConfigFile": "",
   "viewOnGitHub": "Ver proyecto en GitHub...",
   "helpUsTranslate": "Ayuda a Traducir esta Aplicación...",
   "readReleaseNotes": "Leer Notas de la Versión",
@@ -30,7 +30,7 @@
   "clickToOpenLogs": "Haga clic aquí para abrir los registros.",
   "ipfsNotRunning": "IPFS no se está ejecutando",
   "checkForUpdates": "Buscar actualizaciones",
-  "checkingForUpdates": "Checking for Updates",
+  "checkingForUpdates": "",
   "yes": "Si",
   "no": "No",
   "close": "Cerrar",
@@ -47,7 +47,7 @@
   "customIpfsBinary": "IPFS Binario Personalizado",
   "setCustomIpfsBinary": "Establecer un IPFS Binario Personalizado",
   "clearCustomIpfsBinary": "Limpiar un IPFS Binario Personalizado",
-  "openCliDocumentation": "Open CLI Documentation",
+  "openCliDocumentation": "",
   "polkitDialog": {
     "title": "No se encuentra Polkit",
     "message": "IPFS no se puede agregar a /usr/local/bin/ sin el agente polkit."
@@ -106,11 +106,11 @@
   },
   "itemsAddedNotification": {
     "title": "Items agregados",
-    "message": "{ count } items added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": ""
   },
   "itemAddedNotification": {
     "title": "Item agregado",
-    "message": "Item added to your IPFS node. A shareable link was copied to your clipboard."
+    "message": ""
   },
   "itemsFailedNotification": {
     "title": "Agregar items falló ",
@@ -128,15 +128,21 @@
     "title": "No se puede descargar las actualizaciones",
     "message": "No fue posible descargar la actualización. Verifique su conexión a Internet e intente nuevamente."
   },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": ""
+  },
   "updateDownloadedDialog": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available. Would you like to install it now?",
-    "later": "Later",
-    "now": "Install now"
+    "title": "",
+    "message": "",
+    "later": "",
+    "now": ""
   },
   "updateDownloadedNotification": {
-    "title": "IPFS Desktop Update",
-    "message": "An update to IPFS Desktop { version } is available."
+    "title": "",
+    "message": ""
   },
   "runGarbageCollectorWarning": {
     "title": "Recolector de basura",
@@ -174,13 +180,13 @@
     "appPreferences": "Preferencias de la Aplicación",
     "launchOnStartup": "Lanzar al Iniciar Sesión",
     "openWebUIAtLaunch": "Abrir la UI Web en el Lanzamiento",
-    "pubsub": "Enable PubSub",
-    "namesysPubsub": "Enable IPNS over PubSub",
-    "automaticGC": "Automatic Garbage Collection",
+    "pubsub": "",
+    "namesysPubsub": "",
+    "automaticGC": "",
     "takeScreenshotShortcut": "Captura de Pantalla de Acceso Directo Global",
     "experiments": "Experimentos",
-    "npmOnIpfs": "Enable npm on IPFS",
-    "monochromeTrayIcon": "Use Monochrome Tray Icon"
+    "npmOnIpfs": "",
+    "monochromeTrayIcon": ""
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "IPFS Binario Personalizado",
@@ -195,34 +201,34 @@
     "message": "El IPFS binario personalizado se borró. Para comenzar a usar la versión de IPFS incluida, IPFS debe reiniciarse primero."
   },
   "unresponsiveWindowDialog": {
-    "title": "IPFS Desktop became unresponsive",
-    "message": "Ongoing operation is taking more resources than expected. Do you wish to abort, and forcefully reload the interface?",
-    "forceReload": "Yes, reload",
-    "doNothing": "Do nothing"
+    "title": "",
+    "message": "",
+    "forceReload": "",
+    "doNothing": ""
   },
   "migrationDialog": {
-    "title": "IPFS Desktop Migration",
-    "message": "One moment! IPFS Desktop needs to run the latest data store migrations:",
-    "closeAndContinue": "Continue in the background"
+    "title": "",
+    "message": "",
+    "closeAndContinue": ""
   },
   "startupFailedDialog": {
-    "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "title": "",
+    "message": ""
   },
   "repositoryMustBeDirectoryDialog": {
-    "title": "IPFS Repository Must Be a Directory",
-    "message": "The repository at “{ path }” is invalid, as it is not a directory.\n\nBefore starting IPFS Desktop again, please rename the old repository to “.ipfs.backup”. Please note that this will make IPFS Desktop generate a new repository."
+    "title": "",
+    "message": ""
   },
   "repositoryConfigurationIsMissingDialog": {
-    "title": "IPFS Repository Configuration Is Missing",
-    "message": "The repository at “{ path }” does not have a “config” file. The “config” file must be a valid JSON file.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository."
+    "title": "",
+    "message": ""
   },
   "privateNetworkDialog": {
-    "title": "Private Network IPFS Repository",
-    "message": "The repository at “{ path }” is part of a private network, which is not supported by IPFS Desktop."
+    "title": "",
+    "message": ""
   },
   "invalidRepositoryDialog": {
-    "title": "Invalid IPFS Repository or Configuration File",
-    "message": "The repository at “{ path }” or its configuration is invalid. The “config” file must be a valid JSON.\n\nBefore starting IPFS Desktop again, please fix the configuration file or rename the old repository to “.ipfs.backup”. Please note that by renaming the old repository, IPFS Desktop will generate a new repository"
+    "title": "",
+    "message": ""
   }
 }

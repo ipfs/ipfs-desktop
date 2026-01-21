@@ -128,6 +128,12 @@
     "title": "更新下载失败",
     "message": "无法下载更新，请检查您的网络连接并重试。"
   },
+  "autoUpdateError": {
+    "title": "更新下载失败",
+    "message": "无法自动安装更新。你想手动下载吗？",
+    "downloadNow": "立即下载",
+    "later": "稍后"
+  },
   "updateDownloadedDialog": {
     "title": "IPFS 桌面 更新",
     "message": "现在可以更新至IPFS 桌面 { version }，你希望现在更新吗？",

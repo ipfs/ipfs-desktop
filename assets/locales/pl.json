@@ -11,10 +11,10 @@
   "restart": "Restart",
   "about": "O...",
   "advanced": "Zaawansowane",
-  "openRepoDir": "Open Kubo Repository Directory",
-  "openLogsDir": "Open Desktop Logs Directory",
-  "openConfigFile": "Open Desktop Configuration File",
-  "openKuboConfigFile": "Open Kubo Configuration File",
+  "openRepoDir": "",
+  "openLogsDir": "",
+  "openConfigFile": "",
+  "openKuboConfigFile": "",
   "viewOnGitHub": "Zobacz na GitHub",
   "helpUsTranslate": "Pomóż przetłumaczyć tę aplikację",
   "readReleaseNotes": "Przeczytaj informacje o wydaniu",
@@ -127,6 +127,12 @@
   "updateErrorDialog": {
     "title": "Nie można pobrać aktualizacji",
     "message": "Pobranie aktualizacji nie było możliwe. Proszę sprawdzić połączenie internetowe i spróbować ponownie."
+  },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": "Później"
   },
   "updateDownloadedDialog": {
     "title": "Aktualizacja IPFS Desktop",

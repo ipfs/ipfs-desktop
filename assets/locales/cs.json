@@ -128,6 +128,12 @@
     "title": "Aktualizace se nepodařilo stáhnout",
     "message": "Aktualizaci nebylo možné stáhnout. Zkontrolujte připojení k internetu a akci opakujte."
   },
+  "autoUpdateError": {
+    "title": "",
+    "message": "",
+    "downloadNow": "",
+    "later": "Později"
+  },
   "updateDownloadedDialog": {
     "title": "Aktualizace IPFS Desktop",
     "message": "K dispozici je aktualizace IPFS Desktop { version }. Chcete ji nainstalovat nyní?",
