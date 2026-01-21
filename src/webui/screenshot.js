@@ -38,7 +38,7 @@ async function screenshot (format) {
 
     output.push({
       name: source.name,
-      image: image
+      image
     })
   }
 
