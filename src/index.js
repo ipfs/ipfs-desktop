@@ -1,7 +1,7 @@
 // @ts-check
 const { registerAppStartTime, getSecondsSinceAppStart } = require('./metrics/appStart')
 registerAppStartTime()
-require('v8-compile-cache')
+// v8-compile-cache interferes with dynamic import in this process, so keep it disabled.
 
 const { app, dialog } = require('electron')
 
