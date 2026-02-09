@@ -2,7 +2,6 @@
 const { screen, BrowserWindow, ipcMain, app, session } = require('electron')
 const { join } = require('path')
 const { URL } = require('url')
-const serve = require('electron-serve')
 const i18n = require('i18next')
 const openExternal = require('./open-external')
 const logger = require('../common/logger')
@@ -20,7 +19,16 @@ const ipcMainEvents = require('../common/ipc-main-events')
 const getCtx = require('../context')
 const { STATUS } = require('../daemon/consts')
 
-serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
+const serveReady = Promise.resolve()
+  .then(() => import('electron-serve'))
+  .then((serveModule) => {
+    const serve = serveModule.default ?? serveModule
+    return serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
+  })
+  .catch((err) => {
+    logger.error('[webui] failed to init electron-serve', err)
+    throw err
+  })
 
 /**
  *
@@ -123,6 +131,7 @@ const createWindow = () => {
 
 module.exports = async function () {
   logger.info('[webui] init...')
+  await serveReady
   const ctx = getCtx()
 
   if (store.get(CONFIG_KEY, null) === null) {
