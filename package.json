@@ -87,7 +87,7 @@
     "multiaddr-to-uri": "8.0.0",
     "portfinder": "^1.0.32",
     "untildify": "^4.0.0",
-    "winston": "^3.7.2"
+    "winston": "^3.19.0"
   },
   "standard": {
     "ignore": [
