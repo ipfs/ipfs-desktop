@@ -1,0 +1,193 @@
+diff --git a/node_modules/app-builder-lib/scheme.json b/node_modules/app-builder-lib/scheme.json
+index 2d2d623..3e2f2e3 100644
+--- a/node_modules/app-builder-lib/scheme.json
++++ b/node_modules/app-builder-lib/scheme.json
+@@ -397,10 +397,13 @@
+         "publisherName": {
+           "anyOf": [
+             {
++              "type": "string"
++            },
++            {
++              "type": "array",
+               "items": {
+                 "type": "string"
+-              },
+-              "type": "array"
++              }
+             },
+             {
+               "type": "null"
+@@ -541,10 +544,13 @@
+         "publisherName": {
+           "anyOf": [
+             {
++              "type": "string"
++            },
++            {
++              "type": "array",
+               "items": {
+                 "type": "string"
+-              },
+-              "type": "array"
++              }
+             },
+             {
+               "type": "null"
+@@ -1467,10 +1473,13 @@
+         "publisherName": {
+           "anyOf": [
+             {
++              "type": "string"
++            },
++            {
++              "type": "array",
+               "items": {
+                 "type": "string"
+-              },
+-              "type": "array"
++              }
+             },
+             {
+               "type": "null"
+@@ -1573,10 +1582,13 @@
+         "publisherName": {
+           "anyOf": [
+             {
++              "type": "string"
++            },
++            {
++              "type": "array",
+               "items": {
+                 "type": "string"
+-              },
+-              "type": "array"
++              }
+             },
+             {
+               "type": "null"
+@@ -1688,10 +1700,13 @@
+         "publisherName": {
+           "anyOf": [
+             {
++              "type": "string"
++            },
++            {
++              "type": "array",
+               "items": {
+                 "type": "string"
+-              },
+-              "type": "array"
++              }
+             },
+             {
+               "type": "null"
+@@ -1806,10 +1821,13 @@
+         "publisherName": {
+           "anyOf": [
+             {
++              "type": "string"
++            },
++            {
++              "type": "array",
+               "items": {
+                 "type": "string"
+-              },
+-              "type": "array"
++              }
+             },
+             {
+               "type": "null"
+@@ -5732,10 +5750,13 @@
+         "publisherName": {
+           "anyOf": [
+             {
++              "type": "string"
++            },
++            {
++              "type": "array",
+               "items": {
+                 "type": "string"
+-              },
+-              "type": "array"
++              }
+             },
+             {
+               "type": "null"
+@@ -6196,10 +6217,13 @@
+         "publisherName": {
+           "anyOf": [
+             {
++              "type": "string"
++            },
++            {
++              "type": "array",
+               "items": {
+                 "type": "string"
+-              },
+-              "type": "array"
++              }
+             },
+             {
+               "type": "null"
+@@ -6287,10 +6311,13 @@
+         "publisherName": {
+           "anyOf": [
+             {
++              "type": "string"
++            },
++            {
++              "type": "array",
+               "items": {
+                 "type": "string"
+-              },
+-              "type": "array"
++              }
+             },
+             {
+               "type": "null"
+@@ -6489,7 +6516,20 @@
+         },
+         "publisherName": {
+           "description": "[The publisher name](https://github.com/electron-userland/electron-builder/issues/1187#issuecomment-278972073), exactly as in your code signed certificate. Several names can be provided.",
+-          "type": "string"
++          "anyOf": [
++            {
++              "type": "string"
++            },
++            {
++              "type": "array",
++              "items": {
++                "type": "string"
++              }
++            },
++            {
++              "type": "null"
++            }
++          ]
+         },
+         "timestampDigest": {
+           "default": "SHA256",
+@@ -6950,16 +6990,16 @@
+         "publisherName": {
+           "anyOf": [
+             {
++              "type": "string"
++            },
++            {
++              "type": "array",
+               "items": {
+                 "type": "string"
+-              },
+-              "type": "array"
++              }
+             },
+             {
+-              "type": [
+-                "null",
+-                "string"
+-              ]
++              "type": "null"
+             }
+           ],
+           "description": "[The publisher name](https://github.com/electron-userland/electron-builder/issues/1187#issuecomment-278972073), exactly as in your code signed certificate. Several names can be provided.\nDefaults to common name from your code signing certificate."
