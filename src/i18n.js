@@ -1,7 +1,6 @@
 const { join } = require('path')
 const { ipcMain } = require('electron')
 const i18n = require('i18next')
-const ICU = require('i18next-icu')
 const Backend = require('i18next-fs-backend')
 const store = require('./common/store')
 const ipcMainEvents = require('./common/ipc-main-events')
@@ -10,6 +9,8 @@ const getCtx = require('./context')
 
 module.exports = async function () {
   const ctx = getCtx()
+  const icuModule = await import('i18next-icu')
+  const ICU = icuModule.default ?? icuModule
   logger.info('[i18n] init...')
   const lng = store.get('language')
   logger.info(`[i18n] configured language: ${lng}`)
