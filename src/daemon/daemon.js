@@ -139,7 +139,7 @@ async function startIpfsWithLogs (ipfsd, flags) {
   let logs = ''
 
   const isSpawnedDaemonDead = (ipfsd) => {
-    if (typeof ipfsd.subprocess === 'undefined') throw new Error('undefined ipfsd.subprocess, unable to reason about startup errors')
+    if (typeof ipfsd.subprocess === 'undefined') return false // not exposed by ipfsd-ctl (ESM)
     if (ipfsd.subprocess === null) return false // not spawned yet or remote
     if (ipfsd.subprocess?.failed) return true // explicit failure
 
