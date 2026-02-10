@@ -42,7 +42,9 @@ if (app.dock) app.dock.hide()
 app.setAppUserModelId('io.ipfs.desktop')
 
 // Fixes $PATH on macOS
-fixPath()
+// fix-path v5 is ESM-only; require() returns `{ default }` there.
+const fixPathFn = (typeof fixPath === 'function' ? fixPath : fixPath?.default)
+if (typeof fixPathFn === 'function') fixPathFn()
 
 // Only one instance can run at a time
 if (!app.requestSingleInstanceLock()) {
