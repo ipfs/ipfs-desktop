@@ -1,12 +1,13 @@
 const { join } = require('path')
 const fs = require('fs-extra')
-const { multiaddr } = require('multiaddr')
 const http = require('http')
 const portfinder = require('portfinder')
 const { shell } = require('electron')
 const store = require('../common/store')
 const logger = require('../common/logger')
 const dialogs = require('./dialogs')
+
+const multiaddrPromise = import('@multiformats/multiaddr').then((mod) => mod.multiaddr ?? mod.default ?? mod)
 
 /**
  * Get repository configuration file path.
@@ -110,9 +111,10 @@ function applyDefaults (ipfsd) {
  * Parses multiaddr from the configuration.
  *
  * @param {string} addr
- * @returns {import('multiaddr').Multiaddr}
+ * @returns {Promise<import('@multiformats/multiaddr').Multiaddr>}
  */
-function parseMultiaddr (addr) {
+async function parseMultiaddr (addr) {
+  const multiaddr = await multiaddrPromise
   return addr.includes('/http')
     ? multiaddr(addr)
     : multiaddr(addr).encapsulate('/http')
@@ -122,9 +124,9 @@ function parseMultiaddr (addr) {
  * Get local HTTP port.
  *
  * @param {array|string} addrs
- * @returns {number} the port
+ * @returns {Promise<number>} the port
  */
-function getHttpPort (addrs) {
+async function getHttpPort (addrs) {
   let httpUrl = null
 
   if (Array.isArray(addrs)) {
@@ -133,7 +135,7 @@ function getHttpPort (addrs) {
     httpUrl = addrs
   }
 
-  const gw = parseMultiaddr(httpUrl)
+  const gw = await parseMultiaddr(httpUrl)
   return gw.nodeAddress().port
 }
 
@@ -141,7 +143,7 @@ function getHttpPort (addrs) {
  * Get gateway port from configuration.
  *
  * @param {any} config
- * @returns {number}
+ * @returns {Promise<number>}
  */
 const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
 
@@ -151,7 +153,7 @@ const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
  *
  * @param {import('ipfsd-ctl').Controller} ipfsd
  */
-function migrateConfig (ipfsd) {
+async function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
   const REVISION = 6
   const REVISION_KEY = 'daemonConfigRevision'
@@ -202,7 +204,7 @@ function migrateConfig (ipfsd) {
     }
 
     const addedWebUI = addURL('https://webui.ipfs.io')
-    const addedGw = addURL(`http://webui.ipfs.io.ipns.localhost:${getGatewayPort(config)}`)
+    const addedGw = addURL(`http://webui.ipfs.io.ipns.localhost:${await getGatewayPort(config)}`)
 
     if (addedWebUI || addedGw) {
       httpHeaders['Access-Control-Allow-Origin'] = accessControlAllowOrigin
@@ -316,7 +318,7 @@ async function checkPortsArray (ipfsd, addrs) {
   addrs = addrs.filter(Boolean)
 
   for (const addr of addrs) {
-    const ma = parseMultiaddr(addr)
+    const ma = await parseMultiaddr(addr)
     const port = ma.nodeAddress().port
 
     if (port === 0) {
@@ -362,8 +364,8 @@ async function checkPorts (ipfsd) {
     return checkPortsArray(ipfsd, [].concat(config.Addresses.API, config.Addresses.Gateway))
   }
 
-  const configApiMa = parseMultiaddr(config.Addresses.API)
-  const configGatewayMa = parseMultiaddr(config.Addresses.Gateway)
+  const configApiMa = await parseMultiaddr(config.Addresses.API)
+  const configGatewayMa = await parseMultiaddr(config.Addresses.Gateway)
 
   const isApiMaDaemon = await checkIfAddrIsDaemon(configApiMa.nodeAddress())
   const isGatewayMaDaemon = await checkIfAddrIsDaemon(configGatewayMa.nodeAddress())
