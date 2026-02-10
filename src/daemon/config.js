@@ -12,7 +12,7 @@ const multiaddrPromise = import('@multiformats/multiaddr').then((mod) => mod.mul
 /**
  * Get repository configuration file path.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {string} config file path
  */
 function getConfigFilePath (ipfsd) {
@@ -22,7 +22,7 @@ function getConfigFilePath (ipfsd) {
 /**
  * Get repository api file path.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {string} api file path
  */
 function getApiFilePath (ipfsd) {
@@ -32,7 +32,7 @@ function getApiFilePath (ipfsd) {
 /**
  * Checks if the repository configuration file exists.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {boolean} true if config file exists
  */
 function configExists (ipfsd) {
@@ -42,7 +42,7 @@ function configExists (ipfsd) {
 /**
  * Checks if the repository api file exists.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {boolean} true if config file exists
  */
 function apiFileExists (ipfsd) {
@@ -52,7 +52,7 @@ function apiFileExists (ipfsd) {
 /**
  * Removes the repository api file.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {void}
  */
 function removeApiFile (ipfsd) {
@@ -62,7 +62,7 @@ function removeApiFile (ipfsd) {
 /**
  * Reads the repository configuration file.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {any} the configuration
  */
 function readConfigFile (ipfsd) {
@@ -72,7 +72,7 @@ function readConfigFile (ipfsd) {
 /**
  * Writes the repository configuration file.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @param {Object<string, any>} config
  */
 function writeConfigFile (ipfsd, config) {
@@ -84,7 +84,7 @@ function writeConfigFile (ipfsd, config) {
  * by default. This must only be called for repositories created
  * by IPFS Desktop. Existing ones shall remain intact.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  */
 function applyDefaults (ipfsd) {
   const config = readConfigFile(ipfsd)
@@ -216,7 +216,7 @@ const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
  * Apply one-time updates to the config of IPFS node. This is the place
  * where we execute fixes and performance tweaks for existing users.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  */
 async function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
@@ -375,7 +375,7 @@ const findFreePort = async (port) => {
 /**
  * Check if all the ports in the array are available.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @param {string[]} addrs
  * @returns {Promise<boolean>}
  */
@@ -415,7 +415,7 @@ async function checkPortsArray (ipfsd, addrs) {
  * Check if ports are available and handle it. Returns
  * true if ports are cleared for IPFS to start.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
  * @returns {Promise<boolean>}
  */
 async function checkPorts (ipfsd) {
