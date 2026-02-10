@@ -121,6 +121,71 @@ async function parseMultiaddr (addr) {
 }
 
 /**
+ * Convert a multiaddr to a node-friendly address object.
+ *
+ * @param {import('@multiformats/multiaddr').Multiaddr} ma
+ * @returns {{ address: string, family: 4 | 6, port: number }}
+ */
+function toNodeAddress (ma) {
+  /** @type {string|null} */
+  let address = null
+  /** @type {4|6} */
+  let family = 4
+  /** @type {number|null} */
+  let port = null
+
+  // Avoid relying on nodeAddress() which only accepts "thin waist" multiaddrs.
+  // We often work with addresses that are encapsulated with /http.
+  const apply = (name, value) => {
+    switch (name) {
+      case 'ip4':
+        address = value ?? null
+        family = 4
+        break
+      case 'ip6':
+        address = value ?? null
+        family = 6
+        break
+      case 'dns':
+      case 'dns4':
+        address = value ?? null
+        family = 4
+        break
+      case 'dns6':
+        address = value ?? null
+        family = 6
+        break
+      case 'tcp':
+        port = value != null ? Number(value) : null
+        break
+      default:
+        break
+    }
+  }
+
+  if (typeof ma.getComponents === 'function') {
+    for (const comp of ma.getComponents()) {
+      apply(comp.name, comp.value)
+    }
+  } else if (typeof ma.protos === 'function' && typeof ma.stringTuples === 'function') {
+    const protos = ma.protos()
+    const tuples = ma.stringTuples()
+
+    for (let i = 0; i < protos.length; i++) {
+      apply(protos[i].name, tuples[i]?.[1])
+    }
+  } else {
+    throw new Error(`Unsupported multiaddr implementation: ${ma.toString()}`)
+  }
+
+  if (!address || port == null || Number.isNaN(port)) {
+    throw new Error(`Invalid multiaddr for node address: ${ma.toString()}`)
+  }
+
+  return { address, family, port }
+}
+
+/**
  * Get local HTTP port.
  *
  * @param {array|string} addrs
@@ -136,7 +201,7 @@ async function getHttpPort (addrs) {
   }
 
   const gw = await parseMultiaddr(httpUrl)
-  return gw.nodeAddress().port
+  return toNodeAddress(gw).port
 }
 
 /**
@@ -319,13 +384,13 @@ async function checkPortsArray (ipfsd, addrs) {
 
   for (const addr of addrs) {
     const ma = await parseMultiaddr(addr)
-    const port = ma.nodeAddress().port
+    const port = toNodeAddress(ma).port
 
     if (port === 0) {
       continue
     }
 
-    const isDaemon = await checkIfAddrIsDaemon(ma.nodeAddress())
+    const isDaemon = await checkIfAddrIsDaemon(toNodeAddress(ma))
 
     if (isDaemon) {
       continue
@@ -367,16 +432,16 @@ async function checkPorts (ipfsd) {
   const configApiMa = await parseMultiaddr(config.Addresses.API)
   const configGatewayMa = await parseMultiaddr(config.Addresses.Gateway)
 
-  const isApiMaDaemon = await checkIfAddrIsDaemon(configApiMa.nodeAddress())
-  const isGatewayMaDaemon = await checkIfAddrIsDaemon(configGatewayMa.nodeAddress())
+  const isApiMaDaemon = await checkIfAddrIsDaemon(toNodeAddress(configApiMa))
+  const isGatewayMaDaemon = await checkIfAddrIsDaemon(toNodeAddress(configGatewayMa))
 
   if (isApiMaDaemon && isGatewayMaDaemon) {
     logger.info('[daemon] ports busy by a daemon')
     return true
   }
 
-  const apiPort = configApiMa.nodeAddress().port
-  const gatewayPort = configGatewayMa.nodeAddress().port
+  const apiPort = toNodeAddress(configApiMa).port
+  const gatewayPort = toNodeAddress(configGatewayMa).port
 
   const freeGatewayPort = await findFreePort(gatewayPort)
   let freeApiPort = await findFreePort(apiPort)
