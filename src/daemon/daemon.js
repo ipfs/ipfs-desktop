@@ -1,4 +1,3 @@
-const Ctl = require('ipfsd-ctl')
 const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
 const { applyDefaults, migrateConfig, checkPorts, configExists, checkRepositoryAndConfiguration, removeApiFile, apiFileExists } = require('./config')
@@ -6,6 +5,7 @@ const showMigrationPrompt = require('./migration-prompt')
 const dialogs = require('./dialogs')
 const { app } = require('electron')
 
+const ipfsdCtlPromise = import('ipfsd-ctl').then((mod) => mod.createNode ?? mod.default?.createNode ?? mod.default)
 const ipfsHttpModulePromise = import('kubo-rpc-client').then((mod) => {
   const create = mod.create ?? mod.default?.create ?? mod.default
   return { create }
@@ -31,23 +31,29 @@ function getIpfsBinPath () {
  *
  * @param {string[]} flags
  * @param {string} path
- * @returns {Promise<import('ipfsd-ctl').Controller|null>}
+ * @returns {Promise<import('ipfsd-ctl').KuboNode|null>}
  */
 async function getIpfsd (flags, path) {
   const ipfsBin = getIpfsBinPath()
-  const ipfsHttpModule = await ipfsHttpModulePromise
+  const createNode = await ipfsdCtlPromise
+  const rpc = await ipfsHttpModulePromise
 
-  const ipfsd = await Ctl.createController({
-    ipfsHttpModule,
-    ipfsBin,
-    ipfsOptions: {
-      repo: path
-    },
+  const ipfsd = await createNode({
+    type: 'kubo',
+    rpc: rpc.create,
+    bin: ipfsBin,
+    repo: path,
+    init: false,
+    start: false,
     remote: false,
     disposable: false,
-    test: false,
-    args: flags
+    test: false
   })
+
+  ipfsd.path = ipfsd.repo
+  const info = await ipfsd.info()
+  ipfsd.apiAddr = info.api
+  ipfsd.gatewayAddr = info.gateway
 
   // Checks if the repository is valid to use with IPFS Desktop. If not,
   // we quit the app. We assume that checkRepositoryAndConfiguration
@@ -123,10 +129,11 @@ function listenToIpfsLogs (ipfsd, callback) {
 /**
  * Start IPFS, collects the logs, detects errors and migrations.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
+ * @param {string[]} flags
  * @returns {Promise<IpfsLogs>}
  */
-async function startIpfsWithLogs (ipfsd) {
+async function startIpfsWithLogs (ipfsd, flags) {
   let err, id, migrationPrompt
   let isMigrating, isErrored, isFinished
   let logs = ''
@@ -175,9 +182,12 @@ async function startIpfsWithLogs (ipfsd) {
   })
 
   try {
-    await ipfsd.start()
+    await ipfsd.start({ args: flags })
     const idRes = await ipfsd.api.id()
     id = idRes.id
+    const info = await ipfsd.info()
+    ipfsd.apiAddr = info.api
+    ipfsd.gatewayAddr = info.gateway
   } catch (e) {
     err = e
   } finally {
@@ -210,7 +220,7 @@ async function startIpfsWithLogs (ipfsd) {
  * Start the IPFS daemon.
  *
  * @param {any} opts
- * @returns {Promise<{ ipfsd: import('ipfsd-ctl').Controller|undefined } & IpfsLogs>}
+ * @returns {Promise<{ ipfsd: import('ipfsd-ctl').KuboNode|undefined } & IpfsLogs>}
  */
 async function startDaemon (opts) {
   const ipfsd = await getIpfsd(opts.flags, opts.path)
@@ -219,21 +229,21 @@ async function startDaemon (opts) {
     return { ipfsd: undefined, err: new Error('get ipfsd failed'), id: undefined, logs: '' }
   }
 
-  let { err, logs, id } = await startIpfsWithLogs(ipfsd)
+  let { err, logs, id } = await startIpfsWithLogs(ipfsd, opts.flags)
   if (err) {
     if (!err.message.includes('ECONNREFUSED') && !err.message.includes('ERR_CONNECTION_REFUSED')) {
       return { ipfsd, err, logs, id }
     }
 
     if (!configExists(ipfsd)) {
-      dialogs.cannotConnectToApiDialog(ipfsd.apiAddr.toString())
+      dialogs.cannotConnectToApiDialog(String(ipfsd.apiAddr))
       return { ipfsd, err, logs, id }
     }
 
     logger.info('[daemon] removing api file')
     removeApiFile(ipfsd)
 
-    const errLogs = await startIpfsWithLogs(ipfsd)
+    const errLogs = await startIpfsWithLogs(ipfsd, opts.flags)
     err = errLogs.err
     logs = errLogs.logs
     id = errLogs.id
