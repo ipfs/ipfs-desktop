@@ -7,8 +7,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron .",
-    "lint": "ts-standard && standard",
-    "lint:fix": "ts-standard --fix && standard --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "cross-env NODE_ENV=test playwright test 'test/unit/.*.spec.js'",
     "test:e2e": "xvfb-maybe cross-env NODE_ENV=test playwright test -c test/e2e/playwright.config.js",
     "postinstall": "run-s install-app-deps patch-deps macos-universal-kubo",
@@ -63,11 +63,13 @@
     "semver-regex": "4.0.5",
     "shx": "0.4.0",
     "sinon": "^16.1.1",
-    "standard": "16.0.4",
     "tmp": "0.2.5",
-    "ts-standard": "^11.0.0",
     "typescript": "^5.9.3",
-    "xvfb-maybe": "^0.2.1"
+    "xvfb-maybe": "^0.2.1",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
+    "eslint": "^9.20.1",
+    "eslint-config-love": "^149.0.0"
   },
   "dependencies": {
     "countly-sdk-nodejs": "^24.10.3",
@@ -90,19 +92,5 @@
     "portfinder": "^1.0.32",
     "untildify": "^4.0.0",
     "winston": "^3.19.0"
-  },
-  "standard": {
-    "ignore": [
-      "**/*.ts"
-    ]
-  },
-  "ts-standard": {
-    "project": "tsconfig.json",
-    "files": [
-      "types/*.ts"
-    ],
-    "ignore": [
-      "**/*.js"
-    ]
   }
 }
