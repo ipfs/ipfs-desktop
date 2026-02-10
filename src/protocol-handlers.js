@@ -1,14 +1,18 @@
 const { app, shell } = require('electron')
-const toUri = require('multiaddr-to-uri')
 const getCtx = require('./context')
+
+const toUriPromise = import('@multiformats/multiaddr-to-uri').then((mod) => mod.multiaddrToUri ?? mod.default ?? mod)
 
 function openLink (protocol, part, base) {
   shell.openExternal(`${base}/${protocol}/${part}`)
   return true
 }
 
-function parseAddr (addr) {
-  return toUri(addr.toString().includes('/http') ? addr : addr.encapsulate('/http'))
+async function parseAddr (addr) {
+  const toUri = await toUriPromise
+  const value = addr.toString()
+  const ma = value.includes('/http') ? value : `${value}/http`
+  return toUri(ma)
 }
 
 async function handleOpenLink (url) {
@@ -17,7 +21,7 @@ async function handleOpenLink (url) {
   let base = 'https://dweb.link'
 
   if (ipfsd && ipfsd.gatewayAddr) {
-    base = parseAddr(ipfsd.gatewayAddr)
+    base = await parseAddr(ipfsd.gatewayAddr)
   }
 
   if (url.startsWith('ipfs://')) {
