@@ -76,7 +76,7 @@
     "electron-serve": "^3.0.1",
     "electron-store": "8.1.0",
     "electron-updater": "^6.7.3",
-    "fix-path": "3.0.0",
+    "fix-path": "^5.0.0",
     "fs-extra": "^11.3.3",
     "i18next": "^25.8.4",
     "i18next-fs-backend": "2.6.1",
@@ -90,7 +90,7 @@
     "multiaddr": "10.0.1",
     "multiaddr-to-uri": "8.0.0",
     "portfinder": "^1.0.32",
-    "untildify": "^4.0.0",
+    "untildify": "^6.0.0",
     "winston": "^3.19.0"
   }
 }
