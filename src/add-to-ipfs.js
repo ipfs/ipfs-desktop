@@ -1,6 +1,5 @@
 const { extname, basename } = require('path')
 const { clipboard } = require('electron')
-const { globSource } = require('ipfs-http-client')
 const i18n = require('i18next')
 const last = require('it-last')
 const fs = require('fs-extra')
@@ -8,6 +7,15 @@ const logger = require('./common/logger')
 const { notify, notifyError } = require('./common/notify')
 const { analyticsKeys } = require('./analytics/keys')
 const getCtx = require('./context')
+
+async function getGlobSource () {
+  const mod = await import('ipfs-http-client')
+  const globSource = mod.globSource ?? mod.default?.globSource
+  if (typeof globSource !== 'function') {
+    throw new Error('ipfs-http-client.globSource is unavailable')
+  }
+  return globSource
+}
 
 async function copyFileToMfs (ipfs, cid, filename) {
   let i = 0
@@ -90,6 +98,7 @@ async function addFileOrDirectory (ipfs, filepath) {
   let cid = null
 
   if (stat.isDirectory()) {
+    const globSource = await getGlobSource()
     const files = globSource(filepath, '**/*', { recursive: true, cidVersion: 1 })
     const res = await last(ipfs.addAll(files, {
       pin: false,

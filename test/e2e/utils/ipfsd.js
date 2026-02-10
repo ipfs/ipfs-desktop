@@ -7,18 +7,25 @@ const Ctl = require('ipfsd-ctl')
 
 const { join } = require('path')
 
-const factory = Ctl.createFactory({
-  type: 'go',
-  ipfsHttpModule: require('ipfs-http-client'),
-  ipfsBin: require('kubo').path(),
-  remote: false,
-  disposable: true,
-  test: true // run on random ports
+const ipfsHttpModulePromise = import('ipfs-http-client').then((mod) => {
+  return mod.create ? mod : (mod.default ?? mod)
+})
+
+const factoryPromise = ipfsHttpModulePromise.then((ipfsHttpModule) => {
+  return Ctl.createFactory({
+    type: 'go',
+    ipfsHttpModule,
+    ipfsBin: require('kubo').path(),
+    remote: false,
+    disposable: true,
+    test: true // run on random ports
+  })
 })
 
 async function makeRepository ({ start = false }) {
   const { name: repoPath } = tmp.dirSync({ prefix: 'tmp_IPFS_PATH_', unsafeCleanup: true })
   const configPath = join(repoPath, 'config')
+  const factory = await factoryPromise
 
   const ipfsd = await factory.spawn({
     ipfsOptions: { repo: repoPath },
