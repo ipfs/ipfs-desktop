@@ -90,7 +90,6 @@
     "multiaddr": "10.0.1",
     "multiaddr-to-uri": "8.0.0",
     "portfinder": "^1.0.32",
-    "untildify": "^6.0.0",
     "winston": "^3.19.0"
   }
 }
