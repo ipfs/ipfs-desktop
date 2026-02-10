@@ -54,7 +54,7 @@
     "dotenv": "^17.2.3",
     "electron": "^39.5.1",
     "electron-builder": "26.7.0",
-    "eslint": "^9.20.1",
+    "eslint": "^9.39.2",
     "eslint-config-love": "^149.0.0",
     "globals": "^17.3.0",
     "got": "^14.6.6",
