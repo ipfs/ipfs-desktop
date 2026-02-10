@@ -9,10 +9,10 @@ const { analyticsKeys } = require('./analytics/keys')
 const getCtx = require('./context')
 
 async function getGlobSource () {
-  const mod = await import('ipfs-http-client')
-  const globSource = mod.globSource ?? mod.default?.globSource
+  const mod = await import('kubo-rpc-client')
+  const globSource = mod.globSource ?? mod.default?.globSource ?? mod.default
   if (typeof globSource !== 'function') {
-    throw new Error('ipfs-http-client.globSource is unavailable')
+    throw new Error('kubo-rpc-client.globSource is unavailable')
   }
   return globSource
 }
