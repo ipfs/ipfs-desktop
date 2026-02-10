@@ -6,10 +6,12 @@ const showMigrationPrompt = require('./migration-prompt')
 const dialogs = require('./dialogs')
 const { app } = require('electron')
 
-const toUri = require('multiaddr-to-uri')
-const { multiaddr } = require('multiaddr')
+const ipfsHttpModulePromise = Promise.all([
+  import('ipfs-http-client'),
+  import('@multiformats/multiaddr-to-uri')
+]).then(([mod, toUriMod]) => {
+  const toUri = toUriMod.multiaddrToUri ?? toUriMod.default ?? toUriMod
 
-const ipfsHttpModulePromise = import('ipfs-http-client').then((mod) => {
   // ipfs-http-client is ESM-only in newer versions. Normalize for CJS callers.
   const client = mod.create ? mod : (mod.default ?? mod)
   if (!client || typeof client.create !== 'function') return client
@@ -21,18 +23,18 @@ const ipfsHttpModulePromise = import('ipfs-http-client').then((mod) => {
       // Normalize common multiaddr shapes to a URL string that ipfs-http-client accepts.
       if (typeof addr === 'string' && addr.startsWith('/')) {
         const ma = addr.includes('/http') ? addr : `${addr}/http`
-        return client.create(toUri(multiaddr(ma)), opts)
+        return client.create(toUri(ma), opts)
       }
       if (addr && typeof addr.toString === 'function') {
         const value = addr.toString()
         if (typeof value === 'string' && value.startsWith('/')) {
           const ma = value.includes('/http') ? value : `${value}/http`
-          return client.create(toUri(multiaddr(ma)), opts)
+          return client.create(toUri(ma), opts)
         }
       }
       if (addr && typeof addr === 'object' && typeof addr.url === 'string' && addr.url.startsWith('/')) {
         const ma = addr.url.includes('/http') ? addr.url : `${addr.url}/http`
-        return client.create(Object.assign({}, addr, { url: toUri(multiaddr(ma)) }), opts)
+        return client.create(Object.assign({}, addr, { url: toUri(ma) }), opts)
       }
       return client.create(addr, opts)
     }
@@ -87,7 +89,7 @@ async function getIpfsd (flags, path) {
   let isRemote = false
 
   if (configExists(ipfsd)) {
-    migrateConfig(ipfsd)
+    await migrateConfig(ipfsd)
   } else {
     // If config does not exist, but $IPFS_PATH/api exists
     // then it is a remote repository.
