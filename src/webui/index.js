@@ -191,7 +191,7 @@ module.exports = async function () {
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       apiAddress = ipfsd.apiAddr
-      url.searchParams.set('api', apiAddress.toString())
+      url.searchParams.set('api', String(apiAddress))
       updateLanguage()
       window.loadURL(url.toString())
     }
