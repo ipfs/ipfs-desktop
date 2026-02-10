@@ -1,10 +1,9 @@
 // @ts-check
 const { app } = require('electron')
 const i18n = require('i18next')
-const os = require('os')
-const path = require('path')
+const os = require('node:os')
+const path = require('node:path')
 const fs = require('fs-extra')
-const untildify = require('untildify')
 const createToggler = require('./utils/create-toggler')
 const logger = require('./common/logger')
 const store = require('./common/store')
@@ -18,7 +17,7 @@ function isSupported () {
 }
 
 function getDesktopFile () {
-  return path.join(untildify('~/.config/autostart/'), 'ipfs-desktop.desktop')
+  return path.join(os.homedir(), '.config/autostart/', 'ipfs-desktop.desktop')
 }
 
 async function enable () {
