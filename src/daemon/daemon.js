@@ -1,5 +1,6 @@
 const { join } = require('path')
 const os = require('os')
+const fs = require('fs-extra')
 const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
 const { applyDefaults, migrateConfig, checkPorts, configExists, checkRepositoryAndConfiguration, removeApiFile, apiFileExists } = require('./config')
@@ -12,6 +13,22 @@ const ipfsHttpModulePromise = import('kubo-rpc-client').then((mod) => {
   const create = mod.create ?? mod.default?.create ?? mod.default
   return { create }
 })
+
+async function apiFileIsLive (ipfsd) {
+  if (!apiFileExists(ipfsd)) return false
+  try {
+    const apiAddr = fs.readFileSync(join(ipfsd.path, 'api'), 'utf8').trim()
+    const rpc = await ipfsHttpModulePromise
+    const client = rpc.create(apiAddr)
+    await Promise.race([
+      client.id(),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('id timeout')), 1000))
+    ])
+    return true
+  } catch (_) {
+    return false
+  }
+}
 
 /**
  * Get the IPFS binary file path.
@@ -187,6 +204,10 @@ async function startIpfsWithLogs (ipfsd, flags) {
   })
 
   try {
+    if (apiFileExists(ipfsd) && !await apiFileIsLive(ipfsd)) {
+      logger.info('[daemon] removing stale api file')
+      removeApiFile(ipfsd)
+    }
     await ipfsd.start({ args: flags })
     const idRes = await ipfsd.api.id()
     id = idRes.id
