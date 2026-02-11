@@ -240,8 +240,8 @@ async function startIpfsWithLogs (ipfsd, flags) {
       removeApiFile(ipfsd)
     }
     await ipfsd.start({ args: flags })
-    // RPC can lag briefly after daemon readiness logs, so retry id().
-    const maxAttempts = 5
+    // RPC can lag after daemon readiness logs, so retry id().
+    const maxAttempts = 20
     const retryDelayMs = 500
     let idOk = false
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -255,7 +255,8 @@ async function startIpfsWithLogs (ipfsd, flags) {
           logger.error(`[ipfsd] id() failed after retries: ${err.message || err}`)
           break
         }
-        await new Promise(resolve => setTimeout(resolve, retryDelayMs))
+        const backoff = retryDelayMs * attempt
+        await new Promise(resolve => setTimeout(resolve, backoff))
       }
     }
     if (idOk) {
@@ -272,6 +273,8 @@ async function startIpfsWithLogs (ipfsd, flags) {
       ipfsd.apiAddr = ipfsd.apiAddr || api
       ipfsd.gatewayAddr = ipfsd.gatewayAddr || gateway
     }
+    logger.info(`[ipfsd] apiAddr: ${ipfsd.apiAddr || 'unknown'}`)
+    logger.info(`[ipfsd] gatewayAddr: ${ipfsd.gatewayAddr || 'unknown'}`)
   } catch (e) {
     err = e
   } finally {
