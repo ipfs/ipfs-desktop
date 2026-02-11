@@ -240,41 +240,34 @@ async function startIpfsWithLogs (ipfsd, flags) {
       removeApiFile(ipfsd)
     }
     await ipfsd.start({ args: flags })
-    // RPC can lag after daemon readiness logs, so retry id().
-    const maxAttempts = 20
-    const retryDelayMs = 500
-    let idOk = false
-    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-      try {
-        const idRes = await ipfsd.api.id()
-        id = idRes.id
-        idOk = true
-        break
-      } catch (err) {
-        if (attempt === maxAttempts) {
-          logger.error(`[ipfsd] id() failed after retries: ${err.message || err}`)
-          break
-        }
-        const backoff = retryDelayMs * attempt
-        await new Promise(resolve => setTimeout(resolve, backoff))
-      }
-    }
-    if (idOk) {
-      try {
-        const info = await ipfsd.info()
-        ipfsd.apiAddr = info.api
-        ipfsd.gatewayAddr = info.gateway
-      } catch (infoErr) {
-        logger.error(`[ipfsd] info() failed: ${infoErr.message || infoErr}`)
-      }
-    }
-    if (!ipfsd.apiAddr || !ipfsd.gatewayAddr) {
-      const { api, gateway } = getAddrFromConfig()
-      ipfsd.apiAddr = ipfsd.apiAddr || api
-      ipfsd.gatewayAddr = ipfsd.gatewayAddr || gateway
-    }
+    // Do not block UI on RPC readiness; derive addresses from config first.
+    const { api, gateway } = getAddrFromConfig()
+    ipfsd.apiAddr = ipfsd.apiAddr || api
+    ipfsd.gatewayAddr = ipfsd.gatewayAddr || gateway
     logger.info(`[ipfsd] apiAddr: ${ipfsd.apiAddr || 'unknown'}`)
     logger.info(`[ipfsd] gatewayAddr: ${ipfsd.gatewayAddr || 'unknown'}`)
+
+    // Kick off id() + info() in the background to avoid long splash delays.
+    void (async () => {
+      const maxAttempts = 10
+      const retryDelayMs = 500
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+          const idRes = await ipfsd.api.id()
+          id = idRes.id
+          const info = await ipfsd.info()
+          ipfsd.apiAddr = info.api || ipfsd.apiAddr
+          ipfsd.gatewayAddr = info.gateway || ipfsd.gatewayAddr
+          return
+        } catch (err) {
+          if (attempt === maxAttempts) {
+            logger.error(`[ipfsd] id() failed after retries: ${err.message || err}`)
+            return
+          }
+          await new Promise(resolve => setTimeout(resolve, retryDelayMs * attempt))
+        }
+      }
+    })()
   } catch (e) {
     err = e
   } finally {
