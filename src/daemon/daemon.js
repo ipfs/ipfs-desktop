@@ -310,6 +310,17 @@ async function startDaemon (opts) {
   }
 
   let { err, logs, id } = await startIpfsWithLogs(ipfsd, opts.flags)
+  if (!id && ipfsd && ipfsd.api) {
+    try {
+      const idRes = await Promise.race([
+        ipfsd.api.id(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('id timeout')), 1000))
+      ])
+      id = idRes.id
+    } catch (_) {
+      // continue startup even if this retry fails, so tray actions stay available
+    }
+  }
   if (err) {
     if (!err.message.includes('ECONNREFUSED') && !err.message.includes('ERR_CONNECTION_REFUSED')) {
       return { ipfsd, err, logs, id }
