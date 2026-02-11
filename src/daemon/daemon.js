@@ -9,9 +9,26 @@ const dialogs = require('./dialogs')
 const { app } = require('electron')
 
 const ipfsdCtlPromise = import('ipfsd-ctl').then((mod) => mod.createNode ?? mod.default?.createNode ?? mod.default)
-const ipfsHttpModulePromise = import('kubo-rpc-client').then((mod) => {
-  const create = mod.create ?? mod.default?.create ?? mod.default
-  return { create }
+const ipfsHttpModulePromise = Promise.all([
+  import('kubo-rpc-client'),
+  import('@multiformats/multiaddr-to-uri')
+]).then(([rpcMod, toUriMod]) => {
+  const create = rpcMod.create ?? rpcMod.default?.create ?? rpcMod.default
+  const toUri = toUriMod.multiaddrToUri ?? toUriMod.default ?? toUriMod
+  return {
+    create: (addr) => {
+      if (typeof addr === 'string' && addr.startsWith('/')) {
+        return create(toUri(addr))
+      }
+      if (addr && typeof addr.toString === 'function') {
+        const value = addr.toString()
+        if (value.startsWith('/')) {
+          return create(toUri(value))
+        }
+      }
+      return create(addr)
+    }
+  }
 })
 
 async function apiFileIsLive (ipfsd) {
