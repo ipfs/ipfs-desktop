@@ -159,6 +159,20 @@ async function startIpfsWithLogs (ipfsd, flags) {
   let err, id, migrationPrompt
   let isMigrating, isErrored, isFinished
   let logs = ''
+  const getAddrFromConfig = () => {
+    try {
+      const config = fs.readJsonSync(join(ipfsd.path, 'config'))
+      const pickAddr = (addr) => Array.isArray(addr)
+        ? (addr.find(v => v.includes('127.0.0.1')) || addr[0])
+        : addr
+      return {
+        api: pickAddr(config?.Addresses?.API),
+        gateway: pickAddr(config?.Addresses?.Gateway)
+      }
+    } catch {
+      return { api: undefined, gateway: undefined }
+    }
+  }
 
   const isSpawnedDaemonDead = (ipfsd) => {
     if (typeof ipfsd.subprocess === 'undefined') return false // not exposed by ipfsd-ctl (ESM)
@@ -212,19 +226,35 @@ async function startIpfsWithLogs (ipfsd, flags) {
     // RPC can lag briefly after daemon readiness logs, so retry id().
     const maxAttempts = 5
     const retryDelayMs = 500
+    let idOk = false
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
         const idRes = await ipfsd.api.id()
         id = idRes.id
+        idOk = true
         break
       } catch (err) {
-        if (attempt === maxAttempts) throw err
+        if (attempt === maxAttempts) {
+          logger.error(`[ipfsd] id() failed after retries: ${err.message || err}`)
+          break
+        }
         await new Promise(resolve => setTimeout(resolve, retryDelayMs))
       }
     }
-    const info = await ipfsd.info()
-    ipfsd.apiAddr = info.api
-    ipfsd.gatewayAddr = info.gateway
+    if (idOk) {
+      try {
+        const info = await ipfsd.info()
+        ipfsd.apiAddr = info.api
+        ipfsd.gatewayAddr = info.gateway
+      } catch (infoErr) {
+        logger.error(`[ipfsd] info() failed: ${infoErr.message || infoErr}`)
+      }
+    }
+    if (!ipfsd.apiAddr || !ipfsd.gatewayAddr) {
+      const { api, gateway } = getAddrFromConfig()
+      ipfsd.apiAddr = ipfsd.apiAddr || api
+      ipfsd.gatewayAddr = ipfsd.gatewayAddr || gateway
+    }
   } catch (e) {
     err = e
   } finally {
