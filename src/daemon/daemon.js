@@ -1,3 +1,5 @@
+const { join } = require('path')
+const os = require('os')
 const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
 const { applyDefaults, migrateConfig, checkPorts, configExists, checkRepositoryAndConfiguration, removeApiFile, apiFileExists } = require('./config')
@@ -37,12 +39,15 @@ async function getIpfsd (flags, path) {
   const ipfsBin = getIpfsBinPath()
   const createNode = await ipfsdCtlPromise
   const rpc = await ipfsHttpModulePromise
+  const repoPath = (typeof path === 'string' && path.trim() !== '')
+    ? path
+    : join(os.homedir(), '.ipfs')
 
   const ipfsd = await createNode({
     type: 'kubo',
     rpc: rpc.create,
     bin: ipfsBin,
-    repo: path,
+    repo: repoPath,
     init: false,
     start: false,
     remote: false,
