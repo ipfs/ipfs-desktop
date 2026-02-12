@@ -100,7 +100,11 @@ module.exports = Object.freeze({
       },
       fail: (err) => {
         Countly.log_error(err)
-        logger.error(`${msg} ${err.stack}`)
+        if (err instanceof Error) {
+          logger.error(`${msg} ${err.stack}`)
+        } else {
+          logger.error(`${msg} ${err}`)
+        }
       }
     }
   },

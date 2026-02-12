@@ -61,7 +61,8 @@ const createWindow = () => {
       webContentLoad.end()
     })
     window.webContents.once('did-fail-load', (_, errorCode, errorDescription) => {
-      webContentLoad.fail(`${msg}: ${errorDescription}, code: ${errorCode}`)
+      const desc = errorDescription || 'unknown error'
+      webContentLoad.fail(new Error(`${msg}: ${desc}, code: ${errorCode}`))
     })
   })
   window.webContents.once('dom-ready', async (event) => {
