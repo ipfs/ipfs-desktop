@@ -26,7 +26,8 @@
     "release-gh": "release-please github-release --token=$GITHUB_TOKEN --plugin '@ipfs-shipyard/release-please-ipfs-plugin' --repo-url=ipfs/ipfs-desktop --trace --debug --draft"
   },
   "overrides": {
-    "boolean": "file:./npm-overrides/boolean-compat"
+    "boolean": "file:./npm-overrides/boolean-compat",
+    "lodash.isequal": "file:./npm-overrides/lodash.isequal-compat"
   },
   "pre-commit": [
     "lint"
