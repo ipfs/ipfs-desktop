@@ -11,6 +11,9 @@ function openLink (protocol, part, base) {
 async function parseAddr (addr) {
   const toUri = await toUriPromise
   const addrStr = typeof addr === 'string' ? addr : addr.toString()
+  if (!addrStr.startsWith('/')) {
+    return addrStr
+  }
   const value = addrStr.includes('/http') ? addrStr : `${addrStr}/http`
   return toUri(value)
 }
