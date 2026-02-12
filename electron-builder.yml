@@ -13,8 +13,6 @@ directories:
 
 asarUnpack: 'src/**/scripts/**/*'
 
-afterSign: './pkgs/macos/notarize-build.js'
-
 mac:
   artifactName: ${name}-${version}-squirrel.${ext}
   category: public.app-category.utilities
