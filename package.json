@@ -72,7 +72,7 @@
     "proxyquire": "^2.1.3",
     "semver-regex": "4.0.5",
     "shx": "0.4.0",
-    "sinon": "^16.1.1",
+    "sinon": "^21.0.1",
     "tmp": "0.2.5",
     "typescript": "^5.9.3",
     "xvfb-maybe": "^0.2.1"
