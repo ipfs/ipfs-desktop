@@ -21,6 +21,25 @@ function getDesktopFile () {
   return path.join(untildify('~/.config/autostart/'), 'ipfs-desktop.desktop')
 }
 
+function quoteDesktopEntryArg (value) {
+  return `"${value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`
+}
+
+function getLinuxAutostartExec () {
+  const command = [process.execPath]
+
+  // Some distro packages launch as `electron <app.asar>`.
+  if (path.basename(process.execPath).startsWith('electron')) {
+    const appPath = app.getAppPath()
+
+    if (appPath && appPath !== process.execPath) {
+      command.push(appPath)
+    }
+  }
+
+  return command.map(quoteDesktopEntryArg).join(' ')
+}
+
 async function enable () {
   if (app.setLoginItemSettings && (IS_MAC || IS_WIN)) {
     app.setLoginItemSettings({ openAtLogin: true })
@@ -32,7 +51,7 @@ Type=Application
 Version=1.0
 Name=IPFS Desktop
 Comment=IPFS Desktop Startup Script
-Exec="${process.execPath}"
+Exec=${getLinuxAutostartExec()}
 Icon=ipfs-desktop
 StartupNotify=false
 Terminal=false`
