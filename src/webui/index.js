@@ -61,6 +61,11 @@ const createWindow = () => {
       webContentLoad.end()
     })
     window.webContents.once('did-fail-load', (_, errorCode, errorDescription) => {
+      // -3 is ERR_ABORTED and can happen when a navigation gets superseded.
+      if (errorCode === -3) {
+        logger.debug(`[web ui] loading aborted (code: ${errorCode})`)
+        return
+      }
       const desc = errorDescription || 'unknown error'
       webContentLoad.fail(new Error(`${msg}: ${desc}, code: ${errorCode}`))
     })
