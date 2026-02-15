@@ -153,6 +153,12 @@ module.exports = async function () {
   const url = new URL('/', 'webui://-')
   url.hash = '/blank'
   url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
+  let lastLoadedUrl = null
+  const loadIfChanged = (nextUrl) => {
+    if (lastLoadedUrl === nextUrl) return
+    lastLoadedUrl = nextUrl
+    window.loadURL(nextUrl)
+  }
 
   ctx.setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
     if (window.isDestroyed()) {
@@ -165,15 +171,13 @@ module.exports = async function () {
     } else {
       logger.info(`[web ui] navigate to ${path}`, { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI_WITH_PATH })
       url.hash = path
-      window.webContents.loadURL(url.toString())
+      loadIfChanged(url.toString())
     }
     if (focus) {
       window.show()
       window.focus()
       dock.show()
     }
-    // load again: minimize visual jitter on windows
-    if (path) window.webContents.loadURL(url.toString())
   })
 
   function updateLanguage () {
@@ -190,7 +194,7 @@ module.exports = async function () {
       apiAddress = ipfsd.apiAddr
       url.searchParams.set('api', apiAddress.toString())
       updateLanguage()
-      window.loadURL(url.toString())
+      loadIfChanged(url.toString())
     }
   })
 
@@ -244,6 +248,6 @@ module.exports = async function () {
     }
 
     updateLanguage()
-    window.loadURL(url.toString())
+    loadIfChanged(url.toString())
   }))
 }
