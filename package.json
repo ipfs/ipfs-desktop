@@ -90,7 +90,6 @@
     "i18next-fs-backend": "2.6.1",
     "i18next-icu": "^2.4.3",
     "intl-messageformat": "^11.1.2",
-    "ipfs-utils": "^9.0.14",
     "ipfsd-ctl": "^16.0.0",
     "kubo": "0.39.0",
     "kubo-rpc-client": "^6.1.0",
