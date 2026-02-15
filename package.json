@@ -92,7 +92,6 @@
     "intl-messageformat": "^11.1.2",
     "ipfs-utils": "^9.0.14",
     "ipfsd-ctl": "^16.0.0",
-    "it-last": "^1.0.6",
     "kubo": "0.39.0",
     "kubo-rpc-client": "^6.1.0",
     "portfinder": "^1.0.32",

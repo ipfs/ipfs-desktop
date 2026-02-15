@@ -1,7 +1,6 @@
 const { extname, basename } = require('path')
 const { clipboard } = require('electron')
 const i18n = require('i18next')
-const last = require('it-last')
 const fs = require('fs-extra')
 const logger = require('./common/logger')
 const { notify, notifyError } = require('./common/notify')
@@ -15,6 +14,12 @@ async function getGlobSource () {
     throw new Error('kubo-rpc-client.globSource is unavailable')
   }
   return globSource
+}
+
+async function lastItem (iterable) {
+  let value
+  for await (value of iterable) {}
+  return value
 }
 
 async function copyFileToMfs (ipfs, cid, filename) {
@@ -100,7 +105,7 @@ async function addFileOrDirectory (ipfs, filepath) {
   if (stat.isDirectory()) {
     const globSource = await getGlobSource()
     const files = globSource(filepath, '**/*', { recursive: true, cidVersion: 1 })
-    const res = await last(ipfs.addAll(files, {
+    const res = await lastItem(ipfs.addAll(files, {
       pin: false,
       wrapWithDirectory: true,
       cidVersion: 1
