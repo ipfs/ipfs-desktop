@@ -18,7 +18,7 @@ function checkIfVisible () {
     previousHash = window.location.hash
     window.location.hash = '/blank'
   } else {
-    if (previousHash === '#/blank') return // skip
+    if (!previousHash || window.location.hash !== '#/blank') return // skip
     window.location.hash = previousHash
   }
 }
