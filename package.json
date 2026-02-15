@@ -93,7 +93,7 @@
     "ipfsd-ctl": "^16.0.0",
     "kubo": "0.39.0",
     "kubo-rpc-client": "^6.1.0",
-    "portfinder": "^1.0.32",
+    "portfinder": "^1.0.38",
     "winston": "^3.19.0"
   }
 }
