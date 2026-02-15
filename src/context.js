@@ -1,10 +1,36 @@
 // @ts-check
-const pDefer = require('p-defer')
 const logger = require('./common/logger')
 
 /**
  * @typedef { 'tray' | 'tray.update-menu' | 'countlyDeviceId' | 'manualCheckForUpdates' | 'startIpfs' | 'stopIpfs' | 'restartIpfs' | 'getIpfsd' | 'launchWebUI' | 'webui' | 'splashScreen' | 'i18n.initDone' } ContextProperties
  */
+
+/**
+ * @template T
+ * @typedef {{
+ *   promise: Promise<T>,
+ *   resolve: (value: T | PromiseLike<T>) => void,
+ *   reject: (reason?: unknown) => void
+ * }} DeferredPromise
+ */
+
+/**
+ * @template T
+ * @returns {DeferredPromise<T>}
+ */
+function createDeferred () {
+  /** @type {(value: T | PromiseLike<T>) => void} */
+  let resolve = () => {}
+  /** @type {(reason?: unknown) => void} */
+  let reject = () => {}
+
+  const promise = new Promise((res, rej) => {
+    resolve = res
+    reject = rej
+  })
+
+  return { promise, resolve, reject }
+}
 
 /**
  * Context helps the app do many different things without explicitly depending on each other. Instead, each module
@@ -38,7 +64,7 @@ class Context {
 
     /**
      * Stores prop->Promise mappings.
-     * @type {Map<string|symbol, pDefer.DeferredPromise<unknown>>}
+     * @type {Map<string|symbol, DeferredPromise<unknown>>}
      */
     this._promiseMap = new Map()
   }
@@ -137,12 +163,12 @@ class Context {
    * @private
    * @template T
    * @param {ContextProperties} propertyName
-   * @returns {pDefer.DeferredPromise<T>}
+   * @returns {DeferredPromise<T>}
    */
   _createDeferredForProp (propertyName) {
     let deferred = this._promiseMap.get(propertyName)
     if (deferred == null) {
-      deferred = pDefer()
+      deferred = createDeferred()
       this._promiseMap.set(propertyName, deferred)
     }
 
