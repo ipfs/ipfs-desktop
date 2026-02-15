@@ -1,4 +1,4 @@
-const { Menu, Tray, shell, app, ipcMain, nativeTheme } = require('electron')
+const { Menu, Tray, shell, app, ipcMain, nativeTheme, screen } = require('electron')
 const i18n = require('i18next')
 const path = require('path')
 const os = require('os')
@@ -28,6 +28,42 @@ function buildCheckbox (key, label) {
     type: 'checkbox',
     checked: false
   }
+}
+
+const STATUS_ICON_SCALES = [1, 1.5, 2, 2.5, 3, 4, 5]
+
+function asScaleSuffix (value) {
+  return `${Number.isInteger(value) ? value.toFixed(0) : value}x`
+}
+
+function getDisplayScaleFactor () {
+  const scaleFactor = screen.getPrimaryDisplay()?.scaleFactor
+  if (typeof scaleFactor === 'number' && Number.isFinite(scaleFactor) && scaleFactor > 0) {
+    return scaleFactor
+  }
+  return 1
+}
+
+function getStatusMenuIconPath (color) {
+  const statusIconDir = path.resolve(path.join(__dirname, '../assets/icons/status'))
+  const plainIconPath = path.join(statusIconDir, `${color}.png`)
+  if (fs.existsSync(plainIconPath)) {
+    return plainIconPath
+  }
+
+  const scaleFactor = getDisplayScaleFactor()
+  const scalesByDistance = [...STATUS_ICON_SCALES].sort((a, b) => {
+    return Math.abs(a - scaleFactor) - Math.abs(b - scaleFactor)
+  })
+
+  for (const scale of scalesByDistance) {
+    const scaledIconPath = path.join(statusIconDir, `${color}@${asScaleSuffix(scale)}.png`)
+    if (fs.existsSync(scaledIconPath)) {
+      return scaledIconPath
+    }
+  }
+
+  return path.join(statusIconDir, `${color}@1x.png`)
 }
 
 // Notes on this: we are only supporting accelerators on macOS for now because
@@ -67,7 +103,7 @@ async function buildMenu () {
       label: i18n.t(status),
       visible: false,
       enabled: false,
-      icon: path.resolve(path.join(__dirname, `../assets/icons/status/${color}.png`))
+      icon: getStatusMenuIconPath(color)
     })),
     // @ts-ignore
     {
