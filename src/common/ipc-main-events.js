@@ -14,6 +14,7 @@ const ipcMainEvents = Object.freeze({
   COUNTLY_ADD_CONSENT: 'countly.addConsent',
   COUNTLY_REMOVE_CONSENT: 'countly.removeConsent',
   ONLINE_STATUS_CHANGED: 'online-status-changed',
+  WEBUI_VISIBILITY_CHANGED: 'webui-visibility-changed',
   TOGGLE: (key) => `toggle_${key}`
 })
 

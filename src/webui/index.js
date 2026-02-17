@@ -118,6 +118,29 @@ const createWindow = () => {
     store.safeSet('window.height', dim[1])
   })
 
+  let hasShownWindow = false
+  let lastVisibilityState = null
+  const sendVisibilityChange = (isVisible) => {
+    if (window.isDestroyed()) return
+    if (!isVisible && !hasShownWindow) return
+    if (lastVisibilityState === isVisible) return
+    lastVisibilityState = isVisible
+    if (isVisible) hasShownWindow = true
+    window.webContents.send(ipcMainEvents.WEBUI_VISIBILITY_CHANGED, isVisible)
+  }
+
+  window.webContents.on('did-finish-load', () => {
+    sendVisibilityChange(window.isVisible())
+  })
+
+  window.on('show', () => {
+    sendVisibilityChange(true)
+  })
+
+  window.on('hide', () => {
+    sendVisibilityChange(false)
+  })
+
   window.on('close', (event) => {
     event.preventDefault()
     window.hide()
@@ -163,7 +186,21 @@ module.exports = async function () {
   url.hash = '/blank'
   url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
   let lastLoadedUrl = null
+  const getCurrentWebUiUrl = () => {
+    try {
+      const currentUrl = window.webContents.getURL()
+      if (currentUrl.startsWith('webui://-')) {
+        return currentUrl
+      }
+    } catch (_) {}
+    return null
+  }
+
   const loadIfChanged = (nextUrl) => {
+    const currentUrl = getCurrentWebUiUrl()
+    if (currentUrl) {
+      lastLoadedUrl = currentUrl
+    }
     if (lastLoadedUrl === nextUrl) return
     lastLoadedUrl = nextUrl
     window.loadURL(nextUrl)
