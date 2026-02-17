@@ -127,6 +127,11 @@ const createWindow = () => {
 
   window.on('show', () => {
     sendVisibilityChange(true)
+    try {
+      window.webContents.focus()
+    } catch (err) {
+      logger.debug(`[web ui] unable to focus webContents: ${err}`)
+    }
   })
 
   window.on('hide', () => {
