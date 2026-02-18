@@ -224,15 +224,41 @@ module.exports = async function () {
       logger.error(`[web ui] window is destroyed, not launching web ui with ${path}`)
       return
     }
+    const shouldFocusBeforeNavigation = focus && Boolean(path) && !window.isVisible()
+    if (shouldFocusBeforeNavigation) {
+      window.show()
+      window.focus()
+      dock.show()
+    }
     if (forceRefresh) window.webContents.reload()
     if (!path) {
       logger.info('[web ui] launching web ui', { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI })
     } else {
       logger.info(`[web ui] navigate to ${path}`, { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI_WITH_PATH })
-      url.hash = path
-      loadIfChanged(url.toString())
+      const nextPath = String(path)
+      url.hash = nextPath
+      let navigatedInPage = false
+
+      if (!shouldFocusBeforeNavigation && window.isVisible()) {
+        const expectedHash = nextPath.startsWith('#') ? nextPath : `#${nextPath}`
+        try {
+          navigatedInPage = await window.webContents.executeJavaScript(`
+            (() => {
+              const expectedHash = ${JSON.stringify(expectedHash)}
+              if (window.location.hash !== expectedHash) {
+                window.location.hash = ${JSON.stringify(nextPath)}
+              }
+              return window.location.hash === expectedHash
+            })()
+          `, true)
+        } catch (_) {}
+      }
+
+      if (!navigatedInPage) {
+        loadIfChanged(url.toString())
+      }
     }
-    if (focus) {
+    if (focus && !shouldFocusBeforeNavigation) {
       window.show()
       window.focus()
       dock.show()
