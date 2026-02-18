@@ -191,7 +191,7 @@ module.exports = async function () {
   // Set user agent
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
     details.requestHeaders['User-Agent'] = `ipfs-desktop/${VERSION} (Electron ${ELECTRON_VERSION})`
-    callback({ cancel: false, requestHeaders: details.requestHeaders }) // eslint-disable-line
+    callback({ cancel: false, requestHeaders: details.requestHeaders })
   })
 
   const launchWebUI = ctx.getFn('launchWebUI')
