@@ -180,11 +180,18 @@ module.exports = async function () {
     const ipfsd = await getIpfsd(true)
     ipfsdStatus = status
 
-    if (ipfsd && ipfsd.apiAddr !== apiAddress) {
-      apiAddress = ipfsd.apiAddr
-      url.searchParams.set('api', apiAddress.toString())
-      updateLanguage()
-      window.loadURL(url.toString())
+    if (ipfsd) {
+      try {
+        const info = await ipfsd.info()
+        if (info.api && info.api !== apiAddress) {
+          apiAddress = info.api
+          url.searchParams.set('api', apiAddress.toString())
+          updateLanguage()
+          window.loadURL(url.toString())
+        }
+      } catch (e) {
+        // ignore errors getting info
+      }
     }
   })
 

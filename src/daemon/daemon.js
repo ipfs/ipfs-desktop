@@ -1,10 +1,10 @@
-const Ctl = require('ipfsd-ctl')
 const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
 const { applyDefaults, migrateConfig, checkPorts, configExists, checkRepositoryAndConfiguration, removeApiFile, apiFileExists } = require('./config')
 const showMigrationPrompt = require('./migration-prompt')
 const dialogs = require('./dialogs')
 const { app } = require('electron')
+const { getModules } = require('../esm-loader')
 
 /**
  * Get the IPFS binary file path.
@@ -26,21 +26,27 @@ function getIpfsBinPath () {
  *
  * @param {string[]} flags
  * @param {string} path
- * @returns {Promise<import('ipfsd-ctl').Controller|null>}
+ * @returns {Promise<import('ipfsd-ctl').KuboNode|null>}
  */
 async function getIpfsd (flags, path) {
   const ipfsBin = getIpfsBinPath()
+  const { createNode, create } = getModules()
 
-  const ipfsd = await Ctl.createController({
-    ipfsHttpModule: require('ipfs-http-client'),
-    ipfsBin,
-    ipfsOptions: {
-      repo: path
-    },
-    remote: false,
+  // Use explicit path, or IPFS_PATH env var, or default to ~/.ipfs
+  const repoPath = (path && path.length > 0)
+    ? path
+    : process.env.IPFS_PATH || require('path').join(require('os').homedir(), '.ipfs')
+
+  logger.info(`[daemon] creating node with repo: ${repoPath}`)
+  const ipfsd = await createNode({
+    type: 'kubo',
+    rpc: create,
+    bin: ipfsBin,
+    repo: repoPath,
     disposable: false,
     test: false,
-    args: flags
+    init: false, // Don't auto-init, we handle init manually below
+    start: false // Don't auto-start, we handle start manually in startDaemon
   })
 
   // Checks if the repository is valid to use with IPFS Desktop. If not,
@@ -60,6 +66,7 @@ async function getIpfsd (flags, path) {
     isRemote = apiFileExists(ipfsd)
     if (!isRemote) {
       // It's a new repository!
+      logger.info('[daemon] initializing new repository')
       await ipfsd.init()
       applyDefaults(ipfsd)
     }
@@ -76,35 +83,19 @@ async function getIpfsd (flags, path) {
   return ipfsd
 }
 
-function listenToIpfsLogs (ipfsd, callback) {
-  let stdout, stderr
-
-  const listener = data => {
-    callback(data.toString())
+/**
+ * Check if a process with given PID is still alive.
+ * @param {number|undefined} pid
+ * @returns {boolean}
+ */
+function isProcessAlive (pid) {
+  if (!pid) return false
+  try {
+    process.kill(pid, 0)
+    return true
+  } catch (e) {
+    return false
   }
-
-  const interval = setInterval(() => {
-    if (!ipfsd.subprocess) {
-      return
-    }
-
-    stdout = ipfsd.subprocess.stdout
-    stderr = ipfsd.subprocess.stderr
-
-    stdout.on('data', listener)
-    stderr.on('data', listener)
-
-    clearInterval(interval)
-  }, 20)
-
-  const stop = () => {
-    clearInterval(interval)
-
-    if (stdout) stdout.removeListener('data', listener)
-    if (stderr) stderr.removeListener('data', listener)
-  }
-
-  return stop
 }
 
 /**
@@ -115,126 +106,183 @@ function listenToIpfsLogs (ipfsd, callback) {
  */
 
 /**
- * Start IPFS, collects the logs, detects errors and migrations.
+ * Access subprocess streams from ipfsd-ctl KuboNode.
+ * The subprocess property is private in TypeScript but accessible at runtime.
+ * Provides runtime detection with clear error messages if internal API changes.
  *
- * @param {import('ipfsd-ctl').Controller} ipfsd
- * @returns {Promise<IpfsLogs>}
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
+ * @returns {{ stdout: NodeJS.ReadableStream, stderr: NodeJS.ReadableStream } | null}
  */
-async function startIpfsWithLogs (ipfsd) {
-  let err, id, migrationPrompt
-  let isMigrating, isErrored, isFinished
-  let logs = ''
-
-  const isSpawnedDaemonDead = (ipfsd) => {
-    if (typeof ipfsd.subprocess === 'undefined') throw new Error('undefined ipfsd.subprocess, unable to reason about startup errors')
-    if (ipfsd.subprocess === null) return false // not spawned yet or remote
-    if (ipfsd.subprocess?.failed) return true // explicit failure
-
-    // detect when spawned ipfsd process is gone/dead
-    // by inspecting its pid - it should be alive
-    const { pid } = ipfsd.subprocess
-    try {
-      // signal 0 throws if process is missing, noop otherwise
-      process.kill(pid, 0)
-      return false
-    } catch (e) {
-      return true
-    }
+function getSubprocessStreams (ipfsd) {
+  // @ts-ignore - accessing private property for daemon output monitoring
+  if (!('subprocess' in ipfsd)) {
+    logger.warn('[daemon] ipfsd-ctl internals changed: ipfsd.subprocess property missing. ' +
+      'Migration progress detection disabled. ' +
+      'Please report this at https://github.com/ipfs/ipfs-desktop/issues with your ipfsd-ctl version.')
+    return null
   }
 
-  const stopListening = listenToIpfsLogs(ipfsd, data => {
-    logs += data.toString()
-    const line = data.toLowerCase()
-    isMigrating = isMigrating || line.includes('migration')
-    isErrored = isErrored || isSpawnedDaemonDead(ipfsd)
-    isFinished = isFinished || line.includes('daemon is ready')
+  // @ts-ignore
+  const subprocess = ipfsd.subprocess
+  if (!subprocess) {
+    // subprocess is null before start() is called, this is expected
+    return null
+  }
 
-    if (!isMigrating && !isErrored) {
-      return
+  if (!subprocess.stdout || !subprocess.stderr) {
+    logger.warn('[daemon] ipfsd-ctl internals changed: subprocess.stdout/stderr unavailable. ' +
+      'Migration progress detection disabled. ' +
+      'Please report this at https://github.com/ipfs/ipfs-desktop/issues with your ipfsd-ctl version.')
+    return null
+  }
+
+  return { stdout: subprocess.stdout, stderr: subprocess.stderr }
+}
+
+/**
+ * Start IPFS, monitoring stdout/stderr for migrations and errors.
+ *
+ * @param {import('ipfsd-ctl').KuboNode} ipfsd
+ * @param {string[]} flags - daemon flags to pass to start()
+ * @returns {Promise<IpfsLogs>}
+ */
+async function startIpfsWithLogs (ipfsd, flags) {
+  let err, id, migrationPrompt
+  let logs = ''
+  let isMigrating = false
+  let isFinished = false
+  let cleanupListeners = () => {}
+
+  // ipfsd.start() spawns the process and waits for "daemon is ready"
+  // We wrap it to also monitor stdout/stderr for migration progress
+  const startPromise = ipfsd.start({ args: flags })
+
+  // Set up output monitoring after start() spawns the subprocess
+  // Use setImmediate to let start() create the subprocess first
+  setImmediate(() => {
+    const streams = getSubprocessStreams(ipfsd)
+    if (!streams) return
+
+    const { stdout, stderr } = streams
+
+    const handleOutput = (data) => {
+      const str = data.toString()
+      logs += str
+
+      const line = str.toLowerCase()
+      isMigrating = isMigrating || line.includes('migration')
+      isFinished = isFinished || line.includes('daemon is ready')
+
+      // Show migration UI on first migration indicator
+      if (isMigrating && !migrationPrompt) {
+        logger.info('[daemon] repo migration detected')
+        migrationPrompt = showMigrationPrompt(logs, false, false)
+      }
+
+      // Update migration UI with progress
+      if (migrationPrompt && !isFinished) {
+        migrationPrompt.update(logs)
+      }
     }
 
-    if (!migrationPrompt) {
-      logger.info('[daemon] ipfs data store is migrating')
-      migrationPrompt = showMigrationPrompt(logs, isErrored, isFinished)
-      return
-    }
+    stdout.on('data', handleOutput)
+    stderr.on('data', handleOutput)
 
-    if (isErrored || isFinished) {
-      // forced show on error or when finished,
-      // because user could close it to run in background
-      migrationPrompt.loadWindow(logs, isErrored, isFinished)
-    } else { // update progress if the window is still around
-      migrationPrompt.update(logs)
+    cleanupListeners = () => {
+      stdout.removeListener('data', handleOutput)
+      stderr.removeListener('data', handleOutput)
     }
   })
 
   try {
-    await ipfsd.start()
+    await startPromise
     const idRes = await ipfsd.api.id()
-    id = idRes.id
+    id = idRes.id.toString()
+
+    // Verify daemon is actually alive
+    const info = await ipfsd.info()
+    if (info.pid && !isProcessAlive(info.pid)) {
+      throw new Error('IPFS daemon process exited unexpectedly after start')
+    }
   } catch (e) {
     err = e
-  } finally {
-    // stop monitoring daemon output - we only care about startup phase
-    stopListening()
+    if (logs.trim().length === 0) {
+      logs = e.message || 'ipfs daemon failed to start (see error.log for details)'
+    }
+    logger.error(`[daemon] startup error: ${logs}`)
 
-    // Show startup error using the same UI as migrations.
-    // This is catch-all that will show stdout/stderr of ipfs daemon
-    // that failed to start, allowing user to self-diagnose or report issue.
-    isErrored = isErrored || isSpawnedDaemonDead(ipfsd)
-    if (isErrored) { // save daemon output to error.log
-      if (logs.trim().length === 0) {
-        logs = 'ipfs daemon failed to start and produced no output (see error.log for details)'
-      }
-      logger.error(logs)
-      if (migrationPrompt) {
-        migrationPrompt.loadWindow(logs, isErrored, isFinished)
-      } else {
-        showMigrationPrompt(logs, isErrored, isFinished)
-      }
+    // Show error in migration UI
+    if (migrationPrompt) {
+      migrationPrompt.loadWindow(logs, true, false)
+    } else {
+      showMigrationPrompt(logs, true, false)
+    }
+  } finally {
+    cleanupListeners()
+
+    // Close migration prompt on success
+    if (!err && migrationPrompt) {
+      migrationPrompt.loadWindow('', false, true)
     }
   }
 
-  return {
-    err, id, logs
-  }
+  return { err, id, logs }
 }
 
 /**
  * Start the IPFS daemon.
  *
  * @param {any} opts
- * @returns {Promise<{ ipfsd: import('ipfsd-ctl').Controller|undefined } & IpfsLogs>}
+ * @returns {Promise<{ ipfsd: import('ipfsd-ctl').KuboNode|undefined, weSpawnedDaemon: boolean } & IpfsLogs>}
  */
 async function startDaemon (opts) {
-  const ipfsd = await getIpfsd(opts.flags, opts.path)
+  const flags = opts.flags || []
+  const ipfsd = await getIpfsd(flags, opts.path)
   if (ipfsd === null) {
     app.quit()
-    return { ipfsd: undefined, err: new Error('get ipfsd failed'), id: undefined, logs: '' }
+    return { ipfsd: undefined, err: new Error('get ipfsd failed'), id: undefined, logs: '', weSpawnedDaemon: false }
   }
 
-  let { err, logs, id } = await startIpfsWithLogs(ipfsd)
+  // Check if api file exists BEFORE starting - if it does, we're connecting
+  // to an external daemon (not spawning our own)
+  const apiExistedBeforeStart = apiFileExists(ipfsd)
+
+  let { err, logs, id } = await startIpfsWithLogs(ipfsd, flags)
+  // We spawned the daemon if api file didn't exist before start
+  let weSpawnedDaemon = !apiExistedBeforeStart
+
   if (err) {
     if (!err.message.includes('ECONNREFUSED') && !err.message.includes('ERR_CONNECTION_REFUSED')) {
-      return { ipfsd, err, logs, id }
+      return { ipfsd, err, logs, id, weSpawnedDaemon }
     }
 
     if (!configExists(ipfsd)) {
-      dialogs.cannotConnectToApiDialog(ipfsd.apiAddr.toString())
-      return { ipfsd, err, logs, id }
+      // Try to get API address from info(), fallback to default
+      let apiAddr = '/ip4/127.0.0.1/tcp/5001'
+      try {
+        const info = await ipfsd.info()
+        if (info.api) apiAddr = info.api
+      } catch (e) {
+        // ignore, use default
+      }
+      dialogs.cannotConnectToApiDialog(apiAddr)
+      return { ipfsd, err, logs, id, weSpawnedDaemon }
     }
 
+    // Stale api file from crashed daemon - remove and retry
     logger.info('[daemon] removing api file')
     removeApiFile(ipfsd)
 
-    const errLogs = await startIpfsWithLogs(ipfsd)
+    const errLogs = await startIpfsWithLogs(ipfsd, flags)
     err = errLogs.err
     logs = errLogs.logs
     id = errLogs.id
+    // After removing stale api and retrying, we spawned our own daemon
+    weSpawnedDaemon = true
   }
 
   // If we have an error here, it should have been handled by startIpfsWithLogs.
-  return { ipfsd, err, logs, id }
+  return { ipfsd, err, logs, id, weSpawnedDaemon }
 }
 
 module.exports = startDaemon

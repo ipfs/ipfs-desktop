@@ -11,7 +11,8 @@
     "lint:fix": "ts-standard --fix && standard --fix",
     "test": "cross-env NODE_ENV=test playwright test 'test/unit/.*.spec.js'",
     "test:e2e": "xvfb-maybe cross-env NODE_ENV=test playwright test -c test/e2e/playwright.config.js",
-    "postinstall": "run-s install-app-deps patch-deps macos-universal-kubo",
+    "postinstall": "run-s install-app-deps patch-deps bundle-esm macos-universal-kubo",
+    "bundle-esm": "node scripts/bundle-esm.js",
     "install-app-deps": "electron-builder install-app-deps",
     "macos-universal-kubo": "node pkgs/macos/build-universal-kubo-binary.js",
     "patch-deps": "patch-package",
@@ -47,13 +48,18 @@
   "devDependencies": {
     "@electron/notarize": "^1.2.3",
     "@ipfs-shipyard/release-please-ipfs-plugin": "^1.0.0",
+    "@multiformats/multiaddr": "^13.0.0",
+    "@multiformats/multiaddr-to-uri": "^12.0.0",
     "@playwright/test": "^1.50.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
     "electron": "^39.2.4",
     "electron-builder": "26.0.11",
+    "esbuild": "^0.27.2",
     "got": "^12.0.3",
     "ipfs-or-gateway": "^4.1.0",
+    "ipfsd-ctl": "^16.0.0",
+    "kubo-rpc-client": "^6.0.0",
     "npm-run-all": "^4.1.5",
     "patch-package": "^6.5.1",
     "playwright": "^1.51.1",
@@ -78,13 +84,8 @@
     "i18next-fs-backend": "1.1.4",
     "i18next-icu": "^2.0.3",
     "intl-messageformat": "^9.13.0",
-    "ipfs-http-client": "56.0.2",
-    "ipfs-utils": "^9.0.10",
-    "ipfsd-ctl": "10.0.6",
     "it-last": "^1.0.6",
     "kubo": "0.39.0",
-    "multiaddr": "10.0.1",
-    "multiaddr-to-uri": "8.0.0",
     "portfinder": "^1.0.32",
     "untildify": "^4.0.0",
     "v8-compile-cache": "^2.4.0",
@@ -92,7 +93,8 @@
   },
   "standard": {
     "ignore": [
-      "**/*.ts"
+      "**/*.ts",
+      "src/esm-bundle.cjs"
     ]
   },
   "ts-standard": {
