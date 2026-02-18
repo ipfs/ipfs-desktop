@@ -1,11 +1,12 @@
 const { app, shell } = require('electron')
+const WEBUI_ORIGIN = 'webui://localhost'
 
 module.exports = function () {
   app.on('web-contents-created', (_, contents) => {
     contents.on('will-navigate', (event, url) => {
       const parsedUrl = new URL(url)
 
-      if (parsedUrl.origin !== 'webui://-') {
+      if (parsedUrl.origin !== WEBUI_ORIGIN) {
         event.preventDefault()
         shell.openExternal(url)
       }

@@ -18,6 +18,7 @@ const { analyticsKeys } = require('../analytics/keys')
 const ipcMainEvents = require('../common/ipc-main-events')
 const getCtx = require('../context')
 const { STATUS } = require('../daemon/consts')
+const WEBUI_ORIGIN = 'webui://localhost'
 
 const serveReady = Promise.resolve()
   .then(() => import('electron-serve'))
@@ -167,6 +168,13 @@ module.exports = async function () {
   logger.info('[webui] init...')
   await serveReady
   const ctx = getCtx()
+  const isWebUiUrl = (value) => {
+    try {
+      return new URL(value).origin === WEBUI_ORIGIN
+    } catch (_) {
+      return false
+    }
+  }
 
   if (store.get(CONFIG_KEY, null) === null) {
     // First time running this. Enable opening ipfs-webui at app launch.
@@ -187,14 +195,14 @@ module.exports = async function () {
   ctx.setProp('webui', window)
   let apiAddress = null
 
-  const url = new URL('/', 'webui://-')
+  const url = new URL('/', WEBUI_ORIGIN)
   url.hash = '/blank'
   url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
   let lastLoadedUrl = null
   const getCurrentWebUiUrl = () => {
     try {
       const currentUrl = window.webContents.getURL()
-      if (currentUrl.startsWith('webui://-')) {
+      if (isWebUiUrl(currentUrl)) {
         return currentUrl
       }
     } catch (_) {}
@@ -244,7 +252,7 @@ module.exports = async function () {
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
       try {
         const currentUrl = window.webContents.getURL()
-        if (currentUrl.startsWith('webui://-')) {
+        if (isWebUiUrl(currentUrl)) {
           url.hash = new URL(currentUrl).hash
         }
       } catch (err) {
