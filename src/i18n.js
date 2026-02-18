@@ -3,12 +3,12 @@ const { ipcMain } = require('electron')
 const i18n = require('i18next')
 const ICU = require('i18next-icu')
 const Backend = require('i18next-fs-backend')
-const store = require('./common/store')
-const ipcMainEvents = require('./common/ipc-main-events')
-const logger = require('./common/logger')
-const getCtx = require('./context')
+const store = require('./common/store.js')
+const ipcMainEvents = require('./common/ipc-main-events.js')
+const logger = require('./common/logger.js')
+const getCtx = require('./context.js')
 
-module.exports = async function () {
+const defaultExport = async function () {
   const ctx = getCtx()
   logger.info('[i18n] init...')
   const lng = store.get('language')
@@ -63,3 +63,5 @@ module.exports = async function () {
     })
   })
 }
+
+module.exports = defaultExport

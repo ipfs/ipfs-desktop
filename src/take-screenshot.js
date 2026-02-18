@@ -1,13 +1,13 @@
 const i18n = require('i18next')
 const { clipboard, nativeImage, ipcMain } = require('electron')
-const logger = require('./common/logger')
-const { IS_MAC } = require('./common/consts')
-const { notify, notifyError } = require('./common/notify')
-const { SCREENSHOT_SHORTCUT: CONFIG_KEY } = require('./common/config-keys')
-const setupGlobalShortcut = require('./utils/setup-global-shortcut')
-const { analyticsKeys } = require('./analytics/keys')
-const ipcMainEvents = require('./common/ipc-main-events')
-const getCtx = require('./context')
+const logger = require('./common/logger.js')
+const { IS_MAC } = require('./common/consts.js')
+const { notify, notifyError } = require('./common/notify.js')
+const { SCREENSHOT_SHORTCUT: CONFIG_KEY } = require('./common/config-keys.js')
+const setupGlobalShortcut = require('./utils/setup-global-shortcut.js')
+const { analyticsKeys } = require('./analytics/keys.js')
+const ipcMainEvents = require('./common/ipc-main-events.js')
+const getCtx = require('./context.js')
 
 const SHORTCUT = IS_MAC
   ? 'Command+Control+S'
@@ -108,7 +108,7 @@ async function takeScreenshot () {
   webui.webContents.send('screenshot')
 }
 
-module.exports = function () {
+const defaultExport = function () {
   setupGlobalShortcut({
     confirmationDialog: {
       title: i18n.t('enableGlobalTakeScreenshotShortcut.title'),
@@ -124,5 +124,6 @@ module.exports = function () {
   ipcMain.on(ipcMainEvents.SCREENSHOT, handleScreenshot())
 }
 
+module.exports = defaultExport
 module.exports.takeScreenshot = takeScreenshot
 module.exports.SHORTCUT = SHORTCUT

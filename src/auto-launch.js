@@ -5,12 +5,12 @@ const os = require('os')
 const path = require('path')
 const fs = require('fs-extra')
 const untildify = require('untildify')
-const createToggler = require('./utils/create-toggler')
-const logger = require('./common/logger')
-const store = require('./common/store')
-const { IS_MAC, IS_WIN } = require('./common/consts')
-const { AUTO_LAUNCH: CONFIG_KEY } = require('./common/config-keys')
-const { showDialog, recoverableErrorDialog } = require('./dialogs')
+const createToggler = require('./utils/create-toggler.js')
+const logger = require('./common/logger.js')
+const store = require('./common/store.js')
+const { IS_MAC, IS_WIN } = require('./common/consts.js')
+const { AUTO_LAUNCH: CONFIG_KEY } = require('./common/config-keys.js')
+const { showDialog, recoverableErrorDialog } = require('./dialogs/index.js')
 
 function isSupported () {
   const plat = os.platform()
@@ -49,7 +49,7 @@ async function disable () {
   await fs.remove(getDesktopFile())
 }
 
-module.exports = async function () {
+const defaultExport = async function () {
   const activate = async ({ newValue, oldValue, feedback }) => {
     if (process.env.NODE_ENV === 'development') {
       logger.info('[launch on startup] unavailable during development')
@@ -109,4 +109,5 @@ module.exports = async function () {
   createToggler(CONFIG_KEY, activate)
 }
 
+module.exports = defaultExport
 module.exports.isSupported = isSupported

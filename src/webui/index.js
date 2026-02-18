@@ -4,21 +4,21 @@ const { join } = require('path')
 const { URL } = require('url')
 const serve = require('electron-serve')
 const i18n = require('i18next')
-const openExternal = require('./open-external')
-const logger = require('../common/logger')
-const store = require('../common/store')
-const { OPEN_WEBUI_LAUNCH: CONFIG_KEY } = require('../common/config-keys')
-const dock = require('../utils/dock')
-const { VERSION, ELECTRON_VERSION } = require('../common/consts')
-const createToggler = require('../utils/create-toggler')
-const { showDialog } = require('../dialogs')
-const { getSecondsSinceAppStart } = require('../metrics/appStart')
+const openExternal = require('./open-external.js')
+const logger = require('../common/logger.js')
+const store = require('../common/store.js')
+const { OPEN_WEBUI_LAUNCH: CONFIG_KEY } = require('../common/config-keys.js')
+const dock = require('../utils/dock.js')
+const { VERSION, ELECTRON_VERSION } = require('../common/consts.js')
+const createToggler = require('../utils/create-toggler.js')
+const { showDialog } = require('../dialogs/index.js')
+const { getSecondsSinceAppStart } = require('../metrics/appStart.js')
 const { performance } = require('perf_hooks')
 const Countly = require('countly-sdk-nodejs')
-const { analyticsKeys } = require('../analytics/keys')
-const ipcMainEvents = require('../common/ipc-main-events')
-const getCtx = require('../context')
-const { STATUS } = require('../daemon/consts')
+const { analyticsKeys } = require('../analytics/keys.js')
+const ipcMainEvents = require('../common/ipc-main-events.js')
+const getCtx = require('../context.js')
+const { STATUS } = require('../daemon/consts.js')
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
@@ -121,7 +121,7 @@ const createWindow = () => {
   return window
 }
 
-module.exports = async function () {
+const defaultExport = async function () {
   logger.info('[webui] init...')
   const ctx = getCtx()
 
@@ -241,3 +241,5 @@ module.exports = async function () {
     window.loadURL(url.toString())
   }))
 }
+
+module.exports = defaultExport

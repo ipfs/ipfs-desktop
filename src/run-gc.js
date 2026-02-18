@@ -1,12 +1,12 @@
 const i18n = require('i18next')
 const { ipcMain } = require('electron')
-const logger = require('./common/logger')
-const { showDialog, recoverableErrorDialog } = require('./dialogs')
-const dock = require('./utils/dock')
-const ipcMainEvents = require('./common/ipc-main-events')
-const getCtx = require('./context')
+const logger = require('./common/logger.js')
+const { showDialog, recoverableErrorDialog } = require('./dialogs/index.js')
+const dock = require('./utils/dock.js')
+const ipcMainEvents = require('./common/ipc-main-events.js')
+const getCtx = require('./context.js')
 
-module.exports = function runGarbageCollector () {
+function runGarbageCollector () {
   dock.run(async () => {
     logger.info('[run gc] alerting user for effects')
     const ctx = getCtx()
@@ -70,3 +70,5 @@ module.exports = function runGarbageCollector () {
     ipcMain.emit(ipcMainEvents.GC_ENDED)
   })
 }
+
+module.exports = runGarbageCollector

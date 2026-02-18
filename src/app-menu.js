@@ -1,5 +1,5 @@
 const { app, Menu, shell } = require('electron')
-const logger = require('./common/logger')
+const logger = require('./common/logger.js')
 
 const template = [
   {
@@ -88,9 +88,11 @@ if (process.platform === 'darwin') {
   ]
 }
 
-module.exports = function () {
+const defaultExport = function () {
   logger.info('[appMenu] init...')
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
   logger.info('[appMenu] init done...')
 }
+
+module.exports = defaultExport

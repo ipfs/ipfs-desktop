@@ -1,9 +1,9 @@
-const createToggler = require('./utils/create-toggler')
-const logger = require('./common/logger')
-const store = require('./common/store')
-const { EXPERIMENT_PUBSUB_NAMESYS: CONFIG_KEY } = require('./common/config-keys')
+const createToggler = require('./utils/create-toggler.js')
+const logger = require('./common/logger.js')
+const store = require('./common/store.js')
+const { EXPERIMENT_PUBSUB_NAMESYS: CONFIG_KEY } = require('./common/config-keys.js')
 const { ipcMain } = require('electron')
-const ipcMainEvents = require('./common/ipc-main-events')
+const ipcMainEvents = require('./common/ipc-main-events.js')
 
 const namesysPubsubFlag = '--enable-namesys-pubsub'
 const isEnabled = flags => flags.some(f => f === namesysPubsubFlag)
@@ -30,7 +30,7 @@ function applyConfig (newFlags) {
   })
 }
 
-module.exports = async function () {
+const defaultExport = async function () {
   const activate = ({ newValue, oldValue = null }) => {
     if (newValue === oldValue) return
 
@@ -52,3 +52,5 @@ module.exports = async function () {
   createToggler(CONFIG_KEY, activate)
   logger.info(`[ipns over pubsub] ${store.get(CONFIG_KEY, false) ? 'enabled' : 'disabled'}`)
 }
+
+module.exports = defaultExport

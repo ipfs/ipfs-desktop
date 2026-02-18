@@ -1,14 +1,14 @@
 const { globalShortcut, ipcMain } = require('electron')
 const i18n = require('i18next')
-const createToggler = require('./create-toggler')
-const store = require('../common/store')
-const { IS_MAC } = require('../common/consts')
-const { showDialog } = require('../dialogs')
-const ipcMainEvents = require('../common/ipc-main-events')
+const createToggler = require('./create-toggler.js')
+const store = require('../common/store.js')
+const { IS_MAC } = require('../common/consts.js')
+const { showDialog } = require('../dialogs/index.js')
+const ipcMainEvents = require('../common/ipc-main-events.js')
 
 // This function registers a global shortcut/accelerator with a certain action
 // and (de)activates it according to its 'settingsOption' value on settings.
-module.exports = function ({ settingsOption, accelerator, action, confirmationDialog }) {
+const defaultExport = function ({ settingsOption, accelerator, action, confirmationDialog }) {
   const activate = ({ newValue, oldValue, feedback }) => {
     if (newValue === oldValue) return
 
@@ -56,3 +56,5 @@ module.exports = function ({ settingsOption, accelerator, action, confirmationDi
     }
   })
 }
+
+module.exports = defaultExport

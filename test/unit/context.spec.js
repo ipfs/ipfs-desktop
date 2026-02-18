@@ -2,9 +2,9 @@ const { test, expect } = require('@playwright/test')
 const proxyquire = require('proxyquire').noCallThru()
 const sinon = require('sinon')
 
-const mockElectron = require('./mocks/electron')
-const mockLogger = require('./mocks/logger')
-const mockNotify = require('./mocks/notify')
+const mockElectron = require('./mocks/electron.js')
+const mockLogger = require('./mocks/logger.js')
+const mockNotify = require('./mocks/notify.js')
 
 const testGetAndSet = async (ctx, propertyName, value) => {
   ctx.setProp(propertyName, value)
@@ -15,7 +15,7 @@ const testGetAndSet = async (ctx, propertyName, value) => {
 test.describe('App Context', () => {
   let ctx, getCtx
   test.beforeEach(async () => {
-    getCtx = proxyquire('../../src/context', {
+    getCtx = proxyquire('../../src/context.js', {
       electron: mockElectron(),
       './common/notify': mockNotify(),
       './common/logger': mockLogger()

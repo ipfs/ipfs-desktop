@@ -1,6 +1,6 @@
 const sinon = require('sinon')
 const { test, expect } = require('@playwright/test')
-const mockElectron = require('./mocks/electron')
+const mockElectron = require('./mocks/electron.js')
 
 const proxyquire = require('proxyquire')
   .noCallThru()
@@ -9,21 +9,21 @@ const proxyquire = require('proxyquire')
 test.describe('Dock', () => {
   test('show dock succeeds with dock (macOS)', () => {
     const electron = mockElectron({ withDock: true })
-    const { show } = proxyquire('../../src/utils/dock', { electron })
+    const { show } = proxyquire('../../src/utils/dock.js', { electron })
     show()
     expect(electron.app.dock.show.callCount).toEqual(1)
   })
 
   test('show dock succeeds without dock (other OSes)', () => {
     const electron = mockElectron()
-    const { show } = proxyquire('../../src/utils/dock', { electron })
+    const { show } = proxyquire('../../src/utils/dock.js', { electron })
     show()
   })
 
   test('hide dock succeeds with dock and no windows (macOS)', () => {
     const electron = mockElectron({ withDock: true })
     electron.BrowserWindow.getAllWindows.returns([])
-    const { hide } = proxyquire('../../src/utils/dock', { electron })
+    const { hide } = proxyquire('../../src/utils/dock.js', { electron })
     hide()
     expect(electron.app.dock.hide.callCount).toEqual(1)
   })
@@ -35,7 +35,7 @@ test.describe('Dock', () => {
       { isVisible: sinon.stub().returns(false) }
     ]
     electron.BrowserWindow.getAllWindows.returns(windows)
-    const { hide } = proxyquire('../../src/utils/dock', { electron })
+    const { hide } = proxyquire('../../src/utils/dock.js', { electron })
     hide()
     expect(windows[0].isVisible.callCount).toEqual(1)
     expect(windows[1].isVisible.callCount).toEqual(1)
@@ -49,7 +49,7 @@ test.describe('Dock', () => {
       { isVisible: sinon.stub().returns(false) }
     ]
     electron.BrowserWindow.getAllWindows.returns(windows)
-    const { hide } = proxyquire('../../src/utils/dock', { electron })
+    const { hide } = proxyquire('../../src/utils/dock.js', { electron })
     hide()
     expect(windows[0].isVisible.callCount).toEqual(1)
     expect(windows[1].isVisible.callCount).toEqual(1)
@@ -58,14 +58,14 @@ test.describe('Dock', () => {
 
   test('hide dock succeeds without dock (other OSes)', () => {
     const electron = mockElectron()
-    const { hide } = proxyquire('../../src/utils/dock', { electron })
+    const { hide } = proxyquire('../../src/utils/dock.js', { electron })
     hide()
   })
 
   test('runs async function with dock (macOS)', async () => {
     const electron = mockElectron({ withDock: true })
     electron.BrowserWindow.getAllWindows.returns([])
-    const { run } = proxyquire('../../src/utils/dock', { electron })
+    const { run } = proxyquire('../../src/utils/dock.js', { electron })
     const fn = sinon.stub().resolves(5)
     const res = await run(fn)
     expect(res).toEqual(5)
@@ -77,7 +77,7 @@ test.describe('Dock', () => {
   test('runs async function without dock (other OSes)', async () => {
     const electron = mockElectron()
     electron.BrowserWindow.getAllWindows.returns([])
-    const { run } = proxyquire('../../src/utils/dock', { electron })
+    const { run } = proxyquire('../../src/utils/dock.js', { electron })
     const fn = sinon.stub().resolves(5)
     const res = await run(fn)
     expect(res).toEqual(5)
@@ -86,7 +86,7 @@ test.describe('Dock', () => {
   test('runs sync function with dock (macOS)', () => {
     const electron = mockElectron({ withDock: true })
     electron.BrowserWindow.getAllWindows.returns([])
-    const { runSync } = proxyquire('../../src/utils/dock', { electron })
+    const { runSync } = proxyquire('../../src/utils/dock.js', { electron })
     const fn = sinon.stub().returns(5)
     const res = runSync(fn)
     expect(res).toEqual(5)
@@ -98,7 +98,7 @@ test.describe('Dock', () => {
   test('runs sync function without dock (other OSes)', () => {
     const electron = mockElectron()
     electron.BrowserWindow.getAllWindows.returns([])
-    const { runSync } = proxyquire('../../src/utils/dock', { electron })
+    const { runSync } = proxyquire('../../src/utils/dock.js', { electron })
     const fn = sinon.stub().returns(5)
     const res = runSync(fn)
     expect(res).toEqual(5)

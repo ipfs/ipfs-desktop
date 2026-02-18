@@ -1,10 +1,10 @@
 const i18n = require('i18next')
 const { app, dialog } = require('electron')
-const { showDialog } = require('./dialogs')
-const logger = require('./common/logger')
-const store = require('./common/store')
-const dock = require('./utils/dock')
-const getCtx = require('./context')
+const { showDialog } = require('./dialogs/index.js')
+const logger = require('./common/logger.js')
+const store = require('./common/store.js')
+const dock = require('./utils/dock.js')
+const getCtx = require('./context.js')
 
 const SETTINGS_KEY = 'binaryPath'
 
