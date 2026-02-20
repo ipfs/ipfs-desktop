@@ -419,11 +419,11 @@ async function checkPorts (ipfsd) {
   }
 
   if (busyApiPort) {
-    config.Addresses.API = config.Addresses.API.replace(apiPort.toString(), freeApiPort.toString())
+    config.Addresses.API = config.Addresses.API.replace(`/tcp/${apiPort}`, `/tcp/${freeApiPort}`)
   }
 
   if (busyGatewayPort) {
-    config.Addresses.Gateway = config.Addresses.Gateway.replace(gatewayPort.toString(), freeGatewayPort.toString())
+    config.Addresses.Gateway = config.Addresses.Gateway.replace(`/tcp/${gatewayPort}`, `/tcp/${freeGatewayPort}`)
   }
 
   writeConfigFile(ipfsd, config)
