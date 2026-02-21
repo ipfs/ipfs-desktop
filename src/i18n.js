@@ -1,11 +1,11 @@
 const { join } = require('path')
 const { ipcMain } = require('electron')
 const i18n = require('i18next')
-const ICU = require('i18next-icu')
 const Backend = require('i18next-fs-backend')
-const store = require('./common/store')
+const ICU = require('i18next-icu')
 const ipcMainEvents = require('./common/ipc-main-events')
 const logger = require('./common/logger')
+const store = require('./common/store')
 const getCtx = require('./context')
 
 module.exports = async function () {
@@ -29,7 +29,7 @@ module.exports = async function () {
         loadPath: join(__dirname, '../assets/locales/{{lng}}.json')
       }
     },
-    (err, t) => {
+    (err) => {
       if (err) {
         /**
          * even if an error occurs here, i18n still may work properly.

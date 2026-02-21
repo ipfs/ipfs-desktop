@@ -1,9 +1,8 @@
-// @ts-check
 const { ipcRenderer, contextBridge } = require('electron')
-const screenshotHook = require('./screenshot')
-const connectionHook = require('./connection-status')
 const { COUNTLY_KEY, VERSION } = require('../common/consts')
 const ipcMainEvents = require('../common/ipc-main-events')
+const connectionHook = require('./connection-status')
+const screenshotHook = require('./screenshot')
 
 screenshotHook()
 connectionHook()
@@ -14,11 +13,11 @@ let previousHash = null
 
 function checkIfVisible () {
   if (document.hidden) {
-    if (window.location.hash === '#/blank') return // skip, already blank
+    if (window.location.hash === '#/blank') { return } // skip, already blank
     previousHash = window.location.hash
     window.location.hash = '/blank'
   } else {
-    if (previousHash === '#/blank') return // skip
+    if (previousHash === '#/blank') { return } // skip
     window.location.hash = previousHash
   }
 }
@@ -33,7 +32,7 @@ document.addEventListener('DOMContentReady', () => {
 
 // track hash changes, so checkIfVisible always has the right previousHash
 document.addEventListener('hashchange', () => {
-  if (window.location.hash === '#/blank') return // skip
+  if (window.location.hash === '#/blank') { return } // skip
   previousHash = window.location.hash
 })
 

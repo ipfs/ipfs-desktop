@@ -47,8 +47,8 @@ function multipleBusyPortsDialog () {
 /**
  * Dialog to show when there is a busy port and we offer an alternative.
  *
- * @param {Number} port is the busy port
- * @param {Number} alt is the alternative free port
+ * @param {number} port - is the busy port
+ * @param {number} alt - is the alternative free port
  * @returns {boolean} use the alternative port
  */
 function busyPortDialog (port, alt) {
@@ -69,10 +69,10 @@ function busyPortDialog (port, alt) {
 /**
  * Dialog to show when there are two busy ports and we offer an alternative.
  *
- * @param {Number} port1 is the busy port 1
- * @param {Number} alt1 is the alternative free port 1
- * @param {Number} port2 is the busy port 2
- * @param {Number} alt2 is the alternative free port 2
+ * @param {number} port1 - is the busy port 1
+ * @param {number} alt1 - is the alternative free port 1
+ * @param {number} port2 - is the busy port 2
+ * @param {number} alt2 - is the alternative free port 2
  * @returns {boolean} use the alternative port
  */
 function busyPortsDialog (port1, alt1, port2, alt2) {

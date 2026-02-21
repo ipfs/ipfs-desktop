@@ -1,14 +1,14 @@
 const { shell, app, BrowserWindow, Notification } = require('electron')
+const { ipcMain } = require('electron')
 const { autoUpdater } = require('electron-updater')
 const i18n = require('i18next')
-const { ipcMain } = require('electron')
-const logger = require('../common/logger')
-const { showDialog } = require('../dialogs')
+const CONFIG_KEYS = require('../common/config-keys')
 const { IS_MAC, IS_WIN, IS_APPIMAGE } = require('../common/consts')
 const ipcMainEvents = require('../common/ipc-main-events')
-const getCtx = require('../context')
+const logger = require('../common/logger')
 const store = require('../common/store')
-const CONFIG_KEYS = require('../common/config-keys')
+const getCtx = require('../context')
+const { showDialog } = require('../dialogs')
 
 function isAutoUpdateSupported () {
   if (store.get(CONFIG_KEYS.DISABLE_AUTO_UPDATE, false)) {
@@ -64,7 +64,7 @@ function setup () {
     try {
       await autoUpdater.downloadUpdate()
     } catch (err) {
-      logger.error(`[updater] ${err.toString()}`)
+      logger.error(`[updater] ${String(err)}`)
     }
 
     if (!feedback) {

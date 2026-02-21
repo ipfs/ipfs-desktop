@@ -1,11 +1,11 @@
+const http = require('http')
 const { join } = require('path')
+const { shell } = require('electron')
 const fs = require('fs-extra')
 const { multiaddr } = require('multiaddr')
-const http = require('http')
 const portfinder = require('portfinder')
-const { shell } = require('electron')
-const store = require('../common/store')
 const logger = require('../common/logger')
+const store = require('../common/store')
 const dialogs = require('./dialogs')
 
 /**
@@ -72,7 +72,7 @@ function readConfigFile (ipfsd) {
  * Writes the repository configuration file.
  *
  * @param {import('ipfsd-ctl').Controller} ipfsd
- * @param {Object<string, any>} config
+ * @param {{[key in string]: any}} config
  */
 function writeConfigFile (ipfsd, config) {
   fs.writeJsonSync(getConfigFilePath(ipfsd), config, { spaces: 2 })
@@ -121,7 +121,7 @@ function parseMultiaddr (addr) {
 /**
  * Get local HTTP port.
  *
- * @param {array|string} addrs
+ * @param {Array | string} addrs
  * @returns {number} the port
  */
 function getHttpPort (addrs) {
@@ -158,7 +158,7 @@ function migrateConfig (ipfsd) {
   const CURRENT_REVISION = store.get(REVISION_KEY, 0)
 
   // Migration is applied only once per revision
-  if (CURRENT_REVISION >= REVISION) return
+  if (CURRENT_REVISION >= REVISION) { return }
 
   // Read config
   let config = null
@@ -167,7 +167,11 @@ function migrateConfig (ipfsd) {
     config = readConfigFile(ipfsd)
   } catch (err) {
     // This is a best effort check, dont blow up here, that should happen else where.
-    logger.error(`[daemon] migrateConfig: error reading config file: ${err.message || err}`)
+    if (err instanceof Error) {
+      logger.error(`[daemon] migrateConfig: error reading config file: ${err.message}`)
+    } else {
+      logger.error(`[daemon] migrateConfig: error reading config file: ${String(err)}`)
+    }
     return
   }
 
@@ -259,7 +263,11 @@ function migrateConfig (ipfsd) {
       writeConfigFile(ipfsd, config)
       store.safeSet(REVISION_KEY, REVISION)
     } catch (err) {
-      logger.error(`[daemon] migrateConfig: error writing config file: ${err.message || err}`)
+      if (err instanceof Error) {
+        logger.error(`[daemon] migrateConfig: error writing config file: ${err.message}`)
+      } else {
+        logger.error(`[daemon] migrateConfig: error writing config file: ${String(err)}`)
+      }
       return
     }
   }
@@ -475,7 +483,7 @@ function checkRepositoryAndConfiguration (ipfsd) {
     return true
   } catch (e) {
     // Save to error.log
-    logger.error(e)
+    logger.error(String(e))
     dialogs.repositoryIsInvalidDialog(ipfsd.path)
     return false
   }

@@ -1,7 +1,6 @@
-// @ts-check
-
 /**
  * This should be an enum once we migrate to typescript
+ *
  * @readonly
  * @type {import('countly-sdk-nodejs').AnalyticsKeys}
  */

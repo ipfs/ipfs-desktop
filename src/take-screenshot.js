@@ -1,13 +1,13 @@
-const i18n = require('i18next')
 const { clipboard, nativeImage, ipcMain } = require('electron')
-const logger = require('./common/logger')
-const { IS_MAC } = require('./common/consts')
-const { notify, notifyError } = require('./common/notify')
-const { SCREENSHOT_SHORTCUT: CONFIG_KEY } = require('./common/config-keys')
-const setupGlobalShortcut = require('./utils/setup-global-shortcut')
+const i18n = require('i18next')
 const { analyticsKeys } = require('./analytics/keys')
+const { SCREENSHOT_SHORTCUT: CONFIG_KEY } = require('./common/config-keys')
+const { IS_MAC } = require('./common/consts')
 const ipcMainEvents = require('./common/ipc-main-events')
+const logger = require('./common/logger')
+const { notify, notifyError } = require('./common/notify')
 const getCtx = require('./context')
+const setupGlobalShortcut = require('./utils/setup-global-shortcut')
 
 const SHORTCUT = IS_MAC
   ? 'Command+Control+S'
@@ -60,6 +60,7 @@ function handleScreenshot () {
       return
     }
 
+    // @ts-ignore
     const ipfs = ipfsd.api
 
     if (!ipfs) {

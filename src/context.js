@@ -1,4 +1,3 @@
-// @ts-check
 const pDefer = require('p-defer')
 const logger = require('./common/logger')
 
@@ -11,9 +10,9 @@ const logger = require('./common/logger')
  * can set a property on the context and other modules can get that property from the context when they need it.
  *
  * Benefits:
- * * Avoid passing the same object to many different modules.
- * * Avoid circular dependencies and makes it easier to test modules in isolation.
- * * Speed up startup time by only loading what we need when we need it.
+ * Avoid passing the same object to many different modules.
+ * Avoid circular dependencies and makes it easier to test modules in isolation.
+ * Speed up startup time by only loading what we need when we need it.
  *
  *
  * | Context property exists? | Is the backing promise fulfilled? | Method called | Is a deferred promise created? | Returned Value                                                                                           |
@@ -26,18 +25,20 @@ const logger = require('./common/logger')
  * | Yes                      | Yes                               | SetProp       | No                             | We throw an error here. Any getProps called for the property prior to this would have a hanging promise. |
  *
  * @extends {Record<string, unknown>}
- * @property {function} launchWebUI
+ * @property {Function} launchWebUI
  */
 class Context {
   constructor () {
     /**
      * Stores prop->value mappings.
+     *
      * @type {Map<string|symbol, unknown>}
      */
     this._properties = new Map()
 
     /**
      * Stores prop->Promise mappings.
+     *
      * @type {Map<string|symbol, pDefer.DeferredPromise<unknown>>}
      */
     this._promiseMap = new Map()
@@ -63,12 +64,13 @@ class Context {
       this._properties.set(propertyName, value)
       this._resolvePropToValue(propertyName, value)
     } catch (e) {
-      logger.error(e)
+      logger.error(String(e))
     }
   }
 
   /**
    * Get the value of a property wrapped in a promise.
+   *
    * @template T
    * @param {ContextProperties} propertyName
    * @returns {Promise<T>}
@@ -93,6 +95,7 @@ class Context {
    * A simple helper to improve DX and UX when calling functions.
    *
    * This function allows you to request a function from AppContext without blocking until you actually need to call it.
+   *
    * @param {ContextProperties} propertyName
    * @returns {(...args: unknown[]) => Promise<unknown>}
    */
@@ -105,7 +108,7 @@ class Context {
         return await originalFn(...args)
       } catch (err) {
         logger.error(`[ctx] Error calling ${String(propertyName)}`)
-        logger.error(err)
+        logger.error(String(err))
         throw err
       }
     }

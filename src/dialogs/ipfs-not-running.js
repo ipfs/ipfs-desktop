@@ -1,8 +1,8 @@
 const i18n = require('i18next')
-const dialog = require('./dialog')
-const { STATUS } = require('../daemon/consts')
 const logger = require('../common/logger')
 const getCtx = require('../context')
+const { STATUS } = require('../daemon/consts')
+const dialog = require('./dialog')
 
 module.exports = async function () {
   logger.info('[ipfs-not-running] an action needs ipfs to be running')

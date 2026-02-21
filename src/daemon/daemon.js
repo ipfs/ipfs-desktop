@@ -1,10 +1,10 @@
+const { app } = require('electron')
 const Ctl = require('ipfsd-ctl')
 const logger = require('../common/logger')
 const { getCustomBinary } = require('../custom-ipfs-binary')
 const { applyDefaults, migrateConfig, checkPorts, configExists, checkRepositoryAndConfiguration, removeApiFile, apiFileExists } = require('./config')
-const showMigrationPrompt = require('./migration-prompt')
 const dialogs = require('./dialogs')
-const { app } = require('electron')
+const showMigrationPrompt = require('./migration-prompt')
 
 /**
  * Get the IPFS binary file path.
@@ -100,8 +100,8 @@ function listenToIpfsLogs (ipfsd, callback) {
   const stop = () => {
     clearInterval(interval)
 
-    if (stdout) stdout.removeListener('data', listener)
-    if (stderr) stderr.removeListener('data', listener)
+    if (stdout) { stdout.removeListener('data', listener) }
+    if (stderr) { stderr.removeListener('data', listener) }
   }
 
   return stop
@@ -126,9 +126,9 @@ async function startIpfsWithLogs (ipfsd) {
   let logs = ''
 
   const isSpawnedDaemonDead = (ipfsd) => {
-    if (typeof ipfsd.subprocess === 'undefined') throw new Error('undefined ipfsd.subprocess, unable to reason about startup errors')
-    if (ipfsd.subprocess === null) return false // not spawned yet or remote
-    if (ipfsd.subprocess?.failed) return true // explicit failure
+    if (typeof ipfsd.subprocess === 'undefined') { throw new Error('undefined ipfsd.subprocess, unable to reason about startup errors') }
+    if (ipfsd.subprocess === null) { return false } // not spawned yet or remote
+    if (ipfsd.subprocess?.failed) { return true } // explicit failure
 
     // detect when spawned ipfsd process is gone/dead
     // by inspecting its pid - it should be alive
@@ -188,6 +188,7 @@ async function startIpfsWithLogs (ipfsd) {
       }
       logger.error(logs)
       if (migrationPrompt) {
+        // @ts-ignore
         migrationPrompt.loadWindow(logs, isErrored, isFinished)
       } else {
         showMigrationPrompt(logs, isErrored, isFinished)

@@ -1,7 +1,7 @@
 /**
  * IPFS daemon status codes for display in the UI.
  *
- * @type {Object.<string, number>}
+ * @type {{[key in string]: number}}
  * @readonly
  */
 const STATUS = Object.freeze({

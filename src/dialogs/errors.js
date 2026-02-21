@@ -1,6 +1,6 @@
-const { app, shell } = require('electron')
-const path = require('path')
 const os = require('os')
+const path = require('path')
+const { app, shell } = require('electron')
 const i18n = require('i18next')
 const dialog = require('./dialog')
 
@@ -75,11 +75,11 @@ function generateErrorIssueUrl (e) {
 
 /**
  * This will fail and throw another application error if electron hasn't booted up properly.
+ *
  * @param {Error} e
- * @returns
  */
 function criticalErrorDialog (e) {
-  if (hasErrored) return
+  if (hasErrored) { return }
   hasErrored = true
 
   const option = dialog({
@@ -105,10 +105,16 @@ function criticalErrorDialog (e) {
 // Shows a recoverable error dialog with the default title and message.
 // Passing an options object alongside the error can be used to override
 // the title and message.
+/**
+ * Displays a recoverable error dialog with the specified title and message.
+ *
+ * @param {any} e - The error object.
+ * @param {{title?: string; message?: string; type?: string;}} options - The options for the error dialog.
+ */
 function recoverableErrorDialog (e, options) {
   const cfg = {
-    title: i18n.t('recoverableErrorDialog.title'),
-    message: i18n.t('recoverableErrorDialog.message'),
+    title: options.title ? options.title : i18n.t('recoverableErrorDialog.title'),
+    message: options.message ? options.message : i18n.t('recoverableErrorDialog.message'),
     type: 'error',
     buttons: [
       i18n.t('close'),
@@ -117,16 +123,7 @@ function recoverableErrorDialog (e, options) {
     ]
   }
 
-  if (options) {
-    if (options.title) {
-      cfg.title = options.title
-    }
-
-    if (options.message) {
-      cfg.message = options.message
-    }
-  }
-
+  // @ts-ignore
   const option = dialog(cfg)
 
   if (option === 1) {

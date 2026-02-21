@@ -42,7 +42,7 @@ const execLog = (cmd) => {
     await downloadKubo({
       version: kuboVersion,
       platform: 'darwin',
-      arch: arch,
+      arch,
       distUrl: 'https://dist.ipfs.tech',
       installPath: archDir
     })

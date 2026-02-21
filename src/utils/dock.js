@@ -1,11 +1,11 @@
 const { app, BrowserWindow } = require('electron')
 
 function show () {
-  if (app.dock) app.dock.show()
+  if (app.dock) { app.dock.show() }
 }
 
 function hide () {
-  if (!app.dock) return
+  if (!app.dock) { return }
 
   const count = BrowserWindow.getAllWindows()
     .filter(w => w.isVisible())
