@@ -82,7 +82,7 @@
     "ipfs-utils": "^9.0.10",
     "ipfsd-ctl": "10.0.6",
     "it-last": "^1.0.6",
-    "kubo": "0.40.0-rc2",
+    "kubo": "0.40.0",
     "multiaddr": "10.0.1",
     "multiaddr-to-uri": "8.0.0",
     "portfinder": "^1.0.32",
