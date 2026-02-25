@@ -1,8 +1,8 @@
 diff --git a/node_modules/app-builder-lib/scheme.json b/node_modules/app-builder-lib/scheme.json
-index 29f6a5d..f52b33a 100644
+index 2eadec7..d55eced 100644
 --- a/node_modules/app-builder-lib/scheme.json
 +++ b/node_modules/app-builder-lib/scheme.json
-@@ -6158,7 +6158,20 @@
+@@ -6529,7 +6529,20 @@
          },
          "publisherName": {
            "description": "[The publisher name](https://github.com/electron-userland/electron-builder/issues/1187#issuecomment-278972073), exactly as in your code signed certificate. Several names can be provided.",
