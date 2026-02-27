@@ -225,7 +225,7 @@ jobs:
         with:
           package_manager: npm
           skip_package_manager_install: true
-          args: --publish onTagOrDraft # attach signed binaries to an existing release draft or when a tag is merged
+          args: --publish onTagOrDraft ${{ matrix.os == 'macos-latest' && '-c.afterSign=./pkgs/macos/notarize-build.js' || '' }} # attach signed binaries to an existing release draft or when a tag is merged
           release: false # keep github release as draft for manual inspection
           max_attempts: 2
           # GH token for attaching atrifacts to release draft on tag build
@@ -262,4 +262,3 @@ jobs:
 
       - name: Show Cache
         run: du -sh ${{ github.workspace }}/.cache/ && ls -l ${{ github.workspace }}/.cache/
-
