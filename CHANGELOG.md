@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.48.0 (2026-02-27)
+
+## What's Changed
+* chore(ci): update github actions to node24 versions by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3027
+* chore: pull new translations by @github-actions[bot] in https://github.com/ipfs/ipfs-desktop/pull/3038
+* chore: pull new translations by @github-actions[bot] in https://github.com/ipfs/ipfs-desktop/pull/3039
+* feat: update webui to v4.11.0 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3047
+* fix: update webui to v4.11.1 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3109
+* fix: prevent port replacement from corrupting IP addresses by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3035
+* feat: kubo 0.40, electron 40 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3115
+* fix: kubo 0.40.1 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3120
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.47.0...v0.48.0
+
 ## 0.47.0 (2025-11-27)
 
 ## What's Changed
