@@ -12,26 +12,23 @@ const urlParams = new URLSearchParams(window.location.search)
 
 let previousHash = null
 
-function checkIfVisible () {
-  if (document.hidden) {
+function updateVisibility (isVisible) {
+  if (!isVisible) {
     if (window.location.hash === '#/blank') return // skip, already blank
     previousHash = window.location.hash
     window.location.hash = '/blank'
-  } else {
-    if (previousHash === '#/blank') return // skip
-    window.location.hash = previousHash
+    return
   }
+
+  if (!previousHash || window.location.hash !== '#/blank') return // skip
+  window.location.hash = previousHash
 }
 
-document.addEventListener('visibilitychange', () => {
-  checkIfVisible()
+ipcRenderer.on(ipcMainEvents.WEBUI_VISIBILITY_CHANGED, (_event, isVisible) => {
+  updateVisibility(Boolean(isVisible))
 })
 
-document.addEventListener('DOMContentReady', () => {
-  checkIfVisible()
-})
-
-// track hash changes, so checkIfVisible always has the right previousHash
+// track hash changes, so updateVisibility always has the right previousHash
 document.addEventListener('hashchange', () => {
   if (window.location.hash === '#/blank') return // skip
   previousHash = window.location.hash

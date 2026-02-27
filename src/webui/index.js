@@ -19,6 +19,7 @@ const { analyticsKeys } = require('../analytics/keys')
 const ipcMainEvents = require('../common/ipc-main-events')
 const getCtx = require('../context')
 const { STATUS } = require('../daemon/consts')
+const WEBUI_ORIGIN = 'webui://localhost'
 
 serve({ scheme: 'webui', directory: join(__dirname, '../../assets/webui') })
 
@@ -53,7 +54,13 @@ const createWindow = () => {
       webContentLoad.end()
     })
     window.webContents.once('did-fail-load', (_, errorCode, errorDescription) => {
-      webContentLoad.fail(`${msg}: ${errorDescription}, code: ${errorCode}`)
+      // -3 is ERR_ABORTED and can happen when a navigation gets superseded.
+      if (errorCode === -3) {
+        logger.debug(`[web ui] loading aborted (code: ${errorCode})`)
+        return
+      }
+      const desc = errorDescription || 'unknown error'
+      webContentLoad.fail(new Error(`${msg}: ${desc}, code: ${errorCode}`))
     })
   })
   window.webContents.once('dom-ready', async (event) => {
@@ -104,6 +111,34 @@ const createWindow = () => {
     store.safeSet('window.height', dim[1])
   })
 
+  let hasShownWindow = false
+  let lastVisibilityState = null
+  const sendVisibilityChange = (isVisible) => {
+    if (window.isDestroyed()) return
+    if (!isVisible && !hasShownWindow) return
+    if (lastVisibilityState === isVisible) return
+    lastVisibilityState = isVisible
+    if (isVisible) hasShownWindow = true
+    window.webContents.send(ipcMainEvents.WEBUI_VISIBILITY_CHANGED, isVisible)
+  }
+
+  window.webContents.on('did-finish-load', () => {
+    sendVisibilityChange(window.isVisible())
+  })
+
+  window.on('show', () => {
+    sendVisibilityChange(true)
+    try {
+      window.webContents.focus()
+    } catch (err) {
+      logger.debug(`[web ui] unable to focus webContents: ${err}`)
+    }
+  })
+
+  window.on('hide', () => {
+    sendVisibilityChange(false)
+  })
+
   window.on('close', (event) => {
     event.preventDefault()
     window.hide()
@@ -124,6 +159,13 @@ const createWindow = () => {
 module.exports = async function () {
   logger.info('[webui] init...')
   const ctx = getCtx()
+  const isWebUiUrl = (value) => {
+    try {
+      return new URL(value).origin === WEBUI_ORIGIN
+    } catch (_) {
+      return false
+    }
+  }
 
   if (store.get(CONFIG_KEY, null) === null) {
     // First time running this. Enable opening ipfs-webui at app launch.
@@ -144,30 +186,81 @@ module.exports = async function () {
   ctx.setProp('webui', window)
   let apiAddress = null
 
-  const url = new URL('/', 'webui://-')
+  const url = new URL('/', WEBUI_ORIGIN)
   url.hash = '/blank'
   url.searchParams.set('deviceId', await ctx.getProp('countlyDeviceId'))
+  let lastLoadedUrl = null
+  const getCurrentWebUiUrl = () => {
+    try {
+      const currentUrl = window.webContents.getURL()
+      if (isWebUiUrl(currentUrl)) {
+        return currentUrl
+      }
+    } catch (_) {}
+    return null
+  }
+
+  const loadIfChanged = (nextUrl) => {
+    const currentUrl = getCurrentWebUiUrl()
+    // Prefer the live URL when available so stale cached state cannot
+    // suppress a requested tray navigation.
+    if (currentUrl) {
+      if (currentUrl === nextUrl) {
+        lastLoadedUrl = currentUrl
+        return
+      }
+      lastLoadedUrl = currentUrl
+    } else if (lastLoadedUrl === nextUrl) {
+      return
+    }
+    lastLoadedUrl = nextUrl
+    window.loadURL(nextUrl)
+  }
 
   ctx.setProp('launchWebUI', async (path, { focus = true, forceRefresh = false } = {}) => {
     if (window.isDestroyed()) {
       logger.error(`[web ui] window is destroyed, not launching web ui with ${path}`)
       return
     }
+    const shouldFocusBeforeNavigation = focus && Boolean(path) && !window.isVisible()
+    if (shouldFocusBeforeNavigation) {
+      window.show()
+      window.focus()
+      dock.show()
+    }
     if (forceRefresh) window.webContents.reload()
     if (!path) {
       logger.info('[web ui] launching web ui', { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI })
     } else {
       logger.info(`[web ui] navigate to ${path}`, { withAnalytics: analyticsKeys.FN_LAUNCH_WEB_UI_WITH_PATH })
-      url.hash = path
-      window.webContents.loadURL(url.toString())
+      const nextPath = String(path)
+      url.hash = nextPath
+      let navigatedInPage = false
+
+      if (window.isVisible()) {
+        const expectedHash = nextPath.startsWith('#') ? nextPath : `#${nextPath}`
+        try {
+          navigatedInPage = await window.webContents.executeJavaScript(`
+            (() => {
+              const expectedHash = ${JSON.stringify(expectedHash)}
+              if (window.location.hash !== expectedHash) {
+                window.location.hash = ${JSON.stringify(nextPath)}
+              }
+              return window.location.hash === expectedHash
+            })()
+          `, true)
+        } catch (_) {}
+      }
+
+      if (!navigatedInPage) {
+        loadIfChanged(url.toString())
+      }
     }
-    if (focus) {
+    if (focus && !shouldFocusBeforeNavigation) {
       window.show()
       window.focus()
       dock.show()
     }
-    // load again: minimize visual jitter on windows
-    if (path) window.webContents.loadURL(url.toString())
   })
 
   function updateLanguage () {
@@ -175,16 +268,33 @@ module.exports = async function () {
   }
 
   const getIpfsd = ctx.getFn('getIpfsd')
+  const openWebUiAtLaunch = Boolean(store.get(CONFIG_KEY))
+  let startupRoutePending = openWebUiAtLaunch
   let ipfsdStatus = null
   ipcMain.on(ipcMainEvents.IPFSD, async (status) => {
     const ipfsd = await getIpfsd(true)
     ipfsdStatus = status
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
+      try {
+        const currentUrl = window.webContents.getURL()
+        if (isWebUiUrl(currentUrl)) {
+          url.hash = new URL(currentUrl).hash
+        }
+      } catch (err) {
+        logger.warn('[web ui] unable to preserve current hash on reload', err)
+      }
+
+      // During startup with auto-open enabled, prefer loading the status
+      // route directly once API is known to avoid ending up stuck on blank.
+      if (startupRoutePending && (!url.hash || url.hash === '#/blank')) {
+        url.hash = '/'
+      }
+
       apiAddress = ipfsd.apiAddr
       url.searchParams.set('api', apiAddress.toString())
       updateLanguage()
-      window.loadURL(url.toString())
+      loadIfChanged(url.toString())
     }
   })
 
@@ -196,7 +306,7 @@ module.exports = async function () {
 
   const launchWebUI = ctx.getFn('launchWebUI')
   const splashScreen = await ctx.getProp('splashScreen')
-  if (store.get(CONFIG_KEY)) {
+  if (openWebUiAtLaunch) {
     // we're supposed to show the window on startup, display the splash screen
     splashScreen.show()
   } else {
@@ -216,7 +326,11 @@ module.exports = async function () {
       return
     }
 
-    await launchWebUI('/')
+    try {
+      await launchWebUI('/')
+    } finally {
+      startupRoutePending = false
+    }
     try {
       splashScreen.destroy()
     } catch (err) {
@@ -226,7 +340,7 @@ module.exports = async function () {
   }
 
   return /** @type {Promise<void>} */(new Promise(resolve => {
-    if (store.get(CONFIG_KEY)) {
+    if (openWebUiAtLaunch) {
       logger.info('[web ui] waiting for ipfsd to start')
       window.once('ready-to-show', async () => {
         logger.info('[web ui] window ready')
@@ -238,6 +352,6 @@ module.exports = async function () {
     }
 
     updateLanguage()
-    window.loadURL(url.toString())
+    loadIfChanged(url.toString())
   }))
 }
