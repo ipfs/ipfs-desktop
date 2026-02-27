@@ -267,6 +267,14 @@ module.exports = async function () {
     ipfsdStatus = status
 
     if (ipfsd && ipfsd.apiAddr !== apiAddress) {
+      try {
+        const currentUrl = window.webContents.getURL()
+        if (isWebUiUrl(currentUrl)) {
+          url.hash = new URL(currentUrl).hash
+        }
+      } catch (err) {
+        logger.warn('[web ui] unable to preserve current hash on reload', err)
+      }
       apiAddress = ipfsd.apiAddr
       url.searchParams.set('api', apiAddress.toString())
       updateLanguage()
