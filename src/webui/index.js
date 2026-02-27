@@ -202,10 +202,17 @@ module.exports = async function () {
 
   const loadIfChanged = (nextUrl) => {
     const currentUrl = getCurrentWebUiUrl()
+    // Prefer the live URL when available so stale cached state cannot
+    // suppress a requested tray navigation.
     if (currentUrl) {
+      if (currentUrl === nextUrl) {
+        lastLoadedUrl = currentUrl
+        return
+      }
       lastLoadedUrl = currentUrl
+    } else if (lastLoadedUrl === nextUrl) {
+      return
     }
-    if (lastLoadedUrl === nextUrl) return
     lastLoadedUrl = nextUrl
     window.loadURL(nextUrl)
   }
