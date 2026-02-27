@@ -268,6 +268,8 @@ module.exports = async function () {
   }
 
   const getIpfsd = ctx.getFn('getIpfsd')
+  const openWebUiAtLaunch = Boolean(store.get(CONFIG_KEY))
+  let startupRoutePending = openWebUiAtLaunch
   let ipfsdStatus = null
   ipcMain.on(ipcMainEvents.IPFSD, async (status) => {
     const ipfsd = await getIpfsd(true)
@@ -282,6 +284,13 @@ module.exports = async function () {
       } catch (err) {
         logger.warn('[web ui] unable to preserve current hash on reload', err)
       }
+
+      // During startup with auto-open enabled, prefer loading the status
+      // route directly once API is known to avoid ending up stuck on blank.
+      if (startupRoutePending && (!url.hash || url.hash === '#/blank')) {
+        url.hash = '/'
+      }
+
       apiAddress = ipfsd.apiAddr
       url.searchParams.set('api', apiAddress.toString())
       updateLanguage()
@@ -297,7 +306,7 @@ module.exports = async function () {
 
   const launchWebUI = ctx.getFn('launchWebUI')
   const splashScreen = await ctx.getProp('splashScreen')
-  if (store.get(CONFIG_KEY)) {
+  if (openWebUiAtLaunch) {
     // we're supposed to show the window on startup, display the splash screen
     splashScreen.show()
   } else {
@@ -317,7 +326,11 @@ module.exports = async function () {
       return
     }
 
-    await launchWebUI('/')
+    try {
+      await launchWebUI('/')
+    } finally {
+      startupRoutePending = false
+    }
     try {
       splashScreen.destroy()
     } catch (err) {
@@ -327,7 +340,7 @@ module.exports = async function () {
   }
 
   return /** @type {Promise<void>} */(new Promise(resolve => {
-    if (store.get(CONFIG_KEY)) {
+    if (openWebUiAtLaunch) {
       logger.info('[web ui] waiting for ipfsd to start')
       window.once('ready-to-show', async () => {
         logger.info('[web ui] window ready')
