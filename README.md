@@ -166,6 +166,12 @@ npm start
 
 > **Build Note:** `npm ci` will download the webui code to run in electron from IPFS using the [ipfs-or-gateway](https://www.npmjs.com/package/ipfs-or-gateway) npm package.  For details, see the [build process](.github/workflows/ci.yml) and the [webui code](https://github.com/ipfs/ipfs-webui).
 
+> **Local webui development:** to test with a local build of [ipfs-webui](https://github.com/ipfs/ipfs-webui), set `IPFS_WEBUI_PATH` to point at the webui build output directory. This copies the local build into `assets/webui/` instead of downloading the release by CID:
+> ```bash
+> IPFS_WEBUI_PATH=../ipfs-webui/build npm run build
+> npm start
+> ```
+
 IPFS Desktop in itself is a simple container that makes sure Kubo and IPFS Webui can work together in a standalone fashion and has access to other os-specific features like tray and contextual integrations.
 There are multiple ways to access IPFS Webui:
 
