@@ -50,7 +50,7 @@ async function disable () {
 }
 
 module.exports = async function () {
-  const activate = async ({ newValue, oldValue, feedback }) => {
+  const activate = async ({ newValue, oldValue = null, feedback = null }) => {
     if (process.env.NODE_ENV === 'development') {
       logger.info('[launch on startup] unavailable during development')
 
@@ -92,7 +92,7 @@ module.exports = async function () {
 
       return true
     } catch (err) {
-      logger.error(`[launch on startup] ${err.toString()}`)
+      logger.error(`[launch on startup] ${String(err)}`)
 
       if (feedback) {
         recoverableErrorDialog(err, {
