@@ -1,0 +1,7 @@
+{
+  "name": "lodash.isequal",
+  "version": "4.5.0-ipfs.0",
+  "description": "Compatibility shim using node:util.isDeepStrictEqual",
+  "main": "index.js",
+  "license": "MIT"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "boolean",
+  "version": "3.2.0-ipfs.0",
+  "description": "Compatibility shim for boolean package API",
+  "main": "index.js",
+  "license": "MIT"
+}

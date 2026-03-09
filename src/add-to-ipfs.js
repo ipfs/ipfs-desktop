@@ -2,12 +2,19 @@ const { extname, basename } = require('path')
 const { clipboard } = require('electron')
 const { globSource } = require('ipfs-http-client')
 const i18n = require('i18next')
-const last = require('it-last')
 const fs = require('fs-extra')
 const logger = require('./common/logger')
 const { notify, notifyError } = require('./common/notify')
 const { analyticsKeys } = require('./analytics/keys')
 const getCtx = require('./context')
+
+async function lastItem (iterable) {
+  let value
+  for await (const item of iterable) {
+    value = item
+  }
+  return value
+}
 
 async function copyFileToMfs (ipfs, cid, filename) {
   let i = 0
@@ -91,7 +98,7 @@ async function addFileOrDirectory (ipfs, filepath) {
 
   if (stat.isDirectory()) {
     const files = globSource(filepath, '**/*', { recursive: true, cidVersion: 1 })
-    const res = await last(ipfs.addAll(files, {
+    const res = await lastItem(ipfs.addAll(files, {
       pin: false,
       wrapWithDirectory: true,
       cidVersion: 1
