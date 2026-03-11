@@ -20,6 +20,47 @@ const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const createToggler = require('./utils/create-toggler')
 const getCtx = require('./context')
 
+function buildCidProfileSubmenu () {
+  const cidProfile = store.get('cidProfile', 'default')
+  const isManual = cidProfile === 'manual'
+
+  return [{
+    id: 'cidProfileSubmenu',
+    label: i18n.t('cidProfile.title'),
+    submenu: [
+      {
+        id: 'cidProfile.default',
+        label: i18n.t('cidProfile.default'),
+        type: 'radio',
+        checked: cidProfile === 'default',
+        click: () => { ipcMain.emit('cidProfile.select', null, 'default') }
+      },
+      {
+        id: 'cidProfile.cidv1',
+        label: i18n.t('cidProfile.cidv1'),
+        type: 'radio',
+        checked: cidProfile === 'unixfs-v1-2025',
+        click: () => { ipcMain.emit('cidProfile.select', null, 'unixfs-v1-2025') }
+      },
+      {
+        id: 'cidProfile.cidv0Legacy',
+        label: i18n.t('cidProfile.cidv0Legacy'),
+        type: 'radio',
+        checked: cidProfile === 'unixfs-v0-2015',
+        click: () => { ipcMain.emit('cidProfile.select', null, 'unixfs-v0-2015') }
+      },
+      {
+        id: 'cidProfile.manual',
+        label: i18n.t('cidProfile.manual'),
+        type: 'radio',
+        checked: isManual,
+        enabled: false,
+        visible: isManual
+      }
+    ]
+  }]
+}
+
 function buildCheckbox (key, label) {
   return {
     id: key,
@@ -148,7 +189,9 @@ async function buildMenu () {
           enabled: false
         },
         buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB, 'settings.pubsub'),
-        buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB_NAMESYS, 'settings.namesysPubsub')
+        buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB_NAMESYS, 'settings.namesysPubsub'),
+        { type: 'separator' },
+        ...buildCidProfileSubmenu()
       ]
     },
     // @ts-ignore
@@ -355,6 +398,15 @@ module.exports = async function () {
 
     menu.getMenuItemById('openRepoDir').enabled = fs.pathExistsSync(getKuboRepositoryPath())
     menu.getMenuItemById('openKuboConfigFile').enabled = fs.pathExistsSync(path.join(getKuboRepositoryPath(), 'config'))
+
+    // CID Profile: parent controls whether submenu opens at all (greyed out
+    // when daemon is offline); child items handle the manual-profile case.
+    const isDaemonRunning = status === STATUS.STARTING_FINISHED
+    const isManual = store.get('cidProfile', 'default') === 'manual'
+    menu.getMenuItemById('cidProfileSubmenu').enabled = isDaemonRunning
+    menu.getMenuItemById('cidProfile.default').enabled = !isManual
+    menu.getMenuItemById('cidProfile.cidv1').enabled = !isManual
+    menu.getMenuItemById('cidProfile.cidv0Legacy').enabled = !isManual
 
     if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon(on))
