@@ -277,4 +277,36 @@ test.describe.serial('Application launch', async () => {
     const { app } = await startApp({ repoPath })
     await daemonReady(app)
   })
+
+  // Regression test for https://github.com/ipfs/ipfs-desktop/issues/3143
+  test('shows upgrade dialog when repo version is newer than program', async () => {
+    test.setTimeout(120000)
+    // Init via kubo directly; makeRepository's ipfsd-ctl factory leaves a
+    // daemon running against the repo that would mask the version override.
+    const repoPath = tmp.dirSync({ prefix: 'tmp_IPFS_PATH_', unsafeCleanup: true }).name
+    const { spawnSync } = require('child_process')
+    const kuboPath = require('kubo').path()
+    const initRes = spawnSync(kuboPath, ['init', '--profile=test'], {
+      env: Object.assign({}, process.env, { IPFS_PATH: repoPath })
+    })
+    if (initRes.status !== 0) throw new Error(`kubo init failed: ${initRes.stderr?.toString()}`)
+
+    // Writing a too-high repo version forces Kubo to emit:
+    // "Error: Your programs version (N) is lower than your repos (999)."
+    fs.writeFileSync(path.join(repoPath, 'version'), '999')
+
+    const { app } = await startApp({ repoPath })
+
+    const errorWindow = await app.waitForEvent('window', {
+      predicate: (page) => page.url().startsWith('data:text/html;base64,'),
+      timeout: 90000
+    })
+    await errorWindow.waitForLoadState('domcontentloaded')
+    const html = await errorWindow.content()
+
+    expect(html).toContain('Your IPFS repository was written by a newer version of IPFS Desktop or Kubo CLI')
+    expect(html).toContain('https://github.com/ipfs/ipfs-desktop/releases/latest')
+    expect(html).toContain('Download latest release')
+    expect(html).not.toContain('Report the error')
+  })
 })
