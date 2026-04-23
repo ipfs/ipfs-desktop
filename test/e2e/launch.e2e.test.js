@@ -18,20 +18,31 @@ test.describe.serial('Application launch', async () => {
 
   test.afterEach(async () => {
     if (!app) return
-    // app.close() waits for `before-quit` → ipfsd.stop(), which can hang on
-    // slow macos ci runners and blow past the per-test timeout. Race it
-    // against a short deadline and fall back to SIGKILL so the rest of the
-    // suite can proceed.
+    // app.close() waits for `before-quit` -> ipfsd.stop(), which can hang on
+    // slow ci runners (especially when the test left ipfsd in a broken state,
+    // e.g. kubo killed by a version-mismatch error). Race it against a short
+    // deadline and fall back to SIGKILL so the rest of the suite can proceed.
+    const current = app
+    app = null
     try {
       await Promise.race([
-        app.close(),
+        current.close(),
         new Promise((resolve, reject) => setTimeout(() => reject(new Error('app.close() timeout')), 15000))
       ])
     } catch (e) {
       if (e.message.includes('has been closed')) return
       try {
-        const proc = app.process()
+        const proc = current.process()
         if (proc && !proc.killed) proc.kill('SIGKILL')
+      } catch {}
+      // After SIGKILL, let Playwright observe the subprocess exit and release
+      // its CDP resources. Without this, worker teardown inherits a
+      // half-closed connection and hits its own 30s deadline on windows.
+      try {
+        await Promise.race([
+          current.close().catch(() => {}),
+          new Promise(resolve => setTimeout(resolve, 10000))
+        ])
       } catch {}
     }
   })
