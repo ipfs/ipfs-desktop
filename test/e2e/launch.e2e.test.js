@@ -327,5 +327,9 @@ test.describe.serial('Application launch', async () => {
     expect(html).toContain('https://github.com/ipfs/ipfs-desktop/releases/latest')
     expect(html).toContain('Download latest release')
     expect(html).not.toContain('Report the error')
+
+    // Dismiss the dialog so afterEach does not race the prompt window during
+    // app shutdown.
+    await errorWindow.close()
   })
 })
