@@ -23,6 +23,11 @@ const getCtx = require('./context')
 function buildCidProfileSubmenu () {
   const cidProfile = store.get('cidProfile', 'default')
   const isManual = cidProfile === 'manual'
+  // "Default" means "no Import.* config"; Kubo then applies its own defaults.
+  // Show it only on a pristine setup. Once the user picks a named profile or
+  // edits the config by hand, hide "Default" so a click cannot clear the
+  // current Import.* settings.
+  const isDefault = cidProfile === 'default'
 
   return [{
     id: 'cidProfileSubmenu',
@@ -32,7 +37,8 @@ function buildCidProfileSubmenu () {
         id: 'cidProfile.default',
         label: i18n.t('cidProfile.default'),
         type: 'radio',
-        checked: cidProfile === 'default',
+        checked: isDefault,
+        visible: isDefault,
         click: () => { ipcMain.emit('cidProfile.select', null, 'default') }
       },
       {
@@ -50,6 +56,9 @@ function buildCidProfileSubmenu () {
         click: () => { ipcMain.emit('cidProfile.select', null, 'unixfs-v0-2015') }
       },
       {
+        // Read-only indicator. Appears only when the on-disk Import.* config
+        // matches no named profile (the user edited it by hand). Stays
+        // disabled so a click cannot overwrite the manual config.
         id: 'cidProfile.manual',
         label: i18n.t('cidProfile.manual'),
         type: 'radio',
@@ -399,14 +408,12 @@ module.exports = async function () {
     menu.getMenuItemById('openRepoDir').enabled = fs.pathExistsSync(getKuboRepositoryPath())
     menu.getMenuItemById('openKuboConfigFile').enabled = fs.pathExistsSync(path.join(getKuboRepositoryPath(), 'config'))
 
-    // CID Profile: parent controls whether submenu opens at all (greyed out
-    // when daemon is offline); child items handle the manual-profile case.
+    // CID Profile: the parent gates the whole submenu. Grey it out when the
+    // daemon is offline, since applying a profile requires HTTP RPC.
+    // buildCidProfileSubmenu picks visibility for "Default" and "Manual"
+    // from the stored profile, so nothing else needs toggling here.
     const isDaemonRunning = status === STATUS.STARTING_FINISHED
-    const isManual = store.get('cidProfile', 'default') === 'manual'
     menu.getMenuItemById('cidProfileSubmenu').enabled = isDaemonRunning
-    menu.getMenuItemById('cidProfile.default').enabled = !isManual
-    menu.getMenuItemById('cidProfile.cidv1').enabled = !isManual
-    menu.getMenuItemById('cidProfile.cidv0Legacy').enabled = !isManual
 
     if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon(on))
