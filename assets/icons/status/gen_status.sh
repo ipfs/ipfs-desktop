@@ -18,6 +18,9 @@ circle () {
   png $1 $2 30 3
   png $1 $2 40 4
   png $1 $2 50 5
+  # Unsuffixed base PNG so Electron's nativeImage HiDPI resolver picks
+  # the sibling @Nx variants automatically.
+  cp "$2@1x.png" "$2.png"
 }
 
 circle "rgb(50,215,75)" green
