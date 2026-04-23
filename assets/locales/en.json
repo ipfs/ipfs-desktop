@@ -38,6 +38,7 @@
   "cancel": "Cancel",
   "enable": "Enable",
   "reportTheError": "Report the error",
+  "downloadLatestRelease": "Download latest release",
   "restartIpfsDesktop": "Restart IPFS Desktop",
   "openLogs": "Open logs",
   "takeScreenshot": "Take Screenshot",
@@ -220,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "message": "IPFS node has encountered an error and startup could not be completed:",
+    "outdatedBinaryMessage": "Your IPFS repository was written by a newer version of IPFS Desktop or Kubo CLI. Please upgrade to the latest release:"
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "IPFS Repository Must Be a Directory",

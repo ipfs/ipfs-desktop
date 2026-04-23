@@ -17,13 +17,33 @@ test.describe.serial('Application launch', async () => {
   let app = null
 
   test.afterEach(async () => {
-    if (app) {
+    if (!app) return
+    // app.close() waits for `before-quit` -> ipfsd.stop(), which can hang on
+    // slow ci runners (especially when the test left ipfsd in a broken state,
+    // e.g. kubo killed by a version-mismatch error). Race it against a short
+    // deadline and fall back to SIGKILL so the rest of the suite can proceed.
+    const current = app
+    app = null
+    try {
+      await Promise.race([
+        current.close(),
+        new Promise((resolve, reject) => setTimeout(() => reject(new Error('app.close() timeout')), 15000))
+      ])
+    } catch (e) {
+      if (e.message.includes('has been closed')) return
       try {
-        await app.close()
-      } catch (e) {
-        if (e.message.includes('has been closed')) return
-        throw e
-      }
+        const proc = current.process()
+        if (proc && !proc.killed) proc.kill('SIGKILL')
+      } catch {}
+      // After SIGKILL, let Playwright observe the subprocess exit and release
+      // its CDP resources. Without this, worker teardown inherits a
+      // half-closed connection and hits its own 30s deadline on windows.
+      try {
+        await Promise.race([
+          current.close().catch(() => {}),
+          new Promise(resolve => setTimeout(resolve, 10000))
+        ])
+      } catch {}
     }
   })
 
@@ -276,5 +296,51 @@ test.describe.serial('Application launch', async () => {
     fs.writeJsonSync(configPath, config, { spaces: 2 })
     const { app } = await startApp({ repoPath })
     await daemonReady(app)
+  })
+
+  // Regression test for https://github.com/ipfs/ipfs-desktop/issues/3143
+  test('shows upgrade dialog when repo version is newer than program', async () => {
+    test.setTimeout(180000)
+    // Init via kubo directly; makeRepository's ipfsd-ctl factory leaves a
+    // daemon running against the repo that would mask the version override.
+    const repoPath = tmp.dirSync({ prefix: 'tmp_IPFS_PATH_', unsafeCleanup: true }).name
+    const { spawnSync } = require('child_process')
+    const kuboPath = require('kubo').path()
+    const initRes = spawnSync(kuboPath, ['init', '--profile=test'], {
+      env: Object.assign({}, process.env, { IPFS_PATH: repoPath })
+    })
+    if (initRes.status !== 0) throw new Error(`kubo init failed: ${initRes.stderr?.toString()}`)
+
+    // Writing a too-high repo version forces Kubo to emit:
+    // "Error: Your programs version (N) is lower than your repos (999)."
+    fs.writeFileSync(path.join(repoPath, 'version'), '999')
+
+    const { app } = await startApp({ repoPath })
+
+    const isPromptWindow = (page) => page.url().startsWith('data:text/html;base64,')
+
+    // Subscribe before any other await; fall back to app.windows() in case
+    // the event already fired between launch resolving and this subscription.
+    const windowPromise = app.waitForEvent('window', { predicate: isPromptWindow, timeout: 120000 })
+    const errorWindow = app.windows().find(isPromptWindow) ?? await windowPromise
+
+    // The prompt may render the in-progress migration template first and
+    // reload with the error/upgrade template once kubo exits, so wait for
+    // the upgrade-specific string instead of asserting on first paint.
+    await errorWindow.waitForFunction(
+      () => document.body && document.body.innerText.includes('Download latest release'),
+      null,
+      { timeout: 45000 }
+    )
+    const html = await errorWindow.content()
+
+    expect(html).toContain('Your IPFS repository was written by a newer version of IPFS Desktop or Kubo CLI')
+    expect(html).toContain('https://github.com/ipfs/ipfs-desktop/releases/latest')
+    expect(html).toContain('Download latest release')
+    expect(html).not.toContain('Report the error')
+
+    // Dismiss the dialog so afterEach does not race the prompt window during
+    // app shutdown.
+    await errorWindow.close()
   })
 })
