@@ -280,7 +280,7 @@ test.describe.serial('Application launch', async () => {
 
   // Regression test for https://github.com/ipfs/ipfs-desktop/issues/3143
   test('shows upgrade dialog when repo version is newer than program', async () => {
-    test.setTimeout(120000)
+    test.setTimeout(180000)
     // Init via kubo directly; makeRepository's ipfsd-ctl factory leaves a
     // daemon running against the repo that would mask the version override.
     const repoPath = tmp.dirSync({ prefix: 'tmp_IPFS_PATH_', unsafeCleanup: true }).name
@@ -297,11 +297,21 @@ test.describe.serial('Application launch', async () => {
 
     const { app } = await startApp({ repoPath })
 
-    const errorWindow = await app.waitForEvent('window', {
-      predicate: (page) => page.url().startsWith('data:text/html;base64,'),
-      timeout: 90000
-    })
-    await errorWindow.waitForLoadState('domcontentloaded')
+    const isPromptWindow = (page) => page.url().startsWith('data:text/html;base64,')
+
+    // Subscribe before any other await; fall back to app.windows() in case
+    // the event already fired between launch resolving and this subscription.
+    const windowPromise = app.waitForEvent('window', { predicate: isPromptWindow, timeout: 120000 })
+    const errorWindow = app.windows().find(isPromptWindow) ?? await windowPromise
+
+    // The prompt may render the in-progress migration template first and
+    // reload with the error/upgrade template once kubo exits, so wait for
+    // the upgrade-specific string instead of asserting on first paint.
+    await errorWindow.waitForFunction(
+      () => document.body && document.body.innerText.includes('Download latest release'),
+      null,
+      { timeout: 45000 }
+    )
     const html = await errorWindow.content()
 
     expect(html).toContain('Your IPFS repository was written by a newer version of IPFS Desktop or Kubo CLI')
