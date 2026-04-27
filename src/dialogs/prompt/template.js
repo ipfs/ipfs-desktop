@@ -1,6 +1,6 @@
-const { styles } = require('./styles')
+const { styles } = require('./styles.js')
 
-module.exports = ({ message, defaultValue, buttons, id }) => (`<!DOCTYPE html>
+const template = ({ message, defaultValue, buttons, id }) => (`<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" /> 
@@ -33,3 +33,5 @@ module.exports = ({ message, defaultValue, buttons, id }) => (`<!DOCTYPE html>
     })
   </script>
 </html>`)
+
+module.exports = template

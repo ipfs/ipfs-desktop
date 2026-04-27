@@ -1,9 +1,9 @@
 // @ts-check
 const { ipcRenderer, contextBridge } = require('electron')
-const screenshotHook = require('./screenshot')
-const connectionHook = require('./connection-status')
-const { COUNTLY_KEY, VERSION } = require('../common/consts')
-const ipcMainEvents = require('../common/ipc-main-events')
+const screenshotHook = require('./screenshot.js')
+const connectionHook = require('./connection-status.js')
+const { COUNTLY_KEY, VERSION } = require('../common/consts.js')
+const ipcMainEvents = require('../common/ipc-main-events.js')
 
 screenshotHook()
 connectionHook()

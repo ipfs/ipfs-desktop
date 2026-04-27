@@ -1,9 +1,9 @@
 const { app } = require('electron')
-const { argvHandler: protocolHandler } = require('./protocol-handlers')
-const { argvHandler: filesHandler } = require('./argv-files-handler')
-const getCtx = require('./context')
+const { argvHandler: protocolHandler } = require('./protocol-handlers.js')
+const { argvHandler: filesHandler } = require('./argv-files-handler.js')
+const getCtx = require('./context.js')
 
-module.exports = async function () {
+const defaultExport = async function () {
   const ctx = getCtx()
   app.on('second-instance', async (_, argv) => {
     if (await protocolHandler(argv)) {
@@ -17,3 +17,5 @@ module.exports = async function () {
     await ctx.getFn('launchWebUI')()
   })
 }
+
+module.exports = defaultExport

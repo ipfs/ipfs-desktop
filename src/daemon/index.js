@@ -1,14 +1,14 @@
 const { app, ipcMain } = require('electron')
 const fs = require('fs-extra')
 const { join } = require('path')
-const { ipfsNotRunningDialog } = require('../dialogs')
-const store = require('../common/store')
-const logger = require('../common/logger')
-const { STATUS } = require('./consts')
-const createDaemon = require('./daemon')
-const ipcMainEvents = require('../common/ipc-main-events')
-const { analyticsKeys } = require('../analytics/keys')
-const getCtx = require('../context')
+const { ipfsNotRunningDialog } = require('../dialogs/index.js')
+const store = require('../common/store.js')
+const logger = require('../common/logger.js')
+const { STATUS } = require('./consts.js')
+const createDaemon = require('./daemon.js')
+const ipcMainEvents = require('../common/ipc-main-events.js')
+const { analyticsKeys } = require('../analytics/keys.js')
+const getCtx = require('../context.js')
 
 async function setupDaemon () {
   let ipfsd = null

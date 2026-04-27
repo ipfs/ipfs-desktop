@@ -1,6 +1,6 @@
 // @ts-check
 const pDefer = require('p-defer')
-const logger = require('./common/logger')
+const logger = require('./common/logger.js')
 
 /**
  * @typedef { 'tray' | 'tray.update-menu' | 'countlyDeviceId' | 'manualCheckForUpdates' | 'startIpfs' | 'stopIpfs' | 'restartIpfs' | 'getIpfsd' | 'launchWebUI' | 'webui' | 'splashScreen' | 'i18n.initDone' } ContextProperties

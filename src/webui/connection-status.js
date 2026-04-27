@@ -1,7 +1,7 @@
 const { ipcRenderer } = require('electron')
-const ipcMainEvents = require('../common/ipc-main-events')
+const ipcMainEvents = require('../common/ipc-main-events.js')
 
-module.exports = function () {
+const defaultExport = function () {
   const handler = () => {
     ipcRenderer.send(ipcMainEvents.ONLINE_STATUS_CHANGED, navigator.onLine)
   }
@@ -10,3 +10,5 @@ module.exports = function () {
   window.addEventListener('offline', handler)
   handler()
 }
+
+module.exports = defaultExport

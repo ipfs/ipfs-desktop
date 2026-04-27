@@ -1,6 +1,6 @@
 // @ts-check
-const logger = require('./common/logger')
-const { criticalErrorDialog } = require('./dialogs')
+const logger = require('./common/logger.js')
+const { criticalErrorDialog } = require('./dialogs/index.js')
 
 /**
  *
