@@ -38,6 +38,7 @@
   "cancel": "Atsisakyti",
   "enable": "Įjungti",
   "reportTheError": "Pranešti apie klaidą",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "",
   "openLogs": "Atverti žurnalus",
   "takeScreenshot": "Padaryti ekrano kopiją",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "IPFS saugykla privalo būti katalogas",

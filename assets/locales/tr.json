@@ -38,6 +38,7 @@
   "cancel": "İptal et",
   "enable": "Etkinleştir",
   "reportTheError": "Hatayı bildirin",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "IPFS Masaüstünü Yeniden Başlatın",
   "openLogs": "Günlükleri aç",
   "takeScreenshot": "Ekran görüntüsü al",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "IPFS Masaüstü Başlatması Başarısız Oldu",
-    "message": "IPFS düğümü bir hatayla karşılaştı ve başlatma tamamlanamadı:"
+    "message": "IPFS düğümü bir hatayla karşılaştı ve başlatma tamamlanamadı:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "IPFS Deposu Bir Dizin Olmak Zorundadır",

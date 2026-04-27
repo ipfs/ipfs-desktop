@@ -38,6 +38,7 @@
   "cancel": "Ångra",
   "enable": "Aktivera",
   "reportTheError": "Rapportera felet",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Starta om IPFS-skrivbordet",
   "openLogs": "Öppna loggar",
   "takeScreenshot": "Ta en skärmdump",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

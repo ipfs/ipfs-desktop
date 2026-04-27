@@ -38,6 +38,7 @@
   "cancel": "Anuluj",
   "enable": "Włącz",
   "reportTheError": "Zgłoś błąd",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Uruchom ponownie IPFS Desktop",
   "openLogs": "Otwórz logi",
   "takeScreenshot": "Zrób zrzut ekranu",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "Uruchomienie IPFS Desktop się nie powiodło",
-    "message": "Uruchomienie nie powiodło się ponieważ wystąpił błąd w węźle IPFS:"
+    "message": "Uruchomienie nie powiodło się ponieważ wystąpił błąd w węźle IPFS:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Repozytorium IPFS musi być katalogiem",

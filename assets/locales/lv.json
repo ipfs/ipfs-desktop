@@ -38,6 +38,7 @@
   "cancel": "Atcelt",
   "enable": "Iespējot",
   "reportTheError": "Ziņot par šo kļūdu",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Pārstartēt IPFS Darbvirsmu",
   "openLogs": "Atvērt žurnālus",
   "takeScreenshot": "Uzņemt ekrānu",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

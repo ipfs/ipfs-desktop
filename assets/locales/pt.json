@@ -38,6 +38,7 @@
   "cancel": "Cancelar",
   "enable": "Ativado",
   "reportTheError": "Reportar o erro",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Reiniciar o IPFS Desktop",
   "openLogs": "Abrir logs",
   "takeScreenshot": "Tirar uma captura de ecrã",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "A inicialização do IPFS Desktop falhou",
-    "message": "O nó IPFS encontrou um erro, e a inicialização não pode ser completada:"
+    "message": "O nó IPFS encontrou um erro, e a inicialização não pode ser completada:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

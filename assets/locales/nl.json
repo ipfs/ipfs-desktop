@@ -38,6 +38,7 @@
   "cancel": "Annuleren",
   "enable": "",
   "reportTheError": "Rapporteer deze fout",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "IPFS Desktop herstarten",
   "openLogs": "Logs openen",
   "takeScreenshot": "Screenshot maken",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

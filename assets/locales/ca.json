@@ -38,6 +38,7 @@
   "cancel": "Cancel·lar",
   "enable": "Activa",
   "reportTheError": "Comunica l'error",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Reiniciar IPFS d'Escriptori",
   "openLogs": "Obrir el registre",
   "takeScreenshot": "Fes una captura de pantalla",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

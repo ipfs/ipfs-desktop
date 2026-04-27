@@ -38,6 +38,7 @@
   "cancel": "Annuler",
   "enable": "Activer",
   "reportTheError": "Signaler l'erreur",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Redémarrer IPFS Desktop",
   "openLogs": "Ouvrir les logs",
   "takeScreenshot": "Prendre une capture d'écran",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "Le démarrage d'IPFS Desktop a échoué",
-    "message": "Le nœud IPFS a rencontré une erreur et il n'a pas pu finir de démarrer :"
+    "message": "Le nœud IPFS a rencontré une erreur et il n'a pas pu finir de démarrer :",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Le répertoire d'IPFS doit être un dossier",

@@ -38,6 +38,7 @@
   "cancel": "Cancelar",
   "enable": "Activar",
   "reportTheError": "Avisar do erro",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Reiniciar o IPFS Desktop",
   "openLogs": "Abrir os rexistros",
   "takeScreenshot": "Tomada captura de pantalla",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "Fallou o inicio de IPFS Desktop",
-    "message": "O nodo IPFS atopou un erro, e non se puido completar o inicio:"
+    "message": "O nodo IPFS atopou un erro, e non se puido completar o inicio:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

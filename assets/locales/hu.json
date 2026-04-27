@@ -38,6 +38,7 @@
   "cancel": "Mégse",
   "enable": "Engedélyezés",
   "reportTheError": "Jelentse a hibát",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Az IPFS asztali programjának újraindítása",
   "openLogs": "A naplók megnyitása",
   "takeScreenshot": "Képernyőkép készítése",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "Az IPFS Desktop elindítása nem sikerült",
-    "message": "Az IPFS csomópont hibába ütközött és az indítást nem sikerült befejezni:"
+    "message": "Az IPFS csomópont hibába ütközött és az indítást nem sikerült befejezni:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

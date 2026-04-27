@@ -38,6 +38,7 @@
   "cancel": "إلغاء",
   "enable": "ممكن",
   "reportTheError": "أبلغ عن الخطأ",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "أعد تشغيل سطح مكتب IPFS",
   "openLogs": "فتح السجلات",
   "takeScreenshot": "خد لقطة للشاشة",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "فشل بدء تشغيل Desktop IPFS",
-    "message": "واجهت عقدة IPFS خطأ وتعذر إكمال بدء التشغيل:"
+    "message": "واجهت عقدة IPFS خطأ وتعذر إكمال بدء التشغيل:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

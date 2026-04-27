@@ -38,6 +38,7 @@
   "cancel": "Peruuta",
   "enable": "Ota käyttöön",
   "reportTheError": "Raportoi virhe",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Käynnistä 'IPFS Desktop' uudelleen",
   "openLogs": "Avaa loki",
   "takeScreenshot": "Ota kuvakaappaus",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

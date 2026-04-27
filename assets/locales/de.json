@@ -38,6 +38,7 @@
   "cancel": "Abbrechen",
   "enable": "Aktivieren",
   "reportTheError": "Den Fehler melden",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "IPFS Desktop neu starten",
   "openLogs": "Protokolle öffnen",
   "takeScreenshot": "Bildschirmfoto aufnehmen",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "Der IPFS Desktop Start ist fehlgeschlagen",
-    "message": "Der IPFS Knoten hat einen Fehler festgestellt und der Start konnte nicht abgeschlossen werden:"
+    "message": "Der IPFS Knoten hat einen Fehler festgestellt und der Start konnte nicht abgeschlossen werden:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Der IPFS Speicher muss ein Verzeichnis sein",

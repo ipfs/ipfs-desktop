@@ -38,6 +38,7 @@
   "cancel": "Скасувати",
   "enable": "Увімкнути",
   "reportTheError": "Повідомити про помилку",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Перезапустити IPFS Desktop",
   "openLogs": "Відкрити журнал",
   "takeScreenshot": "Зробити знімок екрану",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

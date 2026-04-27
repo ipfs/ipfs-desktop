@@ -38,6 +38,7 @@
   "cancel": "Отмена",
   "enable": "Разрешить",
   "reportTheError": "Сообщить об ошибке",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Перезапустить IPFS Desktop",
   "openLogs": "Открыть логи",
   "takeScreenshot": "Сделать Скриншот",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "Не удалось запустить IPFS Desktop",
-    "message": "IPFS Узел столкнулся с ошибкой, и запуск не удалось завершить:"
+    "message": "IPFS Узел столкнулся с ошибкой, и запуск не удалось завершить:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Репозиторий IPFS должен быть каталогом",

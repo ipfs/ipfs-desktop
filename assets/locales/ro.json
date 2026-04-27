@@ -38,6 +38,7 @@
   "cancel": "Anulează",
   "enable": "Activează",
   "reportTheError": "Raportează eroarea",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Repornește IPFS Desktop",
   "openLogs": "Deschide jurnalele",
   "takeScreenshot": "Efectuează captură de ecran",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "Pornirea IPFS Desktop a eșuat",
-    "message": "Nodul IPFS a întâmpinat o eroare și pornirea nu a putut fi finalizată:"
+    "message": "Nodul IPFS a întâmpinat o eroare și pornirea nu a putut fi finalizată:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Depozitul IPFS trebuie să fie un dosar",

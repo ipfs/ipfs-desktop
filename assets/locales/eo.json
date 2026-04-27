@@ -38,6 +38,7 @@
   "cancel": "Rezigni",
   "enable": "Ŝalti",
   "reportTheError": "Raporti pri la eraro",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Relanĉi IPFS Labotablan",
   "openLogs": "Malfermi protokolon",
   "takeScreenshot": "",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

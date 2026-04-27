@@ -38,6 +38,7 @@
   "cancel": "Batalkan",
   "enable": "Diaktifkan",
   "reportTheError": "Laporkan kesalahan",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Mulai ulang Desktop IPFS",
   "openLogs": "Buka catatan",
   "takeScreenshot": "Ambil Tangkapan Layar",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "Startup Desktop IPFS Gagal",
-    "message": "Node IPFS mengalami kesalahan dan startup tidak dapat diselesaikan:"
+    "message": "Node IPFS mengalami kesalahan dan startup tidak dapat diselesaikan:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Repositori IPFS Harus Direktori",

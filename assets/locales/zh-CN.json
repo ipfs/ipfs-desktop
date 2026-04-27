@@ -38,6 +38,7 @@
   "cancel": "取消",
   "enable": "启用",
   "reportTheError": "报告错误",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "重启 IPFS 桌面",
   "openLogs": "打开日志",
   "takeScreenshot": "截屏",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "IPFS 桌面 启动失败",
-    "message": "IPFS 节点遇到错误且启动可能没有成功"
+    "message": "IPFS 节点遇到错误且启动可能没有成功",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "IPFS仓库必须是一个目录",

@@ -38,6 +38,7 @@
   "cancel": "Zrušit",
   "enable": "Povolit",
   "reportTheError": "Nahlásit chybu",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Restartovat IPFS Desktop",
   "openLogs": "Otevřít logy",
   "takeScreenshot": "Udělat snímek obrazovky",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "Spuštění IPFS Desktop selhalo",
-    "message": "Uzel IPFS narazil na chybu a spuštění nebylo možné dokončit:"
+    "message": "Uzel IPFS narazil na chybu a spuštění nebylo možné dokončit:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Úložiště IPFS musí být adresářem",

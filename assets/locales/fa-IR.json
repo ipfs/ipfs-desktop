@@ -38,6 +38,7 @@
   "cancel": "لغو",
   "enable": "فعال",
   "reportTheError": "گزارش خطا",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "ری استارت IPFS Desktop",
   "openLogs": "بازکردن گزارش ها",
   "takeScreenshot": "گرفتن اسکرین شات",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": "گره IPFS با خطا مواجه شده است و راه اندازی کامل نمی شود:"
+    "message": "گره IPFS با خطا مواجه شده است و راه اندازی کامل نمی شود:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

@@ -38,6 +38,7 @@
   "cancel": "ยกเลิก",
   "enable": "ใช้งาน",
   "reportTheError": "แจ้งปัญหา",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "รีสตาร์ท IPFS",
   "openLogs": "เปิดบันทึกกิจกรรม",
   "takeScreenshot": "ถ่ายภาพหน้าจอ",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

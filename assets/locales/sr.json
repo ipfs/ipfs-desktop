@@ -38,6 +38,7 @@
   "cancel": "Otkaži",
   "enable": "Omogući",
   "reportTheError": "Prijavi grešku",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Restartuj IPFS Desktop",
   "openLogs": "Otvori dnevnike",
   "takeScreenshot": "Slikaj Ekran",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

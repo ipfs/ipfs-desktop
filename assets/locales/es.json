@@ -38,6 +38,7 @@
   "cancel": "Cancelar",
   "enable": "Habilitado",
   "reportTheError": "Reportar el error",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Reiniciar IPFS",
   "openLogs": "Abrir logs",
   "takeScreenshot": "Tomar Captura de Pantalla",
@@ -213,7 +214,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",
