@@ -111,6 +111,15 @@ const createWindow = () => {
     store.safeSet('window.height', dim[1])
   })
 
+  // Visibility tracking drives the renderer's `#/blank` route, which unmounts
+  // the entire ipfs-webui app while the window is not visible, so we avoid
+  // re-rendering the bandwidth graph on Status and the peer list on Peers
+  // when the user cannot see them. We forward visibility from the main
+  // process (deterministic on programmatic show/hide, which the renderer's
+  // `visibilitychange` does not always observe in time) and the renderer
+  // additionally listens to `document.visibilitychange` to cover OS-driven
+  // cases the main process never sees: occlusion by another window, macOS
+  // app-hide (Cmd+H) and Mission Control / Spaces.
   let hasShownWindow = false
   let lastVisibilityState = null
   const sendVisibilityChange = (isVisible) => {
@@ -137,6 +146,17 @@ const createWindow = () => {
 
   window.on('hide', () => {
     sendVisibilityChange(false)
+  })
+
+  // Electron emits `minimize`/`restore` (not `hide`/`show`) when the user
+  // minimizes the window, so wire them up explicitly to keep the WebUI
+  // blanked while minimized.
+  window.on('minimize', () => {
+    sendVisibilityChange(false)
+  })
+
+  window.on('restore', () => {
+    sendVisibilityChange(true)
   })
 
   window.on('close', (event) => {
