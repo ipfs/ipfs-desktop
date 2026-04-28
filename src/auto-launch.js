@@ -21,6 +21,31 @@ function getDesktopFile () {
   return path.join(untildify('~/.config/autostart/'), 'ipfs-desktop.desktop')
 }
 
+// Quote and escape a value as an argument in a Desktop Entry Exec= field.
+// The freedesktop.org spec requires arguments with reserved characters (space,
+// $, backtick, etc.) to be wrapped in double quotes, and literal backslashes,
+// double quotes, dollar signs, or backticks inside the quotes must each be
+// preceded by a backslash. Always quoting handles paths with spaces such as
+// /opt/My Apps/electron39.
+function quoteDesktopEntryArg (value) {
+  return `"${value.replace(/[\\`$"]/g, '\\$&')}"`
+}
+
+function getLinuxAutostartExec () {
+  const command = [process.execPath]
+
+  // Some distro packages launch as `electron <app.asar>`.
+  if (path.basename(process.execPath).startsWith('electron')) {
+    const appPath = app.getAppPath()
+
+    if (appPath && appPath !== process.execPath) {
+      command.push(appPath)
+    }
+  }
+
+  return command.map(quoteDesktopEntryArg).join(' ')
+}
+
 async function enable () {
   if (app.setLoginItemSettings && (IS_MAC || IS_WIN)) {
     app.setLoginItemSettings({ openAtLogin: true })
@@ -32,7 +57,7 @@ Type=Application
 Version=1.0
 Name=IPFS Desktop
 Comment=IPFS Desktop Startup Script
-Exec="${process.execPath}"
+Exec=${getLinuxAutostartExec()}
 Icon=ipfs-desktop
 StartupNotify=false
 Terminal=false`
@@ -110,3 +135,5 @@ module.exports = async function () {
 }
 
 module.exports.isSupported = isSupported
+module.exports.quoteDesktopEntryArg = quoteDesktopEntryArg
+module.exports.getLinuxAutostartExec = getLinuxAutostartExec
