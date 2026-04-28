@@ -194,7 +194,14 @@
     "default": "Default",
     "cidv1": "CIDv1 (unixfs-v1-2025)",
     "cidv0Legacy": "Legacy CIDv0 (unixfs-v0-2015)",
-    "manual": "Manual Import.* Config"
+    "manual": "Manually edited in Kubo config"
+  },
+  "provideStrategy": {
+    "title": "Provide Strategy",
+    "default": "Default (announce all local blocks)",
+    "pinnedMfs": "Pinned + Files (MFS)",
+    "pinned": "Pinned Only",
+    "manual": "Manually edited in Kubo config"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",
