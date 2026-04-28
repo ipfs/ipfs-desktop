@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.49.0 (2026-04-28)
+
+## What's Changed
+* fix: link to releases when repo version exceeds program by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3144
+* fix tray: use scale-aware lookup for status menu icons by @RubenKelevra in https://github.com/ipfs/ipfs-desktop/pull/3126
+* feat: kubo to 0.41 electron 41 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3146
+* feat: add IPIP-499 CID Profile submenu to tray menu by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3132
+* feat: provide strategy tray menu by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3149
+* chore: pull new translations by @github-actions[bot] in https://github.com/ipfs/ipfs-desktop/pull/3148
+* fix(webui): navigation fixes by @RubenKelevra in https://github.com/ipfs/ipfs-desktop/pull/3122
+* feat(linux/autostart): include app path when launched via external electron by @RubenKelevra in https://github.com/ipfs/ipfs-desktop/pull/3123
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.48.0...v0.49.0
+
 ## 0.48.0 (2026-03-02)
 
 ## What's Changed
