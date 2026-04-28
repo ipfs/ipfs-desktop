@@ -189,6 +189,13 @@
     "npmOnIpfs": "Włącz npm na IPFS",
     "monochromeTrayIcon": "Monochromatyczna ikona w zasobniku systemowym"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Niestandardowy plik binarny IPFS",
     "message": "Poprzez ustawienie własnego IPFS, IPFS Desktop nie będzie już używał dołączonej wersji IPFS i użyje binarki, którą podasz. Czy chcesz kontynuować?"

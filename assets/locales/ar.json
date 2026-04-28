@@ -189,6 +189,13 @@
     "npmOnIpfs": "تفعيل مدير حزمة العقد على IPFS",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "ثنائي مخصص IPFS",
     "message": "من خلال تعيين IPFS مخصص ، لن يستخدم IPFS لسطح المكتب إصدار IPFS المرفق وسيستخدم الثنائي الذي تحدده. هل ترغب في المتابعة؟"

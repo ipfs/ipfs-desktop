@@ -189,6 +189,13 @@
     "npmOnIpfs": "npm in IPFS aktivieren",
     "monochromeTrayIcon": "Einfarbiges Tray-Icon benutzen"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Benutzerdefinierte IPFS-Binärdatei",
     "message": "Wenn du ein eigenes IPFS einstellst, wird IPFS Desktop nicht länger die gebündelte IPFS version nutzen, sondern die Binärversion nutzen, die du angibst. Möchtest du fortfahren?"

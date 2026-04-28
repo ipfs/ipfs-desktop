@@ -189,6 +189,13 @@
     "npmOnIpfs": "IPFS'de npm'yi etkinleştir",
     "monochromeTrayIcon": "Tek renkli tepsi ikonunu kullan"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Özel IPFS ikilisi",
     "message": "Özel bir IPFS ayarladığınızda, IPFS Masaüstü artık birlikte verilen IPFS sürümünü kullanmayacak ve belirttiğiniz ikili dosyayı kullanacaktır. Devam etmek istiyor musunuz?"

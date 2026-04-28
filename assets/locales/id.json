@@ -189,6 +189,13 @@
     "npmOnIpfs": "Aktifkan npm di IPFS",
     "monochromeTrayIcon": "Gunakan Ikon Baki Monokrom"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Biner IPFS Kustom",
     "message": "Dengan menyetel kustom IPFS, Desktop IPFS tidak akan lagi menggunakan versi paket IPFS dan akan menggunakan biner yang Anda tentukan. Apakah Anda ingin melanjutkan?"

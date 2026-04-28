@@ -189,6 +189,13 @@
     "npmOnIpfs": "Activa npm a IPFS",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binari d'IPFS personalitzat",
     "message": "Configurant un IPFS personalitzat, l'IPFS d'Escriptori no utilitzarà la versió d'IPFS vinculada i utilitzarà el binari que vostè especifiqui. Voleu continuar?"

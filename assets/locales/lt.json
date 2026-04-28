@@ -189,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": "Naudoti nespalvotą dėklo piktogramą"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Tinkintas IPFS dvejetainis",
     "message": ""

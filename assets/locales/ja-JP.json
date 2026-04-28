@@ -189,6 +189,13 @@
     "npmOnIpfs": "IPFSにnpmを有効",
     "monochromeTrayIcon": "モノクロのトレイアイコンを使う"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "カスタム IPFS バイナリ",
     "message": "カスタムIPFSを設定することで、IPFS DesktopはバンドルされているバージョンのIPFSを使用しなくなり、指定したバイナリを使用するようになります。続行しますか？"

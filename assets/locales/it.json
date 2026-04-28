@@ -189,6 +189,13 @@
     "npmOnIpfs": "Abilita npm su IPFS",
     "monochromeTrayIcon": "Usa Tray Icon monocromatica"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "File binario IPFS personalizzato",
     "message": "Impostando un IPFS personalizzato, IPFS Desktop non utilizzerà più la versione IPFS nel bundle e utilizzerà il file binario specificato. Vuoi procedere?"

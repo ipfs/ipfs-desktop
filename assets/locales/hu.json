@@ -189,6 +189,13 @@
     "npmOnIpfs": "Az npm engedélyezése az IPFS-en",
     "monochromeTrayIcon": "Monokróm tálcaikon használata"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Saját IPFS bináris",
     "message": "Az egyéni IPFS beállításával az IPFS Desktop már nem használja a csomagban szereplő IPFS verziót, és a megadott bináris fájlt használja. Folytatni akarja?"

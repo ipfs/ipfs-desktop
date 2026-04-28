@@ -189,6 +189,13 @@
     "npmOnIpfs": "Activer npm sur IPFS",
     "monochromeTrayIcon": "Utiliser un icône monochrome dans la barre des tâches"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binaire IPFS personnalisé",
     "message": "En sélectionnant un binaire IPFS personnalisé, IPFS Desktop n'utilisera plus la version d'IPFS intégrée mais utilisera le fichier binaire que vous choisirez. Voulez-vous continuer?"

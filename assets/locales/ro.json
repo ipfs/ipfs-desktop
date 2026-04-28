@@ -189,6 +189,13 @@
     "npmOnIpfs": "Activează npm pe IPFS",
     "monochromeTrayIcon": "Folosește pictograma monocromă în zona de notificare"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binar IPFS personalizat",
     "message": "Setând un IPFS personalizat, IPFS Desktop nu va mai folosi versiunea IPFS inclusă și va folosi binarul specificat de tine. Vrei să continui?"

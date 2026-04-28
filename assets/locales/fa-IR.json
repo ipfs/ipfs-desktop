@@ -189,6 +189,13 @@
     "npmOnIpfs": "فعال کردن npm در IPFS",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "فایل باینری سفارشی IPFS",
     "message": "با تنظیم یک IPFS سفارشی ، IPFS Desktop دیگر از نسخه پکیج شده IPFS استفاده نمی کند و ازفایل باینری که شما مشخص کرده اید استفاده می کند. آیا مایل به انجام این کار هستید؟"

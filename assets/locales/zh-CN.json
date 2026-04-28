@@ -189,6 +189,13 @@
     "npmOnIpfs": "启用 IPFS 上的 npm",
     "monochromeTrayIcon": "使用黑白托盘图标"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "自定义IPFS二进制文件",
     "message": "通过设置自定义IPFS，IPFS 桌面将不再使用捆绑的IPFS版本，并将使用指定的二进制文件。继续吗？"

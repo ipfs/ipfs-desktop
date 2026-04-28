@@ -189,6 +189,13 @@
     "npmOnIpfs": "Активировать npm на IPFS",
     "monochromeTrayIcon": "Использовать монохромный значок в трее"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Пользовательский файл IPFS",
     "message": "Устанавливая кастомный IPFS, IFPS Desktop больше не будет использовать включенную в состав версию IPFS и будет использовать указанный исполняемый файл. Вы хотите продолжить?"

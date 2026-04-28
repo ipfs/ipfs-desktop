@@ -189,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binário IPFS personalizado",
     "message": "Ao definir um IPFS personalizado, o IPFS Desktop não utilizará mais a versão IPFS integrada e utilizará o binário que você especificar. Deseja prosseguir?"

@@ -189,6 +189,13 @@
     "npmOnIpfs": "Povolení npm na IPFS",
     "monochromeTrayIcon": "Použití monochromatické ikony v Tray"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Vlastní binární soubor IPFS",
     "message": "Nastavením vlastního systému IPFS přestane služba IPFS Desktop používat dodávanou verzi systému IPFS a použije vámi zadanou binární verzi. Chcete pokračovat?"

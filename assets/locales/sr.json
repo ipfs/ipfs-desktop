@@ -189,6 +189,13 @@
     "npmOnIpfs": "Omogući npm na IPFS",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",
     "message": ""
