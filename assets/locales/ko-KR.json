@@ -38,6 +38,7 @@
   "cancel": "취소",
   "enable": "",
   "reportTheError": "오류 보고",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "IPFS Desktop 재시작",
   "openLogs": "로그 열기",
   "takeScreenshot": "스크린샷 찍기",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "",
     "message": ""
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

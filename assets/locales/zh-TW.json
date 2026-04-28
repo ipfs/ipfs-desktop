@@ -38,6 +38,7 @@
   "cancel": "取消",
   "enable": "啟用",
   "reportTheError": "報告錯誤",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "重新啟動 IPFS 桌面版",
   "openLogs": "開啟記錄檔",
   "takeScreenshot": "擷取螢幕畫面",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "自訂 IPFS 二進位檔",
     "message": ""
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

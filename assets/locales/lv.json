@@ -38,6 +38,7 @@
   "cancel": "Atcelt",
   "enable": "Iespējot",
   "reportTheError": "Ziņot par šo kļūdu",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Pārstartēt IPFS Darbvirsmu",
   "openLogs": "Atvērt žurnālus",
   "takeScreenshot": "Uzņemt ekrānu",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "",
     "message": ""
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

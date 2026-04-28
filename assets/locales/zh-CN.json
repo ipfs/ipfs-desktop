@@ -38,6 +38,7 @@
   "cancel": "取消",
   "enable": "启用",
   "reportTheError": "报告错误",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "重启 IPFS 桌面",
   "openLogs": "打开日志",
   "takeScreenshot": "截屏",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "启用 IPFS 上的 npm",
     "monochromeTrayIcon": "使用黑白托盘图标"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "自定义IPFS二进制文件",
     "message": "通过设置自定义IPFS，IPFS 桌面将不再使用捆绑的IPFS版本，并将使用指定的二进制文件。继续吗？"
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "IPFS 桌面 启动失败",
-    "message": "IPFS 节点遇到错误且启动可能没有成功"
+    "message": "IPFS 节点遇到错误且启动可能没有成功",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "IPFS仓库必须是一个目录",

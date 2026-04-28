@@ -38,6 +38,7 @@
   "cancel": "Cancel",
   "enable": "Enable",
   "reportTheError": "Report the error",
+  "downloadLatestRelease": "Download latest release",
   "restartIpfsDesktop": "Restart IPFS Desktop",
   "openLogs": "Open logs",
   "takeScreenshot": "Take Screenshot",
@@ -188,6 +189,20 @@
     "npmOnIpfs": "Enable npm on IPFS",
     "monochromeTrayIcon": "Use Monochrome Tray Icon"
   },
+  "cidProfile": {
+    "title": "CID Profile",
+    "default": "Default (Kubo built-ins)",
+    "cidv1": "Modern CIDv1 (unixfs-v1-2025)",
+    "cidv0Legacy": "Legacy CIDv0 (unixfs-v0-2015)",
+    "manual": "Manually edited in Kubo config"
+  },
+  "provideStrategy": {
+    "title": "Provide Strategy",
+    "default": "All Files, Pins, and Browsing Cache (default)",
+    "pinnedMfs": "Only Files and Pins",
+    "pinned": "Only Pins",
+    "manual": "Manually edited in Kubo config"
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",
     "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"
@@ -213,7 +228,8 @@
   },
   "startupFailedDialog": {
     "title": "IPFS Desktop Startup Has Failed",
-    "message": "IPFS node has encountered an error and startup could not be completed:"
+    "message": "IPFS node has encountered an error and startup could not be completed:",
+    "outdatedBinaryMessage": "Your IPFS repository was written by a newer version of IPFS Desktop or Kubo CLI. Please upgrade to the latest release:"
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "IPFS Repository Must Be a Directory",

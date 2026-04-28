@@ -38,6 +38,7 @@
   "cancel": "Atsisakyti",
   "enable": "Įjungti",
   "reportTheError": "Pranešti apie klaidą",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "",
   "openLogs": "Atverti žurnalus",
   "takeScreenshot": "Padaryti ekrano kopiją",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": "Naudoti nespalvotą dėklo piktogramą"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Tinkintas IPFS dvejetainis",
     "message": ""
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "IPFS saugykla privalo būti katalogas",

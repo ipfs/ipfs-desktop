@@ -20,6 +20,108 @@ const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const createToggler = require('./utils/create-toggler')
 const getCtx = require('./context')
 
+// "Default" lets the user opt back to implicit kubo defaults by nulling
+// our owned keys; it stays visible so the user can switch from a named
+// profile back to defaults at any time. "Manual" is the only state that
+// locks the named radios: when the live config matches no known profile,
+// disabling clicks prevents a stray selection from overwriting the user's
+// hand-tuned settings. To leave Manual, the user must edit the config
+// file directly.
+
+function buildProvideStrategySubmenu () {
+  const strategy = store.get('provideStrategy', 'default')
+  const isManual = strategy === 'manual'
+  const writable = !isManual
+
+  return [{
+    id: 'provideStrategySubmenu',
+    label: i18n.t('provideStrategy.title'),
+    submenu: [
+      {
+        id: 'provideStrategy.default',
+        label: i18n.t('provideStrategy.default'),
+        type: 'radio',
+        checked: strategy === 'default',
+        enabled: writable,
+        click: () => { ipcMain.emit('provideStrategy.select', null, 'default') }
+      },
+      {
+        id: 'provideStrategy.pinnedMfs',
+        label: i18n.t('provideStrategy.pinnedMfs'),
+        type: 'radio',
+        checked: strategy === 'pinned+mfs+unique',
+        enabled: writable,
+        click: () => { ipcMain.emit('provideStrategy.select', null, 'pinned+mfs+unique') }
+      },
+      {
+        id: 'provideStrategy.pinned',
+        label: i18n.t('provideStrategy.pinned'),
+        type: 'radio',
+        checked: strategy === 'pinned+unique',
+        enabled: writable,
+        click: () => { ipcMain.emit('provideStrategy.select', null, 'pinned+unique') }
+      },
+      {
+        // Read-only indicator visible only when the live config matches no
+        // known profile.
+        id: 'provideStrategy.manual',
+        label: i18n.t('provideStrategy.manual'),
+        type: 'radio',
+        checked: isManual,
+        enabled: false,
+        visible: isManual
+      }
+    ]
+  }]
+}
+
+function buildCidProfileSubmenu () {
+  const cidProfile = store.get('cidProfile', 'default')
+  const isManual = cidProfile === 'manual'
+  const writable = !isManual
+
+  return [{
+    id: 'cidProfileSubmenu',
+    label: i18n.t('cidProfile.title'),
+    submenu: [
+      {
+        id: 'cidProfile.default',
+        label: i18n.t('cidProfile.default'),
+        type: 'radio',
+        checked: cidProfile === 'default',
+        enabled: writable,
+        click: () => { ipcMain.emit('cidProfile.select', null, 'default') }
+      },
+      {
+        id: 'cidProfile.cidv1',
+        label: i18n.t('cidProfile.cidv1'),
+        type: 'radio',
+        checked: cidProfile === 'unixfs-v1-2025',
+        enabled: writable,
+        click: () => { ipcMain.emit('cidProfile.select', null, 'unixfs-v1-2025') }
+      },
+      {
+        id: 'cidProfile.cidv0Legacy',
+        label: i18n.t('cidProfile.cidv0Legacy'),
+        type: 'radio',
+        checked: cidProfile === 'unixfs-v0-2015',
+        enabled: writable,
+        click: () => { ipcMain.emit('cidProfile.select', null, 'unixfs-v0-2015') }
+      },
+      {
+        // Read-only indicator visible only when the live config matches no
+        // known profile.
+        id: 'cidProfile.manual',
+        label: i18n.t('cidProfile.manual'),
+        type: 'radio',
+        checked: isManual,
+        enabled: false,
+        visible: isManual
+      }
+    ]
+  }]
+}
+
 function buildCheckbox (key, label) {
   return {
     id: key,
@@ -148,7 +250,10 @@ async function buildMenu () {
           enabled: false
         },
         buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB, 'settings.pubsub'),
-        buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB_NAMESYS, 'settings.namesysPubsub')
+        buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB_NAMESYS, 'settings.namesysPubsub'),
+        { type: 'separator' },
+        ...buildCidProfileSubmenu(),
+        ...buildProvideStrategySubmenu()
       ]
     },
     // @ts-ignore
@@ -355,6 +460,14 @@ module.exports = async function () {
 
     menu.getMenuItemById('openRepoDir').enabled = fs.pathExistsSync(getKuboRepositoryPath())
     menu.getMenuItemById('openKuboConfigFile').enabled = fs.pathExistsSync(path.join(getKuboRepositoryPath(), 'config'))
+
+    // CID Profile and Provide Strategy share daemon gating: the parent
+    // submenu greys out when the daemon is offline, since applying either
+    // requires HTTP RPC. The build functions handle per-radio enabled
+    // state and Manual visibility, so nothing else needs toggling here.
+    const isDaemonRunning = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('cidProfileSubmenu').enabled = isDaemonRunning
+    menu.getMenuItemById('provideStrategySubmenu').enabled = isDaemonRunning
 
     if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon(on))

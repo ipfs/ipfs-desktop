@@ -38,6 +38,7 @@
   "cancel": "لغو",
   "enable": "فعال",
   "reportTheError": "گزارش خطا",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "ری استارت IPFS Desktop",
   "openLogs": "بازکردن گزارش ها",
   "takeScreenshot": "گرفتن اسکرین شات",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "فعال کردن npm در IPFS",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "فایل باینری سفارشی IPFS",
     "message": "با تنظیم یک IPFS سفارشی ، IPFS Desktop دیگر از نسخه پکیج شده IPFS استفاده نمی کند و ازفایل باینری که شما مشخص کرده اید استفاده می کند. آیا مایل به انجام این کار هستید؟"
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": "گره IPFS با خطا مواجه شده است و راه اندازی کامل نمی شود:"
+    "message": "گره IPFS با خطا مواجه شده است و راه اندازی کامل نمی شود:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

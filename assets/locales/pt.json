@@ -38,6 +38,7 @@
   "cancel": "Cancelar",
   "enable": "Ativado",
   "reportTheError": "Reportar o erro",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Reiniciar o IPFS Desktop",
   "openLogs": "Abrir logs",
   "takeScreenshot": "Tirar uma captura de ecrã",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binário IPFS personalizado",
     "message": "Ao definir um IPFS personalizado, o IPFS Desktop não utilizará mais a versão IPFS integrada e utilizará o binário que você especificar. Deseja prosseguir?"
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "A inicialização do IPFS Desktop falhou",
-    "message": "O nó IPFS encontrou um erro, e a inicialização não pode ser completada:"
+    "message": "O nó IPFS encontrou um erro, e a inicialização não pode ser completada:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",
