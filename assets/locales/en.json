@@ -191,16 +191,16 @@
   },
   "cidProfile": {
     "title": "CID Profile",
-    "default": "Default",
-    "cidv1": "CIDv1 (unixfs-v1-2025)",
+    "default": "Default (Kubo built-ins)",
+    "cidv1": "Modern CIDv1 (unixfs-v1-2025)",
     "cidv0Legacy": "Legacy CIDv0 (unixfs-v0-2015)",
     "manual": "Manually edited in Kubo config"
   },
   "provideStrategy": {
     "title": "Provide Strategy",
-    "default": "Default (announce all local blocks)",
-    "pinnedMfs": "Pinned + Files (MFS)",
-    "pinned": "Pinned Only",
+    "default": "All Files, Pins, and Browsing Cache (default)",
+    "pinnedMfs": "Only Files and Pins",
+    "pinned": "Only Pins",
     "manual": "Manually edited in Kubo config"
   },
   "setCustomIpfsBinaryConfirmation": {
