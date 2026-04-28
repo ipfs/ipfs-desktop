@@ -204,17 +204,19 @@ jobs:
 
 
       # This step creates a release-please PR if there are any commits that haven't been released yet.
+      # Gated to a single matrix runner so parallel build matrix jobs do not race to create duplicate drafts.
       - name: Run release-please release-pr # see https://github.com/google-github-actions/release-please-action/issues/841
-        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        if: matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         run: npm run release-pr
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true # release-please release-pr will fail when a release-please PR was merged and the tag doesn't exist.
 
       # This step will only handle the creation of the release draft, the "Build binaries with electron-builder" step
-      # will attach binaries to that release draft
+      # will attach binaries to that release draft.
+      # Gated to a single matrix runner so parallel build matrix jobs do not race to create duplicate drafts.
       - name: Run release-please github-release # see https://github.com/google-github-actions/release-please-action/issues/841
-        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        if: matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         run: npm run release-gh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
