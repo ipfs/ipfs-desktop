@@ -38,6 +38,7 @@
   "cancel": "Mégse",
   "enable": "Engedélyezés",
   "reportTheError": "Jelentse a hibát",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Az IPFS asztali programjának újraindítása",
   "openLogs": "A naplók megnyitása",
   "takeScreenshot": "Képernyőkép készítése",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "Az npm engedélyezése az IPFS-en",
     "monochromeTrayIcon": "Monokróm tálcaikon használata"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Saját IPFS bináris",
     "message": "Az egyéni IPFS beállításával az IPFS Desktop már nem használja a csomagban szereplő IPFS verziót, és a megadott bináris fájlt használja. Folytatni akarja?"
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "Az IPFS Desktop elindítása nem sikerült",
-    "message": "Az IPFS csomópont hibába ütközött és az indítást nem sikerült befejezni:"
+    "message": "Az IPFS csomópont hibába ütközött és az indítást nem sikerült befejezni:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

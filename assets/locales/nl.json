@@ -38,6 +38,7 @@
   "cancel": "Annuleren",
   "enable": "",
   "reportTheError": "Rapporteer deze fout",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "IPFS Desktop herstarten",
   "openLogs": "Logs openen",
   "takeScreenshot": "Screenshot maken",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "",
     "message": ""
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

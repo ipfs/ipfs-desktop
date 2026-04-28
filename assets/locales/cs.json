@@ -38,6 +38,7 @@
   "cancel": "Zrušit",
   "enable": "Povolit",
   "reportTheError": "Nahlásit chybu",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Restartovat IPFS Desktop",
   "openLogs": "Otevřít logy",
   "takeScreenshot": "Udělat snímek obrazovky",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "Povolení npm na IPFS",
     "monochromeTrayIcon": "Použití monochromatické ikony v Tray"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Vlastní binární soubor IPFS",
     "message": "Nastavením vlastního systému IPFS přestane služba IPFS Desktop používat dodávanou verzi systému IPFS a použije vámi zadanou binární verzi. Chcete pokračovat?"
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "Spuštění IPFS Desktop selhalo",
-    "message": "Uzel IPFS narazil na chybu a spuštění nebylo možné dokončit:"
+    "message": "Uzel IPFS narazil na chybu a spuštění nebylo možné dokončit:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Úložiště IPFS musí být adresářem",

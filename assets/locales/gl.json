@@ -38,6 +38,7 @@
   "cancel": "Cancelar",
   "enable": "Activar",
   "reportTheError": "Avisar do erro",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Reiniciar o IPFS Desktop",
   "openLogs": "Abrir os rexistros",
   "takeScreenshot": "Tomada captura de pantalla",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "Activar npm no IPFS",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Programa IPFS personalizado",
     "message": "Ao escoller outro programa IPFS, IPFS Desktop xa non usará o IPFS incluído, e usará o programa que vostede precise. Continuar?"
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "Fallou o inicio de IPFS Desktop",
-    "message": "O nodo IPFS atopou un erro, e non se puido completar o inicio:"
+    "message": "O nodo IPFS atopou un erro, e non se puido completar o inicio:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

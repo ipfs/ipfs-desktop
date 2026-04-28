@@ -38,6 +38,7 @@
   "cancel": "Fortryd",
   "enable": "",
   "reportTheError": "Indrapporter fejlen",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Genstart IPFS Skrivebord",
   "openLogs": "Åben logfiler",
   "takeScreenshot": "Optag skærmbillede",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "",
     "message": ""
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

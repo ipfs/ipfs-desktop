@@ -38,6 +38,7 @@
   "cancel": "Rezigni",
   "enable": "Ŝalti",
   "reportTheError": "Raporti pri la eraro",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Relanĉi IPFS Labotablan",
   "openLogs": "Malfermi protokolon",
   "takeScreenshot": "",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "",
     "message": ""
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

@@ -38,6 +38,7 @@
   "cancel": "Скасувати",
   "enable": "Увімкнути",
   "reportTheError": "Повідомити про помилку",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Перезапустити IPFS Desktop",
   "openLogs": "Відкрити журнал",
   "takeScreenshot": "Зробити знімок екрану",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "",
     "message": ""
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

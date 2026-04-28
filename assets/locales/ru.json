@@ -38,6 +38,7 @@
   "cancel": "Отмена",
   "enable": "Разрешить",
   "reportTheError": "Сообщить об ошибке",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Перезапустить IPFS Desktop",
   "openLogs": "Открыть логи",
   "takeScreenshot": "Сделать Скриншот",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "Активировать npm на IPFS",
     "monochromeTrayIcon": "Использовать монохромный значок в трее"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Пользовательский файл IPFS",
     "message": "Устанавливая кастомный IPFS, IFPS Desktop больше не будет использовать включенную в состав версию IPFS и будет использовать указанный исполняемый файл. Вы хотите продолжить?"
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "Не удалось запустить IPFS Desktop",
-    "message": "IPFS Узел столкнулся с ошибкой, и запуск не удалось завершить:"
+    "message": "IPFS Узел столкнулся с ошибкой, и запуск не удалось завершить:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Репозиторий IPFS должен быть каталогом",

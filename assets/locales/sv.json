@@ -38,6 +38,7 @@
   "cancel": "Ångra",
   "enable": "Aktivera",
   "reportTheError": "Rapportera felet",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Starta om IPFS-skrivbordet",
   "openLogs": "Öppna loggar",
   "takeScreenshot": "Ta en skärmdump",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "Aktivera npm på IPFS",
     "monochromeTrayIcon": "Använd monokrom ikon för verktygsfältet"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "",
     "message": ""
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",
