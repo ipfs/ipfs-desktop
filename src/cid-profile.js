@@ -127,12 +127,12 @@ function detectCurrentProfile (importSection) {
 }
 
 async function applyCidProfile (ipfsd, profileName) {
-  logger.info(`[cid-profile] applying profile: ${profileName}`)
-
+  let step = 'init'
   try {
     // Write Import.* through the RPC API rather than the config file, so we
     // never race with Kubo's own config writer. Selecting "Default" clears
     // the section; Kubo then applies its built-ins.
+    step = 'config write'
     const importValue = profileName === 'default'
       ? {}
       : { ...PROFILES[profileName].Import }
@@ -142,19 +142,22 @@ async function applyCidProfile (ipfsd, profileName) {
     // chcid re-hashes the MFS root under the new CID version. It takes
     // effect live (no daemon restart) but requires a running daemon, so
     // we call it here rather than in the reconcile path.
+    step = 'chcid'
     const cidVersion = profileName === 'default'
       ? DEFAULT_CHCID_VERSION
       : PROFILES[profileName].chcidVersion
     await kuboApiPost(ipfsd, `/api/v0/files/chcid?arg=/&cid-version=${cidVersion}`)
-    logger.info(`[cid-profile] chcid completed for cid-version=${cidVersion}`)
 
     // Persist, then restart the daemon so the embedded WebUI re-reads the
     // config and shows the new CID version in Files and Settings.
+    step = 'persist'
     await store.safeSet('cidProfile', profileName, () => {
       ipcMain.emit(ipcMainEvents.IPFS_CONFIG_CHANGED)
     })
+
+    logger.info(`[cid-profile] applied '${profileName}' (cid-version=${cidVersion})`)
   } catch (err) {
-    logger.error(`[cid-profile] error applying profile: ${err.message}`)
+    logger.error(`[cid-profile] ${step} failed for '${profileName}': ${err.message}`)
   }
 }
 
@@ -191,16 +194,16 @@ module.exports = async function setupCidProfile () {
       const stored = store.get('cidProfile', 'default')
 
       if (detected !== stored) {
-        logger.info(`[cid-profile] detected profile '${detected}' differs from stored '${stored}', updating`)
+        logger.info(`[cid-profile] reconciled '${stored}' -> '${detected}' from live config`)
         store.safeSet('cidProfile', detected)
         ipcMain.emit(ipcMainEvents.CONFIG_UPDATED)
       }
     } catch (err) {
-      logger.error(`[cid-profile] error detecting profile: ${err.message}`)
+      logger.error(`[cid-profile] reconcile failed: ${err.message}`)
     }
   })
 
-  logger.info('[cid-profile] initialized')
+  logger.info(`[cid-profile] active: ${store.get('cidProfile', 'default')}`)
 }
 
 module.exports.detectCurrentProfile = detectCurrentProfile
