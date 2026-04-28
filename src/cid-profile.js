@@ -6,12 +6,6 @@ const { kuboApiPost } = require('./common/kubo-rpc')
 const { STATUS } = require('./daemon/consts')
 const getCtx = require('./context')
 
-// Meaning of "Default" when Import.* is empty. Sets the cid-version passed
-// to `files/chcid` on a Default selection. Our chosen fallback, not Kubo's
-// built-in default. Change this literal to flip the meaning of "Default"
-// in a future release.
-const DEFAULT_PROFILE = 'unixfs-v0-2015'
-
 const PROFILES = {
   'unixfs-v1-2025': {
     Import: {
@@ -42,8 +36,6 @@ const PROFILES = {
     }
   }
 }
-
-const DEFAULT_CHCID_VERSION = PROFILES[DEFAULT_PROFILE].Import.CidVersion
 
 async function fetchImportConfig (ipfsd) {
   const raw = await kuboApiPost(ipfsd, '/api/v0/config?arg=Import')
@@ -105,23 +97,17 @@ async function applyCidProfile (ipfsd, profileName) {
     const encodedValue = encodeURIComponent(JSON.stringify(merged))
     await kuboApiPost(ipfsd, `/api/v0/config?arg=Import&arg=${encodedValue}&json=true`)
 
-    // chcid re-hashes the MFS root under the new CID version. It takes
-    // effect live (no daemon restart) but requires a running daemon, so
-    // we call it here rather than in the reconcile path.
-    step = 'chcid'
-    const cidVersion = profileName === 'default'
-      ? DEFAULT_CHCID_VERSION
-      : PROFILES[profileName].Import.CidVersion
-    await kuboApiPost(ipfsd, `/api/v0/files/chcid?arg=/&cid-version=${cidVersion}`)
-
-    // Persist, then restart the daemon so the embedded WebUI re-reads the
-    // config and shows the new CID version in Files and Settings.
+    // Persist, then restart the daemon. Kubo 0.41+ reads Import.CidVersion
+    // and Import.HashFunction at startup and applies them to the MFS root
+    // CidBuilder (kubo/#11273), so the new format takes effect on the next
+    // MFS mutation. No explicit `files/chcid` is needed; calling it on '/'
+    // returns an error in 0.41+.
     step = 'persist'
     await store.safeSet('cidProfile', profileName, () => {
       ipcMain.emit(ipcMainEvents.IPFS_CONFIG_CHANGED)
     })
 
-    logger.info(`[cid-profile] applied '${profileName}' (cid-version=${cidVersion})`)
+    logger.info(`[cid-profile] applied '${profileName}'`)
   } catch (err) {
     logger.error(`[cid-profile] ${step} failed for '${profileName}': ${err.message}`)
   }
