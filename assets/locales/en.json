@@ -189,6 +189,13 @@
     "npmOnIpfs": "Enable npm on IPFS",
     "monochromeTrayIcon": "Use Monochrome Tray Icon"
   },
+  "cidProfile": {
+    "title": "CID Profile",
+    "default": "Default",
+    "cidv1": "CIDv1 (unixfs-v1-2025)",
+    "cidv0Legacy": "Legacy CIDv0 (unixfs-v0-2015)",
+    "manual": "Manual Import.* Config"
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Custom IPFS binary",
     "message": "By setting a custom IPFS, IPFS Desktop will no longer use the bundled IPFS version and will use the binary you specify. Do you wish to proceed?"

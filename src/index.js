@@ -30,6 +30,7 @@ const setupArgvFilesHandler = require('./argv-files-handler')
 const setupAutoUpdater = require('./auto-updater')
 const setupTray = require('./tray')
 const setupAnalytics = require('./analytics')
+const setupCidProfile = require('./cid-profile')
 const setupSecondInstance = require('./second-instance')
 const { analyticsKeys } = require('./analytics/keys')
 const handleError = require('./handleError')
@@ -80,6 +81,7 @@ async function run () {
       setupAutoGc(),
       setupPubsub(),
       setupNamesysPubsub(),
+      setupCidProfile(),
       setupSecondInstance(),
       // Setup global shortcuts
       setupTakeScreenshot()

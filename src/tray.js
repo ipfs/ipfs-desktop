@@ -20,6 +20,56 @@ const { isSupported: supportsLaunchAtLogin } = require('./auto-launch')
 const createToggler = require('./utils/create-toggler')
 const getCtx = require('./context')
 
+function buildCidProfileSubmenu () {
+  const cidProfile = store.get('cidProfile', 'default')
+  const isManual = cidProfile === 'manual'
+  // "Default" means "no Import.* config"; Kubo then applies its own defaults.
+  // Show it only on a pristine setup. Once the user picks a named profile or
+  // edits the config by hand, hide "Default" so a click cannot clear the
+  // current Import.* settings.
+  const isDefault = cidProfile === 'default'
+
+  return [{
+    id: 'cidProfileSubmenu',
+    label: i18n.t('cidProfile.title'),
+    submenu: [
+      {
+        id: 'cidProfile.default',
+        label: i18n.t('cidProfile.default'),
+        type: 'radio',
+        checked: isDefault,
+        visible: isDefault,
+        click: () => { ipcMain.emit('cidProfile.select', null, 'default') }
+      },
+      {
+        id: 'cidProfile.cidv1',
+        label: i18n.t('cidProfile.cidv1'),
+        type: 'radio',
+        checked: cidProfile === 'unixfs-v1-2025',
+        click: () => { ipcMain.emit('cidProfile.select', null, 'unixfs-v1-2025') }
+      },
+      {
+        id: 'cidProfile.cidv0Legacy',
+        label: i18n.t('cidProfile.cidv0Legacy'),
+        type: 'radio',
+        checked: cidProfile === 'unixfs-v0-2015',
+        click: () => { ipcMain.emit('cidProfile.select', null, 'unixfs-v0-2015') }
+      },
+      {
+        // Read-only indicator. Appears only when the on-disk Import.* config
+        // matches no named profile (the user edited it by hand). Stays
+        // disabled so a click cannot overwrite the manual config.
+        id: 'cidProfile.manual',
+        label: i18n.t('cidProfile.manual'),
+        type: 'radio',
+        checked: isManual,
+        enabled: false,
+        visible: isManual
+      }
+    ]
+  }]
+}
+
 function buildCheckbox (key, label) {
   return {
     id: key,
@@ -148,7 +198,9 @@ async function buildMenu () {
           enabled: false
         },
         buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB, 'settings.pubsub'),
-        buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB_NAMESYS, 'settings.namesysPubsub')
+        buildCheckbox(CONFIG_KEYS.EXPERIMENT_PUBSUB_NAMESYS, 'settings.namesysPubsub'),
+        { type: 'separator' },
+        ...buildCidProfileSubmenu()
       ]
     },
     // @ts-ignore
@@ -355,6 +407,13 @@ module.exports = async function () {
 
     menu.getMenuItemById('openRepoDir').enabled = fs.pathExistsSync(getKuboRepositoryPath())
     menu.getMenuItemById('openKuboConfigFile').enabled = fs.pathExistsSync(path.join(getKuboRepositoryPath(), 'config'))
+
+    // CID Profile: the parent gates the whole submenu. Grey it out when the
+    // daemon is offline, since applying a profile requires HTTP RPC.
+    // buildCidProfileSubmenu picks visibility for "Default" and "Manual"
+    // from the stored profile, so nothing else needs toggling here.
+    const isDaemonRunning = status === STATUS.STARTING_FINISHED
+    menu.getMenuItemById('cidProfileSubmenu').enabled = isDaemonRunning
 
     if (status === STATUS.STARTING_FINISHED) {
       tray.setImage(icon(on))
