@@ -25,8 +25,7 @@ const PROFILES = {
       UnixFSHAMTDirectorySizeThreshold: '256KiB',
       UnixFSHAMTDirectorySizeEstimation: 'block',
       UnixFSDAGLayout: 'balanced'
-    },
-    chcidVersion: 1
+    }
   },
   'unixfs-v0-2015': {
     Import: {
@@ -40,12 +39,11 @@ const PROFILES = {
       UnixFSHAMTDirectorySizeThreshold: '256KiB',
       UnixFSHAMTDirectorySizeEstimation: 'links',
       UnixFSDAGLayout: 'balanced'
-    },
-    chcidVersion: 0
+    }
   }
 }
 
-const DEFAULT_CHCID_VERSION = PROFILES[DEFAULT_PROFILE].chcidVersion
+const DEFAULT_CHCID_VERSION = PROFILES[DEFAULT_PROFILE].Import.CidVersion
 
 // TODO: drop this raw HTTP helper once the project switches to
 // kubo-rpc-client. The client exposes config.get / config.set / files.chcid
@@ -145,7 +143,7 @@ async function applyCidProfile (ipfsd, profileName) {
     step = 'chcid'
     const cidVersion = profileName === 'default'
       ? DEFAULT_CHCID_VERSION
-      : PROFILES[profileName].chcidVersion
+      : PROFILES[profileName].Import.CidVersion
     await kuboApiPost(ipfsd, `/api/v0/files/chcid?arg=/&cid-version=${cidVersion}`)
 
     // Persist, then restart the daemon so the embedded WebUI re-reads the
