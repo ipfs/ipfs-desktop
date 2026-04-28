@@ -38,6 +38,7 @@
   "cancel": "Ακύρωση",
   "enable": "Ενεργοποίηση",
   "reportTheError": "Αναφορά σφάλματος",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Επανεκκίνηση του IPFS Desktop",
   "openLogs": "Άνοιγμα αρχείων καταγραφής",
   "takeScreenshot": "Λήψη Στιγμιότυπου Οθόνης",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "Ενεργοποίηση npm στο IPFS",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "",
     "message": ""
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": "Ο κόμβος IPFS αντιμετώπισε κάποιο σφάλμα και η εκκίνηση δεν μπόρεσε να ολοκληρωθεί:"
+    "message": "Ο κόμβος IPFS αντιμετώπισε κάποιο σφάλμα και η εκκίνηση δεν μπόρεσε να ολοκληρωθεί:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Το αποθετήριο του IPFS πρέπει να είναι φάκελος",

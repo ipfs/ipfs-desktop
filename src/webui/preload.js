@@ -12,26 +12,43 @@ const urlParams = new URLSearchParams(window.location.search)
 
 let previousHash = null
 
-function checkIfVisible () {
-  if (document.hidden) {
+// While the window is not visible, navigate the HashRouter to `#/blank` so the
+// React app unmounts. This avoids re-rendering the bandwidth graph on Status
+// and the peer list on Peers while the user cannot see them. Restore the
+// previous route when visible again.
+//
+// Two signal sources, both calling the idempotent updater:
+//
+//   1. WEBUI_VISIBILITY_CHANGED IPC from the main process: deterministic when
+//      the app calls `window.show()` / `window.hide()` programmatically (e.g.
+//      tray-driven navigation), where Chromium's `visibilitychange` is not
+//      reliably observed in time and the renderer would miss the un-blank.
+//
+//   2. `document.visibilitychange`: covers cases the main process never sees,
+//      such as full occlusion by another window, macOS app-hide (Cmd+H) and
+//      Mission Control / Spaces. Without this, those screens keep
+//      re-rendering while the user is not looking at them.
+function updateVisibility (isVisible) {
+  if (!isVisible) {
     if (window.location.hash === '#/blank') return // skip, already blank
     previousHash = window.location.hash
     window.location.hash = '/blank'
-  } else {
-    if (previousHash === '#/blank') return // skip
-    window.location.hash = previousHash
+    return
   }
+
+  if (!previousHash || window.location.hash !== '#/blank') return // skip
+  window.location.hash = previousHash
 }
 
+ipcRenderer.on(ipcMainEvents.WEBUI_VISIBILITY_CHANGED, (_event, isVisible) => {
+  updateVisibility(Boolean(isVisible))
+})
+
 document.addEventListener('visibilitychange', () => {
-  checkIfVisible()
+  updateVisibility(!document.hidden)
 })
 
-document.addEventListener('DOMContentReady', () => {
-  checkIfVisible()
-})
-
-// track hash changes, so checkIfVisible always has the right previousHash
+// track hash changes, so updateVisibility always has the right previousHash
 document.addEventListener('hashchange', () => {
   if (window.location.hash === '#/blank') return // skip
   previousHash = window.location.hash

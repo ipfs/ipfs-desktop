@@ -38,6 +38,7 @@
   "cancel": "Annuler",
   "enable": "Activer",
   "reportTheError": "Signaler l'erreur",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Redémarrer IPFS Desktop",
   "openLogs": "Ouvrir les logs",
   "takeScreenshot": "Prendre une capture d'écran",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "Activer npm sur IPFS",
     "monochromeTrayIcon": "Utiliser un icône monochrome dans la barre des tâches"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binaire IPFS personnalisé",
     "message": "En sélectionnant un binaire IPFS personnalisé, IPFS Desktop n'utilisera plus la version d'IPFS intégrée mais utilisera le fichier binaire que vous choisirez. Voulez-vous continuer?"
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "Le démarrage d'IPFS Desktop a échoué",
-    "message": "Le nœud IPFS a rencontré une erreur et il n'a pas pu finir de démarrer :"
+    "message": "Le nœud IPFS a rencontré une erreur et il n'a pas pu finir de démarrer :",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Le répertoire d'IPFS doit être un dossier",

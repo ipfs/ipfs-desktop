@@ -38,6 +38,7 @@
   "cancel": "Abbrechen",
   "enable": "Aktivieren",
   "reportTheError": "Den Fehler melden",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "IPFS Desktop neu starten",
   "openLogs": "Protokolle öffnen",
   "takeScreenshot": "Bildschirmfoto aufnehmen",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "npm in IPFS aktivieren",
     "monochromeTrayIcon": "Einfarbiges Tray-Icon benutzen"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Benutzerdefinierte IPFS-Binärdatei",
     "message": "Wenn du ein eigenes IPFS einstellst, wird IPFS Desktop nicht länger die gebündelte IPFS version nutzen, sondern die Binärversion nutzen, die du angibst. Möchtest du fortfahren?"
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "Der IPFS Desktop Start ist fehlgeschlagen",
-    "message": "Der IPFS Knoten hat einen Fehler festgestellt und der Start konnte nicht abgeschlossen werden:"
+    "message": "Der IPFS Knoten hat einen Fehler festgestellt und der Start konnte nicht abgeschlossen werden:",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Der IPFS Speicher muss ein Verzeichnis sein",

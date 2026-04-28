@@ -38,6 +38,7 @@
   "cancel": "キャンセル",
   "enable": "有効",
   "reportTheError": "エラーを報告する",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "IPFSデスクトップを再起動する",
   "openLogs": "ログを開く",
   "takeScreenshot": "スクリーンショットを撮ります",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "IPFSにnpmを有効",
     "monochromeTrayIcon": "モノクロのトレイアイコンを使う"
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "カスタム IPFS バイナリ",
     "message": "カスタムIPFSを設定することで、IPFS DesktopはバンドルされているバージョンのIPFSを使用しなくなり、指定したバイナリを使用するようになります。続行しますか？"
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "IPFSデスクトップの開始が失敗しました",
-    "message": "IPFSノードでエラーが発生し、起動を完了できませんでした："
+    "message": "IPFSノードでエラーが発生し、起動を完了できませんでした：",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "IPFS リポジトリはディレクトリでなければならない",

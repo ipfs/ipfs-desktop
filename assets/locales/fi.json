@@ -38,6 +38,7 @@
   "cancel": "Peruuta",
   "enable": "Ota käyttöön",
   "reportTheError": "Raportoi virhe",
+  "downloadLatestRelease": "",
   "restartIpfsDesktop": "Käynnistä 'IPFS Desktop' uudelleen",
   "openLogs": "Avaa loki",
   "takeScreenshot": "Ota kuvakaappaus",
@@ -188,6 +189,13 @@
     "npmOnIpfs": "",
     "monochromeTrayIcon": ""
   },
+  "cidProfile": {
+    "title": "",
+    "default": "",
+    "cidv1": "",
+    "cidv0Legacy": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "",
     "message": ""
@@ -213,7 +221,8 @@
   },
   "startupFailedDialog": {
     "title": "",
-    "message": ""
+    "message": "",
+    "outdatedBinaryMessage": ""
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "",

@@ -65,6 +65,28 @@ const inProgressTemplate = (logs, id, done) => {
 
 const errorTemplate = (logs) => {
   const title = i18n.t('startupFailedDialog.title')
+  // Parse versions so we only engage the upgrade path when program < repo.
+  const versionMatch = typeof logs === 'string' &&
+    logs.match(/Error: Your programs version \((\d+)\) is lower than your repos \((\d+)\)/)
+  const isOutdatedBinary = versionMatch &&
+    parseInt(versionMatch[1], 10) < parseInt(versionMatch[2], 10)
+
+  if (isOutdatedBinary) {
+    const message = i18n.t('startupFailedDialog.outdatedBinaryMessage')
+    const buttons = [
+      `<button class="default" onclick="javascript:window.close()">${i18n.t('close')}</button>`,
+      `<button onclick="javascript:openReleases()">${i18n.t('downloadLatestRelease')}</button>`
+    ]
+    const script = `
+    const { shell } = require('electron')
+
+    function openReleases () {
+      shell.openExternal('https://github.com/ipfs/ipfs-desktop/releases/latest')
+    }
+    `
+    return template(logs, script, title, message, buttons)
+  }
+
   const message = i18n.t('startupFailedDialog.message')
   const buttons = [
     `<button class="default" onclick="javascript:window.close()">${i18n.t('close')}</button>`,

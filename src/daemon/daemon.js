@@ -6,6 +6,16 @@ const showMigrationPrompt = require('./migration-prompt')
 const dialogs = require('./dialogs')
 const { app } = require('electron')
 
+// Patterns in kubo's stdout/stderr that indicate a fatal startup error.
+// When the listener in startIpfsWithLogs sees any of these, it flips
+// isErrored so the migration prompt renders its error/upgrade template
+// immediately, instead of waiting for ipfsd.start() to reject.
+// Add new patterns here as new fatal kubo errors are observed.
+const FATAL_KUBO_LOG_PATTERNS = [
+  // Repo was written by a newer kubo than the running binary.
+  /Error: Your programs version \(\d+\) is lower than your repos \(\d+\)/
+]
+
 /**
  * Get the IPFS binary file path.
  *
@@ -146,7 +156,8 @@ async function startIpfsWithLogs (ipfsd) {
     logs += data.toString()
     const line = data.toLowerCase()
     isMigrating = isMigrating || line.includes('migration')
-    isErrored = isErrored || isSpawnedDaemonDead(ipfsd)
+    isErrored = isErrored || isSpawnedDaemonDead(ipfsd) ||
+      FATAL_KUBO_LOG_PATTERNS.some(re => re.test(logs))
     isFinished = isFinished || line.includes('daemon is ready')
 
     if (!isMigrating && !isErrored) {
