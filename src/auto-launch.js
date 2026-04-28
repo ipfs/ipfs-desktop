@@ -21,8 +21,14 @@ function getDesktopFile () {
   return path.join(untildify('~/.config/autostart/'), 'ipfs-desktop.desktop')
 }
 
+// Quote and escape a value as an argument in a Desktop Entry Exec= field.
+// The freedesktop.org spec requires arguments with reserved characters (space,
+// $, backtick, etc.) to be wrapped in double quotes, and literal backslashes,
+// double quotes, dollar signs, or backticks inside the quotes must each be
+// preceded by a backslash. Always quoting handles paths with spaces such as
+// /opt/My Apps/electron39.
 function quoteDesktopEntryArg (value) {
-  return `"${value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`
+  return `"${value.replace(/[\\`$"]/g, '\\$&')}"`
 }
 
 function getLinuxAutostartExec () {
@@ -129,3 +135,5 @@ module.exports = async function () {
 }
 
 module.exports.isSupported = isSupported
+module.exports.quoteDesktopEntryArg = quoteDesktopEntryArg
+module.exports.getLinuxAutostartExec = getLinuxAutostartExec
