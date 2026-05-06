@@ -81,7 +81,7 @@
     "intl-messageformat": "^9.13.0",
     "ipfs-http-client": "56.0.2",
     "ipfs-utils": "^9.0.10",
-    "ipfsd-ctl": "10.0.6",
+    "ipfsd-ctl": "16.0.3",
     "it-last": "^1.0.6",
     "kubo": "0.41.0",
     "multiaddr": "10.0.1",
