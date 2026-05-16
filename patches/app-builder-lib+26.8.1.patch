@@ -24,3 +24,16 @@ index 2eadec7..d55eced 100644
          },
          "timestampDigest": {
            "default": "SHA256",
+diff --git a/node_modules/app-builder-lib/out/node-module-collector/moduleManager.js b/node_modules/app-builder-lib/out/node-module-collector/moduleManager.js
+index 5b9d392..57fe71c 100644
+--- a/node_modules/app-builder-lib/out/node-module-collector/moduleManager.js
++++ b/node_modules/app-builder-lib/out/node-module-collector/moduleManager.js
+@@ -15,7 +15,7 @@ var LogMessageByKey;
+     LogMessageByKey["PKG_COLLECTOR_OUTPUT"] = "collector stderr output";
+ })(LogMessageByKey || (exports.LogMessageByKey = LogMessageByKey = {}));
+ exports.logMessageLevelByKey = {
+-    [LogMessageByKey.PKG_DUPLICATE_REF]: "info",
++    [LogMessageByKey.PKG_DUPLICATE_REF]: "debug",
+     [LogMessageByKey.PKG_NOT_FOUND]: "warn",
+     [LogMessageByKey.PKG_NOT_ON_DISK]: "warn",
+     [LogMessageByKey.PKG_SELF_REF]: "debug",
