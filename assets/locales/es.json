@@ -196,6 +196,13 @@
     "cidv0Legacy": "",
     "manual": ""
   },
+  "provideStrategy": {
+    "title": "",
+    "default": "",
+    "pinnedMfs": "",
+    "pinned": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "IPFS Binario Personalizado",
     "message": "Al configurar un IPFS personalizado, IPFS Desktop ya no usará la versión de IPFS incluida y usará el binario que especifique. ¿Desea continuar?"

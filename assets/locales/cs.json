@@ -196,6 +196,13 @@
     "cidv0Legacy": "",
     "manual": ""
   },
+  "provideStrategy": {
+    "title": "",
+    "default": "",
+    "pinnedMfs": "",
+    "pinned": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Vlastní binární soubor IPFS",
     "message": "Nastavením vlastního systému IPFS přestane služba IPFS Desktop používat dodávanou verzi systému IPFS a použije vámi zadanou binární verzi. Chcete pokračovat?"

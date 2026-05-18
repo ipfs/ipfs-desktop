@@ -196,6 +196,13 @@
     "cidv0Legacy": "",
     "manual": ""
   },
+  "provideStrategy": {
+    "title": "",
+    "default": "",
+    "pinnedMfs": "",
+    "pinned": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binar IPFS personalizat",
     "message": "Setând un IPFS personalizat, IPFS Desktop nu va mai folosi versiunea IPFS inclusă și va folosi binarul specificat de tine. Vrei să continui?"

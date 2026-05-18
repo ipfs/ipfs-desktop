@@ -196,6 +196,13 @@
     "cidv0Legacy": "",
     "manual": ""
   },
+  "provideStrategy": {
+    "title": "",
+    "default": "",
+    "pinnedMfs": "",
+    "pinned": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "กำหนดค่าไบนารี่ IPFS",
     "message": "ในการตั้งค่า IPFS แบบกำหนดเอง, IPFS Desktop จะไม่ได้ใช้เวอร์ชั่นส่วนรวม แต่จะเปลี่ยนไปใช้ IPFS Desktop แบบไบนารี่ที่กำหนดเอง. คุณต้องการดำเนินการต่อหรือไม่?"

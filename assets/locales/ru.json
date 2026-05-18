@@ -196,6 +196,13 @@
     "cidv0Legacy": "",
     "manual": ""
   },
+  "provideStrategy": {
+    "title": "",
+    "default": "",
+    "pinnedMfs": "",
+    "pinned": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Пользовательский файл IPFS",
     "message": "Устанавливая кастомный IPFS, IFPS Desktop больше не будет использовать включенную в состав версию IPFS и будет использовать указанный исполняемый файл. Вы хотите продолжить?"
