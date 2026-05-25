@@ -3,6 +3,20 @@ const { registerAppStartTime, getSecondsSinceAppStart } = require('./metrics/app
 registerAppStartTime()
 require('v8-compile-cache')
 
+const emitWarning = process.emitWarning.bind(process)
+process.emitWarning = (warning, ...args) => {
+  // Electron's ASAR shim currently triggers DEP0180 internally (asarStatsToFsStats).
+  // Filter this known upstream warning to keep runtime logs actionable.
+  const warningCode = (
+    (warning && typeof warning === 'object' && warning.code) ||
+    (args[0] && typeof args[0] === 'object' && args[0].code) ||
+    (typeof args[1] === 'string' && args[1]) ||
+    undefined
+  )
+  if (warningCode === 'DEP0180') return
+  return emitWarning(warning, ...args)
+}
+
 const { app, dialog } = require('electron')
 
 if (process.env.NODE_ENV === 'test') {
