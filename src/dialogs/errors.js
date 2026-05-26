@@ -4,13 +4,33 @@ const os = require('os')
 const i18n = require('i18next')
 const dialog = require('./dialog')
 
+// GitHub responds HTTP 414 (URI too long) on the issue-creation form around
+// 8200 chars; 8000 leaves headroom for request line and headers.
+const MAX_URL_LENGTH = 8000
+
+// When forced to truncate, keep more from the tail than the head: daemon
+// migration logs wrapped in `new Error(logs)` (see daemon/migration-prompt.js)
+// put the real cause on the last lines (see issue #3147).
+const TRUNCATION_STEPS = [
+  [5, 30],
+  [3, 25],
+  [2, 20],
+  [1, 15],
+  [1, 10],
+  [0, 8],
+  [0, 5],
+  [0, 3]
+]
+
 const issueTitle = (e) => {
-  const es = e.stack ? e.stack.toString() : 'unknown error, no stacktrace'
-  const firstLine = es.substr(0, Math.min(es.indexOf('\n'), 72))
+  const stack = e && e.stack ? e.stack.toString() : 'unknown error, no stacktrace'
+  const newlineIdx = stack.indexOf('\n')
+  const lineEnd = newlineIdx === -1 ? stack.length : newlineIdx
+  const firstLine = stack.slice(0, Math.min(lineEnd, 72))
   return `[gui error report] ${firstLine}`
 }
 
-const issueTemplate = (e) => `<!-- 👉️ Please describe HERE what you were doing when this error happened. -->
+const issueTemplate = (stack) => `<!-- 👉️ Please describe HERE what you were doing when this error happened. -->
 
 - **Desktop**: ${app.getVersion()}
 - **OS**: ${os.platform()} ${os.release()} ${os.arch()}
@@ -18,9 +38,43 @@ const issueTemplate = (e) => `<!-- 👉️ Please describe HERE what you were do
 - **Chrome**: ${process.versions.chrome}
 
 \`\`\`
-${e.stack}
+${stack}
 \`\`\`
 `
+
+function truncateStack (stack, headLines, tailLines) {
+  const lines = stack.split('\n')
+  if (lines.length <= headLines + tailLines) return stack
+  const head = lines.slice(0, headLines)
+  const tail = lines.slice(lines.length - tailLines)
+  const omitted = lines.length - headLines - tailLines
+  return [
+    ...head,
+    `... ${omitted} lines omitted ...`,
+    ...tail
+  ].join('\n')
+}
+
+function buildBugReportUrl (title, body) {
+  return `https://github.com/ipfs/ipfs-desktop/issues/new?labels=kind%2Fbug%2C+need%2Ftriage&template=bug_report.md&title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`
+}
+
+// Returns an issue-creation URL within MAX_URL_LENGTH. Tries the full stack
+// first, then shrinks via head+tail truncation, always preserving the tail.
+function generateBugReportUrl (e) {
+  const title = issueTitle(e)
+  const stack = e && e.stack ? e.stack.toString() : 'unknown error, no stacktrace'
+
+  let url = buildBugReportUrl(title, issueTemplate(stack))
+  if (url.length <= MAX_URL_LENGTH) return url
+
+  for (const [h, t] of TRUNCATION_STEPS) {
+    url = buildBugReportUrl(title, issueTemplate(truncateStack(stack, h, t)))
+    if (url.length <= MAX_URL_LENGTH) return url
+  }
+
+  return url.slice(0, MAX_URL_LENGTH)
+}
 
 let hasErrored = false
 
@@ -70,7 +124,7 @@ function generateErrorIssueUrl (e) {
     }
   }
   // Something else, prefill new issue form with error details
-  return `https://github.com/ipfs/ipfs-desktop/issues/new?labels=kind%2Fbug%2C+need%2Ftriage&template=bug_report.md&title=${encodeURI(issueTitle(e))}&body=${encodeURI(issueTemplate(e))}`.substring(0, 1999)
+  return generateBugReportUrl(e)
 }
 
 /**
