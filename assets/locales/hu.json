@@ -196,6 +196,13 @@
     "cidv0Legacy": "",
     "manual": ""
   },
+  "provideStrategy": {
+    "title": "",
+    "default": "",
+    "pinnedMfs": "",
+    "pinned": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Saját IPFS bináris",
     "message": "Az egyéni IPFS beállításával az IPFS Desktop már nem használja a csomagban szereplő IPFS verziót, és a megadott bináris fájlt használja. Folytatni akarja?"

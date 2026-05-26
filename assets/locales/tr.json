@@ -196,6 +196,13 @@
     "cidv0Legacy": "",
     "manual": ""
   },
+  "provideStrategy": {
+    "title": "",
+    "default": "",
+    "pinnedMfs": "",
+    "pinned": "",
+    "manual": ""
+  },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Özel IPFS ikilisi",
     "message": "Özel bir IPFS ayarladığınızda, IPFS Masaüstü artık birlikte verilen IPFS sürümünü kullanmayacak ve belirttiğiniz ikili dosyayı kullanacaktır. Devam etmek istiyor musunuz?"

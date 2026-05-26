@@ -38,7 +38,7 @@
   "cancel": "取消",
   "enable": "启用",
   "reportTheError": "报告错误",
-  "downloadLatestRelease": "",
+  "downloadLatestRelease": "下载最新版本",
   "restartIpfsDesktop": "重启 IPFS 桌面",
   "openLogs": "打开日志",
   "takeScreenshot": "截屏",
@@ -190,11 +190,18 @@
     "monochromeTrayIcon": "使用黑白托盘图标"
   },
   "cidProfile": {
-    "title": "",
-    "default": "",
-    "cidv1": "",
-    "cidv0Legacy": "",
-    "manual": ""
+    "title": "CID 内容标识符配置",
+    "default": "默认值（Kubo内置）",
+    "cidv1": "现代CIDv 1（unixfs-v1-2025）",
+    "cidv0Legacy": "旧版CIDv 0（unixfs-v0-2015）",
+    "manual": "在Kubo配置中手动编辑"
+  },
+  "provideStrategy": {
+    "title": "提供策略",
+    "default": "所有文件、固定和浏览缓存（默认）",
+    "pinnedMfs": "仅文件和固定",
+    "pinned": "只有固定",
+    "manual": "在Kubo配置中手动编辑"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "自定义IPFS二进制文件",
@@ -222,7 +229,7 @@
   "startupFailedDialog": {
     "title": "IPFS 桌面 启动失败",
     "message": "IPFS 节点遇到错误且启动可能没有成功",
-    "outdatedBinaryMessage": ""
+    "outdatedBinaryMessage": "您的IPFS存储库由较新版本的IPFS 桌面或Kubo CLI编写。请升级到最新版本："
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "IPFS仓库必须是一个目录",

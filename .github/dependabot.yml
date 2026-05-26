@@ -4,3 +4,43 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+    groups:
+      # Kubo binary and its RPC client. kubo-rpc-client is pre-listed so the
+      # future migration off ipfs-http-client lands cleanly without a config
+      # change.
+      kubo:
+        patterns:
+          - "kubo"
+          - "kubo-rpc-client"
+      # Core Electron runtime and the two packagers/updaters tied to its
+      # version. Major bumps here usually require manual smoke testing, so
+      # keeping them in one PR helps.
+      electron:
+        patterns:
+          - "electron"
+          - "electron-builder"
+          - "electron-updater"
+      # Test runners and mocks. Low-risk, high-frequency churn that should
+      # not generate one PR per package.
+      test:
+        patterns:
+          - "playwright"
+          - "@playwright/*"
+          - "sinon"
+          - "proxyquire"
+          - "xvfb-maybe"
+          - "cross-env"
+      # Catch-all for everything not covered above (i18next, winston, got,
+      # release-please plugin, ipfs-* libs, etc). Dependabot assigns each dep
+      # to the first matching group, so this sweeps the remainder.
+      rest:
+        patterns:
+          - "*"
