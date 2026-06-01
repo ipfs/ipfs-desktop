@@ -38,7 +38,7 @@
   "cancel": "Annuler",
   "enable": "Activer",
   "reportTheError": "Signaler l'erreur",
-  "downloadLatestRelease": "",
+  "downloadLatestRelease": "Télécharger la dernière version",
   "restartIpfsDesktop": "Redémarrer IPFS Desktop",
   "openLogs": "Ouvrir les logs",
   "takeScreenshot": "Prendre une capture d'écran",
@@ -130,9 +130,9 @@
     "message": "Impossible de télécharger la mise à jour. Vérifiez votre connexion Internet et réessayez.  "
   },
   "autoUpdateError": {
-    "title": "",
-    "message": "",
-    "downloadNow": "",
+    "title": "Échec du téléchargement de la mise-à-jour",
+    "message": "Impossible d'installer la mise-à-jour automatiquement. Voulez-vous la télécharger manuellement?",
+    "downloadNow": "Télécharger maintenant",
     "later": "Plus tard"
   },
   "updateDownloadedDialog": {
@@ -190,18 +190,18 @@
     "monochromeTrayIcon": "Utiliser un icône monochrome dans la barre des tâches"
   },
   "cidProfile": {
-    "title": "",
-    "default": "",
-    "cidv1": "",
-    "cidv0Legacy": "",
-    "manual": ""
+    "title": "Profil du CID",
+    "default": "Défaut (intégré à Kubo)",
+    "cidv1": "CIDv1 moderne (unix-v1-2025)",
+    "cidv0Legacy": "Ancien CIDv0 (unix-v0-2015)",
+    "manual": "Modifié manuellement dans la configuration de Kubo"
   },
   "provideStrategy": {
-    "title": "",
-    "default": "",
-    "pinnedMfs": "",
-    "pinned": "",
-    "manual": ""
+    "title": "Stratégie de publication",
+    "default": "Tous les Fichiers, Épingles, et le Cache du Navigateur (défaut)",
+    "pinnedMfs": "Seulement les Fichiers et Épingles",
+    "pinned": "Seulement les Épingles",
+    "manual": "Modifié manuellement dans la configuration de Kubo"
   },
   "setCustomIpfsBinaryConfirmation": {
     "title": "Binaire IPFS personnalisé",
@@ -229,7 +229,7 @@
   "startupFailedDialog": {
     "title": "Le démarrage d'IPFS Desktop a échoué",
     "message": "Le nœud IPFS a rencontré une erreur et il n'a pas pu finir de démarrer :",
-    "outdatedBinaryMessage": ""
+    "outdatedBinaryMessage": "Votre répertoire IPFS a été écrit par une version plus récente d'IPFS Desktop ou de la CLI de Kubo. Mettez à jour vers la dernière version."
   },
   "repositoryMustBeDirectoryDialog": {
     "title": "Le répertoire d'IPFS doit être un dossier",
