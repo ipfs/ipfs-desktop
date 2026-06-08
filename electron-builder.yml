@@ -76,7 +76,7 @@ linux:
   executableName: ipfs-desktop
   executableArgs:
     - --no-sandbox
-  icon: ipfs-desktop
+  icon: icon.png
   category: Network;FileTransfer;P2P
   synopsis: A desktop client for IPFS
   maintainer: gui@ipfs.tech

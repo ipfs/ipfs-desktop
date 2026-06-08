@@ -14,7 +14,6 @@
     "pretest:e2e": "node scripts/ensure-electron.js",
     "test:e2e": "xvfb-maybe cross-env NODE_ENV=test playwright test -c test/e2e/playwright.config.js",
     "postinstall": "run-s install-app-deps patch-deps macos-universal-kubo",
-    "install-electron": "node node_modules/electron/install.js",
     "install-app-deps": "electron-builder install-app-deps",
     "macos-universal-kubo": "node pkgs/macos/build-universal-kubo-binary.js",
     "patch-deps": "patch-package",
