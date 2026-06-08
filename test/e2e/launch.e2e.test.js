@@ -318,20 +318,33 @@ test.describe.serial('Application launch', async () => {
     const { app } = await startApp({ repoPath })
 
     const isPromptWindow = (page) => page.url().startsWith('data:text/html;base64,')
+    const hasUpgradeText = async (page) => {
+      try {
+        const text = await page.evaluate(() => (document.body && document.body.innerText) || '')
+        return text.includes('Download latest release')
+      } catch {
+        // window is mid-navigation (loadURL) or already closed; treat as not-ready
+        return false
+      }
+    }
 
-    // Subscribe before any other await; fall back to app.windows() in case
-    // the event already fired between launch resolving and this subscription.
-    const windowPromise = app.waitForEvent('window', { predicate: isPromptWindow, timeout: 120000 })
-    const errorWindow = app.windows().find(isPromptWindow) ?? await windowPromise
+    // kubo only emits "programs version is lower than your repos" once its
+    // startup attempt resolves, which can be slow on CI (first run of a freshly
+    // downloaded binary, notably on macOS), and the prompt renders the
+    // in-progress migration template before reloading the upgrade one - possibly
+    // in a freshly created window. Poll every prompt window for the upgrade text
+    // instead of binding to the first window and racing a fixed timeout.
+    let errorWindow
+    await expect.poll(async () => {
+      for (const win of app.windows()) {
+        if (isPromptWindow(win) && await hasUpgradeText(win)) {
+          errorWindow = win
+          return true
+        }
+      }
+      return false
+    }, { timeout: 150000, message: 'upgrade dialog never rendered "Download latest release"' }).toBe(true)
 
-    // The prompt may render the in-progress migration template first and
-    // reload with the error/upgrade template once kubo exits, so wait for
-    // the upgrade-specific string instead of asserting on first paint.
-    await errorWindow.waitForFunction(
-      () => document.body && document.body.innerText.includes('Download latest release'),
-      null,
-      { timeout: 45000 }
-    )
     const html = await errorWindow.content()
 
     expect(html).toContain('Your IPFS repository was written by a newer version of IPFS Desktop or Kubo CLI')
