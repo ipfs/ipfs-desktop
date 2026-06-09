@@ -17,6 +17,7 @@ jobs:
 
   webui:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v6
@@ -74,6 +75,7 @@ jobs:
 
   test:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     needs: webui
     strategy:
       fail-fast: false
@@ -144,6 +146,7 @@ jobs:
 
   build:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
     needs: test # build packages only if tests passed
     strategy:
       fail-fast: false
