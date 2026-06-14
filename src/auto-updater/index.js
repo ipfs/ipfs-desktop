@@ -22,6 +22,7 @@ function isAutoUpdateSupported () {
 
 let updateNotification = null // must be a global to avoid gc
 let feedback = false
+let updateStarted = false // set once the update has started
 
 function setup () {
   const ctx = getCtx()
@@ -36,7 +37,15 @@ function setup () {
       logger.error(`[updater] stack: ${err.stack}`)
     }
 
-    // Show dialog for all errors (background and manual checks)
+    // Show dialog for all errors (background and manual checks),
+    // only if it's a manual check or the update has already started.
+    if (!feedback && !updateStarted) {
+      return
+    }
+
+    updateStarted = false
+    feedback = false
+
     const opt = showDialog({
       title: i18n.t('autoUpdateError.title'),
       message: i18n.t('autoUpdateError.message'),
@@ -50,16 +59,11 @@ function setup () {
     if (opt === 1) {
       shell.openExternal('https://github.com/ipfs/ipfs-desktop/releases/latest')
     }
-
-    if (!feedback) {
-      return
-    }
-
-    feedback = false
   })
 
   autoUpdater.on('update-available', async ({ version, releaseNotes }) => {
     logger.info(`[updater] update to ${version} available, download will start`)
+    updateStarted = true
 
     try {
       await autoUpdater.downloadUpdate()
