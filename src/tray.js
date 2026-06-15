@@ -316,7 +316,7 @@ async function buildMenu () {
         },
         {
           label: `ipfs-desktop ${VERSION}`,
-          click: () => { shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/releases/v${VERSION}`) }
+          click: () => { shell.openExternal(`https://github.com/ipfs/ipfs-desktop/releases/v${VERSION}`) }
         },
         {
           label: hasCustomBinary()
@@ -338,7 +338,7 @@ async function buildMenu () {
         { type: 'separator' },
         {
           label: i18n.t('viewOnGitHub'),
-          click: () => { shell.openExternal('https://github.com/ipfs-shipyard/ipfs-desktop/blob/master/README.md') }
+          click: () => { shell.openExternal('https://github.com/ipfs/ipfs-desktop/blob/main/README.md') }
         },
         {
           label: i18n.t('helpUsTranslate'),
