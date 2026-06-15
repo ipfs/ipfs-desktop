@@ -22,7 +22,7 @@ function isAutoUpdateSupported () {
 
 let updateNotification = null // must be a global to avoid gc
 let feedback = false
-let updateStarted = false // set once the update has started
+let updateStarted = false // true while a download is in progress
 
 function setup () {
   const ctx = getCtx()
@@ -37,8 +37,8 @@ function setup () {
       logger.error(`[updater] stack: ${err.stack}`)
     }
 
-    // Show dialog for all errors (background and manual checks),
-    // only if it's a manual check or the update has already started.
+    // Surface the error only for manual checks or once a download has
+    // started. Stay silent on transient errors from background checks.
     if (!feedback && !updateStarted) {
       return
     }
@@ -128,6 +128,7 @@ function setup () {
 
   autoUpdater.on('update-downloaded', ({ version }) => {
     logger.info(`[updater] update to ${version} downloaded`)
+    updateStarted = false // download finished
 
     const feedbackDialog = () => {
       const opt = showDialog({
