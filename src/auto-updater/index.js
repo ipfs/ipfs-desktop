@@ -89,7 +89,7 @@ function setup () {
     })
 
     if (opt === 1) {
-      shell.openExternal(`https://github.com/ipfs-shipyard/ipfs-desktop/releases/v${version}`)
+      shell.openExternal(`https://github.com/ipfs/ipfs-desktop/releases/v${version}`)
     }
   })
 
