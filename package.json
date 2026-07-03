@@ -85,7 +85,7 @@
     "ipfs-utils": "^9.0.10",
     "ipfsd-ctl": "10.0.6",
     "it-last": "^1.0.6",
-    "kubo": "git+https://github.com/ipfs/npm-kubo.git#fix/binary-fetching",
+    "kubo": "git+https://github.com/ipfs/npm-kubo.git#7a5e299c801ee9eae2c29d8753b76dc23b007e14",
     "multiaddr": "10.0.1",
     "multiaddr-to-uri": "8.0.0",
     "portfinder": "^1.0.32",

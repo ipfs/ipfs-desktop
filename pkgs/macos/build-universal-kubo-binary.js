@@ -39,11 +39,6 @@ const execLog = (cmd) => {
   const architectures = ['amd64', 'arm64']
   for (const arch of architectures) {
     const archDir = path.join(tmpDir, `kubo-${arch}`)
-    // TODO: parked until the `kubo` dependency is bumped to the npm-kubo
-    // release that fetches from GitHub releases and accepts `releasesUrl`
-    // (ipfs/npm-kubo#83). Do not merge before that version is published and
-    // `kubo` is bumped in package.json; until then the installed kubo still
-    // expects `distUrl` (dist.ipfs.tech).
     await downloadKubo({
       version: kuboVersion,
       platform: 'darwin',
