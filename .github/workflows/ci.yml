@@ -225,20 +225,40 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true # release-please github-release will fail when a release-please PR was merged and the tag doesn't exist.
 
-      # PR builds from forks cannot access signing secrets. Strip Windows
-      # Azure Trusted Signing config so the build produces an unsigned .exe
-      # artifact instead of failing with "Unable to find valid azure env
-      # field AZURE_TENANT_ID". Signing remains required on pushes to main
-      # and on PRs opened from branches within ipfs/ipfs-desktop.
+      # Some PR builds cannot read the signing secrets: forks never get them,
+      # and Dependabot PRs only get the separate Dependabot secrets store, so
+      # secrets.AZURE_* expand to empty strings. Probe for the credential
+      # rather than matching on trigger type, which keeps every secret-less
+      # case on one code path. The secret stays scoped to this step's env
+      # because steps[*].if cannot read the secrets context.
+      - name: Check for Windows signing secrets
+        id: win-signing
+        if: runner.os == 'Windows'
+        shell: bash
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        run: |
+          if [ -n "$AZURE_TENANT_ID" ]; then
+            echo "available=true" >> $GITHUB_OUTPUT
+          else
+            echo "available=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Without credentials electron-builder still runs Invoke-TrustedSigning,
+      # whose DefaultAzureCredential chain falls through to an interactive
+      # browser login and blocks until the job hits timeout-minutes. Dropping
+      # azureSignOptions keeps the Windows build running and produces an
+      # unsigned .exe artifact. Signing remains required on pushes to main and
+      # on PRs from branches within ipfs/ipfs-desktop.
       # Uses js-yaml from node_modules (transitive dep of electron-builder,
       # installed by the preceding npm ci step) so this works on the
       # windows-latest runner where yq is not preinstalled.
-      - name: Disable Windows code signing on fork PR builds
-        if: runner.os == 'Windows' && github.event.pull_request.head.repo.fork == true
+      - name: Disable Windows code signing when signing secrets are unavailable
+        if: runner.os == 'Windows' && steps.win-signing.outputs.available == 'false'
         shell: bash
         run: |
           node -e "const fs=require('fs'),yaml=require('js-yaml');const d=yaml.load(fs.readFileSync('electron-builder.yml','utf8'));if(d.win)delete d.win.azureSignOptions;fs.writeFileSync('electron-builder.yml',yaml.dump(d));"
-          echo "::notice::Windows Azure signing skipped: fork PR has no access to signing secrets."
+          echo "::notice::Windows Azure signing skipped: no access to signing secrets, producing an unsigned build."
 
       - name: Build binaries with electron-builder
         uses: paneron/action-electron-builder@14b133702d1b2e9749912051c43ed62b4afe56c8 # v1.8.1
