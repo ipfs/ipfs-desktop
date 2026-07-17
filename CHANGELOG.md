@@ -3,6 +3,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.49.2 (2026-07-17)
+
+## What's Changed
+* fix(updater): mute transient update-check errors by @mikelsr in https://github.com/ipfs/ipfs-desktop/pull/3170
+* chore: update stale github repo urls by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3171
+* chore(deps): bump actions/cache from 5 to 6 by @dependabot[bot] in https://github.com/ipfs/ipfs-desktop/pull/3179
+* chore(deps): bump actions/checkout from 4 to 7 by @dependabot[bot] in https://github.com/ipfs/ipfs-desktop/pull/3178
+* chore(deps): bump actions/setup-node from 6 to 7 by @dependabot[bot] in https://github.com/ipfs/ipfs-desktop/pull/3184
+* feat: webui 4.13.0 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3185
+* fix(ci): skip windows signing without secrets by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3186
+
+## New Contributors
+* @mikelsr made their first contribution in https://github.com/ipfs/ipfs-desktop/pull/3170
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.49.1...v0.49.2
+
 ## 0.49.1 (2026-06-09)
 
 ## What's Changed
