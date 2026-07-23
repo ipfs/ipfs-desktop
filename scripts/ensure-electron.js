@@ -1,17 +1,16 @@
 'use strict'
 
-// Electron 42 stopped downloading its binary during `postinstall` (npm
+// The electron package does not download its binary during `postinstall` (npm
 // supply-chain hardening); it is fetched lazily on first run of the electron
 // bin. Our tests `require('electron')` in a plain Node context, which reads
 // node_modules/electron/path.txt synchronously, so the binary must be on disk
 // before the (parallel) Playwright workers start.
 //
 // We download via @electron/get (awaited, so a failed fetch is loud) and
-// extract with the platform's system unzip. Electron's own install.js, and the
-// extract-zip library it uses, extract on an async code path that does not keep
-// the Node event loop alive on the CI runners: the process exits mid-extract
-// (leaving an empty dist/) or, if held open, hangs. A synchronous, time-bounded
-// system extraction avoids both.
+// extract with the platform's system unzip. Electron's own install.js extracts
+// on an async code path with no lock around node_modules/electron/dist, which
+// on the CI runners has exited mid-extract (leaving an empty dist/) or hung. A
+// single synchronous, time-bounded system extraction avoids both.
 
 const { execFileSync } = require('child_process')
 const fs = require('fs')
