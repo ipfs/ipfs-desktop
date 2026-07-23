@@ -1,11 +1,9 @@
 // @ts-check
 const { ipcRenderer, contextBridge } = require('electron')
-const screenshotHook = require('./screenshot')
 const connectionHook = require('./connection-status')
 const { COUNTLY_KEY, VERSION } = require('../common/consts')
 const ipcMainEvents = require('../common/ipc-main-events')
 
-screenshotHook()
 connectionHook()
 
 const urlParams = new URLSearchParams(window.location.search)

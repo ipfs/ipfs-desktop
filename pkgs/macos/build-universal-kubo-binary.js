@@ -43,7 +43,7 @@ const execLog = (cmd) => {
       version: kuboVersion,
       platform: 'darwin',
       arch: arch,
-      distUrl: 'https://dist.ipfs.tech',
+      releasesUrl: 'https://github.com/ipfs/kubo/releases',
       installPath: archDir
     })
     console.log(`→ Downloaded ${arch} version to ${archDir}`)

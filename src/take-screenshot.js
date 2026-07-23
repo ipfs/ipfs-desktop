@@ -1,12 +1,11 @@
 const i18n = require('i18next')
-const { clipboard, nativeImage, ipcMain } = require('electron')
+const { clipboard, desktopCapturer, screen } = require('electron')
 const logger = require('./common/logger')
 const { IS_MAC } = require('./common/consts')
 const { notify, notifyError } = require('./common/notify')
 const { SCREENSHOT_SHORTCUT: CONFIG_KEY } = require('./common/config-keys')
 const setupGlobalShortcut = require('./utils/setup-global-shortcut')
 const { analyticsKeys } = require('./analytics/keys')
-const ipcMainEvents = require('./common/ipc-main-events')
 const getCtx = require('./context')
 
 const SHORTCUT = IS_MAC
@@ -49,63 +48,80 @@ function onError (e) {
   })
 }
 
-function handleScreenshot () {
-  const ctx = getCtx()
-  const launchWebUI = ctx.getFn('launchWebUI')
-  const getIpfsd = ctx.getFn('getIpfsd')
-  return async (_, output) => {
-    const ipfsd = await getIpfsd()
+// Ask for thumbnails at the display's pixel size, which is what makes them
+// full-resolution grabs rather than previews. getSources rejects fractional
+// dimensions, so round before handing the size over.
+async function captureScreens () {
+  const { size, scaleFactor } = screen.getPrimaryDisplay()
 
-    if (!ipfsd) {
-      return
+  const sources = await desktopCapturer.getSources({
+    types: ['screen'],
+    thumbnailSize: {
+      width: Math.round(size.width * scaleFactor),
+      height: Math.round(size.height * scaleFactor)
     }
+  })
 
-    const ipfs = ipfsd.api
-
-    if (!ipfs) {
-      logger.info('[screenshot] daemon not running')
-      return
-    }
-
-    try {
-      await makeScreenshotDir(ipfs)
-      const isDir = output.length > 1
-      const d = new Date()
-      const pad = n => String(n).padStart(2, '0')
-      const date = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
-      const time = `${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getMilliseconds())}`
-      let baseName = `/screenshots/${date}_${time}`
-
-      if (isDir) {
-        baseName += '/'
-        await ipfs.files.mkdir(baseName, { parents: true })
-      } else {
-        baseName += '.png'
-      }
-
-      logger.info(`[screenshot] started: writing screenshots to ${baseName}`, { withAnalytics: analyticsKeys.SCREENSHOT_TAKEN })
-      let lastImage = null
-
-      for (const { name, image } of output) {
-        const img = nativeImage.createFromDataURL(image)
-        const path = isDir ? `${baseName}${name}.png` : baseName
-        const { cid } = await ipfs.add(img.toPNG(), { pin: false }) // no low level pin, presence in MFS will be enough to keep it around
-        await ipfs.files.cp(cid, path)
-        lastImage = img
-      }
-
-      logger.info(`[screenshot] completed: writing screenshots to ${baseName}`)
-      onSuccess(ipfs, launchWebUI, baseName, lastImage)
-    } catch (e) {
-      onError(e)
-    }
-  }
+  // An empty thumbnail is how a missing screen-recording grant surfaces on
+  // macOS: getSources still lists the display, it just hands back nothing.
+  return sources.filter(({ thumbnail }) => !thumbnail.isEmpty())
 }
 
 async function takeScreenshot () {
-  const webui = await getCtx().getProp('webui')
-  logger.info('[screenshot] taking screenshot')
-  webui.webContents.send('screenshot')
+  const ctx = getCtx()
+  const launchWebUI = ctx.getFn('launchWebUI')
+  const getIpfsd = ctx.getFn('getIpfsd')
+  const ipfsd = await getIpfsd()
+
+  if (!ipfsd) {
+    return
+  }
+
+  const ipfs = ipfsd.api
+
+  if (!ipfs) {
+    logger.info('[screenshot] daemon not running')
+    return
+  }
+
+  try {
+    logger.info('[screenshot] taking screenshot')
+    const screens = await captureScreens()
+
+    if (screens.length === 0) {
+      throw new Error('no screen could be captured, screen recording may not be permitted')
+    }
+
+    await makeScreenshotDir(ipfs)
+    const isDir = screens.length > 1
+    const d = new Date()
+    const pad = n => String(n).padStart(2, '0')
+    const date = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+    const time = `${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getMilliseconds())}`
+    let baseName = `/screenshots/${date}_${time}`
+
+    if (isDir) {
+      baseName += '/'
+      await ipfs.files.mkdir(baseName, { parents: true })
+    } else {
+      baseName += '.png'
+    }
+
+    logger.info(`[screenshot] started: writing screenshots to ${baseName}`, { withAnalytics: analyticsKeys.SCREENSHOT_TAKEN })
+    let lastImage = null
+
+    for (const { name, thumbnail } of screens) {
+      const path = isDir ? `${baseName}${name}.png` : baseName
+      const { cid } = await ipfs.add(thumbnail.toPNG(), { pin: false }) // no low level pin, presence in MFS will be enough to keep it around
+      await ipfs.files.cp(cid, path)
+      lastImage = thumbnail
+    }
+
+    logger.info(`[screenshot] completed: writing screenshots to ${baseName}`)
+    onSuccess(ipfs, launchWebUI, baseName, lastImage)
+  } catch (e) {
+    onError(e)
+  }
 }
 
 module.exports = function () {
@@ -120,8 +136,6 @@ module.exports = function () {
       takeScreenshot()
     }
   })
-
-  ipcMain.on(ipcMainEvents.SCREENSHOT, handleScreenshot())
 }
 
 module.exports.takeScreenshot = takeScreenshot
