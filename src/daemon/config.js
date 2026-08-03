@@ -7,6 +7,7 @@ const { shell } = require('electron')
 const store = require('../common/store')
 const logger = require('../common/logger')
 const dialogs = require('./dialogs')
+const { PROFILES, DEFAULT_CID_PROFILE, hasCidProfileSettings } = require('../cid-profile')
 
 /**
  * Get repository configuration file path.
@@ -129,6 +130,16 @@ function applyDefaults (ipfsd) {
 
   config.Internal = config.Internal ?? {}
   config.Internal.ShutdownTimeout = DEFAULT_SHUTDOWN_TIMEOUT
+
+  // Import as CIDv1, but only if `ipfs init` left the choice open. Kubo writes
+  // no Import.* today, so a fresh repo silently falls back to CIDv0; once kubo
+  // ships a default of its own (ipfs/kubo#8185) this steps aside rather than
+  // overriding it. Only ever for repos we just created: changing this later
+  // would change the CIDs a user's future imports produce, which is theirs to
+  // decide from the tray menu, so migrateConfig deliberately leaves it alone.
+  if (!hasCidProfileSettings(config.Import)) {
+    config.Import = { ...(config.Import ?? {}), ...PROFILES[DEFAULT_CID_PROFILE].Import }
+  }
 
   writeConfigFile(ipfsd, config)
 }

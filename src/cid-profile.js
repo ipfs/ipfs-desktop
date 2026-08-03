@@ -6,6 +6,8 @@ const { kuboApiPost } = require('./common/kubo-rpc')
 const { STATUS } = require('./daemon/consts')
 const getCtx = require('./context')
 
+// IPIP-499 import profiles, mirroring the definitions kubo ships in
+// config/profile.go. https://specs.ipfs.tech/ipips/ipip-0499/
 const PROFILES = {
   'unixfs-v1-2025': {
     Import: {
@@ -37,6 +39,12 @@ const PROFILES = {
   }
 }
 
+// What a repo created by IPFS Desktop imports as. Kubo's `ipfs init` still
+// writes no Import.* and so falls back to CIDv0; this picks the modern
+// profile for new users without waiting on ipfs/kubo#8185. Existing repos
+// keep whatever they have, and anyone can switch from the tray menu.
+const DEFAULT_CID_PROFILE = 'unixfs-v1-2025'
+
 async function fetchImportConfig (ipfsd) {
   const raw = await kuboApiPost(ipfsd, '/api/v0/config?arg=Import')
   const parsed = JSON.parse(raw)
@@ -50,6 +58,16 @@ async function fetchImportConfig (ipfsd) {
 const PROFILE_KEYS = new Set(
   Object.values(PROFILES).flatMap(p => Object.keys(p.Import))
 )
+
+// Whether a repo already expresses a CID profile opinion, no matter who set
+// it: the user by hand, or a kubo whose `ipfs init` writes Import.* itself.
+// Callers use this to stay out of the way instead of overriding that choice.
+// Scoped to PROFILE_KEYS, so unrelated Import.* fields do not count as one.
+function hasCidProfileSettings (importSection) {
+  return Object.entries(importSection ?? {}).some(
+    ([key, value]) => PROFILE_KEYS.has(key) && value !== null && value !== undefined
+  )
+}
 
 function matchesProfile (knownImport, profileImport) {
   for (const key of Object.keys(profileImport)) {
@@ -159,3 +177,6 @@ module.exports = async function setupCidProfile () {
 }
 
 module.exports.detectCurrentProfile = detectCurrentProfile
+module.exports.PROFILES = PROFILES
+module.exports.DEFAULT_CID_PROFILE = DEFAULT_CID_PROFILE
+module.exports.hasCidProfileSettings = hasCidProfileSettings
