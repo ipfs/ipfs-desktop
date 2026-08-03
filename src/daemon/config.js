@@ -78,6 +78,16 @@ function writeConfigFile (ipfsd, config) {
   fs.writeJsonSync(getConfigFilePath(ipfsd), config, { spaces: 2 })
 }
 
+// Caps how long kubo may spend shutting down gracefully. It has to stay
+// below the 60s deadline in ipfsd-ctl's stop(), after which the daemon is
+// SIGKILLed: reaching our own cap first means kubo logs which subsystem is
+// stuck and exits on its own terms, instead of dying without a trace.
+// Kubo's own default is 12h, sized for servers, so quitting the app would
+// otherwise always wait the full 60s on a hung subsystem.
+// This is a starting value, not a lock: set Internal.ShutdownTimeout in the
+// kubo config to anything you prefer and IPFS Desktop will leave it alone.
+const DEFAULT_SHUTDOWN_TIMEOUT = '50s'
+
 /**
  * Set default minimum and maximum of connections to maintain
  * by default. This must only be called for repositories created
@@ -102,6 +112,9 @@ function applyDefaults (ipfsd) {
 
   config.AutoTLS = config.AutoTLS ?? {}
   config.AutoTLS.Enabled = true
+
+  config.Internal = config.Internal ?? {}
+  config.Internal.ShutdownTimeout = DEFAULT_SHUTDOWN_TIMEOUT
 
   writeConfigFile(ipfsd, config)
 }
@@ -153,7 +166,7 @@ const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
  */
 function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
-  const REVISION = 6
+  const REVISION = 7
   const REVISION_KEY = 'daemonConfigRevision'
   const CURRENT_REVISION = store.get(REVISION_KEY, 0)
 
@@ -250,6 +263,18 @@ function migrateConfig (ipfsd) {
     }
     if (config.AutoTLS.Enabled === undefined) {
       config.AutoTLS.Enabled = true
+      changed = true
+    }
+  }
+
+  if (CURRENT_REVISION < 7) {
+    // Cap graceful shutdown if there is no explicit user preference
+    if (config.Internal === undefined) {
+      config.Internal = {}
+      changed = true
+    }
+    if (config.Internal.ShutdownTimeout === undefined) {
+      config.Internal.ShutdownTimeout = DEFAULT_SHUTDOWN_TIMEOUT
       changed = true
     }
   }
