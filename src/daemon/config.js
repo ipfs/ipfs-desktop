@@ -100,6 +100,27 @@ const DEFAULT_SHUTDOWN_TIMEOUT = '50s'
 // https://github.com/ipfs/kubo/blob/master/docs/config.md#providestrategy
 const DEFAULT_PROVIDE_STRATEGY = 'pinned+mfs+unique'
 
+// When newly added or pinned content gets announced. Written out key by key
+// so the answer is visible in the config file and cannot shift under the
+// user when kubo changes a default.
+// - FastProvideRoot=true announces the root of an add or pin right away,
+//   which is what makes a freshly shared link resolvable. Kubo's default.
+// - FastProvideDAG=true also walks the DAG and announces the blocks under
+//   that root, instead of leaving them for the next reprovide cycle up to
+//   Provide.DHT.Interval later. Kubo turns this off by default to keep bulk
+//   imports cheap; a desktop node adds a few files at a time, so it can
+//   afford the walk and the content is fully announced right after an add.
+// - FastProvideWait=false keeps add and pin non-blocking; the announcing
+//   happens in the background.
+// Starting values, not a lock: set any Import.FastProvide* in the kubo
+// config and IPFS Desktop will leave that one alone.
+// https://github.com/ipfs/kubo/blob/master/docs/config.md#importfastprovidedag
+const DEFAULT_FAST_PROVIDE = {
+  FastProvideRoot: true,
+  FastProvideDAG: true,
+  FastProvideWait: false
+}
+
 /**
  * Set default minimum and maximum of connections to maintain
  * by default. This must only be called for repositories created
@@ -120,6 +141,7 @@ function applyDefaults (ipfsd) {
 
   config.Provide = config.Provide ?? {}
   config.Provide.Strategy = DEFAULT_PROVIDE_STRATEGY
+  config.Import = { ...(config.Import ?? {}), ...DEFAULT_FAST_PROVIDE }
 
   config.Discovery = config.Discovery ?? {}
   config.Discovery.MDNS = config.Discovery.MDNS ?? {}
@@ -191,7 +213,7 @@ const getGatewayPort = (config) => getHttpPort(config.Addresses.Gateway)
  */
 function migrateConfig (ipfsd) {
   // Bump revision number when new migration rule is added
-  const REVISION = 7
+  const REVISION = 8
   const REVISION_KEY = 'daemonConfigRevision'
   const CURRENT_REVISION = store.get(REVISION_KEY, 0)
 
@@ -312,6 +334,19 @@ function migrateConfig (ipfsd) {
       config.Provide = config.Provide ?? {}
       config.Provide.Strategy = DEFAULT_PROVIDE_STRATEGY
       changed = true
+    }
+  }
+
+  if (CURRENT_REVISION < 8) {
+    // Announce added and pinned content promptly, key by key, keeping any
+    // FastProvide* the user chose. `ipfs init` writes these as null, so null
+    // and absent both mean "no preference".
+    config.Import = config.Import ?? {}
+    for (const [key, value] of Object.entries(DEFAULT_FAST_PROVIDE)) {
+      if (config.Import[key] == null) {
+        config.Import[key] = value
+        changed = true
+      }
     }
   }
 

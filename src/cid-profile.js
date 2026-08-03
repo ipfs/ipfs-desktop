@@ -53,8 +53,8 @@ async function fetchImportConfig (ipfsd) {
 
 // Union of Import.* keys cid-profile owns. Detection projects Import to
 // these keys only, so unrelated Import.* fields (future kubo schema
-// additions, another module's keys like provide-strategy's FastProvide*)
-// cannot trigger 'manual'.
+// additions, the FastProvide* defaults from daemon/config.js) cannot
+// trigger 'manual'.
 const PROFILE_KEYS = new Set(
   Object.values(PROFILES).flatMap(p => Object.keys(p.Import))
 )
@@ -104,9 +104,9 @@ async function applyCidProfile (ipfsd, profileName) {
     // Write Import.* through the RPC API rather than the config file to
     // avoid racing with Kubo's own config writer. Read-merge-write so we
     // touch only the cid-profile keyset and preserve foreign Import.*
-    // fields (provide-strategy's FastProvide*, hand-set values, future
-    // kubo additions). "Default" nulls our keys, leaving Kubo to apply
-    // its built-ins.
+    // fields (the FastProvide* defaults, hand-set values, future kubo
+    // additions). "Default" nulls our keys, leaving Kubo to apply its
+    // built-ins.
     step = 'config write'
     const existing = await fetchImportConfig(ipfsd)
     const merged = { ...existing }
