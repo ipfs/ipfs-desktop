@@ -17,7 +17,6 @@ module.exports = async function () {
     mkdirSync(countlyDataDir, { recursive: true })
   }
 
-  // @ts-expect-error
   Countly.init({
     url: 'https://countly.ipfs.io',
     app_key: COUNTLY_KEY,
@@ -27,7 +26,6 @@ module.exports = async function () {
     storage_path: countlyDataDir
   })
 
-  // @ts-expect-error
   getCtx().setProp('countlyDeviceId', Countly.device_id)
 
   ipcMain.on(ipcMainEvents.COUNTLY_ADD_CONSENT, (_, consent) => {

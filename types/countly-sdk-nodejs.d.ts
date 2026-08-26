@@ -46,7 +46,39 @@ declare module 'countly-sdk-nodejs' {
 
   export type ConsentFeatures = ConsentFeaturesIndividual | ConsentFeaturesGrouped
 
+  // Define an interface for the init options
+  export interface CountlyInitOptions {
+    app_key: string
+    url: string
+    storage_path: string
+    require_consent: boolean
+    app_version?: string
+    country_code?: string
+    city?: string
+    ip_address?: string
+    debug?: boolean
+    interval?: number
+    fail_timeout?: number
+    session_update?: number
+    max_events?: number
+    force_post?: boolean
+    remote_config?: boolean
+    http_options?: (args: unknown) => unknown
+    max_logs?: number
+    metrics?: unknown
+    device_id?: string
+    max_key_length?: number
+    max_value_size?: number
+    max_segmentation_values?: number
+    max_breadcrumb_count?: number
+    max_stack_trace_lines_per_thread?: number
+    max_stack_trace_line_length?: number
+  }
+
   export interface CountlyType {
+    device_id: string
+    // Overload init to accept either options object or parameters
+    init: (options: CountlyInitOptions) => void
     init: (
       // app_key - mandatory, app key for your app created in Countly
       app_key: string,
