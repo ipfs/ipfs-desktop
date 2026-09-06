@@ -67,6 +67,14 @@ async function run () {
   }
 
   try {
+    // These initializers may normalize stored daemon flags and emit a restart.
+    // Run them before setupDaemon installs its restart listener.
+    await Promise.all([
+      setupAutoGc(),
+      setupPubsub(),
+      setupNamesysPubsub()
+    ])
+
     await Promise.all([
       createSplashScreen(),
       setupDaemon(), // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
@@ -79,9 +87,6 @@ async function run () {
       setupTray(), // ctx.tray
       setupArgvFilesHandler(),
       setupAutoLaunch(),
-      setupAutoGc(),
-      setupPubsub(),
-      setupNamesysPubsub(),
       setupCidProfile(),
       setupProvideStrategy(),
       setupSecondInstance(),
