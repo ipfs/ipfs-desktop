@@ -62,6 +62,26 @@ test.describe('quoteDesktopEntryArg (Desktop Entry Exec= spec)', () => {
 })
 
 test.describe('getLinuxAutostartExec', () => {
+  test('prefers distro launcher from IPFS_DESKTOP_EXEC', () => {
+    const previous = process.env.IPFS_DESKTOP_EXEC
+    process.env.IPFS_DESKTOP_EXEC = '/usr/bin/ipfs-desktop'
+
+    try {
+      const result = withEnv({
+        execPath: '/usr/lib/electron43/electron',
+        appPath: '/usr/lib/ipfs-desktop/app.asar'
+      }, getLinuxAutostartExec)
+
+      expect(result).toBe('"/usr/bin/ipfs-desktop"')
+    } finally {
+      if (previous === undefined) {
+        delete process.env.IPFS_DESKTOP_EXEC
+      } else {
+        process.env.IPFS_DESKTOP_EXEC = previous
+      }
+    }
+  })
+
   test('AUR / system electron39: appends the app.asar path', () => {
     // Real-world AUR layout: /usr/bin/ipfs-desktop wrapper execs
     // `electron39 /usr/lib/ipfs-desktop/app.asar`, so process.execPath ends up

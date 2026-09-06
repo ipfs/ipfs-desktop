@@ -32,6 +32,9 @@ function quoteDesktopEntryArg (value) {
 }
 
 function getLinuxAutostartExec () {
+  const launcher = process.env.IPFS_DESKTOP_EXEC
+  if (launcher) return quoteDesktopEntryArg(launcher)
+
   const command = [process.execPath]
 
   // Some distro packages launch as `electron <app.asar>`.
