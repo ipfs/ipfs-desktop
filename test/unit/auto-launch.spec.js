@@ -18,14 +18,31 @@ const { quoteDesktopEntryArg, getLinuxAutostartExec } = proxyquire('../../src/au
   './dialogs': { showDialog: () => {}, recoverableErrorDialog: () => {} }
 })
 
-function withEnv ({ execPath, appPath }, fn) {
+// Every case states the whole environment it runs in, including an unset
+// IPFS_DESKTOP_EXEC, so the results do not depend on the machine running them.
+function withEnv ({ execPath, appPath, launcher }, fn) {
   const previousExecPath = process.execPath
+  const previousLauncher = process.env.IPFS_DESKTOP_EXEC
+
   process.execPath = execPath
   appState.appPath = appPath
+
+  if (launcher === undefined) {
+    delete process.env.IPFS_DESKTOP_EXEC
+  } else {
+    process.env.IPFS_DESKTOP_EXEC = launcher
+  }
+
   try {
     return fn()
   } finally {
     process.execPath = previousExecPath
+
+    if (previousLauncher === undefined) {
+      delete process.env.IPFS_DESKTOP_EXEC
+    } else {
+      process.env.IPFS_DESKTOP_EXEC = previousLauncher
+    }
   }
 }
 
@@ -62,6 +79,16 @@ test.describe('quoteDesktopEntryArg (Desktop Entry Exec= spec)', () => {
 })
 
 test.describe('getLinuxAutostartExec', () => {
+  test('prefers distro launcher from IPFS_DESKTOP_EXEC', () => {
+    const result = withEnv({
+      execPath: '/usr/lib/electron43/electron',
+      appPath: '/usr/lib/ipfs-desktop/app.asar',
+      launcher: '/usr/bin/ipfs-desktop'
+    }, getLinuxAutostartExec)
+
+    expect(result).toBe('"/usr/bin/ipfs-desktop"')
+  })
+
   test('AUR / system electron39: appends the app.asar path', () => {
     // Real-world AUR layout: /usr/bin/ipfs-desktop wrapper execs
     // `electron39 /usr/lib/ipfs-desktop/app.asar`, so process.execPath ends up

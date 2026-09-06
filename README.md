@@ -150,6 +150,10 @@ Instead, update cycle is maintained by respective communities:
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/ipfs-desktop.svg)](https://repology.org/project/ipfs-desktop/versions)
 
+Packages that start IPFS Desktop through a wrapper script can set the `IPFS_DESKTOP_EXEC` environment variable to the path of that wrapper.
+The "launch at login" autostart entry then runs the wrapper instead of a command rebuilt from the Electron binary and the app path.
+The value must be a single executable path, without arguments: put any flags in the wrapper script itself.
+
 ### Install from source
 
 To install and run IPFS Desktop from source, you'll also need:
