@@ -32,6 +32,10 @@ function quoteDesktopEntryArg (value) {
 }
 
 function getLinuxAutostartExec () {
+  // Distro packages launch IPFS Desktop through a wrapper script and set
+  // IPFS_DESKTOP_EXEC to its path, so autostart runs the wrapper instead of a
+  // reconstructed electron command. The value is a single executable path, not
+  // a command line: flags would be quoted into the path and break the entry.
   const launcher = process.env.IPFS_DESKTOP_EXEC
   if (launcher) return quoteDesktopEntryArg(launcher)
 
@@ -55,17 +59,19 @@ async function enable () {
     return
   }
 
+  const exec = getLinuxAutostartExec()
   const desktop = `[Desktop Entry]
 Type=Application
 Version=1.0
 Name=IPFS Desktop
 Comment=IPFS Desktop Startup Script
-Exec=${getLinuxAutostartExec()}
+Exec=${exec}
 Icon=ipfs-desktop
 StartupNotify=false
 Terminal=false`
 
   await fs.outputFile(getDesktopFile(), desktop)
+  logger.info(`[launch on startup] wrote ${getDesktopFile()} with Exec=${exec}`)
 }
 
 async function disable () {
