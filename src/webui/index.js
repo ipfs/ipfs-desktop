@@ -325,8 +325,11 @@ module.exports = async function () {
   })
 
   const launchWebUI = ctx.getFn('launchWebUI')
+  // null when the splash window could not be created, so carry on without it.
   const splashScreen = await ctx.getProp('splashScreen')
-  if (openWebUiAtLaunch) {
+  if (!splashScreen) {
+    logger.info('[web ui] no splash screen to show')
+  } else if (openWebUiAtLaunch) {
     // we're supposed to show the window on startup, display the splash screen
     splashScreen.show()
   } else {
@@ -352,7 +355,7 @@ module.exports = async function () {
       startupRoutePending = false
     }
     try {
-      splashScreen.destroy()
+      splashScreen?.destroy()
     } catch (err) {
       logger.error('[web ui] failed to hide splash screen')
       logger.error(err)
