@@ -37,7 +37,19 @@ async function setupDaemon () {
     return status
   }
 
-  const startIpfs = async () => {
+  // Daemon transitions run one at a time. start and stop read `ipfsd` to
+  // decide what to do, and it only tells the truth between transitions:
+  // mid-start it is still null, so a second start would spawn a Kubo that
+  // races the first for the repo lock.
+  let transition = Promise.resolve()
+  const serialize = (fn) => () => {
+    const result = transition.then(fn)
+    // a failed transition must not reject or stall the ones queued behind it
+    transition = result.catch(() => {})
+    return result
+  }
+
+  const start = async () => {
     if (ipfsd) {
       return
     }
@@ -71,7 +83,7 @@ async function setupDaemon () {
     updateStatus(STATUS.STARTING_FINISHED, res.id)
   }
 
-  const stopIpfs = async () => {
+  const stop = async () => {
     if (!ipfsd) {
       return
     }
@@ -98,10 +110,15 @@ async function setupDaemon () {
     }
   }
 
-  const restartIpfs = async () => {
-    await stopIpfs()
-    await startIpfs()
+  const restart = async () => {
+    await stop()
+    await start()
   }
+
+  const startIpfs = serialize(start)
+  const stopIpfs = serialize(stop)
+  const restartIpfs = serialize(restart)
+
   getCtx().setProp('startIpfs', runAndStatus(startIpfs))
   getCtx().setProp('stopIpfs', runAndStatus(stopIpfs))
   getCtx().setProp('restartIpfs', runAndStatus(restartIpfs))

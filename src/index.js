@@ -67,9 +67,21 @@ async function run () {
   }
 
   try {
+    // Put the splash window up before anything else touches the store.
+    const splashReady = createSplashScreen()
+
+    // These normalize the stored daemon flags and emit IPFS_CONFIG_CHANGED
+    // when they do. Start the daemon only once they settle, or the restart
+    // lands mid-start and a second Kubo races the first for the repo lock.
+    const daemonFlagsReady = Promise.all([
+      setupAutoGc(),
+      setupPubsub(),
+      setupNamesysPubsub()
+    ])
+
     await Promise.all([
-      createSplashScreen(),
-      setupDaemon(), // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
+      splashReady,
+      daemonFlagsReady.then(() => setupDaemon()), // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
       setupAnalytics(), // ctx.countlyDeviceId
       setupI18n(),
       setupAppMenu(),
@@ -79,9 +91,6 @@ async function run () {
       setupTray(), // ctx.tray
       setupArgvFilesHandler(),
       setupAutoLaunch(),
-      setupAutoGc(),
-      setupPubsub(),
-      setupNamesysPubsub(),
       setupCidProfile(),
       setupProvideStrategy(),
       setupSecondInstance(),

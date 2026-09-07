@@ -11,25 +11,30 @@ const path = require('node:path')
 
 module.exports = async function createSplashScreen () {
   const ctx = getCtx()
-  const splashScreen = new BrowserWindow({
-    title: 'IPFS Desktop splash screen',
-    width: 250,
-    height: 275,
-    transparent: true,
-    frame: false,
-    alwaysOnTop: true,
-    show: false
-  })
+  let splashScreen = null
 
   try {
+    splashScreen = new BrowserWindow({
+      title: 'IPFS Desktop splash screen',
+      width: 250,
+      height: 275,
+      transparent: true,
+      frame: false,
+      alwaysOnTop: true,
+      show: false
+    })
+
     await splashScreen.loadFile(path.join(__dirname, '../../assets/pages/splash.html'))
+    splashScreen.center()
   } catch (err) {
-    logger.error('[splashScreen] loadFile failed')
+    logger.error('[splashScreen] could not create splash screen')
     logger.error(err)
-    return
+    if (splashScreen) splashScreen.destroy()
+    splashScreen = null
   }
 
-  splashScreen.center()
-
+  // Always publish, even on failure. setupWebUI and the error path in index.js
+  // await this prop, and an unset one never resolves, so skipping it here
+  // stalls startup instead of losing a splash screen.
   ctx.setProp('splashScreen', splashScreen)
 }
