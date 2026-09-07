@@ -25,7 +25,7 @@ async function onSuccess (ipfs, launchWebUI, path, img) {
   const filename = path.endsWith('.png') ? `?filename=${encodeURIComponent(path.split('/').pop())}` : ''
   const { cid } = await ipfs.files.stat(path)
   const url = `https://dweb.link/ipfs/${cid}${filename}`
-  clipboard.writeText(url)
+  await clipboard.writeText(url)
 
   notify({
     title: i18n.t('screenshotTaken'),

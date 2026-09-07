@@ -323,7 +323,7 @@ To open your Kubo repo directory from the IPFS logo menu, select `Open Repositor
 
 | OS | Minimum version |
 |----|-----------------|
-| macOS | 12 Monterey, Intel and Apple Silicon |
+| macOS | 13 Ventura, Intel and Apple Silicon |
 | Windows | 10, x64 and arm64 |
 | Linux | any release still supported by the distribution maker, x64 |
 

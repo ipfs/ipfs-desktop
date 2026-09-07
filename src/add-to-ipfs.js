@@ -146,7 +146,7 @@ module.exports = async function (files) {
   const query = filename ? `?filename=${encodeURIComponent(filename)}` : ''
   const url = `https://dweb.link/ipfs/${cid.toString()}${query}`
 
-  clipboard.writeText(url)
+  await clipboard.writeText(url)
 
   return cid
 }
