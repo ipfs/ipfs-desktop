@@ -67,17 +67,21 @@ async function run () {
   }
 
   try {
-    // These initializers may normalize stored daemon flags and emit a restart.
-    // Run them before setupDaemon installs its restart listener.
-    await Promise.all([
+    // Put the splash window up before anything else touches the store.
+    const splashReady = createSplashScreen()
+
+    // These normalize the stored daemon flags and emit IPFS_CONFIG_CHANGED
+    // when they do. Start the daemon only once they settle, or the restart
+    // lands mid-start and a second Kubo races the first for the repo lock.
+    const daemonFlagsReady = Promise.all([
       setupAutoGc(),
       setupPubsub(),
       setupNamesysPubsub()
     ])
 
     await Promise.all([
-      createSplashScreen(),
-      setupDaemon(), // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
+      splashReady,
+      daemonFlagsReady.then(() => setupDaemon()), // ctx.getIpfsd, startIpfs, stopIpfs, restartIpfs
       setupAnalytics(), // ctx.countlyDeviceId
       setupI18n(),
       setupAppMenu(),

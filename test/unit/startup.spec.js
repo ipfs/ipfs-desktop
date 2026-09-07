@@ -71,10 +71,13 @@ test('configures daemon flags before starting the daemon', async () => {
       './second-instance': asyncNoop,
       './analytics/keys': { analyticsKeys: { APP_READY: 'app-ready' } },
       './handleError': handleError,
-      './splash/create-splash-screen': asyncNoop
+      './splash/create-splash-screen': async () => calls.push('splash')
     })
 
     await new Promise(resolve => setImmediate(resolve))
+    // the gates are still closed, so the splash has to be up already and the
+    // daemon must not have started
+    expect(calls[0]).toBe('splash')
     expect(calls).not.toContain('daemon')
 
     autoGc.resolve()
