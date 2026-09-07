@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.50.1 (2026-09-07)
+
+## What's Changed
+* fix: prefer distro launcher for autostart by @RubenKelevra in https://github.com/ipfs/ipfs-desktop/pull/3211
+* fix: avoid duplicate daemon start during startup by @RubenKelevra in https://github.com/ipfs/ipfs-desktop/pull/3210
+* fix: electron 44 by @lidel in https://github.com/ipfs/ipfs-desktop/pull/3212
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.50.0...v0.50.1
+
 ## 0.50.0 (2026-08-03)
 
 ## What's Changed
