@@ -437,6 +437,15 @@ If you need help with using IPFS Desktop, the quickest way to get answers is to 
 
 If you think you've found a bug or other issue with IPFS Desktop itself, please [open an issue](https://github.com/ipfs/ipfs-desktop/issues/new/choose).
 
+## Maintainer Info
+
+> [!IMPORTANT]
+> There is no dedicated maintainer at the moment.
+>
+> After Protocol Labs nucleation, the [Shipyard](https://ipshipyard.com/) team maintained this project in 2024, 2025 and 2026. Shipyard's IPFS maintenance work [ended on September 30, 2026](https://ipshipyard.com/blog/2026-the-end-of-ipfs-at-shipyard/).
+>
+> Bring support and transition questions to the [community forum](https://discuss.ipfs.tech/).
+
 ## License
 
 [MIT](./LICENSE)
