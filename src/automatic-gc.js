@@ -35,7 +35,7 @@ function applyConfig (newFlags) {
 }
 
 module.exports = async function () {
-  const activate = ({ newValue, oldValue }) => {
+  const activate = ({ newValue, oldValue = null }) => {
     if (newValue === oldValue) return
 
     try {
@@ -47,7 +47,7 @@ module.exports = async function () {
 
       return true
     } catch (err) {
-      logger.error(`[automatic gc] ${err.toString()}`)
+      logger.error(`[automatic gc] ${String(err)}`)
 
       return false
     }
