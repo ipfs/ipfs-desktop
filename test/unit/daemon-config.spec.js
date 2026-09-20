@@ -3,6 +3,7 @@ const { test, expect } = require('@playwright/test')
 
 const fs = require('fs-extra')
 const tmp = require('tmp')
+const sinon = require('sinon')
 const proxyquire = require('proxyquire').noCallThru()
 
 const mockLogger = require('./mocks/logger')
@@ -141,5 +142,86 @@ test.describe('migrateConfig', function () {
     expect(config.Import.FastProvideDAG).toEqual(false)
     expect(config.Import.FastProvideRoot).toEqual(true)
     expect(config.Import.FastProvideWait).toEqual(false)
+  })
+})
+
+function loadCheckRepo (dialogStubs = {}) {
+  const dialogs = {
+    repositoryMustBeDirectoryDialog: sinon.stub(),
+    repositoryConfigurationIsMissingDialog: sinon.stub(),
+    repositoryIsPrivateDialog: sinon.stub(),
+    repositoryIsInvalidDialog: sinon.stub(),
+    ...dialogStubs
+  }
+  const { checkRepositoryAndConfiguration } = proxyquire('../../src/daemon/config', {
+    '../common/store': { get: () => 0, set: () => {}, safeSet: () => {} },
+    '../common/logger': mockLogger(),
+    './dialogs': dialogs
+  })
+  return { checkRepositoryAndConfiguration, dialogs }
+}
+
+test.describe('checkRepositoryAndConfiguration', function () {
+  test.afterAll(() => {
+    tmpRepos.forEach(remove => remove())
+  })
+
+  test('skips verification if repo directory does not exist', () => {
+    const { checkRepositoryAndConfiguration, dialogs } = loadCheckRepo()
+    const nonExistentPath = join(tmp.dirSync().name, 'does-not-exist')
+
+    expect(checkRepositoryAndConfiguration({ path: nonExistentPath })).toBe(true)
+    expect(dialogs.repositoryConfigurationIsMissingDialog.called).toBe(false)
+    expect(dialogs.repositoryMustBeDirectoryDialog.called).toBe(false)
+  })
+
+  test('skips verification if repo directory is empty (e.g. flatpak :create)', () => {
+    const { checkRepositoryAndConfiguration, dialogs } = loadCheckRepo()
+    const { name: path, removeCallback } = tmp.dirSync({ prefix: 'tmp_IPFS_EMPTY_', unsafeCleanup: true })
+    tmpRepos.push(removeCallback)
+
+    expect(checkRepositoryAndConfiguration({ path })).toBe(true)
+    expect(dialogs.repositoryConfigurationIsMissingDialog.called).toBe(false)
+    expect(dialogs.repositoryMustBeDirectoryDialog.called).toBe(false)
+  })
+
+  test('skips verification if repo directory only contains OS metadata files', () => {
+    const { checkRepositoryAndConfiguration, dialogs } = loadCheckRepo()
+    const { name: path, removeCallback } = tmp.dirSync({ prefix: 'tmp_IPFS_EMPTY_OS_', unsafeCleanup: true })
+    tmpRepos.push(removeCallback)
+    fs.writeFileSync(join(path, '.DS_Store'), 'junk')
+    fs.mkdirSync(join(path, 'lost+found'))
+
+    expect(checkRepositoryAndConfiguration({ path })).toBe(true)
+    expect(dialogs.repositoryConfigurationIsMissingDialog.called).toBe(false)
+    expect(dialogs.repositoryMustBeDirectoryDialog.called).toBe(false)
+  })
+
+  test('shows configuration missing dialog if non-empty repo directory lacks config', () => {
+    const { checkRepositoryAndConfiguration, dialogs } = loadCheckRepo()
+    const { name: path, removeCallback } = tmp.dirSync({ prefix: 'tmp_IPFS_DAMAGED_', unsafeCleanup: true })
+    tmpRepos.push(removeCallback)
+    fs.mkdirSync(join(path, 'blocks'))
+
+    expect(checkRepositoryAndConfiguration({ path })).toBe(true)
+    expect(dialogs.repositoryConfigurationIsMissingDialog.calledOnceWith(path)).toBe(true)
+  })
+
+  test('shows must be directory dialog if path is a regular file', () => {
+    const { checkRepositoryAndConfiguration, dialogs } = loadCheckRepo()
+    const { name: path, removeCallback } = tmp.fileSync({ prefix: 'tmp_IPFS_FILE_' })
+    tmpRepos.push(removeCallback)
+
+    expect(checkRepositoryAndConfiguration({ path })).toBe(false)
+    expect(dialogs.repositoryMustBeDirectoryDialog.calledOnceWith(path)).toBe(true)
+  })
+
+  test('passes verification for a valid repository with config', () => {
+    const { checkRepositoryAndConfiguration, dialogs } = loadCheckRepo()
+    const { path } = repoWithConfig(legacyConfig())
+
+    expect(checkRepositoryAndConfiguration({ path })).toBe(true)
+    expect(dialogs.repositoryConfigurationIsMissingDialog.called).toBe(false)
+    expect(dialogs.repositoryMustBeDirectoryDialog.called).toBe(false)
   })
 })
