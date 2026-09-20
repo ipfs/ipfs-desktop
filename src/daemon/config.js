@@ -565,7 +565,7 @@ function checkRepositoryAndConfiguration (ipfsd) {
     }
 
     if (isRepositoryDirectoryEmpty(ipfsd.path)) {
-      // An empty directory is treated as a new repository; skip verification so ipfsd.init() can set it up.
+      // An empty directory is treated as a new repository, skip verification.
       return true
     }
 
