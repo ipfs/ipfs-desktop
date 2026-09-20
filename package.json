@@ -78,7 +78,7 @@
     "fix-path": "3.0.0",
     "fs-extra": "^10.0.1",
     "i18next": "^21.8.14",
-    "i18next-fs-backend": "1.1.4",
+    "i18next-fs-backend": "2.6.6",
     "i18next-icu": "^2.0.3",
     "intl-messageformat": "^9.13.0",
     "ipfs-http-client": "56.0.2",
