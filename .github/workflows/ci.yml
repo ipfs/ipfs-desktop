@@ -52,7 +52,7 @@ jobs:
             ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
             ${{ runner.os }}-
 
-      - uses: ipfs/download-ipfs-distribution-action@v1
+      - uses: ipfs/download-ipfs-distribution-action@v2
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
           name: kubo
@@ -112,7 +112,7 @@ jobs:
             ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
             ${{ runner.os }}-
 
-      - uses: ipfs/download-ipfs-distribution-action@v1
+      - uses: ipfs/download-ipfs-distribution-action@v2
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
           name: kubo
@@ -183,7 +183,7 @@ jobs:
             ${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json', 'electron-builder.yml') }}
             ${{ runner.os }}-
 
-      - uses: ipfs/download-ipfs-distribution-action@v1
+      - uses: ipfs/download-ipfs-distribution-action@v2
         if: steps.webui-cache.outputs.cache-hit != 'true'
         with:
           name: kubo
