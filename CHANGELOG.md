@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.50.2 (2026-09-27)
+
+## What's Changed
+* chore: update download-ipfs-distribution-action to v2 by @galargh in https://github.com/ipfs/ipfs-desktop/pull/3220
+
+
+**Full Changelog**: https://github.com/ipfs/ipfs-desktop/compare/v0.50.1...v0.50.2
+
 ## 0.50.1 (2026-09-15)
 
 ## What's Changed
