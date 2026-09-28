@@ -527,6 +527,23 @@ async function checkPorts (ipfsd) {
   return true
 }
 
+const IGNORED_REPO_FILES = new Set(['.DS_Store', 'lost+found', 'desktop.ini', 'Thumbs.db'])
+
+/**
+ * Checks whether a repository directory is empty or only contains OS metadata files.
+ *
+ * @param {string} repoPath
+ * @returns {boolean}
+ */
+function isRepositoryDirectoryEmpty (repoPath) {
+  try {
+    const entries = fs.readdirSync(repoPath)
+    return entries.filter(entry => !IGNORED_REPO_FILES.has(entry)).length === 0
+  } catch (_) {
+    return false
+  }
+}
+
 /**
  * Checks if the repository and the configuration file are valid.
  *
@@ -545,6 +562,11 @@ function checkRepositoryAndConfiguration (ipfsd) {
       logger.error(`${ipfsd.path} must be a directory`)
       dialogs.repositoryMustBeDirectoryDialog(ipfsd.path)
       return false
+    }
+
+    if (isRepositoryDirectoryEmpty(ipfsd.path)) {
+      // An empty directory is treated as a new repository, skip verification.
+      return true
     }
 
     if (!apiFileExists(ipfsd)) {
