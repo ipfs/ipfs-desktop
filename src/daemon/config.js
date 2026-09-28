@@ -363,26 +363,40 @@ function migrateConfig (ipfsd) {
 }
 
 /**
- * Checks if the given address is a daemon address.
+ * Checks whether an address serves the expected RPC API or HTTP gateway.
  *
  * @param {{ family: 4 | 6, address: string, port: number }} addr
+ * @param {'API' | 'Gateway'} type
  * @returns {Promise<boolean>}
  */
-async function checkIfAddrIsDaemon (addr) {
+async function checkIfAddrIsDaemon (addr, type) {
+  const isGateway = type === 'Gateway'
   const options = {
-    timeout: 3000, // 3s is plenty for localhost request
-    method: 'POST',
+    method: isGateway ? 'HEAD' : 'POST',
     host: addr.address,
     port: addr.port,
-    path: '/api/v0/refs?arg=/ipfs/QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn'
+    // The empty identity CID probes the gateway without fetching external content.
+    // https://specs.ipfs.tech/http-gateways/trustless-gateway/#dedicated-probe-paths
+    path: isGateway ? '/ipfs/bafkqaaa' : '/api/v0/refs?arg=/ipfs/QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn',
+    headers: isGateway ? { Accept: 'application/vnd.ipld.raw' } : {}
   }
 
   return new Promise(resolve => {
-    const req = http.request(options, function (r) {
-      resolve(r.statusCode === 200)
+    const req = http.request(options, function (res) {
+      clearTimeout(timer)
+      resolve(res.statusCode === 200)
+      // Only the status is needed; do not leave an unread response body open.
+      res.destroy()
     })
 
+    // Bound the entire probe, including connection setup, not just socket inactivity.
+    const timer = setTimeout(() => {
+      req.destroy()
+      resolve(false)
+    }, 3000)
+
     req.on('error', () => {
+      clearTimeout(timer)
       resolve(false)
     })
 
@@ -406,9 +420,10 @@ const findFreePort = async (port) => {
  *
  * @param {import('ipfsd-ctl').Controller} ipfsd
  * @param {string[]} addrs
+ * @param {'API' | 'Gateway'} type
  * @returns {Promise<boolean>}
  */
-async function checkPortsArray (ipfsd, addrs) {
+async function checkPortsArray (ipfsd, addrs, type) {
   addrs = addrs.filter(Boolean)
 
   for (const addr of addrs) {
@@ -419,7 +434,7 @@ async function checkPortsArray (ipfsd, addrs) {
       continue
     }
 
-    const isDaemon = await checkIfAddrIsDaemon(ma.nodeAddress())
+    const isDaemon = await checkIfAddrIsDaemon(ma.nodeAddress(), type)
 
     if (isDaemon) {
       continue
@@ -455,14 +470,15 @@ async function checkPorts (ipfsd) {
 
   if (apiIsArr || gatewayIsArr) {
     logger.info('[daemon] custom configuration with array of API or Gateway addrs')
-    return checkPortsArray(ipfsd, [].concat(config.Addresses.API, config.Addresses.Gateway))
+    return await checkPortsArray(ipfsd, [].concat(config.Addresses.API), 'API') &&
+      await checkPortsArray(ipfsd, [].concat(config.Addresses.Gateway), 'Gateway')
   }
 
   const configApiMa = parseMultiaddr(config.Addresses.API)
   const configGatewayMa = parseMultiaddr(config.Addresses.Gateway)
 
-  const isApiMaDaemon = await checkIfAddrIsDaemon(configApiMa.nodeAddress())
-  const isGatewayMaDaemon = await checkIfAddrIsDaemon(configGatewayMa.nodeAddress())
+  const isApiMaDaemon = await checkIfAddrIsDaemon(configApiMa.nodeAddress(), 'API')
+  const isGatewayMaDaemon = await checkIfAddrIsDaemon(configGatewayMa.nodeAddress(), 'Gateway')
 
   if (isApiMaDaemon && isGatewayMaDaemon) {
     logger.info('[daemon] ports busy by a daemon')
